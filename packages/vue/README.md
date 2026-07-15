@@ -39,6 +39,26 @@ createApp(App).use(ComponentLibrary).mount('#app');
 </script>
 ```
 
+> ⚠️ **Vite users:** `app.use(ComponentLibrary)` relies on the Stencil lazy loader, which
+> does not work under Vite — its computed dynamic imports cannot be statically analyzed,
+> so component chunks are missing from the build (404 on `dda-*.entry.js`) and components
+> never hydrate. In Vite apps, skip the plugin and register the elements you use via the
+> self-registering custom-elements build (add `@dubai-design-system/components-js` to your
+> dependencies); the Vue component wrappers work unchanged:
+
+```jsx
+<script>
+ // src/main.js (Vite)
+import { createApp } from 'vue';
+// each import automatically defines its custom element
+import '@dubai-design-system/components-js/dist/components/dda-button.js';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+</script>
+```
+
 You should now be able to use DDA components:
 
 ```jsx

@@ -27,6 +27,26 @@ Start by adding the material-icons package inside the `<head>` tag
 
 ```
 
+### Using with a bundler (Vite, Rollup)
+
+> ⚠️ If you install `@dubai-design-system/components-js` from npm and build with **Vite**
+> (or plain Rollup), do **not** use the lazy loader
+> (`import { defineCustomElements } from '@dubai-design-system/components-js/loader'`).
+> The loader resolves component chunks with computed dynamic imports that these bundlers
+> cannot statically analyze, so the chunks are missing from the build output — the page
+> requests `dda-*.entry.js` files that 404 and the components never render.
+
+Instead, import the self-registering custom-elements build for each component you use:
+
+```js
+// each import automatically defines its custom element
+import '@dubai-design-system/components-js/dist/components/dda-button.js';
+import '@dubai-design-system/components-js/dist/components/dda-header.js';
+```
+
+The CDN `<script>` approach above is unaffected — this only applies to bundled npm installs.
+A working Vite example lives in the repository under `samples/js/`.
+
 You should now be able to use DDA components:
 
 ```bash

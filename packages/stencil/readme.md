@@ -40,6 +40,23 @@ Add the following script to your HTML to load the library:
 
 ```
 
+#### Using with a bundler (Vite, Rollup)
+
+> ⚠️ When installing from npm and building with Vite (or plain Rollup), do **not** use the
+> lazy loader (`@dubai-design-system/components-js/loader`). Its computed dynamic imports
+> cannot be statically analyzed by these bundlers, so component chunks are missing from the
+> build (404 on `dda-*.entry.js`) and components never render.
+
+Import the self-registering custom-elements build for each component you use instead:
+
+```js
+// each import automatically defines its custom element
+import '@dubai-design-system/components-js/dist/components/dda-button.js';
+```
+
+The CDN `<script>` approach above is unaffected. Angular's builder also handles the lazy
+loader correctly — this only concerns Vite/Rollup bundling.
+
 #### Add DDA Components in Your HTML
 
 Now you can use DDA components directly in your HTML files:
