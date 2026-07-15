@@ -80,7 +80,7 @@
     "storybook": "^8.1.11"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "license": "SEE LICENSE IN LICENSE",
   "gitHead": "e9aa73742f2bfa5a5534f34888fef366880c7e4d"

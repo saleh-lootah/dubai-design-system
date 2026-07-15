@@ -1,7 +1,8 @@
 {
-  "name": "app.js",
+  "name": "color-palette-creator",
   "version": "3.1.2",
-  "description": "Scripts in node",
+  "private": true,
+  "description": "Standalone Express + MongoDB app for generating color palettes",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

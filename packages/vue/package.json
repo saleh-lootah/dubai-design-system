@@ -15,7 +15,7 @@
     "dist"
   ],
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "dependencies": {
     "@dubai-design-system/components-js": "^3.1.2"
