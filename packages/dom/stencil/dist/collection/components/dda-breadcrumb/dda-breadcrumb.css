@@ -1,0 +1,58 @@
+.dda-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dda-breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.dda-breadcrumb,
+.dda-breadcrumb-item{
+  gap: 10px;
+}
+
+.dda-breadcrumb-item a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: var(--dda-fs-body-lg);
+  gap: 4px;
+}
+.dda-breadcrumb-item a span{
+  color: var(--dda-on-surface-0);
+  font-weight: var(--dda-fw-500);
+}
+.light-mode .dda-breadcrumb-item a span{
+  color: var(--dda-neutral-0);
+}
+/**/
+.dda-breadcrumb-item i,
+.dda-breadcrumb-item svg {
+  color: var(--dda-on-surface-variant-30);
+}
+.light-mode .dda-breadcrumb-item i,
+.light-mode .dda-breadcrumb-item svg {
+  color: var(--dda-neutral-variant-30);
+}
+/**/
+.dda-breadcrumb-item .separator {
+  margin: 0 8px;
+  color: var(--dda-on-surface-variant-30);
+}
+.light-mode .dda-breadcrumb-item .separator {
+  color: var(--dda-neutral-variant-30);
+}
+/**/
+.dda-breadcrumb-item.active a span{
+  color: var(--dda-on-surface-variant-30);
+  font-weight: var(--dda-fw-400);
+}
+.light-mode .dda-breadcrumb-item.active a span{
+  color: var(--dda-neutral-variant-30);
+}

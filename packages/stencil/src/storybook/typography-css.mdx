@@ -1,0 +1,163 @@
+<style>
+{`
+table {
+    caption-side: bottom;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead, tbody, tfoot, tr, td, th {
+    border-width: 0 !important;
+    padding: 20px !important;
+}
+h2 {
+    border-width: 0 !important;
+}
+`}
+</style>
+
+
+import {Meta} from "@storybook/addon-docs"
+import "../global/global.css"
+
+# Typography Variables
+
+<Meta title="Foundations/Typography Variables" />
+
+This is the CSS file for the typography that is used throughout in the making of this project and it follows the provided guidelines.
+<br/>
+# Elements
+
+The following sections show what specific elements look like.
+
+### Headings
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="w-25">Tag</th>
+            <th>Visual</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>`<h1></h1>`</code></td>
+            <td >
+                <h1 class="m-0 dda-h1">h1 Heading</h1>
+            </td>
+        </tr>
+        <tr>
+            <td><code>`<h2></h2>`</code></td>
+            <td >
+                <h2 class="m-0 dda-h2">h2 Heading</h2>
+            </td>
+        </tr>
+        <tr>
+            <td><code>`<h3></h3>`</code></td>
+            <td >
+                <h3 class="m-0 dda-h3">h3 Heading</h3>
+            </td>
+        </tr>
+        <tr>
+            <td><code>`<h4></h4>`</code></td>
+            <td >
+                <h4 class="m-0 dda-h4">h4 Heading</h4>
+            </td>
+        </tr>
+        <tr>
+            <td><code>`<h5></h5>`</code></td>
+            <td >
+                <h5 class="m-0 dda-h5">h5 Heading</h5>
+            </td>
+        </tr>
+        <tr>
+            <td><code>`<h6></h6>`</code></td>
+            <td >
+                <h6 class="m-0 dda-h6">h6 Heading</h6>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+```jsx
+:root{
+    --dda-fw-300: 300 !important;
+    --dda-fw-400: 400 !important;
+    --dda-fw-500: 500 !important;
+    --dda-fw-700: 700 !important;
+    
+    
+    /* --dda-fs-display-lg: 57px;
+    --dda-fs-display-md: 45px;
+    --dda-fs-display-sm: 36px; */
+    --dda-fs-display-lg: 3.563em;
+    --dda-fs-display-md: 2.813em;
+    --dda-fs-display-sm: 2.25em;
+
+    /* --dda-fs-headline-lg: 32px;
+    --dda-fs-headline-md: 28px;
+    --dda-fs-headline-sm: 24px; */
+    --dda-fs-headline-lg: 2em;
+    --dda-fs-headline-md: 1.75em;
+    --dda-fs-headline-sm: 1.5em;
+
+    /* --dda-fs-title-lg: 22px;
+    --dda-fs-title-md: 20px;
+    --dda-fs-title-sm: 18px; */
+    --dda-fs-title-lg: 1.375em;
+    --dda-fs-title-md: 1.25em;
+    --dda-fs-title-sm: 1.125em;
+
+    /* --dda-fs-body-lg: 16px;
+    --dda-fs-body-md: 14px;
+    --dda-fs-body-sm: 12px; */
+    --dda-fs-body-lg: 1em;
+    --dda-fs-body-md: 0.875em;
+    --dda-fs-body-sm: 0.75em;
+
+    /* --dda-fs-label-lg: 14px;
+    --dda-fs-label-md: 12px;
+    --dda-fs-label-sm: 10px; */
+    --dda-fs-label-lg: 0.875em;
+    --dda-fs-label-md: 0.75em;
+    --dda-fs-label-sm: 0.625em;
+
+    /* --dda-fs-tagline-lg: 12px;
+    --dda-fs-tagline-md: 10px;
+    --dda-fs-tagline-sm: 8px; */
+    --dda-fs-tagline-lg: 0.75em;
+    --dda-fs-tagline-md: 0.625em;
+    --dda-fs-tagline-sm: 0.5em;
+}
+
+
+.dda-fw-300{ font-weight: var(--dda-fw-300);}
+.dda-fw-400{ font-weight: var(--dda-fw-400);}
+.dda-fw-500{ font-weight: var(--dda-fw-500);}
+.dda-fw-700{ font-weight: var(--dda-fw-700);}
+
+.dda-fs-display-lg{ font-size: var(--dda-fs-display-lg);}
+.dda-fs-display-md{ font-size: var(--dda-fs-display-md);}
+.dda-fs-display-sm{ font-size: var(--dda-fs-display-sm);}
+
+.dda-fs-headline-lg{ font-size: var(--dda-fs-headline-lg);}
+.dda-fs-headline-md{ font-size: var(--dda-fs-headline-md);}
+.dda-fs-headline-sm{ font-size: var(--dda-fs-headline-sm);}
+
+.dda-fs-title-lg{ font-size: var(--dda-fs-title-lg);}
+.dda-fs-title-md{ font-size: var(--dda-fs-title-md);}
+.dda-fs-title-sm{ font-size: var(--dda-fs-title-sm);}
+
+.dda-fs-body-lg{ font-size: var(--dda-fs-body-lg);}
+.dda-fs-body-md{ font-size: var(--dda-fs-body-md);}
+.dda-fs-body-sm{ font-size: var(--dda-fs-body-sm);}
+
+.dda-fs-label-lg{ font-size: var(--dda-fs-label-lg);}
+.dda-fs-label-md{ font-size: var(--dda-fs-label-md);}
+.dda-fs-label-sm{ font-size: var(--dda-fs-label-sm);}
+
+.dda-fs-tagline-lg{ font-size: var(--dda-fs-tagline-lg);}
+.dda-fs-tagline-md{ font-size: var(--dda-fs-tagline-md);}
+.dda-fs-tagline-sm{ font-size: var(--dda-fs-tagline-sm);}
+
+```

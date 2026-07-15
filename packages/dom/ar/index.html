@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en" data-theme="light" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../css/dda.css" />
+
+    <script type="module">
+      import { defineCustomElements } from "../stencil/loader/index.js";
+      defineCustomElements();
+    </script>
+
+    <!-- <script type="module" >
+        import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js/loader/index.es2017.js';
+        defineCustomElements();
+    </script> -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="../css/personalization.css" />
+  </head>
+
+  <body class="transparent">
+    <dda-header
+      first-logo-src="assets/img/government-of-dubai.svg"
+      first-logo-white-src="assets/img/government-of-dubai-white.svg"
+      first-logo-alt="undefined"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-white-src="assets/img/digital-logo-white.svg"
+      second-logo-alt="Dubai-Digital-Authority"
+      login-link="/login.html"
+      readspeakerlink="app-eu.readspeaker.com"
+      languageswitch="() => console.log('Language Switcher')"
+      smtextsize="() => console.log('Small Text')"
+      basetextsize="() => console.log('Base Text')"
+      lgtextsize="() => console.log('Large Text')"
+      normalcontrast="() => console.log('Normal Text')"
+      blindcontrast="() => console.log('Blind Text')"
+      redcontrast="() => console.log('Red Text')"
+      greencontrast="() => console.log('Green Text')"
+      quick-links='[{"label":"الصفحة الرئيسية","href":"/ar/","subMenu":[]},{"label":"عناصر","href":"/ar/components.html","subMenu":[]},{"label":"معلومات عنا","href":"/ar/about-us.html","subMenu":[]}]'
+      side-menu-items='[{"label":"معلومات عنا","href":"/ar/about-us.html","subMenu":[]},{"label":"عناصر","href":"/ar/components.html","subMenu":[]},{"label":"اتصل بنا","href":"/ar/contact-us.html","subMenu":[]},{"label":"الأسئلة الشائعة","href":"/ar/faq.html","subMenu":[]},{"label":"رابط العينة","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]}]'
+      class="hydrated"
+    >
+    </dda-header>
+
+    <script>
+      const ddaHeader = document.querySelector("dda-header");
+      ddaHeader.addEventListener("languageSwitch", (event) => {
+        window.location.assign(
+          window.location.origin + window.location.pathname.replace("/ar", "")
+        );
+      });
+      ddaHeader.addEventListener("blindContrast", (event) => {
+        $("html").attr("data-theme", "dark");
+      });
+    </script>
+
+    <div class="home-intros">
+      <dda-home-banner class="home-slider">
+        <slide>
+          <img src="assets/img/home-banner.jpg" alt="banner" />
+          <div class="slide-wrap">
+            <div class="slide-content">
+              <div class="col-sm-6">
+                <h1 class="text-white">رقمنة الحياة في دبي</h1>
+                <p>ريادة وتسريع وتيرة التحول الرقمي في المدينة</p>
+                <div class="d-flex gap-4">
+                  <dda-button
+                    button_color="default-primary"
+                    start_icon=""
+                    end_icon=""
+                    custom_class=""
+                    component_mode=""
+                    button_id="button"
+                    aria_label="button"
+                    onclick="alert('clicked')"
+                    size="lg"
+                    gap="2"
+                    >Call to action
+                  </dda-button>
+
+                  <dda-button
+                    button_color="default-secondary"
+                    start_icon=""
+                    end_icon=""
+                    custom_class="cta-transparent"
+                    component_mode=""
+                    button_id="button"
+                    aria_label="button"
+                    onclick="alert('clicked')"
+                    size="lg"
+                    gap="2"
+                    >Secondary button
+                  </dda-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </slide>
+        <slide>
+          <img src="assets/img/home-banner-2.jpg" alt="banner" />
+          <div class="slide-wrap">
+            <div class="slide-content">
+              <h1 class="text-white">نظام بيئي رقمي موثوق وقوي</h1>
+              <p>ريادة وتسريع وتيرة التحول الرقمي في المدينة</p>
+              <div class="d-flex gap-4">
+                <dda-button
+                  button_color="default-primary"
+                  start_icon=""
+                  end_icon=""
+                  custom_class=""
+                  component_mode=""
+                  button_id="button"
+                  aria_label="button"
+                  onclick="console.log('clicked')"
+                  size="lg"
+                  gap="2"
+                  >Primary
+                </dda-button>
+
+                <dda-button
+                  button_color="default-secondary"
+                  start_icon=""
+                  end_icon=""
+                  custom_class="cta-transparent"
+                  component_mode=""
+                  button_id="button"
+                  aria_label="button"
+                  onclick="console.log('clicked')"
+                  size="lg"
+                  gap="2"
+                  >Secondary
+                </dda-button>
+              </div>
+            </div>
+          </div>
+        </slide>
+      </dda-home-banner>
+
+      <div class="quick-links-wrap">
+        <div class="quick-links">
+          <a
+            href="https://digital-dubai.gitbook.io/dubai-design-system/developers/introduction"
+            target="_blank"
+            class="link-item py-3 px-4"
+          >
+            <i class="material-icons text-black">view_carousel</i>
+            <span class="title">الاتساق عبر الحكومة</span>
+            <span class="subtitle"
+              >يضمن نظام التصميم الموحد أن تكون جميع المواقع الحكومية والمنصات
+              الرقمية</span
+            >
+          </a>
+          <a
+            href="https://digital-dubai.gitbook.io/dubai-design-system/developers/introduction"
+            target="_blank"
+            class="link-item py-3 px-4"
+          >
+            <i class="material-icons text-black">rebase_edit</i>
+            <span class="title">موحد، ولكن مرن </span>
+            <span class="subtitle"
+              >توحيد المبادئ التوجيهية مع توفير مساحة للتخصيص
+            </span>
+          </a>
+          <a
+            href="https://digital-dubai.gitbook.io/dubai-design-system/developers/introduction"
+            target="_blank"
+            class="link-item py-3 px-4"
+          >
+            <i class="material-icons text-black">eco</i>
+            <span class="title">قابلية التوسع والاستدامة </span>
+            <span class="subtitle"
+              >نظام التصميم قابل للتطوير ومرن لدعم كافة المجموعات</span
+            >
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-xxl py-4">
+      <div class="row mt-4 pt-4">
+        <div
+          class="hero-image-desktop-wrapper col-12 col-lg-7"
+          data-in-viewport=""
+        >
+          <div>
+            <img
+              class="img-fluid"
+              src="../assets/img/dda-home_img.png"
+              alt="About Dubai Digital"
+            />
+          </div>
+        </div>
+        <div class="col hero-text-wrapper">
+          <h2
+            class="hero-header"
+            data-in-viewport=""
+            data-in-viewport-index="0"
+          >
+            رؤيتنا هي رقمنة الحياة في دبي
+          </h2>
+          <div class="hero-text" data-in-viewport="" data-in-viewport-index="1">
+            أصدر صاحب السمو الشيخ محمد بن راشد آل مكتوم، نائب رئيس الدولة رئيس
+            مجلس الوزراء حاكم دبي قانون إنشاء هيئة دبي الرقمية في يونيو 2021،
+            وتم تكليفها بوضع واعتماد وإدارة الخطط والسياسات والاستراتيجيات ذات
+            العلاقة بتقنية المعلومات والبيانات والتحوّل الرقمي والأمن السيبراني
+            في دبي والإشراف على تنفيذها. تضم هيئة دبي الرقمية خبرات أربع جهات
+            حكومية تحت مظلتها وهي: مركز دبي للأمن الإلكتروني، ومركز دبي للإحصاء،
+            ومؤسسة بيانات دبي، ومؤسسة حكومة دبي الذكية، وذلك لضمان تكاتف جميع
+            الجهات المعنية بتحقيق رؤية قيادة المدينة بجعل دبي المدينة الرائدة
+            عالميًا في مجال الاقتصاد الرقمي، وشمولية التحول الرقمي لتصبح دبي
+            عاصمة رقمية عالمية.
+          </div>
+          <dda-button
+            button_color="default-secondary"
+            start_icon=""
+            end_icon="chevron_left"
+            custom_class="mt-4"
+            component_mode=""
+            button_id="button"
+            aria_label="button"
+            onclick="window.location.href = 'https://www.digitaldubai.ae/about-us'"
+            size="lg"
+            gap="2"
+          >
+            عرض قصتنا
+          </dda-button>
+        </div>
+      </div>
+      <hr />
+      <div class="[&amp;>*+*]:mt-5 grid whitespace-pre-wrap">
+        <h3
+          id="code-of-conduct"
+          class="text-3xl font-semibold heading group relative grid mx-auto w-full decoration-primary/6 max-w-3xl page-api-block:ml-0"
+        >
+          <div
+            class="hash grid grid-area-1-1 relative -ml-6 w-7 border-0 opacity-0 group-hover:opacity-[0] group-focus:opacity-[0] md:group-hover:md:opacity-[1] md:group-focus:md:opacity-[1] mt-[1em]"
+          >
+            <a
+              href="#code-of-conduct"
+              aria-label="Direct link to heading"
+              class="inline-flex h-full items-start leading-tight"
+              ><svg
+                class="gb-icon w-3.5 h-[1em] mt-0.5 transition-colors text-transparent group-hover:text-tint-subtle contrast-more:group-hover:text-tint-strong lg:w-4"
+                style="
+                  mask-image: url(&quot;https://ka-p.fontawesome.com/releases/v6.6.0/svgs/regular/hashtag.svg?v=2&amp;token=a463935e93&quot;);
+                  mask-repeat: no-repeat;
+                  mask-position: center center;
+                "
+              ></svg
+            ></a>
+          </div>
+          <div
+            class="grid-area-1-1 z-[1] justify-self-start text-left leading-tight mt-[1em]"
+          >
+            مدونة لقواعد السلوك
+          </div>
+        </h3>
+        <p
+          class="mx-auto w-full decoration-primary/6 max-w-3xl page-api-block:ml-0"
+        >
+          اعتمد هذا المشروع ميثاق المساهمين في الإصدار 2.0 باعتباره مدونة قواعد
+          السلوك الخاصة بنا. يجب على جميع المساهمين الالتزام بقواعد السلوك.
+        </p>
+        <h3
+          id="how-to-contribute"
+          class="text-3xl font-semibold heading group relative grid mx-auto w-full decoration-primary/6 max-w-3xl page-api-block:ml-0"
+        >
+          <div
+            class="hash grid grid-area-1-1 relative -ml-6 w-7 border-0 opacity-0 group-hover:opacity-[0] group-focus:opacity-[0] md:group-hover:md:opacity-[1] md:group-focus:md:opacity-[1] mt-[1em]"
+          >
+            <a
+              href="#how-to-contribute"
+              aria-label="Direct link to heading"
+              class="inline-flex h-full items-start leading-tight"
+              ><svg
+                class="gb-icon w-3.5 h-[1em] mt-0.5 transition-colors text-transparent group-hover:text-tint-subtle contrast-more:group-hover:text-tint-strong lg:w-4"
+                style="
+                  mask-image: url(&quot;https://ka-p.fontawesome.com/releases/v6.6.0/svgs/regular/hashtag.svg?v=2&amp;token=a463935e93&quot;);
+                  mask-repeat: no-repeat;
+                  mask-position: center center;
+                "
+              ></svg
+            ></a>
+          </div>
+          <div
+            class="grid-area-1-1 z-[1] justify-self-start text-left leading-tight mt-[1em]"
+          >
+            كيفية المساهمة
+          </div>
+        </h3>
+        <p
+          class="mx-auto w-full decoration-primary/6 max-w-3xl page-api-block:ml-0"
+        >
+          نحن نرحب دائمًا بالمساهمات والملاحظات ونشجعها. لمزيد من المعلومات حول
+          كيفية المساهمة وهيكل المشروع، بالإضافة إلى معلومات إضافية، راجع
+          إرشادات المساهمة الخاصة بنا. من خلال المشاركة في هذا المشروع، فإنك
+          توافق على الالتزام بقواعد السلوك الخاصة به في جميع الأوقات.
+        </p>
+        <p
+          class="mx-auto w-full decoration-primary/6 max-w-3xl page-api-block:ml-0"
+        >
+          إن التزامنا بالمصدر المفتوح يعني أننا نعمل على تمكين كافة الأطراف
+          المهتمة من المساهمة والانضمام إلى مجتمع المطورين.
+        </p>
+      </div>
+    </div>
+
+    <dda-sticky-footer
+      happiness-icon-href="#"
+      happiness-icon-src="assets/img/icn/icn-happy.svg"
+      happiness-icon-alt="Happiness"
+      happiness-icon-tooltip="Happiness"
+      accessibility-icon-href="#"
+      accessibility-icon-src="assets/img/icn/icn-complaints.svg"
+      accessibility-icon-alt="Suggestions and complaints"
+      accessibility-icon-tooltip="Suggestions &amp; complaints"
+      services-icon-href="#"
+      services-icon-src="assets/img/icn/icn-grid-view.svg"
+      services-icon-alt="Services"
+      services-icon-tooltip="Services"
+      services-icon-text="Services"
+      first-logo-href="#"
+      first-logo-src="assets/img/digital-logo.svg"
+      first-logo-alt="Logo 1"
+      first-logo-tooltip="Logo 1"
+      second-logo-href="#"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-alt="Logo 1"
+      second-logo-tooltip="Logo 1"
+      third-logo-href="#"
+      third-logo-src="assets/img/digital-logo.svg"
+      third-logo-alt="Logo 3"
+      third-logo-tooltip="Logo 3"
+      location-button-href="#"
+      location-button-text="Location"
+      location-button-icon=""
+      news-button-href="#"
+      news-button-text="News"
+      news-button-icon=""
+      ai-icon-href="#"
+      ai-icon-src="assets/img/icn/DubaiAI.svg"
+      ai-icon-alt="Digital AI"
+      ai-icon-tooltip="Digital AI"
+      chat-icon-href="#"
+      chat-icon-src="assets/img/icn/icn-chat_bubble_outline.svg"
+      chat-icon-alt="Online Chat"
+      chat-icon-tooltip="Online Chat"
+    >
+    </dda-sticky-footer>
+    <spinner id="ddaspinner">
+      <span class="loader"></span>
+    </spinner>
+
+    <script>
+      $(window).bind("load", function () {
+        setTimeout(function () {
+          $("#ddaspinner").fadeOut();
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

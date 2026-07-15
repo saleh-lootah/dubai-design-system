@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/addon-docs';
+import shadows from '../assets/img/shadows.png'
+import focused from '../assets/img/focused.png'
+import blur_overlay from '../assets/img/blur_overlay.png'
+
+<Meta title="Foundations/Effect Styles" />
+
+# Effect Styles
+
+This document provides the standard effect styles used in web components to ensure a unified and accessible user experience. These effect styles are critical in enhancing the user interface by providing visual cues, depth, and focus to elements. 
+
+## Shadows
+
+Shadows are used to create depth and emphasize the hierarchy of elements. Below are the shadow levels for various component use cases, ensuring consistency across the application.
+
+<img src={shadows} alt="Component Example" style={{ width: '100%'}} />
+
+
+## Focused
+
+Focus styles are crucial for accessibility and indicate that an element is interactive or currently selected. These are applied to buttons, form elements, and other focusable components.
+
+
+<img src={focused} alt="Component Example" style={{ width: '100%'}} />
+
+
+## Blur & Overlay
+
+Blur and overlay effects are used for modals, pop-ups, and image backgrounds, adding a layer of depth and focus while softening the elements behind the overlay.
+
+<img src={blur_overlay} alt="Component Example" style={{ width: '100%'}} />
+
+
+## Accessibility Considerations
+
+Shadows should not interfere with readability or contrast. Keep shadows subtle enough to create depth without overwhelming the user's attention.
+Focus styles must be clear and prominent to ensure keyboard navigation users can easily identify where their focus is.
+Blur effects should not overly obstruct background content unless intentionally required. Ensure that text and other important elements remain readable.
+

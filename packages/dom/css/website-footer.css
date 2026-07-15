@@ -1,0 +1,37 @@
+.WB-footer{
+    background-color: var(--dda-neutral-100);
+    color: var(--dda-color-neutral-variant-30);
+    padding-top: 54px;
+    padding-bottom: 54px;
+}
+.WB-footer .entt-logo{
+    width: 135px;
+}
+.WB-footer .footer-menu{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.WB-footer .footer-menu a{
+    color: var(--dda-color-neutral-variant-30);
+}
+.WB-footer .footer-menu a:hover{
+    color: var(--dda-color-primary-40);
+}
+.WB-footer .line-seperater{
+    border-bottom: solid 1px #E0E3E2;
+    padding-top: 36px;
+    padding-bottom: 36px;
+}
+
+
+@media screen and (max-width: 992px) {
+    .WB-footer{
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+    .WB-footer .line-seperater{
+        padding-top: 26px;
+        padding-bottom: 26px;
+    }
+}

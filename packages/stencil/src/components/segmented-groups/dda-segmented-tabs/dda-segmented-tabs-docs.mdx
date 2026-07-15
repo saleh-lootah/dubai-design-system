@@ -1,0 +1,64 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Segments/Segmented Tabs/Documentation" />
+
+# Segmented Tabs
+The `dda-segmented-tabs` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaSegmentedTabs } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaSegmentedTabs
+            radius_type="square"
+            custom_class=""
+            component_mode=""
+            items='["All","Recent","Saved"]'
+        ></DdaSegmentedTabs>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaSegmentedTabs } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaSegmentedTabs
+            radius_type="square"
+            custom_class=""
+            component_mode=""
+            items='["All","Recent","Saved"]'
+        ></DdaSegmentedTabs>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-segmented-tabs
+    radius_type="square"
+    custom_class=""
+    component_mode=""
+    items='["All","Recent","Saved"]'
+></dda-segmented-tabs>
+```

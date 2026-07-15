@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en" data-theme="light" dir="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About us</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- <link rel="stylesheet" href="css/dda.css" /> -->
+
+    <link rel="stylesheet" href="./css/personalization.css" />
+
+    <!-- <script type="module">
+        import { defineCustomElements } from '../stencil/loader/index.js';
+        defineCustomElements();
+    </script> -->
+    <script type="module">
+      import { defineCustomElements } from "./stencil/loader/index.js";
+      defineCustomElements();
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+  </head>
+
+  <body class="transparents">
+    <dda-header
+      first-logo-src="assets/img/government-of-dubai.svg"
+      first-logo-white-src="assets/img/government-of-dubai-white.svg"
+      first-logo-alt="undefined"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-white-src="assets/img/digital-logo-white.svg"
+      second-logo-alt="Dubai-Digital-Authority"
+      login-link="/login.html"
+      readspeakerlink="app-eu.readspeaker.com"
+      languageswitch="() => console.log('Language Switcher')"
+      smtextsize="() => console.log('Small Text')"
+      basetextsize="() => console.log('Base Text')"
+      lgtextsize="() => console.log('Large Text')"
+      normalcontrast="() => console.log('Normal Text')"
+      blindcontrast="() => console.log('Blind Text')"
+      redcontrast="() => console.log('Red Text')"
+      greencontrast="() => console.log('Green Text')"
+      quick-links='[{"label":"Home","href":"/","subMenu":[]},{"label":"Components","href":"/components.html","subMenu":[]},{"label":"About","href":"./about-us.html","subMenu":[]}]'
+      side-menu-items='[{"label":"About","href":"/about-us.html","subMenu":[]},{"label":"Components","href":"/components.html","subMenu":[]},{"label":"Contact","href":"/contact-us.html","subMenu":[]},{"label":"FAQ","href":"/faq.html","subMenu":[]},{"label":"Sample Link","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]}]'
+      class="hydrated"
+    >
+    </dda-header>
+
+    <script>
+      const ddaHeader = document.querySelector("dda-header");
+      ddaHeader.addEventListener("languageSwitch", (event) => {
+        window.location.assign(window.location.origin + "/ar" + window.location.pathname);
+      });
+      ddaHeader.addEventListener("blindContrast", (event) => {
+        $("html").attr("data-theme", "dark");
+      });
+    </script>
+
+    <div class="maincontent">
+      <div class="container-xxl">
+        <dda-breadcrumb
+          design="icon-text"
+          separator="chevron_right"
+          custom_class="mb-4"
+          component_mode=""
+          data-breadcrumbs='[{"text":"Home","icon":"home","url":"/index.html"},{"text":"Login","icon":"person","url":"/library"},{"text":"Dashboard","icon":"dashboard"}]'
+          class="hydrated"
+        >
+        </dda-breadcrumb>
+
+        <dda-alert
+          type="primary"
+          variation="error"
+          title_text="This is a Sample!"
+          description="No User is logged in, this is only a sample."
+          button_text="Learn more"
+          custom_class="mb-4"
+          component_mode=""
+          first_button="Dismiss"
+          second_button=""
+          first_link="javascript:void(0);"
+          second_link=""
+        >
+        </dda-alert>
+
+        <script>
+          const myAlert = document.querySelector("dda-alert");
+          myAlert.addEventListener("firstClick", (event) => {
+            $('dda-alert').hide()
+          });
+        </script>
+
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <div class="d-flex align-items-center">
+              <dda-avatar
+                type="photo"
+                size="xxl"
+                design="live"
+                rounded="circle"
+                src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+                icon="sentiment_satisfied"
+                text="AB"
+                notification_number="13"
+                custom_class="pr-1"
+                class="hydrated"
+              >
+              </dda-avatar>
+              <h1 class="px-2">
+                Welcome <span class="dda-color-primary">Mohammed</span>!
+              </h1>
+            </div>
+            <p class="pt-4">You can find your data below.</p>
+            <div class="d-flex justify-content-center py-4 dda-bg-primary mb-4">
+              <div class="text-center">
+                <dda-credit-card
+                  balance="$5,750.20"
+                  name="Mohammed Ahmed"
+                  card_number="1234 1234 1234 4758"
+                  card_type="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
+                  design="default"
+                  custom_class="mb-4"
+                  component_mode="light"
+                >
+                </dda-credit-card>
+                <dda-tooltip
+                  title_text="Transactions List"
+                  description="View all your transactions"
+                  position="right"
+                  component_mode=""
+                  class="hydrated"
+                >
+                  <dda-button
+                    button_color="default-secondary"
+                    start_icon="sentiment_satisfied"
+                    end_icon="arrow_forward"
+                    custom_class=""
+                    component_mode=""
+                    button_id="buttonx"
+                    aria_label="button"
+                    size="lg"
+                    onclick="()=>{console.log('clicked')}"
+                    >My Transactions
+                  </dda-button>
+                </dda-tooltip>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <dda-tabs
+                type="text-icon"
+                hover_style="dda-tab-default"
+                custom_class="mb-4"
+                component_mode=""
+                button_id="button"
+                aria_label="tabs"
+                class="hydrated">
+            </dda-tabs> -->
+
+        <div class="dda-table-container">
+          <div class="dda-table-header">
+            <div class="dda-table-header-content">
+              <h1 class="dda-fs-title-md dda-fw-500 m-0">Transactions List</h1>
+            </div>
+            <div class="dda-table-header-content">
+              <dda-search-input
+                placeholder="Search"
+                label=""
+                size="small"
+                helper_text=""
+                error_message=""
+                show_button="false"
+                has_error="false"
+                custom_class=""
+              >
+              </dda-search-input>
+
+              <dda-dropdown
+                label=""
+                selected=""
+                disabled="false"
+                error=""
+                helper_text=""
+                type="bg-transparent"
+                size="small"
+                icon_mode="true"
+                custom_class=""
+                options='["Option 1","Option 2","Option 3"]'
+              >
+              </dda-dropdown>
+            </div>
+          </div>
+
+          <table class="dda-table">
+            <thead>
+              <tr>
+                <th>Account</th>
+                <th>Transfer TIme</th>
+                <th>Amount</th>
+                <th>Card</th>
+                <th>&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="dda-user-info">
+                    <div class="dda-user-details">
+                      <span class="dda-user-name dda-fw-semibold"
+                        >Cristopher Calzoni</span
+                      >
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="dda-fw-500">Wed 1:00 pm</p>
+                </td>
+                <td>
+                  <p class="dda-fw-500">- 6,320.53</p>
+                </td>
+                <td>
+                  <div class="dda-payment-info">
+                    <img
+                      class="dda-payment-icon"
+                      src="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
+                      alt="card"
+                    />
+                    <div>
+                      <h6>Ending ... 4758</h6>
+                    </div>
+                  </div>
+                </td>
+                <td style="width: 10%">
+                  <div
+                    class="dda-flex dda-align-center dda-justify-space dda-gap-4"
+                  >
+                    <dda-button
+                      button_color="default-link"
+                      icon_button_shape="default"
+                      start_icon="delete"
+                      custom_class=""
+                      size="sm"
+                    >
+                    </dda-button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="dda-user-info">
+                    <div class="dda-user-details">
+                      <span class="dda-user-name dda-fw-semibold"
+                        >Cristopher Calzoni</span
+                      >
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="dda-fw-500">Wed 1:00 pm</p>
+                </td>
+                <td>
+                  <p class="dda-fw-500">- 6,320.53</p>
+                </td>
+                <td>
+                  <div class="dda-payment-info">
+                    <img
+                      class="dda-payment-icon"
+                      src="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
+                      alt="card"
+                    />
+                    <div>
+                      <h6>Ending ... 4758</h6>
+                    </div>
+                  </div>
+                </td>
+                <td style="width: 10%">
+                  <div
+                    class="dda-flex dda-align-center dda-justify-space dda-gap-4"
+                  >
+                    <dda-button
+                      button_color="default-link"
+                      icon_button_shape="default"
+                      start_icon="delete"
+                      custom_class=""
+                      size="sm"
+                    >
+                    </dda-button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="dda-user-info">
+                    <div class="dda-user-details">
+                      <span class="dda-user-name dda-fw-semibold"
+                        >Cristopher Calzoni</span
+                      >
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="dda-fw-500">Wed 1:00 pm</p>
+                </td>
+                <td>
+                  <p class="dda-fw-500">- 6,320.53</p>
+                </td>
+                <td>
+                  <div class="dda-payment-info">
+                    <img
+                      class="dda-payment-icon"
+                      src="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
+                      alt="card"
+                    />
+                    <div>
+                      <h6>Ending ... 4758</h6>
+                    </div>
+                  </div>
+                </td>
+                <td style="width: 10%">
+                  <div
+                    class="dda-flex dda-align-center dda-justify-space dda-gap-4"
+                  >
+                    <dda-button
+                      button_color="default-link"
+                      icon_button_shape="default"
+                      start_icon="delete"
+                      custom_class=""
+                      size="sm"
+                    >
+                    </dda-button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="dda-table-footer">
+            <div class="pagination">
+              <dda-pagination
+                type="button-text"
+                total_pages="3"
+              ></dda-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <dda-footer
+      title="Welcome to your new digital reality."
+      description="Want to explore more ? Click below."
+      logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+      logo-alt="Dubai-Digital-Authority"
+      sign-up-button-text="Manage Account"
+      login-button-text="Logout"
+      copyright-text="© 2023 Digitaldubai. All Rights Reserved."
+      footer-sections='[{"title":"About Us","links":[{"label":"Our Competition","href":"#"},{"label":"Channels","href":"#"},{"label":"Scale","href":"#"},{"label":"Watch the Demo","href":"#"}]},{"title":"Products","links":[{"label":"Features","href":"#"},{"label":"Products","href":"#"},{"label":"Enterprise","href":"#"},{"label":"Solutions","href":"#"}]},{"title":"Resources","links":[{"label":"Partners","href":"#"},{"label":"Developers","href":"#"},{"label":"Community","href":"#"},{"label":"Apps","href":"#"}]},{"title":"Company","links":[{"label":"About Us","href":"#"},{"label":"Leadership","href":"#"},{"label":"News","href":"#"}]}]'
+      social-icons='[{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Facebook"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Google"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Apple"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Instagram"}]'
+      class="hydrated"
+    ></dda-footer>
+
+    <dda-sticky-footer
+      happiness-icon-href="#"
+      happiness-icon-src="assets/img/icn/icn-happy.svg"
+      happiness-icon-alt="Happiness"
+      happiness-icon-tooltip="Happiness"
+      accessibility-icon-href="#"
+      accessibility-icon-src="assets/img/icn/icn-complaints.svg"
+      accessibility-icon-alt="Suggestions and complaints"
+      accessibility-icon-tooltip="Suggestions &amp; complaints"
+      services-icon-href="#"
+      services-icon-src="assets/img/icn/icn-grid-view.svg"
+      services-icon-alt="Services"
+      services-icon-tooltip="Services"
+      services-icon-text="Services"
+      first-logo-href="#"
+      first-logo-src="assets/img/digital-logo.svg"
+      first-logo-alt="Logo 1"
+      first-logo-tooltip="Logo 1"
+      second-logo-href="#"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-alt="Logo 1"
+      second-logo-tooltip="Logo 1"
+      third-logo-href="#"
+      third-logo-src="assets/img/digital-logo.svg"
+      third-logo-alt="Logo 3"
+      third-logo-tooltip="Logo 3"
+      location-button-href="#"
+      location-button-text="Location"
+      location-button-icon=""
+      news-button-href="#"
+      news-button-text="News"
+      news-button-icon=""
+      ai-icon-href="#"
+      ai-icon-src="assets/img/icn/DubaiAI.svg"
+      ai-icon-alt="Digital AI"
+      ai-icon-tooltip="Digital AI"
+      chat-icon-href="#"
+      chat-icon-src="assets/img/icn/icn-chat_bubble_outline.svg"
+      chat-icon-alt="Online Chat"
+      chat-icon-tooltip="Online Chat"
+    >
+    </dda-sticky-footer>
+    <spinner id="ddaspinner">
+      <span class="loader"></span>
+    </spinner>
+
+    <script>
+      $(window).bind("load", function () {
+        setTimeout(function () {
+          $("#ddaspinner").fadeOut();
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

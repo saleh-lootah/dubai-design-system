@@ -1,0 +1,89 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Search Input/Documentation" />
+
+# Search Input
+The `dda-search-input` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaSearchInput } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaSearchInput
+            placeholder="Search"
+            label="Search"
+            size="default"
+            helper_text="Helper or footer text"
+            error_message=""
+            show_button="false"
+            has_error="false"
+            custom_class=""
+            component_mode=""
+            button_id="button"
+            aria_label="search-input"
+            button_aria_label="clear-search"
+            onchange="console.log('changed')"
+        ></DdaSearchInput>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaSearchInput } from '@dubai-design-system/components-vue'
+</script>
+
+<template>
+    <div>
+        <DdaSearchInput
+            placeholder="Search"
+            label="Search"
+            size="default"
+            helper_text="Helper or footer text"
+            error_message=""
+            show_button="false"
+            has_error="false"
+            custom_class=""
+            component_mode=""
+            button_id="button"
+            aria_label="search-input"
+            button_aria_label="clear-search"
+            onchange="console.log('changed')"
+        ></DdaSearchInput>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-search-input
+    placeholder="Search"
+    label="Search"
+    size="default"
+    helper_text="Helper or footer text"
+    error_message=""
+    show_button="false"
+    has_error="false"
+    custom_class=""
+    component_mode=""
+    button_id="button"
+    aria_label="search-input"
+    button_aria_label="clear-search"
+    onchange="console.log('changed')"
+></dda-search-input>
+```

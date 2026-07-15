@@ -1,0 +1,113 @@
+.v-stepper-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.v-step {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+  border: solid 1px transparent;
+  border-radius: 16px;
+}
+
+.v-step.active {
+  background-color: var(--dda-surface-100);
+  border: solid 1px var(--dda-color-primary-40);
+  box-shadow: 0px 10px 15px -3px rgba(16, 24, 40, 0.1);
+}
+
+.v-step .v-step-indicator {
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 15px;
+  position: relative;
+}
+
+.v-step .icon {
+  width: 30px;
+  height: 30px;
+  background: var(--dda-surface-100);
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.v-step-indicator::before {
+  content: "";
+  width: 1px;
+  height: 100%;
+  border-right: dashed 1px var(--dda-surface-variant-80);
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, 0%);
+}
+
+.v-step.active .v-step-indicator::before {
+  border-right: solid 1px var(--dda-color-primary-40);
+}
+
+.v-step.active .v-step-indicator::after {
+  content: "";
+  width: 1px;
+  height: 30px;
+  border-right: solid 1px var(--dda-color-primary-40);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, 0%);
+}
+
+.v-step .icon i {
+  font-size: 24px;
+  color: var(--dda-on-surface-variant-30);
+}
+
+.v-step.active .icon i {
+  color: var(--dda-color-primary-40);
+}
+
+.v-step .v-step-content {
+  padding: 15px 15px 15px 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.v-step .v-step-title {
+  font-size: 18px;
+  font-weight: var(--dda-fw-500);
+}
+
+.v-step .v-step-subtitle {
+  font-size: 14px;
+  color: var(--dda-color-primary-40);
+}
+
+.v-step .v-step-description {
+  font-size: 14px;
+  color: var(--dda-on-surface-variant-30);
+}
+
+.v-step-arrow {
+  padding: 15px;
+  position: relative;
+}
+
+.v-step-arrow i {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translate(0%, -50%);
+  color: var(--dda-on-surface-variant-30);
+}

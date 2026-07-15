@@ -1,0 +1,109 @@
+.h-stepper-container {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.h-step {
+  width: 100%;
+  text-align: center;
+  padding: 0px 0px 16px 0px;
+}
+
+.h-step-indicator {
+  position: relative;
+}
+
+.h-step-indicator .circle {
+  width: 16px;
+  height: 16px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: var(--dda-neutral-80);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+}
+
+.h-step-indicator::before {
+  content: "";
+  width: calc(100% - 3px);
+  height: 1px;
+  border-top: dashed 1px var(--dda-neutral-variant-80);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 1;
+  transform: translate(0%, -50%);
+}
+.h-step .h-step-content {
+  padding: 8px 16px 0px 16px;
+}
+
+.h-step .h-step-title {
+  font-size: 14px;
+  font-weight: var(--dda-fw-400);
+  color: var(--dda-neutral-variant-30);
+  margin-bottom: 10px;
+}
+
+.h-step .h-step-subtitle {
+  font-size: 18px;
+  color: var(--dda-neutral-60);
+  font-weight: var(--dda-fw-500);
+}
+
+.h-step.completed .h-step-subtitle{
+  font-weight: var(--dda-fw-400);
+}
+
+.h-step .h-step-description {
+  font-size: 14px;
+  color: var(--dda-neutral-60);
+}
+
+.h-step.completed .circle{
+  background: var(--dda-color-success-40);
+}
+
+.h-step.active .circle {
+  background-color: var(--dda-color-primary-40);
+  box-shadow: 0px 0px 0px 3px var(--dda-color-primary-95);
+}
+
+.h-step.completed .h-step-indicator::before,
+.h-step.active .h-step-indicator::before {
+  width: 100%;
+  border-top: solid 1px var(--dda-color-primary-40);
+}
+
+.h-step.active .h-step-indicator::after {
+  content: "";
+  width: calc(50% - 3px);
+  height: 1px;
+  border-top: solid 1px var(--dda-color-primary-40);
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  z-index: 2;
+  transform: translate(0%, -50%);
+}
+
+
+
+.h-step.completed .h-step-title{
+  color: var(--dda-color-success-40);
+}
+.h-step.active .h-step-title{
+  color: var(--dda-color-primary-40);
+}
+.h-step.completed .h-step-subtitle,
+.h-step.active .h-step-subtitle{
+  color: var(--dda-neutral-0);
+}
+.h-step.completed .h-step-description,
+.h-step.active .h-step-description{
+  color: var(--dda-neutral-variant-30);
+}

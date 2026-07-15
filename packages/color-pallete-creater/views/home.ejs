@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DDA - Color Gen</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <script type="module">
+      import { defineCustomElements } from "https://dcx360.com:9004/stencil/loader/index.es2017.js";
+      defineCustomElements();
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://dcx360.com:9004/stencil/src/global/global.css"
+    />
+
+    <link rel="stylesheet" href="https://dcx360.com:9004/css/dda-grid.css" />
+    <link
+      rel="stylesheet"
+      href="https://dcx360.com:9004/css/dashboard-navigation.css"
+    />
+  </head>
+
+  <body data-theme="dark">
+    <header class="dda-dashboard-header">
+      <div class="dda-dashboard-header-left dda-gap-10">
+        <img
+          src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+          alt="Logo"
+          class="logo"
+        />
+        <nav class="dda-dashboard-header-menu dda-menu-default">
+          <!-- <ul>
+          <li><a href="#" class="menu-item">Products</a></li>
+          <li><a href="#" class="menu-item">Docs</a></li>
+          <li><a href="#" class="menu-item">Contacts</a></li>
+          <li><a href="#" class="menu-item">More</a></li>
+        </ul> -->
+        </nav>
+      </div>
+
+      <div class="header-right dda-gap-2">
+        <!-- <dda-button buttoncolor="primary-link" lefticon="" righticon="" customclass="">Log in</dda-button>
+      <dda-button size='md'> Sign Up </dda-button> -->
+      </div>
+    </header>
+
+    <div class="container-fluid">
+      <div class="row text-left pt-4">
+        <div class="col-6 py-4">
+          <h1>Customize your Design System</h1>
+          <p>Customize your design system as per your brand.</p>
+        </div>
+        <div class="col-6">
+          <div class="pb-3">
+            <h2>Get Started!</h2>
+            <p class="text-muted muted">
+              Enter your brands primary color in Hex Code like "#26ADE3" below.
+            </p>
+          </div>
+          <div class="pb-3">
+            <input
+              class="form-control"
+              id="color"
+              placeholder="Enter your primary color"
+            />
+          </div>
+          <div class="pb-3">
+            <button class="btn btn-primary" onclick="getColors()">
+              Generate My Colors
+            </button>
+          </div>
+          <div>
+            <code
+              style="white-space: pre"
+              id="result_here"
+              class="bg-light p-2 w-100 mt-2 d-block"
+            >
+            </code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function getColors() {
+        const myHeaders = new Headers();
+        myHeaders.append("Cookie", "Session=8219378718273981723217");
+        
+        var colorVal = document.getElementById("color").value;
+
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+        console.log("Color value:", colorVal);
+        fetch(
+          ("http://localhost:8000/api/getcolors?color=#2EABE3" +encodeURI(colorVal)),
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            if (result.Result) {
+              var conc = ":root {\n" + result.Result.join(";\n") + "\n}";
+              document.getElementById("result_here").innerHTML = conc;
+            }
+          });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en" data-theme="light" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Components | Dubai Design System</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../css/dda.css" />
+
+    <script type="module">
+      import { defineCustomElements } from "../stencil/loader/index.js";
+      defineCustomElements();
+    </script>
+    <!-- <script type="module" >
+      import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js/loader/index.es2017.js';
+      defineCustomElements();
+    </script> -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="../css/personalization.css" />
+  </head>
+
+  <body class="">
+    <dda-header
+    first-logo-src="assets/img/government-of-dubai.svg"
+    first-logo-white-src="assets/img/government-of-dubai-white.svg"
+    first-logo-alt="undefined"
+    second-logo-src="assets/img/digital-logo.svg"
+    second-logo-white-src="assets/img/digital-logo-white.svg"
+    second-logo-alt="Dubai-Digital-Authority"
+    login-link="/login.html"
+    readspeakerlink="app-eu.readspeaker.com"
+    languageswitch="() => console.log('Language Switcher')"
+    smtextsize="() => console.log('Small Text')"
+    basetextsize="() => console.log('Base Text')"
+    lgtextsize="() => console.log('Large Text')"
+    normalcontrast="() => console.log('Normal Text')"
+    blindcontrast="() => console.log('Blind Text')"
+    redcontrast="() => console.log('Red Text')"
+    greencontrast="() => console.log('Green Text')"
+    quick-links='[{"label":"الصفحة الرئيسية","href":"/ar/","subMenu":[]},{"label":"عناصر","href":"/ar/components.html","subMenu":[]},{"label":"معلومات عنا","href":"/ar/about-us.html","subMenu":[]}]'
+    side-menu-items='[{"label":"معلومات عنا","href":"/ar/about-us.html","subMenu":[]},{"label":"عناصر","href":"/ar/components.html","subMenu":[]},{"label":"اتصل بنا","href":"/ar/contact-us.html","subMenu":[]},{"label":"الأسئلة الشائعة","href":"/ar/faq.html","subMenu":[]},{"label":"رابط العينة","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]}]'
+    class="hydrated"
+  >
+  </dda-header>
+
+    <script>
+      const ddaHeader = document.querySelector("dda-header");
+      ddaHeader.addEventListener("languageSwitch", (event) => {
+        window.location.assign(
+          window.location.origin + window.location.pathname.replace("/ar", "")
+        );
+      });
+      ddaHeader.addEventListener("blindContrast", (event) => {
+        $("html").attr("data-theme", "dark");
+      });
+    </script>
+
+    <div class="maincontent">
+      <div class="container-xxl">
+        <dda-breadcrumb
+          design="text"
+          separator="chevron_right"
+          custom_class="mb-4"
+          component_mode=""
+          data-breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"Components","icon":"menu_book","url":""}]'
+          class="hydrated"
+        >
+        </dda-breadcrumb>
+
+        <h1>عناصر</h1>
+        <p class="small">
+          <a
+            href="https://digital-dubai.gitbook.io/dubai-design-system"
+            target="_blank"
+            >GitBook</a
+          >
+          يتضمن وثائق مفصلة تغطي استخدام كل مكون، وعلم التشريح، وما يجب وما لا يجب فعله.!
+        </p>
+
+        <hr />
+
+        <h3>مؤسسة</h3>
+
+        <div class="row py-4">
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="الطباعة"
+              subtitle="تعمل مقاييس النوع على إنشاء تسلسل هرمي بصري منظم وفعال..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/foundations/typography"
+              linktext=""
+              image="assets/img/component_icons/Foundations/Typography.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="الألوان"
+              subtitle="الألوان الأساسية هي الألوان الأساسية المختارة من لوحة الألوان التي تخدم..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/foundations/colors"
+              linktext=""
+              image="assets/img/component_icons/Foundations/Colors.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="الأيقونات والمرئيات"
+              subtitle="استخدم نمطًا موحدًا (على سبيل المثال، خط، مملوء، مسطح، أو محدد) لضمان التناغم البصري..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/foundations/icons-and-visuals"
+              linktext=""
+              image="assets/img/component_icons/Foundations/Icons & visuals.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="الصور"
+              subtitle="اتبع أسلوبًا يتماشى مع هوية العلامة التجارية، سواء كان بسيطًا أو نابضًا بالحياة..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/foundations/images"
+              linktext=""
+              image="assets/img/component_icons/Foundations/Images.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="التخطيط ونقاط التوقف"
+              subtitle="نقاط التوقف هي عبارة عن عرض شاشة محدد مسبقًا يحدد كيفية تكيف التخطيط المستجيب..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/foundations/ayout-and-breakpoints"
+              linktext=""
+              image="assets/img/component_icons/Foundations/Layout & Breakpoints.svg"
+            >
+            </dda-ui-card>
+          </div>
+        </div>
+
+        <hr />
+
+        <h3>عناصر</h3>
+
+        <div class="row py-4">
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="أزرار"
+              subtitle="الأزرار هي عناصر تفاعلية أساسية تستخدم لتحفيز الإجراءات..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/Buttons"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/Button.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="أكورديون"
+              subtitle="يتم استخدام الأكورديونات لتنظيم المحتوى في أقسام قابلة للطي..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/accordion"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/Accordion.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="لافتة تنبيه"
+              subtitle="تُستخدم لافتات التنبيه لنقل المعلومات أو التحذيرات المهمة..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/alerts"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/Alert.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="الصورة الرمزية"
+              subtitle="يمثل الصورة الرمزية المستخدم بصريًا من خلال صورة الملف الشخصي أو الأحرف الأولى..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/avatar"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/Avatar.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="فتات الخبز"
+              subtitle="توفر فتات الخبز مساعدة في التنقل تُظهر للمستخدمين موقعهم الحالي..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/Breadcrumbs"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/Breadcrumbs.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="الترقيم الصفحي"
+              subtitle="يقوم الترقيم الصفحي بتقسيم المحتوى إلى صفحات منفصلة، ​​مما يسمح للمستخدمين بالتنقل..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/pagination"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/Pagination.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="مؤشرات التقدم"
+              subtitle="تعرض مؤشرات التقدم حالة اكتمال المهمة أو العملية بصريًا..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/progress-indicators"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/progress bar.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="علامات التبويب"
+              subtitle="تنظم علامات التبويب المحتوى في أقسام منفصلة داخل نفس الواجهة..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/tabs"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/tabs_component.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="حقل الإدخال"
+              subtitle="يسمح حقل الإدخال للمستخدمين بإدخال نص في واجهة المستخدم. يتم استخدامه في النماذج..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/text-input-field"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/text-field.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="تلميح الأدوات"
+              subtitle="تُستخدم تلميحات الأدوات لتوفير معلومات إضافية عندما يحوم المستخدمون فوقها..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/tooltip"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/tooltip.svg"
+            >
+            </dda-ui-card>
+          </div>
+          <div class="col-sm-3 pb-4">
+            <dda-ui-card
+              maintitle="خطوات"
+              subtitle="تُستخدم مؤشرات الخطوة لإظهار موقع المستخدمين الحالي ضمن التسلسل..."
+              link="https://digital-dubai.gitbook.io/dubai-design-system/components/steps"
+              linktext="عرض التفاصيل"
+              linkicon="arrow_backward"
+              image="assets/img/component_icons/Foundations/Steps_component.svg"
+            >
+            </dda-ui-card>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <dda-sticky-footer
+      happiness-icon-href="#"
+      happiness-icon-src="assets/img/icn/icn-happy.svg"
+      happiness-icon-alt="Happiness"
+      happiness-icon-tooltip="Happiness"
+      accessibility-icon-href="#"
+      accessibility-icon-src="assets/img/icn/icn-complaints.svg"
+      accessibility-icon-alt="Suggestions and complaints"
+      accessibility-icon-tooltip="Suggestions &amp; complaints"
+      services-icon-href="#"
+      services-icon-src="assets/img/icn/icn-grid-view.svg"
+      services-icon-alt="Services"
+      services-icon-tooltip="Services"
+      services-icon-text="Services"
+      first-logo-href="#"
+      first-logo-src="assets/img/digital-logo.svg"
+      first-logo-alt="Logo 1"
+      first-logo-tooltip="Logo 1"
+      second-logo-href="#"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-alt="Logo 1"
+      second-logo-tooltip="Logo 1"
+      third-logo-href="#"
+      third-logo-src="assets/img/digital-logo.svg"
+      third-logo-alt="Logo 3"
+      third-logo-tooltip="Logo 3"
+      location-button-href="#"
+      location-button-text="Location"
+      location-button-icon=""
+      news-button-href="#"
+      news-button-text="News"
+      news-button-icon=""
+      ai-icon-href="#"
+      ai-icon-src="assets/img/icn/DubaiAI.svg"
+      ai-icon-alt="Digital AI"
+      ai-icon-tooltip="Digital AI"
+      chat-icon-href="#"
+      chat-icon-src="assets/img/icn/icn-chat_bubble_outline.svg"
+      chat-icon-alt="Online Chat"
+      chat-icon-tooltip="Online Chat"
+    >
+    </dda-sticky-footer>
+    <spinner id="ddaspinner">
+      <span class="loader"></span>
+    </spinner>
+
+    <script>
+      $(window).bind("load", function () {
+        setTimeout(function () {
+          $("#ddaspinner").fadeOut();
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

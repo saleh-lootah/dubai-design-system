@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Progress Bar/Documentation" />
+
+# Progress Bar
+The `dda-progressbar` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaProgressbar } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaProgressbar
+            progress="20"
+            tooltip="false"
+            tooltip_position="top"
+            show_percentage_text="false"
+            custom_class=""
+            component_mode=""
+        ></DdaProgressbar>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaProgressbar } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaProgressbar
+            progress="20"
+            tooltip="false"
+            tooltip_position="top"
+            show_percentage_text="false"
+            custom_class=""
+            component_mode=""
+        ></DdaProgressbar>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-progressbar
+    progress="20"
+    tooltip="false"
+    tooltip_position="top"
+    show_percentage_text="false"
+    custom_class=""
+    component_mode=""
+></dda-progressbar>
+```

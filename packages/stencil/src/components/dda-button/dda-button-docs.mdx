@@ -1,0 +1,77 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Button/Documentation" />
+
+# Button
+The `dda-button` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaButton } from "@dubai-design-system/components-react";
+
+const App = () => {
+  return (
+    <div>
+        <DdaButton
+            button_color="default-primary"
+            start_icon="sentiment_satisfied"
+            end_icon="arrow_forward"
+            custom_class=""
+            component_mode=""
+            button_id="button"
+            aria_label="button"
+            onclick="console.log('clicked')"
+            >Button
+        </DdaButton>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaButton } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaButton
+            button_color="default-primary"
+            start_icon="sentiment_satisfied"
+            end_icon="arrow_forward"
+            custom_class=""
+            component_mode=""
+            button_id="button"
+            aria_label="button"
+            onclick="console.log('clicked')"
+            ><!---->Button
+        </DdaButton>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-button
+    button_color="default-primary"
+    start_icon="sentiment_satisfied"
+    end_icon="arrow_forward"
+    custom_class=""
+    component_mode=""
+    button_id="button"
+    aria_label="button"
+    onclick="console.log('clicked')"
+    ><!---->Button
+</dda-button>
+
+```

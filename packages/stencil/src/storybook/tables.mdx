@@ -1,0 +1,615 @@
+import {Meta} from "@storybook/addon-docs"
+
+<Meta title="Templates/Tables" />
+
+# Tables Template
+
+
+```jsx
+  <div class="dda-table-container">
+    <div class="dda-table-header">
+      <div class="dda-table-header-content">
+        <h1 class="dda-fs-title-md dda-fw-500 m-0">Table</h1>
+      </div>
+      <div class="dda-table-header-content">
+        
+        <dda-search-input
+          placeholder="Search"
+          label=""
+          size="small"
+          helper_text=""
+          error_message=""
+          show_button="false"
+          has_error="false"
+          custom_class="">
+        </dda-search-input>
+
+        <dda-button
+          button_color="default-tertiary"
+          start_icon=""
+          end_icon=""
+          custom_class=""
+          component_mode=""
+          onclick="console.log('clicked')"
+          button_id="button"
+          aria_label="button">Button
+        </dda-button>
+
+        <dda-dropdown
+          label=""
+          selected=""
+          disabled="false"
+          error=""
+          helper_text=""
+          type="bg-transparent"
+          size="small"
+          icon_mode="true"
+          custom_class=""
+          options='["Option 1","Option 2","Option 3"]'>
+        </dda-dropdown>
+      </div>
+    </div>
+
+    <table class="dda-table">
+      <thead>
+        <tr>
+          <th>Header</th>
+          <th>Header</th>
+          <th>Header</th>
+          <th>Header</th>
+          <th>Header</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="dda-user-info">
+              <dda-avatar
+                type="photo"
+                size="md"
+                design="default"
+                rounded="circle"
+                src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+                icon="edit"
+                text="AB"
+                notification_number="20"
+                custom_class=""
+                class="hydrated">
+              </dda-avatar>
+              <div class="dda-user-details">
+                <span class="dda-user-name dda-fw-semibold">Cristopher Calzoni</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <dda-chip
+              bgcolor="purple"
+              icon=""
+              show_close_icon="false"
+              custom_class=""
+              rounded="circle"
+              size="sm">Label
+            </dda-chip>
+          </td>
+          <td>
+            <p class="dda-fw-500">Wed 1:00 pm</p>
+          </td>
+          <td>
+            <p class="dda-fw-500">- 6,320.53</p>
+          </td>
+          <td>
+            <div class="dda-payment-info">
+                <img class="dda-payment-icon" src="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg" alt="card">
+              <div>
+                <h6>Mastercard</h6>
+                <p>Expires 24/2032</p>
+              </div>
+            </div>
+          </td>
+          <td style="width: 10%">
+            <div class="dda-flex dda-align-center dda-justify-space dda-gap-4">
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="edit"
+                custom_class=""
+                size="sm">
+              </dda-button>
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="delete"
+                custom_class=""
+                size="sm">
+              </dda-button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="dda-user-info">
+              <dda-avatar
+                type="photo"
+                size="md"
+                design="default"
+                rounded="circle"
+                src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+                icon="sentiment_satisfied"
+                text="AB"
+                notification_number="20"
+                custom_class=""
+                class="hydrated">
+              </dda-avatar>
+              <div class="dda-user-details">
+                <span class="dda-user-name dda-fw-semibold">Cristopher Calzoni</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <dda-chip
+              bgcolor="yellow"
+              icon=""
+              show_close_icon="false"
+              custom_class=""
+              rounded="circle"
+              size="sm">Label
+            </dda-chip>
+          </td>
+          <td>
+            <p class="dda-fw-500">Wed 1:00 pm</p>
+          </td>
+          <td>
+            <p class="dda-fw-500">- 6,320.53</p>
+          </td>
+          <td>
+            <div class="dda-payment-info">
+                <img class="dda-payment-icon" src="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg" alt="card">
+              <div>
+                <h6>Mastercard</h6>
+                <p>Expires 24/2032</p>
+              </div>
+            </div>
+          </td>
+          <td style="width: 10%">
+            <div class="dda-flex dda-align-center dda-justify-space dda-gap-4">
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="edit"
+                custom_class=""
+                size="sm">
+              </dda-button>
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="delete"
+                custom_class=""
+                size="sm">
+              </dda-button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="dda-user-info">
+              <dda-avatar
+                type="photo"
+                size="md"
+                design="default"
+                rounded="circle"
+                src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+                icon="sentiment_satisfied"
+                text="AB"
+                notification_number="20"
+                custom_class=""
+                class="hydrated">
+              </dda-avatar>
+              <div class="dda-user-details">
+                <span class="dda-user-name dda-fw-semibold">Cristopher Calzoni</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <dda-chip
+              bgcolor="green"
+              icon=""
+              show_close_icon="false"
+              custom_class=""
+              rounded="circle"
+              size="sm">Label
+            </dda-chip>
+          </td>
+          <td>
+            <p class="dda-fw-500">Wed 1:00 pm</p>
+          </td>
+          <td>
+            <p class="dda-fw-500">- 6,320.53</p>
+          </td>
+          <td>
+            <div class="dda-payment-info">
+                <img class="dda-payment-icon" src="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg" alt="card">
+              <div>
+                <h6>Mastercard</h6>
+                <p>Expires 24/2032</p>
+              </div>
+            </div>
+          </td>
+          <td style="width: 10%">
+            <div class="dda-flex dda-align-center dda-justify-space dda-gap-4">
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="edit"
+                custom_class=""
+                size="sm">
+              </dda-button>
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="delete"
+                custom_class=""
+                size="sm">
+              </dda-button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="dda-table-footer">
+      <div class="pagination">
+        <dda-pagination type='button-text'></dda-pagination>
+      </div>
+      <div>
+        <dda-select
+          label=""
+          selected="Option 1"
+          disabled="false"
+          helper_text=""
+          error_message=""
+          size="small"
+          custom_class=""
+          options='["Option 1","Option 2","Option 3"]'>
+        </dda-select>
+      </div>
+    </div>
+  </div>
+```
+
+```jsx
+  <div class="dda-table-container">
+    <div class="dda-table-header">
+      <div class="dda-table-header-content">
+        <h1 class="dda-fs-title-md dda-fw-500 m-0">Table Stripped</h1>
+      </div>
+      <div class="dda-table-header-content">
+        
+        <dda-search-input
+          placeholder="Search"
+          label=""
+          size="small"
+          helper_text=""
+          error_message=""
+          show_button="false"
+          has_error="false"
+          custom_class="">
+        </dda-search-input>
+
+        <dda-button
+          button_color="default-tertiary"
+          start_icon=""
+          end_icon=""
+          custom_class=""
+          component_mode=""
+          onclick="console.log('clicked')"
+          button_id="button"
+          aria_label="button">Button
+        </dda-button>
+
+        <dda-dropdown
+        label=""
+        selected=""
+        disabled="false"
+        error=""
+        helper_text=""
+        type="bg-transparent"
+        size="small"
+        icon_mode="true"
+        custom_class=""
+        options='["Option 1","Option 2","Option 3"]'
+    ></dda-dropdown>
+      </div>
+    </div>
+
+    <table class="dda-table dda-table-striped">
+      <thead>
+        <tr>
+          <th>Header</th>
+          <th>Header</th>
+          <th>Header</th>
+          <th>Header</th>
+          <th>Header</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="dda-user-info">
+              <dda-avatar
+                type="photo"
+                size="md"
+                design="default"
+                rounded="circle"
+                src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+                icon="sentiment_satisfied"
+                text="AB"
+                notification_number="20"
+                custom_class=""
+                class="hydrated">
+              </dda-avatar>
+              <div class="dda-user-details">
+                <span class="dda-user-name dda-fw-semibold">Cristopher Calzoni</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <dda-chip
+              bgcolor="purple"
+              icon=""
+              show_close_icon="false"
+              custom_class=""
+              rounded="circle"
+              size="sm">Label
+            </dda-chip>
+          </td>
+          <td>
+            <p class="dda-fw-500">Wed 1:00 pm</p>
+          </td>
+          <td>
+            <p class="dda-fw-500">- 6,320.53</p>
+          </td>
+          <td>
+            <div class="dda-payment-info">
+                <img class="dda-payment-icon" src="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg" alt="card">
+              <div>
+                <h6>Mastercard</h6>
+                <p>Expires 24/2032</p>
+              </div>
+            </div>
+          </td>
+          <td style="width: 10%">
+            <div class="dda-flex dda-align-center dda-justify-space dda-gap-4">
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="edit"
+                custom_class=""
+                size="sm">
+              </dda-button>
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="delete"
+                custom_class=""
+                size="sm">
+              </dda-button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="dda-user-info">
+              <dda-avatar
+                type="photo"
+                size="md"
+                design="default"
+                rounded="circle"
+                src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+                icon="sentiment_satisfied"
+                text="AB"
+                notification_number="20"
+                custom_class=""
+                class="hydrated">
+              </dda-avatar>
+              <div class="dda-user-details">
+                <span class="dda-user-name dda-fw-semibold">Cristopher Calzoni</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <dda-chip
+              bgcolor="yellow"
+              icon=""
+              show_close_icon="false"
+              custom_class=""
+              rounded="circle"
+              size="sm">Label
+            </dda-chip>
+          </td>
+          <td>
+            <p class="dda-fw-500">Wed 1:00 pm</p>
+          </td>
+          <td>
+            <p class="dda-fw-500">- 6,320.53</p>
+          </td>
+          <td>
+            <div class="dda-payment-info">
+                <img class="dda-payment-icon" src="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg" alt="card">
+              <div>
+                <h6>Mastercard</h6>
+                <p>Expires 24/2032</p>
+              </div>
+            </div>
+          </td>
+          <td style="width: 10%">
+            <div class="dda-flex dda-align-center dda-justify-space dda-gap-4">
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="edit"
+                custom_class=""
+                size="sm">
+              </dda-button>
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="delete"
+                custom_class=""
+                size="sm">
+              </dda-button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="dda-user-info">
+              <dda-avatar
+                type="photo"
+                size="md"
+                design="default"
+                rounded="circle"
+                src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+                icon="sentiment_satisfied"
+                text="AB"
+                notification_number="20"
+                custom_class=""
+                class="hydrated">
+              </dda-avatar>
+              <div class="dda-user-details">
+                <span class="dda-user-name dda-fw-semibold">Cristopher Calzoni</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <dda-chip
+              bgcolor="green"
+              icon=""
+              show_close_icon="false"
+              custom_class=""
+              rounded="circle"
+              size="sm">Label
+            </dda-chip>
+          </td>
+          <td>
+            <p class="dda-fw-500">Wed 1:00 pm</p>
+          </td>
+          <td>
+            <p class="dda-fw-500">- 6,320.53</p>
+          </td>
+          <td>
+            <div class="dda-payment-info">
+                <img class="dda-payment-icon" src="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg" alt="card">
+              <div>
+                <h6>Mastercard</h6>
+                <p>Expires 24/2032</p>
+              </div>
+            </div>
+          </td>
+          <td style="width: 10%">
+            <div class="dda-flex dda-align-center dda-justify-space dda-gap-4">
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="edit"
+                custom_class=""
+                size="sm">
+              </dda-button>
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="delete"
+                custom_class=""
+                size="sm">
+              </dda-button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="dda-user-info">
+              <dda-avatar
+                type="photo"
+                size="md"
+                design="default"
+                rounded="circle"
+                src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+                icon="sentiment_satisfied"
+                text="AB"
+                notification_number="20"
+                custom_class=""
+                class="hydrated">
+              </dda-avatar>
+              <div class="dda-user-details">
+                <span class="dda-user-name dda-fw-semibold">Cristopher Calzoni</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <dda-chip
+              bgcolor="yellow"
+              icon=""
+              show_close_icon="false"
+              custom_class=""
+              rounded="circle"
+              size="sm">Label
+            </dda-chip>
+          </td>
+          <td>
+            <p class="dda-fw-500">Wed 1:00 pm</p>
+          </td>
+          <td>
+            <p class="dda-fw-500">- 6,320.53</p>
+          </td>
+          <td>
+            <div class="dda-payment-info">
+                <img class="dda-payment-icon" src="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg" alt="card">
+              <div>
+                <h6>Mastercard</h6>
+                <p>Expires 24/2032</p>
+              </div>
+            </div>
+          </td>
+          <td style="width: 10%">
+            <div class="dda-flex dda-align-center dda-justify-space dda-gap-4">
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="edit"
+                custom_class=""
+                size="sm">
+              </dda-button>
+              <dda-button
+                button_color="default-link"
+                icon_button_shape="default"
+                start_icon="delete"
+                custom_class=""
+                size="sm">
+              </dda-button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="dda-table-footer">
+      <div class="pagination">
+        <dda-pagination type='button-text'></dda-pagination>
+      </div>
+      <div>
+        <dda-select
+          label=""
+          selected="Option 1"
+          disabled="false"
+          helper_text=""
+          error_message=""
+          size="small"
+          custom_class=""
+          options='["Option 1","Option 2","Option 3"]'>
+        </dda-select>
+      </div>
+    </div>
+  </div>
+
+```

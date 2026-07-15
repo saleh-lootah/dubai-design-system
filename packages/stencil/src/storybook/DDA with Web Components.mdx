@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Getting Started/DDA with Web Components" />
+
+# DDA with Web Components
+
+This is a step-by-step guide to use vanilla web components.
+
+### Setup
+
+First, import the package script:
+
+```bash
+    <script type="module">
+        import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js/loader/index.es2017.js';
+        defineCustomElements();
+</script>
+```
+
+Next, add the material-icons package which is the icon package used by DDA:
+
+Start by adding the material-icons package inside the `<head>` tag
+
+```bash
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+```
+
+You should now be able to use DDA components:
+
+```bash
+<dda-button 
+    button_color="default-primary" 
+    start_icon="sentiment_satisfied"
+    end_icon="arrow_forward" 
+    custom_class="" 
+    mode="light" 
+    button_id="button" 
+    aria_label="button"
+    size="lg"
+    button_shape="circle">
+    Click Here
+ </dda-button>
+```

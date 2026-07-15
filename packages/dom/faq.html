@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" dir="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ | Dubai Design System</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/dda.css" />
+
+    <script type="module">
+      import { defineCustomElements } from "./stencil/loader/index.js";
+      defineCustomElements();
+    </script>
+    <!-- <script type="module" >
+      import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js/loader/index.es2017.js';
+      defineCustomElements();
+    </script> -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="./css/personalization.css" />
+  </head>
+
+  <body class="transparents">
+    <dda-header
+      first-logo-src="assets/img/government-of-dubai.svg"
+      first-logo-white-src="assets/img/government-of-dubai-white.svg"
+      first-logo-alt="undefined"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-white-src="assets/img/digital-logo-white.svg"
+      second-logo-alt="Dubai-Digital-Authority"
+      login-link="/login.html"
+      readspeakerlink="app-eu.readspeaker.com"
+      languageswitch="() => console.log('Language Switcher')"
+      smtextsize="() => console.log('Small Text')"
+      basetextsize="() => console.log('Base Text')"
+      lgtextsize="() => console.log('Large Text')"
+      normalcontrast="() => console.log('Normal Text')"
+      blindcontrast="() => console.log('Blind Text')"
+      redcontrast="() => console.log('Red Text')"
+      greencontrast="() => console.log('Green Text')"
+      quick-links='[{"label":"Home","href":"/","subMenu":[]},{"label":"Components","href":"/components.html","subMenu":[]},{"label":"About","href":"./about-us.html","subMenu":[]}]'
+      side-menu-items='[{"label":"About","href":"/about-us.html","subMenu":[]},{"label":"Components","href":"/components.html","subMenu":[]},{"label":"Contact","href":"/contact-us.html","subMenu":[]},{"label":"FAQ","href":"/faq.html","subMenu":[]},{"label":"Sample Link","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]}]'
+      class="hydrated"
+    >
+    </dda-header>
+
+    <script>
+      const ddaHeader = document.querySelector("dda-header");
+      ddaHeader.addEventListener("languageSwitch", (event) => {
+        window.location.assign(window.location.origin + "/ar" + window.location.pathname);
+      });
+      ddaHeader.addEventListener("blindContrast", (event) => {
+        $("html").attr("data-theme", "dark");
+      });
+    </script>
+
+    <div class="maincontent">
+      <div class="container-xxl">
+        <dda-breadcrumb
+          design="text"
+          separator="chevron_right"
+          custom_class="mb-4"
+          component_mode=""
+          data-breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"FAQs","icon":"menu_book","url":""}]'
+          class="hydrated"
+        >
+        </dda-breadcrumb>
+
+        <h1>Frequently Asked Questions</h1>
+        <p class="small">Answers to most asked questions!</p>
+
+        <div class="col-12 mb-4">
+          <dda-accordion
+            design="bg-border"
+            header_text="What is this website ?"
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              This is a sample website made to showcase the use of the Dubai
+              Design System Web Components Library
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="What is the Dubai Design System Component Library?"
+            body_description="This is the accordion body content."
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="manage_search"
+          >
+            <p>
+              The Dubai Design System Component Library is a set of pre-built,
+              reusable UI components that help developers create consistent and
+              scalable applications across Dubai government portals.
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="Which frameworks are supported by the component library?"
+            body_description="This is the accordion body content."
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="dataset"
+          >
+            <p>The library supports React, Vue, Angular, and HTML/CSS.</p>
+            <p>
+              <em
+                >Note: This sample website is using Vanilla JS library (Plain
+                HTML/CSS/Javascript)</em
+              >
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="Is the component library customizable?"
+            body_description="This is the accordion body content."
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              Yes, you can personalize the components using your own brand
+              colors, fonts, and icons through simple style overrides.
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="Where can I find the documentation?"
+            body_description="This is the accordion body content."
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              The official documentation is available at the below link:<br />
+              <a href="https://digital-dubai.gitbook.io/dubai-design-system"
+                >Dubai Design System Documentation</a
+              >
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="Can I request new components or report issues?"
+            body_description="This is the accordion body content."
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              Yes, feedback and issue reports are welcome. You can share them
+              via email as mentioned in the documentation.
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="Are there pre-built templates available?"
+            body_description="This is the accordion body content."
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              Yes, the library provides pre-built templates for common layouts
+              like Homepages, Footers, and Headers.
+            </p>
+            <p>
+              <em>
+                Note: Additional templates like this one can also be found in
+                the documentation to help you get started!
+              </em>
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="Will the library receive regular updates?"
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              Yes, the library follows a
+              <strong>Continuous Improvement Roadmap</strong> to ensure the
+              components stay up-to-date with technology trends and user
+              feedback.
+            </p>
+          </dda-accordion>
+        </div>
+      </div>
+    </div>
+
+    <dda-sticky-footer
+      happiness-icon-href="#"
+      happiness-icon-src="assets/img/icn/icn-happy.svg"
+      happiness-icon-alt="Happiness"
+      happiness-icon-tooltip="Happiness"
+      accessibility-icon-href="#"
+      accessibility-icon-src="assets/img/icn/icn-complaints.svg"
+      accessibility-icon-alt="Suggestions and complaints"
+      accessibility-icon-tooltip="Suggestions &amp; complaints"
+      services-icon-href="#"
+      services-icon-src="assets/img/icn/icn-grid-view.svg"
+      services-icon-alt="Services"
+      services-icon-tooltip="Services"
+      services-icon-text="Services"
+      first-logo-href="#"
+      first-logo-src="assets/img/digital-logo.svg"
+      first-logo-alt="Logo 1"
+      first-logo-tooltip="Logo 1"
+      second-logo-href="#"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-alt="Logo 1"
+      second-logo-tooltip="Logo 1"
+      third-logo-href="#"
+      third-logo-src="assets/img/digital-logo.svg"
+      third-logo-alt="Logo 3"
+      third-logo-tooltip="Logo 3"
+      location-button-href="#"
+      location-button-text="Location"
+      location-button-icon=""
+      news-button-href="#"
+      news-button-text="News"
+      news-button-icon=""
+      ai-icon-href="#"
+      ai-icon-src="assets/img/icn/DubaiAI.svg"
+      ai-icon-alt="Digital AI"
+      ai-icon-tooltip="Digital AI"
+      chat-icon-href="#"
+      chat-icon-src="assets/img/icn/icn-chat_bubble_outline.svg"
+      chat-icon-alt="Online Chat"
+      chat-icon-tooltip="Online Chat"
+    >
+    </dda-sticky-footer>
+    <spinner id="ddaspinner">
+      <span class="loader"></span>
+    </spinner>
+
+    <script>
+      $(window).bind("load", function () {
+        setTimeout(function () {
+          $("#ddaspinner").fadeOut();
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

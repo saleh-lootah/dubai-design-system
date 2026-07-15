@@ -1,0 +1,84 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Select/Documentation" />
+
+# Select
+The `dda-select` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaSelect } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaSelect
+            label="Select an option"
+            selected="Option 1"
+            disabled="false"
+            helper_text="Helper or footer text"
+            error_message=""
+            size="default"
+            custom_class=""
+            component_mode=""
+            button_id="button"
+            aria_label="select"
+            options='["Option 1","Option 2","Option 3"]'
+        ></DdaSelect>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaSelect } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaSelect
+            label="Select an option"
+            selected="Option 1"
+            disabled="false"
+            helper_text="Helper or footer text"
+            error_message=""
+            size="default"
+            custom_class=""
+            component_mode=""
+            button_id="button"
+            aria_label="select"
+            options='["Option 1","Option 2","Option 3"]'
+        ></DdaSelect>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-select
+    label="Select an option"
+    selected="Option 1"
+    disabled="false"
+    helper_text="Helper or footer text"
+    error_message=""
+    size="default"
+    custom_class=""
+    component_mode=""
+    button_id="button"
+    aria_label="select"
+    options='["Option 1","Option 2","Option 3"]'
+></dda-select>
+```

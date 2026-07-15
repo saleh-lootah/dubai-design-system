@@ -1,0 +1,100 @@
+.dda-chip{
+  display: inline-flex;
+  height: 26px;
+  background: var(--dda-color-primary-95);
+  border: solid 1px var(--dda-color-primary-40);
+  color: var(--dda-color-primary-40);
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 6px; 
+}
+.dda-chip i{
+  font-size: 19px;
+}
+.dda-chip .circle{
+  font-size: 7px;
+}
+.dda-chip-grey{
+  background: var(--dda-neutral-variant-94);
+  border: solid 1px var(--dda-neutral-90);
+  color: var(--dda-on-surface-variant-30);
+}
+.light-mode.dda-chip-grey{
+  background: var(--dda-neutral-variant-94);
+  border: solid 1px var(--dda-neutral-90);
+  color: var(--dda-neutral-variant-30);
+}
+/**/
+.dda-chip-primary{
+  background: var(--dda-primary-variant-95);
+  border: solid 1px var(--dda-color-primary-40);
+  color: var(--dda-color-primary-40);
+}
+.light-mode.dda-chip-primary{
+  background: var(--dda-primary-95);
+  border: solid 1px var(--dda-primary-40);
+  color: var(--dda-primary-40);
+}
+/**/
+.dda-chip-green{
+  background: var(--dda-success-variant-95);
+  border: solid 1px var(--dda-color-success-40);
+  color: var(--dda-color-success-40);
+}
+.light-mode.dda-chip-green{
+  background: var(--dda-success-95);
+  border: solid 1px var(--dda-success-40);
+  color: var(--dda-success-40);
+}
+/**/
+.dda-chip-yellow{
+  background: var(--dda-warning-variant-95);
+  border: solid 1px var(--dda-color-warning-40);
+  color: var(--dda-color-warning-40);
+}
+.light-mode.dda-chip-yellow{
+  background: var(--dda-warning-95);
+  border: solid 1px var(--dda-warning-40);
+  color: var(--dda-warning-40);
+}
+/**/
+.dda-chip-red{
+  background: var(--dda-error-variant-95);
+  border: solid 1px var(--dda-color-error-40);
+  color: var(--dda-color-error-40);
+}
+.light-mode.dda-chip-red{
+  background: var(--dda-error-95);
+  border: solid 1px var(--dda-error-40);
+  color: var(--dda-error-40);
+}
+/**/
+.dda-chip-purple{
+  background: var(--dda-color-purple-50);
+  border: solid 1px var(--dda-color-purple);
+  color: var(--dda-color-purple);
+}
+
+.dda-chip-sm{
+  height: 24px;
+}
+.dda-chip-md{
+  height: 26px;
+}
+.dda-chip-lg{
+  height: 32px;
+  padding: 2px 12px;
+}
+.dda-chip-square{
+  border-radius: 6px;
+}
+.dda-chip-circle{
+  border-radius: 40px;
+}
+
+.dda-chip .chip-close{
+  display: inline-flex;
+  cursor: pointer;
+}
+

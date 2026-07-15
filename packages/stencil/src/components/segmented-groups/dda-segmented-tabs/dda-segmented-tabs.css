@@ -1,0 +1,52 @@
+.dda-segmented-group {
+  display: inline-flex;
+  border: solid 1px var(--dda-surface-90);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.light-mode.dda-segmented-group{
+  border: solid 1px var(--dda-neutral-90);
+}
+.dda-segmented-item {
+  display: flex;
+  height: 40px;
+  padding: 5px 16px;
+  border: transparent;
+  border-inline-start: solid 1px var(--dda-surface-90);
+  background-color: var(--dda-surface-100);
+  font-size: 16px;
+  color: var(--dda-on-surface-variant-30);
+  cursor: pointer;
+  align-items: center;
+}
+.light-mode .dda-segmented-item{
+  background-color: var(--dda-neutral-100);
+  color: var(--dda-neutral-variant-30);
+  border-inline-start: solid 1px var(--dda-neutral-90);
+}
+.dda-segmented-group .dda-segmented-item:first-child{
+  border: transparent;
+}
+.dda-segmented-group.square{
+  border-radius: 8px;
+}
+.dda-segmented-group.rounded{
+  border-radius: 40px;
+}
+.dda-segmented-item:hover {
+  color: var(--dda-color-primary-40);
+}
+.light-mode .dda-segmented-item:hover{
+  color: var(--dda-primary-40);
+}
+.dda-segmented-item.active {
+  background-color: var(--dda-color-primary-40);
+  color: var(--dda-surface-100);
+}
+.light-mode .dda-segmented-item.active {
+  background-color: var(--dda-primary-40);
+  color: var(--dda-neutral-100);
+}
+.dda-segmented-item i {
+  font-size: 18px;
+}

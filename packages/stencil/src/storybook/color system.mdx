@@ -1,0 +1,78 @@
+import { Meta } from '@storybook/addon-docs';
+import color_palette from '../assets/img/color_palette.png'
+
+<Meta title="Foundations/Color System" />
+
+# Color Systems
+
+This color palette is designed to standardize the colors used across all web components in the website. The colors are applied to various states such as buttons, backgrounds, icons, and alerts, ensuring consistency and accessibility.
+
+Below is the list of colors that can be used within the components, along with their purpose.
+
+<img src={color_palette} alt="Component Example" style={{ width: '100%'}} />
+<br/><br/>
+
+
+### Usage in Components
+
+### Primary Color
+The primary color is applied to the most important actions and key interactive elements across components, such as primary buttons or icons representing actions.
+
+```bash
+<my-button color="primary">Primary Action</my-button>
+```
+
+### Secondary Color
+The secondary color is used for less prominent actions, such as secondary buttons or for emphasis in less critical scenarios.
+
+```bash
+<my-button color="secondary">Secondary Action</my-button>
+```
+
+### Error Color
+The error color indicates errors in form validation, error messages, or alert components.
+
+```bash
+<my-alert type="error">An error occurred. Please try again.</my-alert>
+```
+
+### Warning Color
+The warning color is used for components that need to caution the user, such as in form warnings or alert banners.
+
+```bash
+<my-alert type="warning">This action may have consequences.</my-alert>
+```
+
+### Success Color
+The success color is used to indicate positive actions, such as successful form submissions, validation, or completed processes.
+
+```bash
+<my-alert type="success">Form submitted successfully!</my-alert>
+```
+
+### Info Color
+The info color is used in informational messages or icons that need to convey important yet non-critical information.
+
+```bash
+<my-alert type="info">Remember to save your work frequently.</my-alert>
+```
+
+### Neutral Color
+The neutral color is applied for text, icons, or components where a subdued appearance is necessary, ensuring the focus remains on primary elements.
+
+```bash
+<my-text color="neutral">This is a neutral text color.</my-text>
+```
+
+### Neutral Variant Color
+The neutral-variant color is a lighter variant, typically used for backgrounds or subtle borders that don't overpower the primary content.
+
+```bash
+<my-card background-color="neutral-variant">
+  <p>This card uses a neutral variant background.</p>
+</my-card>
+```
+
+## Accessibility Considerations
+All colors are chosen to meet accessibility standards, ensuring a contrast ratio that complies with WCAG 2.1 guidelines for text and background colors. Always ensure that any text using these colors is legible for all users by testing contrast ratios.
+

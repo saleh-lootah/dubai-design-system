@@ -1,0 +1,80 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Toggle/Documentation" />
+
+# Toggle
+The `dda-toggle` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaToggle } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaToggle
+            checked="false"
+            label_on="On"
+            label_off="Off"
+            size="md"
+            group_name="togglegroup1"
+            input_id="testId"
+            custom_class=""
+            component_mode=""
+            aria_label="toggle"
+            onchange="console.log('changed')"
+        ></DdaToggle>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaToggle } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaToggle
+            checked="false"
+            label_on="On"
+            label_off="Off"
+            size="md"
+            group_name="togglegroup1"
+            input_id="testId"
+            custom_class=""
+            component_mode=""
+            aria_label="toggle"
+            onchange="console.log('changed')"
+        ></DdaToggle>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-toggle
+    checked="false"
+    label_on="On"
+    label_off="Off"
+    size="md"
+    group_name="togglegroup1"
+    input_id="testId"
+    custom_class=""
+    component_mode=""
+    aria_label="toggle"
+    onchange="console.log('changed')"
+></dda-toggle>```

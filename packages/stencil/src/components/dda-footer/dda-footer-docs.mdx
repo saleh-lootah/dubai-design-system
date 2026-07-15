@@ -1,0 +1,80 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Footer/Documentation" />
+
+# Footer
+The `dda-footer` component is customizable that can be used in various UI scenarios
+
+#### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaFooter } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+ <DdaFooter
+    title="Welcome to your new digital reality."
+    description="Let us help you take you from zero to serious business and beyond. Our no-strings attached free trial lets you test our product today."
+    logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+    logo-alt="Dubai-Digital-Authority"
+    sign-up-button-text="Sign Up"
+    login-button-text="Login"
+    copyright-text="© 2023 Digitaldubai. All Rights Reserved."
+    footer-sections='[{"title":"About Us","links":[{"label":"Our Competition","href":"#"},{"label":"Channels","href":"#"},{"label":"Scale","href":"#"},{"label":"Watch the Demo","href":"#"}]},{"title":"Products","links":[{"label":"Features","href":"#"},{"label":"Products","href":"#"},{"label":"Enterprise","href":"#"},{"label":"Solutions","href":"#"}]},{"title":"Resources","links":[{"label":"Partners","href":"#"},{"label":"Developers","href":"#"},{"label":"Community","href":"#"},{"label":"Apps","href":"#"}]},{"title":"Company","links":[{"label":"About Us","href":"#"},{"label":"Leadership","href":"#"},{"label":"News","href":"#"}]}]'
+    social-icons='[{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Facebook"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Google"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Apple"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Instagram"}]'
+    class="hydrated"
+  />
+ )
+}
+```
+
+#### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaFooter } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+     <DdaFooter
+    title="Welcome to your new digital reality."
+    description="Let us help you take you from zero to serious business and beyond. Our no-strings attached free trial lets you test our product today."
+    logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+    logo-alt="Dubai-Digital-Authority"
+    sign-up-button-text="Sign Up"
+    login-button-text="Login"
+    copyright-text="© 2023 Digitaldubai. All Rights Reserved."
+    footer-sections='[{"title":"About Us","links":[{"label":"Our Competition","href":"#"},{"label":"Channels","href":"#"},{"label":"Scale","href":"#"},{"label":"Watch the Demo","href":"#"}]},{"title":"Products","links":[{"label":"Features","href":"#"},{"label":"Products","href":"#"},{"label":"Enterprise","href":"#"},{"label":"Solutions","href":"#"}]},{"title":"Resources","links":[{"label":"Partners","href":"#"},{"label":"Developers","href":"#"},{"label":"Community","href":"#"},{"label":"Apps","href":"#"}]},{"title":"Company","links":[{"label":"About Us","href":"#"},{"label":"Leadership","href":"#"},{"label":"News","href":"#"}]}]'
+    social-icons='[{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Facebook"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Google"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Apple"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Instagram"}]'
+    class="hydrated"
+></DdaFooter>
+
+    </div>
+</template>
+
+```
+
+#### Usage in Angular
+
+```jsx
+<dda-footer
+    title="Welcome to your new digital reality."
+    description="Let us help you take you from zero to serious business and beyond. Our no-strings attached free trial lets you test our product today."
+    logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+    logo-alt="Dubai-Digital-Authority"
+    sign-up-button-text="Sign Up"
+    login-button-text="Login"
+    copyright-text="© 2023 Digitaldubai. All Rights Reserved."
+    footer-sections='[{"title":"About Us","links":[{"label":"Our Competition","href":"#"},{"label":"Channels","href":"#"},{"label":"Scale","href":"#"},{"label":"Watch the Demo","href":"#"}]},{"title":"Products","links":[{"label":"Features","href":"#"},{"label":"Products","href":"#"},{"label":"Enterprise","href":"#"},{"label":"Solutions","href":"#"}]},{"title":"Resources","links":[{"label":"Partners","href":"#"},{"label":"Developers","href":"#"},{"label":"Community","href":"#"},{"label":"Apps","href":"#"}]},{"title":"Company","links":[{"label":"About Us","href":"#"},{"label":"Leadership","href":"#"},{"label":"News","href":"#"}]}]'
+    social-icons='[{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Facebook"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Google"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Apple"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Instagram"}]'
+    class="hydrated"
+></dda-footer>
+
+
+```

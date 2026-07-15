@@ -1,0 +1,98 @@
+body{
+  background-color: #E0E3E2;
+}
+.dda-dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 30px;
+  background-color: var(--dda-neutral-100);
+  border-bottom: 1px solid var(--dda-color-neutral-90);
+}
+
+.dda-dashboard-header-left{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dda-dashboard-header-left .logo {
+  width: 100px;
+  height: 37px;
+}
+
+.dda-dashboard-header-menu {
+  display: flex;
+  align-items: center;
+}
+
+.dda-dashboard-header-menu ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dda-dashboard-header-menu ul li {
+  display: inline-flex;
+}
+
+.dda-dashboard-header-menu ul li a.menu-item {
+  height: 55px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  text-decoration: none;
+  font-size: var(--dda-fs-body-lg);
+  color: var(--dda-color-neutral-0);
+  font-weight: var(--dda-fw-400);
+  position: relative;
+}
+
+.dda-dashboard-header-menu.dda-menu-default ul li:hover a.menu-item {
+  background-color: var(--dda-color-neutral-variant-94);
+  color: var(--dda-color-primary-40);
+  font-weight: var(--dda-fw-700);
+}
+
+.dda-dashboard-header-menu.dda-menu-underline a.menu-item{
+  height: 70px;
+}
+.dda-dashboard-header-menu.dda-menu-underline ul li:hover a.menu-item::after{
+  content: "";
+  width: calc(100% - 32px);
+  height: 4px;
+  background: var(--dda-color-primary-40);
+  border-radius: 8px 8px 0px 0px;
+  position: absolute;
+  bottom: 0;
+  left: 16px; 
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dda-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dda-user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dda-user-name {
+  font-weight: var(--dda-fw-500);
+}
+
+.dda-user-role {
+  color: var(--dda-color-neutral-variant-30);
+  font-size: var(--dda-fs-body-md);
+}
+

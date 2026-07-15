@@ -1,0 +1,91 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Credit Card Field/Documentation" />
+
+# Credit Card
+The `dda-creditcard-field` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaCreditcardField } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaCreditcardField
+            placeholder="0000 - 0000 - 0000 - 0000"
+            label="Card Number"
+            restrict_input="false"
+            value=""
+            card_icon="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
+            size="default"
+            helper_text="Helper or footer text"
+            error_message=""
+            validation_type="normal"
+            custom_class=""
+            component_mode=""
+            input_id="input"
+            aria_label="credit-card-field"
+            onchange="console.log('changed')"
+        ></DdaCreditcardField>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaCreditcardField } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaCreditcardField
+            placeholder="0000 - 0000 - 0000 - 0000"
+            label="Card Number"
+            restrict_input="false"
+            value=""
+            card_icon="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
+            size="default"
+            helper_text="Helper or footer text"
+            error_message=""
+            validation_type="normal"
+            custom_class=""
+            component_mode=""
+            input_id="input"
+            aria_label="credit-card-field"
+            onchange="console.log('changed')"
+        ></DdaCreditcardField>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-creditcard-field
+    placeholder="0000 - 0000 - 0000 - 0000"
+    label="Card Number"
+    restrict_input="false"
+    value=""
+    card_icon="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
+    size="default"
+    helper_text="Helper or footer text"
+    error_message=""
+    validation_type="normal"
+    custom_class=""
+    component_mode=""
+    input_id="input"
+    aria_label="credit-card-field"
+    onchange="console.log('changed')"
+></dda-creditcard-field>
+```

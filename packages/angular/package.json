@@ -1,0 +1,49 @@
+{
+  "name": "@dubai-design-system/components-angular",
+  "version": "3.1.2",
+  "description": "Angular package for Digital Dubai Design System, featuring Angular-compatible web components and modules.",
+  "author": "Digital Dubai <saleh.lootah@digitaldubai.ae>",
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build stencil-wrapper",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "prepublishOnly": "ng build stencil-wrapper"
+  },
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "dependencies": {
+    "@angular/animations": "^19.1.0",
+    "@angular/common": "^19.1.0",
+    "@angular/compiler": "^19.1.0",
+    "@angular/core": "^19.1.0",
+    "@angular/forms": "^19.1.0",
+    "@angular/platform-browser": "^19.1.0",
+    "@angular/platform-browser-dynamic": "^19.1.0",
+    "@angular/router": "^19.1.0",
+    "@dubai-design-system/components-js": "^3.1.2",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^19.1.2",
+    "@angular/cli": "^19.1.2",
+    "@angular/compiler-cli": "^19.1.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^19.1.0",
+    "typescript": "~5.7.2"
+  },
+  "gitHead": "e9aa73742f2bfa5a5534f34888fef366880c7e4d"
+}

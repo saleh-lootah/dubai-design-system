@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="150" viewBox="0 0 400 150" fill="none">
+  <rect x="0" y="0" width="400" height="150" fill="#f5f7f6" />
+  <text x="20" y="40" font-family="Arial" font-size="20" fill="black">Search</text>
+  <rect x="20" y="55" width="360" height="50" rx="10" ry="10" fill="white" stroke="#ddd" stroke-width="2"/>
+  
+  <!-- Search Icon -->
+  <circle cx="50" cy="80" r="10" stroke="black" stroke-width="2" fill="none"/>
+  <line x1="58" y1="88" x2="65" y2="95" stroke="black" stroke-width="2"/>
+
+  <!-- Search Placeholder -->
+  <text x="80" y="85" font-family="Arial" font-size="20" fill="#aaa">Search...</text>
+</svg>

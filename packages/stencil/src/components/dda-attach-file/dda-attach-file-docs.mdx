@@ -1,0 +1,88 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Attach File/Documentation" />
+
+# Accordion
+The `dda-accordion` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaAttachFile } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaAttachFile
+            label="Attach File"
+            helper_text="Helper or footer text"
+            error_message=""
+            size="default"
+            validation_type="normal"
+            input_type="normal"
+            custom_class=""
+            component_mode=""
+            onchange=""
+            input_id="input"
+            button_id="button"
+            aria_label="input"
+            button_aria_label="button"
+        ></DdaAttachFile>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaAttachFile } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaAttachFile
+            label="Attach File"
+            helper_text="Helper or footer text"
+            error_message=""
+            size="default"
+            validation_type="normal"
+            input_type="normal"
+            custom_class=""
+            component_mode=""
+            onchange=""
+            input_id="input"
+            button_id="button"
+            aria_label="input"
+            button_aria_label="button"
+        ></DdaAttachFile>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-attach-file
+    label="Attach File"
+    helper_text="Helper or footer text"
+    error_message=""
+    size="default"
+    validation_type="normal"
+    input_type="normal"
+    custom_class=""
+    component_mode=""
+    onchange=""
+    input_id="input"
+    button_id="button"
+    aria_label="input"
+    button_aria_label="button"
+></dda-attach-file>
+```

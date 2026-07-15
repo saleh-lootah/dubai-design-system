@@ -1,0 +1,120 @@
+.dda-tabs-container {
+  display: inline-flex;
+}
+
+.dda-tab-item {
+  background: transparent;
+  display: inline-flex;
+  font-size: 16px;
+  color: var(--dda-on-surface-0);
+  gap: 6px;
+  align-items: center;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s ease-in-out;
+}
+
+.light-mode .dda-tab-item{
+  color: var(--dda-neutral-0);
+}
+
+.dda-tab-item i {
+  font-size: 22px;
+  color: var(--dda-neutral-variant-30);
+}
+
+.dda-tab-item.active span,
+.dda-tab-item:hover span {
+  font-weight: var(--dda-fw-500);
+}
+
+.dda-tab-default .dda-tab-item.active,
+.dda-tab-default .dda-tab-item:hover {
+  background: var(--dda-neutral-variant-94);
+  color: var(--dda-color-primary-40);
+}
+
+.light-mode.dda-tab-default .dda-tab-item.active,
+.light-mode.dda-tab-default .dda-tab-item:hover {
+  color: var(--dda-primary-40);
+}
+
+.dda-tab-default .dda-tab-item.active i,
+.dda-tab-default .dda-tab-item:hover i {
+  color: var(--dda-color-primary-40);
+}
+
+.dda-tab-filed .dda-tab-item.active,
+.dda-tab-filed .dda-tab-item:hover {
+  background: var(--dda-color-primary-40);
+  color: var(--dda-neutral-100);
+}
+
+.light-mode.dda-tab-filed .dda-tab-item.active,
+.light-mode.dda-tab-filed .dda-tab-item:hover {
+  background: var(--dda-primary-40);
+}
+
+.dda-tab-filed .dda-tab-item.active i,
+.dda-tab-filed .dda-tab-item:hover i {
+  color: var(--dda-neutral-100);
+}
+
+.dda-tab-underline {
+  border-bottom: solid 1px var(--dda-neutral-90);
+}
+
+
+.dda-tab-underline .dda-tab-item::after,
+.dda-tab-underline-filled .dda-tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 4px;
+  background-color: var(--dda-color-primary-40);
+  border-radius: 8px 8px 0px 0px;
+  transform: translateX(-50%);
+  transition: all 0.25s ease-in-out;
+}
+.light-mode.dda-tab-underline .dda-tab-item::after,
+.light-mode.dda-tab-underline-filled .dda-tab-item::after{
+  background-color: var(--dda-primary-40);
+}
+.dda-tab-underline .dda-tab-item:hover::after,
+.dda-tab-underline .dda-tab-item.active::after,
+.dda-tab-underline-filled .dda-tab-item:hover::after,
+.dda-tab-underline-filled .dda-tab-item.active::after{
+  width: calc(100% - 32px);
+}
+
+.dda-tab-underline .dda-tab-item.active,
+.dda-tab-underline .dda-tab-item.active i,
+.dda-tab-underline-filled .dda-tab-item.active,
+.dda-tab-underline-filled .dda-tab-item.active i,
+.dda-tab-underline .dda-tab-item:hover,
+.dda-tab-underline .dda-tab-item:hover i,
+.dda-tab-underline-filled .dda-tab-item:hover,
+.dda-tab-underline-filled .dda-tab-item:hover i {
+  color: var(--dda-color-primary-40);
+}
+
+.light-mode.dda-tab-underline .dda-tab-item.active,
+.light-mode.dda-tab-underline .dda-tab-item.active i,
+.light-mode.dda-tab-underline-filled .dda-tab-item.active,
+.light-mode.dda-tab-underline-filled .dda-tab-item.active i,
+.light-mode.dda-tab-underline .dda-tab-item:hover,
+.light-mode.dda-tab-underline .dda-tab-item:hover i,
+.light-mode.dda-tab-underline-filled .dda-tab-item:hover,
+.light-mode.dda-tab-underline-filled .dda-tab-item:hover i {
+  color: var(--dda-primary-40);
+}
+
+.dda-tab-underline-filled .dda-tab-item.active,
+.dda-tab-underline-filled .dda-tab-item:hover {
+  background: var(--dda-neutral-variant-94);
+}

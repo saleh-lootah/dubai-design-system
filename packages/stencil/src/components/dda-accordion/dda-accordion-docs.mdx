@@ -1,0 +1,62 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Accordion/Documentation" />
+
+# Accordion
+The `dda-accordion` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaAccordion } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaAccordion 
+        design="bg-border" 
+        header_text="Accordion Header" 
+        body_description="This is the accordion body content." 
+        custom_class="" 
+        component_mode="">
+        </DdaAccordion>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+import { DdaAccordion } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaAccordion 
+        design="bg-border" 
+        header_text="Accordion Header" 
+        body_description="This is the accordion body content." 
+        custom_class="" 
+        component_mode="">
+        </DdaAccordion>
+    </div>
+</template>
+```
+
+### Usage in Angular
+
+```jsx
+<dda-accordion 
+  design="bg-border" 
+  header_text="Accordion Header" 
+  body_description="This is the accordion body content." 
+  custom_class="" 
+  component_mode="">
+</dda-accordion>
+```

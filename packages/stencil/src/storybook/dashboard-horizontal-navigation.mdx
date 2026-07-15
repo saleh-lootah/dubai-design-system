@@ -1,0 +1,927 @@
+import {Meta} from "@storybook/addon-docs"
+
+<Meta title="Templates/Dashboard Horizontal Navigation" />
+
+# Dashboard Horizontal Navigation Template
+
+## Type 1
+
+```jsx
+<header class="dda-dashboard-header">
+  <div class="dda-dashboard-header-left">
+    <img src="path/to/image.png" alt="Logo" class="logo"/>
+  </div>
+  <nav class="dda-dashboard-header-menu dda-menu-default">
+    <ul>
+      <li><a href="#" class="menu-item">Dashboard</a></li>
+      <li><a href="#" class="menu-item">Modules</a></li>
+      <li><a href="#" class="menu-item">Profile</a></li>
+      <li><a href="#" class="menu-item">Settings</a></li>
+      <li><a href="#" class="menu-item">Tab Text</a></li>
+      <li><a href="#" class="menu-item">Tab Text</a></li>
+      <li><a href="#" class="menu-item">Tab Text</a></li>
+    </ul>
+  </nav>
+  <div class="header-right">
+    <!-- <dda-search-input placeholder="Search" label="" size="sm" error-message="" show-button="true" has-error="false"></dda-search-input> -->
+    <!-- <dda-select label='' options='["Dashboard", "Modules", "Profile", "Settings", "Tab Text"]' selected='Team' disabled="false" errormessage='' size='small'></dda-select> -->
+    <!-- <dda-button buttoncolor='primary-link'> Sign In </dda-button> -->
+    <!-- <dda-button size='sm' style="display: none;"> Sign Up </dda-button> -->
+    
+    <div class="dda-db-header-right">
+      <div class="dda-user-info">
+        <dda-avatar
+          type="photo"
+          size="lg"
+          design="default"
+          rounded="circle"
+          src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+          icon="sentiment_satisfied"
+          text="AB"
+          options='["Option 1","Option 2","Option 3"]'
+          notification_number="20"
+          custom_class=""
+          component_mode=""
+          
+          aria_label="avatar"
+          button_id="button">
+        </dda-avatar>
+
+        <div class="dda-user-details">
+          <span class="dda-user-name">Cristopher Calzoni</span>
+          <span class="dda-user-role">UI/UX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+## Type 2
+
+```jsx
+<header class="dda-dashboard-header">
+  <div class="dda-dashboard-header-left">
+    <img src="path/to/image.png" alt="Logo" class="logo" />
+  </div>
+  <nav class="dda-dashboard-header-menu dda-menu-default">
+    <ul>
+      <li><a href="#" class="menu-item">Dashboard</a></li>
+      <li><a href="#" class="menu-item">Modules</a></li>
+      <li><a href="#" class="menu-item">Profile</a></li>
+      <li><a href="#" class="menu-item">Settings</a></li>
+      <li><a href="#" class="menu-item">Tab Text</a></li>
+      <li><a href="#" class="menu-item">Tab Text</a></li>
+      <li><a href="#" class="menu-item">Tab Text</a></li>
+    </ul>
+  </nav>
+  <div class="header-right dda-gap-2">    
+    <dda-button buttoncolor="primary-link" lefticon="" righticon="" customclass="">Log in</dda-button>
+    <dda-button size='md'> Sign Up </dda-button>
+  </div>
+</header>
+```
+
+## Type 3
+
+```jsx
+<header class="dda-dashboard-header">
+  <div class="dda-dashboard-header-left dda-gap-10">
+    <img src="path/to/image.png" alt="Logo" class="logo" />
+    <nav class="dda-dashboard-header-menu dda-menu-default">
+      <ul>
+        <li><a href="#" class="menu-item">Products</a></li>
+        <li><a href="#" class="menu-item">Docs</a></li>
+        <li><a href="#" class="menu-item">Contacts</a></li>
+        <li><a href="#" class="menu-item">More</a></li>
+      </ul>
+    </nav>
+  </div>
+  
+  <div class="header-right dda-gap-2">    
+    <dda-button buttoncolor="primary-link" lefticon="" righticon="" customclass="">Log in</dda-button>
+    <dda-button size='md'> Sign Up </dda-button>
+  </div>
+</header>
+```
+
+## Type 4
+
+```jsx
+<header class="dda-dashboard-header">
+  <div class="dda-dashboard-header-left">
+    <img src="path/to/image.png" alt="Logo" class="logo" />
+  </div>
+  
+  <div class="header-right">
+    <dda-search-input
+      placeholder="Search"
+      label=""
+      size="small"
+      helpertext=""
+      errormessage=""
+      showbutton="false"
+      haserror="false"
+      customclass="">
+    </dda-search-input>
+
+    <dda-button
+      buttoncolor="default-tertiary"
+      iconbuttonshape="default"
+      lefticon="add"
+      customclass=""
+      size="md">
+    </dda-button>
+
+
+    <div class="dda-user-info">
+      <dda-avatar
+        type="photo"
+        size="lg"
+        design="default"
+        rounded="circle"
+        src="path/to/image.png"
+        icon="sentiment_satisfied"
+        text="AB"
+        notification-number="20"
+        customclass=""
+        class="hydrated">
+      </dda-avatar>
+    </div>
+  </div>
+  </div>
+</header>
+```
+
+## Type 5
+
+
+```jsx
+<header class="dda-dashboard-header">
+  <div class="dda-dashboard-header-left">
+    <img src="path/to/image.png" alt="Logo" class="logo" />
+  </div>
+  
+  <div class="header-right">
+
+    <dda-button
+      buttoncolor="default-tertiary"
+      iconbuttonshape="default"
+      lefticon="add"
+      customclass=""
+      size="md">
+    </dda-button>
+
+    <dda-button
+      buttoncolor="default-tertiary"
+      iconbuttonshape="default"
+      lefticon="add"
+      customclass=""
+      size="md">
+    </dda-button>
+
+    <div class="dda-user-info">
+      <dda-avatar
+        type="photo"
+        size="lg"
+        design="default"
+        rounded="circle"
+        src="path/to/image.png"
+        icon="sentiment_satisfied"
+        text="AB"
+        notification-number="20"
+        customclass=""
+        class="hydrated">
+      </dda-avatar>
+      <div class="dda-user-details">
+        <span class="dda-user-name">Cristopher Calzoni</span>
+        <span class="dda-user-role">UI/UX</span>
+      </div>
+    </div>
+  </div>
+  </div>
+</header>
+```
+
+## Type 6
+
+```jsx
+<header class="dda-dashboard-header">
+  <div class="dda-dashboard-header-left">
+    <dda-search-input
+      placeholder="Search"
+      label=""
+      size="small"
+      helpertext=""
+      errormessage=""
+      showbutton="false"
+      haserror="false"
+      customclass="">
+    </dda-search-input>
+  </div>
+  <div class="header-right">
+    <dda-button
+      buttoncolor="default-tertiary"
+      iconbuttonshape="default"
+      lefticon="add"
+      customclass=""
+      size="md">
+    </dda-button>
+    <div class="dda-user-info">
+      <dda-avatar
+        type="photo"
+        size="lg"
+        design="default"
+        rounded="circle"
+        src="path/to/image.png"
+        icon="sentiment_satisfied"
+        text="AB"
+        notification-number="20"
+        customclass=""
+        class="hydrated">
+      </dda-avatar>
+      <div class="dda-user-details">
+        <span class="dda-user-name">Cristopher Calzoni</span>
+        <span class="dda-user-role">UI/UX</span>
+      </div>
+    </div>
+  </div>
+  </div>
+</header>
+```
+
+## Type 7
+
+
+```jsx
+<header class="dda-dashboard-header">
+  <div class="dda-dashboard-header-left">
+    <img src="path/to/image.png" alt="Logo" class="logo" />
+    <dda-search-input
+      placeholder="Search"
+      label=""
+      size="small"
+      helpertext=""
+      errormessage=""
+      showbutton="false"
+      haserror="false"
+      customclass="">
+    </dda-search-input>
+  </div>
+  
+  <div class="header-right">
+    <dda-button size='md'>Add item</dda-button>
+
+    <div class="dda-user-info">
+      <dda-avatar
+        type="photo"
+        size="lg"
+        design="default"
+        rounded="circle"
+        src="path/to/image.png"
+        icon="sentiment_satisfied"
+        text="AB"
+        notification-number="20"
+        customclass=""
+        class="hydrated">
+      </dda-avatar>
+      <div class="dda-user-details">
+        <span class="dda-user-name">Cristopher Calzoni</span>
+        <span class="dda-user-role">UI/UX</span>
+      </div>
+    </div>
+  </div>
+  </div>
+</header>
+```
+
+## Type 8
+
+
+```jsx
+<header class="dda-dashboard-header py-0">
+  <div class="dda-dashboard-header-left dda-gap-10">
+    <img src="path/to/image.png" alt="Logo" class="logo" />
+    <nav class="dda-dashboard-header-menu dda-menu-underline">
+      <ul>
+        <li><a href="#" class="menu-item">My Tasks</a></li>
+        <li><a href="#" class="menu-item">Prifile</a></li>
+        <li><a href="#" class="menu-item">Stats</a></li>
+        <li><a href="#" class="menu-item">Inbox</a></li>
+        <li><a href="#" class="menu-item">Team</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+```
+
+```js
+<header class="dda-dashboard-header-main">
+  <div class="dda-db-header-top">
+    <div class="dda-db-header-left">
+      <a href="#"><img src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg" alt="Logo" class="logo"/></a>
+    </div>
+    <nav class="dda-dashboard-header-menu dda-menu-default">
+      <ul>
+        <li><a href="#" class="menu-item">Dashboard</a></li>
+        <li><a href="#" class="menu-item">Modules</a></li>
+        <li><a href="#" class="menu-item">Profile</a></li>
+        <li><a href="#" class="menu-item">Settings</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+      </ul>
+    </nav>
+    <div class="dda-db-header-right">
+      <div class="dda-user-info">
+        <dda-avatar
+          type="photo"
+          size="lg"
+          design="default"
+          rounded="circle"
+          src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+          icon="sentiment_satisfied"
+          text="AB"
+          options='["Option 1","Option 2","Option 3"]'
+          notification_number="20"
+          custom_class=""
+          component_mode=""
+          
+          aria_label="avatar"
+          button_id="button">
+        </dda-avatar>
+
+        <div class="dda-user-details">
+          <span class="dda-user-name">Cristopher Calzoni</span>
+          <span class="dda-user-role">UI/UX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+```js
+<header class="dda-dashboard-header-main">
+  <div class="dda-db-header-top">
+    <div class="dda-db-header-left">
+      <a href="#"><img src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg" alt="Logo" class="logo"/></a>
+    </div>
+    <nav class="dda-dashboard-header-menu dda-menu-default">
+      <ul>
+        <li><a href="#" class="menu-item">Dashboard</a></li>
+        <li><a href="#" class="menu-item">Modules</a></li>
+        <li><a href="#" class="menu-item">Profile</a></li>
+        <li><a href="#" class="menu-item">Settings</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+      </ul>
+    </nav>
+    <div class="dda-db-header-right dda-gap-5">
+      <dda-button
+        button_color="default-link"
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button"
+        >Log In
+      </dda-button>
+      <dda-button
+        button_color="default-primary"
+        start_icon=""
+        end_icon=""
+        custom_class="px-4"
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button">Sign Up
+      </dda-button>
+    </div>
+  </div>
+</header>
+```
+
+```js
+<header class="dda-dashboard-header-main">
+  <div class="dda-db-header-top">
+    <div class="dda-db-header-left dda-gap-8">
+      <a href="#"><img src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg" alt="Logo" class="logo"/></a>
+      <nav class="dda-dashboard-header-menu dda-menu-default">
+        <ul>
+          <li><a href="#" class="menu-item">Products</a></li>
+          <li><a href="#" class="menu-item">Docs</a></li>
+          <li><a href="#" class="menu-item">Contacts</a></li>
+          <li><a href="#" class="menu-item">More</a></li>
+        </ul>
+      </nav>
+    </div>
+    
+    <div class="dda-db-header-right dda-gap-5">
+      <dda-button
+        button_color="default-link"
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button"
+        >Log In
+      </dda-button>
+
+      <dda-button
+        button_color="default-primary"
+        start_icon=""
+        end_icon=""
+        custom_class="px-4"
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button">Sign Up
+      </dda-button>
+
+    </div>
+  </div>
+</header>
+```
+
+```js
+<header class="dda-dashboard-header-main">
+  <div class="dda-db-header-top">
+    <div class="dda-db-header-left">
+      <a href="#"><img src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg" alt="Logo" class="logo"/></a>
+    </div>
+    
+    <div class="dda-db-header-right">
+      <dda-search-input
+        placeholder="Search"
+        label=""
+        size="small"
+        helpertext=""
+        errormessage=""
+        showbutton="false"
+        haserror="false"
+        custom_class="">
+      </dda-search-input>
+
+      <dda-button
+        button_color="default-tertiary"
+        start_icon="add"
+        custom_class=""
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button"
+        size="lg">
+      </dda-button>
+
+      <div class="dda-user-info">
+        <dda-avatar
+          type="photo"
+          size="lg"
+          design="default"
+          rounded="circle"
+          src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+          icon="sentiment_satisfied"
+          text="AB"
+          options='["Option 1","Option 2","Option 3"]'
+          notification_number="20"
+          custom_class=""
+          component_mode=""
+          
+          aria_label="avatar"
+          button_id="button">
+        </dda-avatar>
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+```js
+<header class="dda-dashboard-header-main">
+  <div class="dda-db-header-top">
+    <div class="dda-db-header-left">
+      <a href="#"><img src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg" alt="Logo" class="logo"/></a>
+    </div>
+    
+    <div class="dda-db-header-right">
+
+      <dda-button
+        button_color="default-tertiary"
+        start_icon="add"
+        custom_class=""
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button"
+        size="lg">
+      </dda-button>
+
+      <dda-button
+        button_color="default-tertiary"
+        start_icon="add"
+        custom_class=""
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button"
+        size="lg">
+      </dda-button>
+
+      <div class="dda-user-info">
+        <dda-avatar
+          type="photo"
+          size="lg"
+          design="default"
+          rounded="circle"
+          src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+          icon="sentiment_satisfied"
+          text="AB"
+          options='["Option 1","Option 2","Option 3"]'
+          notification_number="20"
+          custom_class=""
+          component_mode=""
+          
+          aria_label="avatar"
+          button_id="button">
+        </dda-avatar>
+        <div class="dda-user-details">
+          <span class="dda-user-name">Cristopher Calzoni</span>
+          <span class="dda-user-role">UI/UX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+```js
+<header class="dda-dashboard-header-main">
+  <div class="dda-db-header-top">
+    <div class="dda-db-header-left">
+      <dda-search-input
+        placeholder="Search"
+        label=""
+        size="small"
+        helpertext=""
+        errormessage=""
+        showbutton="false"
+        haserror="false"
+        custom_class="">
+      </dda-search-input>
+    </div>
+    <div class="dda-db-header-right">
+      <dda-button
+        button_color="default-tertiary"
+        start_icon="add"
+        custom_class=""
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button"
+        size="lg">
+      </dda-button>
+      <div class="dda-user-info">
+        <dda-avatar
+          type="photo"
+          size="lg"
+          design="default"
+          rounded="circle"
+          src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+          icon="sentiment_satisfied"
+          text="AB"
+          options='["Option 1","Option 2","Option 3"]'
+          notification_number="20"
+          custom_class=""
+          component_mode=""
+          
+          aria_label="avatar"
+          button_id="button">
+        </dda-avatar>
+        <div class="dda-user-details">
+          <span class="dda-user-name">Cristopher Calzoni</span>
+          <span class="dda-user-role">UI/UX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+```js
+<header class="dda-dashboard-header-main">
+  <div class="dda-db-header-top">
+    <div class="dda-db-header-left">
+      <a href="#"><img src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg" alt="Logo" class="logo"/></a>
+    </div>
+    <nav class="dda-dashboard-header-menu dda-menu-default">
+      <ul>
+        <li><a href="#" class="menu-item">Dashboard</a></li>
+        <li><a href="#" class="menu-item">Modules</a></li>
+        <li><a href="#" class="menu-item">Profile</a></li>
+        <li><a href="#" class="menu-item">Settings</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+        <li><a href="#" class="menu-item">Tab Text</a></li>
+      </ul>
+    </nav>
+    <div class="dda-db-header-right">
+      <div class="dda-user-info">
+        <dda-avatar
+          type="photo"
+          size="lg"
+          design="default"
+          rounded="circle"
+          src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+          icon="sentiment_satisfied"
+          text="AB"
+          options='["Option 1","Option 2","Option 3"]'
+          notification_number="20"
+          custom_class=""
+          component_mode=""
+          
+          aria_label="avatar"
+          button_id="button">
+        </dda-avatar>
+
+        <div class="dda-user-details">
+          <span class="dda-user-name">Cristopher Calzoni</span>
+          <span class="dda-user-role">UI/UX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dda-db-header-bottom">
+    <div class="dda-db-header-left py-2">
+      <dda-search-input
+          placeholder="Search"
+          label=""
+          size="small"
+          helpertext=""
+          errormessage=""
+          showbutton="false"
+          haserror="false"
+          custom_class="">
+      </dda-search-input>
+      <dda-button
+        button_color="default-link"
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button"
+        >Open Link
+      </dda-button>
+    </div>
+
+    <div class="dda-db-header-right py-2">
+      <dda-button
+        button_color="default-tertiary"
+        start_icon=""
+        end_icon=""
+        custom_class=""
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button">Cancel
+      </dda-button>
+      <dda-button
+        button_color="default-primary"
+        start_icon=""
+        end_icon=""
+        custom_class=""
+        component_mode=""
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button">Add item
+      </dda-button>
+    </div>
+
+  </div>
+</header>
+```
+
+## Type 9
+
+
+```jsx
+<header class="dda-dashboard-header">
+  <div class="dda-dashboard-header-left dda-gap-10">
+    <p class="dda-fs-headline-lg dda-fw-500 m-0">Hey there, Brian Ford!</p>
+  </div>
+  
+  <div class="header-right">    
+    <dda-select
+      label=""
+      selected="Account"
+      disabled="false"
+      helpertext=""
+      errormessage=""
+      size="small"
+      customclass=""
+      options='["Option 1","Option 2","Option 3"]'
+      class="hydrated">
+    </dda-select>
+    <dda-button size='md'>Logout</dda-button>
+
+      <div class="dda-user-info">
+        <dda-avatar
+          type="photo"
+          size="lg"
+          design="default"
+          rounded="circle"
+          src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+          icon="sentiment_satisfied"
+          text="AB"
+          options='["Option 1","Option 2","Option 3"]'
+          notification_number="20"
+          custom_class=""
+          component_mode=""
+          
+          aria_label="avatar"
+          button_id="button">
+        </dda-avatar>
+        <div class="dda-user-details">
+          <span class="dda-user-name">Cristopher Calzoni</span>
+          <span class="dda-user-role">UI/UX</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</header>
+```
+
+```js
+<header class="dda-dashboard-header-main py-0">
+  <div class="dda-db-header-top">
+    <div class="dda-db-header-left">
+      <a href="#"><img src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg" alt="Logo" class="logo"/></a>
+      <nav class="dda-dashboard-header-menu dda-menu-underline full-height">
+        <ul>
+          <li><a href="#" class="menu-item">My Tasks</a></li>
+          <li><a href="#" class="menu-item">Prifile</a></li>
+          <li><a href="#" class="menu-item">Stats</a></li>
+          <li><a href="#" class="menu-item">Inbox</a></li>
+          <li><a href="#" class="menu-item">Team</a></li>
+          <li><a href="#" class="menu-item">Tab Text</a></li>
+          <li><a href="#" class="menu-item">Tab Text</a></li>
+          <li><a href="#" class="menu-item">Tab Text</a></li>
+        </ul>
+      </nav>
+    </div>
+    
+    <div class="dda-db-header-right">    
+      <dda-select
+        label=""
+        selected="Team"
+        disabled="false"
+        helpertext=""
+        errormessage=""
+        size="small"
+        custom_class=""
+        options='["Option 1","Option 2","Option 3"]'
+        class="hydrated">
+      </dda-select>
+      <dda-select
+        label=""
+        selected="Workspace"
+        disabled="false"
+        helpertext=""
+        errormessage=""
+        size="small"
+        custom_class=""
+        options='["Option 1","Option 2","Option 3"]'
+        class="hydrated">
+      </dda-select>
+    </div>
+  </div>
+</header>
+```
+
+```js
+<header class="dda-dashboard-header-main">
+  <div class="dda-db-header-top">
+    <div class="dda-db-header-left py-2">
+      <div>
+        <p class="dda-fs-headline-lg dda-fw-500 m-0">Hey there, Brian Ford!</p>
+        <p class="dda-fs-title-sm dda-fw-400">Welcome back, we're happy to have you here</p>
+      </div>
+    </div>
+    
+    <div class="dda-db-header-right">    
+      <dda-select
+        label=""
+        selected="Account"
+        disabled="false"
+        helpertext=""
+        errormessage=""
+        size="small"
+        custom_class=""
+        options='["Option 1","Option 2","Option 3"]'
+        class="hydrated">
+      </dda-select>
+
+      <dda-button
+        button_color="default-primary"
+        start_icon=""
+        end_icon=""
+        custom_class="px-4"
+        component_mode=""
+        size="lg"
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button">Logout
+      </dda-button>
+    
+
+    </div>
+  </div>
+
+  <div class="dda-db-header-bottom">
+    <div class="dda-db-header-left">
+      <nav class="dda-dashboard-header-menu dda-menu-underline full-height">
+        <ul>
+          <li><a href="#" class="menu-item">My Tasks</a></li>
+          <li><a href="#" class="menu-item">Prifile</a></li>
+          <li><a href="#" class="menu-item">Stats</a></li>
+          <li><a href="#" class="menu-item">Inbox</a></li>
+          <li><a href="#" class="menu-item">Team</a></li>
+          <li><a href="#" class="menu-item">Tab Text</a></li>
+          <li><a href="#" class="menu-item">Tab Text</a></li>
+          <li><a href="#" class="menu-item">Tab Text</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="dda-db-header-right py-2">
+      <dda-select
+        label=""
+        selected="Team"
+        disabled="false"
+        helpertext=""
+        errormessage=""
+        size="small"
+        custom_class=""
+        options='["Option 1","Option 2","Option 3"]'
+        class="hydrated">
+      </dda-select>
+      <dda-select
+        label=""
+        selected="Workspace"
+        disabled="false"
+        helpertext=""
+        errormessage=""
+        size="small"
+        custom_class=""
+        options='["Option 1","Option 2","Option 3"]'
+        class="hydrated">
+      </dda-select>
+    </div>
+  </div>
+</header>
+```
+
+```js
+<header class="dda-dashboard-header-main">
+  <div class="dda-db-header-top">
+    <div class="dda-db-header-left dda-gap-10">
+      <p class="dda-fs-headline-lg dda-fw-500 m-0">Hey there, Brian Ford!</p>
+    </div>
+    
+    <div class="dda-db-header-right">    
+      <dda-select
+        label=""
+        selected="Account"
+        disabled="false"
+        helpertext=""
+        errormessage=""
+        size="small"
+        custom_class=""
+        options='["Option 1","Option 2","Option 3"]'
+        class="hydrated">
+      </dda-select>
+
+      <dda-button
+        button_color="default-primary"
+        start_icon=""
+        end_icon=""
+        custom_class="px-4"
+        component_mode=""
+        size="lg"
+        onclick="console.log('clicked')"
+        button_id="button"
+        aria_label="button">Logout
+      </dda-button>
+    </div>
+  </div>
+</header>
+```

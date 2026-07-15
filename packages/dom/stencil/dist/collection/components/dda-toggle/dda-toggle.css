@@ -1,0 +1,120 @@
+.dda-toggle-btn {
+  display: inline-flex;
+  align-items: flex-start;
+  cursor: pointer;
+  position: relative;
+  gap: 10px;
+}
+.dda-toggle-btn p{
+  margin: 0;
+}
+.dda-toggle-btn .toggle {
+  width: 35px;
+  height: 20px;
+  vertical-align: sub;
+  display: inline-block;
+  background: var(--dda-neutral-variant-90);
+  border-radius: 60px;
+  cursor: pointer;
+  margin: 0px;
+  position: relative;
+}
+.dda-toggle-btn input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.dda-toggle-btn .toggle::after {
+  content: "";
+  position: absolute;
+  display: block;
+  -moz-transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  -o-transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  -webkit-transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  background: var(--dda-neutral-100);
+  height: 16px;
+  width: 16px;
+  top: 2px;
+  left: 2px;
+  border-radius: 60px;
+}
+.dda-toggle-btn input:checked~.toggle{
+  background: var(--dda-color-primary-40);
+  -webkit-box-shadow: 0px 0px 0px 3px var(--dda-primary-95);
+  -moz-box-shadow: 0px 0px 0px 3px var(--dda-primary-95);
+  box-shadow: 0px 0px 0px 3px var(--dda-primary-95);
+}
+.light-mode.dda-toggle-btn input:checked~.toggle{
+  background: var(--dda-primary-40);
+}
+.dda-toggle-btn input:checked~.toggle::after {
+  left: 17px;
+}
+
+.dda-toggle-sm .toggle{
+  width: 27px;
+  height: 16px;
+}
+.dda-toggle-sm .toggle::after{
+  width: 12px;
+  height: 12px;
+}
+.dda-toggle-sm input:checked~.toggle::after {
+  left: 13px;
+}
+
+.dda-toggle-md .toggle{
+  width: 35px;
+  height: 20px;
+}
+.dda-toggle-md .toggle::after{
+  height: 16px;
+  width: 16px;
+}
+.dda-toggle-md input:checked~.toggle::after {
+  left: 17px;
+}
+
+.dda-toggle-lg .toggle{
+  width: 45px;
+  height: 24px;
+}
+.dda-toggle-lg .toggle::after{
+  height: 20px;
+  width: 20px;
+}
+.dda-toggle-lg input:checked~.toggle::after {
+  left: 23px;
+}
+
+.toggle-title{
+  color: var(--dda-on-surface-0);
+  font-weight: var(--dda-fw-500);
+  display: block;
+}
+.light-mode .toggle-title{
+  color: var(--dda-neutral-0);
+}
+.toggle-supporting{
+  display: block;
+  color: var(--dda-on-surface-variant-30);
+}
+.light-mode .toggle-supporting{
+  color: var(--dda-neutral-variant-30);
+}
+.dda-toggle-sm .toggle-title, .dda-toggle-md .toggle-title{
+  font-size: var(--dda-fs-body-lg);
+}
+.dda-toggle-sm .toggle-supporting {
+  font-size: var(--dda-fs-label-lg);
+}
+.dda-toggle-lg .toggle-title {
+  font-size: var(--dda-fs-title-sm);
+}
+.dda-toggle-md .toggle-supporting,
+.dda-toggle-lg .toggle-supporting{
+  font-size: var(--dda-fs-body-lg);
+}

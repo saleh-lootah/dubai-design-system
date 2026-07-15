@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" dir="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Dubai Design System</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/dda.css" />
+
+    <script type="module">
+      import { defineCustomElements } from "./stencil/loader/index.js";
+      defineCustomElements();
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="./css/personalization.css" />
+  </head>
+
+  <body class="transparents">
+    <dda-header
+      first-logo-src="assets/img/government-of-dubai.svg"
+      first-logo-white-src="assets/img/government-of-dubai-white.svg"
+      first-logo-alt="undefined"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-white-src="assets/img/digital-logo-white.svg"
+      second-logo-alt="Dubai-Digital-Authority"
+      login-link="/login.html"
+      readspeakerlink="app-eu.readspeaker.com"
+      languageswitch="() => console.log('Language Switcher')"
+      smtextsize="() => console.log('Small Text')"
+      basetextsize="() => console.log('Base Text')"
+      lgtextsize="() => console.log('Large Text')"
+      normalcontrast="() => console.log('Normal Text')"
+      blindcontrast="() => console.log('Blind Text')"
+      redcontrast="() => console.log('Red Text')"
+      greencontrast="() => console.log('Green Text')"
+      quick-links='[{"label":"Home","href":"/","subMenu":[]},{"label":"Components","href":"/components.html","subMenu":[]},{"label":"About","href":"./about-us.html","subMenu":[]}]'
+      side-menu-items='[{"label":"About","href":"/about-us.html","subMenu":[]},{"label":"Components","href":"/components.html","subMenu":[]},{"label":"Contact","href":"/contact-us.html","subMenu":[]},{"label":"FAQ","href":"/faq.html","subMenu":[]},{"label":"Sample Link","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]}]'
+      class="hydrated"
+    >
+    </dda-header>
+
+    <script>
+      const ddaHeader = document.querySelector("dda-header");
+      ddaHeader.addEventListener("languageSwitch", (event) => {
+        window.location.assign(window.location.origin + "/ar" + window.location.pathname);
+      });
+      ddaHeader.addEventListener("blindContrast", (event) => {
+        $("html").attr("data-theme", "dark");
+      });
+    </script>
+
+    <div class="maincontent">
+      <div class="container-xxl">
+        <dda-breadcrumb
+          design="text"
+          separator="chevron_right"
+          custom_class="mb-4"
+          component_mode=""
+          data-breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"About","icon":"menu_book","url":"/library"},{"text":"Overview","icon":"storage"}]'
+          class="hydrated"
+        >
+        </dda-breadcrumb>
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <h1>
+              Dubai Design System
+              <dda-tooltip
+                title_text="Visit Website"
+                description=""
+                position="right"
+                component_mode=""
+                class="hydrated"
+              >
+                <dda-button
+                  button_color="default-primary"
+                  start_icon="open_in_new"
+                  end_icon=""
+                  custom_class=""
+                  component_mode=""
+                  button_id="button"
+                  aria_label="button"
+                  size="md"
+                  onClick="window.open('https://digital-dubai.gitbook.io/dubai-design-system', '_blank')"
+                >
+                </dda-button>
+              </dda-tooltip>
+            </h1>
+            <p>
+              We are excited to announce the launch of a unified design system
+              developed specifically for all government entities. This design
+              system provides a flexible, cohesive framework that ensures
+              consistency across platforms while allowing each entity the
+              customization they need to meet their unique objectives and user
+              needs.
+            </p>
+            <p>
+              The design system is available to all entities as a downloadable
+              file and can be accessed in the
+              <a
+                href="https://digital-dubai.gitbook.io/dubai-design-system/downloads"
+                target="_blank"
+                >Downloads</a
+              >
+              section. GitBook includes detailed documentation covering each
+              component's usage, anatomy, and dos and don’ts.
+            </p>
+          </div>
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-md-5">
+            <img
+              class="img-fluid"
+              alt=""
+              src="https://www.digitaldubai.ae/images/default-source/default-album/hero-about-us.png?sfvrsn=34953d6b_2"
+            />
+          </div>
+        </div>
+
+        <dda-tabs
+          type="text-icon"
+          hover_style="dda-tab-underline-filled"
+          custom_class="mb-4"
+          component_mode=""
+          button_id="button"
+          aria_label="tabs"
+          class="hydrated"
+          tab_texts='["Key Benefits", "Improvement Roadmap"]'
+          tab_icons='["home", "notes"]'
+        >
+        </dda-tabs>
+
+        <div class="tabsbody tabsbody-0">
+          <div class="dda-row">
+            <div class="dda-col-6">
+              <div class="dda-card mb-3">
+                <div class="dda-row no-gutters">
+                  <div class="dda-col-md-4 p-0">
+                    <img
+                      src="https://picsum.photos/seed/picsum/400/400"
+                      class="dda-card-img"
+                      alt="card-img-1"
+                    />
+                    <dda-chip
+                      bgcolor="primary"
+                      icon=""
+                      showcloseicon="false"
+                      customclass="card-image-label"
+                      size="sm"
+                      rounded="circle"
+                      >Label
+                    </dda-chip>
+                  </div>
+                  <div class="dda-col-md-8">
+                    <div class="dda-card-body">
+                      <h4
+                        class="dda-card-title dda-flex dda-align-center dda-justify-space"
+                      >
+                        <span>Consistency Across Platforms</span>
+                      </h4>
+
+                      <p
+                        class="dda-card-text dda-flex dda-align-center dda-gap-2"
+                      >
+                        By using standardized components, colors, typography,
+                        and layouts, we ensure a cohesive look and feel across
+                        all government digital interfaces, reinforcing trust and
+                        recognition for users.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dda-col-6">
+              <div class="dda-card mb-3">
+                <div class="dda-row no-gutters">
+                  <div class="dda-col-md-4 p-0">
+                    <img
+                      src="https://picsum.photos/seed/picsum/400/400"
+                      class="dda-card-img"
+                      alt="card-img-1"
+                    />
+                    <dda-chip
+                      bgcolor="primary"
+                      icon=""
+                      showcloseicon="false"
+                      customclass="card-image-label"
+                      size="sm"
+                      rounded="circle"
+                      >Label
+                    </dda-chip>
+                  </div>
+                  <div class="dda-col-md-8">
+                    <div class="dda-card-body">
+                      <h4
+                        class="dda-card-title dda-flex dda-align-center dda-justify-space"
+                      >
+                        <span>Customizable and Flexible</span>
+                      </h4>
+
+                      <p
+                        class="dda-card-text dda-flex dda-align-center dda-gap-2"
+                      >
+                        The design system is built to be adaptable. Each entity
+                        can modify and personalize components as needed,
+                        ensuring that the system supports your specific content,
+                        users, and objectives without sacrificing overall visual
+                        harmony.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dda-col-6">
+              <div class="dda-card mb-3">
+                <div class="dda-row no-gutters">
+                  <div class="dda-col-md-4 p-0">
+                    <img
+                      src="https://picsum.photos/seed/picsum/400/400"
+                      class="dda-card-img"
+                      alt="card-img-1"
+                    />
+                    <dda-chip
+                      bgcolor="primary"
+                      icon=""
+                      showcloseicon="false"
+                      customclass="card-image-label"
+                      size="sm"
+                      rounded="circle"
+                      >Label
+                    </dda-chip>
+                  </div>
+                  <div class="dda-col-md-8">
+                    <div class="dda-card-body">
+                      <h4
+                        class="dda-card-title dda-flex dda-align-center dda-justify-space"
+                      >
+                        <span>Accessibility and Usability</span>
+                      </h4>
+
+                      <p
+                        class="dda-card-text dda-flex dda-align-center dda-gap-2"
+                      >
+                        All components in the design system are designed with
+                        accessibility standards in mind, ensuring compliance
+                        with WCAG guidelines. This makes it easier to create
+                        accessible, user-friendly content for all citizens,
+                        residents, and tourists.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dda-col-6">
+              <div class="dda-card mb-3">
+                <div class="dda-row no-gutters">
+                  <div class="dda-col-md-4 p-0">
+                    <img
+                      src="https://picsum.photos/seed/picsum/400/400"
+                      class="dda-card-img"
+                      alt="card-img-1"
+                    />
+                    <dda-chip
+                      bgcolor="primary"
+                      icon=""
+                      showcloseicon="false"
+                      customclass="card-image-label"
+                      size="sm"
+                      rounded="circle"
+                      >Label
+                    </dda-chip>
+                  </div>
+                  <div class="dda-col-md-8">
+                    <div class="dda-card-body">
+                      <h4
+                        class="dda-card-title dda-flex dda-align-center dda-justify-space"
+                      >
+                        <span>Efficiency in Development</span>
+                      </h4>
+
+                      <p
+                        class="dda-card-text dda-flex dda-align-center dda-gap-2"
+                      >
+                        The design system includes ready-made components and
+                        templates, reducing the time and resources required for
+                        design and development. This allows teams to focus more
+                        on content and functionality rather than creating new
+                        designs from scratch.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tabsbody tabsbody-1" style="display: none">
+          <div class="dda-card mb-3">
+            <div class="p-4">
+              <h2>Continuous Improvement Roadmap</h2>
+              <p>
+                DDA aims to provide continuous improvement and updates to the
+                libraries to ensure complete adherence to the design system and
+                to stay on-par with the ever-growing technology world!
+              </p>
+              <p class="dda-color-primary">
+                DDA has a Future Iterations & Feedback Integration plan for
+                bringing you into the loop and working towards a matured design
+                system that everyone can trust and implement.
+              </p>
+              <p>
+                <em>
+                  You can share your feedback/issues to us by emailing them to
+                  us in the specified format and we would incorporate them into
+                  our development pipeline.
+                </em>
+              </p>
+              <p>
+                <a href="#">Download issue/request template</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          const tabListElement = document.querySelector("dda-tabs");
+          tabListElement.addEventListener("tabClick", (event) => {
+            const fetchedDivs = document.getElementsByClassName("tabsbody");
+            const selectedDivs = document.getElementsByClassName(
+              "tabsbody-" + event.detail
+            );
+            Array.prototype.filter.call(
+              fetchedDivs,
+              (eachDiv) => (eachDiv.style.display = "none")
+            );
+            Array.prototype.filter.call(
+              selectedDivs,
+              (eachDiv) => (eachDiv.style.display = "block")
+            );
+            console.log(event.detail);
+          });
+        </script>
+      </div>
+    </div>
+
+    <dda-sticky-footer
+      happiness-icon-href="#"
+      happiness-icon-src="assets/img/icn/icn-happy.svg"
+      happiness-icon-alt="Happiness"
+      happiness-icon-tooltip="Happiness"
+      accessibility-icon-href="#"
+      accessibility-icon-src="assets/img/icn/icn-complaints.svg"
+      accessibility-icon-alt="Suggestions and complaints"
+      accessibility-icon-tooltip="Suggestions &amp; complaints"
+      services-icon-href="#"
+      services-icon-src="assets/img/icn/icn-grid-view.svg"
+      services-icon-alt="Services"
+      services-icon-tooltip="Services"
+      services-icon-text="Services"
+      first-logo-href="#"
+      first-logo-src="assets/img/digital-logo.svg"
+      first-logo-alt="Logo 1"
+      first-logo-tooltip="Logo 1"
+      second-logo-href="#"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-alt="Logo 1"
+      second-logo-tooltip="Logo 1"
+      third-logo-href="#"
+      third-logo-src="assets/img/digital-logo.svg"
+      third-logo-alt="Logo 3"
+      third-logo-tooltip="Logo 3"
+      location-button-href="#"
+      location-button-text="Location"
+      location-button-icon=""
+      news-button-href="#"
+      news-button-text="News"
+      news-button-icon=""
+      ai-icon-href="#"
+      ai-icon-src="assets/img/icn/DubaiAI.svg"
+      ai-icon-alt="Digital AI"
+      ai-icon-tooltip="Digital AI"
+      chat-icon-href="#"
+      chat-icon-src="assets/img/icn/icn-chat_bubble_outline.svg"
+      chat-icon-alt="Online Chat"
+      chat-icon-tooltip="Online Chat"
+    >
+    </dda-sticky-footer>
+    <spinner id="ddaspinner">
+      <span class="loader"></span>
+    </spinner>
+
+    <script>
+      $(window).bind("load", function () {
+        setTimeout(function () {
+          $("#ddaspinner").fadeOut();
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

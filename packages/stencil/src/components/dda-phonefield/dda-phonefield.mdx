@@ -1,0 +1,88 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Phone Field/Documentation" />
+
+# Phone Field
+The `dda-phonefield` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaPhonefield } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaPhonefield
+            label="Phone Number"
+            placeholder="00 000 0000"
+            helper_text="Helper or footer text"
+            error_message=""
+            disabled="false"
+            custom_class=""
+            component_mode=""
+            input_id="input"
+            button_id="button"
+            aria_label="phone-field"
+            button_aria_label="phone-button"
+            onchange="console.log('changed')"
+        ></DdaPhonefield>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaPhonefield } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaPhonefield
+            label="Phone Number"
+            placeholder="00 000 0000"
+            helper_text="Helper or footer text"
+            error_message=""
+            disabled="false"
+            custom_class=""
+            component_mode=""
+            input_id="input"
+            button_id="button"
+            aria_label="phone-field"
+            button_aria_label="phone-button"
+            onchange="console.log('changed')"
+        ></DdaPhonefield>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-phonefield
+    label="Phone Number"
+    placeholder="00 000 0000"
+    helper_text="Helper or footer text"
+    error_message=""
+    disabled="false"
+    custom_class=""
+    component_mode=""
+    input_id="input"
+    button_id="button"
+    aria_label="phone-field"
+    button_aria_label="phone-button"
+    onchange="console.log('changed')"
+></dda-phonefield>
+```

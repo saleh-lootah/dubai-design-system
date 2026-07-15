@@ -1,0 +1,104 @@
+.dda-credit-card-container{
+  width: 352px;
+  height: 192px;
+  background: var(--dda-neutral-100);
+  padding: 16px 18px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+
+.dda-credit-card-header{
+  display: flex;
+}
+.dda-credit-card-header svg path{
+  fill: var(--dda-on-surface-0);
+}
+.light-mode .dda-credit-card-header svg path{
+  fill: var(--dda-neutral-0);
+}
+.card-balance-info{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.card-balance-label{
+  font-size: 16px;
+  font-weight: var(--dda-fw-400);
+  opacity: 54;
+}
+.dda-credit-card-default .card-balance-label{
+  color: var(--dda-on-surface-variant-30);
+}
+.light-mode.dda-credit-card-default .card-balance-label{
+  color: var(--dda-neutral-variant-30);
+}
+.card-balance{
+  font-size: 32px;
+  font-weight: var(--dda-fw-700);
+  line-height: 45px;
+}
+.dda-credit-card-default .card-balance{
+  color: var(--dda-on-surface-0);
+}
+.light-mode.dda-credit-card-default .card-balance{
+  color: var(--dda-neutral-0);
+}
+.dda-credit-card-body{
+  display: flex;
+}
+.card-userinfo{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.dda-card-name,
+.dda-card-number{
+  font-size: 14px;
+  color: var(--dda-on-surface-0);
+  font-weight: var(--dda-fw-500);
+  opacity: 90;
+}
+.light-mode .dda-card-name,
+.light-mode .dda-card-number{
+  color: var(--dda-neutral-0);
+}
+.card-type-icon{
+  width: 40px;
+  display: block;
+}
+.dda-credit-card-default{
+  background: var(--dda-surface-100);
+}
+.light-mode.dda-credit-card-default{
+  background: var(--dda-neutral-100);
+}
+.dda-credit-card-green{
+  background: var(--dda-color-primary-40);
+}
+.light-mode.dda-credit-card-green{
+  background: var(--dda-primary-40);
+}
+.dda-credit-card-dark{
+  background: var(--dda-on-surface-variant-30);
+}
+.light-mode.dda-credit-card-dark{
+  background: var(--dda-neutral-variant-30);
+}
+.dda-credit-card-green .dda-credit-card-header i,
+.dda-credit-card-green .card-balance-label,
+.dda-credit-card-green .card-balance,
+.dda-credit-card-green .dda-card-name,
+.dda-credit-card-green .dda-card-number,
+.dda-credit-card-dark .dda-credit-card-header i,
+.dda-credit-card-dark .card-balance-label,
+.dda-credit-card-dark .card-balance,
+.dda-credit-card-dark .dda-card-name,
+.dda-credit-card-dark .dda-card-number{
+  color: var(--dda-neutral-100);
+}
+.dda-credit-card-green .dda-credit-card-header svg path,
+.dda-credit-card-dark .dda-credit-card-header svg path{
+  fill: var(--dda-neutral-100);
+}

@@ -1,0 +1,85 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Textarea/Documentation" />
+
+# Textarea
+The `dda-textarea` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaTextarea } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaTextarea
+            placeholder="Enter description"
+            label="Description"
+            max_characters="200"
+            value=""
+            helper_text="This is a helper text"
+            error_message=""
+            custom_class=""
+            component_mode=""
+            input_id="input"
+            aria_label="textarea"
+            onchange="console.log('changed')"
+        ></DdaTextarea>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaTextarea } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaTextarea
+            placeholder="Enter description"
+            label="Description"
+            max_characters="200"
+            value=""
+            helper_text="This is a helper text"
+            error_message=""
+            custom_class=""
+            component_mode=""
+            input_id="input"
+            aria_label="textarea"
+            onchange="console.log('changed')"
+></DdaTextarea>
+    </div>
+</template>
+
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-textarea
+    placeholder="Enter description"
+    label="Description"
+    max_characters="200"
+    value=""
+    helper_text="This is a helper text"
+    error_message=""
+    custom_class=""
+    component_mode=""
+    input_id="input"
+    aria_label="textarea"
+    onchange="console.log('changed')"
+></dda-textarea>
+```

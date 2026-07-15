@@ -1,0 +1,120 @@
+.dda-checkbox-container {
+  display: inline-flex;
+  align-items: center;
+}
+
+.dda-checkbox-container input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  position: absolute;
+  opacity: 0;
+}
+
+.dda-checkbox-container label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.dda-checkbox-container i,
+.dda-checkbox-container svg {
+  display: flex;
+  color: var(--dda-color-primary-40);
+  border: solid 2px var(--dda-color-primary-40);
+  justify-content: center;
+  align-items: center;
+}
+
+.light-mode.dda-checkbox-container i,
+.light-mode.dda-checkbox-container svg{
+  color: var(--dda-primary-40);
+  border: solid 2px var(--dda-primary-40);
+}
+
+.dda-checkbox-square i,
+.dda-checkbox-square svg {
+  border-radius: 6px;
+}
+
+.dda-checkbox-rounded i,
+.dda-checkbox-rounded svg {
+  border-radius: 22px;
+}
+
+
+.dda-checkbox-sm label i,
+.dda-checkbox-sm label svg {
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
+}
+
+.dda-checkbox-md label i,
+.dda-checkbox-md label svg {
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+}
+
+.dda-checkbox-lg label i,
+.dda-checkbox-lg label svg {
+  width: 22px;
+  height: 22px;
+  font-size: 19px;
+}
+
+.dda-checkbox-container input[type="checkbox"]:checked~label i,
+.dda-checkbox-container input[type="checkbox"]:checked~label svg {
+  background: var(--dda-color-primary-40);
+  color: var(--dda-neutral-100);
+}
+
+.dda-checkbox-container input[type="checkbox"]:checked:focus-within~label i,
+.dda-checkbox-container input[type="checkbox"]:checked:focus-within~label svg {
+  -webkit-box-shadow: 0px 0px 0px 3px var(--dda-color-primary-95);
+  -moz-box-shadow: 0px 0px 0px 3px var(--dda-color-primary-95);
+  box-shadow: 0px 0px 0px 3px var(--dda-color-primary-95);
+}
+
+.dda-checkbox-container label p {
+  margin: 0px;
+}
+
+.dda-checkbox-title {
+  font-size: var(--dda-fs-body-lg);
+  color: var(--dda-on-surface-0);
+  font-weight: var(--dda-fw-500);
+  display: block;
+}
+
+.light-mode .dda-checkbox-title{
+  color: var(--dda-neutral-0);
+}
+
+.dda-checkbox-lg label .dda-checkbox-title {
+  font-size: var(--dda-fs-title-sm);
+}
+
+.dda-checkbox-supporting {
+  display: block;
+  font-size: var(--dda-fs-label-lg);
+  color: var(--dda-on-surface-variant-30);
+}
+
+.light-mode  .dda-checkbox-supporting {
+  color: var(--dda-neutral-variant-30);
+}
+
+.dda-checkbox-lg label .dda-checkbox-supporting {
+  font-size: var(--dda-fs-body-lg);
+}
+
+.dda-checkbox-disabled i,
+.dda-checkbox-disabled svg{
+  color: var(--dda-neutral-70);
+  border: solid 2px var(--dda-surface-90);
+}
+.dda-checkbox-container.dda-checkbox-disabled{
+  pointer-events: none;
+}

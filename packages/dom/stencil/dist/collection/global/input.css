@@ -1,0 +1,615 @@
+.dda-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.dda-input-label {
+    font-size: var(--dda-fs-title-sm);
+    color: var(--dda-on-surface-0);
+    line-height: 22px;
+    font-weight: var(--dda-fw-400);
+}
+.light-mode .dda-input-label {
+    color: var(--dda-neutral-0);
+}
+.dda-input-field-wrapper {
+    position: relative;
+}
+
+.dda-field-group-input {
+    height: 32px;
+    background-color: transparent;
+    flex: 1;
+    font-size: var(--dda-fs-body-lg);
+    font-weight: var(--dda-fw-400);
+    padding: 0px;
+    color: var(--dda-on-surface-0);
+    border: none;
+    outline: none;
+}
+.light-mode .dda-field-group-input{
+    color: var(--dda-neutral-0);
+} 
+.dda-input-field-group {
+    width: 100%;
+    height: 55px;
+    padding: 8px 16px;
+    background: var(--dda-surface-100);
+    border: 1px solid var(--dda-surface-90);
+    border-radius: 8px;
+    font-size: var(--dda-fs-body-lg);
+    color: var(--dda-on-surface-0);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.light-mode .dda-input-field-group{
+    background: var(--dda-neutral-100);
+    border: 1px solid var(--dda-neutral-90);
+    color: var(--dda-neutral-0);
+}
+.dda-input-field {
+    width: 100%;
+    height: 55px;
+    padding: 8px 16px;
+    background: var(--dda-surface-100);
+    border: 1px solid var(--dda-surface-90);
+    border-radius: 8px;
+    font-size: var(--dda-fs-body-lg);
+    color: var(--dda-on-surface-0);
+    font-weight: var(--dda-fw-400);
+}
+.light-mode .dda-input-field{
+    background: var(--dda-neutral-100);
+    border: 1px solid var(--dda-neutral-90);
+    color: var(--dda-neutral-0);
+}
+.dda-input-size-small .dda-input-field-group,
+.dda-input-size-small .dda-input-field {
+    height: 48px;
+    padding: 8px 12px;
+}
+
+.dda-input-focus-filled .dda-phone-field,
+.dda-input-focus .dda-input-field-group,
+.dda-input-field:focus {
+    outline: none;
+    border-color: var(--dda-color-primary-40);
+    box-shadow: 0px 0px 0px 3px var(--dda-primary-variant-95);
+}
+.light-mode.dda-input-focus-filled .dda-phone-field,
+.light-mode.dda-input-focus .dda-input-field-group,
+.light-mode .dda-input-field:focus {
+    outline: none;
+    border-color: var(--dda-primary-40);
+    box-shadow: 0px 0px 0px 3px var(--dda-primary-95);
+}
+
+.dda-input-dropdown-btn {
+    min-width: 110px;
+    position: relative;
+    display: inline-block;
+    padding: 0;
+}
+
+.dda-dropdown-select {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    background: transparent;
+    border: transparent;
+    font-size: var(--dda-fs-body-lg);
+    color: var(--dda-on-surface-0);
+    padding: 0;
+    align-items: center;
+    cursor: pointer;
+    gap: 6px;
+}
+.light-mode .dda-dropdown-select{
+    color: var(--dda-neutral-0);
+}
+
+.dda-dropdown-select img {
+    width: 24px;
+}
+
+
+.dda-dropdown-container {
+    position: relative;
+    width: auto;
+    /* min-width: 140px; */
+}
+.dda-dropdown-container.bg-transparent .dda-dropdown-header{
+    padding: 0px;
+    height: auto;
+    background: transparent;
+    border: transparent;
+    box-shadow: none;
+}
+.dda-dropdown-header {
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.dda-dropdown-header .three-dots{
+    font-size: 25px;
+    color: var(--dda-neutral-variant-60);
+}
+.dda-dropdown-header .three-dots path{
+    fill: var(--dda-neutral-variant-60);
+}
+.dda-dropdown-header .dda-dropdown-text{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+.dda-dropdown-header .dda-dropdown-text span{
+    color: var(--dda-on-surface-variant-30);
+    display: flex;
+    align-items: center;
+}
+.light-mode .dda-dropdown-text span{
+    color: var(--dda-neutral-variant-30);
+}
+.dda-dropdown-header .dda-dropdown-text i{
+    font-size: 31px;
+}
+.dda-dropdown-header .dda-dropdown-text path{
+    fill: var(--dda-on-surface-variant-30);
+}
+.light-mode .dda-dropdown-header .dda-dropdown-text path{
+    fill: var(--dda-neutral-variant-30);
+}
+.dda-dropdown-header:focus .three-dots path{
+    fill: var(--dda-on-surface-variant-30);
+}
+.dda-input-dropdown-list {
+    width: 100%;
+    min-width: 150px;
+    max-height: 200px;
+    background-color: var(--dda-neutral-100);
+    border: 1px solid var(--dda-neutral-90);
+    border-radius: 8px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    margin-top: 1px;
+    inset-inline-start: 0px;
+    z-index: 9999;
+    box-shadow: 0px 8px 10px -6px #1018281A;
+}
+
+.dda-input-dropdown-list::-webkit-scrollbar-track {
+    border-radius: 4px;
+}
+
+.dda-input-dropdown-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.dda-input-dropdown-list::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--dda-neutral-variant-30);
+}
+
+.dda-input-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    font-size: var(--dda-fs-body-lg);
+    background: transparent;
+    border: transparent;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dda-input-dropdown-item:focus-visible,
+.dda-input-dropdown-item:hover {
+    background-color: var(--dda-neutral-variant-95);
+    outline: 0;
+}
+
+.dda-helper-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--dda-fs-body-md);
+    color: var(--dda-on-surface-variant-30);
+}
+.light-mode .dda-helper-text{
+    color: var(--dda-neutral-30);
+}
+.dda-error-message {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--dda-fs-body-md);
+    color: var(--dda-color-error-40);
+}
+
+.dda-helper-text i,
+.dda-helper-text svg,
+.dda-error-message i,
+.dda-error-message svg  {
+    font-size: 24px;
+}
+
+.dda-validation-error .dda-input-field-group,
+.dda-validation-error .dda-input-field {
+    color: var(--dda-color-error-40);
+    border-color: var(--dda-color-error-40);
+    box-shadow: none;
+}
+
+.light-mode.dda-validation-error .dda-input-field-group,
+.light-mode.dda-validation-error .dda-input-field {
+    color: var(--dda-error-40);
+    border-color: var(--dda-error-40);
+    box-shadow: none;
+}
+
+.dda-validation-error .icon-close,
+.dda-validation-error .dda-error-message,
+.dda-validation-error .dda-field-group-input,
+.dda-validation-error .dda-file-input span {
+    color: var(--dda-color-error-40) !important;
+}
+
+.light-mode.dda-validation-error .icon-close,
+.light-mode.dda-validation-error .dda-error-message,
+.light-mode.dda-validation-error .dda-field-group-input,
+.light-mode.dda-validation-error .dda-file-input span {
+    color: var(--dda-error-40) !important;
+}
+
+.dda-validation-error .dda-input-field::-ms-input-placeholder,
+.dda-validation-error .dda-field-group-input::-ms-input-placeholder {
+    color: var(--dda-color-error-40);
+}
+
+.light-mode.dda-validation-error .dda-input-field::-ms-input-placeholder,
+.light-mode.dda-validation-error .dda-field-group-input::-ms-input-placeholder {
+    color: var(--dda-error-40);
+}
+
+.dda-validation-error .dda-input-field::placeholder,
+.dda-validation-error .dda-field-group-input::placeholder {
+    color: var(--dda-color-error-40);
+}
+
+.light-mode.dda-validation-error .dda-input-field::placeholder,
+.light-mode.dda-validation-error .dda-field-group-input::placeholder {
+    color: var(--dda-error-40);
+}
+
+.dda-input-disabled .dda-input-label,
+.dda-input-disabled .dda-helper-text,
+.dda-input-disabled .dda-error-message,
+.dda-input-disabled i,
+.dda-input-disabled .dda-dropdown-select,
+.dda-input-disabled .dda-file-input span,
+.dda-input-disabled .dda-file-choose {
+    color: var(--dda-neutral-60) !important;
+}
+
+.dda-input-disabled .dda-input-field-group,
+.dda-input-disabled .dda-input-field {
+    background: var(--dda-neutral-92);
+    border-color: var(--dda-neutral-90);
+    color: var(--dda-neutral-60) !important;
+    box-shadow: none;
+    pointer-events: none;
+}
+.dda-input-disabled i{
+    color: var(--dda-neutral-variant-60);
+}
+.dda-input-disabled svg path{
+    fill: var(--dda-neutral-variant-60);
+}
+.dda-input-disabled .dda-input-field::-ms-input-placeholder {
+    color: var(--dda-neutral-60);
+}
+
+.dda-input-disabled .dda-input-field::placeholder {
+    color: var(--dda-neutral-60);
+}
+
+.dda-input-disabled .dda-btn {
+    background-color: var(--dda-neutral-70) !important;
+    border-color: var(--dda-neutral-70) !important;
+}
+
+.dda-input-disabled .dda-dropdown-select img,
+.dda-input-disabled .dda-input-field-wrapper img {
+    filter: grayscale(1);
+}
+
+/*Specifications*/
+
+/*Number Field*/
+.dda-number-field .dda-field-group-input {
+    padding-inline-end: 10px;
+    border-inline-end: solid 1px var(--dda-neutral-90);
+}
+
+.dda-number-field .dda-field-group-input:focus,
+.dda-phone-field .dda-field-group-input:focus {
+    border-inline-start: solid 1px var(--dda-color-primary-40);
+}
+
+.dda-number-field .dda-input-dropdown-btn {
+    min-width: 80px;
+}
+
+.dda-number-field .dda-input-dropdown-list {
+    top: 44px;
+}
+
+.dda-input-size-small .dda-number-field .dda-input-dropdown-list {
+    top: 41px;
+}
+
+/*text ares*/
+.dda-input-textarea {
+    height: auto;
+    min-height: 120px;
+    resize: vertical;
+}
+
+/*Search Field*/
+.dda-search-area {
+    position: relative;
+}
+
+.dda-search-area .icon-left {
+    position: absolute;
+    top: 16px;
+    inset-inline-start: 15px;
+    font-size: 24px;
+    color: var(--dda-on-surface-variant-30);
+}
+
+.light-mode .dda-search-area .icon-left{
+    color: var(--dda-neutral-variant-30);
+}
+
+.dda-input-size-small .dda-search-area .icon-left {
+    top: 14px;
+}
+
+.dda-search-area .dda-search-btngroup {
+    height: 40px;
+    position: absolute;
+    top: 7px;
+    inset-inline-end: 7px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dda-input-size-small .dda-search-btngroup {
+    top: 4px;
+}
+
+.dda-search-area .icon-close {
+    display: flex;
+    color: var(--dda-on-surface-variant-30);
+    font-size: 20px;
+    margin: 0px;
+    margin-inline-end: 15px;
+    padding: 0px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.light-mode .dda-search-area .icon-close{
+    color: var(--dda-neutral-variant-30);
+}
+
+.dda-search-field {
+    padding: 8px 40px 8px 40px;
+}
+
+.dda-search-action .dda-search-field {
+    padding: 8px 110px 8px 40px;
+}
+
+.dda-search-sm .icon-left {
+    top: 14px;
+}
+
+.dda-search-sm .dda-search-btngroup {
+    top: 4px;
+}
+
+/*Phone Field*/
+.dda-phone-field-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dda-phone-field-group.dda-phone-field-small {
+    height: 48px;
+}
+
+.dda-phone-field-group.focused,
+.dda-phone-field-group.filled {
+    outline: none;
+    border-color: var(--dda-color-primary-40);
+    box-shadow: 0px 0px 0px 3px var(--dda-primary-variant-95);
+}
+
+.dda-phone-field-group.error {
+    border-color: var(--dda-color-error-40);
+    box-shadow: none;
+}
+
+.phone-field-country-code {
+    border: none;
+    background: none;
+    margin-inline-end: 0.5rem;
+    font-size: 1rem;
+    color: var(--dda-on-surface-0);
+}
+
+.phone-field-country-code:focus-within {
+    outline: 0;
+}
+
+.dda-phone-field .dda-input-dropdown-list {
+    top: 44px;
+}
+
+.dda-input-size-small .dda-phone-field .dda-input-dropdown-list {
+    top: 41px;
+}
+
+/*Credit Card Field*/
+.dda-credit-card-field .dda-creditcard-icon {
+    width: 40px;
+    position: absolute;
+    top: 14px;
+    inset-inline-start: 15px;
+}
+
+.dda-input-size-small .dda-creditcard-icon {
+    top: 11px;
+}
+
+.dda-credit-card-field .dda-input-field {
+    padding: 8px 16px 8px 65px;
+}
+
+/*Select Field*/
+.dda-select-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.dda-select-header i {
+    font-size: 28px;
+    color: var(--dda-on-surface-variant-30);
+}
+
+/*Rich Text Editor*/
+.dda-input-container.dda-richtext-editor {
+    gap: 0px;
+}
+
+.dda-richtext-editor .dda-input-label {
+    margin-bottom: 8px;
+}
+
+.dda-richtext-editor .dda-helper-text,
+.dda-richtext-editor .dda-error-message {
+    margin-top: 8px;
+}
+
+.dda-richtext-editor .ql-toolbar.ql-snow {
+    border: 1px solid var(--dda-neutral-90) !important;
+    border-radius: 8px 8px 0 0;
+}
+
+.dda-richeditor-field {
+    border: 1px solid var(--dda-neutral-90) !important;
+    border-radius: 0 0 8px 8px;
+}
+
+.dda-richeditor-field .ql-editor {
+    height: 100px;
+    font-size: var(--dda-fs-body-lg);
+}
+
+/*Attach Files*/
+
+.dda-input-field-group.dda-attach-file {
+    padding-inline-end: 6px;
+}
+
+.dda-file-input {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dda-file-input span {
+    font-size: var(--dda-fs-body-lg);
+    color: var(--dda-on-surface-variant-30);
+}
+.light-mode .dda-file-input span{
+    color: var(--dda-neutral-variant-30);
+}
+.dda-file-choose {
+    height: 40px;
+    background-color: var(--dda-neutral-100);
+    border: solid 1px var(--dda-neutral-90);
+    color: var(--dda-color-primary-40);
+    font-weight: var(--dda-fw-500);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.light-mode .dda-file-choose {
+    color: var(--dda-primary-40);
+}
+
+.dda-input-disabled .dda-file-choose {
+    background-color: var(--dda-neutral-95);
+}
+
+.dda-file-choose input {
+    display: none;
+}
+
+.dda-file-details {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline-end: 10px;
+}
+
+.dda-file-icon {
+    width: 34px;
+    height: 34px;
+}
+
+.dda-items {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.dda-file-details .remove-file{
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: transparent;
+}
+.dda-file-details .remove-file svg{
+    font-size: var(--dda-fs-body-lg);
+}
+.dda-file-name {
+    font-size: var(--dda-fs-body-lg);
+}
+
+.dda-remove-file {
+    font-size: 20px;
+    background: transparent;
+    border: transparent;
+    color: var(--dda-on-surface-variant-30);
+    cursor: pointer;
+    padding: 0px;
+}
+

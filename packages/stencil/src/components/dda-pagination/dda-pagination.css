@@ -1,0 +1,168 @@
+.dda-pagination-container {
+  min-width: 380px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.dda-pagination {
+  display: inline-flex;
+  align-items: center;
+}
+
+.dda-pagination button {
+  height: 40px;
+  min-width: 40px;
+  border: transparent;
+  border-radius: 5px;
+  background-color: var(--dda-surface-100);
+  font-size: 16px;
+  color: var(--dda-on-surface-variant-30);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.light-mode.dda-pagination button{
+  background-color: var(--dda-neutral-100);
+  color: var(--dda-neutral-variant-30);
+} 
+
+.dda-pagination span{
+  color: var(--dda-on-surface-variant-30);
+}
+.light-mode.dda-pagination span {
+  color: var(--dda-neutral-variant-30);
+}
+
+.dda-pagination-simple-slider {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dda-pagination-simple-slider button {
+  background-color: transparent;
+  border: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dda-pagination-simple-slider span {
+  padding: 0 20px;
+}
+
+.dda-pagination-buttons button {
+  background-color: transparent;
+  border: transparent;
+  display: inline-flex;
+  gap: 10px;
+}
+
+.dda-pagination-buttons button.active {
+  background-color: transparent;
+  color: var(--dda-color-primary-40)
+}
+.light-mode.dda-pagination-buttons button.active {
+  color: var(--dda-primary-40)
+}
+
+.dda-pagination-text {
+  width: 100%;
+  justify-content: space-between;
+}
+.dda-pagination-text button{
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.04);
+}
+.dda-pagination-text-pages {
+  width: 100%;
+  justify-content: space-between;
+  gap: 8px;
+}
+.dda-pagination-text-pages button{
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.04);
+}
+.dda-pagination-text-pages button.active {
+  background-color: var(--dda-color-primary-40);
+  color: var(--dda-surface-100)
+}
+.light-mode.dda-pagination-text-pages button.active {
+  background-color: var(--dda-primary-40);
+  color: var(--dda-neutral-100)
+}
+.dda-pagination-button-text {
+  width: 100%;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.04);
+}
+
+.dda-pagination-button-text button {
+  min-width: 50px;
+  border: 0px;
+  border-right: solid 1px var(--dda-neutral-90);
+  border-top: solid 1px var(--dda-neutral-90);
+  border-bottom: solid 1px var(--dda-neutral-90);
+  border-radius: 0px;
+}
+
+.dda-pagination-button-text button.active {
+  color: var(--dda-color-primary-40);
+  font-weight: var(--dda-fw-700);
+}
+.light-mode.dda-pagination-button-text button.active {
+  color: var(--dda-primary-40);
+}
+.dda-pagination-button-text button.prev {
+  border-left: solid 1px var(--dda-neutral-90);
+  border-radius: 5px 0 0 5px;
+}
+
+.dda-pagination-button-text button.next {
+  border-radius: 0 5px 5px 0;
+}
+.dda-pagination-buttons-pages{
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.04);
+}
+.dda-pagination-buttons-pages button {
+  border: 0px;
+  border-right: solid 1px var(--dda-neutral-90);
+  border-top: solid 1px var(--dda-neutral-90);
+  border-bottom: solid 1px var(--dda-neutral-90);
+  border-radius: 0px;
+}
+
+.dda-pagination-buttons-pages button.prev {
+  border-left: solid 1px var(--dda-neutral-90);
+  border-radius: 5px 0 0 5px;
+}
+
+.dda-pagination-buttons-pages button.next {
+  border-radius: 0 5px 5px 0;
+}
+
+.dda-pagination-full {
+  gap: 8px;
+}
+
+.dda-pagination-full button {
+  min-width: auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  padding: 0px;
+  overflow: hidden;
+  text-indent: -100px;
+  border: solid 1px var(--dda-surface-90);
+}
+.light-mode.dda-pagination-full button{
+  border: solid 1px var(--dda-neutral-90);
+}
+.dda-pagination-full button.active {
+  background-color: var(--dda-color-primary-40);
+  border: transparent;
+}
+.light-mode.dda-pagination-full button.active {
+  background-color: var(--dda-primary-40);
+}

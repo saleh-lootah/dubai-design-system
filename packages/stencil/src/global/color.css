@@ -1,0 +1,590 @@
+:root {
+
+  /*Primary Variants*/
+  --dda-primary-0: #000000;
+  --dda-primary-4: #001110;
+  --dda-primary-5: #001413;
+  --dda-primary-6: #001716;
+  --dda-primary-10: #00201F;
+  --dda-primary-12: #002423;
+  --dda-primary-17: #00302F;
+  --dda-primary-20: #003735;
+  --dda-primary-22: #003C3A;
+  --dda-primary-24: #00413F;
+  --dda-primary-25: #004341;
+  --dda-primary-30: #00504E;
+  --dda-primary-35: #005D5A;
+  --dda-primary-40: #006A67;
+  --dda-primary-50: #008582;
+  --dda-primary-60: #00A19E;
+  --dda-primary-70: #21BEBA;
+  --dda-primary-80: #4DDAD6;
+  --dda-primary-87: #66EEE9;
+  --dda-primary-90: #6FF7F2;
+  --dda-primary-92: #76FDF8;
+  --dda-primary-94: #99FFFA;
+  --dda-primary-95: #D0F5F4;
+  --dda-primary-96: #C2FFFB;
+  --dda-primary-98: #E3FFFD;
+  --dda-primary-99: #F2FFFD;
+  --dda-primary-100: #FFFFFF;
+
+  --dda-color-primary-40: var(--dda-primary-40);
+  --dda-color-primary-30: var(--dda-primary-30);
+  --dda-color-primary-20: var(--dda-primary-20);
+  --dda-color-primary-10: var(--dda-primary-10);
+
+  --dda-on-primary-100: var(--dda-primary-100);
+  --dda-on-primary-98: var(--dda-primary-98);
+  --dda-on-primary-96: var(--dda-primary-96);
+  --dda-on-primary-94: var(--dda-primary-94);
+
+  --dda-primary-variant-96: var(--dda-primary-96);
+  --dda-primary-variant-95: var(--dda-primary-95);
+  --dda-primary-variant-94: var(--dda-primary-94);
+  --dda-primary-variant-92: var(--dda-primary-92);
+  --dda-primary-variant-87: var(--dda-primary-87);
+
+  --dda-on-primary-variant-40: var(--dda-primary-40);
+  --dda-on-primary-variant-30: var(--dda-primary-30);
+  --dda-on-primary-variant-25: var(--dda-primary-25);
+  --dda-on-primary-variant-20: var(--dda-primary-20);
+  --dda-on-primary-variant-12: var(--dda-primary-12);
+}
+:root[data-theme='dark'] {
+  --dda-color-primary-40: var(--dda-primary-70);
+  --dda-color-primary-30: var(--dda-primary-80);
+  --dda-color-primary-20: var(--dda-primary-90);
+  --dda-color-primary-10: var(--dda-primary-95);
+
+  --dda-on-primary-100: var(--dda-primary-10);
+  --dda-on-primary-98: var(--dda-primary-12);
+  --dda-on-primary-96: var(--dda-primary-17);
+  --dda-on-primary-94: var(--dda-primary-20);
+
+  --dda-primary-variant-96: var(--dda-primary-30);
+  --dda-primary-variant-95: var(--dda-primary-30);
+  --dda-primary-variant-94: var(--dda-primary-25);
+  --dda-primary-variant-92: var(--dda-primary-20);
+  --dda-primary-variant-87: var(--dda-primary-12);
+
+  --dda-on-primary-variant-40: var(--dda-primary-90);
+  --dda-on-primary-variant-30: var(--dda-primary-90);
+  --dda-on-primary-variant-25: var(--dda-primary-94);
+  --dda-on-primary-variant-20: var(--dda-primary-96);
+  --dda-on-primary-variant-12: var(--dda-primary-98);
+}
+
+
+:root {
+  --dda-secondary-0: #000000;
+  --dda-secondary-4: #000836;
+  --dda-secondary-5: #000A3D;
+  --dda-secondary-6: #000C43;
+  --dda-secondary-10: #001257;
+  --dda-secondary-12: #001561;
+  --dda-secondary-17: #092072;
+  --dda-secondary-20: #132778;
+  --dda-secondary-22: #192C7D;
+  --dda-secondary-24: #1E3181;
+  --dda-secondary-25: #213484;
+  --dda-secondary-30: #2E4090;
+  --dda-secondary-35: #3B4C9C;
+  --dda-secondary-40: #4758A9;
+  --dda-secondary-50: #6071C4;
+  --dda-secondary-60: #7A8BE0;
+  --dda-secondary-70: #95A6FD;
+  --dda-secondary-80: #B9C3FF;
+  --dda-secondary-87: #D2D8FF;
+  --dda-secondary-90: #DDE1FF;
+  --dda-secondary-92: #E5E6FF;
+  --dda-secondary-94: #ECECFF;
+  --dda-secondary-95: #F0EFFF;
+  --dda-secondary-96: #F3F2FF;
+  --dda-secondary-98: #FBF8FF;
+  --dda-secondary-99: #FEFBFF;
+  --dda-secondary-100: #FFFFFF;
+
+  --dda-color-secondary-40: var(--dda-secondary-40);
+  --dda-color-secondary-30: var(--dda-secondary-30);
+  --dda-color-secondary-20: var(--dda-secondary-20);
+  --dda-color-secondary-10: var(--dda-secondary-10);
+
+  --dda-on-secondary-100: var(--dda-secondary-100);
+  --dda-on-secondary-98: var(--dda-secondary-98);
+  --dda-on-secondary-96: var(--dda-secondary-96);
+  --dda-on-secondary-94: var(--dda-secondary-94);
+
+  --dda-secondary-variant-96: var(--dda-secondary-96);
+  --dda-secondary-variant-95: var(--dda-secondary-95);
+  --dda-secondary-variant-94: var(--dda-secondary-94);
+  --dda-secondary-variant-92: var(--dda-secondary-92);
+  --dda-secondary-variant-87: var(--dda-secondary-87);
+
+  --dda-on-secondary-variant-30: var(--dda-secondary-30);
+  --dda-on-secondary-variant-25: var(--dda-secondary-25);
+  --dda-on-secondary-variant-20: var(--dda-secondary-20);
+  --dda-on-secondary-variant-12: var(--dda-secondary-12);
+ 
+} 
+:root[data-theme='dark'] {
+  --dda-color-secondary-40: var(--dda-secondary-70);
+  --dda-color-secondary-30: var(--dda-secondary-80);
+  --dda-color-secondary-20: var(--dda-secondary-90);
+  --dda-color-secondary-10: var(--dda-secondary-95);
+
+  --dda-on-secondary-100: var(--dda-secondary-10);
+  --dda-on-secondary-98: var(--dda-secondary-12);
+  --dda-on-secondary-96: var(--dda-secondary-17);
+  --dda-on-secondary-94: var(--dda-secondary-20);
+
+  --dda-secondary-variant-96: var(--dda-secondary-30);
+  --dda-secondary-variant-95: var(--dda-secondary-30);
+  --dda-secondary-variant-94: var(--dda-secondary-25);
+  --dda-secondary-variant-92: var(--dda-secondary-20);
+  --dda-secondary-variant-87: var(--dda-secondary-12);
+
+  --dda-on-secondary-variant-30: var(--dda-secondary-90);
+  --dda-on-secondary-variant-25: var(--dda-secondary-94);
+  --dda-on-secondary-variant-20: var(--dda-secondary-96);
+  --dda-on-secondary-variant-12: var(--dda-secondary-98);
+}
+
+
+:root {
+  --dda-error-0: #000000;
+  --dda-error-4: #280000;
+  --dda-error-5: #2D0000;
+  --dda-error-6: #310001;
+  --dda-error-10: #410001;
+  --dda-error-12: #490001;
+  --dda-error-17: #5C0002;
+  --dda-error-20: #690003;
+  --dda-error-22: #710003;
+  --dda-error-24: #790004;
+  --dda-error-25: #7E0004;
+  --dda-error-30: #930005;
+  --dda-error-35: #A90008;
+  --dda-error-40: #C0000A;
+  --dda-error-50: #E62721;
+  --dda-error-60: #FF5545;
+  --dda-error-70: #FF8A7B;
+  --dda-error-80: #FFB4AA;
+  --dda-error-87: #FFCFC8;
+  --dda-error-90: #FFDAD5;
+  --dda-error-92: #FFE2DD;
+  --dda-error-94: #FFE9E6;
+  --dda-error-95: #FFEDEA;
+  --dda-error-96: #FFF0EE;
+  --dda-error-98: #FFF8F7;
+  --dda-error-99: #FFFBFF;
+  --dda-error-100: #FFFFFF;
+
+  --dda-color-error-50: var(--dda-error-50);
+  --dda-color-error-40: var(--dda-error-40);
+  --dda-color-error-30: var(--dda-error-30);
+  --dda-color-error-20: var(--dda-error-24);
+
+  --dda-on-error-100: var(--dda-error-100);
+  --dda-on-error-98: var(--dda-error-98);
+  --dda-on-error-96: var(--dda-error-96);
+  --dda-on-error-94: var(--dda-error-94);
+
+  --dda-error-variant-90: var(--dda-error-90);
+  --dda-error-variant-95: var(--dda-error-95);
+  --dda-error-variant-94: var(--dda-error-94);
+  --dda-error-variant-92: var(--dda-error-92);
+  --dda-error-variant-90: var(--dda-error-90);
+
+  --dda-on-error-variant-40: var(--dda-error-40);
+  --dda-on-error-variant-30: var(--dda-error-30);
+  --dda-on-error-variant-25: var(--dda-error-25);
+  --dda-on-error-variant-20: var(--dda-error-20);
+  --dda-on-error-variant-12: var(--dda-error-12);
+
+}
+:root[data-theme='dark'] {
+  --dda-color-error-50: var(--dda-error-80);
+  --dda-color-error-40: var(--dda-error-70);
+  --dda-color-error-30: var(--dda-error-90);
+  --dda-color-error-20: var(--dda-error-94);
+
+  --dda-on-error-100: var(--dda-error-10);
+  --dda-on-error-98: var(--dda-error-12);
+  --dda-on-error-96: var(--dda-error-17);
+  --dda-on-error-94: var(--dda-error-20);
+
+  --dda-error-variant-96: var(--dda-error-30);
+  --dda-error-variant-95: var(--dda-error-20);
+  --dda-error-variant-94: var(--dda-error-25);
+  --dda-error-variant-92: var(--dda-error-20);
+  --dda-error-variant-90: var(--dda-error-12);
+
+  --dda-on-error-variant-40: var(--dda-error-70);
+  --dda-on-error-variant-30: var(--dda-error-80);
+  --dda-on-error-variant-25: var(--dda-error-94);
+  --dda-on-error-variant-20: var(--dda-error-96);
+  --dda-on-error-variant-12: var(--dda-error-98);
+}
+
+
+:root {
+  --dda-warning-0: #000000;
+  --dda-warning-4: #180C00;
+  --dda-warning-5: #1B0E00;
+  --dda-warning-6: #1F1000;
+  --dda-warning-10: #2A1800;
+  --dda-warning-12: #2F1B00;
+  --dda-warning-17: #3D2500;
+  --dda-warning-20: #462B00;
+  --dda-warning-22: #4B2F00;
+  --dda-warning-24: #513300;
+  --dda-warning-25: #543500;
+  --dda-warning-30: #643F00;
+  --dda-warning-35: #734A00;
+  --dda-warning-40: #835400;
+  --dda-warning-50: #A46B00;
+  --dda-warning-60: #C78200;
+  --dda-warning-70: #EB9A00;
+  --dda-warning-80: #FFB956;
+  --dda-warning-87: #FFD39B;
+  --dda-warning-90: #FFDDB5;
+  --dda-warning-92: #FFE4C5;
+  --dda-warning-94: #FFEBD5;
+  --dda-warning-95: #FFEEDD;
+  --dda-warning-96: #FFF1E5;
+  --dda-warning-98: #FFF8F4;
+  --dda-warning-99: #FFFBFF;
+  --dda-warning-100: #FFFFFF;
+
+  --dda-color-warning-50: var(--dda-warning-50);
+  --dda-color-warning-40: var(--dda-warning-40);
+  --dda-color-warning-30: var(--dda-warning-30);
+  --dda-color-warning-20: var(--dda-warning-20);
+
+  --dda-on-warning-100: var(--dda-warning-100);
+  --dda-on-warning-98: var(--dda-warning-98);
+  --dda-on-warning-96: var(--dda-warning-96);
+  --dda-on-warning-94: var(--dda-warning-94);
+
+  --dda-warning-variant-90: var(--dda-warning-90);
+  --dda-warning-variant-95: var(--dda-warning-95);
+  --dda-warning-variant-94: var(--dda-warning-94);
+  --dda-warning-variant-92: var(--dda-warning-92);
+  --dda-warning-variant-90: var(--dda-warning-90);
+
+  --dda-on-warning-variant-40: var(--dda-warning-40);
+  --dda-on-warning-variant-30: var(--dda-warning-30);
+  --dda-on-warning-variant-25: var(--dda-warning-25);
+  --dda-on-warning-variant-20: var(--dda-warning-20);
+  --dda-on-warning-variant-12: var(--dda-warning-12);
+
+}
+:root[data-theme='dark'] {
+  --dda-color-warning-50: var(--dda-warning-80);
+  --dda-color-warning-40: var(--dda-warning-50);
+  --dda-color-warning-30: var(--dda-warning-90);
+  --dda-color-warning-20: var(--dda-warning-94);
+
+  --dda-on-warning-100: var(--dda-warning-10);
+  --dda-on-warning-98: var(--dda-warning-12);
+  --dda-on-warning-96: var(--dda-warning-17);
+  --dda-on-warning-94: var(--dda-warning-20);
+
+  --dda-warning-variant-96: var(--dda-warning-30);
+  --dda-warning-variant-95: var(--dda-warning-30);
+  --dda-warning-variant-94: var(--dda-warning-25);
+  --dda-warning-variant-92: var(--dda-warning-20);
+  --dda-warning-variant-90: var(--dda-warning-12);
+
+  --dda-on-warning-variant-40: var(--dda-warning-80);
+  --dda-on-warning-variant-30: var(--dda-warning-80);
+  --dda-on-warning-variant-25: var(--dda-warning-94);
+  --dda-on-warning-variant-20: var(--dda-warning-96);
+  --dda-on-warning-variant-12: var(--dda-warning-98);
+}
+
+:root {
+  --dda-success-0: #000000;
+  --dda-success-4: #001203;
+  --dda-success-5: #001504;
+  --dda-success-6: #001805;
+  --dda-success-10: #002108;
+  --dda-success-12: #00260A;
+  --dda-success-17: #00320F;
+  --dda-success-20: #003913;
+  --dda-success-22: #003E15;
+  --dda-success-24: #004318;
+  --dda-success-25: #004619;
+  --dda-success-30: #00531F;
+  --dda-success-35: #006025;
+  --dda-success-40: #0D6D2D;
+  --dda-success-50: #318744;
+  --dda-success-60: #4CA25B;
+  --dda-success-70: #67BD73;
+  --dda-success-80: #82DA8C;
+  --dda-success-87: #95EE9E;
+  --dda-success-90: #9EF7A6;
+  --dda-success-92: #A3FCAC;
+  --dda-success-94: #B8FFBB;
+  --dda-success-95: #C6FFC7;
+  --dda-success-96: #D3FFD2;
+  --dda-success-98: #EBFFE7;
+  --dda-success-99: #F6FFF1;
+  --dda-success-100: #FFFFFF;
+
+  --dda-color-success-50: var(--dda-success-50);
+  --dda-color-success-40: var(--dda-success-40);
+  --dda-color-success-30: var(--dda-success-30);
+  --dda-color-success-20: var(--dda-success-20);
+
+  --dda-on-success-100: var(--dda-success-100);
+  --dda-on-success-98: var(--dda-success-98);
+  --dda-on-success-96: var(--dda-success-96);
+  --dda-on-success-94: var(--dda-success-94);
+
+  --dda-success-variant-90: var(--dda-success-90);
+  --dda-success-variant-95: var(--dda-success-95);
+  --dda-success-variant-94: var(--dda-success-94);
+  --dda-success-variant-92: var(--dda-success-92);
+  --dda-success-variant-90: var(--dda-success-90);
+
+  --dda-on-success-variant-40: var(--dda-success-40);
+  --dda-on-success-variant-30: var(--dda-success-30);
+  --dda-on-success-variant-25: var(--dda-success-25);
+  --dda-on-success-variant-20: var(--dda-success-20);
+  --dda-on-success-variant-12: var(--dda-success-12);
+
+}
+:root[data-theme='dark'] {
+  --dda-color-success-50: var(--dda-success-80);
+  --dda-color-success-40: var(--dda-success-87);
+  --dda-color-success-30: var(--dda-success-90);
+  --dda-color-success-20: var(--dda-success-94);
+
+  --dda-on-success-100: var(--dda-success-10);
+  --dda-on-success-98: var(--dda-success-12);
+  --dda-on-success-96: var(--dda-success-17);
+  --dda-on-success-94: var(--dda-success-20);
+
+  --dda-success-variant-96: var(--dda-success-30);
+  --dda-success-variant-95: var(--dda-success-30);
+  --dda-success-variant-94: var(--dda-success-25);
+  --dda-success-variant-92: var(--dda-success-20);
+  --dda-success-variant-90: var(--dda-success-12);
+
+  --dda-on-success-variant-40: var(--dda-success-80);
+  --dda-on-success-variant-30: var(--dda-success-80);
+  --dda-on-success-variant-25: var(--dda-success-94);
+  --dda-on-success-variant-20: var(--dda-success-96);
+  --dda-on-success-variant-12: var(--dda-success-98);
+}
+
+
+:root {
+  --dda-info-0: #000000;
+  --dda-info-4: #001019;
+  --dda-info-5: #00131C;
+  --dda-info-6: #001620;
+  --dda-info-10: #001E2B;
+  --dda-info-12: #002331;
+  --dda-info-17: #002E3F;
+  --dda-info-20: #003548;
+  --dda-info-22: #00394E;
+  --dda-info-24: #003548;
+  --dda-info-25: #004157;
+  --dda-info-30: #004D66;
+  --dda-info-35: #005977;
+  --dda-info-40: #006687;
+  --dda-info-50: #0080A9;
+  --dda-info-60: #1A9CCA;
+  --dda-info-70: #47B7E6;
+  --dda-info-80: #73D2FF;
+  --dda-info-87: #ACE1FF;
+  --dda-info-90: #C1E8FF;
+  --dda-info-92: #CEEDFF;
+  --dda-info-94: #DBF1FF;
+  --dda-info-95: #E2F3FF;
+  --dda-info-96: #E8F6FF;
+  --dda-info-98: #F4FAFF;
+  --dda-info-99: #FBFCFF;
+  --dda-info-100: #FFFFFF;
+
+  --dda-color-info-50: var(--dda-info-50);
+  --dda-color-info-40: var(--dda-info-47);
+  --dda-color-info-30: var(--dda-info-30);
+  --dda-color-info-20: var(--dda-info-20);
+
+  --dda-on-info-100: var(--dda-info-100);
+  --dda-on-info-98: var(--dda-info-98);
+  --dda-on-info-96: var(--dda-info-96);
+  --dda-on-info-94: var(--dda-info-94);
+
+  --dda-info-variant-90: var(--dda-info-90);
+  --dda-info-variant-95: var(--dda-info-95);
+  --dda-info-variant-94: var(--dda-info-94);
+  --dda-info-variant-92: var(--dda-info-92);
+  --dda-info-variant-90: var(--dda-info-90);
+
+  --dda-on-info-variant-40: var(--dda-info-40);
+  --dda-on-info-variant-30: var(--dda-info-30);
+  --dda-on-info-variant-25: var(--dda-info-25);
+  --dda-on-info-variant-20: var(--dda-info-20);
+  --dda-on-info-variant-12: var(--dda-info-12);
+
+}
+:root[data-theme='dark'] {
+  --dda-color-info-50: var(--dda-info-80);
+  --dda-color-info-40: var(--dda-info-87);
+  --dda-color-info-30: var(--dda-info-90);
+  --dda-color-info-20: var(--dda-info-94);
+
+  --dda-on-info-100: var(--dda-info-10);
+  --dda-on-info-98: var(--dda-info-12);
+  --dda-on-info-96: var(--dda-info-17);
+  --dda-on-info-94: var(--dda-info-20);
+
+  --dda-info-variant-96: var(--dda-info-30);
+  --dda-info-variant-95: var(--dda-info-30);
+  --dda-info-variant-94: var(--dda-info-25);
+  --dda-info-variant-92: var(--dda-info-20);
+  --dda-info-variant-90: var(--dda-info-12);
+
+  --dda-on-info-variant-40: var(--dda-info-80);
+  --dda-on-info-variant-30: var(--dda-info-80);
+  --dda-on-info-variant-25: var(--dda-info-94);
+  --dda-on-info-variant-20: var(--dda-info-96);
+  --dda-on-info-variant-12: var(--dda-info-98);
+}
+
+
+:root {
+  --dda-neutral-0: #000000;
+  --dda-neutral-4: #0B0F0F;
+  --dda-neutral-5: #0E1211;
+  --dda-neutral-6: #101414;
+  --dda-neutral-10: #191C1C;
+  --dda-neutral-12: #1D2020;
+  --dda-neutral-17: #272B2A;
+  --dda-neutral-20: #2D3131;
+  --dda-neutral-22: #323535;
+  --dda-neutral-24: #363A39;
+  --dda-neutral-25: #383C3C;
+  --dda-neutral-30: #444747;
+  --dda-neutral-35: #4F5353;
+  --dda-neutral-40: #5B5F5E;
+  --dda-neutral-50: #747877;
+  --dda-neutral-60: #8E9191;
+  --dda-neutral-70: #A9ACAB;
+  --dda-neutral-80: #C4C7C6;
+  --dda-neutral-87: #D8DAD9;
+  --dda-neutral-90: #E0E3E2;
+  --dda-neutral-92: #E6E9E8;
+  --dda-neutral-94: #ECEEED;
+  --dda-neutral-95: #EFF1F0;
+  --dda-neutral-96: #F2F4F3;
+  --dda-neutral-98: #F7FAF9;
+  --dda-neutral-99: #FAFDFC;
+  --dda-neutral-100: #FFFFFF;
+
+  --dda-surface-100: var(--dda-neutral-100);
+  --dda-surface-96: var(--dda-neutral-96);
+  --dda-surface-94: var(--dda-neutral-94);
+  --dda-surface-92: var(--dda-neutral-92);
+  --dda-surface-90: var(--dda-neutral-90);
+  --dda-surface-0: var(--dda-neutral-0);
+
+  --dda-on-surface-10: var(--dda-neutral-10);
+  --dda-on-surface-20: var(--dda-neutral-20);
+  --dda-on-surface-30: var(--dda-neutral-30);
+  --dda-on-surface-40: var(--dda-neutral-40);
+  --dda-on-surface-0: var(--dda-neutral-0);
+}
+
+:root[data-theme='dark'] {
+
+  --dda-surface-0: var(--dda-neutral-100);
+  --dda-surface-100: var(--dda-neutral-10);
+  --dda-surface-96: var(--dda-neutral-24);
+  --dda-surface-94: var(--dda-neutral-12);
+  --dda-surface-92: var(--dda-neutral-17);
+  --dda-surface-90: var(--dda-neutral-22);
+
+  --dda-on-surface-0: var(--dda-neutral-100);
+  --dda-on-surface-10: var(--dda-neutral-100);
+  --dda-on-surface-20: var(--dda-neutral-90);
+  --dda-on-surface-30: var(--dda-neutral-80);
+  --dda-on-surface-40: var(--dda-neutral-70);
+}
+
+:root {
+  --dda-neutral-variant-0: #000000;
+  --dda-neutral-variant-4: #07100F;
+  --dda-neutral-variant-5: #091312;
+  --dda-neutral-variant-6: #0C1515;
+  --dda-neutral-variant-10: #141D1D;
+  --dda-neutral-variant-12: #182121;
+  --dda-neutral-variant-17: #222C2B;
+  --dda-neutral-variant-20: #293232;
+  --dda-neutral-variant-22: #2D3736;
+  --dda-neutral-variant-24: #313B3A;
+  --dda-neutral-variant-25: #343D3D;
+  --dda-neutral-variant-30: #3F4948;
+  --dda-neutral-variant-35: #4A5453;
+  --dda-neutral-variant-40: #56605F;
+  --dda-neutral-variant-50: #6F7978;
+  --dda-neutral-variant-60: #889392;
+  --dda-neutral-variant-70: #A3ADAC;
+  --dda-neutral-variant-80: #BEC9C7;
+  --dda-neutral-variant-87: #D2DCDB;
+  --dda-neutral-variant-90: #DAE5E3;
+  --dda-neutral-variant-92: #E0EAE9;
+  --dda-neutral-variant-94: #E6F0EE;
+  --dda-neutral-variant-95: #E8F3F1;
+  --dda-neutral-variant-96: #EBF6F4;
+  --dda-neutral-variant-98: #F1FBFA;
+  --dda-neutral-variant-99: #F4FEFD;
+  --dda-neutral-variant-100: #FFFFFF;
+
+  --dda-surface-variant-90: var(--dda-neutral-variant-90);
+  --dda-surface-variant-87: var(--dda-neutral-variant-87);
+  --dda-surface-variant-80: var(--dda-neutral-variant-80);
+
+  --dda-on-surface-variant-40: var(--dda-neutral-variant-40);
+  --dda-on-surface-variant-30: var(--dda-neutral-variant-30);
+  --dda-on-surface-variant-25: var(--dda-neutral-variant-25);
+  --dda-on-surface-variant-20: var(--dda-neutral-variant-20);
+  --dda-on-surface-variant-12: var(--dda-neutral-variant-12);
+}
+
+
+:root[data-theme='dark'] {
+
+  --dda-surface-variant-90: var(--dda-neutral-variant-30);
+  --dda-surface-variant-87: var(--dda-neutral-variant-25);
+  --dda-surface-variant-80: var(--dda-neutral-variant-22);
+
+  --dda-on-surface-variant-40: var(--dda-neutral-variant-70);
+  --dda-on-surface-variant-30: var(--dda-neutral-variant-80);
+  --dda-on-surface-variant-25: var(--dda-neutral-variant-94);
+  --dda-on-surface-variant-20: var(--dda-neutral-variant-96);
+  --dda-on-surface-variant-12: var(--dda-neutral-variant-98);
+}
+
+
+:root {
+  --dda-color-purple: #904EDB;
+  --dda-color-purple-50: #F1E9FF;
+}
+
+/* :root[data-theme='dark'] {
+  filter: invert(100%) grayscale(100%);
+  -o-filter: invert(100%) grayscale(100%);
+  -ms-filter: invert(100%) grayscale(100%);
+  -moz-filter: invert(100%) grayscale(100%);
+  -khtml-filter: invert(100%) grayscale(100%);
+  -webkit-filter: invert(100%) grayscale(100%);
+} */
+:root[data-theme='green'] {
+  filter: invert(100%) !important;
+}

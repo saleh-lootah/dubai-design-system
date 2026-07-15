@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en" data-theme="light" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ | Dubai Design System</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../css/dda.css" />
+
+    <script type="module">
+      import { defineCustomElements } from "../stencil/loader/index.js";
+      defineCustomElements();
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="../css/personalization.css" />
+  </head>
+
+  <body class="transparents">
+    <dda-header
+      first-logo-src="assets/img/government-of-dubai.svg"
+      first-logo-white-src="assets/img/government-of-dubai-white.svg"
+      first-logo-alt="undefined"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-white-src="assets/img/digital-logo-white.svg"
+      second-logo-alt="Dubai-Digital-Authority"
+      login-link="/login.html"
+      readspeakerlink="app-eu.readspeaker.com"
+      languageswitch="() => console.log('Language Switcher')"
+      smtextsize="() => console.log('Small Text')"
+      basetextsize="() => console.log('Base Text')"
+      lgtextsize="() => console.log('Large Text')"
+      normalcontrast="() => console.log('Normal Text')"
+      blindcontrast="() => console.log('Blind Text')"
+      redcontrast="() => console.log('Red Text')"
+      greencontrast="() => console.log('Green Text')"
+      quick-links='[{"label":"الصفحة الرئيسية","href":"/ar/","subMenu":[]},{"label":"عناصر","href":"/ar/components.html","subMenu":[]},{"label":"معلومات عنا","href":"/ar/about-us.html","subMenu":[]}]'
+      side-menu-items='[{"label":"معلومات عنا","href":"/ar/about-us.html","subMenu":[]},{"label":"عناصر","href":"/ar/components.html","subMenu":[]},{"label":"اتصل بنا","href":"/ar/contact-us.html","subMenu":[]},{"label":"الأسئلة الشائعة","href":"/ar/faq.html","subMenu":[]},{"label":"رابط العينة","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]}]'
+      class="hydrated"
+    >
+    </dda-header>
+
+    <script>
+      const ddaHeader = document.querySelector("dda-header");
+      ddaHeader.addEventListener("languageSwitch", (event) => {
+        window.location.assign(
+          window.location.origin + window.location.pathname.replace("/ar", "")
+        );
+      });
+      ddaHeader.addEventListener("blindContrast", (event) => {
+        $("html").attr("data-theme", "dark");
+      });
+    </script>
+
+    <div class="maincontent">
+      <div class="container-xxl">
+        <dda-breadcrumb
+          design="text"
+          separator="chevron_right"
+          custom_class="mb-4"
+          component_mode=""
+          data-breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"FAQs","icon":"menu_book","url":""}]'
+          class="hydrated"
+        >
+        </dda-breadcrumb>
+
+        <h1>الأسئلة الشائعة</h1>
+        <p class="small">إجابات على الأسئلة الأكثر شيوعًا!</p>
+
+        <div class="col-12 mb-4">
+          <dda-accordion
+            design="bg-border"
+            header_text="ما هو هذا الموقع ؟"
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              This is a sample website made to showcase the use of the Dubai
+              Design System Web Components Library
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="ما هي مكتبة مكونات نظام تصميم دبي؟"
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="manage_search"
+          >
+            <p>
+              هذا موقع ويب نموذجي تم إنشاؤه لعرض استخدام مكتبة مكونات الويب
+              لنظام التصميم في دبي
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="ما هي الأطر التي تدعمها مكتبة المكونات؟"
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="dataset"
+          >
+            <p>تدعم المكتبة React، وVue، وAngular، وHTML/CSS.</p>
+            <p>
+              <em
+                >ملاحظة: يستخدم هذا الموقع الإلكتروني النموذجي مكتبة Vanilla JS
+                (HTML/CSS/Javascript عادي)</em
+              >
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="هل مكتبة المكونات قابلة للتخصيص؟"
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              Yes, you can personalize the components using your own brand
+              colors, fonts, and icons through simple style overrides.
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="أين يمكنني العثور على الوثائق؟"
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              الوثائق الرسمية متاحة على الرابط أدناه:<br />
+              <a href="https://digital-dubai.gitbook.io/dubai-design-system"
+                >Dubai Design System Documentation</a
+              >
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="هل يمكنني طلب مكونات جديدة أو الإبلاغ عن المشكلات؟"
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              نعم، نرحب بالملاحظات وتقارير المشكلات. يمكنك مشاركتها عبر البريد
+              الإلكتروني كما هو مذكور في الوثائق.
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="هل هناك قوالب جاهزة متاحة؟"
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              نعم، توفر المكتبة قوالب جاهزة مسبقًا للتخطيطات الشائعة مثل الصفحات
+              الرئيسية والتذييلات والرؤوس.
+            </p>
+            <p>
+              <em>
+                ملاحظة: يمكن أيضًا العثور على قوالب إضافية مثل هذا القالب في
+                الوثائق لمساعدتك في البدء!
+              </em>
+            </p>
+          </dda-accordion>
+          <dda-accordion
+            design="bg-border"
+            header_text="هل ستحصل المكتبة على تحديثات منتظمة؟"
+            custom_class="mb-2"
+            component_mode=""
+            accordion_icon="info"
+          >
+            <p>
+              نعم، تتبع المكتبة
+              <strong>"Continuous Improvement Roadmap"</strong> لضمان مواكبة المكونات لاتجاهات التكنولوجيا وردود أفعال المستخدمين.
+            </p>
+          </dda-accordion>
+        </div>
+      </div>
+    </div>
+
+    <dda-sticky-footer
+      happiness-icon-href="#"
+      happiness-icon-src="assets/img/icn/icn-happy.svg"
+      happiness-icon-alt="Happiness"
+      happiness-icon-tooltip="Happiness"
+      accessibility-icon-href="#"
+      accessibility-icon-src="assets/img/icn/icn-complaints.svg"
+      accessibility-icon-alt="Suggestions and complaints"
+      accessibility-icon-tooltip="Suggestions &amp; complaints"
+      services-icon-href="#"
+      services-icon-src="assets/img/icn/icn-grid-view.svg"
+      services-icon-alt="Services"
+      services-icon-tooltip="Services"
+      services-icon-text="Services"
+      first-logo-href="#"
+      first-logo-src="assets/img/digital-logo.svg"
+      first-logo-alt="Logo 1"
+      first-logo-tooltip="Logo 1"
+      second-logo-href="#"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-alt="Logo 1"
+      second-logo-tooltip="Logo 1"
+      third-logo-href="#"
+      third-logo-src="assets/img/digital-logo.svg"
+      third-logo-alt="Logo 3"
+      third-logo-tooltip="Logo 3"
+      location-button-href="#"
+      location-button-text="Location"
+      location-button-icon=""
+      news-button-href="#"
+      news-button-text="News"
+      news-button-icon=""
+      ai-icon-href="#"
+      ai-icon-src="assets/img/icn/DubaiAI.svg"
+      ai-icon-alt="Digital AI"
+      ai-icon-tooltip="Digital AI"
+      chat-icon-href="#"
+      chat-icon-src="assets/img/icn/icn-chat_bubble_outline.svg"
+      chat-icon-alt="Online Chat"
+      chat-icon-tooltip="Online Chat"
+    >
+    </dda-sticky-footer>
+    <spinner id="ddaspinner">
+      <span class="loader"></span>
+    </spinner>
+
+    <script>
+      $(window).bind("load", function () {
+        setTimeout(function () {
+          $("#ddaspinner").fadeOut();
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

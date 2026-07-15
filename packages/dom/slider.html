@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/dda.css" />
+
+    <script type="module">
+      import { defineCustomElements } from "../stencil/loader/index.js";
+      defineCustomElements();
+    </script>
+
+    <!-- <script type="module" >
+        import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js/loader/index.es2017.js';
+        defineCustomElements();
+    </script> -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="./css/personalization.css" />
+  </head>
+  <body class="transparent">
+    <div class="home-intro">
+    <dda-home-banner class="home-slider">
+      <slide>
+        <img src="assets/img/home-banner.jpg" alt="banner" />
+        <div class="slide-wrap">
+          <div class="slide-content">
+            <h1 class="text-white">
+              Our objective is to digitalize life in Dubai
+            </h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
+              consequatur totam optio reprehenderit ipsum labore!
+            </p>
+            <div class="d-flex gap-4">
+              <dda-button
+                button_color="default-primary"
+                start_icon=""
+                end_icon=""
+                custom_class=""
+                component_mode=""
+                button_id="button"
+                aria_label="button"
+                onclick="console.log('clicked')"
+                size="lg"
+                gap="2"
+                >Primary
+              </dda-button>
+
+              <dda-button
+                button_color="default-secondary"
+                start_icon=""
+                end_icon=""
+                custom_class="cta-transparent"
+                component_mode=""
+                button_id="button"
+                aria_label="button"
+                onclick="console.log('clicked')"
+                size="lg"
+                gap="2"
+                >Secondary
+              </dda-button>
+            </div>
+          </div>
+        </div>
+      </slide>
+      <slide>
+        <img src="assets/img/home-banner-2.jpg" alt="banner" />
+        <div class="slide-wrap">
+          <div class="slide-content">
+            <h1 class="text-white">
+              Second Slide
+            </h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
+              consequatur totam optio reprehenderit ipsum labore!
+            </p>
+            <div class="d-flex gap-4">
+              <dda-button
+                button_color="default-primary"
+                start_icon=""
+                end_icon=""
+                custom_class=""
+                component_mode=""
+                button_id="button"
+                aria_label="button"
+                onclick="console.log('clicked')"
+                size="lg"
+                gap="2"
+                >Primary
+              </dda-button>
+
+              <dda-button
+                button_color="default-secondary"
+                start_icon=""
+                end_icon=""
+                custom_class="cta-transparent"
+                component_mode=""
+                button_id="button"
+                aria_label="button"
+                onclick="console.log('clicked')"
+                size="lg"
+                gap="2"
+                >Secondary
+              </dda-button>
+            </div>
+          </div>
+        </div>
+      </slide>
+    </dda-home-banner>
+</div>
+  </body>
+</html>

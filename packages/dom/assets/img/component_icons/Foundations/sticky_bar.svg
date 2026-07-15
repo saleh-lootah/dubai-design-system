@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="100" viewBox="0 0 400 100" fill="none">
+  <rect x="0" y="0" width="400" height="100" fill="#f5f7f6" />
+
+  <!-- Sticky Bar -->
+  <rect x="0" y="70" width="400" height="30" fill="black"/>
+  
+  <!-- Text Inside the Sticky Bar -->
+  <text x="150" y="90" font-family="Arial" font-size="16" fill="white">Sticky Bar</text>
+</svg>

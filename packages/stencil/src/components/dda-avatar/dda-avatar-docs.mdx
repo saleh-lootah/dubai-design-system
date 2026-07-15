@@ -1,0 +1,97 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Avatar/Documentation" />
+
+# Avatar
+The `dda-avatar` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaAvatar } from "@dubai-design-system/components-react";
+
+const App = () => {
+  return (
+    <div>
+        <div id="root-inner"
+            ><!---->
+            <DdaAvatar
+                type="photo"
+                size="md"
+                design="default"
+                rounded="circle"
+                src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+                icon="sentiment_satisfied"
+                text="AB"
+                options='["Option 1","Option 2","Option 3"]'
+                notification-number="20"
+                custom_class=""
+                component_mode=""
+                aria_label="avatar"
+                button_id="button"
+            >
+            </DdaAvatar>
+        </div>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaAvatar } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div id="root-inner"
+        ><!---->
+        <DdaAvatar
+            type="photo"
+            size="md"
+            design="default"
+            rounded="circle"
+            src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+            icon="sentiment_satisfied"
+            text="AB"
+            options='["Option 1","Option 2","Option 3"]'
+            notification-number="20"
+            custom_class=""
+            component_mode=""
+            aria_label="avatar"
+            button_id="button"
+        >
+        </DdaAvatar>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<div id="root-inner"
+    ><!---->
+    <dda-avatar
+        type="photo"
+        size="md"
+        design="default"
+        rounded="circle"
+        src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
+        icon="sentiment_satisfied"
+        text="AB"
+        options='["Option 1","Option 2","Option 3"]'
+        notification-number="20"
+        custom_class=""
+        component_mode=""
+        aria_label="avatar"
+        button_id="button"
+    >
+    </dda-avatar>
+</div>
+```

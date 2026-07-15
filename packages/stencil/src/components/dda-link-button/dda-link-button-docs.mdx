@@ -1,0 +1,79 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Link Button/Documentation" />
+
+# Link Button
+The `dda-link-button` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaLinkButton } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaLinkButton
+            button_color="default-primary"
+            start_icon="sentiment_satisfied"
+            end_icon="arrow_forward"
+            custom_class=""
+            href=""
+            component_mode=""
+            button_id="link-button"
+            aria_label="link-Button"
+            ><!---->Button
+        </DdaLinkButton>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaLinkButton } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaLinkButton
+            button_color="default-primary"
+            start_icon="sentiment_satisfied"
+            end_icon="arrow_forward"
+            custom_class=""
+            href=""
+            component_mode=""
+            button_id="link-button"
+            aria_label="link-Button"
+            ><!---->Button
+        </DdaLinkButton>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-link-button
+    button_color="default-primary"
+    start_icon="sentiment_satisfied"
+    end_icon="arrow_forward"
+    custom_class=""
+    href=""
+    component_mode=""
+    button_id="link-button"
+    aria_label="link-Button"
+    ><!---->Button
+</dda-link-button>
+
+```

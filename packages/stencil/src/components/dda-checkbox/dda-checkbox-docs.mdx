@@ -1,0 +1,82 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Checkbox/Documentation" />
+
+# Accordion
+The `dda-checkbox` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaCheckbox } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaCheckbox
+            title_text="Checkbox Title"
+            checked="false"
+            size="md"
+            style_type="square"
+            supporting="Supporting Text"
+            group_name="checkboxgroup"
+            input_id="testId"
+            custom_class=""
+            component_mode=""
+            on_checked="() => void 0"
+            aria_label="checkbox"
+        ></DdaCheckbox>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaCheckbox } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaCheckbox
+            title_text="Checkbox Title"
+            checked="false"
+            size="md"
+            style_type="square"
+            supporting="Supporting Text"
+            group_name="checkboxgroup"
+            input_id="testId"
+            custom_class=""
+            component_mode=""
+            on_checked="() => void 0"
+            aria_label="checkbox"
+        ></DdaCheckbox>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-checkbox
+    title_text="Checkbox Title"
+    checked="false"
+    size="md"
+    style_type="square"
+    supporting="Supporting Text"
+    group_name="checkboxgroup"
+    input_id="testId"
+    custom_class=""
+    component_mode=""
+    on_checked="() => void 0"
+    aria_label="checkbox"
+></dda-checkbox>
+```

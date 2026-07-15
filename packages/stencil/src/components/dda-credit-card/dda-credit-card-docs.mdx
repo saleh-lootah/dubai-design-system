@@ -1,0 +1,71 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Credit Card/Documentation" />
+
+# Credit Card
+The `dda-credit-card` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaCreditCard } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaCreditCard
+            balance="$5,750.20"
+            name="MARIA GOMEZ"
+            card_number="1289"
+            card_type="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
+            design="default"
+            custom_class=""
+            component_mode=""
+        ></DdaCreditCard>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaCreditCard } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaCreditCard
+            balance="$5,750.20"
+            name="MARIA GOMEZ"
+            card_number="1289"
+            card_type="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
+            design="default"
+            custom_class=""
+            component_mode=""
+        ></DdaCreditCard>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-credit-card
+    balance="$5,750.20"
+    name="MARIA GOMEZ"
+    card_number="1289"
+    card_type="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
+    design="default"
+    custom_class=""
+    component_mode=""
+></dda-credit-card>
+```

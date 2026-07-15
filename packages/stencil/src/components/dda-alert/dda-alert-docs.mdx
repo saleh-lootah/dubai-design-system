@@ -1,0 +1,77 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Alert/Documentation" />
+
+# Alert
+The `dda-alert` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaAlert } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaAlert
+            type="primary"
+            variation="info"
+            title_text="Alert Title"
+            description="This is an informational alert."
+            button_text="Learn more"
+            custom_class=""
+            component_mode=""
+              onclick="console.log('clicked!')"
+            >
+        </DdaAlert>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaAlert } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaAlert
+            type="primary"
+            variation="info"
+            title_text="Alert Title"
+            description="This is an informational alert."
+            button_text="Learn more"
+            custom_class=""
+            component_mode=""
+              onclick="console.log('clicked!')"
+            >
+        </DdaAlert>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-alert
+    type="primary"
+    variation="info"
+    title_text="Alert Title"
+    description="This is an informational alert."
+    button_text="Learn more"
+    custom_class=""
+    component_mode=""
+      onclick="console.log('clicked!')"
+    >
+</dda-alert>
+
+```

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" dir="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Dubai Design System</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/dda.css" />
+
+    <script type="module">
+      import { defineCustomElements } from "./stencil/loader/index.js";
+      defineCustomElements();
+    </script>
+    <!-- <script type="module" >
+      import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js/loader/index.es2017.js';
+      defineCustomElements();
+    </script> -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="./css/personalization.css" />
+  </head>
+
+  <body class="transparents">
+    <dda-header
+      first-logo-src="assets/img/government-of-dubai.svg"
+      first-logo-white-src="assets/img/government-of-dubai-white.svg"
+      first-logo-alt="undefined"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-white-src="assets/img/digital-logo-white.svg"
+      second-logo-alt="Dubai-Digital-Authority"
+      login-link="/login.html"
+      readspeakerlink="app-eu.readspeaker.com"
+      languageswitch="() => console.log('Language Switcher')"
+      smtextsize="() => console.log('Small Text')"
+      basetextsize="() => console.log('Base Text')"
+      lgtextsize="() => console.log('Large Text')"
+      normalcontrast="() => console.log('Normal Text')"
+      blindcontrast="() => console.log('Blind Text')"
+      redcontrast="() => console.log('Red Text')"
+      greencontrast="() => console.log('Green Text')"
+      quick-links='[{"label":"Home","href":"/","subMenu":[]},{"label":"Components","href":"/components.html","subMenu":[]},{"label":"About","href":"./about-us.html","subMenu":[]}]'
+      side-menu-items='[{"label":"About","href":"/about-us.html","subMenu":[]},{"label":"Components","href":"/components.html","subMenu":[]},{"label":"Contact","href":"/contact-us.html","subMenu":[]},{"label":"FAQ","href":"/faq.html","subMenu":[]},{"label":"Sample Link","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]}]'
+      class="hydrated"
+    >
+    </dda-header >
+
+    <script>
+      const ddaHeader = document.querySelector("dda-header");
+      ddaHeader.addEventListener("languageSwitch", (event) => {
+        window.location.assign(window.location.origin + "/ar" + window.location.pathname);
+      });
+      ddaHeader.addEventListener("blindContrast", (event) => {
+        $("html").attr("data-theme", "dark");
+      });
+    </script>
+
+    <div class="maincontent">
+      <div class="container-xxl">
+        <dda-breadcrumb
+          design="text"
+          separator="chevron_right"
+          custom_class="mb-4"
+          component_mode=""
+          data-breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"Contact Us","icon":"menu_book","url":""}]'
+          class="hydrated"
+        >
+        </dda-breadcrumb>
+
+        <h1>Contact Dubai Digital</h1>
+
+        <div class="row py-4">
+          <div class="col-sm-6">
+            <h2>
+              Reach Us
+              <span class="dda-color-primary">
+                <i class="material-icons">location_on</i>
+              </span>
+            </h2>
+            <p>Dubai Design District, Building 1A, 11th Floor</p>
+            <p>
+              <b>Operating Hours:</b>
+              <br />
+              Monday to Thursday from 7:30 - 15:30 (GMT +4)
+              <br />
+              Friday from 7:30 – 12:00 (GMT +4)
+            </p>
+            <h4>Call Center</h4>
+            <p>
+              <b>Operating hours:</b>
+              <br />
+              7 Days a week from 7:00AM - 12:00AM (GMT +4)
+            </p>
+            <span class="dda-color-primary">
+              <i class="material-icons">email</i>
+            </span>
+            <p>help@digitaldubai.ae</p>
+
+            <span class="dda-color-primary">
+              <i class="material-icons">phone</i>
+            </span>
+            <p>600 56 0000</p>
+          </div>
+          <div class="col-sm-6">
+            <img
+              class="img-fluid"
+              src="https://www.digitaldubai.ae/images/default-source/hero-banners/sd-contact-us-map.jpg?sfvrsn=d689463c_4"
+              alt="Dubai Digital Location"
+            />
+          </div>
+        </div>
+
+        <hr />
+
+        <h2>Send a message</h2>
+
+        <div class="row mb-4 py-4">
+          <div class="col-md-6 mb-4">
+            <dda-input
+              placeholder="First Name"
+              label="First Name"
+              value=""
+              type="text"
+              size="default"
+              helper_text=""
+              error_message=""
+              validation_type="normal"
+              custom_class=""
+              component_mode=""
+              input_id="FirstName"
+              aria_label="FirstName"
+              onchange=""
+              id="firstname_field"
+              name="testtest"
+              data-anything="my value"
+            >
+            </dda-input>
+          </div>
+
+          <div class="col-md-6 mb-4">
+            <dda-input
+              placeholder="Last Name"
+              label="Last Name"
+              value=""
+              type="text"
+              size="default"
+              helper_text=""
+              error_message=""
+              validation_type="normal"
+              custom_class=""
+              component_mode=""
+              input_id="LastName"
+              aria_label="LastName"
+              onchange=""
+              id="lastname_field"
+            >
+            </dda-input>
+          </div>
+
+          <div class="col-md-6 mb-4">
+            <dda-input
+              placeholder="Email"
+              label="Email"
+              value=""
+              type="email"
+              size="default"
+              helper_text=""
+              error_message=""
+              validation_type="normal"
+              custom_class=""
+              component_mode=""
+              input_id="Email"
+              aria_label="Email"
+              onchange=""
+              id="email_field"
+            >
+            </dda-input>
+          </div>
+
+          <div class="col-md-6 mb-4">
+            <dda-phonefield
+              label="Phone Number"
+              placeholder="00 000 0000"
+              helper_text=""
+              error_message=""
+              disabled="false"
+              custom_class=""
+              component_mode=""
+              input_id="input"
+              button_id="button"
+              aria_label="phone-field"
+              button_aria_label="phone-button"
+              onchange=""
+              id="phone_field"
+            ></dda-phonefield>
+          </div>
+
+          <div class="col-12 mb-4">
+            <dda-textarea
+              placeholder="Enter description"
+              label="Message"
+              max_characters="200"
+              value=""
+              helper_text="Min 80 Characters"
+              error_message=""
+              custom_class=""
+              component_mode=""
+              input_id="textarea"
+              aria_label="textarea"
+              onchange=""
+              id="message_field"
+            >
+            </dda-textarea>
+          </div>
+
+          <div class="col-12 mb-4 text-end">
+            <dda-button
+              button_color="default-primary"
+              start_icon=""
+              end_icon=""
+              custom_class=""
+              component_mode=""
+              button_id="button"
+              aria_label="button"
+              onClick="submitContactForm();"
+              >Submit
+            </dda-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function submitContactForm() {
+        var firstName = document.getElementById("firstname_field").value;
+        var lastName = document.getElementById("lastname_field").value;
+        var email = document.getElementById("email_field").value;
+        var phone = document.getElementById("phone_field").value;
+        var message = document.getElementById("message_field").value;
+
+        if (firstName.length < 3) {
+          $("#firstname_field").attr(
+            "error_message",
+            "Please enter a valid first name!"
+          );
+          return false;
+        } else {
+          $("#firstname_field").attr("error_message", "");
+        }
+
+        if (lastName.length < 3) {
+          $("#lastname_field").attr(
+            "error_message",
+            "Please enter a valid last name!"
+          );
+          return false;
+        } else {
+          $("#lastname_field").attr("error_message", "");
+        }
+
+        if (
+          !email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          )
+        ) {
+          $("#email_field").attr(
+            "error_message",
+            "Please enter a valid email!"
+          );
+          return false;
+        } else {
+          $("#email_field").attr("error_message", "");
+        }
+
+        if (message.length < 80) {
+          $("#message_field").attr(
+            "error_message",
+            "Please enter a valid message!"
+          );
+          return false;
+        } else {
+          $("#message_field").attr("error_message", "");
+        }
+
+        console.log({ firstName, lastName, email, phone, message });
+        alert("Form Submitted");
+        window.location.reload();
+      }
+    </script>
+
+    <dda-sticky-footer
+      happiness-icon-href="#"
+      happiness-icon-src="assets/img/icn/icn-happy.svg"
+      happiness-icon-alt="Happiness"
+      happiness-icon-tooltip="Happiness"
+      accessibility-icon-href="#"
+      accessibility-icon-src="assets/img/icn/icn-complaints.svg"
+      accessibility-icon-alt="Suggestions and complaints"
+      accessibility-icon-tooltip="Suggestions &amp; complaints"
+      services-icon-href="#"
+      services-icon-src="assets/img/icn/icn-grid-view.svg"
+      services-icon-alt="Services"
+      services-icon-tooltip="Services"
+      services-icon-text="Services"
+      first-logo-href="#"
+      first-logo-src="assets/img/digital-logo.svg"
+      first-logo-alt="Logo 1"
+      first-logo-tooltip="Logo 1"
+      second-logo-href="#"
+      second-logo-src="assets/img/digital-logo.svg"
+      second-logo-alt="Logo 1"
+      second-logo-tooltip="Logo 1"
+      third-logo-href="#"
+      third-logo-src="assets/img/digital-logo.svg"
+      third-logo-alt="Logo 3"
+      third-logo-tooltip="Logo 3"
+      location-button-href="#"
+      location-button-text="Location"
+      location-button-icon=""
+      news-button-href="#"
+      news-button-text="News"
+      news-button-icon=""
+      ai-icon-href="#"
+      ai-icon-src="assets/img/icn/DubaiAI.svg"
+      ai-icon-alt="Digital AI"
+      ai-icon-tooltip="Digital AI"
+      chat-icon-href="#"
+      chat-icon-src="assets/img/icn/icn-chat_bubble_outline.svg"
+      chat-icon-alt="Online Chat"
+      chat-icon-tooltip="Online Chat"
+    >
+    </dda-sticky-footer>
+    <spinner id="ddaspinner">
+      <span class="loader"></span>
+    </spinner>
+
+    <script>
+      $(window).bind("load", function () {
+        setTimeout(function () {
+          $("#ddaspinner").fadeOut();
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,570 @@
+import {Meta} from "@storybook/addon-docs"
+
+# Header Footer Transparent Template
+
+<Meta title="Templates/Header Transparent" />
+
+## Header
+```jsx
+
+<header class="dda-header transparent">
+        <div class="dda-container-fluid">
+            <div class="dda-head-logo">
+                <a href="#" class="govt-logo">
+                    <img class="logo-colored" src="../stencil/src/assets/img/government-of-dubai-red.svg" alt="government-of-dubai-red"/> 
+                    <img class="logo-white" src="../stencil/src/assets/img/government-of-dubai-white.svg" alt="government-of-dubai-white"/>
+                </a>
+                <a href="#" class="entt-logo">
+                    <img class="logo-colored" src="../stencil/src/assets/img/digital-logo.svg" alt="Dubai-Digital-Authority"/> 
+                    <img class="logo-white" src="../stencil/src/assets/img/digital-logo-white.svg" alt="Dubai-Digital-Authority-white"/>
+                </a>
+            </div>
+            <div class="dda-menu-container">
+
+                <div class="dda-main-navigation">
+                    <div class="dda-menu-overley"></div>
+                    <div class="hamburger-menu">
+                        <dda-tooltip title_text="Menu" description="" position="top" class="d-block">
+                            <button type="button" class="hamburger-menu-btn">
+                                <span class="hamburger-line"></span>
+                                <span class="hamburger-menu-text">hamburger menu text</span>
+                            </button>
+                        </dda-tooltip>
+                    </div>
+                    <!--Side Menu-->
+                    <div class="dda-sidemenu">
+                        <div class="dda-sidemenu-content">
+                            <p class="dda-side-nav-title">Quick Links</p>
+                            <ul class="main_side_menu">
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#" >Initiatives</a>
+                                    <div class="main_sub_menu">
+                                        <p class="dda-side-nav__title">Initiatives</p>
+                                        <ol>
+                                            <li><a href="#" >Submenu-1</a>
+                                                <div class="main_sub_menu">
+                                                    <p class="dda-side-nav__title">Initiatives</p>
+                                                    <ol>
+                                                        <li>
+                                                            <a href="#">Submenu-2</a>
+                                                            <div class="main_sub_menu">
+                                                                <p class="dda-side-nav__title">Initiatives</p>
+                                                                <ol>
+                                                                    <li><a href="#">Submenu-3</a></li>
+                                                                    <li><a href="#">Submenu-3</a></li>
+                                                                    <li><a href="#">Submenu-3</a></li>
+                                                                </ol>
+                                                            </div>
+                                                        </li>
+                                                        <li><a href="#">Submenu-2</a></li>
+                                                        <li><a href="#">Submenu-2</a></li>
+                                                    </ol>
+                                                </div>
+                                            </li>
+                                            <li><a href="#" >Submenu-1</a>
+                                                <div class="main_sub_menu">
+                                                    <p class="dda-side-nav__title">Initiatives</p>
+                                                    <ol>
+                                                        <li>
+                                                            <a href="#">Submenu-2</a>
+                                                            <div class="main_sub_menu">
+                                                                <p class="dda-side-nav__title">Initiatives</p>
+                                                                <ol>
+                                                                    <li><a href="#">Submenu-3</a></li>
+                                                                    <li><a href="#">Submenu-3</a></li>
+                                                                    <li><a href="#">Submenu-3</a></li>
+                                                                </ol>
+                                                            </div>
+                                                        </li>
+                                                        <li><a href="#">Submenu-2</a></li>
+                                                        <li><a href="#">Submenu-2</a></li>
+                                                    </ol>
+                                                </div>
+                                            </li>
+                                            <li><a href="#">Submenu-1</a></li>
+                                            <li><a href="#">Submenu-1</a></li>
+                                        </ol>
+                                    </div>
+                                </li>
+                                <li><a href="#" >Services</a>
+                                    <div class="main_sub_menu">
+                                        <p class="dda-side-nav__title">Services</p>
+                                        <ol>
+                                            <li><a href="#">Submenu-1</a></li>
+                                            <li><a href="#">Submenu-1</a></li>
+                                            <li><a href="#">Submenu-1</a></li>
+                                        </ol>
+                                    </div>
+                                </li>
+                                <li><a href="#">Data</a></li>
+                                <li><a href="#">Government Services</a></li>
+                                <li><a href="#">Investor Relations</a></li>
+                                <li><a href="#">Locations</a></li>
+                                <li><a href="#">Newsroom</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                            </ul>  
+                        </div>
+                        <div class="dda-sidemenu-bottom">
+                            <div class="dda-sidemenu-gov-logo">
+                                <a href="#" class="govt-logo">
+                                    <img src="../stencil/src/assets/img/government-of-dubai-red.svg" alt="government-of-dubai-red"/>
+                                </a>
+                            </div>
+                            <div class="dda-toolbar-menu-sidemenu">
+                                <ul>
+                                    <li>
+                                        <button class="tool-btn dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle accessibility-btn" type="button"><i class="material-icons  material-symbols-outlined">accessible_forward</i><span class="visually-hidden">Accessibility</span></button>
+                                    </li>
+                                    <li>
+                                        <dda-link-button
+                                            button_color="onsurface-secondary"
+                                            
+                                            custom_class="tool-btn"
+                                            href="header-footer-arabic.html"
+                                            component_mode=""
+                                            onclick="console.log('clicked')"
+                                            button_id="link-button"
+                                            aria_label="link-Button"
+                                            button_shape="circle"
+                                            size="sm">العربية
+                                        </dda-link-button>
+                                    </li>
+                                    <li>
+                                        <dda-link-button
+                                            button_color="onsurface-secondary"
+                                            start_icon="sentiment_satisfied"
+                                            
+                                            custom_class="tool-btn"
+                                            href="#"
+                                            component_mode=""
+                                            onclick="console.log('clicked')"
+                                            button_id="link-button"
+                                            aria_label="link-Button"
+                                            button_shape="circle"
+                                            size="sm">Login
+                                        </dda-link-button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="close-btn side-nav-close-btn" aria-label="Close Sidebar">
+                            <i class="material-icons  material-symbols-outlined">close</i>
+                        </button>
+                    </div>
+                    
+                    <div>
+                        <ul class="dda-mega-menu">
+                            <li>
+                                <a href="#">Placeholder-1</a>
+                                <div class="megamenu-content">
+                                    <div class="megamenu-item dda-container">
+                                        <div class="dda-row">
+                                            <div class="dda-col-md-3">
+                                                <h3 class="mega-menu-title">QUICK LINKS</h3>
+                                                <ul>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="dda-col-md-3">
+                                                <h3 class="mega-menu-title">QUICK LINKS</h3>
+                                                <ul>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="dda-col-md-3">
+                                                <h3 class="mega-menu-title">QUICK LINKS</h3>
+                                                <ul>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="dda-col-md-3">
+                                                <h3 class="mega-menu-title">QUICK LINKS</h3>
+                                                <ul>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                            </span>
+                                                            <i class="arrow-icon material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <button class="close-btn close_mega-menu" aria-label="Close Sidebar">
+                                            <i class="material-icons  material-symbols-outlined">close</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a href="#">Placeholder-2</a>
+                                <div class="megamenu-content">
+                                    <div class="megamenu-item dda-container">
+                                        <div class="dda-row">
+                                            <div class="dda-col-md-3">
+                                                <h3 class="mega-menu-title">QUICK LINKS</h3>
+                                                <ul>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="dda-col-md-3">
+                                                <h3 class="mega-menu-title">QUICK LINKS</h3>
+                                                <ul>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="dda-col-md-3">
+                                                <h3 class="mega-menu-title">QUICK LINKS</h3>
+                                                <ul>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="dda-col-md-3">
+                                                <h3 class="mega-menu-title">QUICK LINKS</h3>
+                                                <ul>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <button class="close-btn close_mega-menu" aria-label="Close Sidebar">
+                                            <i class="material-icons  material-symbols-outlined">close</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a href="#">Placeholder-3</a>
+                                <div class="megamenu-content">
+                                    <div class="megamenu-item dda-container">
+                                        <div class="dda-row">
+                                            <div class="dda-col-md-3">
+                                                <h3 class="mega-menu-title">QUICK LINKS</h3>
+                                                <ul>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="dda-col-md-3">
+                                                <h3 class="mega-menu-title">QUICK LINKS</h3>
+                                                <ul>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="megamenu-link" href="#">
+                                                            <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default"><i class="material-icons  material-symbols-outlined">sentiment_satisfied</i></span>
+                                                            <span class="text-wrap">
+                                                                <span class="title-text dda-fs-body-lg dda-fw-700">Placeholder</span>
+                                                                <span class="dda-fs-tagline-lg dda-fw-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nunc auctor adipisci</span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="dda-col-md-6">
+                                                <div class="p-5">
+                                                    <h4 class="mb-4">DIGITAL DUBAI</h4>
+                                                    <p class="dda-fs-body-lg">Digital Dubai was established by His Highness Sheikh Mohammed Bin Rashid Al Maktoum, Vice-President & Prime Minister of the UAE, and Ruler of Dubai, in June 2021 to develop and oversee the implementation of policies and strategies that govern all matters related to Dubai’s information technology, data, digital transformation, and cyber-security. Digital Dubai brings together the expertise of four entities – Dubai Electronic Security Center, Dubai Statistics Center, Dubai Data Establishment, Smart Dubai Government Establishment - to ensure the city collaboratively achieves the vision of the city’s leadership to make Dubai a globally leading digital economy.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="close-btn close_mega-menu" aria-label="Close Sidebar">
+                                            <i class="material-icons  material-symbols-outlined">close</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li><a href="#">Placeholder</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="dda-mobile-entt-logo">
+                    <a href="#" class="entt-logo">
+                        <img class="logo-colored" src="../stencil/src/assets/img/digital-logo.svg" alt="government-of-dubai-red"/>
+                        <img class="logo-white" src="../stencil/src/assets/img/digital-logo-white.svg" alt="government-of-dubai-red"/>
+                    </a>
+                </div>
+                <div class="dda-mobile-search">
+                    <button class="tool-btn" type="button"><i class="material-icons  material-symbols-outlined">search</i></button>
+                </div>
+                <div class="dda-toolbar-menu">
+                    <ul>
+                        <li>
+                            <dda-tooltip title_text="Search" description="" position="top">
+                                <div class="dda-search dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle tool-btn">
+                                    <i class="material-icons  material-symbols-outlined">search</i>
+                                    <input type="text" class="" placeholder="Search">
+                                </div> 
+                            </dda-tooltip>
+                        </li>
+                        <li>
+                            <dda-tooltip title_text="Accessibility" description="" position="top">
+                                <button class="tool-btn dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle accessibility-btn" type="button"><i class="material-icons  material-symbols-outlined">accessible_forward</i><span class="visually-hidden">Accessibility</span></button>
+                            </dda-tooltip>
+                            
+                            <div class="dda-accessibility-wrap">
+                                <div class="dda-accessibility hide-accessibility">
+                                    <div class="dda-row">
+                                        <div class="dda-col-md-4 dda-accessibility-item">
+                                            <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Contrast</h2>
+                                            <p class="mb-3">Select your preferred contrast setting </p>
+                                            <div class="dda-theme-list">
+                                                <dda-radiobutton title_text="Normal" checked="true" size="sm" variants="normal" supporting="" group_name="themeselection" input_id="Normal" custom_class="" component_mode="" on_checked="() => void 0" aria_label="radio-button" ></dda-radiobutton>
+                                                <dda-radiobutton title_text="Colours Blind" checked="false" size="sm" variants="normal" supporting="" group_name="themeselection" input_id="ColoursBlind" custom_class="" component_mode="" on_checked="() => void 0" aria_label="radio-button" ></dda-radiobutton>
+                                                <dda-radiobutton title_text="Red Weakness" checked="false" size="sm" variants="normal" supporting="" group_name="themeselection" input_id="RedWeakness" custom_class="" component_mode="" on_checked="() => void 0" aria_label="radio-button" ></dda-radiobutton>
+                                                <dda-radiobutton title_text="Green Weakness" checked="false" size="sm" variants="normal" supporting="" group_name="themeselection" input_id="GreenWeakness" custom_class="" component_mode="" on_checked="() => void 0" aria_label="radio-button" ></dda-radiobutton>
+                                            </div>
+                                        </div>
+                                        <div class="dda-col-md-4 dda-accessibility-item">
+                                            <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Screen Reader</h2>
+                                            <p class="mb-3">Listen to the content of the page by clicking play or listen</p>
+                                        </div>
+                                        <div class="dda-col-md-4 dda-accessibility-item">
+                                            <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Text Size</h2>
+                                            <p class="mb-3">Use the buttons below to increase or decrease the text size</p>
+                                            <div class="d-flex dda-gap-4">
+                                                <dda-button button_color="default-secondary" icon_button_shape="circle"   custom_class="" size="lg">A</dda-button>
+                                                <dda-button button_color="default-secondary" icon_button_shape="circle"   custom_class="" size="lg">A+</dda-button>
+                                                <dda-button button_color="default-secondary" icon_button_shape="circle"   custom_class="" size="lg">A-</dda-button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button class="close-btn close_accessibility" aria-label="Close Sidebar">
+                                        <i class="material-icons  material-symbols-outlined">close</i>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <dda-tooltip title_text="Language" description="" position="top">
+                                <dda-link-button
+                                    button_color="onsurface-secondary"
+                                    custom_class="tool-btn"
+                                    href="header-footer-arabic.html"
+                                    component_mode=""
+                                    onclick="console.log('clicked')"
+                                    button_id="link-button"
+                                    aria_label="link-Button"
+                                    button_shape="circle"
+                                    size="sm">العربية
+                                </dda-link-button>
+                            </dda-tooltip>
+                        </li>
+                        <li>
+                            <dda-tooltip title_text="Login" description="" position="top">
+                                <dda-link-button
+                                    button_color="onsurface-secondary"
+                                    start_icon="sentiment_satisfied"
+                                    custom_class="tool-btn"
+                                    href="#"
+                                    component_mode=""
+                                    onclick="console.log('clicked')"
+                                    button_id="link-button"
+                                    aria_label="link-Button"
+                                    button_shape="circle"
+                                    size="sm">Login
+                                </dda-link-button>
+                            </dda-tooltip>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+```

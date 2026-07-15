@@ -1,0 +1,394 @@
+import {Meta} from "@storybook/addon-docs"
+
+<Meta title="Templates/Website Footer" />
+
+# Website Footer Template - Variant 1
+```jsx
+<footer class="WB-footer">
+    <div class="dda-container line-seperater">
+        <div class="dda-flex dda-align-center flex-column dda-gap-5">
+            <h4 class="dda-fs-display-sm dda-fw-700 dda-color-black">Welcome to your new digital reality.</h4>
+            <p class="dda-fs-title-sm  dda-fw-400 mb-3">Let us help you take you from zero to serious business and beyond. Our no-strings attached free trial lets you test our product today.</p>
+            <div class="dda-flex dda-gap-5">
+                <dda-button
+                    button_color="default-primary"
+                    start_icon=""
+                    end_icon=""
+                    custom_class=""
+                    size="lg">Sign Up
+                </dda-button>
+                <dda-button
+                    button_color="default-tertiary"
+                    start_icon=""
+                    end_icon=""
+                    custom_class=""
+                    size="lg">Login
+                </dda-button>
+            </div>
+        </div>
+    </div>
+    <div class="dda-container line-seperater">
+        <div class="dda-row">
+            <div class="dda-col-lg-4 mb-3">
+                <div class="text-center">
+                    <img class="entt-logo" src="../stencil/src/assets/img/digital-logo.svg" alt="Dubai-Digital-Authority"/>
+                    <p class="dda-fs-title-sm">Design outstanding interfaces with advanced Figma features in a matter of minutes.</p>
+                </div>
+            </div>
+            <div class="dda-col-lg-8">
+                <div class="dda-row">
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">About Us</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Our Competition</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Channels</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Scale</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Watch the Demo</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Products</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Features</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Products</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Enterprise</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Solutions</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Resources</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Partners</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Developers</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Community</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Apps</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Company</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">About Us</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Leadership</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">News</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dda-container pt-4">
+        <div class="dda-flex dda-align-center dda-justify-space">
+            <p class="dda-fs-title-sm">© 2023 Digitaldubai. All Rights Reserved.</p>
+            <ul class="dda-flex dda-align-center dda-gap-4">
+                <li><a  href="#"><img class="footer-social-icn" src="../../packages/stencil/src/assets/img/icn/icn-facebook.svg" alt="facebook"/></a></li>
+                <li><a href="#"><img class="footer-social-icn" src="../../packages/stencil/src/assets/img/icn/icn-google.svg" alt="google"/></a></li>
+                <li><a href="#"><img class="footer-social-icn" src="../../packages/stencil/src/assets/img/icn/icn-apple.svg" alt="apple"/></a></li>
+                <li><a href="#"><img class="footer-social-icn" src="../../packages/stencil/src/assets/img/icn/icn-instagram.svg" alt="instagram"/></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+```
+
+# Website Footer Template - Variant 2
+```jsx
+<footer class="WB-footer">
+    <div class="dda-container line-seperater">
+        <div class="dda-row">
+            <div class="dda-col-lg-4 mb-3">
+                <div class="text-center">
+                    <img class="entt-logo" src="../stencil/src/assets/img/digital-logo.svg" alt="Dubai-Digital-Authority"/>
+                    <p class="dda-fs-title-sm">Design outstanding interfaces with advanced Figma features in a matter of minutes.</p>
+                    <br>
+                    <ul class="dda-flex dda-align-center dda-gap-4">
+                        <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-facebook-dark.svg" alt="facebook"/></a></li>
+                        <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-google-dark.svg" alt="google"/></a></li>
+                        <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-apple-dark.svg" alt="apple"/></a></li>
+                        <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-instagram-dark.svg" alt="instagram"/></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="dda-col-lg-8">
+                <div class="dda-row">
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">About Us</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Our Competition</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Channels</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Scale</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Watch the Demo</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Products</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Features</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Products</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Enterprise</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Solutions</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Resources</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Partners</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Developers</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Community</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Apps</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Company</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">About Us</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Leadership</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">News</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dda-container pt-4">
+        <div class="dda-flex dda-flex-column dda-align-center dda-gap-4">
+            <dda-button
+                button_color="onsurface-secondary"
+                icon_button_shape="circle"
+                start_icon="north"
+                custom_class=""
+                size="xl">
+            </dda-button>
+            <p class="dda-fs-title-sm">© 2023 Digitaldubai. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+```
+
+# Website Footer Template - Variant 3
+```jsx
+<footer class="WB-footer">
+    <div class="dda-container line-seperater">
+        <div class="dda-row">
+            <div class="dda-col-lg-4 mb-3">
+                <div class="text-center">
+                    <img class="entt-logo" src="../stencil/src/assets/img/digital-logo.svg" alt="Dubai-Digital-Authority"/>
+                    <p class="dda-fs-title-sm">Design outstanding interfaces with advanced Figma features in a matter of minutes.</p>
+                    <br>
+                    
+                    <div class="dda-flex">
+                        <dda-input
+                            placeholder="Enter text"
+                            label=""
+                            value=""
+                            type="text"
+                            size="small"
+                            helper_text=""
+                            error_message=""
+                            custom_class="">
+                        </dda-input>
+                        <dda-button
+                            button_color="default-primary"
+                            start_icon=""
+                            end_icon=""
+                            custom_class=""
+                            size="lg">Button
+                        </dda-button>
+                    </div>
+                </div>
+            </div>
+            <div class="dda-col-lg-8">
+                <div class="dda-row">
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-4 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">About Us</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Our Competition</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Channels</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Scale</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Watch the Demo</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-4 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Products</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Features</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Products</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Enterprise</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Solutions</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-4 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Resources</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Partners</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Developers</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Community</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Apps</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dda-container pt-4">
+        <div class="dda-flex dda-flex-column dda-align-center dda-gap-4">
+            <p class="dda-fs-title-sm">© 2023 Digitaldubai. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+```
+
+# Website Footer Template - Variant 4
+```jsx
+<footer class="WB-footer">
+    <div class="dda-container line-seperater">
+        <div class="dda-row">
+            <div class="dda-col-lg-3 mb-3">
+                <div class="text-center">
+                    <img class="entt-logo" src="../stencil/src/assets/img/digital-logo.svg" alt="Dubai-Digital-Authority"/>
+                    <p class="dda-fs-title-sm">Design outstanding interfaces with advanced Figma features in a matter of minutes.</p>                
+                </div>
+            </div>
+            <div class="dda-col-lg-9">
+                <div class="dda-row">
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">About Us</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Our Competition</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Channels</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Scale</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Watch the Demo</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Products</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Features</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Products</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Enterprise</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Solutions</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-6 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Get Email Notifications</p>
+                        <p class="dda-fs-title-sm mb-4">Sign up to our e-mail newsletter to receive the latest news & updates.</p>    
+                        <div class="dda-flex">
+                            <dda-input
+                                placeholder="Enter text"
+                                label=""
+                                value=""
+                                type="text"
+                                size="small"
+                                helper_text=""
+                                error_message=""
+                                custom_class="">
+                            </dda-input>
+                            <dda-button
+                                button_color="default-primary"
+                                start_icon=""
+                                end_icon=""
+                                custom_class=""
+                                size="lg">Contact Us
+                            </dda-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dda-container pt-4">
+        <div class="dda-flex dda-align-center dda-justify-space">
+            <p class="dda-fs-title-sm">© 2023 Digitaldubai. All Rights Reserved.</p>
+            <ul class="dda-flex dda-align-center dda-gap-4">
+                <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-facebook.svg" alt="facebook"/></a></li>
+                <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-google.svg" alt="google"/></a></li>
+                <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-apple.svg" alt="apple"/></a></li>
+                <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-instagram.svg" alt="instagram"/></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+```
+
+# Website Footer Template - Variant 5
+```jsx
+<footer class="WB-footer">
+    <div class="dda-container line-seperater">
+        <div class="dda-row">
+            <div class="dda-col-lg-8">
+                <div class="dda-row">
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">About Us</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Our Competition</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Channels</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Scale</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Watch the Demo</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Products</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Features</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Products</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Enterprise</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Solutions</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Resources</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Partners</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Developers</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Community</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Apps</a></li>
+                        </ul>
+                    </div>
+                    <div class="dda-col-6 dda-col-sm-6 dda-col-md-3 mb-3">
+                        <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Company</p>
+                        <ul class="footer-menu">
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">About Us</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">Leadership</a></li>
+                            <li><a class="dda-fs-title-sm dda-fw-400" href="#">News</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="dda-col-lg-4 mb-3">
+                <p class="dda-fs-title-sm dda-fw-700 dda-color-black mb-3">Get Email Notifications</p>
+                <p class="dda-fs-title-sm mb-4">Sign up to our e-mail newsletter to receive the latest news & updates.</p>    
+                <div class="dda-flex">
+                    <dda-input
+                        placeholder="Enter text"
+                        label=""
+                        value=""
+                        type="text"
+                        size="small"
+                        helper_text=""
+                        error_message=""
+                        custom_class="">
+                    </dda-input>
+                    <dda-button
+                        button_color="default-primary"
+                        start_icon=""
+                        end_icon=""
+                        custom_class=""
+                        size="lg">Contact Us
+                    </dda-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dda-container pt-4">
+        <div class="dda-flex dda-align-center dda-justify-space">
+            <p class="dda-fs-title-sm">© 2023 Digitaldubai. All Rights Reserved.</p>
+            <ul class="dda-flex dda-align-center dda-gap-4">
+                <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-facebook-dark.svg" alt="facebook"/></a></li>
+                <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-google-dark.svg" alt="google"/></a></li>
+                <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-apple-dark.svg" alt="apple"/></a></li>
+                <li><a href="#"><img src="../../packages/stencil/src/assets/img/icn/icn-instagram-dark.svg" alt="instagram"/></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+```
+

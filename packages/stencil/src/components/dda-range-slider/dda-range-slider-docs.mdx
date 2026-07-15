@@ -1,0 +1,85 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Range Slider/Documentation" />
+
+# Range Slider
+The `dda-range-slider` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaRangeSlider } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaRangeSlider
+            min="0"
+            max="100"
+            step="1"
+            initial_min="20"
+            initial_max="80"
+            custom_class=""
+            component_mode=""
+            left_input_id="left_input"
+            right_input_id="right_input"
+            left_aria_label="minimum-value"
+            right_aria_label="maximum-value"
+        ></DdaRangeSlider>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaRangeSlider } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaRangeSlider
+            min="0"
+            max="100"
+            step="1"
+            initial_min="20"
+            initial_max="80"
+            custom_class=""
+            component_mode=""
+            left_input_id="left_input"
+            right_input_id="right_input"
+            left_aria_label="minimum-value"
+            right_aria_label="maximum-value"
+        ></DdaRangeSlider>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-range-slider
+    min="0"
+    max="100"
+    step="1"
+    initial_min="20"
+    initial_max="80"
+    custom_class=""
+    component_mode=""
+    left_input_id="left_input"
+    right_input_id="right_input"
+    left_aria_label="minimum-value"
+    right_aria_label="maximum-value"
+></dda-range-slider>
+```

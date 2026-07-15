@@ -1,0 +1,85 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Radio Button/Documentation" />
+
+# Radio Button
+The `dda-radiobutton` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaRadiobutton } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaRadiobutton
+            title_text="Radio Button Title"
+            checked="false"
+            size="md"
+            variants="normal"
+            supporting="Supporting Text"
+            group_name="radiogroup"
+            input_id="testId"
+            custom_class=""
+            component_mode=""
+            aria_label="radio-button"
+            onclick="console.log('clicked')"
+        ></DdaRadiobutton>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaRadiobutton } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaRadiobutton
+            title_text="Radio Button Title"
+            checked="false"
+            size="md"
+            variants="normal"
+            supporting="Supporting Text"
+            group_name="radiogroup"
+            input_id="testId"
+            custom_class=""
+            component_mode=""
+            aria_label="radio-button"
+            onclick="console.log('clicked')"
+        ></DdaRadiobutton>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-radiobutton
+    title_text="Radio Button Title"
+    checked="false"
+    size="md"
+    variants="normal"
+    supporting="Supporting Text"
+    group_name="radiogroup"
+    input_id="testId"
+    custom_class=""
+    component_mode=""
+    aria_label="radio-button"
+    onclick="console.log('clicked')"
+></dda-radiobutton>
+```

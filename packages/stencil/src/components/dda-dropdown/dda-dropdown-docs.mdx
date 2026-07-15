@@ -1,0 +1,88 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Dropdown/Documentation" />
+
+# Dropdown
+The `dda-dropdown` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaDropdown } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaDropdown
+            label="Headline"
+            selected=""
+            disabled="false"
+            error=""
+            helper_text=""
+            type="bg-white"
+            size="default"
+            icon_mode="false"
+            custom_class=""
+            component_mode=""
+            button_id="dropdown"
+            aria_label="dropdown"
+            options='["Option 1","Option 2","Option 3"]'
+        ></DdaDropdown>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaDropdown } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaDropdown
+            label="Headline"
+            selected=""
+            disabled="false"
+            error=""
+            helper_text=""
+            type="bg-white"
+            size="default"
+            icon_mode="false"
+            custom_class=""
+            component_mode=""
+            button_id="dropdown"
+            aria_label="dropdown"
+            options='["Option 1","Option 2","Option 3"]'
+        ></DdaDropdown>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-dropdown
+    label="Headline"
+    selected=""
+    disabled="false"
+    error=""
+    helper_text=""
+    type="bg-white"
+    size="default"
+    icon_mode="false"
+    custom_class=""
+    component_mode=""
+    button_id="dropdown"
+    aria_label="dropdown"
+    options='["Option 1","Option 2","Option 3"]'
+></dda-dropdown>
+```

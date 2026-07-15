@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Stepper/Vertical Stepper/Documentation" />
+
+# Accordion
+The `dda-vertical-stepper` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaVerticalStepper } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaVerticalStepper
+            steps='[{"icon":"sentiment_satisfied","title":"Step 1","subtitle":"Subtitle 1","description":"Description 1"},{"icon":"sentiment_satisfied","title":"Step 2","subtitle":"Subtitle 2","description":"Description 2"},{"icon":"sentiment_satisfied","title":"Step 3","subtitle":"Subtitle 3","description":"Description 3"}]'
+            current_step="1"
+            custom_class='""'
+            mode='"light"'
+        ></DdaVerticalStepper>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+import { DdaVerticalStepper } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaVerticalStepper
+            steps='[{"icon":"sentiment_satisfied","title":"Step 1","subtitle":"Subtitle 1","description":"Description 1"},{"icon":"sentiment_satisfied","title":"Step 2","subtitle":"Subtitle 2","description":"Description 2"},{"icon":"sentiment_satisfied","title":"Step 3","subtitle":"Subtitle 3","description":"Description 3"}]'
+            current_step="1"
+            custom_class='""'
+            mode='"light"'
+        ></DdaVerticalStepper>
+
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-vertical-stepper
+    steps='[{"icon":"sentiment_satisfied","title":"Step 1","subtitle":"Subtitle 1","description":"Description 1"},{"icon":"sentiment_satisfied","title":"Step 2","subtitle":"Subtitle 2","description":"Description 2"},{"icon":"sentiment_satisfied","title":"Step 3","subtitle":"Subtitle 3","description":"Description 3"}]'
+    current_step="1"
+    custom_class='""'
+    mode='"light"'
+></dda-vertical-stepper>
+```

@@ -1,0 +1,64 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Stepper/Horizontal Stepper/Documentation" />
+
+# Horizontal Stepper
+The `dda-horizontal-stepper` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaHorizontalStepper } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaHorizontalStepper
+            steps='[{"title":"Step 1","subtitle":"Subtitle 1","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 2","subtitle":"Subtitle 2","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 3","subtitle":"Subtitle 3","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."}]'
+            current_step="1"
+            custom_class='""'
+            mode='"light"'
+        ></DdaHorizontalStepper>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaHorizontalStepper } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaHorizontalStepper
+            steps='[{"title":"Step 1","subtitle":"Subtitle 1","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 2","subtitle":"Subtitle 2","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 3","subtitle":"Subtitle 3","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."}]'
+            current_step="1"
+            custom_class='""'
+            mode='"light"'
+        ></DdaHorizontalStepper>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-horizontal-stepper
+    steps='[{"title":"Step 1","subtitle":"Subtitle 1","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 2","subtitle":"Subtitle 2","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 3","subtitle":"Subtitle 3","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."}]'
+    current_step="1"
+    custom_class='""'
+    mode='"light"'
+></dda-horizontal-stepper>
+```

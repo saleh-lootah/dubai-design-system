@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Chip/Documentation" />
+
+# Chip
+The `dda-chip` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaChip } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaChip 
+            bg_color="grey" 
+            icon="" 
+            show_close_icon="true" 
+            custom_class="" 
+            component_mode=""
+            onclick="console.log('clicked!')"
+            >Label
+        </DdaChip>
+    </div>
+ )
+}
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaChip } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaChip 
+            bg_color="grey" 
+            icon="" 
+            show_close_icon="true" 
+            custom_class="" 
+            component_mode=""
+            onclick="console.log('clicked!')"
+            >Label
+        </DdaChip>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-chip 
+    bg_color="grey" 
+    icon="" 
+    show_close_icon="true" 
+    custom_class="" 
+    component_mode=""
+    onclick="console.log('clicked!')"
+    >Label
+</dda-chip>
+```

@@ -1,0 +1,124 @@
+@import url('../../global/global.css'); 
+
+.dda-radio-container {
+  display: inline-flex;
+  align-items: center;
+}
+.dda-radio-container input[type="radio"]{
+  width: 0;
+  height: 0;
+  position: absolute;
+  opacity: 0;
+}
+.dda-radio-container label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.dda-radio-container .radio-circle{
+  display: inline-block;
+  margin-top: 2px;
+  background: var(--dda-neutral-100);
+  border-radius: 50px;
+  box-shadow: 0px 0px 0px 2px var(--dda-color-primary-40) inset, 0px 0px 0px 5px var(--dda-neutral-100) inset;
+}
+.light-mode.dda-radio-container .radio-circle{
+  box-shadow: 0px 0px 0px 2px var(--dda-primary-40) inset, 0px 0px 0px 5px var(--dda-neutral-100) inset;
+}
+.dda-radio-container input[type="radio"]:checked~label .radio-circle{
+  background: var(--dda-color-primary-40);
+  box-shadow: 0px 0px 0px 2px var(--dda-color-primary-40) inset, 0px 0px 0px 5px var(--dda-primary-95) inset;
+}
+.light-mode.dda-radio-container input[type="radio"]:checked~label .radio-circle{
+  background: var(--dda-primary-40);
+  box-shadow: 0px 0px 0px 2px var(--dda-primary-40) inset, 0px 0px 0px 5px var(--dda-primary-95) inset;
+}
+.dda-radio-container input[type="radio"]:checked:focus-within~label .radio-circle{
+  background: var(--dda-color-primary-40);
+  box-shadow: 0px 0px 0px 2px var(--dda-color-primary-40) inset, 0px 0px 0px 5px var(--dda-primary-95) inset, 0px 0px 0px 3px var(--dda-primary-95);
+}
+.light-mode.dda-radio-container input[type="radio"]:checked:focus-within~label .radio-circle{
+  background: var(--dda-primary-40);
+  box-shadow: 0px 0px 0px 2px var(--dda-primary-40) inset, 0px 0px 0px 5px var(--dda-primary-95) inset, 0px 0px 0px 3px var(--dda-primary-95);
+}
+
+.dda-radio-outlined .radio-circle{
+  background: var(--dda-neutral-100);
+  box-shadow: 0px 0px 0px 2px var(--dda-surface-90) inset;
+}
+.light-mode.dda-radio-outlined .radio-circle{
+  box-shadow: 0px 0px 0px 2px var(--dda-neutral-90) inset;
+}
+.dda-radio-outlined input[type="radio"]:checked~label .radio-circle{
+  box-shadow: 0px 0px 0px 2px var(--dda-color-primary-40) inset, 0px 0px 0px 5px var(--dda-surface-100) inset;
+}
+.dda-radio-outlined input[type="radio"]:checked:focus-within~label .radio-circle{
+  box-shadow: 0px 0px 0px 2px var(--dda-color-primary-40) inset, 0px 0px 0px 5px var(--dda-surface-100) inset, 0px 0px 0px 3px var(--dda-primary-95);
+}
+
+
+.dda-radio-faded .radio-circle{
+  background: var(--dda-neutral-90);
+  box-shadow: 0px 0px 0px 2px var(--dda-neutral-90) inset, 0px 0px 0px 5px var(--dda-neutral-100) inset;
+}
+.dda-radio-faded input[type="radio"]:checked~label .radio-circle{
+  box-shadow: 0px 0px 0px 2px var(--dda-neutral-90) inset, 0px 0px 0px 5px var(--dda-neutral-100) inset;
+}
+.dda-radio-faded input[type="radio"]:checked:focus-within~label .radio-circle{
+  box-shadow: 0px 0px 0px 2px var(--dda-neutral-90) inset, 0px 0px 0px 5px var(--dda-neutral-100) inset, 0px 0px 0px 3px #F2F4F3;
+
+}
+
+
+.dda-radio-sm .radio-circle{
+  width: 17px;
+  height: 17px;
+}
+.dda-radio-md .radio-circle{
+  width: 21px;
+  height: 21px;
+}
+.dda-radio-lg .radio-circle{
+  width: 23px;
+  height: 23px;
+}
+
+.dda-radio-container label p{
+  margin: 0px;
+}
+.radio-title {
+  font-size: var(--dda-fs-body-lg);
+  color: var(--dda-on-surface-0);
+  font-weight: var(--dda-fw-500);
+  display: block;
+}
+.light-mode .radio-title{
+  color: var(--dda-neutral-0);
+}
+.dda-radio-lg label .radio-title{
+  font-size: var(--dda-fs-title-sm);
+}
+.radio-supporting {
+  display: block;
+  font-size: var(--dda-fs-label-lg);
+  color: var(--dda-on-surface-variant-30);
+}
+.light-mode .radio-supporting {
+  color: var(--dda-neutral-variant-30);
+}
+.dda-radio-lg label .radio-supporting{
+  font-size: var(--dda-fs-body-lg);
+}
+
+.dda-radio-disabled{
+  pointer-events: none;
+}
+.dda-radio-container.dda-radio-disabled .radio-circle{
+  box-shadow: 0px 0px 0px 2px var(--dda-neutral-90) inset, 0px 0px 0px 5px var(--dda-neutral-100) inset;
+}
+
+
+
+
+

@@ -1,0 +1,37 @@
+{
+  "name": "@dubai-design-system/components-vue",
+  "version": "3.1.2",
+  "description": "Vue package for Digital Dubai Design System, offering Vue-friendly components for easy integration.",
+  "author": "Digital Dubai <saleh.lootah@digitaldubai.ae>",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": false,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "dependencies": {
+    "@dubai-design-system/components-js": "^3.1.2"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "npm run tsc",
+    "tsc": "tsc -p . --outDir ./dist"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "typescript": "^5.7.3",
+    "vue": "^3.5.13"
+  },
+  "gitHead": "e9aa73742f2bfa5a5534f34888fef366880c7e4d"
+}

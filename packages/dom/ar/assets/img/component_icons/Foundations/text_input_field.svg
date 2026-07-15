@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="100" viewBox="0 0 400 100" fill="none">
+  <rect x="0" y="0" width="400" height="100" fill="#f5f7f6" />
+
+  <text x="20" y="40" font-family="Arial" font-size="20" fill="black">Enter Text</text>
+  <rect x="20" y="50" width="360" height="40" rx="10" ry="10" fill="white" stroke="#ddd" stroke-width="2"/>
+
+  <!-- Placeholder Text -->
+  <text x="40" y="75" font-family="Arial" font-size="18" fill="#aaa">Type here...</text>
+</svg>

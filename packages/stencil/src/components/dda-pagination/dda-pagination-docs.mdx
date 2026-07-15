@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Pagination/Documentation" />
+
+# Pagination
+The `dda-pagination` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaPagination } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaPagination
+            total_pages="8"
+            current_page="1"
+            type="simple-slider"
+            custom_class=""
+            component_mode=""
+        ></DdaPagination>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaPagination } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaPagination
+            total_pages="8"
+            current_page="1"
+            type="simple-slider"
+            custom_class=""
+            component_mode=""
+        ></DdaPagination>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-pagination
+    total_pages="8"
+    current_page="1"
+    type="simple-slider"
+    custom_class=""
+    component_mode=""
+></dda-pagination>
+```

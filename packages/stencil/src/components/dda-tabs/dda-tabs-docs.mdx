@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Tabs/Documentation" />
+
+# Tabs
+The `dda-tabs` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaTabs } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaTabs
+            type="text"
+            hover_style="dda-tab-default"
+            custom_class=""
+            component_mode=""
+            button_id="button"
+            aria_label="tabs"
+        ></DdaTabs>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaTabs } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaTabs
+            type="text"
+            hover_style="dda-tab-default"
+            custom_class=""
+            component_mode=""
+            button_id="button"
+            aria_label="tabs"
+        ></DdaTabs>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-tabs
+    type="text"
+    hover_style="dda-tab-default"
+    custom_class=""
+    component_mode=""
+    button_id="button"
+    aria_label="tabs"
+></dda-tabs>
+```

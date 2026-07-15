@@ -1,0 +1,89 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Input/Documentation" />
+
+# Input
+The `dda-input` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaInput } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaInput
+            placeholder="Enter text"
+            label="Text Input"
+            value=""
+            type="text"
+            size="default"
+            helper_text="Helper or footer text"
+            error_message=""
+            validation_type="normal"
+            custom_class=""
+            component_mode=""
+            input_id="input"
+            aria_label="input"
+            onchange="console.log('changed')"
+        ></DdaInput>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaInput } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaInput
+            placeholder="Enter text"
+            label="Text Input"
+            value=""
+            type="text"
+            size="default"
+            helper_text="Helper or footer text"
+            error_message=""
+            validation_type="normal"
+            custom_class=""
+            component_mode=""
+            input_id="input"
+            aria_label="input"
+            onchange="console.log('changed')"
+        ></DdaInput>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-input
+    placeholder="Enter text"
+    label="Text Input"
+    value=""
+    type="text"
+    size="default"
+    helper_text="Helper or footer text"
+    error_message=""
+    validation_type="normal"
+    custom_class=""
+    component_mode=""
+    input_id="input"
+    aria_label="input"
+    onchange="console.log('changed')"
+></dda-input>
+```

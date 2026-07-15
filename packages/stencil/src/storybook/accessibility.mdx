@@ -1,0 +1,58 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Getting Started/Accessibility" />
+
+# Accessibility
+
+Ensuring accessibility in web development is essential for creating inclusive, user-friendly experiences for all users, including those with disabilities or those using assistive technologies. Stencil.js is built with modern web standards, which helps in creating accessible components more effectively.
+
+This guide highlights key aspects of accessibility in Stencil.js and provides links to important resources, such as the [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/) and [WAI-ARIA guidelines](https://www.w3.org/TR/wai-aria/).
+
+---
+
+### Key Aspects of Accessibility in Stencil.js:
+
+### 1. Semantic HTML
+Using semantic HTML elements like `<button>`, `<input>`, `<label>`, etc., is fundamental to accessibility. These elements come with built-in accessibility features, such as keyboard navigation and ARIA roles, which assistive technologies can easily interpret. Stencil.js encourages the use of these native elements, enhancing accessibility by default.
+
+### 2. ARIA (Accessible Rich Internet Applications) Support
+Stencil.js components can easily incorporate ARIA roles and attributes (e.g., `aria-label`, `aria-expanded`, `aria-hidden`) to improve accessibility for users of screen readers and other assistive devices. The WAI-ARIA guidelines specify how to use these attributes effectively to make dynamic content and interactive elements accessible.
+
+**Example:**
+```html
+<button aria-label="Close Menu" aria-expanded="false">Close</button>
+```
+
+To learn more, refer to the WAI-ARIA Authoring Practices.
+
+### 3. Keyboard Navigation
+Keyboard accessibility is crucial for users who cannot use a mouse. Stencil.js allows developers to implement keyboard event handlers (keydown, keypress, keyup) to ensure that components like dropdowns, menus, and modals are accessible via keyboard. Make sure that focus states are clear and intuitive for seamless navigation.
+
+### 4. Custom Elements Accessibility
+Since Stencil.js components are custom elements, they may not always have the native behaviors of standard HTML elements. To ensure they are accessible, you can add appropriate ARIA roles and make elements focusable by setting tabindex when needed. This helps assistive technologies identify component roles and allows focus navigation.
+
+### 5. Responsiveness and Media Queries
+Accessibility also includes making components responsive and usable across different devices. Use CSS media queries and flexible layouts to create components that are functional on various screen sizes, aiding users with varying devices and vision requirements.
+
+### 6. Accessible Styling
+Accessible styling involves using high-contrast colors, readable font sizes, and distinct visual cues for interactive elements. For example, make sure buttons and links have visible focus indicators and sufficient color contrast between text and background.
+
+**Example:**
+
+Ensure text contrast ratio meets WCAG AA standard (Contrast Checker).
+Use clear focus styles for interactive elements.
+
+
+<hr/>
+
+**Additional Resources:**
+
+To deepen your understanding of accessibility in web development, explore the following resources:
+
+Web Content Accessibility Guidelines (WCAG): [WCAG Overview](https://www.w3.org/WAI/standards-guidelines/wcag/) — Outlines the standards for making web content more accessible, including guidelines on contrast, navigation, and ARIA.
+
+WAI-ARIA (Accessible Rich Internet Applications): [WAI-ARIA Guidelines](https://www.w3.org/TR/wai-aria/) — Details how to use ARIA attributes effectively in web applications.
+
+WAI-ARIA Authoring Practices: [ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices/) — Offers examples and best practices for implementing accessible user interfaces.
+
+By following these practices and resources, Stencil.js components can offer a more inclusive experience for users of all abilities.

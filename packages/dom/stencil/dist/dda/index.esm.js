@@ -1,0 +1,2 @@
+function n(n,o,t){return(n||"")+(o?` ${o}`:"")+(t?` ${t}`:"")}function o(n){const o=document.documentElement;for(const[t,f]of Object.entries(n.colors)){o.style.setProperty(`--${t}`,f)}if(n.fontFamily){o.style.setProperty("--font-family-main",n.fontFamily.main.join(", "))}}export{o as applyTheme,n as format};
+//# sourceMappingURL=index.esm.js.map

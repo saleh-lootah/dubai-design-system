@@ -1,0 +1,318 @@
+@import url('./color.css');
+@import url('./typography.css');
+@import url('./dda.css');
+@import url('./templates/cards.css');
+@import url('./templates/dda-grid.css');
+@import url('./templates/dashboard-navigation.css');
+@import url('./templates/dda-footer-main.css');
+@import url('./templates/side-navigation.css');
+@import url('./templates/table.css');
+@import url('./templates/website-footer.css');
+@import url('./templates/dda-header-main.css');
+
+@font-face {
+  font-family: "Dubai";
+  src: url("../assets/fonts/dubai/DubaiLight.eot");
+  src: url("../assets/fonts/dubai/DubaiLight.eot") format("embedded-opentype"),
+    url("../assets/fonts/dubai/DubaiLight.woff2") format("woff2"),
+    url("../assets/fonts/dubai/DubaiLight.woff") format("woff"),
+    url("../assets/fonts/dubai/DubaiLight.ttf") format("truetype"),
+    url("../assets/fonts/dubai/DubaiLight.svg#DubaiLight") format("svg");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Dubai";
+  src: url("../assets/fonts/dubai/DubaiRegular.eot");
+  src: url("../assets/fonts/dubai/DubaiRegular.eot") format("embedded-opentype"),
+    url("../assets/fonts/dubai/DubaiRegular.woff2") format("woff2"),
+    url("../assets/fonts/dubai/DubaiRegular.woff") format("woff"),
+    url("../assets/fonts/dubai/DubaiRegular.ttf") format("truetype"),
+    url("../assets/fonts/dubai/DubaiRegular.svg#DubaiRegular") format("svg");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Dubai";
+  src: url("../assets/fonts/dubai/DubaiMedium.eot");
+  src: url("../assets/fonts/dubai/DubaiMedium.eot") format("embedded-opentype"),
+    url("../assets/fonts/dubai/DubaiMedium.woff2") format("woff2"),
+    url("../assets/fonts/dubai/DubaiMedium.woff") format("woff"),
+    url("../assets/fonts/dubai/DubaiMedium.ttf") format("truetype"),
+    url("../assets/fonts/dubai/DubaiMedium.svg#DubaiMedium") format("svg");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Dubai";
+  src: url("../assets/fonts/dubai/DubaiBold.eot");
+  src: url("../assets/fonts/dubai/DubaiBold.eot") format("embedded-opentype"),
+    url("../assets/fonts/dubai/DubaiBold.woff2") format("woff2"),
+    url("../assets/fonts/dubai/DubaiBold.woff") format("woff"),
+    url("../assets/fonts/dubai/DubaiBold.ttf") format("truetype"),
+    url("../assets/fonts/dubai/DubaiBold.svg#DubaiBold") format("svg");
+  font-weight: 700;
+  font-style: normal;
+}
+:root{
+  --font-family-main: 'Dubai', sans-serif;
+}
+body {
+  background-color: var(--dda-surface-100) !important;
+  font-family: "Dubai", Helvetica, sans-serif !important;
+  font-size: var(--dda-fs-body-lg) !important;
+  font-weight: var(--dda-fw-400) !important;
+  line-height: 1.5;
+  color: var(--dda-on-surface-0) !important;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul{
+  margin: 0;
+}
+a{
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+h1, .dda-h1 { font-size: var(--dda-h1);  font-weight: 400; }
+
+h2, .dda-h2 { font-size: var(--dda-h2);  font-weight: 400; }
+
+h3, .dda-h3 { font-size: var(--dda-h3);  font-weight: 400; }
+
+h4, .dda-h4 { font-size: var(--dda-h4);  font-weight: 400; }
+
+h5, .dda-h5 { font-size: var(--dda-h5);  font-weight: 400; }
+
+h6, .dda-h6 { font-size: var(--dda-h6);  font-weight: 400; }
+
+.dda-title { font-size: var(--dda-title);  font-weight: 500; }
+
+.dda-body { font-size: var(--dda-body);  font-weight: 400; }
+
+.dda-caption { font-size: var(--dda-caption);  font-weight: 400; }
+
+.dda-label { font-size: var(--dda-label);  font-weight: 400; }
+
+
+a,
+a:hover {
+  text-decoration: none !important;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none;
+}
+.dda-btn.cta-transparent{
+  background: none;
+  color: #ffffff;
+  border: 0px;
+}
+.dda-btn.cta-transparent:hover{
+  background: #ffffff;
+  color: inherit;
+}
+
+/*Colors*/
+.dda-bg-primary {
+  background-color: var(--dda-color-primary-40);
+}
+
+.dda-bg-secondary {
+  background-color: var(--dda-color-secondary);
+}
+
+.dda-color-primary {
+  color: var(--dda-color-primary-40);
+}
+.dda-color-secondary {
+  color: var(--dda-color-primary-40);
+}
+.dda-color-error {
+  color: var(--dda-color-error-40);
+}
+.dda-color-warning{
+  color: var(--dda-color-warning-40);
+}
+.dda-color-success{
+  color: var(--dda-color-warning-40);
+}
+.dda-color-info{
+  color: var(--dda-color-info-40);
+}
+.dda-color-neutral{
+  color: var(--dda-on-surface-40);
+}
+.dda-color-neutralvariant{
+  color: var(--dda-on-surface-variant-40);
+}
+
+.dda-color-black {
+  color: var(--dda-on-surface-0);
+}
+
+/**/
+.visualy-hidden {
+  position: absolute;
+  opacity: 0;
+  width: 0px;
+  overflow: hidden;
+}
+/* Border-radius classes */
+.dda-rounded-sm {
+  border-radius: 4px !important;
+}
+
+.dda-rounded-md {
+  border-radius: 8px !important;
+}
+
+.dda-rounded-lg {
+  border-radius: 12px !important;
+}
+
+.dda-rounded-circle {
+  border-radius: 100px !important;
+}
+
+.dda-gap-16 {
+  gap: 4rem !important;
+}
+
+.dda-gap-12 {
+  gap: 3rem !important;
+}
+
+.dda-gap-10 {
+  gap: 2.5rem !important;
+}
+
+.dda-gap-8 {
+  gap: 2rem !important;
+}
+
+.dda-gap-6 {
+  gap: 1.5rem !important;
+}
+
+.dda-gap-5 {
+  gap: 1.25rem !important;
+}
+
+.dda-gap-4 {
+  gap: 1rem !important;
+}
+
+.dda-gap-3 {
+  gap: .75rem !important;
+}
+
+.dda-gap-2 {
+  gap: .5rem !important;
+}
+
+.dda-gap-1 {
+  gap: 0.375rem !important;
+}
+
+
+::-ms-input-placeholder {
+  color: #8E9191;
+}
+
+::placeholder {
+  color: #8E9191;
+}
+.dda-d-none{
+  display: none;
+}
+.dda-flex {
+  display: flex;
+}
+
+.dda-flex-column {
+  flex-direction: column;
+}
+
+.dda-inline-flex {
+  display: inline-flex;
+}
+
+.dda-align-center {
+  align-items: center;
+}
+
+.dda-justify-space {
+  justify-content: space-between;
+}
+
+.dda-justify-center {
+  justify-content: center;
+}
+
+.m-0 {
+  margin: 0px !important;
+}
+
+.p-0 {
+  padding: 0px !important;
+}
+
+.py-0 {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.border-right {
+  border-inline-end: solid 1px #E5E5E5;
+}
+
+.visually-hidden{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.maincontent{
+  padding-top: 170px;
+  padding-bottom: 100px;
+}
+
+@media screen and (max-width: 767px) {
+  .maincontent {
+      padding-top: 100px;
+  }
+}
+/*Temporary*/
+/* body{
+  height: 1550px;
+} */

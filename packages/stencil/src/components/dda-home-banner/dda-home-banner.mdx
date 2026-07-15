@@ -1,0 +1,99 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Home Banner/Documentation" />
+
+# Header
+The `dda-header` component is customizable that can be used in various UI scenarios
+
+#### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaHeader } from "@dubai-design-system/components-react";
+
+
+const App = () => {
+  return (
+ <DdaHeader
+ first-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+    first-logo-alt="undefined"
+    second-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+    second-logo-alt="Dubai-Digital-Authority"
+    login-link="/login"
+    readspeakerlink="app-eu.readspeaker.com"
+    languageswitch="() => console.log('Language Switcher')"
+    smtextsize="() => console.log('Small Text')"
+    basetextsize="() => console.log('Base Text')"
+    lgtextsize="() => console.log('Large Text')"
+    normalcontrast="() => console.log('Normal Text')"
+    blindcontrast="() => console.log('Blind Text')"
+    redcontrast="() => console.log('Red Text')"
+    greencontrast="() => console.log('Green Text')"
+    quick-links='[{"label":"Home","href":"#","subMenu":[]},{"label":"Services","href":"#","subMenu":[{"title":"Web Development","description":"Build and maintain websites","icon":"sentiment_satisfied","href":"#"},{"title":"SEO Services","description":"Improve your site ranking","icon":"sentiment_satisfied","href":"#"}]},{"label":"About","href":"#","subMenu":[]},{"label":"Contact","href":"#","subMenu":[]}]'
+    side-menu-items='[{"label":"Home","href":"#","subMenu":[]},{"label":"Initiatives","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]},{"label":"Services","href":"#","subMenu":[]},{"label":"Data","href":"#","subMenu":[]},{"label":"Government Services","href":"#","subMenu":[]},{"label":"Investor Relations","href":"#","subMenu":[]},{"label":"Locations","href":"#","subMenu":[]},{"label":"Newsroom","href":"#","subMenu":[]},{"label":"Contact Us","href":"#","subMenu":[]}]'
+  />
+ )
+}
+```
+
+#### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaHeader } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+     <DdaHeader
+ first-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+    first-logo-alt="undefined"
+    second-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+    second-logo-alt="Dubai-Digital-Authority"
+    login-link="/login"
+    readspeakerlink="app-eu.readspeaker.com"
+    languageswitch="() => console.log('Language Switcher')"
+    smtextsize="() => console.log('Small Text')"
+    basetextsize="() => console.log('Base Text')"
+    lgtextsize="() => console.log('Large Text')"
+    normalcontrast="() => console.log('Normal Text')"
+    blindcontrast="() => console.log('Blind Text')"
+    redcontrast="() => console.log('Red Text')"
+    greencontrast="() => console.log('Green Text')"
+    quick-links='[{"label":"Home","href":"#","subMenu":[]},{"label":"Services","href":"#","subMenu":[{"title":"Web Development","description":"Build and maintain websites","icon":"sentiment_satisfied","href":"#"},{"title":"SEO Services","description":"Improve your site ranking","icon":"sentiment_satisfied","href":"#"}]},{"label":"About","href":"#","subMenu":[]},{"label":"Contact","href":"#","subMenu":[]}]'
+    side-menu-items='[{"label":"Home","href":"#","subMenu":[]},{"label":"Initiatives","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]},{"label":"Services","href":"#","subMenu":[]},{"label":"Data","href":"#","subMenu":[]},{"label":"Government Services","href":"#","subMenu":[]},{"label":"Investor Relations","href":"#","subMenu":[]},{"label":"Locations","href":"#","subMenu":[]},{"label":"Newsroom","href":"#","subMenu":[]},{"label":"Contact Us","href":"#","subMenu":[]}]'
+
+></DdaHeader>
+
+    </div>
+</template>
+
+```
+
+#### Usage in Angular
+
+```jsx
+<dda-header
+    first-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+    first-logo-alt="undefined"
+    second-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+    second-logo-alt="Dubai-Digital-Authority"
+    login-link="/login"
+    readspeakerlink="app-eu.readspeaker.com"
+    languageswitch="() => console.log('Language Switcher')"
+    smtextsize="() => console.log('Small Text')"
+    basetextsize="() => console.log('Base Text')"
+    lgtextsize="() => console.log('Large Text')"
+    normalcontrast="() => console.log('Normal Text')"
+    blindcontrast="() => console.log('Blind Text')"
+    redcontrast="() => console.log('Red Text')"
+    greencontrast="() => console.log('Green Text')"
+    quick-links='[{"label":"Home","href":"#","subMenu":[]},{"label":"Services","href":"#","subMenu":[{"title":"Web Development","description":"Build and maintain websites","icon":"sentiment_satisfied","href":"#"},{"title":"SEO Services","description":"Improve your site ranking","icon":"sentiment_satisfied","href":"#"}]},{"label":"About","href":"#","subMenu":[]},{"label":"Contact","href":"#","subMenu":[]}]'
+    side-menu-items='[{"label":"Home","href":"#","subMenu":[]},{"label":"Initiatives","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]},{"label":"Services","href":"#","subMenu":[]},{"label":"Data","href":"#","subMenu":[]},{"label":"Government Services","href":"#","subMenu":[]},{"label":"Investor Relations","href":"#","subMenu":[]},{"label":"Locations","href":"#","subMenu":[]},{"label":"Newsroom","href":"#","subMenu":[]},{"label":"Contact Us","href":"#","subMenu":[]}]'
+></dda-header>
+
+
+```

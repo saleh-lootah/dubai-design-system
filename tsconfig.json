@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "sourceMap": true,
+    "lib": ["es6"],
+
+
+    "alwaysStrict": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "paths": {
+      "@dubai-design-system/components-js": ["./packages/stencil"],
+      "@dubai-design-system/components-js/loader": [
+        "./packages/stencil/loader"
+      ],
+      "@dubai-design-system/components-angular": [
+        "./packages/angular/dist"
+      ],
+      "@dubai-design-system/components-react": [
+        "./packages/react/dist"
+      ],
+      "@dubai-design-system/components-vue": ["./packages/vue/dist"]
+    }
+  }
+}

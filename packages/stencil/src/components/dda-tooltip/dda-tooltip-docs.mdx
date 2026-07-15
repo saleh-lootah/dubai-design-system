@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Components/Tooltip/Documentation" />
+
+# Tooltip
+The `dda-tooltip` component is a customizable button element that can be used in various UI scenarios
+
+### Usage in React
+
+```jsx
+import React from 'react'
+import { DdaTooltip } from "@dubai-design-system/components-react";
+
+
+
+
+const App = () => {
+  return (
+    <div>
+        <DdaTooltip
+            title_text="Tooltip"
+            description="This is a tooltip description."
+            position="top"
+            custom_class=""
+            component_mode=""
+            >
+            <button>Hover me</button>
+        </DdaTooltip>
+    </div>
+ )
+}
+
+```
+
+### Usage in Vue
+
+```jsx
+<script>
+
+
+import { DdaTooltip } from '@dubai-design-system/components-vue'
+
+</script>
+
+<template>
+    <div>
+        <DdaTooltip
+            title_text="Tooltip"
+            description="This is a tooltip description."
+            position="top"
+            custom_class=""
+            component_mode=""
+            >
+            <button>Hover me</button>
+        </DdaTooltip>
+    </div>
+</template>
+
+```
+
+### Usage in Angular
+
+```jsx
+<dda-tooltip
+    title_text="Tooltip"
+    description="This is a tooltip description."
+    position="top"
+    custom_class=""
+    component_mode=""
+    >
+    <button>Hover me</button>
+</dda-tooltip>
+```
