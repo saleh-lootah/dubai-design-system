@@ -1,3 +1,6 @@
 node_modules/
 *.log
 .DS_Store
+samples/**/node_modules/
+samples/**/dist/
+samples/angular/.angular/
