@@ -7,35 +7,77 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface DdaAccordion {
+        /**
+          * @default 'info'
+         */
         "accordion_icon": string;
+        /**
+          * @default ''
+         */
         "body_description": string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default 'bg-border'
+         */
         "design": 'bg-border' | 'no-border';
+        /**
+          * @default 'Accordion Header'
+         */
         "header_text": string;
     }
     interface DdaAlert {
         "button_name"?: string;
+        /**
+          * @default ''
+         */
         "button_text": string;
         "clickHandler"?: (event: MouseEvent) => void;
         "component_id"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default ''
+         */
         "description": string;
         "first_button"?: string;
         "first_link"?: string;
         "second_button"?: string;
         "second_link"?: string;
+        /**
+          * @default ''
+         */
         "title_text": string;
+        /**
+          * @default 'primary'
+         */
         "type": 'primary' | 'secondary';
+        /**
+          * @default 'info'
+         */
         "variation": 'info' | 'warning' | 'error' | 'success';
     }
     interface DdaAttachFile {
+        /**
+          * @default ''
+         */
         "aria_label"?: string;
+        /**
+          * @default ''
+         */
         "button_aria_label"?: string;
         "button_id": string;
         "button_name"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "error_message": string;
         "helper_text": string;
@@ -51,16 +93,43 @@ export namespace Components {
         "button_id"?: string;
         "button_name"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default 'default'
+         */
         "design": 'default' | 'status' | 'verified' | 'story' | 'notification';
+        /**
+          * @default 'material-icons'
+         */
         "icon": string;
+        /**
+          * @default 0
+         */
         "notification_number": number;
         "options": string;
+        /**
+          * @default 'circle'
+         */
         "rounded": 'square' | 'circle';
         "selected": string;
+        /**
+          * @default 'md'
+         */
         "size": 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+        /**
+          * @default ''
+         */
         "src": string;
+        /**
+          * @default 'AB'
+         */
         "text": string;
+        /**
+          * @default 'photo'
+         */
         "type": 'photo' | 'icon' | 'text';
     }
     interface DdaBanner {
@@ -70,36 +139,69 @@ export namespace Components {
     }
     interface DdaBreadcrumb {
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default 'text'
+         */
         "design": 'text' | 'icon-text' | 'icon';
+        /**
+          * @default 'chevron_right'
+         */
         "separator": 'chevron_right' | 'pen_size_2';
     }
     interface DdaButton {
+        /**
+          * @default ''
+         */
         "aria_label"?: string;
+        /**
+          * @default 'primary'
+         */
         "button_color": string;
         "button_id": string;
+        /**
+          * @default ''
+         */
         "button_name"?: string;
+        /**
+          * @default ''
+         */
         "button_shape"?: string;
         /**
           * Function to be called on button click
          */
         "clickHandler"?: (event: MouseEvent) => void;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         /**
           * Disable the button
+          * @default false
          */
         "disabled": boolean;
+        /**
+          * @default ''
+         */
         "end_icon": string;
         "gap"?: number;
+        /**
+          * @default ''
+         */
         "icon_button_shape"?: string;
         "size"?: string;
         /**
           * Icon class for the starting icon
+          * @default ''
          */
         "start_icon": string;
         /**
           * Type of button, e.g., "button", "submit"
+          * @default 'button'
          */
         "type": string;
     }
@@ -108,6 +210,9 @@ export namespace Components {
         "checkbox_status"?: string;
         "checked": boolean;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "group_name"?: string;
         "input_id"?: string;
@@ -117,12 +222,21 @@ export namespace Components {
         "title_text": string;
     }
     interface DdaChip {
+        /**
+          * @default 'success'
+         */
         "bg_color": string;
         "clickHandler"?: (event: MouseEvent) => void;
         "component_mode"?: string;
         "custom_class"?: string;
         "icon": string;
+        /**
+          * @default ''
+         */
         "rounded"?: string;
+        /**
+          * @default false
+         */
         "show_close_icon": boolean;
         "size"?: string;
     }
@@ -131,6 +245,9 @@ export namespace Components {
         "card_number": string;
         "card_type": string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "design": string;
         "name": string;
@@ -139,7 +256,13 @@ export namespace Components {
         "aria_label"?: string;
         "card_icon": string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default false
+         */
         "disabled": boolean;
         "error_message": string;
         "helper_text": string;
@@ -148,9 +271,15 @@ export namespace Components {
         "input_type"?: string;
         "label": string;
         "placeholder": string;
+        /**
+          * @default false
+         */
         "restrict_input": boolean;
         "size"?: string;
         "validation_type"?: string;
+        /**
+          * @default ''
+         */
         "value": string;
     }
     interface DdaDropdown {
@@ -158,16 +287,31 @@ export namespace Components {
         "arrow_button_name"?: string;
         "button_id": string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default false
+         */
         "disabled": boolean;
         "dropdown_button_name"?: string;
         "error": string;
         "helper_text": string;
+        /**
+          * @default false
+         */
         "icon_mode": boolean;
         "label": string;
         "options": string;
         "selected": string;
+        /**
+          * @default 'medium'
+         */
         "size": 'small' | 'medium';
+        /**
+          * @default 'bg-white'
+         */
         "type": 'bg-transparent' | 'bg-white';
     }
     interface DdaFooter {
@@ -210,6 +354,9 @@ export namespace Components {
     }
     interface DdaHorizontalStepper {
         "component_mode"?: string;
+        /**
+          * @default 1
+         */
         "current_step": number;
         "custom_class"?: string;
         "steps": string;
@@ -226,32 +373,59 @@ export namespace Components {
         "label": string;
         "placeholder": string;
         "size"?: string;
+        /**
+          * @default 'text'
+         */
         "type": string;
         "validation_type"?: string;
         "value": string;
     }
     interface DdaLinkButton {
+        /**
+          * @default ''
+         */
         "aria_label"?: string;
+        /**
+          * @default 'primary'
+         */
         "button_color": string;
         "button_id": string;
+        /**
+          * @default ''
+         */
         "button_shape"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         /**
           * Disable the button
+          * @default false
          */
         "disabled": boolean;
+        /**
+          * @default ''
+         */
         "end_icon": string;
         "gap"?: number;
+        /**
+          * @default '#'
+         */
         "href"?: string;
+        /**
+          * @default ''
+         */
         "icon_button_shape"?: string;
         "size"?: string;
         /**
           * Icon class for the starting icon
+          * @default ''
          */
         "start_icon": string;
         /**
           * Type of button, e.g., "button", "submit"
+          * @default 'button'
          */
         "type": string;
     }
@@ -260,6 +434,9 @@ export namespace Components {
         "component_mode"?: string;
         "currencies": string;
         "currency_button_name"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "error_message": string;
         "helper_text": string;
@@ -268,6 +445,9 @@ export namespace Components {
         "input_status"?: string;
         "label": string;
         "placeholder": string;
+        /**
+          * @default 'USD'
+         */
         "selected_currency": string;
         "size"?: string;
         "toggle_button_name"?: string;
@@ -282,7 +462,13 @@ export namespace Components {
         "buttons_pages_prev_button": string;
         "buttons_prev_button": string;
         "component_mode"?: string;
+        /**
+          * @default 1
+         */
         "current_page": number;
+        /**
+          * @default ''
+         */
         "custom_class": string;
         "simple_slider_next_button": string;
         "simple_slider_prev_button": string;
@@ -290,7 +476,13 @@ export namespace Components {
         "text_pages_next_button": string;
         "text_pages_prev_button": string;
         "text_prev_button": string;
+        /**
+          * @default 8
+         */
         "total_pages": number;
+        /**
+          * @default 'simple-slider'
+         */
         "type": 'simple-slider' | 'buttons' | 'text' | 'text-pages' | 'button-text' | 'buttons-pages' | 'full';
     }
     interface DdaPhonefield {
@@ -300,12 +492,18 @@ export namespace Components {
         "component_mode"?: string;
         "country_select_button_name": string;
         "custom_class": string;
+        /**
+          * @default false
+         */
         "disabled": boolean;
         "error_message": string;
         "helper_text": string;
         "input_id"?: string;
         "label": string;
         "phone_input_name": string;
+        /**
+          * @default 'Enter phone number'
+         */
         "placeholder": string;
         "size"?: string;
         "toggle_button_name": string;
@@ -314,15 +512,30 @@ export namespace Components {
     interface DdaProgressbar {
         "component_mode"?: string;
         "custom_class": string;
+        /**
+          * @default 0
+         */
         "progress": number;
+        /**
+          * @default false
+         */
         "show_percentage_text": boolean;
+        /**
+          * @default false
+         */
         "tooltip": boolean;
+        /**
+          * @default 'top'
+         */
         "tooltip_position": 'top' | 'bottom';
     }
     interface DdaRadiobutton {
         "aria_label"?: string;
         "checked": boolean;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "group_name"?: string;
         "input_id"?: string;
@@ -334,18 +547,36 @@ export namespace Components {
     }
     interface DdaRangeSlider {
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default 100
+         */
         "initial_max": number;
+        /**
+          * @default 0
+         */
         "initial_min": number;
         "left_aria_label"?: string;
         "left_input_id": string;
         "left_input_name": string;
+        /**
+          * @default 100
+         */
         "max": number;
+        /**
+          * @default 0
+         */
         "min": number;
         "right_aria_label"?: string;
         "right_input_id": string;
         "right_input_name": string;
         "size"?: string;
+        /**
+          * @default 1
+         */
         "step": number;
         "tooltip_position"?: string;
     }
@@ -355,16 +586,31 @@ export namespace Components {
         "button_id"?: string;
         "close_button_name": string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "error_message": string;
+        /**
+          * @default false
+         */
         "has_error": boolean;
         "helper_text": string;
         "input_status"?: string;
         "label": string;
+        /**
+          * @default 'Search'
+         */
         "placeholder": string;
         "search_button_name": string;
         "search_input_name": string;
+        /**
+          * @default false
+         */
         "show_button": boolean;
+        /**
+          * @default 'sm'
+         */
         "size": string;
     }
     interface DdaSegmentedTabs {
@@ -378,7 +624,13 @@ export namespace Components {
         "aria_label"?: string;
         "button_id": string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default false
+         */
         "disabled": boolean;
         "error"?: string;
         "error_message": string;
@@ -445,14 +697,32 @@ export namespace Components {
     }
     interface DdaTabs {
         "aria_label": string;
+        /**
+          * @default false
+         */
         "border_bottom": boolean;
         "button_id"?: string;
         "button_name": string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default 'dda-tab-default'
+         */
         "hover_style": 'dda-tab-default' | 'dda-tab-filed' | 'dda-tab-underline' | 'dda-tab-underline-filled';
+        /**
+          * @default '["sentiment_satisfied", "sentiment_satisfied", "sentiment_satisfied"]'
+         */
         "tab_icons": string;
+        /**
+          * @default '["Tab 1", "Tab 2", "Tab 3"]'
+         */
         "tab_texts": string;
+        /**
+          * @default 'text'
+         */
         "type": 'text' | 'text-icon';
     }
     interface DdaTextarea {
@@ -469,12 +739,18 @@ export namespace Components {
         "placeholder": string;
         "textarea_name": string;
         "validation_type"?: string;
+        /**
+          * @default ''
+         */
         "value": string;
     }
     interface DdaToggle {
         "aria_label": string;
         "checked": boolean;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "group_name"?: string;
         "input_id"?: string;
@@ -482,24 +758,60 @@ export namespace Components {
     }
     interface DdaTooltip {
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "description": string;
+        /**
+          * @default 'top'
+         */
         "position": 'top' | 'bottom' | 'left' | 'right';
         "title_text": string;
     }
     interface DdaUiCard {
+        /**
+          * @default ''
+         */
         "icon": string;
+        /**
+          * @default ''
+         */
         "image": string;
+        /**
+          * @default ''
+         */
         "link": string;
+        /**
+          * @default 'arrow_forward'
+         */
         "linkicon": string;
+        /**
+          * @default ''
+         */
         "linktext": string;
+        /**
+          * @default ''
+         */
         "maintitle": string;
+        /**
+          * @default ''
+         */
         "subtitle": string;
+        /**
+          * @default 'default'
+         */
         "type": 'default' | 'custom';
     }
     interface DdaVerticalStepper {
         "component_mode"?: string;
+        /**
+          * @default 0
+         */
         "current_Step": number;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "steps": string;
     }
@@ -816,20 +1128,44 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DdaAccordion {
+        /**
+          * @default 'info'
+         */
         "accordion_icon"?: string;
+        /**
+          * @default ''
+         */
         "body_description"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default 'bg-border'
+         */
         "design"?: 'bg-border' | 'no-border';
+        /**
+          * @default 'Accordion Header'
+         */
         "header_text"?: string;
     }
     interface DdaAlert {
         "button_name"?: string;
+        /**
+          * @default ''
+         */
         "button_text"?: string;
         "clickHandler"?: (event: MouseEvent) => void;
         "component_id"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default ''
+         */
         "description"?: string;
         "first_button"?: string;
         "first_link"?: string;
@@ -837,16 +1173,34 @@ declare namespace LocalJSX {
         "onSecondClick"?: (event: DdaAlertCustomEvent<void>) => void;
         "second_button"?: string;
         "second_link"?: string;
+        /**
+          * @default ''
+         */
         "title_text"?: string;
+        /**
+          * @default 'primary'
+         */
         "type"?: 'primary' | 'secondary';
+        /**
+          * @default 'info'
+         */
         "variation"?: 'info' | 'warning' | 'error' | 'success';
     }
     interface DdaAttachFile {
+        /**
+          * @default ''
+         */
         "aria_label"?: string;
+        /**
+          * @default ''
+         */
         "button_aria_label"?: string;
         "button_id"?: string;
         "button_name"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "error_message"?: string;
         "helper_text"?: string;
@@ -862,16 +1216,43 @@ declare namespace LocalJSX {
         "button_id"?: string;
         "button_name"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default 'default'
+         */
         "design"?: 'default' | 'status' | 'verified' | 'story' | 'notification';
+        /**
+          * @default 'material-icons'
+         */
         "icon"?: string;
+        /**
+          * @default 0
+         */
         "notification_number"?: number;
         "options"?: string;
+        /**
+          * @default 'circle'
+         */
         "rounded"?: 'square' | 'circle';
         "selected"?: string;
+        /**
+          * @default 'md'
+         */
         "size"?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+        /**
+          * @default ''
+         */
         "src"?: string;
+        /**
+          * @default 'AB'
+         */
         "text"?: string;
+        /**
+          * @default 'photo'
+         */
         "type"?: 'photo' | 'icon' | 'text';
     }
     interface DdaBanner {
@@ -881,36 +1262,69 @@ declare namespace LocalJSX {
     }
     interface DdaBreadcrumb {
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default 'text'
+         */
         "design"?: 'text' | 'icon-text' | 'icon';
+        /**
+          * @default 'chevron_right'
+         */
         "separator"?: 'chevron_right' | 'pen_size_2';
     }
     interface DdaButton {
+        /**
+          * @default ''
+         */
         "aria_label"?: string;
+        /**
+          * @default 'primary'
+         */
         "button_color"?: string;
         "button_id"?: string;
+        /**
+          * @default ''
+         */
         "button_name"?: string;
+        /**
+          * @default ''
+         */
         "button_shape"?: string;
         /**
           * Function to be called on button click
          */
         "clickHandler"?: (event: MouseEvent) => void;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         /**
           * Disable the button
+          * @default false
          */
         "disabled"?: boolean;
+        /**
+          * @default ''
+         */
         "end_icon"?: string;
         "gap"?: number;
+        /**
+          * @default ''
+         */
         "icon_button_shape"?: string;
         "size"?: string;
         /**
           * Icon class for the starting icon
+          * @default ''
          */
         "start_icon"?: string;
         /**
           * Type of button, e.g., "button", "submit"
+          * @default 'button'
          */
         "type"?: string;
     }
@@ -919,6 +1333,9 @@ declare namespace LocalJSX {
         "checkbox_status"?: string;
         "checked"?: boolean;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "group_name"?: string;
         "input_id"?: string;
@@ -928,12 +1345,21 @@ declare namespace LocalJSX {
         "title_text"?: string;
     }
     interface DdaChip {
+        /**
+          * @default 'success'
+         */
         "bg_color"?: string;
         "clickHandler"?: (event: MouseEvent) => void;
         "component_mode"?: string;
         "custom_class"?: string;
         "icon"?: string;
+        /**
+          * @default ''
+         */
         "rounded"?: string;
+        /**
+          * @default false
+         */
         "show_close_icon"?: boolean;
         "size"?: string;
     }
@@ -942,6 +1368,9 @@ declare namespace LocalJSX {
         "card_number"?: string;
         "card_type"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "design"?: string;
         "name"?: string;
@@ -950,7 +1379,13 @@ declare namespace LocalJSX {
         "aria_label"?: string;
         "card_icon"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default false
+         */
         "disabled"?: boolean;
         "error_message"?: string;
         "helper_text"?: string;
@@ -959,9 +1394,15 @@ declare namespace LocalJSX {
         "input_type"?: string;
         "label"?: string;
         "placeholder"?: string;
+        /**
+          * @default false
+         */
         "restrict_input"?: boolean;
         "size"?: string;
         "validation_type"?: string;
+        /**
+          * @default ''
+         */
         "value"?: string;
     }
     interface DdaDropdown {
@@ -969,16 +1410,31 @@ declare namespace LocalJSX {
         "arrow_button_name"?: string;
         "button_id"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default false
+         */
         "disabled"?: boolean;
         "dropdown_button_name"?: string;
         "error"?: string;
         "helper_text"?: string;
+        /**
+          * @default false
+         */
         "icon_mode"?: boolean;
         "label"?: string;
         "options"?: string;
         "selected"?: string;
+        /**
+          * @default 'medium'
+         */
         "size"?: 'small' | 'medium';
+        /**
+          * @default 'bg-white'
+         */
         "type"?: 'bg-transparent' | 'bg-white';
     }
     interface DdaFooter {
@@ -1029,6 +1485,9 @@ declare namespace LocalJSX {
     }
     interface DdaHorizontalStepper {
         "component_mode"?: string;
+        /**
+          * @default 1
+         */
         "current_step"?: number;
         "custom_class"?: string;
         "steps"?: string;
@@ -1045,32 +1504,59 @@ declare namespace LocalJSX {
         "label"?: string;
         "placeholder"?: string;
         "size"?: string;
+        /**
+          * @default 'text'
+         */
         "type"?: string;
         "validation_type"?: string;
         "value"?: string;
     }
     interface DdaLinkButton {
+        /**
+          * @default ''
+         */
         "aria_label"?: string;
+        /**
+          * @default 'primary'
+         */
         "button_color"?: string;
         "button_id"?: string;
+        /**
+          * @default ''
+         */
         "button_shape"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         /**
           * Disable the button
+          * @default false
          */
         "disabled"?: boolean;
+        /**
+          * @default ''
+         */
         "end_icon"?: string;
         "gap"?: number;
+        /**
+          * @default '#'
+         */
         "href"?: string;
+        /**
+          * @default ''
+         */
         "icon_button_shape"?: string;
         "size"?: string;
         /**
           * Icon class for the starting icon
+          * @default ''
          */
         "start_icon"?: string;
         /**
           * Type of button, e.g., "button", "submit"
+          * @default 'button'
          */
         "type"?: string;
     }
@@ -1079,6 +1565,9 @@ declare namespace LocalJSX {
         "component_mode"?: string;
         "currencies"?: string;
         "currency_button_name"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "error_message"?: string;
         "helper_text"?: string;
@@ -1087,6 +1576,9 @@ declare namespace LocalJSX {
         "input_status"?: string;
         "label"?: string;
         "placeholder"?: string;
+        /**
+          * @default 'USD'
+         */
         "selected_currency"?: string;
         "size"?: string;
         "toggle_button_name"?: string;
@@ -1101,7 +1593,13 @@ declare namespace LocalJSX {
         "buttons_pages_prev_button"?: string;
         "buttons_prev_button"?: string;
         "component_mode"?: string;
+        /**
+          * @default 1
+         */
         "current_page"?: number;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "simple_slider_next_button"?: string;
         "simple_slider_prev_button"?: string;
@@ -1109,7 +1607,13 @@ declare namespace LocalJSX {
         "text_pages_next_button"?: string;
         "text_pages_prev_button"?: string;
         "text_prev_button"?: string;
+        /**
+          * @default 8
+         */
         "total_pages"?: number;
+        /**
+          * @default 'simple-slider'
+         */
         "type"?: 'simple-slider' | 'buttons' | 'text' | 'text-pages' | 'button-text' | 'buttons-pages' | 'full';
     }
     interface DdaPhonefield {
@@ -1119,12 +1623,18 @@ declare namespace LocalJSX {
         "component_mode"?: string;
         "country_select_button_name"?: string;
         "custom_class"?: string;
+        /**
+          * @default false
+         */
         "disabled"?: boolean;
         "error_message"?: string;
         "helper_text"?: string;
         "input_id"?: string;
         "label"?: string;
         "phone_input_name"?: string;
+        /**
+          * @default 'Enter phone number'
+         */
         "placeholder"?: string;
         "size"?: string;
         "toggle_button_name"?: string;
@@ -1133,15 +1643,30 @@ declare namespace LocalJSX {
     interface DdaProgressbar {
         "component_mode"?: string;
         "custom_class"?: string;
+        /**
+          * @default 0
+         */
         "progress"?: number;
+        /**
+          * @default false
+         */
         "show_percentage_text"?: boolean;
+        /**
+          * @default false
+         */
         "tooltip"?: boolean;
+        /**
+          * @default 'top'
+         */
         "tooltip_position"?: 'top' | 'bottom';
     }
     interface DdaRadiobutton {
         "aria_label"?: string;
         "checked"?: boolean;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "group_name"?: string;
         "input_id"?: string;
@@ -1153,18 +1678,36 @@ declare namespace LocalJSX {
     }
     interface DdaRangeSlider {
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default 100
+         */
         "initial_max"?: number;
+        /**
+          * @default 0
+         */
         "initial_min"?: number;
         "left_aria_label"?: string;
         "left_input_id"?: string;
         "left_input_name"?: string;
+        /**
+          * @default 100
+         */
         "max"?: number;
+        /**
+          * @default 0
+         */
         "min"?: number;
         "right_aria_label"?: string;
         "right_input_id"?: string;
         "right_input_name"?: string;
         "size"?: string;
+        /**
+          * @default 1
+         */
         "step"?: number;
         "tooltip_position"?: string;
     }
@@ -1174,16 +1717,31 @@ declare namespace LocalJSX {
         "button_id"?: string;
         "close_button_name"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "error_message"?: string;
+        /**
+          * @default false
+         */
         "has_error"?: boolean;
         "helper_text"?: string;
         "input_status"?: string;
         "label"?: string;
+        /**
+          * @default 'Search'
+         */
         "placeholder"?: string;
         "search_button_name"?: string;
         "search_input_name"?: string;
+        /**
+          * @default false
+         */
         "show_button"?: boolean;
+        /**
+          * @default 'sm'
+         */
         "size"?: string;
     }
     interface DdaSegmentedTabs {
@@ -1197,7 +1755,13 @@ declare namespace LocalJSX {
         "aria_label"?: string;
         "button_id"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default false
+         */
         "disabled"?: boolean;
         "error"?: string;
         "error_message"?: string;
@@ -1264,15 +1828,33 @@ declare namespace LocalJSX {
     }
     interface DdaTabs {
         "aria_label"?: string;
+        /**
+          * @default false
+         */
         "border_bottom"?: boolean;
         "button_id"?: string;
         "button_name"?: string;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
+        /**
+          * @default 'dda-tab-default'
+         */
         "hover_style"?: 'dda-tab-default' | 'dda-tab-filed' | 'dda-tab-underline' | 'dda-tab-underline-filled';
         "onTabClick"?: (event: DdaTabsCustomEvent<void>) => void;
+        /**
+          * @default '["sentiment_satisfied", "sentiment_satisfied", "sentiment_satisfied"]'
+         */
         "tab_icons"?: string;
+        /**
+          * @default '["Tab 1", "Tab 2", "Tab 3"]'
+         */
         "tab_texts"?: string;
+        /**
+          * @default 'text'
+         */
         "type"?: 'text' | 'text-icon';
     }
     interface DdaTextarea {
@@ -1289,12 +1871,18 @@ declare namespace LocalJSX {
         "placeholder"?: string;
         "textarea_name"?: string;
         "validation_type"?: string;
+        /**
+          * @default ''
+         */
         "value"?: string;
     }
     interface DdaToggle {
         "aria_label"?: string;
         "checked"?: boolean;
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "group_name"?: string;
         "input_id"?: string;
@@ -1302,103 +1890,603 @@ declare namespace LocalJSX {
     }
     interface DdaTooltip {
         "component_mode"?: string;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "description"?: string;
+        /**
+          * @default 'top'
+         */
         "position"?: 'top' | 'bottom' | 'left' | 'right';
         "title_text"?: string;
     }
     interface DdaUiCard {
+        /**
+          * @default ''
+         */
         "icon"?: string;
+        /**
+          * @default ''
+         */
         "image"?: string;
+        /**
+          * @default ''
+         */
         "link"?: string;
+        /**
+          * @default 'arrow_forward'
+         */
         "linkicon"?: string;
+        /**
+          * @default ''
+         */
         "linktext"?: string;
+        /**
+          * @default ''
+         */
         "maintitle"?: string;
         "onLinkClick"?: (event: DdaUiCardCustomEvent<void>) => void;
+        /**
+          * @default ''
+         */
         "subtitle"?: string;
+        /**
+          * @default 'default'
+         */
         "type"?: 'default' | 'custom';
     }
     interface DdaVerticalStepper {
         "component_mode"?: string;
+        /**
+          * @default 0
+         */
         "current_Step"?: number;
+        /**
+          * @default ''
+         */
         "custom_class"?: string;
         "steps"?: string;
     }
+
+    interface DdaAccordionAttributes {
+        "design": 'bg-border' | 'no-border';
+        "header_text": string;
+        "body_description": string;
+        "custom_class": string;
+        "component_mode": string;
+        "accordion_icon": string;
+    }
+    interface DdaAlertAttributes {
+        "type": 'primary' | 'secondary';
+        "variation": 'info' | 'warning' | 'error' | 'success';
+        "title_text": string;
+        "description": string;
+        "button_text": string;
+        "custom_class": string;
+        "component_mode": string;
+        "component_id": string;
+        "first_link": string;
+        "second_link": string;
+        "first_button": string;
+        "second_button": string;
+        "button_name": string;
+    }
+    interface DdaAttachFileAttributes {
+        "label": string;
+        "helper_text": string;
+        "error_message": string;
+        "size": string;
+        "validation_type": string;
+        "input_type": string;
+        "custom_class": string;
+        "component_mode": string;
+        "aria_label": string;
+        "button_aria_label": string;
+        "input_id": string;
+        "button_id": string;
+        "button_name": string;
+        "input_name": string;
+    }
+    interface DdaAvatarAttributes {
+        "type": 'photo' | 'icon' | 'text';
+        "size": 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+        "design": 'default' | 'status' | 'verified' | 'story' | 'notification';
+        "rounded": 'square' | 'circle';
+        "src": string;
+        "icon": string;
+        "text": string;
+        "notification_number": number;
+        "custom_class": string;
+        "selected": string;
+        "options": string;
+        "component_mode": string;
+        "aria_label": string;
+        "button_id": string;
+        "button_name": string;
+    }
+    interface DdaBannerAttributes {
+        "slides": string;
+        "slider_width": string;
+        "slider_height": string;
+    }
+    interface DdaBreadcrumbAttributes {
+        "design": 'text' | 'icon-text' | 'icon';
+        "separator": 'chevron_right' | 'pen_size_2';
+        "custom_class": string;
+        "component_mode": string;
+    }
+    interface DdaButtonAttributes {
+        "type": string;
+        "disabled": boolean;
+        "start_icon": string;
+        "end_icon": string;
+        "aria_label": string;
+        "button_color": string;
+        "size": string;
+        "button_shape": string;
+        "icon_button_shape": string;
+        "gap": number;
+        "custom_class": string;
+        "component_mode": string;
+        "button_id": string;
+        "button_name": string;
+    }
+    interface DdaCheckboxAttributes {
+        "title_text": string;
+        "supporting": string;
+        "group_name": string;
+        "input_id": string;
+        "checked": boolean;
+        "checkbox_status": string;
+        "size": string;
+        "style_type": string;
+        "custom_class": string;
+        "component_mode": string;
+        "aria_label": string;
+    }
+    interface DdaChipAttributes {
+        "bg_color": string;
+        "rounded": string;
+        "icon": string;
+        "show_close_icon": boolean;
+        "size": string;
+        "custom_class": string;
+        "component_mode": string;
+    }
+    interface DdaCreditCardAttributes {
+        "balance": string;
+        "name": string;
+        "card_number": string;
+        "card_type": string;
+        "design": string;
+        "custom_class": string;
+        "component_mode": string;
+    }
+    interface DdaCreditcardFieldAttributes {
+        "placeholder": string;
+        "label": string;
+        "value": string;
+        "card_icon": string;
+        "error_message": string;
+        "validation_type": string;
+        "size": string;
+        "input_type": string;
+        "helper_text": string;
+        "disabled": boolean;
+        "custom_class": string;
+        "restrict_input": boolean;
+        "component_mode": string;
+        "input_id": string;
+        "aria_label": string;
+        "input_name": string;
+    }
+    interface DdaDropdownAttributes {
+        "label": string;
+        "options": string;
+        "selected": string;
+        "disabled": boolean;
+        "error": string;
+        "helper_text": string;
+        "type": 'bg-transparent' | 'bg-white';
+        "size": 'small' | 'medium';
+        "icon_mode": boolean;
+        "custom_class": string;
+        "component_mode": string;
+        "button_id": string;
+        "aria_label": string;
+        "arrow_button_name": string;
+        "dropdown_button_name": string;
+    }
+    interface DdaFooterAttributes {
+        "footerTitle": string;
+        "description": string;
+        "signUpButtonText": string;
+        "loginButtonText": string;
+        "logoSrc": string;
+        "logoAlt": string;
+        "copyrightText": string;
+        "footerSections": string;
+        "socialIcons": string;
+    }
+    interface DdaHeaderAttributes {
+        "firstLogoSrc": string;
+        "firstLogoWhiteSrc": string;
+        "firstLogoAlt": string;
+        "secondLogoSrc": string;
+        "secondLogoWhiteSrc": string;
+        "secondLogoAlt": string;
+        "loginLink": string;
+        "sideMenuItems": string;
+        "quickLinks": string;
+        "readSpeakerLink": string;
+        "searchText": string;
+        "loginIcon": string;
+        "loginText": string;
+        "language_text": string;
+        "hamburger_menu_button_name": string;
+        "accessibility_button_name": string;
+        "search_button_name": string;
+        "search_input_name": string;
+        "language_button_name": string;
+        "close_menu_button_name": string;
+        "close_accessibility_button_name": string;
+        "close_sidebar_button_name": string;
+        "toggle_accessibility_button_name": string;
+    }
+    interface DdaHorizontalStepperAttributes {
+        "steps": string;
+        "current_step": number;
+        "custom_class": string;
+        "component_mode": string;
+    }
+    interface DdaInputAttributes {
+        "label": string;
+        "placeholder": string;
+        "value": string;
+        "type": string;
+        "helper_text": string;
+        "error_message": string;
+        "validation_type": string;
+        "size": string;
+        "input_status": string;
+        "custom_class": string;
+        "component_mode": string;
+        "input_id": string;
+        "aria_label": string;
+        "input_name": string;
+    }
+    interface DdaLinkButtonAttributes {
+        "type": string;
+        "disabled": boolean;
+        "start_icon": string;
+        "end_icon": string;
+        "aria_label": string;
+        "button_color": string;
+        "size": string;
+        "button_shape": string;
+        "icon_button_shape": string;
+        "gap": number;
+        "custom_class": string;
+        "href": string;
+        "component_mode": string;
+        "button_id": string;
+    }
+    interface DdaNumberFieldAttributes {
+        "placeholder": string;
+        "label": string;
+        "value": string;
+        "helper_text": string;
+        "error_message": string;
+        "validation_type": string;
+        "size": string;
+        "input_status": string;
+        "currencies": string;
+        "selected_currency": string;
+        "custom_class": string;
+        "component_mode": string;
+        "input_id": string;
+        "aria_label": string;
+        "input_name": string;
+        "toggle_button_name": string;
+        "currency_button_name": string;
+    }
+    interface DdaPaginationAttributes {
+        "total_pages": number;
+        "current_page": number;
+        "type": 'simple-slider' | 'buttons' | 'text' | 'text-pages' | 'button-text' | 'buttons-pages' | 'full';
+        "custom_class": string;
+        "component_mode": string;
+        "simple_slider_prev_button": string;
+        "simple_slider_next_button": string;
+        "buttons_prev_button": string;
+        "buttons_next_button": string;
+        "text_prev_button": string;
+        "text_next_button": string;
+        "text_pages_prev_button": string;
+        "text_pages_next_button": string;
+        "button_text_prev_button": string;
+        "button_text_next_button": string;
+        "buttons_pages_prev_button": string;
+        "buttons_pages_next_button": string;
+    }
+    interface DdaPhonefieldAttributes {
+        "label": string;
+        "placeholder": string;
+        "helper_text": string;
+        "validation_type": string;
+        "error_message": string;
+        "disabled": boolean;
+        "size": string;
+        "custom_class": string;
+        "component_mode": string;
+        "input_id": string;
+        "aria_label": string;
+        "button_id": string;
+        "button_aria_label": string;
+        "toggle_button_name": string;
+        "country_select_button_name": string;
+        "phone_input_name": string;
+    }
+    interface DdaProgressbarAttributes {
+        "progress": number;
+        "tooltip": boolean;
+        "tooltip_position": 'top' | 'bottom';
+        "show_percentage_text": boolean;
+        "custom_class": string;
+        "component_mode": string;
+    }
+    interface DdaRadiobuttonAttributes {
+        "title_text": string;
+        "supporting": string;
+        "group_name": string;
+        "input_id": string;
+        "checked": boolean;
+        "radio_status": string;
+        "size": string;
+        "variants": string;
+        "custom_class": string;
+        "component_mode": string;
+        "aria_label": string;
+    }
+    interface DdaRangeSliderAttributes {
+        "min": number;
+        "max": number;
+        "step": number;
+        "initial_min": number;
+        "initial_max": number;
+        "size": string;
+        "tooltip_position": string;
+        "custom_class": string;
+        "component_mode": string;
+        "left_input_id": string;
+        "right_input_id": string;
+        "left_aria_label": string;
+        "right_aria_label": string;
+        "left_input_name": string;
+        "right_input_name": string;
+    }
+    interface DdaSearchInputAttributes {
+        "placeholder": string;
+        "label": string;
+        "size": string;
+        "error_message": string;
+        "show_button": boolean;
+        "helper_text": string;
+        "input_status": string;
+        "has_error": boolean;
+        "custom_class": string;
+        "component_mode": string;
+        "button_id": string;
+        "aria_label": string;
+        "button_aria_label": string;
+        "search_input_name": string;
+        "close_button_name": string;
+        "search_button_name": string;
+    }
+    interface DdaSegmentedTabsAttributes {
+        "items": string;
+        "radius_type": string;
+        "custom_class": string;
+        "component_mode": string;
+        "button_name": string;
+    }
+    interface DdaSelectAttributes {
+        "label": string;
+        "options": string;
+        "selected": string;
+        "disabled": boolean;
+        "error": string;
+        "error_message": string;
+        "helper_text": string;
+        "size": string;
+        "custom_class": string;
+        "component_mode": string;
+        "aria_label": string;
+        "button_id": string;
+        "toggle_button_name": string;
+        "option_select_button_name": string;
+    }
+    interface DdaStickyFooterAttributes {
+        "happinessIconHref": string;
+        "happinessIconSrc": string;
+        "happinessIconAlt": string;
+        "happinessIconTooltip": string;
+        "accessibilityIconHref": string;
+        "accessibilityIconSrc": string;
+        "accessibilityIconAlt": string;
+        "accessibilityIconTooltip": string;
+        "servicesIconHref": string;
+        "servicesIconSrc": string;
+        "servicesIconAlt": string;
+        "servicesIconTooltip": string;
+        "servicesIconText": string;
+        "firstLogoHref": string;
+        "firstLogoSrc": string;
+        "firstLogoAlt": string;
+        "firstLogoTooltip": string;
+        "secondLogoHref": string;
+        "secondLogoSrc": string;
+        "secondLogoAlt": string;
+        "secondLogoTooltip": string;
+        "thirdLogoHref": string;
+        "thirdLogoSrc": string;
+        "thirdLogoAlt": string;
+        "thirdLogoTooltip": string;
+        "locationButtonHref": string;
+        "locationLogoSrc": string;
+        "locationButtonText": string;
+        "locationButtonIcon": string;
+        "newsButtonHref": string;
+        "newsButtonSrc": string;
+        "newsButtonText": string;
+        "newsButtonIcon": string;
+        "aiIconHref": string;
+        "aiIconSrc": string;
+        "aiIconAlt": string;
+        "aiIconTooltip": string;
+        "chatIconHref": string;
+        "chatIconSrc": string;
+        "chatIconAlt": string;
+        "chatIconTooltip": string;
+        "hideMiddleSection": boolean;
+    }
+    interface DdaTabsAttributes {
+        "type": 'text' | 'text-icon';
+        "hover_style": 'dda-tab-default' | 'dda-tab-filed' | 'dda-tab-underline' | 'dda-tab-underline-filled';
+        "border_bottom": boolean;
+        "custom_class": string;
+        "component_mode": string;
+        "button_id": string;
+        "aria_label": string;
+        "tab_texts": string;
+        "tab_icons": string;
+        "button_name": string;
+    }
+    interface DdaTextareaAttributes {
+        "placeholder": string;
+        "label": string;
+        "value": string;
+        "error_message": string;
+        "validation_type": string;
+        "input_status": string;
+        "helper_text": string;
+        "custom_class": string;
+        "enable_rich_editor": boolean;
+        "max_characters": number;
+        "component_mode": string;
+        "input_id": string;
+        "aria_label": string;
+        "textarea_name": string;
+    }
+    interface DdaToggleAttributes {
+        "checked": boolean;
+        "size": string;
+        "custom_class": string;
+        "group_name": string;
+        "input_id": string;
+        "component_mode": string;
+        "aria_label": string;
+    }
+    interface DdaTooltipAttributes {
+        "title_text": string;
+        "description": string;
+        "position": 'top' | 'bottom' | 'left' | 'right';
+        "custom_class": string;
+        "component_mode": string;
+    }
+    interface DdaUiCardAttributes {
+        "type": 'default' | 'custom';
+        "icon": string;
+        "image": string;
+        "maintitle": string;
+        "subtitle": string;
+        "link": string;
+        "linktext": string;
+        "linkicon": string;
+    }
+    interface DdaVerticalStepperAttributes {
+        "steps": string;
+        "current_Step": number;
+        "custom_class": string;
+        "component_mode": string;
+    }
+
     interface IntrinsicElements {
-        "dda-accordion": DdaAccordion;
-        "dda-alert": DdaAlert;
-        "dda-attach-file": DdaAttachFile;
-        "dda-avatar": DdaAvatar;
-        "dda-banner": DdaBanner;
-        "dda-breadcrumb": DdaBreadcrumb;
-        "dda-button": DdaButton;
-        "dda-checkbox": DdaCheckbox;
-        "dda-chip": DdaChip;
-        "dda-credit-card": DdaCreditCard;
-        "dda-creditcard-field": DdaCreditcardField;
-        "dda-dropdown": DdaDropdown;
-        "dda-footer": DdaFooter;
-        "dda-header": DdaHeader;
+        "dda-accordion": Omit<DdaAccordion, keyof DdaAccordionAttributes> & { [K in keyof DdaAccordion & keyof DdaAccordionAttributes]?: DdaAccordion[K] } & { [K in keyof DdaAccordion & keyof DdaAccordionAttributes as `attr:${K}`]?: DdaAccordionAttributes[K] } & { [K in keyof DdaAccordion & keyof DdaAccordionAttributes as `prop:${K}`]?: DdaAccordion[K] };
+        "dda-alert": Omit<DdaAlert, keyof DdaAlertAttributes> & { [K in keyof DdaAlert & keyof DdaAlertAttributes]?: DdaAlert[K] } & { [K in keyof DdaAlert & keyof DdaAlertAttributes as `attr:${K}`]?: DdaAlertAttributes[K] } & { [K in keyof DdaAlert & keyof DdaAlertAttributes as `prop:${K}`]?: DdaAlert[K] };
+        "dda-attach-file": Omit<DdaAttachFile, keyof DdaAttachFileAttributes> & { [K in keyof DdaAttachFile & keyof DdaAttachFileAttributes]?: DdaAttachFile[K] } & { [K in keyof DdaAttachFile & keyof DdaAttachFileAttributes as `attr:${K}`]?: DdaAttachFileAttributes[K] } & { [K in keyof DdaAttachFile & keyof DdaAttachFileAttributes as `prop:${K}`]?: DdaAttachFile[K] };
+        "dda-avatar": Omit<DdaAvatar, keyof DdaAvatarAttributes> & { [K in keyof DdaAvatar & keyof DdaAvatarAttributes]?: DdaAvatar[K] } & { [K in keyof DdaAvatar & keyof DdaAvatarAttributes as `attr:${K}`]?: DdaAvatarAttributes[K] } & { [K in keyof DdaAvatar & keyof DdaAvatarAttributes as `prop:${K}`]?: DdaAvatar[K] };
+        "dda-banner": Omit<DdaBanner, keyof DdaBannerAttributes> & { [K in keyof DdaBanner & keyof DdaBannerAttributes]?: DdaBanner[K] } & { [K in keyof DdaBanner & keyof DdaBannerAttributes as `attr:${K}`]?: DdaBannerAttributes[K] } & { [K in keyof DdaBanner & keyof DdaBannerAttributes as `prop:${K}`]?: DdaBanner[K] };
+        "dda-breadcrumb": Omit<DdaBreadcrumb, keyof DdaBreadcrumbAttributes> & { [K in keyof DdaBreadcrumb & keyof DdaBreadcrumbAttributes]?: DdaBreadcrumb[K] } & { [K in keyof DdaBreadcrumb & keyof DdaBreadcrumbAttributes as `attr:${K}`]?: DdaBreadcrumbAttributes[K] } & { [K in keyof DdaBreadcrumb & keyof DdaBreadcrumbAttributes as `prop:${K}`]?: DdaBreadcrumb[K] };
+        "dda-button": Omit<DdaButton, keyof DdaButtonAttributes> & { [K in keyof DdaButton & keyof DdaButtonAttributes]?: DdaButton[K] } & { [K in keyof DdaButton & keyof DdaButtonAttributes as `attr:${K}`]?: DdaButtonAttributes[K] } & { [K in keyof DdaButton & keyof DdaButtonAttributes as `prop:${K}`]?: DdaButton[K] };
+        "dda-checkbox": Omit<DdaCheckbox, keyof DdaCheckboxAttributes> & { [K in keyof DdaCheckbox & keyof DdaCheckboxAttributes]?: DdaCheckbox[K] } & { [K in keyof DdaCheckbox & keyof DdaCheckboxAttributes as `attr:${K}`]?: DdaCheckboxAttributes[K] } & { [K in keyof DdaCheckbox & keyof DdaCheckboxAttributes as `prop:${K}`]?: DdaCheckbox[K] };
+        "dda-chip": Omit<DdaChip, keyof DdaChipAttributes> & { [K in keyof DdaChip & keyof DdaChipAttributes]?: DdaChip[K] } & { [K in keyof DdaChip & keyof DdaChipAttributes as `attr:${K}`]?: DdaChipAttributes[K] } & { [K in keyof DdaChip & keyof DdaChipAttributes as `prop:${K}`]?: DdaChip[K] };
+        "dda-credit-card": Omit<DdaCreditCard, keyof DdaCreditCardAttributes> & { [K in keyof DdaCreditCard & keyof DdaCreditCardAttributes]?: DdaCreditCard[K] } & { [K in keyof DdaCreditCard & keyof DdaCreditCardAttributes as `attr:${K}`]?: DdaCreditCardAttributes[K] } & { [K in keyof DdaCreditCard & keyof DdaCreditCardAttributes as `prop:${K}`]?: DdaCreditCard[K] };
+        "dda-creditcard-field": Omit<DdaCreditcardField, keyof DdaCreditcardFieldAttributes> & { [K in keyof DdaCreditcardField & keyof DdaCreditcardFieldAttributes]?: DdaCreditcardField[K] } & { [K in keyof DdaCreditcardField & keyof DdaCreditcardFieldAttributes as `attr:${K}`]?: DdaCreditcardFieldAttributes[K] } & { [K in keyof DdaCreditcardField & keyof DdaCreditcardFieldAttributes as `prop:${K}`]?: DdaCreditcardField[K] };
+        "dda-dropdown": Omit<DdaDropdown, keyof DdaDropdownAttributes> & { [K in keyof DdaDropdown & keyof DdaDropdownAttributes]?: DdaDropdown[K] } & { [K in keyof DdaDropdown & keyof DdaDropdownAttributes as `attr:${K}`]?: DdaDropdownAttributes[K] } & { [K in keyof DdaDropdown & keyof DdaDropdownAttributes as `prop:${K}`]?: DdaDropdown[K] };
+        "dda-footer": Omit<DdaFooter, keyof DdaFooterAttributes> & { [K in keyof DdaFooter & keyof DdaFooterAttributes]?: DdaFooter[K] } & { [K in keyof DdaFooter & keyof DdaFooterAttributes as `attr:${K}`]?: DdaFooterAttributes[K] } & { [K in keyof DdaFooter & keyof DdaFooterAttributes as `prop:${K}`]?: DdaFooter[K] };
+        "dda-header": Omit<DdaHeader, keyof DdaHeaderAttributes> & { [K in keyof DdaHeader & keyof DdaHeaderAttributes]?: DdaHeader[K] } & { [K in keyof DdaHeader & keyof DdaHeaderAttributes as `attr:${K}`]?: DdaHeaderAttributes[K] } & { [K in keyof DdaHeader & keyof DdaHeaderAttributes as `prop:${K}`]?: DdaHeader[K] };
         "dda-home-banner": DdaHomeBanner;
-        "dda-horizontal-stepper": DdaHorizontalStepper;
-        "dda-input": DdaInput;
-        "dda-link-button": DdaLinkButton;
-        "dda-number-field": DdaNumberField;
-        "dda-pagination": DdaPagination;
-        "dda-phonefield": DdaPhonefield;
-        "dda-progressbar": DdaProgressbar;
-        "dda-radiobutton": DdaRadiobutton;
-        "dda-range-slider": DdaRangeSlider;
-        "dda-search-input": DdaSearchInput;
-        "dda-segmented-tabs": DdaSegmentedTabs;
-        "dda-select": DdaSelect;
-        "dda-sticky-footer": DdaStickyFooter;
-        "dda-tabs": DdaTabs;
-        "dda-textarea": DdaTextarea;
-        "dda-toggle": DdaToggle;
-        "dda-tooltip": DdaTooltip;
-        "dda-ui-card": DdaUiCard;
-        "dda-vertical-stepper": DdaVerticalStepper;
+        "dda-horizontal-stepper": Omit<DdaHorizontalStepper, keyof DdaHorizontalStepperAttributes> & { [K in keyof DdaHorizontalStepper & keyof DdaHorizontalStepperAttributes]?: DdaHorizontalStepper[K] } & { [K in keyof DdaHorizontalStepper & keyof DdaHorizontalStepperAttributes as `attr:${K}`]?: DdaHorizontalStepperAttributes[K] } & { [K in keyof DdaHorizontalStepper & keyof DdaHorizontalStepperAttributes as `prop:${K}`]?: DdaHorizontalStepper[K] };
+        "dda-input": Omit<DdaInput, keyof DdaInputAttributes> & { [K in keyof DdaInput & keyof DdaInputAttributes]?: DdaInput[K] } & { [K in keyof DdaInput & keyof DdaInputAttributes as `attr:${K}`]?: DdaInputAttributes[K] } & { [K in keyof DdaInput & keyof DdaInputAttributes as `prop:${K}`]?: DdaInput[K] };
+        "dda-link-button": Omit<DdaLinkButton, keyof DdaLinkButtonAttributes> & { [K in keyof DdaLinkButton & keyof DdaLinkButtonAttributes]?: DdaLinkButton[K] } & { [K in keyof DdaLinkButton & keyof DdaLinkButtonAttributes as `attr:${K}`]?: DdaLinkButtonAttributes[K] } & { [K in keyof DdaLinkButton & keyof DdaLinkButtonAttributes as `prop:${K}`]?: DdaLinkButton[K] };
+        "dda-number-field": Omit<DdaNumberField, keyof DdaNumberFieldAttributes> & { [K in keyof DdaNumberField & keyof DdaNumberFieldAttributes]?: DdaNumberField[K] } & { [K in keyof DdaNumberField & keyof DdaNumberFieldAttributes as `attr:${K}`]?: DdaNumberFieldAttributes[K] } & { [K in keyof DdaNumberField & keyof DdaNumberFieldAttributes as `prop:${K}`]?: DdaNumberField[K] };
+        "dda-pagination": Omit<DdaPagination, keyof DdaPaginationAttributes> & { [K in keyof DdaPagination & keyof DdaPaginationAttributes]?: DdaPagination[K] } & { [K in keyof DdaPagination & keyof DdaPaginationAttributes as `attr:${K}`]?: DdaPaginationAttributes[K] } & { [K in keyof DdaPagination & keyof DdaPaginationAttributes as `prop:${K}`]?: DdaPagination[K] };
+        "dda-phonefield": Omit<DdaPhonefield, keyof DdaPhonefieldAttributes> & { [K in keyof DdaPhonefield & keyof DdaPhonefieldAttributes]?: DdaPhonefield[K] } & { [K in keyof DdaPhonefield & keyof DdaPhonefieldAttributes as `attr:${K}`]?: DdaPhonefieldAttributes[K] } & { [K in keyof DdaPhonefield & keyof DdaPhonefieldAttributes as `prop:${K}`]?: DdaPhonefield[K] };
+        "dda-progressbar": Omit<DdaProgressbar, keyof DdaProgressbarAttributes> & { [K in keyof DdaProgressbar & keyof DdaProgressbarAttributes]?: DdaProgressbar[K] } & { [K in keyof DdaProgressbar & keyof DdaProgressbarAttributes as `attr:${K}`]?: DdaProgressbarAttributes[K] } & { [K in keyof DdaProgressbar & keyof DdaProgressbarAttributes as `prop:${K}`]?: DdaProgressbar[K] };
+        "dda-radiobutton": Omit<DdaRadiobutton, keyof DdaRadiobuttonAttributes> & { [K in keyof DdaRadiobutton & keyof DdaRadiobuttonAttributes]?: DdaRadiobutton[K] } & { [K in keyof DdaRadiobutton & keyof DdaRadiobuttonAttributes as `attr:${K}`]?: DdaRadiobuttonAttributes[K] } & { [K in keyof DdaRadiobutton & keyof DdaRadiobuttonAttributes as `prop:${K}`]?: DdaRadiobutton[K] };
+        "dda-range-slider": Omit<DdaRangeSlider, keyof DdaRangeSliderAttributes> & { [K in keyof DdaRangeSlider & keyof DdaRangeSliderAttributes]?: DdaRangeSlider[K] } & { [K in keyof DdaRangeSlider & keyof DdaRangeSliderAttributes as `attr:${K}`]?: DdaRangeSliderAttributes[K] } & { [K in keyof DdaRangeSlider & keyof DdaRangeSliderAttributes as `prop:${K}`]?: DdaRangeSlider[K] };
+        "dda-search-input": Omit<DdaSearchInput, keyof DdaSearchInputAttributes> & { [K in keyof DdaSearchInput & keyof DdaSearchInputAttributes]?: DdaSearchInput[K] } & { [K in keyof DdaSearchInput & keyof DdaSearchInputAttributes as `attr:${K}`]?: DdaSearchInputAttributes[K] } & { [K in keyof DdaSearchInput & keyof DdaSearchInputAttributes as `prop:${K}`]?: DdaSearchInput[K] };
+        "dda-segmented-tabs": Omit<DdaSegmentedTabs, keyof DdaSegmentedTabsAttributes> & { [K in keyof DdaSegmentedTabs & keyof DdaSegmentedTabsAttributes]?: DdaSegmentedTabs[K] } & { [K in keyof DdaSegmentedTabs & keyof DdaSegmentedTabsAttributes as `attr:${K}`]?: DdaSegmentedTabsAttributes[K] } & { [K in keyof DdaSegmentedTabs & keyof DdaSegmentedTabsAttributes as `prop:${K}`]?: DdaSegmentedTabs[K] };
+        "dda-select": Omit<DdaSelect, keyof DdaSelectAttributes> & { [K in keyof DdaSelect & keyof DdaSelectAttributes]?: DdaSelect[K] } & { [K in keyof DdaSelect & keyof DdaSelectAttributes as `attr:${K}`]?: DdaSelectAttributes[K] } & { [K in keyof DdaSelect & keyof DdaSelectAttributes as `prop:${K}`]?: DdaSelect[K] };
+        "dda-sticky-footer": Omit<DdaStickyFooter, keyof DdaStickyFooterAttributes> & { [K in keyof DdaStickyFooter & keyof DdaStickyFooterAttributes]?: DdaStickyFooter[K] } & { [K in keyof DdaStickyFooter & keyof DdaStickyFooterAttributes as `attr:${K}`]?: DdaStickyFooterAttributes[K] } & { [K in keyof DdaStickyFooter & keyof DdaStickyFooterAttributes as `prop:${K}`]?: DdaStickyFooter[K] };
+        "dda-tabs": Omit<DdaTabs, keyof DdaTabsAttributes> & { [K in keyof DdaTabs & keyof DdaTabsAttributes]?: DdaTabs[K] } & { [K in keyof DdaTabs & keyof DdaTabsAttributes as `attr:${K}`]?: DdaTabsAttributes[K] } & { [K in keyof DdaTabs & keyof DdaTabsAttributes as `prop:${K}`]?: DdaTabs[K] };
+        "dda-textarea": Omit<DdaTextarea, keyof DdaTextareaAttributes> & { [K in keyof DdaTextarea & keyof DdaTextareaAttributes]?: DdaTextarea[K] } & { [K in keyof DdaTextarea & keyof DdaTextareaAttributes as `attr:${K}`]?: DdaTextareaAttributes[K] } & { [K in keyof DdaTextarea & keyof DdaTextareaAttributes as `prop:${K}`]?: DdaTextarea[K] };
+        "dda-toggle": Omit<DdaToggle, keyof DdaToggleAttributes> & { [K in keyof DdaToggle & keyof DdaToggleAttributes]?: DdaToggle[K] } & { [K in keyof DdaToggle & keyof DdaToggleAttributes as `attr:${K}`]?: DdaToggleAttributes[K] } & { [K in keyof DdaToggle & keyof DdaToggleAttributes as `prop:${K}`]?: DdaToggle[K] };
+        "dda-tooltip": Omit<DdaTooltip, keyof DdaTooltipAttributes> & { [K in keyof DdaTooltip & keyof DdaTooltipAttributes]?: DdaTooltip[K] } & { [K in keyof DdaTooltip & keyof DdaTooltipAttributes as `attr:${K}`]?: DdaTooltipAttributes[K] } & { [K in keyof DdaTooltip & keyof DdaTooltipAttributes as `prop:${K}`]?: DdaTooltip[K] };
+        "dda-ui-card": Omit<DdaUiCard, keyof DdaUiCardAttributes> & { [K in keyof DdaUiCard & keyof DdaUiCardAttributes]?: DdaUiCard[K] } & { [K in keyof DdaUiCard & keyof DdaUiCardAttributes as `attr:${K}`]?: DdaUiCardAttributes[K] } & { [K in keyof DdaUiCard & keyof DdaUiCardAttributes as `prop:${K}`]?: DdaUiCard[K] };
+        "dda-vertical-stepper": Omit<DdaVerticalStepper, keyof DdaVerticalStepperAttributes> & { [K in keyof DdaVerticalStepper & keyof DdaVerticalStepperAttributes]?: DdaVerticalStepper[K] } & { [K in keyof DdaVerticalStepper & keyof DdaVerticalStepperAttributes as `attr:${K}`]?: DdaVerticalStepperAttributes[K] } & { [K in keyof DdaVerticalStepper & keyof DdaVerticalStepperAttributes as `prop:${K}`]?: DdaVerticalStepper[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "dda-accordion": LocalJSX.DdaAccordion & JSXBase.HTMLAttributes<HTMLDdaAccordionElement>;
-            "dda-alert": LocalJSX.DdaAlert & JSXBase.HTMLAttributes<HTMLDdaAlertElement>;
-            "dda-attach-file": LocalJSX.DdaAttachFile & JSXBase.HTMLAttributes<HTMLDdaAttachFileElement>;
-            "dda-avatar": LocalJSX.DdaAvatar & JSXBase.HTMLAttributes<HTMLDdaAvatarElement>;
-            "dda-banner": LocalJSX.DdaBanner & JSXBase.HTMLAttributes<HTMLDdaBannerElement>;
-            "dda-breadcrumb": LocalJSX.DdaBreadcrumb & JSXBase.HTMLAttributes<HTMLDdaBreadcrumbElement>;
-            "dda-button": LocalJSX.DdaButton & JSXBase.HTMLAttributes<HTMLDdaButtonElement>;
-            "dda-checkbox": LocalJSX.DdaCheckbox & JSXBase.HTMLAttributes<HTMLDdaCheckboxElement>;
-            "dda-chip": LocalJSX.DdaChip & JSXBase.HTMLAttributes<HTMLDdaChipElement>;
-            "dda-credit-card": LocalJSX.DdaCreditCard & JSXBase.HTMLAttributes<HTMLDdaCreditCardElement>;
-            "dda-creditcard-field": LocalJSX.DdaCreditcardField & JSXBase.HTMLAttributes<HTMLDdaCreditcardFieldElement>;
-            "dda-dropdown": LocalJSX.DdaDropdown & JSXBase.HTMLAttributes<HTMLDdaDropdownElement>;
-            "dda-footer": LocalJSX.DdaFooter & JSXBase.HTMLAttributes<HTMLDdaFooterElement>;
-            "dda-header": LocalJSX.DdaHeader & JSXBase.HTMLAttributes<HTMLDdaHeaderElement>;
-            "dda-home-banner": LocalJSX.DdaHomeBanner & JSXBase.HTMLAttributes<HTMLDdaHomeBannerElement>;
-            "dda-horizontal-stepper": LocalJSX.DdaHorizontalStepper & JSXBase.HTMLAttributes<HTMLDdaHorizontalStepperElement>;
-            "dda-input": LocalJSX.DdaInput & JSXBase.HTMLAttributes<HTMLDdaInputElement>;
-            "dda-link-button": LocalJSX.DdaLinkButton & JSXBase.HTMLAttributes<HTMLDdaLinkButtonElement>;
-            "dda-number-field": LocalJSX.DdaNumberField & JSXBase.HTMLAttributes<HTMLDdaNumberFieldElement>;
-            "dda-pagination": LocalJSX.DdaPagination & JSXBase.HTMLAttributes<HTMLDdaPaginationElement>;
-            "dda-phonefield": LocalJSX.DdaPhonefield & JSXBase.HTMLAttributes<HTMLDdaPhonefieldElement>;
-            "dda-progressbar": LocalJSX.DdaProgressbar & JSXBase.HTMLAttributes<HTMLDdaProgressbarElement>;
-            "dda-radiobutton": LocalJSX.DdaRadiobutton & JSXBase.HTMLAttributes<HTMLDdaRadiobuttonElement>;
-            "dda-range-slider": LocalJSX.DdaRangeSlider & JSXBase.HTMLAttributes<HTMLDdaRangeSliderElement>;
-            "dda-search-input": LocalJSX.DdaSearchInput & JSXBase.HTMLAttributes<HTMLDdaSearchInputElement>;
-            "dda-segmented-tabs": LocalJSX.DdaSegmentedTabs & JSXBase.HTMLAttributes<HTMLDdaSegmentedTabsElement>;
-            "dda-select": LocalJSX.DdaSelect & JSXBase.HTMLAttributes<HTMLDdaSelectElement>;
-            "dda-sticky-footer": LocalJSX.DdaStickyFooter & JSXBase.HTMLAttributes<HTMLDdaStickyFooterElement>;
-            "dda-tabs": LocalJSX.DdaTabs & JSXBase.HTMLAttributes<HTMLDdaTabsElement>;
-            "dda-textarea": LocalJSX.DdaTextarea & JSXBase.HTMLAttributes<HTMLDdaTextareaElement>;
-            "dda-toggle": LocalJSX.DdaToggle & JSXBase.HTMLAttributes<HTMLDdaToggleElement>;
-            "dda-tooltip": LocalJSX.DdaTooltip & JSXBase.HTMLAttributes<HTMLDdaTooltipElement>;
-            "dda-ui-card": LocalJSX.DdaUiCard & JSXBase.HTMLAttributes<HTMLDdaUiCardElement>;
-            "dda-vertical-stepper": LocalJSX.DdaVerticalStepper & JSXBase.HTMLAttributes<HTMLDdaVerticalStepperElement>;
+            "dda-accordion": LocalJSX.IntrinsicElements["dda-accordion"] & JSXBase.HTMLAttributes<HTMLDdaAccordionElement>;
+            "dda-alert": LocalJSX.IntrinsicElements["dda-alert"] & JSXBase.HTMLAttributes<HTMLDdaAlertElement>;
+            "dda-attach-file": LocalJSX.IntrinsicElements["dda-attach-file"] & JSXBase.HTMLAttributes<HTMLDdaAttachFileElement>;
+            "dda-avatar": LocalJSX.IntrinsicElements["dda-avatar"] & JSXBase.HTMLAttributes<HTMLDdaAvatarElement>;
+            "dda-banner": LocalJSX.IntrinsicElements["dda-banner"] & JSXBase.HTMLAttributes<HTMLDdaBannerElement>;
+            "dda-breadcrumb": LocalJSX.IntrinsicElements["dda-breadcrumb"] & JSXBase.HTMLAttributes<HTMLDdaBreadcrumbElement>;
+            "dda-button": LocalJSX.IntrinsicElements["dda-button"] & JSXBase.HTMLAttributes<HTMLDdaButtonElement>;
+            "dda-checkbox": LocalJSX.IntrinsicElements["dda-checkbox"] & JSXBase.HTMLAttributes<HTMLDdaCheckboxElement>;
+            "dda-chip": LocalJSX.IntrinsicElements["dda-chip"] & JSXBase.HTMLAttributes<HTMLDdaChipElement>;
+            "dda-credit-card": LocalJSX.IntrinsicElements["dda-credit-card"] & JSXBase.HTMLAttributes<HTMLDdaCreditCardElement>;
+            "dda-creditcard-field": LocalJSX.IntrinsicElements["dda-creditcard-field"] & JSXBase.HTMLAttributes<HTMLDdaCreditcardFieldElement>;
+            "dda-dropdown": LocalJSX.IntrinsicElements["dda-dropdown"] & JSXBase.HTMLAttributes<HTMLDdaDropdownElement>;
+            "dda-footer": LocalJSX.IntrinsicElements["dda-footer"] & JSXBase.HTMLAttributes<HTMLDdaFooterElement>;
+            "dda-header": LocalJSX.IntrinsicElements["dda-header"] & JSXBase.HTMLAttributes<HTMLDdaHeaderElement>;
+            "dda-home-banner": LocalJSX.IntrinsicElements["dda-home-banner"] & JSXBase.HTMLAttributes<HTMLDdaHomeBannerElement>;
+            "dda-horizontal-stepper": LocalJSX.IntrinsicElements["dda-horizontal-stepper"] & JSXBase.HTMLAttributes<HTMLDdaHorizontalStepperElement>;
+            "dda-input": LocalJSX.IntrinsicElements["dda-input"] & JSXBase.HTMLAttributes<HTMLDdaInputElement>;
+            "dda-link-button": LocalJSX.IntrinsicElements["dda-link-button"] & JSXBase.HTMLAttributes<HTMLDdaLinkButtonElement>;
+            "dda-number-field": LocalJSX.IntrinsicElements["dda-number-field"] & JSXBase.HTMLAttributes<HTMLDdaNumberFieldElement>;
+            "dda-pagination": LocalJSX.IntrinsicElements["dda-pagination"] & JSXBase.HTMLAttributes<HTMLDdaPaginationElement>;
+            "dda-phonefield": LocalJSX.IntrinsicElements["dda-phonefield"] & JSXBase.HTMLAttributes<HTMLDdaPhonefieldElement>;
+            "dda-progressbar": LocalJSX.IntrinsicElements["dda-progressbar"] & JSXBase.HTMLAttributes<HTMLDdaProgressbarElement>;
+            "dda-radiobutton": LocalJSX.IntrinsicElements["dda-radiobutton"] & JSXBase.HTMLAttributes<HTMLDdaRadiobuttonElement>;
+            "dda-range-slider": LocalJSX.IntrinsicElements["dda-range-slider"] & JSXBase.HTMLAttributes<HTMLDdaRangeSliderElement>;
+            "dda-search-input": LocalJSX.IntrinsicElements["dda-search-input"] & JSXBase.HTMLAttributes<HTMLDdaSearchInputElement>;
+            "dda-segmented-tabs": LocalJSX.IntrinsicElements["dda-segmented-tabs"] & JSXBase.HTMLAttributes<HTMLDdaSegmentedTabsElement>;
+            "dda-select": LocalJSX.IntrinsicElements["dda-select"] & JSXBase.HTMLAttributes<HTMLDdaSelectElement>;
+            "dda-sticky-footer": LocalJSX.IntrinsicElements["dda-sticky-footer"] & JSXBase.HTMLAttributes<HTMLDdaStickyFooterElement>;
+            "dda-tabs": LocalJSX.IntrinsicElements["dda-tabs"] & JSXBase.HTMLAttributes<HTMLDdaTabsElement>;
+            "dda-textarea": LocalJSX.IntrinsicElements["dda-textarea"] & JSXBase.HTMLAttributes<HTMLDdaTextareaElement>;
+            "dda-toggle": LocalJSX.IntrinsicElements["dda-toggle"] & JSXBase.HTMLAttributes<HTMLDdaToggleElement>;
+            "dda-tooltip": LocalJSX.IntrinsicElements["dda-tooltip"] & JSXBase.HTMLAttributes<HTMLDdaTooltipElement>;
+            "dda-ui-card": LocalJSX.IntrinsicElements["dda-ui-card"] & JSXBase.HTMLAttributes<HTMLDdaUiCardElement>;
+            "dda-vertical-stepper": LocalJSX.IntrinsicElements["dda-vertical-stepper"] & JSXBase.HTMLAttributes<HTMLDdaVerticalStepperElement>;
         }
     }
 }
