@@ -4,14 +4,18 @@ The Dubai Design System pattern library for a unified and accessible user experi
 ## Documentation
 
 Documentation is a Storybook app in `packages/stencil` (component docs, color system,
-typography, grid, and framework integration guides). It is not hosted yet — run it locally:
+typography, grid, and framework integration guides).
+
+**Hosted:** [https://saleh-lootah.github.io/dubai-design-system/](https://saleh-lootah.github.io/dubai-design-system/)
+(deployed automatically from `master` by `.github/workflows/deploy-storybook.yml`; a custom
+domain can be added later in the repository's Pages settings).
+
+Or run it locally:
 
 ```bash
 cd packages/stencil
 npm run storybook   # opens on http://localhost:6006
 ```
-
-<!-- TODO: add the hosted Storybook URL here once a domain is set up -->
 
 ## Packages
 
