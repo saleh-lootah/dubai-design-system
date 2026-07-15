@@ -1,0 +1,16 @@
+{
+  "name": "dda-sample-js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@dubai-design-system/components-js": "3.12.12"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
