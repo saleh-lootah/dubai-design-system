@@ -16,9 +16,16 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "dist/stencil-wrapper/fesm2022/stencil-wrapper.mjs",
+  "module": "dist/stencil-wrapper/fesm2022/stencil-wrapper.mjs",
+  "types": "dist/stencil-wrapper/index.d.ts",
+  "exports": {
+    "./package.json": { "default": "./package.json" },
+    ".": {
+      "types": "./dist/stencil-wrapper/index.d.ts",
+      "default": "./dist/stencil-wrapper/fesm2022/stencil-wrapper.mjs"
+    }
+  },
   "files": [
     "dist/**/*"
   ],
