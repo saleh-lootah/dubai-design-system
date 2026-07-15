@@ -4,6 +4,12 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## [3.12.12](https://github.com/salehtl/dda-design-system-components/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.12) (2026-07-15)
+
+### Chores
+
+- ship CHANGELOG.md in the `components-js` npm package
+
 ## [3.12.11](https://github.com/salehtl/dda-design-system-components/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.11) (2026-07-15)
 
 ### Bug Fixes
