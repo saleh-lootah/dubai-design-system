@@ -40,7 +40,7 @@ const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
 const page = await browser.newPage();
 let ok = false;
 try {
-  await page.goto(`http://localhost:${port}/`, { waitUntil: 'networkidle0', timeout: 30000 });
+  await page.goto(`http://localhost:${port}/`, { waitUntil: 'load', timeout: 30000 });
   await page.waitForSelector(selector, { timeout: 10000 });
   ok = true;
   console.log(`PASS: found "${selector}" in ${dir}`);

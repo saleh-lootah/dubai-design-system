@@ -20,6 +20,7 @@ bash samples/verify-all.sh
 ## Run one sample
 
 ```bash
+(cd samples/harness && npm ci)   # first time only
 cd samples/react && npm ci && npm run build
 node ../harness/verify.mjs dist
 ```
