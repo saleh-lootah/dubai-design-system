@@ -1,6 +1,6 @@
 {
   "name": "color-palette-creator",
-  "version": "3.12.11",
+  "version": "3.12.12",
   "private": true,
   "description": "Standalone Express + MongoDB app for generating color palettes",
   "main": "app.js",

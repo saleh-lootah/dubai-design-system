@@ -1,6 +1,6 @@
 {
   "name": "@dubai-design-system/components-js",
-  "version": "3.12.11",
+  "version": "3.12.12",
   "private": false,
   "description": "JavaScript package for the Digital Dubai Design System, offering reusable, customizable components for seamless integration into web applications",
   "main": "dist/index.cjs.js",
