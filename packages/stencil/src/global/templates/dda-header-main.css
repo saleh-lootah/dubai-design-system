@@ -130,11 +130,13 @@
     align-items: center;
 }
 .hamburger-menu > dda-tooltip{
-    height: 22px;
-} 
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+}
 .hamburger-menu-btn {
-    width: 27px;
-    height: 22px;
+    width: 40px;
+    height: 40px;
     padding: 0;
     background-color: transparent;
     border: transparent;
@@ -155,19 +157,19 @@
     border-radius: 4px;
     background-color: var(--dda-on-surface-30);
     position: absolute;
-    left: 3px;
+    left: 9.5px;
 }
 
 .hamburger-menu-btn::before {
-    top: 4px;
+    top: 14px;
 }
 
 .hamburger-menu-btn::after {
-    bottom: 4px;
+    top: 24px;
 }
 
 .hamburger-line {
-    top: 10px;
+    top: 19px;
 }
 
 .hamburger-menu-btn:hover::before,
@@ -189,12 +191,12 @@
 
 .hamburger-menu-btn.close-menu::before {
     transform: rotate(45deg);
-    top: 10px;
+    top: 19px;
 }
 
 .hamburger-menu-btn.close-menu::after {
     transform: rotate(-45deg);
-    bottom: 10px;
+    top: 19px;
 }
 
 .hamburger-menu-text {
@@ -213,6 +215,11 @@
     font-size: 1.5em;
     z-index: 10;
     color: #999999;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dda-mega-menu {
@@ -353,6 +360,7 @@
 .dda-toolbar-menu ul li .tool-btn,
 .dda-toolbar-menu-sidemenu ul li .tool-btn {
     height: 40px;
+    min-height: 40px;
     min-width: 40px;
     background-color: var(--dda-surface-96);
     font-size: 14px;
@@ -923,9 +931,9 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
     }
 
     .dda-toolbar-menu ul li .tool-btn {
-        height: 30px;
-        min-width: 30px;
-        padding: 7px;
+        height: 40px;
+        min-width: 40px;
+        padding: 8px;
     }
 
     ul.main_side_menu li a {
@@ -942,12 +950,12 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
     .dda-toolbar-menu, .dda-toolbar-menu-sidemenu{
         padding: 0;
     } 
-    .dda-toolbar-menu ul li .tool-btn, 
+    .dda-toolbar-menu ul li .tool-btn,
     .dda-toolbar-menu-sidemenu ul li .tool-btn{
-        height: 30px;
-        min-width: 30px;
-        padding: 6px;
-    }  
+        height: 40px;
+        min-width: 40px;
+        padding: 8px;
+    }
 }
 
 
