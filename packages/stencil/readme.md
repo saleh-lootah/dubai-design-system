@@ -68,11 +68,3 @@ Now you can use DDA components directly in your HTML files:
 <dda-card> - Card layout with structured content
 
 And more...
-
-#### Contributing
-
-This project is built with a focus on Dubai’s digital transformation and welcomes contributions from the community. Feel free to submit issues, feedback, or feature requests.
-
-#### License
-
-This package is licensed under the Dubai Digital Authority regulations. For more details, refer to the official documentation.
