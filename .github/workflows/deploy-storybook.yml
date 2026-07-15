@@ -31,6 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install SWC native binding for Linux
+        # package-lock.json was generated on Windows and lacks the Linux
+        # variant of @swc/core's optional platform packages (npm/cli#4828)
+        run: npm install --no-save @swc/core-linux-x64-gnu@"$(node -p "require('@swc/core/package.json').version")"
+
       - name: Build stencil components (generates loader used by Storybook preview)
         run: npm run build
         working-directory: packages/stencil
