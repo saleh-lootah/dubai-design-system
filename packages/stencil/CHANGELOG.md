@@ -4,29 +4,29 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## [3.12.13](https://github.com/salehtl/dda-design-system-components/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.13) (2026-07-15)
+## [3.12.13](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.13) (2026-07-15)
 
 ### Bug Fixes
 
 - **angular:** fix broken package entry points — `main`/`module`/`types`/`exports` now resolve into the ng-packagr output under `dist/stencil-wrapper/`
 
-## [3.12.12](https://github.com/salehtl/dda-design-system-components/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.12) (2026-07-15)
+## [3.12.12](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.12) (2026-07-15)
 
 ### Chores
 
 - ship CHANGELOG.md in the `components-js` npm package
 
-## [3.12.11](https://github.com/salehtl/dda-design-system-components/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.11) (2026-07-15)
+## [3.12.11](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.11) (2026-07-15)
 
 ### Bug Fixes
 
-- **header:** enforce 40x40 touch targets for nav-bar buttons ([0822d3f](https://github.com/salehtl/dda-design-system-components/commit/0822d3f))
+- **header:** enforce 40x40 touch targets for nav-bar buttons ([0822d3f](https://github.com/saleh-lootah/dubai-design-system/commit/0822d3f))
 
 ### Chores
 
-- publish all packages with public npm access ([7f30032](https://github.com/salehtl/dda-design-system-components/commit/7f30032))
-- rename the color palette creator app and mark it private so it is excluded from publishing ([7f30032](https://github.com/salehtl/dda-design-system-components/commit/7f30032))
-- regenerate stencil type declarations ([8f77df6](https://github.com/salehtl/dda-design-system-components/commit/8f77df6))
+- publish all packages with public npm access ([7f30032](https://github.com/saleh-lootah/dubai-design-system/commit/7f30032))
+- rename the color palette creator app and mark it private so it is excluded from publishing ([7f30032](https://github.com/saleh-lootah/dubai-design-system/commit/7f30032))
+- regenerate stencil type declarations ([8f77df6](https://github.com/saleh-lootah/dubai-design-system/commit/8f77df6))
 
 ## 3.12.10 and earlier
 
