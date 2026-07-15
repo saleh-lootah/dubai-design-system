@@ -20,40 +20,48 @@ npm i @dubai-design-system/components-angular
 
 ```
 
-Next, add the material-icons package which is the icon package used by DDA:
+Next, add the two icon fonts used by DDA (Material Icons and Material Symbols) inside the
+`<head>` tag of `src/index.html`:
 
-Start by adding the material-icons package inside the `<head>` tag
-
-```jsx
-<style>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</style>
+```html
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 ```
 
-Import and add the following to your `app.module.ts` file
+Register the DDA custom elements once, before bootstrapping, in `src/main.ts` — without
+this step the components never render:
 
-```jsx
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { defineCustomElements } from '@dubai-design-system/components-js/loader';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
 
+defineCustomElements();
+
+bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
+```
+
+Then add `ComponentLibraryModule` to the `imports` of any standalone component that uses
+DDA components (or to your NgModule's `imports` array if your app still uses modules):
+
+```ts
+import { Component } from '@angular/core';
 import { ComponentLibraryModule } from '@dubai-design-system/components-angular';
 
-@NgModule({
+@Component({
+  selector: 'app-root',
   imports: [ComponentLibraryModule],
-})
-export class AppModule {}
-
-```
-
-You should now be able to use DDA components inside your `app.component.html` file:
-
-```jsx
+  template: `
     <dda-button
-        button_color="default-primary"
-        start_icon="sentiment_satisfied"
-        end_icon="arrow_forward"
-        custom_class=""
-        component_mode=""
-        button_id="button"
-        aria_label="button"
-        onclick="console.log('clicked')"
-    >Button</dda-button>
+      button_color="default-primary"
+      start_icon="sentiment_satisfied"
+      end_icon="arrow_forward"
+      button_id="button"
+      aria_label="button">
+      Button
+    </dda-button>
+  `,
+})
+export class AppComponent {}
 ```

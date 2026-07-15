@@ -20,24 +20,22 @@ Accessible & Scalable: Follows best practices for accessibility and responsive d
 
 1. Include the Web Components Library
 
-Next, add the material-icons package which is the icon package used by DDA:
+Next, add the two icon fonts used by DDA (Material Icons and Material Symbols) inside the
+`<head>` tag:
 
-Start by adding the material-icons package inside the `<head>` tag
-
-```jsx
-
+```html
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+```
 
 Add the following script to your HTML to load the library:
 
+```html
 <script type="module">
+  import { defineCustomElements } from "https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js/loader/index.es2017.js";
 
- import { defineCustomElements } from "https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js/loader/index.es2017.js";
- 
- defineCustomElements();
-
+  defineCustomElements();
 </script>
-
 ```
 
 #### Using with a bundler (Vite, Rollup)

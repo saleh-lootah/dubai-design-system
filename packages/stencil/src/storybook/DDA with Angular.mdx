@@ -4,7 +4,7 @@ import { Meta } from '@storybook/addon-docs';
 
 # DDA with Angular
 
-This is a step-by-step guide to use the DDA components in Angular.
+This is a step-by-step guide to use the DDA components in Angular (v19+, standalone components).
 
 ### Setup
 
@@ -14,40 +14,62 @@ First, install the package:
 npm i @dubai-design-system/components-angular
 ```
 
-Next, add the material-icons package which is the icon package used by DDA:
+Next, add the two icon fonts used by DDA (Material Icons and Material Symbols) inside the
+`<head>` tag of `src/index.html`:
 
-Start by adding the material-icons package inside the `<head>` tag
-
-```jsx
-<style>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</style>
+```html
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 ```
 
-Import and add the following to your `app.module.ts` file
+Register the DDA custom elements once, before bootstrapping, in `src/main.ts` — without this
+step the components never render:
 
-```jsx
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { defineCustomElements } from '@dubai-design-system/components-js/loader';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
 
+defineCustomElements();
+
+bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
+```
+
+Then add `ComponentLibraryModule` to the `imports` of any standalone component that uses
+DDA components:
+
+```ts
+import { Component } from '@angular/core';
+import { ComponentLibraryModule } from '@dubai-design-system/components-angular';
+
+@Component({
+  selector: 'app-root',
+  imports: [ComponentLibraryModule],
+  template: `
+    <dda-button
+      button_color="default-primary"
+      start_icon="sentiment_satisfied"
+      end_icon="arrow_forward"
+      button_id="button"
+      aria_label="button">
+      Button
+    </dda-button>
+  `,
+})
+export class AppComponent {}
+```
+
+If your app still uses NgModules, add `ComponentLibraryModule` to your module's `imports`
+array instead:
+
+```ts
 import { ComponentLibraryModule } from '@dubai-design-system/components-angular';
 
 @NgModule({
   imports: [ComponentLibraryModule],
 })
 export class AppModule {}
-
 ```
 
-You should now be able to use DDA components inside your `app.component.html` file:
-
-```jsx
-    <dda-button
-        button_color="default-primary"
-        start_icon="sentiment_satisfied"
-        end_icon="arrow_forward"
-        custom_class=""
-        component_mode=""
-        button_id="button"
-        aria_label="button"
-        onclick="console.log('clicked')"
-    >Button</dda-button>
-```
+A working example lives in the repository under `samples/angular/`.
