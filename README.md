@@ -3,13 +3,20 @@
 The Dubai Design System pattern library for a unified and accessible user experience across the web platform
 ## Documentation
 
-[Documentation](https://dcx360.com:9003/?path=/docs/welcome--docs) - Technical implementation guidelines
+Documentation is a Storybook app in `packages/stencil` (component docs, color system,
+typography, grid, and framework integration guides). It is not hosted yet — run it locally:
 
+```bash
+cd packages/stencil
+npm run storybook   # opens on http://localhost:6006
+```
+
+<!-- TODO: add the hosted Storybook URL here once a domain is set up -->
 
 ## Packages
 
-- **Icons** - [Material Icons](https://dcx360.com:9003/?path=/docs/foundations-iconography--docs)
-- **Editor** - [Quill Editor](https://dcx360.com:9003/?path=/story/components-batch-1-textarea--rich-editor-enabled)
+- **Icons** - [Material Icons](https://fonts.google.com/icons) (see the Storybook "Foundations/Iconography" page)
+- **Editor** - [Quill Editor](https://quilljs.com/) (see the Storybook textarea rich-editor story)
 
 
 # Setup with npm
