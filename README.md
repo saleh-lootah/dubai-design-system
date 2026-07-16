@@ -82,6 +82,5 @@ Following these steps will set up your development environment for building, tes
 
 ## License
 
-Licensed under the [MIT License](LICENSE), Copyright (c) 2018-2026 Dubai Digital Authority.
-The Digital Dubai name and logo are trademarks of Digital Dubai and are not covered
-by the MIT license.
+Copyright (c) 2018-2026 Digital Dubai. All rights reserved. An open-source license is
+under review and will be announced in a future release.
