@@ -8,14 +8,16 @@ This is a step-by-step guide to use vanilla web components.
 
 ### Setup
 
-First, import the package script. **Always pin an exact version in the CDN URL** — with an
+First, import the package script, replacing `X.X.X` with the
+[latest published version](https://www.npmjs.com/package/@dubai-design-system/components-js).
+**Always pin an exact version in the CDN URL** — with an
 unversioned URL, jsdelivr resolves each file independently, so the loader and its chunks
 can come from different package versions, which breaks rendering (components hydrate but
 never render, with a "unknown to this Stencil runtime" console error):
 
 ```html
 <script type="module">
-    import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@3.12.13/loader/index.es2017.js';
+    import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
     defineCustomElements();
 </script>
 ```
