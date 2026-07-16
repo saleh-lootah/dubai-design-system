@@ -1,6 +1,6 @@
 {
   "name": "@dubai-design-system/components-angular",
-  "version": "3.12.14",
+  "version": "3.12.15",
   "description": "Angular package for Digital Dubai Design System, featuring Angular-compatible web components and modules.",
   "author": "Digital Dubai <saleh.lootah@digitaldubai.ae>",
   "license": "SEE LICENSE IN LICENSE",
@@ -40,7 +40,7 @@
     "@angular/platform-browser": "^19.1.0",
     "@angular/platform-browser-dynamic": "^19.1.0",
     "@angular/router": "^19.1.0",
-    "@dubai-design-system/components-js": "^3.12.14",
+    "@dubai-design-system/components-js": "^3.12.15",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
