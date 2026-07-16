@@ -705,8 +705,12 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
 }
 
 .dda-mobile-search button {
-    width: 30px;
+    width: 40px;
+    height: 40px;
     padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: transparent;
     border: transparent;
 }
