@@ -4,6 +4,12 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## [3.12.15](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.15) (2026-07-16)
+
+### Bug Fixes
+
+- **header:** give the mobile search button a 40x40 touch target (was 30x22) — matches the hamburger and toolbar buttons and meets the 40px minimum target size on mobile breakpoints
+
 ## [3.12.14](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.14) (2026-07-16)
 
 ### Documentation
