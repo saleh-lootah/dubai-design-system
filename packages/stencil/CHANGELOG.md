@@ -8,8 +8,8 @@ All four published packages (`components-js`, `components-react`, `components-vu
 
 ### Chores
 
-- **license:** declare all packages UNLICENSED (all rights reserved, Copyright (c) 2018-2026 Digital Dubai) while an open-source license is under review; remove the previous placeholder MIT license files
-- **docs:** remove links to the temporary documentation hosting until a permanent URL exists
+- update licensing metadata
+- documentation cleanup
 
 ## [3.12.15](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.15) (2026-07-16)
 
