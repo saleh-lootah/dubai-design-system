@@ -1,6 +1,6 @@
 {
   "name": "@dubai-design-system/components-react",
-  "version": "3.12.15",
+  "version": "3.12.16",
   "description": "React package for Digital Dubai Design System, providing reusable UI components compatible with React applications.",
   "author": "Digital Dubai <saleh.lootah@digitaldubai.ae>",
   "license": "UNLICENSED",
@@ -19,7 +19,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@dubai-design-system/components-js": "^3.12.15",
+    "@dubai-design-system/components-js": "^3.12.16",
     "@stencil/react-output-target": "^0.8.2"
   },
   "repository": {
