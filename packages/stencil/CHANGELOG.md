@@ -4,6 +4,13 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## [3.12.16](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.16) (2026-07-16)
+
+### Chores
+
+- **license:** declare all packages UNLICENSED (all rights reserved, Copyright (c) 2018-2026 Digital Dubai) while an open-source license is under review; remove the previous placeholder MIT license files
+- **docs:** remove links to the temporary documentation hosting until a permanent URL exists
+
 ## [3.12.15](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.15) (2026-07-16)
 
 ### Bug Fixes
