@@ -4,6 +4,14 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## [3.12.14](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.14) (2026-07-16)
+
+### Documentation
+
+- rewrite all four package readmes: clear install steps, links to the hosted documentation, corrected code examples (Vue `@click`/`<script setup>`, fixed code fences)
+- pin CDN loader URLs to an exact version in examples — unversioned jsdelivr URLs mix chunk versions and break rendering; examples now use an `X.X.X` placeholder
+- document the Vite/Rollup lazy-loader limitation and the `dist/components` workaround in the `components-js` readme
+
 ## [3.12.13](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.13) (2026-07-15)
 
 ### Bug Fixes
