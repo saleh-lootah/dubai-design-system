@@ -12,8 +12,6 @@ Framework-agnostic web components built with StencilJS as part of the Dubai Desi
 
 Framework wrappers are also available: [`@dubai-design-system/components-react`](https://www.npmjs.com/package/@dubai-design-system/components-react), [`@dubai-design-system/components-vue`](https://www.npmjs.com/package/@dubai-design-system/components-vue), and [`@dubai-design-system/components-angular`](https://www.npmjs.com/package/@dubai-design-system/components-angular).
 
-📖 **Full documentation, live examples, and the complete component list:** https://saleh-lootah.github.io/dubai-design-system/
-
 #### Key features
 
 - **Lightweight & fast** — native Web Components with lazy loading.
@@ -75,4 +73,8 @@ import '@dubai-design-system/components-js/dist/components/dda-header.js';
 
 ## Available components
 
-`dda-button`, `dda-dropdown`, `dda-modal`, `dda-card`, `dda-header`, and more — browse the full list with live examples and prop tables in the [documentation](https://saleh-lootah.github.io/dubai-design-system/).
+`dda-button`, `dda-dropdown`, `dda-modal`, `dda-card`, `dda-header`, and more.
+
+## License
+
+[MIT](./LICENSE), Copyright (c) 2018-2026 Digital Dubai. The Digital Dubai name and logo are trademarks of Digital Dubai and are not covered by the MIT license.

@@ -8,9 +8,7 @@
 DDA with Angular
 </h1>
 
-Angular bindings for the [Dubai Design System](https://saleh-lootah.github.io/dubai-design-system/) web components.
-
-📖 **Full documentation, live examples, and the complete component list:** https://saleh-lootah.github.io/dubai-design-system/
+Angular bindings for the Dubai Design System web components.
 
 ## Setup
 
@@ -68,3 +66,7 @@ import { ComponentLibraryModule } from '@dubai-design-system/components-angular'
 })
 export class AppComponent {}
 ```
+
+## License
+
+[MIT](./LICENSE), Copyright (c) 2018-2026 Digital Dubai. The Digital Dubai name and logo are trademarks of Digital Dubai and are not covered by the MIT license.

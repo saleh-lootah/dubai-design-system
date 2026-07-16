@@ -3,7 +3,7 @@
   "version": "3.12.15",
   "description": "Vue package for Digital Dubai Design System, offering Vue-friendly components for easy integration.",
   "author": "Digital Dubai <saleh.lootah@digitaldubai.ae>",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

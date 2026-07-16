@@ -3,7 +3,7 @@
   "version": "3.12.15",
   "description": "Angular package for Digital Dubai Design System, featuring Angular-compatible web components and modules.",
   "author": "Digital Dubai <saleh.lootah@digitaldubai.ae>",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

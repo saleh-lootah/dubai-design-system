@@ -4,13 +4,7 @@ The Dubai Design System pattern library for a unified and accessible user experi
 ## Documentation
 
 Documentation is a Storybook app in `packages/stencil` (component docs, color system,
-typography, grid, and framework integration guides).
-
-**Hosted:** [https://saleh-lootah.github.io/dubai-design-system/](https://saleh-lootah.github.io/dubai-design-system/)
-(deployed automatically from `master` by `.github/workflows/deploy-storybook.yml`; a custom
-domain can be added later in the repository's Pages settings).
-
-Or run it locally:
+typography, grid, and framework integration guides). Run it locally:
 
 ```bash
 cd packages/stencil
@@ -85,3 +79,9 @@ To get started with the project, follow these setup steps using `npm` and relate
    <p className="text">This command handles versioning, changelogs, and tagging for releasing new versions of the project.</p> -->
 
 Following these steps will set up your development environment for building, testing, and deploying the project.
+
+## License
+
+Licensed under the [MIT License](LICENSE), Copyright (c) 2018-2026 Digital Dubai.
+The Digital Dubai name and logo are trademarks of Digital Dubai and are not covered
+by the MIT license.
