@@ -4,35 +4,37 @@
   </a>
 </p>
 
-This package provides web components built using StencilJS as part of the Dubai Design System (DDA), ensuring consistency, reusability, and performance across modern web applications. These components are framework-agnostic and can be used in custom websites without dependency on React, Angular, or Vue.
+<h1 align="center">
+Dubai Design System — Web Components
+</h1>
 
-#### Key Features
+Framework-agnostic web components built with StencilJS as part of the Dubai Design System (DDA). Use them in any HTML, JavaScript, or TypeScript project — no dependency on React, Angular, or Vue.
 
-Lightweight & Fast: Uses native Web Components for optimal performance.
+Framework wrappers are also available: [`@dubai-design-system/components-react`](https://www.npmjs.com/package/@dubai-design-system/components-react), [`@dubai-design-system/components-vue`](https://www.npmjs.com/package/@dubai-design-system/components-vue), and [`@dubai-design-system/components-angular`](https://www.npmjs.com/package/@dubai-design-system/components-angular).
 
-Customizable: Designed to align with Dubai Design System branding.
+📖 **Full documentation, live examples, and the complete component list:** https://saleh-lootah.github.io/dubai-design-system/
 
-Framework-Agnostic: Works with any HTML, JavaScript, or TypeScript-based project.
+#### Key features
 
-Accessible & Scalable: Follows best practices for accessibility and responsive design.
+- **Lightweight & fast** — native Web Components with lazy loading.
+- **Customizable** — aligned with Dubai Design System branding, with light and dark themes.
+- **Framework-agnostic** — works in plain HTML or with any framework.
+- **Accessible & responsive** — follows accessibility best practices.
 
-#### Usage
+## Setup
 
-1. Include the Web Components Library
+### 1. Add the icon fonts
 
-Next, add the two icon fonts used by DDA (Material Icons and Material Symbols) inside the
-`<head>` tag:
+DDA components use Material Icons and Material Symbols. Add both inside your `<head>` tag:
 
 ```html
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 ```
 
-Add the following script to your HTML to load the library, replacing `X.X.X` with the
-[latest published version](https://www.npmjs.com/package/@dubai-design-system/components-js).
-**Always pin an exact version in the CDN URL** — unversioned jsdelivr URLs resolve each
-file independently, so the loader and its chunks can come from different package versions,
-which breaks rendering:
+### 2. Load the components
+
+**Option A — CDN (no build step).** Add this script to your HTML, replacing `X.X.X` with the [latest published version](https://www.npmjs.com/package/@dubai-design-system/components-js). **Always pin an exact version in the CDN URL** — unversioned jsdelivr URLs resolve each file independently, so the loader and its chunks can come from different package versions, which breaks rendering:
 
 ```html
 <script type="module">
@@ -42,48 +44,35 @@ which breaks rendering:
 </script>
 ```
 
-#### Using with a bundler (Vite, Rollup)
+**Option B — npm with a bundler (Vite, Rollup).** Install the package:
 
-> ⚠️ When installing from npm and building with Vite (or plain Rollup), do **not** use the
-> lazy loader (`@dubai-design-system/components-js/loader`). Its computed dynamic imports
-> cannot be statically analyzed by these bundlers, so component chunks are missing from the
-> build (404 on `dda-*.entry.js`) and components never render.
+```bash
+npm i @dubai-design-system/components-js
+```
 
-Import the self-registering custom-elements build for each component you use instead:
+Then import the self-registering build for each component you use:
 
 ```js
 // each import automatically defines its custom element
 import '@dubai-design-system/components-js/dist/components/dda-button.js';
+import '@dubai-design-system/components-js/dist/components/dda-header.js';
 ```
 
-The CDN `<script>` approach above is unaffected. Angular's builder also handles the lazy
-loader correctly — this only concerns Vite/Rollup bundling.
+> ⚠️ With Vite or plain Rollup, do **not** use the lazy loader (`@dubai-design-system/components-js/loader`). Its computed dynamic imports cannot be statically analyzed by these bundlers, so component chunks are missing from the build (404 on `dda-*.entry.js`) and components never render. The CDN approach and Angular's builder are unaffected.
 
-#### Add DDA Components in Your HTML
+### 3. Use the components
 
-Now you can use DDA components directly in your HTML files:
-
-```jsx
+```html
 <dda-button
-        button_color="default-primary"
-        start_icon="sentiment_satisfied"
-        end_icon="arrow_forward"
-        custom_class=""
-        component_mode=""
-        button_id="button"
-        aria_label="button"
-        onclick="console.log('clicked')"
+  button_color="default-primary"
+  start_icon="sentiment_satisfied"
+  end_icon="arrow_forward"
+  button_id="button"
+  aria_label="button"
+  onclick="console.log('clicked')"
 >Button</dda-button>
 ```
 
-#### Available Components
+## Available components
 
-<dda-button> - Customizable button component
-
-<dda-dropdown> - Dropdown component with various options
-
-<dda-modal> - Accessible modal dialog
-
-<dda-card> - Card layout with structured content
-
-And more...
+`dda-button`, `dda-dropdown`, `dda-modal`, `dda-card`, `dda-header`, and more — browse the full list with live examples and prop tables in the [documentation](https://saleh-lootah.github.io/dubai-design-system/).

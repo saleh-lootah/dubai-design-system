@@ -8,31 +8,34 @@
 DDA with React
 </h1>
 
-This is a step-by-step guide to use the DDA components in React.
+React bindings for the [Dubai Design System](https://saleh-lootah.github.io/dubai-design-system/) web components.
 
-#### Setup
+📖 **Full documentation, live examples, and the complete component list:** https://saleh-lootah.github.io/dubai-design-system/
 
-First, install the package:
+## Setup
 
-```jsx
+### 1. Install the package
+
+```bash
 npm i @dubai-design-system/components-react
-
 ```
 
-Next, add the two icon fonts used by DDA (Material Icons and Material Symbols) inside the
-`<head>` tag:
+### 2. Add the icon fonts
+
+DDA components use Material Icons and Material Symbols. Add both inside the `<head>` tag of your `index.html`:
 
 ```html
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 ```
 
-You should now be able to use DDA components:
+### 3. Use the components
+
+No extra registration step is needed — importing a component automatically registers its custom element:
 
 ```jsx
 import React from 'react';
-import { DdaButton } from "@dubai-design-system/components-react";
-
+import { DdaButton } from '@dubai-design-system/components-react';
 
 const App = () => (
   <div>
@@ -40,8 +43,6 @@ const App = () => (
       button_color="default-primary"
       start_icon="sentiment_satisfied"
       end_icon="arrow_forward"
-      custom_class=""
-      component_mode=""
       button_id="button"
       aria_label="button"
       onClick={() => console.log('clicked')}
@@ -52,5 +53,4 @@ const App = () => (
 );
 
 export default App;
-
 ```
