@@ -69,4 +69,4 @@ export class AppComponent {}
 
 ## License
 
-[MIT](./LICENSE), Copyright (c) 2018-2026 Digital Dubai. The Digital Dubai name and logo are trademarks of Digital Dubai and are not covered by the MIT license.
+[MIT](./LICENSE), Copyright (c) 2018-2026 Dubai Digital Authority. The Digital Dubai name and logo are trademarks of Digital Dubai and are not covered by the MIT license.
