@@ -73,6 +73,10 @@ export default {
       input_name: {
         control: { type: 'text' },
         description: 'Name of the input field',
+      },
+      autocomplete: {
+        control: { type: 'text' },
+        description: 'Autocomplete token for the card number input (WCAG 1.3.5). Defaults to "cc-number".',
       }
     },
     parameters: {
@@ -98,6 +102,7 @@ export default {
     aria_label="credit-card-field"
     onchange="console.log('changed')"
     input_name="input"
+    autocomplete="cc-number"
 ></dda-creditcard-field>
     \`\`\`
   `,
@@ -132,6 +137,7 @@ export default {
     aria_label: 'credit-card-field',
     onchange: '',
     input_name: 'input',
+    autocomplete: 'cc-number',
   };
   
   export const SmallSize = Template.bind({});
@@ -151,6 +157,7 @@ export default {
     aria_label: 'credit-card-field',
     onchange: '',
     input_name: 'input',
+    autocomplete: 'cc-number',
   };
 
   export const WithErrorMessage = Template.bind({});
@@ -170,6 +177,7 @@ export default {
     aria_label: 'credit-card-field',
     onchange: '',
     input_name: 'input',
+    autocomplete: 'cc-number',
   };
    
   export const Disabled = Template.bind({});
@@ -190,4 +198,5 @@ export default {
     aria_label: 'credit-card-field',
     onchange: '',
     input_name: 'input',
+    autocomplete: 'cc-number',
   };  
