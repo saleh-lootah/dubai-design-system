@@ -30,13 +30,13 @@ describe('dda-horizontal-stepper text contrast (F-023)', () => {
   const render = async (page, theme?: 'dark') => {
     await page.setContent(`<dda-horizontal-stepper steps='${STEPS}' current_step="1"></dda-horizontal-stepper>`);
     if (theme) {
-      await page.evaluate((t) => document.documentElement.setAttribute('data-theme', t), theme);
+      await page.evaluate(t => document.documentElement.setAttribute('data-theme', t), theme);
       await page.waitForChanges();
     }
   };
 
   const readStep = (page, index: number) =>
-    page.evaluate((i) => {
+    page.evaluate(i => {
       const steps = document.querySelectorAll('dda-horizontal-stepper .h-step');
       const step = steps[i] as HTMLElement;
       const bg = getComputedStyle(document.body).backgroundColor;

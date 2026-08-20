@@ -1,8 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 import { contrastRatio } from '../../../utils/contrast';
 
-const card = (design: string) =>
-  `<dda-credit-card design="${design}" balance="AED 1,000" name="A B" card_number="1234567890123456" card_type=""></dda-credit-card>`;
+const card = (design: string) => `<dda-credit-card design="${design}" balance="AED 1,000" name="A B" card_number="1234567890123456" card_type=""></dda-credit-card>`;
 
 describe('dda-credit-card', () => {
   it('renders', async () => {
@@ -24,7 +23,7 @@ describe('dda-credit-card variant contrast (F-023)', () => {
       const page = await newE2EPage();
       await page.setContent(card(design));
 
-      const colors = await page.evaluate((d) => {
+      const colors = await page.evaluate(d => {
         const container = document.querySelector(`dda-credit-card .dda-credit-card-${d}`) as HTMLElement;
         const name = document.querySelector('dda-credit-card .dda-card-name') as HTMLElement;
         return {
@@ -42,7 +41,7 @@ describe('dda-credit-card variant contrast (F-023)', () => {
       await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
       await page.waitForChanges();
 
-      const colors = await page.evaluate((d) => {
+      const colors = await page.evaluate(d => {
         const container = document.querySelector(`dda-credit-card .dda-credit-card-${d}`) as HTMLElement;
         const name = document.querySelector('dda-credit-card .dda-card-name') as HTMLElement;
         return {

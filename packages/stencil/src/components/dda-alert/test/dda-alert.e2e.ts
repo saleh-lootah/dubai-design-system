@@ -74,14 +74,12 @@ describe('dda-alert', () => {
 // left untouched (checked here as a non-regression control).
 describe('dda-alert dark-theme contrast (F-023 Decision 2)', () => {
   const renderDark = async (page, variation: string) => {
-    await page.setContent(
-      `<dda-alert variation="${variation}" title_text="Title text" description="Description text"></dda-alert>`,
-    );
+    await page.setContent(`<dda-alert variation="${variation}" title_text="Title text" description="Description text"></dda-alert>`);
     await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
     await page.waitForChanges();
   };
 
-  const readColors = (page) =>
+  const readColors = page =>
     page.evaluate(() => {
       const title = document.querySelector('dda-alert .alert-title') as HTMLElement;
       const description = document.querySelector('dda-alert .alert-description') as HTMLElement;
