@@ -613,3 +613,51 @@
     padding: 0px;
 }
 
+/**
+ * WCAG 2.4.7/1.4.11 focus-visible repair (Task 9d: F-021).
+ *
+ * `.dda-validation-error .dda-input-field` and `.dda-input-disabled
+ * .dda-input-field` (above) both set `box-shadow: none` unconditionally,
+ * regardless of focus state, at the same or higher specificity than the
+ * base `.dda-input-field:focus` ring (line ~78) - so on these two states
+ * the ring never rendered at all. Neither state's story sets the real
+ * `disabled` attribute on the underlying <input>/<textarea>/<button>, so
+ * these remain real, reachable Tab stops. `.dda-dropdown-container.bg-
+ * transparent .dda-dropdown-header` has the same defect by a different
+ * route: `box-shadow: none` at *higher* specificity than the base ring it
+ * shares via its own `dda-input-field` class. `.ql-editor` (Quill's rich-
+ * text region, dda-textarea's enable_rich_editor mode) never had a focus
+ * rule of any kind - it carries no dda-* class at all.
+ *
+ * Each fix below adds `:focus-visible` to the exact selector that broke
+ * the ring, which raises its specificity strictly above the offending rule
+ * (or, for the validation-error case, ties the `.light-mode` variant's
+ * specificity - placed at the end of the file so source order also
+ * resolves in its favour). Same white+dark double-ring idiom as
+ * `.dda-btn:focus-visible` (dda-button.css) and dda-home-banner's
+ * `.slider-nav *:focus-visible` (home-banner.css:182-187) - one focus-ring
+ * recipe reused everywhere. Fixed white/black colours need no per-theme or
+ * per-`.light-mode` variant: for any background, at least one of pure
+ * white or pure black clears 3:1 against it - verified against every
+ * background this task touched (input/textarea/select/search-input/
+ * creditcard-field's surface-100 and disabled-neutral-92 backgrounds, the
+ * rich editor's white background, and the dropdown's transparent-over-
+ * surface-100 background) in both `data-theme` values; see the task 9d
+ * report for the computed ratios.
+ */
+.dda-validation-error .dda-input-field:focus-visible,
+.dda-input-disabled .dda-input-field:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+}
+
+.dda-dropdown-container.bg-transparent .dda-dropdown-header:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+}
+
+.dda-richeditor-field .ql-editor:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+}
+
