@@ -53,13 +53,22 @@ export class DdaTabs {
   render() {
     return (
       <Host>
-        <div class={`dda-tabs-container ${this.hover_style} ${this.custom_class} ${this.component_mode}`}>
+        {/* F-010: dda-tabs renders no panel and references none (see
+            dda-tabs.stories.tsx / dda-tabs-docs.mdx — the consumer owns
+            whatever content the tabClick index drives). role="tablist"/
+            "tab"/"tabpanel" would announce a tab/tabpanel relationship
+            that does not exist, which is worse than no ARIA at all — same
+            ruling already applied to dda-segmented-tabs. This is a
+            mutually-exclusive toggle-button group instead: role="group"
+            with an accessible name, aria-pressed for real state, native
+            button keyboard operability. */}
+        <div role="group" aria-label={this.aria_label} class={`dda-tabs-container ${this.hover_style} ${this.custom_class} ${this.component_mode}`}>
           {this.parsedTabs.map((title, index) => (
             <button
               id={this.button_id}
               name={this.button_name}
-              aria-label={this.aria_label}
               type="button"
+              aria-pressed={this.active_tab === index ? 'true' : 'false'}
               class={`dda-tab-item ${this.active_tab === index ? 'active' : ''}`}
               onClick={() => this.setActiveTab(index)}
             >
