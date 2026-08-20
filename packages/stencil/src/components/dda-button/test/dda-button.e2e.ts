@@ -17,21 +17,27 @@ describe('dda-button', () => {
     expect(element.textContent).toEqual('Click me');
   });
 
+  // shadow: false, so the button is in the light DOM. A `>>>` piercing
+  // selector finds nothing here. The prop is custom_class, not custom-class.
   it('renders with custom class', async () => {
     const page = await newE2EPage();
-    await page.setContent('<dda-button custom-class="custom-class"></dda-button>');
+    await page.setContent('<dda-button custom_class="custom-class"></dda-button>');
 
-    const button = await page.find('dda-button >>> button');
+    const button = await page.find('dda-button button');
     expect(button).toHaveClass('custom-class');
   });
 
   it('triggers click event', async () => {
     const page = await newE2EPage();
+    await page.setContent('<dda-button>Click me</dda-button>');
+
+    // The spy must be attached after setContent, because setContent
+    // replaces the document and discards any earlier listener.
     const clickSpy = await page.spyOnEvent('click');
 
-    await page.setContent('<dda-button>Click me</dda-button>');
-    const button = await page.find('dda-button >>> button');
+    const button = await page.find('dda-button button');
     await button.click();
+    await page.waitForChanges();
 
     expect(clickSpy).toHaveReceivedEvent();
   });
