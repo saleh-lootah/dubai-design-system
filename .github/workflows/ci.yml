@@ -49,3 +49,154 @@ jobs:
             git diff
             exit 1
           fi
+
+  # Task 9i: quality-gate ratchet. None of these four checks are clean on
+  # this branch today (see .github/quality-baseline.env for why and by how
+  # much). Each gate fails only when its fault count exceeds the committed
+  # baseline, so this job is a regression tripwire, not a claim the code is
+  # clean — the exact counts are always printed, pass or fail, so a green run
+  # still shows the real numbers.
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # Two invocations: the JSON formatter gives us reliable error/warning
+      # counts to ratchet on, the default (stylish) formatter is only for a
+      # human-readable listing in the job log. `|| true` on both: a lint
+      # failure must not abort this step before the counts are parsed and
+      # compared — the ratchet below decides pass/fail, not eslint's own
+      # exit code.
+      - name: ESLint
+        working-directory: packages/stencil
+        run: |
+          source "$GITHUB_WORKSPACE/.github/scripts/ratchet.sh"
+          source "$GITHUB_WORKSPACE/.github/quality-baseline.env"
+
+          npx eslint src -f json -o /tmp/eslint-ci-report.json || true
+          npx eslint src || true
+
+          ERRORS=$(node -e "const d=require('/tmp/eslint-ci-report.json'); console.log(d.reduce((a,f)=>a+f.errorCount,0))")
+          WARNINGS=$(node -e "const d=require('/tmp/eslint-ci-report.json'); console.log(d.reduce((a,f)=>a+f.warningCount,0))")
+
+          status=0
+          ratchet "ESLint errors" "$ERRORS" "$LINT_ERRORS_BASELINE" || status=1
+          ratchet "ESLint warnings" "$WARNINGS" "$LINT_WARNINGS_BASELINE" || status=1
+          exit $status
+
+      # `prettier --list-different` prints exactly the unformatted files, one
+      # per line, so its line count is the fault count to ratchet on. This
+      # branch deliberately does not run `prettier --write` here or anywhere
+      # else in this task — see task-9i-report.md.
+      - name: Prettier
+        working-directory: packages/stencil
+        run: |
+          source "$GITHUB_WORKSPACE/.github/scripts/ratchet.sh"
+          source "$GITHUB_WORKSPACE/.github/quality-baseline.env"
+
+          npx prettier --list-different "src/**/*.{ts,tsx,css}" | tee /tmp/prettier-unformatted.txt || true
+          FILES=$(wc -l < /tmp/prettier-unformatted.txt)
+
+          ratchet "Prettier unformatted files" "$FILES" "$FORMAT_UNFORMATTED_FILES_BASELINE"
+
+      # Not ratcheted: this is a correctness test of the checker script
+      # itself, not a fault count from the component sources. It must pass
+      # outright.
+      - name: Test the API checker itself
+        working-directory: packages/stencil
+        run: npm run check:api:test
+
+      # stencil-docs.json must exist before check:api can run.
+      - name: API consistency
+        working-directory: packages/stencil
+        run: |
+          source "$GITHUB_WORKSPACE/.github/scripts/ratchet.sh"
+          source "$GITHUB_WORKSPACE/.github/quality-baseline.env"
+
+          npx stencil build
+
+          OUT=$(npm run check:api 2>&1 || true)
+          echo "$OUT"
+
+          GHOSTS=$(echo "$OUT" | grep -oE 'FAIL: [0-9]+ attributes do not exist' | grep -oE '[0-9]+' || true)
+          if [ -z "$GHOSTS" ] && echo "$OUT" | grep -q 'OK: every documented attribute is real'; then
+            GHOSTS=0
+          fi
+
+          ratchet "API ghost attributes" "$GHOSTS" "$API_GHOST_ATTRIBUTES_BASELINE"
+
+  accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Install the browser
+        working-directory: packages/stencil
+        run: npx playwright install --with-deps chromium
+
+      # Paid once: everything below reuses this same static build.
+      - name: Build Storybook
+        working-directory: packages/stencil
+        run: npm run build-storybook
+
+      # Three stories are documented, known-flaky (their pass/fail can change
+      # between runs of identical code — see .github/quality-baseline.env and
+      # docs/a11y/baseline-2026-08-20.md). Their outcome is reported every
+      # run but excluded from the ratcheted count, so a real regression
+      # anywhere else still fails the job. If a listed story starts failing
+      # for a reproducible reason, fix it and remove it from the list rather
+      # than leaving it exempt indefinitely.
+      - name: axe and WCAG 2.2 sweep
+        working-directory: packages/stencil
+        run: |
+          source "$GITHUB_WORKSPACE/.github/scripts/ratchet.sh"
+          source "$GITHUB_WORKSPACE/.github/quality-baseline.env"
+
+          set +e
+          npm run test:a11y:ci 2>&1 | tee /tmp/a11y-sweep.log
+          set -e
+
+          TESTS_LINE=$(grep -E "Tests:[[:space:]]+[0-9]+ failed" /tmp/a11y-sweep.log || true)
+          if [ -z "$TESTS_LINE" ]; then
+            echo "No Jest summary line found in the sweep output above."
+            echo "This is an infrastructure failure (the sweep did not complete), not a fault-count result — treat it as a broken run, not a regression."
+            exit 1
+          fi
+          echo "Summary line: $TESTS_LINE"
+
+          TOTAL_FAILED=$(echo "$TESTS_LINE" | grep -oE '[0-9]+ failed' | grep -oE '[0-9]+')
+          FAILING_STORIES=$(grep -oE '[a-z0-9-]+ failed accessibility checks' /tmp/a11y-sweep.log | awk '{print $1}' | sort -u)
+
+          echo ""
+          echo "Known-flaky stories (reported, not gated):"
+          FLAKY_FAILING=0
+          for s in $A11Y_KNOWN_FLAKY_STORIES; do
+            if echo "$FAILING_STORIES" | grep -qx "$s"; then
+              echo "  FAILING this run: $s"
+              FLAKY_FAILING=$((FLAKY_FAILING + 1))
+            else
+              echo "  passing this run:  $s"
+            fi
+          done
+
+          STABLE_FAILED=$((TOTAL_FAILED - FLAKY_FAILING))
+          echo ""
+          echo "Total failing stories this run: $TOTAL_FAILED (of which $FLAKY_FAILING are known-flaky, excluded from the ratchet below)"
+
+          ratchet "Accessibility stable failures" "$STABLE_FAILED" "$A11Y_STABLE_FAILURES_BASELINE"
