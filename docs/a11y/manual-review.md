@@ -541,3 +541,164 @@ Not determined without a browser: the precise visual/DOM outcome of tabbing to a
 near-top-of-page element under `dda-header`'s fixed positioning (item 2 above) — the
 absence of mitigation CSS is a confirmed code fact; the resulting on-screen overlap is
 not, and would need a live scroll-and-tab test to quantify.
+
+---
+
+## Group 3 — Disclosure and overlay components
+
+`dda-accordion`, `dda-dropdown`, `dda-tooltip`, `dda-alert`, `dda-banner`.
+
+### Q1 — `dda-accordion`: keyboard-operable? `aria-expanded`?
+
+**No to both, and this is a confirmed WCAG 2.1.1 failure the automated sweep cannot see —
+worth explaining why, since the baseline reports 0 failures for 2.1.1 project-wide.**
+`dda-accordion.tsx:26`: `<div class="accordion-header" onClick={() => this.toggleAccordion()}>`
+— a plain `<div>`, no `tabindex`, no `role="button"`, no `onKeyDown`. Grepped the whole
+file for `aria-expanded`/`aria_expanded`/`ariaExpanded` and for
+`tabindex`/`tabIndex`/`onKeyDown` — zero matches on every term. There is no nested
+natively-focusable element inside the header either (unlike `dda-header`'s hamburger
+div, which wraps a real `<button>`) — `dda-accordion.tsx:30-34` is just an icon and two
+`<span>`s. **A keyboard-only user cannot open this accordion at all**: `Tab` skips over
+it entirely, so there's no way to even reach it, let alone activate it with Enter/Space.
+
+This is not caught by the baseline's automated WCAG 2.1.1 checker
+(`packages/stencil/scripts/wcag22-checks.ts:103-130`) by design, not oversight — I read
+its implementation to understand why. Its `expected` set of "should be reachable"
+elements is built from a fixed selector,
+`INTERACTIVE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'`
+(`wcag22-checks.ts:3`). The checker verifies that everything matching that selector *is*
+reachable by `Tab` — it has no way to notice that a `<div>` with a click handler *should*
+have matched that selector but doesn't, because it was never given a `tabindex` in the
+first place. A click-handler-bearing `<div>` that was never made focusable is invisible to
+this check on both sides of the comparison: it isn't "expected," so failing to reach it
+can't register as a shortfall. This is exactly the class of gap Task 6 exists to catch —
+recording it here as a new, confirmed defect, and as a documented limitation of the
+automated checker for Task 9/future task-writers to know about.
+
+### Q2 — `dda-dropdown`: does Escape close it? Does focus return to the opening button?
+
+**No to both.** Grepped `dda-dropdown.tsx` for `Escape`, `keydown`, `KeyDown`, `.focus(`,
+`outside`, `Outside`, and `blur`/`Blur` — zero matches on every term. The component's only
+dismissal path is `selectOption()` (`dda-dropdown.tsx:41-46`, sets `isopen = false` when
+an option is picked) or pressing the toggle button again (`toggleDropdown()`,
+`:35-39`, called from the button's own `onClick` at `:62`). There is no `Escape` key
+handler, no outside-click handler (contrast with `dda-header`, which does have
+`handleOutsideClick`/`handleOutsideAccessibilityClick`/`handleOutsideMegaMenuClick` at
+`dda-header.tsx:92-94` — `dda-dropdown` has no equivalent at all), and no `.focus()` call
+anywhere in the file, so there is no code path that could return focus to the trigger
+button under any circumstance, because there's no code path that closes it any way other
+than an explicit click inside the widget. A keyboard user who opens the dropdown and wants
+to back out without picking an option has no way to close it except tabbing to the same
+toggle button again and re-activating it — workable, but not the WAI-ARIA menu/listbox
+pattern's expected `Escape`-to-close-and-return-focus behavior.
+
+### Q3 — `dda-tooltip`: the three WCAG 1.4.13 requirements
+
+`dda-tooltip.tsx` (27 lines total) has **no JavaScript show/hide logic at all** — it is a
+pure CSS `:hover` tooltip. The only trigger rule, `dda-tooltip.css:17-20`:
+```
+.dda-tooltip-container:hover .dda-tooltip-box {
+  visibility: visible;
+  opacity: 1;
+}
+```
+Grepped `dda-tooltip.css` and `dda-tooltip.tsx` for `:focus` and `setTimeout` — zero
+matches for either.
+
+1. **Dismissible without moving the pointer (e.g. `Escape`) — fails.** There is no
+   JavaScript in this component at all, so there is no `Escape` handler and no way to
+   dismiss the tooltip except moving the pointer away (which the criterion explicitly
+   says must not be the only way).
+2. **Pointer can move onto the tooltip content — passes, verified structurally.**
+   `.dda-tooltip-box` (`dda-tooltip.tsx:20-23`) is a DOM descendant of
+   `.dda-tooltip-container` (`:18`), absolutely positioned within it
+   (`dda-tooltip.css:6-16`), not a sibling rendered elsewhere (e.g. via a portal). Because
+   `:hover` matches as long as the pointer is anywhere within the ancestor's box,
+   including over a descendant, moving the pointer from the trigger onto the rendered
+   tooltip box keeps `.dda-tooltip-container:hover` true and the box visible. This one
+   holds up.
+3. **Persistent until the user dismisses it — passes on its own terms, but see the more
+   fundamental problem below.** No `setTimeout`/timer of any kind exists in the file, so
+   there's no auto-hide-after-N-seconds behavor to fail this specific sub-criterion.
+
+**A more fundamental problem than any of the three sub-criteria: this tooltip is
+invisible to keyboard users, full stop.** The show/hide rule is keyed on `:hover` only —
+`dda-tooltip.css:17` has no `:focus` or `:focus-within` counterpart. A sighted keyboard
+user who tabs to whatever's inside the tooltip's `<slot>` (`dda-tooltip.tsx:19`) never
+sees the tooltip appear at all, because nothing about focusing that element matches the
+`:hover` selector. WCAG 1.4.13 governs content that *is* shown on hover or focus; this
+component only ever satisfies the hover half of that trigger, so a keyboard user gets no
+equivalent of whatever information the tooltip conveys — arguably a more basic failure
+(closer to 4.1.2/2.1.1 territory: keyboard users get strictly less information than mouse
+users) than the three-part 1.4.13 test the brief asks about, and worth flagging as more
+urgent than the dismiss-without-moving-pointer gap above.
+
+### Q4 — `dda-alert`: `role="alert"` or `role="status"`?
+
+**Neither — no `role` attribute at all.** `dda-alert.tsx:36`:
+`<div class={`dda-alert dda-alert-${this.type} dda-alert-${this.variation} ...`}>` is the
+entire root element, with no `role` anywhere in the file (grepped `dda-alert.tsx` for
+`role=` — zero matches). A screen reader user will not be automatically notified when a
+`dda-alert` is inserted into the page (e.g. a toast-style validation summary appearing
+after a form submit) — the element carries no live-region semantics, so assistive tech
+only discovers it if the user happens to navigate onto it. This is a plain, confirmed gap
+against the brief's own framing of the question — no judgment call needed, just an absent
+attribute.
+
+### Q5 — `dda-banner`: no story, no document
+
+Confirmed, with the directory listing itself as evidence:
+`packages/stencil/src/components/dda-banner/` contains only `dda-banner.tsx`,
+`dda-banner.css`, and the auto-generated `readme.md` — no `.stories.tsx`, no `.mdx`. Per
+this task's brief ("write both, or record why it should be removed") and this task's own
+constraint (no repairs — Task 9 repairs), recording the judgment rather than authoring the
+files:
+
+**Recommendation: fix and document, do not remove — but the component needs real work
+first, not just a story.** `dda-banner` is a small, plausible primitive (an image slider),
+and its `@Prop()` surface (`slides`, `slider_width`, `slider_height`,
+`dda-banner.tsx:9-11`) is coherent enough to write a story and doc for. But two defects
+found in Group 2's Q4 review should be fixed *before* a story is written, or the story
+will document broken behavior: (1) `dda-banner-slider`/`dda-banner-slide`
+(`dda-banner.tsx:21,23`) have no CSS anywhere — grepped `dda-banner.css` and
+`global/global.css`, neither defines them — so the "slider" currently has no layout
+styling of its own (images stack with only inline `width`/`height` from `:24`, no
+flex/grid/overflow/scroll-snap to make it behave like a slider); and (2) there is no
+autoplay, navigation, or interactivity of any kind in `dda-banner.tsx` — it's a static
+map over `parsedSlides` with no `@State` beyond that array and no controls, despite the
+baseline listing story names `components-home-banner--default/autoplay` that suggest
+autoplay is an established pattern in this library for the *similarly-named*
+`dda-home-banner` (a different, already-storied component — see Group 4/`dda-home-banner`
+below) that `dda-banner` does not share. Writing a story today would either need to leave
+the slider looking unstyled and static (documenting the bug as if it were the design) or
+be written against behavior that doesn't exist yet. Recommend Task 9 treat "give
+`dda-banner` real slide styling and pick a documented interaction model (static grid vs.
+actual carousel)" as a prerequisite step before "write its story and doc."
+
+### Group 3 summary
+
+New findings beyond the baseline:
+
+1. `dda-accordion`'s clickable header is a plain, non-focusable `<div>`
+   (`dda-accordion.tsx:26`) with no `tabindex`, `role`, `onKeyDown`, or `aria-expanded` —
+   a confirmed WCAG 2.1.1 failure invisible to the automated checker because its
+   `INTERACTIVE` selector (`wcag22-checks.ts:3`) only verifies reachability of elements
+   already marked interactive, and this one never was.
+2. `dda-dropdown` has no `Escape` handler, no outside-click handler, and no `.focus()`
+   call anywhere — it cannot be closed except by picking an option or re-clicking the
+   trigger, and focus is never programmatically returned to the trigger.
+3. `dda-tooltip` is pure-CSS, `:hover`-only (`dda-tooltip.css:17-20`) with no `:focus`
+   trigger at all — content is invisible to keyboard users entirely, a more basic gap than
+   the three WCAG 1.4.13 sub-criteria the brief asks about. Of those three: hoverable
+   (pass, structurally verified), persistent/no-timeout (pass, no `setTimeout` in the
+   file), dismissible-without-moving-pointer (fail, no `Escape` handling anywhere).
+4. `dda-alert` has no `role` attribute at all — neither `role="alert"` nor `role="status"`
+   — confirmed by grep, `dda-alert.tsx:36`.
+5. `dda-banner` has no story or doc (confirmed by directory listing) and, per this task's
+   Group 2 findings, has undefined layout CSS for its slider classes and no interactivity
+   — recommend those be fixed before a story is written, not written now (out of scope for
+   this task).
+
+Not determined without a browser: none in this group — every question here was answerable
+directly from source (presence/absence of handlers, selectors, and attributes), unlike
+some of Group 1/2's timing- or rendering-dependent questions.
