@@ -315,7 +315,7 @@ export class DdaHeader {
                         <ul>
                             <li>
                                 <button name={this.accessibility_button_name} class="tool-btn accessibility-btn" type="button" onClick={this.toggleAccessibilty}>
-                                  <i class="material-icons  material-symbols-outlined">accessible_forward</i>
+                                  <i class="material-icons  material-symbols-outlined">accessibility</i>
                                   <span class="visually-hidden">Accessibility</span>
                                 </button>
                             </li>
@@ -518,7 +518,7 @@ export class DdaHeader {
                 <li>
                   <dda-tooltip title_text="Accessibility" position="top">
                     <button name={this.toggle_accessibility_button_name} class="tool-btn dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle accessibility-btn" type="button" onClick={this.toggleAccessibilty}>
-                      <i class="material-icons  material-symbols-outlined">accessible_forward</i>
+                      <i class="material-icons  material-symbols-outlined">accessibility</i>
                       <span class="visually-hidden">Accessibility</span>
                     </button>
                   </dda-tooltip>
