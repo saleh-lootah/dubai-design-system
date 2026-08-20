@@ -48,7 +48,9 @@
     "lint": "eslint src",
     "lint:report": "eslint src -f json -o ../../docs/a11y/eslint-report.json",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "check:api": "node scripts/check-api-consistency.mjs",
+    "check:api:test": "node --test scripts/check-api-consistency.test.mjs"
   },
   "dependencies": {
     "chromatic": "^11.11.0",
