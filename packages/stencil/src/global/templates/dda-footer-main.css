@@ -7,6 +7,16 @@
     width: 100%;
     z-index: 5;
     padding: 0 20px;
+    transform: translateY(0);
+    transition: transform 300ms ease-in-out;
+}
+
+/* dda-sticky-footer toggles this class off its own scroll-direction state
+   (see dda-sticky-footer.tsx handleScroll) to hide the bar while scrolling
+   down and bring it back while scrolling up. Same transition idiom as
+   .dda-header in dda-header-main.css. */
+.dda-footer.hidden {
+    transform: translateY(100%);
 }
 
 .footer-content {

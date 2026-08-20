@@ -2,9 +2,8 @@ import { Component, Prop, h, State  } from '@stencil/core';
 
 @Component({
   tag: 'dda-sticky-footer',
-  styleUrl: 'dda-sticky-footer.css',
-//  styleUrls: ['dda-sticky-footer.css', '../../global/global.css'],
-  shadow: true,
+  styleUrls: ['dda-sticky-footer.css', '../../global/global.css'],
+  shadow: false,
 })
 export class DdaStickyFooter {
   /** Left Section Props */
