@@ -49,6 +49,10 @@ export default {
       control: { type: 'text'},
       description: 'default',
     },
+    input_id: {
+      control: { type: 'text' },
+      description: 'Id for the search input field. The visible label targets this, not button_id (F-017).',
+    },
     aria_label: {
       control: { type: 'text'},
       description: 'Aria label for the search input',
@@ -92,6 +96,7 @@ export default {
     custom_class=""
     component_mode=""
     button_id="button"
+    input_id="search"
     aria_label="search-input"
     button_aria_label="clear-search"
     onchange="console.log('changed')"
@@ -127,6 +132,7 @@ Default.args = {
   custom_class: '',
   component_mode: '',
   button_id: 'button',
+  input_id: 'search',
   aria_label: 'search-input',
   button_aria_label: 'clear-search',
   onchange: '',
@@ -147,6 +153,7 @@ WithButton.args = {
   custom_class: '',
   component_mode: '',
   button_id: 'button',
+  input_id: 'search',
   aria_label: 'search-input',
   button_aria_label: 'clear-search',
   onchange: '',
@@ -166,6 +173,7 @@ WithError.args = {
   custom_class: '',
   component_mode: '',
   button_id: 'button',
+  input_id: 'search',
   aria_label: 'search-input',
   button_aria_label: 'clear-search',
   onchange: '',
@@ -186,6 +194,7 @@ Disabled.args = {
   custom_class: '',
   component_mode: '',
   button_id: 'button',
+  input_id: 'search',
   aria_label: 'search-input',
   button_aria_label: 'clear-search',
   onchange: '',
