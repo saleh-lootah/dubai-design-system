@@ -4,7 +4,11 @@ Key: **PASS**, **FAIL**, or **N/A**. `N/A` means the automated tooling never exe
 this cell — not that it was measured and clean. `dda-banner` and `dda-ui-card` have no
 Storybook story, so their `axe`, `Keyboard`, and `Target size` columns are `N/A` (see
 `docs/a11y/findings.md` F-039); a `0`-instance count in the underlying baseline table
-for these two components means "not measured," not "measured and clean."
+for these two components means "not measured," not "measured and clean." The same
+principle applies to shallow *manual* review, not just absent *tooling*: `dda-breadcrumb`,
+`dda-pagination`, and `dda-credit-card` (marked³¹) read as mostly PASS below because they
+were lightly checked, not because they were thoroughly checked and came back clean —
+see footnote 31.
 
 Column definitions and how each was derived:
 
@@ -39,11 +43,11 @@ Column definitions and how each was derived:
 | dda-attach-file | FAIL | PASS | PASS | PASS | PASS | NO |
 | dda-avatar | FAIL | FAIL¹ | PASS | FAIL² | FAIL† | NO |
 | dda-banner | N/A³ | N/A³ | N/A³ | PASS | FAIL⁴ | NO |
-| dda-breadcrumb | PASS | PASS | PASS | PASS⁵ | PASS† | NO |
+| dda-breadcrumb³¹ | PASS | PASS | PASS | PASS⁵ | PASS† | NO |
 | dda-button | FAIL | PASS⁶ | PASS | FAIL⁷ | PASS† | YES |
 | dda-checkbox | PASS | PASS | PASS | FAIL⁸ | FAIL⁹ | NO |
 | dda-chip | FAIL | FAIL¹ | PASS | FAIL² | FAIL† | NO |
-| dda-credit-card | FAIL | PASS | PASS | PASS | PASS† | NO |
+| dda-credit-card³¹ | FAIL | PASS | PASS | PASS | PASS† | NO |
 | dda-creditcard-field | FAIL | PASS⁶ | PASS | PASS | PASS | NO |
 | dda-dropdown | PASS | FAIL¹⁰ | PASS | FAIL² | FAIL† | NO |
 | dda-footer | PASS¹¹ | PASS¹¹ | PASS¹¹ | PASS | PASS† | NO |
@@ -53,7 +57,7 @@ Column definitions and how each was derived:
 | dda-input | FAIL | PASS⁶ | PASS | PASS | PASS | NO |
 | dda-link-button | FAIL | PASS⁶ | PASS | FAIL² | FAIL† | NO |
 | dda-number-field | FAIL | PASS | PASS | FAIL¹⁷ | PASS | NO |
-| dda-pagination | FAIL | PASS | FAIL | PASS | PASS† | NO |
+| dda-pagination³¹ | FAIL | PASS | FAIL | PASS | PASS† | NO |
 | dda-phonefield | FAIL | PASS | PASS | FAIL¹⁸ | PASS | NO |
 | dda-progressbar | FAIL | PASS¹⁹ | PASS | PASS | PASS† | NO |
 | dda-radiobutton | PASS | PASS | PASS | FAIL² | PASS† | NO |
@@ -168,3 +172,10 @@ Column definitions and how each was derived:
 30. No keyboard-reachability defect found for `dda-vertical-stepper`'s own controls
     (it has none — display-only); it carries a separate naming-convention risk on its
     `current_Step` prop (findings F-034, open item O-006).
+31. `dda-breadcrumb`, `dda-pagination`, and `dda-credit-card` received a lighter-touch
+    manual check than the other 31 components — the manual review's brief had no
+    dedicated question for any of the three, so each got a brief, non-exhaustive note
+    rather than the full per-component treatment. The mostly-PASS row above reflects
+    what was checked, not a clean bill for what wasn't — see `docs/a11y/findings.md`'s
+    "Note on review depth" for the full caveat and each component's specific open
+    items (O-003, O-004, O-005).
