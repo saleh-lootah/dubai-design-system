@@ -234,7 +234,17 @@ export const DdaHeader = /*@__PURE__*/ defineContainer<JSX.DdaHeader>('dda-heade
 ]);
 
 
-export const DdaHomeBanner = /*@__PURE__*/ defineContainer<JSX.DdaHomeBanner>('dda-home-banner', undefined);
+export const DdaHomeBanner = /*@__PURE__*/ defineContainer<JSX.DdaHomeBanner>('dda-home-banner', undefined, [
+  'autoplay',
+  'interval',
+  'aria_label',
+  'previous_button_label',
+  'next_button_label',
+  'pause_button_label',
+  'play_button_label',
+  'slide_button_label',
+  'slide_status_label'
+]);
 
 
 export const DdaHorizontalStepper = /*@__PURE__*/ defineContainer<JSX.DdaHorizontalStepper>('dda-horizontal-stepper', undefined, [

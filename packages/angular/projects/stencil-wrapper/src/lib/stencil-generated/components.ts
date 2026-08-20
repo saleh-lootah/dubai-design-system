@@ -340,13 +340,14 @@ export declare interface DdaHeader extends Components.DdaHeader {
 
 
 @ProxyCmp({
+  inputs: ['aria_label', 'autoplay', 'interval', 'next_button_label', 'pause_button_label', 'play_button_label', 'previous_button_label', 'slide_button_label', 'slide_status_label']
 })
 @Component({
   selector: 'dda-home-banner',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['aria_label', 'autoplay', 'interval', 'next_button_label', 'pause_button_label', 'play_button_label', 'previous_button_label', 'slide_button_label', 'slide_status_label'],
 })
 export class DdaHomeBanner {
   protected el: HTMLDdaHomeBannerElement;

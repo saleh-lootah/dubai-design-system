@@ -351,6 +351,51 @@ export namespace Components {
         "toggle_accessibility_button_name": string;
     }
     interface DdaHomeBanner {
+        /**
+          * Accessible name for the carousel region.
+          * @default 'Highlights'
+         */
+        "aria_label": string;
+        /**
+          * Advance through the slides automatically.
+          * @default false
+         */
+        "autoplay": boolean;
+        /**
+          * Milliseconds each slide is shown for when `autoplay` is on. Clamped to a 1000ms floor.
+          * @default 5000
+         */
+        "interval": number;
+        /**
+          * Accessible name for the next-slide button.
+          * @default 'Next slide'
+         */
+        "next_button_label": string;
+        /**
+          * Accessible name for the pause button shown while autoplay is running.
+          * @default 'Pause slideshow'
+         */
+        "pause_button_label": string;
+        /**
+          * Accessible name for the play button shown while autoplay is paused.
+          * @default 'Play slideshow'
+         */
+        "play_button_label": string;
+        /**
+          * Accessible name for the previous-slide button.
+          * @default 'Previous slide'
+         */
+        "previous_button_label": string;
+        /**
+          * Prefix for each slide dot's accessible name, e.g. "Go to slide 2".
+          * @default 'Go to slide'
+         */
+        "slide_button_label": string;
+        /**
+          * Template for the screen-reader slide announcement. `{current}` and `{total}` are substituted.
+          * @default 'Slide {current} of {total}'
+         */
+        "slide_status_label": string;
     }
     interface DdaHorizontalStepper {
         "component_mode"?: string;
@@ -1482,6 +1527,51 @@ declare namespace LocalJSX {
         "toggle_accessibility_button_name"?: string;
     }
     interface DdaHomeBanner {
+        /**
+          * Accessible name for the carousel region.
+          * @default 'Highlights'
+         */
+        "aria_label"?: string;
+        /**
+          * Advance through the slides automatically.
+          * @default false
+         */
+        "autoplay"?: boolean;
+        /**
+          * Milliseconds each slide is shown for when `autoplay` is on. Clamped to a 1000ms floor.
+          * @default 5000
+         */
+        "interval"?: number;
+        /**
+          * Accessible name for the next-slide button.
+          * @default 'Next slide'
+         */
+        "next_button_label"?: string;
+        /**
+          * Accessible name for the pause button shown while autoplay is running.
+          * @default 'Pause slideshow'
+         */
+        "pause_button_label"?: string;
+        /**
+          * Accessible name for the play button shown while autoplay is paused.
+          * @default 'Play slideshow'
+         */
+        "play_button_label"?: string;
+        /**
+          * Accessible name for the previous-slide button.
+          * @default 'Previous slide'
+         */
+        "previous_button_label"?: string;
+        /**
+          * Prefix for each slide dot's accessible name, e.g. "Go to slide 2".
+          * @default 'Go to slide'
+         */
+        "slide_button_label"?: string;
+        /**
+          * Template for the screen-reader slide announcement. `{current}` and `{total}` are substituted.
+          * @default 'Slide {current} of {total}'
+         */
+        "slide_status_label"?: string;
     }
     interface DdaHorizontalStepper {
         "component_mode"?: string;
@@ -2134,6 +2224,17 @@ declare namespace LocalJSX {
         "close_sidebar_button_name": string;
         "toggle_accessibility_button_name": string;
     }
+    interface DdaHomeBannerAttributes {
+        "autoplay": boolean;
+        "interval": number;
+        "aria_label": string;
+        "previous_button_label": string;
+        "next_button_label": string;
+        "pause_button_label": string;
+        "play_button_label": string;
+        "slide_button_label": string;
+        "slide_status_label": string;
+    }
     interface DdaHorizontalStepperAttributes {
         "steps": string;
         "current_step": number;
@@ -2427,7 +2528,7 @@ declare namespace LocalJSX {
         "dda-dropdown": Omit<DdaDropdown, keyof DdaDropdownAttributes> & { [K in keyof DdaDropdown & keyof DdaDropdownAttributes]?: DdaDropdown[K] } & { [K in keyof DdaDropdown & keyof DdaDropdownAttributes as `attr:${K}`]?: DdaDropdownAttributes[K] } & { [K in keyof DdaDropdown & keyof DdaDropdownAttributes as `prop:${K}`]?: DdaDropdown[K] };
         "dda-footer": Omit<DdaFooter, keyof DdaFooterAttributes> & { [K in keyof DdaFooter & keyof DdaFooterAttributes]?: DdaFooter[K] } & { [K in keyof DdaFooter & keyof DdaFooterAttributes as `attr:${K}`]?: DdaFooterAttributes[K] } & { [K in keyof DdaFooter & keyof DdaFooterAttributes as `prop:${K}`]?: DdaFooter[K] };
         "dda-header": Omit<DdaHeader, keyof DdaHeaderAttributes> & { [K in keyof DdaHeader & keyof DdaHeaderAttributes]?: DdaHeader[K] } & { [K in keyof DdaHeader & keyof DdaHeaderAttributes as `attr:${K}`]?: DdaHeaderAttributes[K] } & { [K in keyof DdaHeader & keyof DdaHeaderAttributes as `prop:${K}`]?: DdaHeader[K] };
-        "dda-home-banner": DdaHomeBanner;
+        "dda-home-banner": Omit<DdaHomeBanner, keyof DdaHomeBannerAttributes> & { [K in keyof DdaHomeBanner & keyof DdaHomeBannerAttributes]?: DdaHomeBanner[K] } & { [K in keyof DdaHomeBanner & keyof DdaHomeBannerAttributes as `attr:${K}`]?: DdaHomeBannerAttributes[K] } & { [K in keyof DdaHomeBanner & keyof DdaHomeBannerAttributes as `prop:${K}`]?: DdaHomeBanner[K] };
         "dda-horizontal-stepper": Omit<DdaHorizontalStepper, keyof DdaHorizontalStepperAttributes> & { [K in keyof DdaHorizontalStepper & keyof DdaHorizontalStepperAttributes]?: DdaHorizontalStepper[K] } & { [K in keyof DdaHorizontalStepper & keyof DdaHorizontalStepperAttributes as `attr:${K}`]?: DdaHorizontalStepperAttributes[K] } & { [K in keyof DdaHorizontalStepper & keyof DdaHorizontalStepperAttributes as `prop:${K}`]?: DdaHorizontalStepper[K] };
         "dda-input": Omit<DdaInput, keyof DdaInputAttributes> & { [K in keyof DdaInput & keyof DdaInputAttributes]?: DdaInput[K] } & { [K in keyof DdaInput & keyof DdaInputAttributes as `attr:${K}`]?: DdaInputAttributes[K] } & { [K in keyof DdaInput & keyof DdaInputAttributes as `prop:${K}`]?: DdaInput[K] };
         "dda-link-button": Omit<DdaLinkButton, keyof DdaLinkButtonAttributes> & { [K in keyof DdaLinkButton & keyof DdaLinkButtonAttributes]?: DdaLinkButton[K] } & { [K in keyof DdaLinkButton & keyof DdaLinkButtonAttributes as `attr:${K}`]?: DdaLinkButtonAttributes[K] } & { [K in keyof DdaLinkButton & keyof DdaLinkButtonAttributes as `prop:${K}`]?: DdaLinkButton[K] };

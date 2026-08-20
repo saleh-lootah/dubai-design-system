@@ -102,7 +102,8 @@
   z-index: 3;
 }
 .slider-nav .prev,
-.slider-nav .next {
+.slider-nav .next,
+.slider-nav .pause {
   height: 28px;
   width: 28px;
   padding: 0;
@@ -119,19 +120,49 @@
   transition: all 0.2s linear;
 }
 .slider-nav .prev:hover,
-.slider-nav .next:hover {
+.slider-nav .next:hover,
+.slider-nav .pause:hover {
   background: rgba(0, 0, 0, 0.45);
+}
+
+/* The icon is a Material Icons ligature. Until that font loads — or if the
+   consumer never loads it — the literal text renders and would overflow the
+   28px button and cover the slide dots, making them unclickable. Clip it. */
+.slider-nav .prev,
+.slider-nav .next,
+.slider-nav .pause {
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.slider-nav .prev i,
+.slider-nav .next i,
+.slider-nav .pause i {
+  font-size: 25px;
+  line-height: 1;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
 }
 .slider-nav ul {
   display: flex;
   align-items: center;
   gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slider-nav li {
+  display: flex;
 }
 .slider-nav .dots {
   display: block;
+  appearance: none;
+  -webkit-appearance: none;
   width: 10px;
   height: 10px;
-  background: rgba(256,256,256,0.2);
+  background: rgba(255, 255, 255, 0.2);
   overflow: hidden;
   text-indent: -100px;
   margin: 0;
@@ -143,7 +174,17 @@
 }
 
 .slider-nav .dots.active {
-  background: rgba(256,256,256,0.85);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* Controls sit over photography, where the UA default focus ring is often
+   invisible. Pair a white ring with a dark outer ring so it reads on any slide. */
+.slider-nav .prev:focus-visible,
+.slider-nav .next:focus-visible,
+.slider-nav .pause:focus-visible,
+.slider-nav .dots:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
 
 
