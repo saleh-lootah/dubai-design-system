@@ -31,9 +31,17 @@ export class DdaAlert {
     this.secondClick.emit();
   };
 
+  // F-012: no role anywhere meant a screen reader user was never told an
+  // alert appeared. `error` is urgent enough to interrupt (role="alert",
+  // assertive); the rest are confirmations/notices that should announce
+  // politely (role="status") without stealing focus or cutting off speech.
+  private get role(): 'alert' | 'status' {
+    return this.variation === 'error' ? 'alert' : 'status';
+  }
+
   render() {
     return (
-      <div class={`dda-alert dda-alert-${this.type} dda-alert-${this.variation} ${this.custom_class} ${this.component_mode}`}>
+      <div role={this.role} class={`dda-alert dda-alert-${this.type} dda-alert-${this.variation} ${this.custom_class} ${this.component_mode}`}>
         <i class="material-icons  material-symbols-outlined">info</i>
         <div class="alert-content">
           <h4 class="alert-title">{this.title_text}</h4>
