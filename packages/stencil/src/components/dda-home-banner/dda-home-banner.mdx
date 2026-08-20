@@ -2,98 +2,185 @@ import { Meta } from '@storybook/addon-docs';
 
 <Meta title="Components/Home Banner/Documentation" />
 
-# Header
-The `dda-header` component is customizable that can be used in various UI scenarios
+# Home Banner
 
-#### Usage in React
+The `dda-home-banner` component is a full-viewport image/video carousel for landing pages.
+
+## Slide structure
+
+The banner is **slotted** — you supply the slides as markup. Each slide **must be a
+`<slide>` element**; the component collects them with `querySelectorAll('slide')` and
+anything else is ignored (you would get a banner with no slides and no dots).
+
+Inside each `<slide>`, use `.slide-wrap` for the full-height flex wrapper and
+`.slide-content` for the constrained content column:
+
+```html
+<dda-home-banner autoplay="true" interval="5000">
+  <slide>
+    <img src="assets/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
+    <div class="slide-wrap">
+      <div class="slide-content">
+        <h2>Digitalizing Life In Dubai</h2>
+        <p>Pioneering and accelerating the pace of digital transformation in the city</p>
+        <dda-button button_color="default-primary" size="lg">Call to action</dda-button>
+      </div>
+    </div>
+  </slide>
+
+  <slide>
+    <video src="assets/video/skyline.mp4" autoplay muted loop playsinline></video>
+    <div class="slide-wrap">
+      <div class="slide-content">
+        <h2>Explore More</h2>
+        <p>Find the services you need</p>
+      </div>
+    </div>
+  </slide>
+</dda-home-banner>
+```
+
+<div style={{ padding: '12px 16px', borderLeft: '4px solid #0B273D', background: '#f4f6f8', margin: '16px 0' }}>
+
+**Styling is delivered by the component, not by `dda.css`.**
+
+The banner's layout CSS is bundled into the component's own JavaScript chunk and injected
+into the page when the element upgrades. Loading the global `dda.css` and calling
+`defineCustomElements()` is all that is required — do **not** link
+`dist/collection/components/dda-home-banner/home-banner.css` separately.
+
+If the banner renders as a normally-flowed image with the text spilling below it, check
+these in order:
+
+1. **You are on a release older than the fix.** Earlier versions required you to write
+   `class="home-slider"` on the element yourself. The component now applies it. Upgrade,
+   or add that class as a stopgap.
+2. The slides are not `<slide>` elements.
+3. The component has not upgraded — check that `defineCustomElements()` ran and that the
+   loader script URL resolves.
+
+</div>
+
+## Properties
+
+| Property                | Attribute                 | Description                                                   | Type      | Default             |
+| ----------------------- | ------------------------- | ------------------------------------------------------------- | --------- | ------------------- |
+| `autoplay`              | `autoplay`                | Advance through the slides automatically.                     | `boolean` | `false`             |
+| `interval`              | `interval`                | Milliseconds each slide is shown for when `autoplay` is on. Clamped to a 1000ms floor. | `number`  | `5000`              |
+| `aria_label`            | `aria_label`              | Accessible name for the carousel region.                      | `string`  | `'Highlights'`      |
+| `previous_button_label` | `previous_button_label`   | Accessible name for the previous-slide button.                | `string`  | `'Previous slide'`  |
+| `next_button_label`     | `next_button_label`       | Accessible name for the next-slide button.                    | `string`  | `'Next slide'`      |
+| `pause_button_label`    | `pause_button_label`      | Accessible name for the pause button.                         | `string`  | `'Pause slideshow'` |
+| `play_button_label`     | `play_button_label`       | Accessible name for the play button.                          | `string`  | `'Play slideshow'`  |
+| `slide_button_label`    | `slide_button_label`      | Prefix for each dot's accessible name, e.g. "Go to slide 2".  | `string`  | `'Go to slide'`     |
+| `slide_status_label`    | `slide_status_label`      | Screen-reader announcement template. `{current}` / `{total}`. | `string`  | `'Slide {current} of {total}'` |
+
+## Accessibility
+
+- The host exposes `role="region"` with `aria-roledescription="carousel"` and an
+  `aria_label`, so screen-reader users can identify and skip the banner.
+- Previous/next buttons and the slide dots are real `<button>` elements with accessible
+  names, so the carousel is fully keyboard operable.
+- When `autoplay` is on, a **pause/play** button is rendered — required by
+  WCAG 2.2.2 (Pause, Stop, Hide) for content that moves automatically.
+- Autoplay also suspends while the pointer is over the banner or keyboard focus is
+  inside it, so it cannot move a slide out from under the user.
+- Autoplay is disabled entirely when the user has `prefers-reduced-motion: reduce` set.
+- Slides that are not current are marked `inert` and `aria-hidden`, so the keyboard
+  cannot reach offscreen calls to action and screen readers do not read them.
+- A visually hidden live region announces "Slide 2 of 3" on manual slide changes. It is
+  silent while the carousel rotates on its own, so autoplay does not chatter.
+- Give every slide `<img>` a meaningful `alt`; use `alt=""` if the image is decorative
+  and the message is carried by `.slide-content`.
+- **Slotted `<video autoplay>` is your responsibility.** The pause button stops the slide
+  rotation, not media inside a slide. If you autoplay video, keep it `muted` and `loop`,
+  or provide your own control, so the slide still satisfies WCAG 2.2.2.
+
+## Usage in Vanilla JS
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<!-- dda.css does not ship the icon font. Without this link the carousel arrows
+     render as the words "chevron_left" / "chevron_right". -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.js';
+  defineCustomElements();
+</script>
+
+<dda-home-banner autoplay="true" interval="5000">
+  <slide>
+    <img src="assets/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
+    <div class="slide-wrap">
+      <div class="slide-content">
+        <h2>Digitalizing Life In Dubai</h2>
+        <p>Pioneering and accelerating the pace of digital transformation in the city</p>
+      </div>
+    </div>
+  </slide>
+</dda-home-banner>
+```
+
+Replace `X.X.X` with the version you are pinning to. Do not use an unversioned or
+`@latest` URL — it does not reliably resolve the loader's relative chunks.
+
+## Usage in React
 
 ```jsx
 import React from 'react'
-import { DdaHeader } from "@dubai-design-system/components-react";
-
+import { DdaHomeBanner } from '@dubai-design-system/components-react'
 
 const App = () => {
   return (
- <DdaHeader
- first-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    first-logo-alt="undefined"
-    second-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    second-logo-alt="Dubai-Digital-Authority"
-    login-link="/login"
-    readspeakerlink="app-eu.readspeaker.com"
-    languageswitch="() => console.log('Language Switcher')"
-    smtextsize="() => console.log('Small Text')"
-    basetextsize="() => console.log('Base Text')"
-    lgtextsize="() => console.log('Large Text')"
-    normalcontrast="() => console.log('Normal Text')"
-    blindcontrast="() => console.log('Blind Text')"
-    redcontrast="() => console.log('Red Text')"
-    greencontrast="() => console.log('Green Text')"
-    quick-links='[{"label":"Home","href":"#","subMenu":[]},{"label":"Services","href":"#","subMenu":[{"title":"Web Development","description":"Build and maintain websites","icon":"sentiment_satisfied","href":"#"},{"title":"SEO Services","description":"Improve your site ranking","icon":"sentiment_satisfied","href":"#"}]},{"label":"About","href":"#","subMenu":[]},{"label":"Contact","href":"#","subMenu":[]}]'
-    side-menu-items='[{"label":"Home","href":"#","subMenu":[]},{"label":"Initiatives","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]},{"label":"Services","href":"#","subMenu":[]},{"label":"Data","href":"#","subMenu":[]},{"label":"Government Services","href":"#","subMenu":[]},{"label":"Investor Relations","href":"#","subMenu":[]},{"label":"Locations","href":"#","subMenu":[]},{"label":"Newsroom","href":"#","subMenu":[]},{"label":"Contact Us","href":"#","subMenu":[]}]'
-  />
- )
+    <DdaHomeBanner autoplay={true} interval={5000} aria_label="Highlights">
+      <slide>
+        <img src="/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
+        <div className="slide-wrap">
+          <div className="slide-content">
+            <h2>Digitalizing Life In Dubai</h2>
+            <p>Pioneering and accelerating the pace of digital transformation in the city</p>
+          </div>
+        </div>
+      </slide>
+    </DdaHomeBanner>
+  )
 }
 ```
 
-#### Usage in Vue
+## Usage in Vue
 
 ```jsx
 <script>
-
-
-import { DdaHeader } from '@dubai-design-system/components-vue'
-
+import { DdaHomeBanner } from '@dubai-design-system/components-vue'
 </script>
 
 <template>
-    <div>
-     <DdaHeader
- first-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    first-logo-alt="undefined"
-    second-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    second-logo-alt="Dubai-Digital-Authority"
-    login-link="/login"
-    readspeakerlink="app-eu.readspeaker.com"
-    languageswitch="() => console.log('Language Switcher')"
-    smtextsize="() => console.log('Small Text')"
-    basetextsize="() => console.log('Base Text')"
-    lgtextsize="() => console.log('Large Text')"
-    normalcontrast="() => console.log('Normal Text')"
-    blindcontrast="() => console.log('Blind Text')"
-    redcontrast="() => console.log('Red Text')"
-    greencontrast="() => console.log('Green Text')"
-    quick-links='[{"label":"Home","href":"#","subMenu":[]},{"label":"Services","href":"#","subMenu":[{"title":"Web Development","description":"Build and maintain websites","icon":"sentiment_satisfied","href":"#"},{"title":"SEO Services","description":"Improve your site ranking","icon":"sentiment_satisfied","href":"#"}]},{"label":"About","href":"#","subMenu":[]},{"label":"Contact","href":"#","subMenu":[]}]'
-    side-menu-items='[{"label":"Home","href":"#","subMenu":[]},{"label":"Initiatives","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]},{"label":"Services","href":"#","subMenu":[]},{"label":"Data","href":"#","subMenu":[]},{"label":"Government Services","href":"#","subMenu":[]},{"label":"Investor Relations","href":"#","subMenu":[]},{"label":"Locations","href":"#","subMenu":[]},{"label":"Newsroom","href":"#","subMenu":[]},{"label":"Contact Us","href":"#","subMenu":[]}]'
-
-></DdaHeader>
-
-    </div>
+  <DdaHomeBanner :autoplay="true" :interval="5000" aria_label="Highlights">
+    <slide>
+      <img src="/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
+      <div class="slide-wrap">
+        <div class="slide-content">
+          <h2>Digitalizing Life In Dubai</h2>
+          <p>Pioneering and accelerating the pace of digital transformation in the city</p>
+        </div>
+      </div>
+    </slide>
+  </DdaHomeBanner>
 </template>
-
 ```
 
-#### Usage in Angular
+## Usage in Angular
 
-```jsx
-<dda-header
-    first-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    first-logo-alt="undefined"
-    second-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    second-logo-alt="Dubai-Digital-Authority"
-    login-link="/login"
-    readspeakerlink="app-eu.readspeaker.com"
-    languageswitch="() => console.log('Language Switcher')"
-    smtextsize="() => console.log('Small Text')"
-    basetextsize="() => console.log('Base Text')"
-    lgtextsize="() => console.log('Large Text')"
-    normalcontrast="() => console.log('Normal Text')"
-    blindcontrast="() => console.log('Blind Text')"
-    redcontrast="() => console.log('Red Text')"
-    greencontrast="() => console.log('Green Text')"
-    quick-links='[{"label":"Home","href":"#","subMenu":[]},{"label":"Services","href":"#","subMenu":[{"title":"Web Development","description":"Build and maintain websites","icon":"sentiment_satisfied","href":"#"},{"title":"SEO Services","description":"Improve your site ranking","icon":"sentiment_satisfied","href":"#"}]},{"label":"About","href":"#","subMenu":[]},{"label":"Contact","href":"#","subMenu":[]}]'
-    side-menu-items='[{"label":"Home","href":"#","subMenu":[]},{"label":"Initiatives","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]},{"label":"Services","href":"#","subMenu":[]},{"label":"Data","href":"#","subMenu":[]},{"label":"Government Services","href":"#","subMenu":[]},{"label":"Investor Relations","href":"#","subMenu":[]},{"label":"Locations","href":"#","subMenu":[]},{"label":"Newsroom","href":"#","subMenu":[]},{"label":"Contact Us","href":"#","subMenu":[]}]'
-></dda-header>
-
-
+```html
+<dda-home-banner [autoplay]="true" [interval]="5000" aria_label="Highlights">
+  <slide>
+    <img src="assets/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
+    <div class="slide-wrap">
+      <div class="slide-content">
+        <h2>Digitalizing Life In Dubai</h2>
+        <p>Pioneering and accelerating the pace of digital transformation in the city</p>
+      </div>
+    </div>
+  </slide>
+</dda-home-banner>
 ```
