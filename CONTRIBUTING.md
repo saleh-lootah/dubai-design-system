@@ -6,6 +6,14 @@ This document is built from a full code review of the codebase completed on this
 for per-component status. It is not a general style guide; if something isn't here, it's
 because the review didn't find a repeated mistake to justify it.
 
+**Before publishing this branch**, read `docs/a11y/consumer-impact.md`. It catalogues
+every rendered-DOM, id, and selector change this branch made to existing components
+(`dda-footer`, `dda-sticky-footer`, `dda-search-input`, `dda-textarea`, `dda-avatar`,
+`dda-accordion`, `dda-chip`, `dda-home-banner`, and others) and states the semver bump
+those changes require. Most of the fixes in this review are correctness/accessibility
+repairs, not new features — but several of them are not backward-compatible, and
+`npx lerna publish` has no way to know that on its own.
+
 ## Before you open a pull request
 
 Run these from `packages/stencil`:
@@ -35,7 +43,7 @@ Notes on each, verified against this branch on 2026-08-20:
   that the generated wrappers are current"). If your change touches a component's props or
   events, the wrapper diff is part of your PR — build, then `git add` whatever changed
   before you commit.
-- **`npm test` (248 tests, 32 suites at the time of writing) must stay green.** A new test
+- **`npm test` (290 tests, 38 suites at the time of writing) must stay green.** A new test
   that fails, or an existing one you had to touch to make pass, is worth a second look
   before you move on — see "Write tests that can fail" below.
 - **`npm run lint`, `npm run format:check`, and `npm run check:api` will exit non-zero on
