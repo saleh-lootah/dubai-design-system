@@ -89,3 +89,86 @@ describe('dda-textarea focus indicator', () => {
     expect(focused.boxShadow).not.toBe('none');
   });
 });
+
+// F-015: enable_rich_editor's ternary swaps the labelled <textarea> for a
+// Quill <div id="editor">, so the visible <label for> targets an element
+// that no longer exists and the rich editor has no accessible name at all.
+describe('dda-textarea F-015 rich editor labelling', () => {
+  it('plain mode: the label still targets a real element (control case)', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-textarea input_id="input" label="Notes"></dda-textarea>');
+
+    const result = await page.evaluate(() => {
+      const label = document.querySelector('dda-textarea label') as HTMLLabelElement;
+      const target = label ? document.getElementById(label.htmlFor) : null;
+      return { for: label?.htmlFor, targetExists: !!target, targetTag: target?.tagName };
+    });
+
+    expect(result.targetExists).toBe(true);
+    expect(result.targetTag).toBe('TEXTAREA');
+  });
+
+  it('rich-editor mode: the visible label resolves to an accessible name on a real element in the DOM', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-textarea input_id="input" label="Notes" enable_rich_editor="true"></dda-textarea>');
+    await page.waitForSelector('.ql-editor');
+    await page.waitForChanges();
+
+    const result = await page.evaluate(() => {
+      const label = document.querySelector('dda-textarea label') as HTMLLabelElement;
+      const editorContainer = document.querySelector('dda-textarea .dda-richeditor-field');
+      const labelledbyIds = (editorContainer?.getAttribute('aria-labelledby') || '').split(' ').filter(Boolean);
+      const labelledbyTargets = labelledbyIds.map((id) => document.getElementById(id));
+      return {
+        labelText: label?.textContent?.trim(),
+        editorContainerExists: !!editorContainer,
+        labelledbyIds,
+        labelledbyTargetsExist: labelledbyTargets.every((el) => !!el),
+        labelledbyTargetsText: labelledbyTargets.map((el) => el?.textContent?.trim()),
+      };
+    });
+
+    expect(result.editorContainerExists).toBe(true);
+    expect(result.labelledbyIds.length).toBeGreaterThan(0);
+    expect(result.labelledbyTargetsExist).toBe(true);
+    expect(result.labelledbyTargetsText).toContain('Notes');
+  });
+});
+
+// F-016: same systemic error-labelling gap as dda-input.
+describe('dda-textarea F-016 error labelling', () => {
+  it('has no aria-invalid/aria-describedby when there is no error or helper text', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-textarea input_id="input"></dda-textarea>');
+
+    const result = await page.evaluate(() => {
+      const el = document.querySelector('dda-textarea textarea');
+      return { invalid: el.getAttribute('aria-invalid'), describedby: el.getAttribute('aria-describedby') };
+    });
+
+    expect(result.invalid).toBeNull();
+    expect(result.describedby).toBeNull();
+  });
+
+  it('points aria-describedby at an existing error element with the error text and sets aria-invalid=true', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-textarea input_id="input" error_message="Too long"></dda-textarea>');
+
+    const result = await page.evaluate(() => {
+      const el = document.querySelector('dda-textarea textarea');
+      const ids = (el.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
+      const texts = ids.map((id) => document.getElementById(id));
+      return {
+        invalid: el.getAttribute('aria-invalid'),
+        ids,
+        allExist: texts.every((t) => !!t),
+        containsError: texts.some((t) => t?.textContent?.includes('Too long')),
+      };
+    });
+
+    expect(result.invalid).toBe('true');
+    expect(result.ids.length).toBeGreaterThan(0);
+    expect(result.allExist).toBe(true);
+    expect(result.containsError).toBe(true);
+  });
+});

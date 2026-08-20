@@ -29,9 +29,34 @@ export class DdaTextarea {
 
   private quill: Quill;
 
+  // F-016: ids derived from the consumer-supplied input_id (same pattern as
+  // dda-input/dda-select). F-015: the rich-editor container also needs a
+  // stable label id to point aria-labelledby at.
+  private get labelId(): string | undefined {
+    return this.input_id ? `${this.input_id}-label` : undefined;
+  }
+
+  private get helperId(): string | undefined {
+    return this.input_id ? `${this.input_id}-helper` : undefined;
+  }
+
+  private get errorId(): string | undefined {
+    return this.input_id ? `${this.input_id}-error` : undefined;
+  }
+
+  private get describedBy(): string | undefined {
+    const ids = [
+      this.helper_text ? this.helperId : undefined,
+      this.error_message ? this.errorId : undefined,
+    ].filter(Boolean);
+    return ids.length ? ids.join(' ') : undefined;
+  }
+
   componentDidLoad() {
     if (this.enable_rich_editor) {
-      const editor = this.el.querySelector('#editor') as HTMLElement;
+      // F-015: was `#editor` — the id is now the consumer-supplied
+      // input_id (possibly undefined), so target the stable class instead.
+      const editor = this.el.querySelector('.dda-richeditor-field') as HTMLElement;
       this.quill = new Quill(editor, {
         modules: {
           toolbar: [
@@ -83,9 +108,21 @@ export class DdaTextarea {
     return (
       <Host>
         <div class={textareaClass}>
-          {this.label && <label htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
+          {this.label && <label id={this.labelId} htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
           {this.enable_rich_editor ? (
-            <div id="editor" class="dda-richeditor-field"></div>
+            // F-015: previously a bare `<div id="editor">` — the visible
+            // label's `for` cannot target a non-labelable <div>, so it had
+            // no accessible name at all in rich-editor mode. aria-labelledby
+            // works on any element regardless of the HTML "labelable" list.
+            <div
+              id={this.input_id}
+              aria-labelledby={this.labelId}
+              role="textbox"
+              aria-multiline="true"
+              aria-describedby={this.describedBy}
+              aria-invalid={this.error_message ? 'true' : undefined}
+              class="dda-richeditor-field"
+            ></div>
           ) : (
             <textarea
               id={this.input_id}
@@ -96,16 +133,18 @@ export class DdaTextarea {
               onInput={(event) => this.handleInput(event)}
               class="dda-input-field dda-input-textarea"
               maxLength={this.max_characters}
+              aria-describedby={this.describedBy}
+              aria-invalid={this.error_message ? 'true' : undefined}
             ></textarea>
           )}
           {this.helper_text && (
-            <div class="dda-helper-text">
+            <div id={this.helperId} class="dda-helper-text">
               <span class="dda-flex dda-align-center dda-gap-2"><i class="material-icons  material-symbols-outlined">info</i> {this.helper_text}</span>
               <span class="dda-letter-count">{this.characterCount} / {this.max_characters}</span>
             </div>
           )}
           {this.error_message && (
-            <div class="dda-error-message">
+            <div id={this.errorId} class="dda-error-message">
               <span class="dda-flex dda-align-center dda-gap-2"><i class="material-icons  material-symbols-outlined">info</i> {this.error_message}</span>
               <span class="dda-letter-count">{this.characterCount} / {this.max_characters}</span>
             </div>
