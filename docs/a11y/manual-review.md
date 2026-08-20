@@ -1048,15 +1048,21 @@ New findings beyond the baseline:
 
 1. Full resolution of the 15 needs-manual-contrast cases — see the detailed section
    above. 11 are confirmed WCAG 2.4.7 failures with computed contrast ratios (1.45:1 to
-   2.24:1, all below the 3:1 bar), all tracing to one malformed-`outline`-shorthand root
-   cause in `global/dda-button.css`. 1 (`dda-footer`) has no authored CSS to even measure.
+   2.24:1, all below the 3:1 bar), all tracing to the base `.dda-btn { outline: 0; }` rule
+   (`global/dda-button.css:8`) never being overridden by a real outline: 9 of the 11 via
+   the malformed `outline: <color>` shorthand that attempts and fails to restore one, and
+   the remaining 2 (`onsurface-primary`, `dda-button.css:234-236`) via a focus rule that
+   never declares `outline` at all. 1 (`dda-footer`) has no authored CSS to even measure.
    3 (`dda-number-field` x2, `dda-phonefield` x1) trace to a real but different, weaker
    mechanism (a 1px partial-edge border) that I could not confidently call pass or fail
    from source alone.
-2. `dda-button.css`'s entire `.light-mode.btn-color-*` rule set (dozens of rules) is dead
-   code — the `.light-mode` class is never applied anywhere in the codebase; the real
-   theme switch is `data-theme`, handled correctly only by the base (non-`.light-mode`)
-   rules via CSS custom properties.
+2. `dda-button.css`'s `.light-mode.btn-color-*` rule set is reachable, not dead code — it
+   is triggered by `component_mode="light-mode"` (`dda-button.tsx:38` splices the prop
+   into the class list; ~28 components' stories, including
+   `dda-button.stories.tsx:58-62`, expose `'light-mode'` as a selectable value). It fails
+   with the same computed numbers as the base rule, since both resolve to the same
+   underlying color tokens in light theme — not a separate defect, but real, live code
+   that should not be deleted as unreachable.
 3. `dda-chip.tsx:25` and `dda-avatar.tsx:45` both have `onClick` on non-focusable elements
    (`<span>`/`<div>`) with no alternate keyboard path — confirmed defects, same automated-
    checker blind spot as `dda-accordion` in Group 3.
