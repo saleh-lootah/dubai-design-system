@@ -1,0 +1,36 @@
+/*
+ * F-009 (WCAG 2.4.11 - Focus Not Obscured): the header's own fixed
+ * positioning lives in global/templates/dda-header-main.css
+ * (`.dda-header { position: fixed; top: 0; z-index: 6; }`), with no
+ * scroll-padding/scroll-margin anywhere in the codebase. A keyboard user
+ * who lands on a focused element near the top of a scrolled page - by
+ * Tab, an in-page anchor, or a "skip to content" link - can have the
+ * browser scroll it flush under the fixed header, hiding what they just
+ * focused.
+ *
+ * scroll-padding-top on the root reserves that space for every scroll /
+ * scrollIntoView in the document. Sized to this header's real rendered
+ * height (measured against the live component, since `.dda-header`'s own
+ * CSS height is `auto`, driven entirely by its logo/nav children):
+ * ~158-162px from 768px up (the mega menu hides and `.dda-header` gains
+ * `padding: 10px 0` below 1024px, but the measured height stays in that
+ * range through 768px) and 80px at or below 767px
+ * (`.dda-menu-container { height: 80px }`, `.dda-head-logo { display:
+ * none }`). The transparent/white header variants only change colour, not
+ * box model, so they don't need a separate value.
+ *
+ * 170px / 100px match this codebase's own established convention for
+ * clearing this exact header - `.maincontent { padding-top: 170px }`
+ * (global/global.css), with the same 767px breakpoint dropping it to
+ * 100px - already relied on, in real page templates, to keep content clear
+ * of the header with a safety margin over the measured height above.
+ */
+:root {
+  scroll-padding-top: 170px;
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    scroll-padding-top: 100px;
+  }
+}
