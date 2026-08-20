@@ -87,7 +87,11 @@ export class DdaStickyFooter {
 
   render() {
     return (
-      <footer class={{ 'dda-footer': true, 'hidden': this.isHidden }}>
+      <footer
+        class={{ 'dda-footer': true, 'hidden': this.isHidden }}
+        aria-hidden={this.isHidden ? 'true' : 'false'}
+        inert={this.isHidden}
+      >
         <div class="footer-content">
           {/* Left Section */}
           <div class="dda-footer-item dda-footer-left">

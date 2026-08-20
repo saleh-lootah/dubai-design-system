@@ -123,4 +123,53 @@ describe('dda-sticky-footer', () => {
     );
     expect(await getClass()).not.toContain('hidden');
   });
+
+  // Regression this task's own fix could have introduced: transform: translateY(100%)
+  // moves the footer off screen, but the ~dozen <a> elements inside it stay in the
+  // DOM. Without inert/aria-hidden they would remain focusable and exposed to
+  // assistive tech even while invisible — a keyboard user tabbing past would land on
+  // links they cannot see. Before the shadow-DOM fix this could not happen, because
+  // `hidden` had no effect at all; it is only reachable now that the class does
+  // something. This asserts "hidden" and "unreachable" stay coupled.
+  it('removes the hidden footer from the focus order and from assistive tech', async () => {
+    const page = await newE2EPage();
+    // A real href is required — an <a> with no href is never in the default
+    // focus order at all, which would make this test pass for the wrong reason.
+    await page.setContent(content('happiness-icon-href="#happy"'));
+
+    const footer = await page.find('dda-sticky-footer .dda-footer');
+
+    // Visible state: reachable, and not marked hidden from AT.
+    expect(footer.getAttribute('aria-hidden')).toBe('false');
+    expect(footer.getAttribute('inert')).toBe(null);
+
+    const canFocusWhileVisible = await page.evaluate(() => {
+      const link = document.querySelector('dda-sticky-footer .dda-footer a');
+      (link as HTMLElement).focus();
+      return document.activeElement === link;
+    });
+    expect(canFocusWhileVisible).toBe(true);
+
+    await page.evaluate(() => window.scrollTo(0, 500));
+    await page.waitForFunction(
+      () => {
+        const el = document.querySelector('dda-sticky-footer .dda-footer');
+        return el && el.className.includes('hidden');
+      },
+      { timeout: 5000 },
+    );
+
+    const hiddenFooter = await page.find('dda-sticky-footer .dda-footer');
+    expect(hiddenFooter.getAttribute('aria-hidden')).toBe('true');
+    expect(hiddenFooter.getAttribute('inert')).not.toBe(null);
+
+    // The real proof: attempting to focus a link inside the hidden footer must fail.
+    const canFocusWhileHidden = await page.evaluate(() => {
+      document.body.focus();
+      const link = document.querySelector('dda-sticky-footer .dda-footer a');
+      (link as HTMLElement).focus();
+      return document.activeElement === link;
+    });
+    expect(canFocusWhileHidden).toBe(false);
+  });
 });
