@@ -317,3 +317,227 @@ Not determined without a browser: whether `aria-label` silently overriding the v
 specific screen reader — this needs a live AT test, not just source reading, to confirm
 the exact announced string. Recorded as a footgun with file:line evidence, not asserted as
 a confirmed failure.
+
+---
+
+## Group 2 — Navigation components
+
+`dda-header`, `dda-footer`, `dda-sticky-footer`, `dda-breadcrumb`, `dda-pagination`,
+`dda-tabs`, `dda-segmented-tabs`.
+
+### Q1 — `dda-header`'s 2 `onClick`-on-non-button places; can a keyboard operate them?
+
+Grepped `dda-header.tsx` for every `onClick` (24 call sites) and filtered out the ones on
+natively interactive elements (`<button>`, `<a href>`, `<dda-button>`,
+`<dda-radiobutton>`). Exactly two remain on plain `<div>`s, matching the baseline's "5
+places … `dda-header` ×2" count:
+
+1. `dda-header.tsx:268` —
+   `<div class={...dda-menu-overley...} onClick={this.toggleMenu}></div>` — a full-screen
+   backdrop that closes the mobile side menu when clicked outside it.
+2. `dda-header.tsx:271` —
+   `<div class="hamburger-menu" onClick={this.toggleMenu}>` — wraps a real
+   `<button class="hamburger-menu-btn">` at `:273` inside a `<dda-tooltip>`.
+
+**Keyboard operability, checked individually:**
+
+- **`:271` (hamburger div) — yes, keyboard-operable**, but only incidentally. The actual
+  focusable element is the nested `<button>` at `:273`. Activating that button with
+  Enter/Space fires a native `click` event, which bubbles up through the DOM to the
+  ancestor `<div>`'s `onClick={this.toggleMenu}` handler. So `Tab` reaches the button and
+  `Enter`/`Space` opens the menu — the handler is architecturally on the wrong element
+  (should be on the button itself, e.g. as a Stencil `onClick` prop on the button), but
+  it does work for a keyboard user today because of event bubbling. This is a code-smell,
+  not a defect.
+- **`:268` (overlay div) — not independently keyboard-operable, and does not need to be.**
+  This `<div>` has no `tabindex`, no `role`, and no keydown handler, so it cannot receive
+  focus and Enter/Space do nothing on it. But a keyboard user does not need it: the same
+  menu can be closed two other ways that a keyboard user can already reach —
+  `dda-header.tsx:340`, a real `<button aria-label="Close Sidebar" onClick={this.toggleMenu}>`
+  inside the open side menu, and `Escape`, wired at `dda-header.tsx:82-89`
+  (`toggleEscapeKey`, registered via `document.addEventListener('keydown', ...)` at `:95`)
+  which resets `isMenuOpen` (among other open states) to `false`. So the overlay's
+  click-only handler is not a keyboard trap — redundant UI, not a defect.
+
+### Q2 — do `dda-header` and `dda-sticky-footer` hide the focused element when tabbing? (WCAG 2.4.11)
+
+**`dda-header`:** genuinely fixed to the viewport, and with no mitigation in the codebase.
+`dda-header.tsx:250` renders `<header class="dda-header ...">`; the `.dda-header` rule
+lives in `global/templates/dda-header-main.css:1-10`
+(`position: fixed; top: 0; left: 0; z-index: 6;`), which is `@import`ed into
+`global/global.css` (confirmed: `grep -n "dda-header-main.css" global/global.css` matches)
+and reaches `dda-header` because the component is `shadow: false`
+(`dda-header.tsx:6`). Searched the entire `global/` tree for `scroll-padding` or
+`scroll-margin` (the standard mitigation that reserves space so a fixed header can't
+cover a just-focused element) — **zero matches anywhere in the codebase**. So: the
+component is fixed at `top: 0` with a 6-deep z-index and no compensating scroll offset
+exists in any shipped stylesheet. A keyboard user tabbing to an element that sits near
+the top of a scrolled page is at concrete risk of the browser's native "scroll focused
+element into view" landing that element directly under the fixed header. **Not
+determined without a browser**: the exact pixel overlap depends on `dda-header`'s
+rendered height (which varies by breakpoint/logo size) versus how far a given page's
+content sits from the top, so this is reported as "the mitigation is absent," a
+verifiable code fact, rather than "confirmed to occur on every page," which would need a
+live scroll-and-tab test.
+- **`dda-sticky-footer`:** the Q2 premise does not hold as shipped, for a **different**
+  reason than dda-header's — see the shadow-root CSS finding in Q4 below.
+  `dda-sticky-footer.tsx:7` is `shadow: true`, and its own local stylesheet
+  `dda-sticky-footer.css` is a 0-byte empty file (confirmed:
+  `wc -l dda-sticky-footer/dda-sticky-footer.css` → 0). The `.dda-footer { position: fixed;
+  bottom: 0; ... }` rule that would make it viewport-fixed lives only in
+  `global/templates/dda-footer-main.css:1-10`, reached via `global/global.css`'s
+  `@import` — but that import can never cross into `dda-sticky-footer`'s shadow root.
+  **As shipped, `dda-sticky-footer` is not actually fixed to the viewport at all** — it
+  renders as an ordinary block-flow `<footer>` with no positioning, box-shadow, or
+  background from either its own (empty) stylesheet or the global one. The scroll-hide
+  behavior it clearly intends to have — `dda-sticky-footer.tsx:65-66,82-85` maintain
+  `isHidden`/`lastScrollY` state and toggle a `hidden` class
+  (`dda-sticky-footer.tsx:91`, `class={{ 'dda-footer': true, 'hidden': this.isHidden }}`)
+  on scroll direction — has no visible effect either, because there is no CSS anywhere
+  (local or global-but-unreachable) that defines what the `hidden` class does. So the
+  2.4.11 question as posed ("does the fixed footer hide the focused element") is
+  moot for the component in its current state: it isn't fixed, so it can't obscure
+  anything by being fixed — the real defect is that the component doesn't work as
+  designed at all, which is a stronger finding than a focus-obscuring one.
+
+### Q3 — do `dda-tabs` and `dda-segmented-tabs` follow the WAI tabs pattern?
+
+**`dda-tabs` — no**, on every count that can be checked from source:
+
+- No `role="tablist"` on the container (`dda-tabs.tsx:56`, plain `<div>`), no
+  `role="tab"` on the generated buttons (`:58-68`), no `aria-selected` reflecting
+  `active_tab` (only a CSS class, `class={... this.active_tab === index ? 'active' : ''}`
+  at `:63`), no `aria-controls` linking a tab to a panel, and **no panel is rendered by
+  this component at all** — `render()` (`:53-73`) only emits the tab strip; panel content
+  is left entirely to the consumer via the `tabClick` event (`:19,22,48-51`), with no
+  `role="tabpanel"` guidance anywhere in the component or its docs.
+- No keyboard handling beyond native `<button>` behavior: grepped `dda-tabs.tsx` for
+  `onKeyDown`/`keydown`/`ArrowLeft`/`ArrowRight` — no matches. The WAI pattern requires
+  `ArrowLeft`/`ArrowRight` (or `Up`/`Down`) to move a roving `tabindex` between tabs, and
+  `Tab` to leave the tablist entirely and land in the panel. Here, because every tab is a
+  real, natively-tabbable `<button>` with no roving-tabindex management, `Tab` moves
+  sequentially through **every** tab button (not just the active one) before ever
+  reaching a panel — the opposite of the pattern's intent — and arrow keys do nothing.
+  No `.e2e.ts`/`.spec.tsx` exists under `dda-tabs/test/` to exercise any of this
+  (confirmed: `find` for `*tabs*test*`/`*.e2e.ts` under the tabs folder returns nothing).
+- Confirms and adds detail to the baseline's `dda-tabs.tsx:59` duplicate-`id` finding:
+  `<button id={this.button_id} ...>` sits inside `this.parsedTabs.map(...)` (`:57-69`), so
+  every generated tab button in a single `dda-tabs` instance shares one literal `id`
+  string (whatever the consumer passed as the single `button_id` prop, `:14`) — not just
+  "a duplicate ID bug" in the abstract, but every tab in every `dda-tabs` instance with
+  more than one tab collides on the same `id`.
+
+**`dda-segmented-tabs` — no, and more fundamentally broken than `dda-tabs`.**
+`dda-segmented-tabs/dda-segmented-tabs.tsx:21-31` renders a `<div class="dda-segmented-group">`
+of plain `<button>`s (`:26-27`) with **no `onClick` handler at all**, no `@State`, and no
+selected/active tracking of any kind — grepped the whole file for `onClick`, `@State`, and
+`active`: zero matches. This is not a keyboard-vs-mouse accessibility gap, it's that the
+component has no interactivity whatsoever: clicking a segment with a mouse does nothing
+different from clicking any other segment, and there is no way — keyboard or pointer — to
+know which item is "selected," because the component never tracks a selection. Whatever
+this component looked like before, as it stands in this source tree it renders a static
+row of inert buttons. No ARIA roles (`tablist`/`tab`) are present either. This deserves a
+functional bug flag ahead of any accessibility framing — Task 9 should treat "make the
+buttons do something" as prerequisite to "make them accessible."
+
+### Q4 — do `dda-footer`, `dda-banner`, `dda-sticky-footer` (all `shadow: true`) render correctly with only `dda.css` loaded?
+
+Confirmed `shadow: true` on all three:
+`dda-footer/dda-footer.tsx:6`, `dda-sticky-footer/dda-sticky-footer.tsx:7`,
+`dda-banner/dda-banner.tsx:6`. Checked each component's own `styleUrl(s)` declaration and
+the actual byte size of the CSS file(s) it references:
+
+| Component | `styleUrls` declared | File size | Imports `global.css`? |
+| --- | --- | --- | --- |
+| `dda-footer` | `dda-footer.tsx:5`, `styleUrl: 'dda-footer.css'` (singular form, one file only) | `dda-footer.css` is **0 bytes** | No |
+| `dda-sticky-footer` | `dda-sticky-footer.tsx:6`, `styleUrl: 'dda-sticky-footer.css'`; note `:5` has a **commented-out** `styleUrls: ['dda-sticky-footer.css', '../../global/global.css']` right above it | `dda-sticky-footer.css` is **0 bytes** | No — the line that would have imported it is commented out |
+| `dda-banner` | `dda-banner.tsx:5`, `styleUrls: ['dda-banner.css', '../../global/global.css']` | `dda-banner.css` is 28 bytes, just `:host { display: block; }` | **Yes** |
+
+**Finding, more severe than the brief's framing assumes:** the question "does the global
+CSS reach the shadow root" almost doesn't need asking for `dda-footer` and
+`dda-sticky-footer`, because **their own local stylesheets are empty** — 0 bytes each,
+confirmed with `wc -l`. Even setting aside the shadow-root boundary entirely, these two
+components ship with no CSS of their own. Rendered with *only* `dda.css` loaded (the
+brief's stated scenario), or with any other combination of global stylesheets loaded, the
+result is identical: unstyled raw HTML inside the shadow root, because nothing — local or
+global — can put a single declaration inside that shadow root's stylesheet. Concretely,
+`dda-footer.tsx`'s render output (`dda-footer.tsx:34-92`) leans entirely on shared utility
+classes it never defines itself: `dda-container`, `dda-flex`, `dda-align-center`,
+`dda-gap-5`, `dda-fs-display-sm`, `dda-fw-700`, `dda-color-black`, `dda-row`,
+`dda-col-lg-4`, `dda-col-6`, `dda-col-sm-6`, `dda-col-md-3`, `mb-3`, `pt-4`,
+`dda-justify-space`, `dda-gap-4` (all only defined in `global/global.css`, confirmed by
+grep — none appear in `dda-footer.css`, which is empty) — none of it can apply inside the
+shadow root. Same story for `dda-sticky-footer.tsx`'s `dda-footer-item`, `foot-icon-btn`,
+`foot-logo`, `foot-menu` classes (`dda-sticky-footer.tsx`, various), which also only ever
+exist as bare class names with no matching rule anywhere in the source tree once you
+exclude the never-reachable global sheet.
+
+`dda-banner` is the one component of the three that got this right: it explicitly lists
+`../../global/global.css` as a second `styleUrls` entry (`dda-banner.tsx:5`), and Stencil
+bundles a listed `styleUrls` file's content directly into the component-scoped stylesheet
+it adopts into the shadow root — regardless of whether that file is also loaded elsewhere
+on the page as a page-level stylesheet. So `dda-banner` genuinely does get `global.css`'s
+utility classes inside its shadow root, correctly compensating for the shadow boundary.
+However, `dda-banner`'s own markup classes (`dda-banner-slider`, `dda-banner-slide`,
+`dda-banner.tsx:21,23`) are not defined in `dda-banner.css` (which contains only
+`:host { display: block; }`) or in `global.css` (grepped both, no matches) — so the
+slider layout itself (positioning/sizing of slides) has no CSS backing it either way.
+Given `dda-banner` has no story (baseline, confirmed again here — no `.stories.tsx` file
+in `dda-banner/`), this was never visually caught.
+
+**Conclusion for Task 9:** this is not a hypothetical "global CSS doesn't reach shadow
+DOM" caveat — for `dda-footer` and `dda-sticky-footer` specifically, the component-local
+stylesheets that Stencil would correctly bundle into the shadow root are simply empty
+files, so there is no fix that involves loading a different combination of external
+stylesheets; the fix has to add real CSS (either directly in the local file, or by
+importing `global.css` the way `dda-banner` does, provided the classes used are actually
+defined in it).
+
+### `dda-breadcrumb` and `dda-pagination` — not targeted by a specific question in this group, brief note
+
+Neither has a dedicated question in the brief for this group; light-touch check only.
+Both use real interactive elements (`<a>` in breadcrumb, `<button>` in pagination) so no
+keyboard-reach concern. One shared observation worth carrying to Task 9: neither marks the
+current position with `aria-current`. `dda-breadcrumb.tsx:31` marks the last crumb with
+`class={... index === this.breadcrumbs.length - 1 ? 'active' : ''}` (CSS only, no
+`aria-current="page"`); `dda-pagination.tsx:111` marks the current page button with
+`class={i === this.current_page ? 'active' : ''}` (same gap, no `aria-current="page"`).
+Same shape of gap as the stepper components reviewed in Group 4 (see below) — a screen
+reader user gets no non-visual indication of "this is where you are" in either component.
+
+### Group 2 summary
+
+New findings beyond the baseline:
+
+1. `dda-header.tsx:268`'s overlay-div click handler is not a keyboard trap — Escape
+   (`:82-89,95`) and a real close button (`:340`) already cover keyboard dismissal.
+   `dda-header.tsx:271`'s hamburger-div handler works for keyboard users only because of
+   event bubbling from the real nested `<button>` at `:273` — a code smell, not a defect.
+2. `dda-header` is fixed (`global/templates/dda-header-main.css:1-10`, reached via
+   `global/global.css`) with **zero** `scroll-padding`/`scroll-margin` mitigation anywhere
+   in the codebase — a real, unmitigated WCAG 2.4.11 risk, though the exact on-page effect
+   needs a browser to confirm.
+3. `dda-sticky-footer` is **not actually fixed to the viewport at all** as shipped — its
+   local stylesheet is empty and the global rule that would fix it can't cross the shadow
+   boundary — reframing the brief's Q2 for this component entirely.
+4. `dda-footer.css` and `dda-sticky-footer.css` are both 0-byte empty files — these two
+   `shadow: true` components have no CSS backing whatsoever, local or global, confirmed by
+   `wc -l`.
+5. `dda-banner` correctly imports `global.css` into its shadow-scoped bundle
+   (`dda-banner.tsx:5`) — the one of the three `shadow: true` components that got the
+   global-CSS-into-shadow-DOM problem right — but its own layout classes
+   (`dda-banner-slider`/`dda-banner-slide`) are undefined anywhere, and it has no story to
+   have ever caught that.
+6. `dda-tabs` implements none of the WAI tabs pattern's ARIA (`tablist`/`tab`/`aria-selected`/
+   `aria-controls`) or keyboard behavior (arrow-key roving tabindex) — confirms and
+   substantially details the baseline's `dda-tabs.tsx:59` duplicate-id note.
+7. `dda-segmented-tabs` has no click handler, no state, and no selection tracking at all
+   (`dda-segmented-tabs.tsx:21-31`) — a functional defect prior to any accessibility
+   question.
+8. `dda-breadcrumb` and `dda-pagination` both mark the "current" item with a CSS class
+   only, never `aria-current` — `dda-breadcrumb.tsx:31`, `dda-pagination.tsx:111`.
+
+Not determined without a browser: the precise visual/DOM outcome of tabbing to a
+near-top-of-page element under `dda-header`'s fixed positioning (item 2 above) — the
+absence of mitigation CSS is a confirmed code fact; the resulting on-screen overlap is
+not, and would need a live scroll-and-tab test to quantify.
