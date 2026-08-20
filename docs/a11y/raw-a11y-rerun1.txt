@@ -1,0 +1,2431 @@
+FAIL browser: chromium src/components/dda-input/dda-input.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 3     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────┬────────────┐
+      │ (index) │ target                 │ violations │
+      ├─────────┼────────────────────────┼────────────┤
+      │ 0       │ '["label"]'            │ '[0]'      │
+      │ 1       │ '["#input"]'           │ '[0]'      │
+      │ 2       │ '[".dda-helper-text"]' │ '[0]'      │
+      └─────────┴────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬──────────────┬────────────┐
+      │ (index) │ target       │ violations │
+      ├─────────┼──────────────┼────────────┤
+      │ 0       │ '["#input"]' │ '[0]'      │
+      └─────────┴──────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Input › Witherror › smoke-test
+
+    components-input--witherror failed accessibility checks:
+      [theme=n/a] components-input--witherror: WCAG 2.4.7 focus visible - no focus indicator on INPUT.dda-input-field dda-input-text#input
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Input › disabled › smoke-test
+
+    components-input--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-input--disabled: WCAG 2.4.7 focus visible - no focus indicator on INPUT.dda-input-field dda-input-text#input
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-pagination/dda-pagination.stories.tsx (5.455 s)
+  ● Console
+
+    console.log
+      ┌─────────┬───────────────┬───────────┬───────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id            │ impact    │ description                                           │ nodes │
+      ├─────────┼───────────────┼───────────┼───────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'target-size' │ 'serious' │ 'Ensure touch targets have sufficient size and space' │ 8     │
+      └─────────┴───────────────┴───────────┴───────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬───────────────────────────┬────────────┐
+      │ (index) │ target                    │ violations │
+      ├─────────┼───────────────────────────┼────────────┤
+      │ 0       │ '[".active"]'             │ '[0]'      │
+      │ 1       │ '["button:nth-child(2)"]' │ '[0]'      │
+      │ 2       │ '["button:nth-child(3)"]' │ '[0]'      │
+      │ 3       │ '["button:nth-child(4)"]' │ '[0]'      │
+      │ 4       │ '["button:nth-child(5)"]' │ '[0]'      │
+      │ 5       │ '["button:nth-child(6)"]' │ '[0]'      │
+      │ 6       │ '["button:nth-child(7)"]' │ '[0]'      │
+      │ 7       │ '["button:nth-child(8)"]' │ '[0]'      │
+      └─────────┴───────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬───────────────┬───────────┬───────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id            │ impact    │ description                                           │ nodes │
+      ├─────────┼───────────────┼───────────┼───────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'target-size' │ 'serious' │ 'Ensure touch targets have sufficient size and space' │ 8     │
+      └─────────┴───────────────┴───────────┴───────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬───────────────────────────┬────────────┐
+      │ (index) │ target                    │ violations │
+      ├─────────┼───────────────────────────┼────────────┤
+      │ 0       │ '[".active"]'             │ '[0]'      │
+      │ 1       │ '["button:nth-child(2)"]' │ '[0]'      │
+      │ 2       │ '["button:nth-child(3)"]' │ '[0]'      │
+      │ 3       │ '["button:nth-child(4)"]' │ '[0]'      │
+      │ 4       │ '["button:nth-child(5)"]' │ '[0]'      │
+      │ 5       │ '["button:nth-child(6)"]' │ '[0]'      │
+      │ 6       │ '["button:nth-child(7)"]' │ '[0]'      │
+      │ 7       │ '["button:nth-child(8)"]' │ '[0]'      │
+      └─────────┴───────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Pagination › Full › smoke-test
+
+    components-pagination--full failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-pagination--full: WCAG 2.5.8 target size - 8 target(s) too small and too close: button.active 10x10; button. 10x10; button. 10x10; button. 10x10; button. 10x10; button. 10x10; button. 10x10; button. 10x10
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-textarea/dda-textarea.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 3     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬─────────────────────────┬────────────┐
+      │ (index) │ target                  │ violations │
+      ├─────────┼─────────────────────────┼────────────┤
+      │ 0       │ '["label"]'             │ '[0]'      │
+      │ 1       │ '[".dda-flex"]'         │ '[0]'      │
+      │ 2       │ '[".dda-letter-count"]' │ '[0]'      │
+      └─────────┴─────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬─────────────────────┬───────────┬──────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id                  │ impact    │ description                                                          │ nodes │
+      ├─────────┼─────────────────────┼───────────┼──────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'aria-command-name' │ 'serious' │ 'Ensure every ARIA button, link and menuitem has an accessible name' │ 5     │
+      └─────────┴─────────────────────┴───────────┴──────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬─────────────────────────────────────────────────────┬────────────┐
+      │ (index) │ target                                              │ violations │
+      ├─────────┼─────────────────────────────────────────────────────┼────────────┤
+      │ 0       │ '["span[aria-controls=\\"ql-picker-options-0\\"]"]' │ '[0]'      │
+      │ 1       │ '["span[aria-controls=\\"ql-picker-options-1\\"]"]' │ '[0]'      │
+      │ 2       │ '["span[aria-controls=\\"ql-picker-options-2\\"]"]' │ '[0]'      │
+      │ 3       │ '["span[aria-controls=\\"ql-picker-options-3\\"]"]' │ '[0]'      │
+      │ 4       │ '["span[aria-controls=\\"ql-picker-options-4\\"]"]' │ '[0]'      │
+      └─────────┴─────────────────────────────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬─────────────────────┬───────────┬──────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id                  │ impact    │ description                                                          │ nodes │
+      ├─────────┼─────────────────────┼───────────┼──────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'aria-command-name' │ 'serious' │ 'Ensure every ARIA button, link and menuitem has an accessible name' │ 5     │
+      └─────────┴─────────────────────┴───────────┴──────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬─────────────────────────────────────────────────────┬────────────┐
+      │ (index) │ target                                              │ violations │
+      ├─────────┼─────────────────────────────────────────────────────┼────────────┤
+      │ 0       │ '["span[aria-controls=\\"ql-picker-options-0\\"]"]' │ '[0]'      │
+      │ 1       │ '["span[aria-controls=\\"ql-picker-options-1\\"]"]' │ '[0]'      │
+      │ 2       │ '["span[aria-controls=\\"ql-picker-options-2\\"]"]' │ '[0]'      │
+      │ 3       │ '["span[aria-controls=\\"ql-picker-options-3\\"]"]' │ '[0]'      │
+      │ 4       │ '["span[aria-controls=\\"ql-picker-options-4\\"]"]' │ '[0]'      │
+      └─────────┴─────────────────────────────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Textarea › WithErrorMessage › smoke-test
+
+    components-textarea--with-error-message failed accessibility checks:
+      [theme=n/a] components-textarea--with-error-message: WCAG 2.4.7 focus visible - no focus indicator on TEXTAREA.dda-input-field dda-input-textarea#input
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Textarea › Disabled › smoke-test
+
+    components-textarea--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-textarea--disabled: WCAG 2.4.7 focus visible - no focus indicator on TEXTAREA.dda-input-field dda-input-textarea#input
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Textarea › RichEditorEnabled › smoke-test
+
+    components-textarea--rich-editor-enabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-textarea--rich-editor-enabled: WCAG 2.4.7 focus visible - no focus indicator on DIV.ql-editor ql-blank#; DIV.ql-editor#
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-phonefield/dda-phonefield.stories.tsx
+  ● Console
+
+    console.warn
+      components-phone-field--error: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): INPUT.dda-field-group-input#input
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────────┬────────────┐
+      │ (index) │ target                     │ violations │
+      ├─────────┼────────────────────────────┼────────────┤
+      │ 0       │ '[".dda-dropdown-select"]' │ '[0]'      │
+      │ 1       │ '[".dda-helper-text"]'     │ '[0]'      │
+      └─────────┴────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────────┬────────────┐
+      │ (index) │ target                     │ violations │
+      ├─────────┼────────────────────────────┼────────────┤
+      │ 0       │ '[".dda-dropdown-select"]' │ '[0]'      │
+      └─────────┴────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Phone Field › Disabled › smoke-test
+
+    components-phone-field--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-number-field/dda-number-field.stories.tsx
+  ● Console
+
+    console.warn
+      components-number-field--error: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): INPUT.dda-field-group-input#input
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 3     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────────┬────────────┐
+      │ (index) │ target                     │ violations │
+      ├─────────┼────────────────────────────┼────────────┤
+      │ 0       │ '["label"]'                │ '[0]'      │
+      │ 1       │ '[".dda-dropdown-select"]' │ '[0]'      │
+      │ 2       │ '[".dda-helper-text"]'     │ '[0]'      │
+      └─────────┴────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────────┬────────────┐
+      │ (index) │ target                     │ violations │
+      ├─────────┼────────────────────────────┼────────────┤
+      │ 0       │ '["#input"]'               │ '[0]'      │
+      │ 1       │ '[".dda-dropdown-select"]' │ '[0]'      │
+      └─────────┴────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.warn
+      components-number-field--disabled: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): INPUT.dda-field-group-input#input
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+  ● Components/Number Field › Disabled › smoke-test
+
+    components-number-field--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-link-button/dda-link-button.stories.tsx
+  ● Console
+
+    console.warn
+      components-link-button--default-primary: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): A.dda-btn btn-color-default-primary#link-button
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+    console.warn
+      components-link-button--error-primary: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): A.dda-btn btn-color-error-primary#link-button
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+    console.warn
+      components-link-button--surface-primary: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): A.dda-btn btn-color-onsurface-primary#link-button
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────┬────────────┐
+      │ (index) │ target             │ violations │
+      ├─────────┼────────────────────┼────────────┤
+      │ 0       │ '["#link-button"]' │ '[0]'      │
+      └─────────┴────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.warn
+      components-link-button--icon-button: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): A.dda-btn btn-color-default-primary icon-btn-default#link-button
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+  ● Components/Link Button › Disabled › smoke-test
+
+    components-link-button--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-link-button--disabled: WCAG 2.4.7 focus visible - no focus indicator on A.dda-btn btn-color-disabled#link-button
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-button/dda-button.stories.tsx
+  ● Console
+
+    console.warn
+      components-button--default-primary: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): BUTTON.dda-btn btn-color-default-primary#button
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+    console.warn
+      components-button--error-primary: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): BUTTON.dda-btn btn-color-error-primary#button
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+    console.warn
+      components-button--surface-primary: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): BUTTON.dda-btn btn-color-onsurface-primary#button
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬───────────────┬────────────┐
+      │ (index) │ target        │ violations │
+      ├─────────┼───────────────┼────────────┤
+      │ 0       │ '["#button"]' │ '[0]'      │
+      └─────────┴───────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.warn
+      components-button--icon-button: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): BUTTON.dda-btn btn-color-default-primary icon-btn-default#button
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+  ● Components/Button › Disabled › smoke-test
+
+    components-button--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-button--disabled: WCAG 2.4.7 focus visible - no focus indicator on BUTTON.dda-btn btn-color-disabled#button
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-search-input/dda-search-input.stories.tsx
+  ● Console
+
+    console.warn
+      components-search-input--with-button: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): BUTTON.dda-btn btn-color-default-primary dda-btn-sm#
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 3     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────┬────────────┐
+      │ (index) │ target                 │ violations │
+      ├─────────┼────────────────────────┼────────────┤
+      │ 0       │ '["label"]'            │ '[0]'      │
+      │ 1       │ '["#search"]'          │ '[0]'      │
+      │ 2       │ '[".dda-helper-text"]' │ '[0]'      │
+      └─────────┴────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬───────────────┬────────────┐
+      │ (index) │ target        │ violations │
+      ├─────────┼───────────────┼────────────┤
+      │ 0       │ '["#search"]' │ '[0]'      │
+      └─────────┴───────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Search Input › WithError › smoke-test
+
+    components-search-input--with-error failed accessibility checks:
+      [theme=n/a] components-search-input--with-error: WCAG 2.4.7 focus visible - no focus indicator on INPUT.dda-input-field dda-search-field#search
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Search Input › Disabled › smoke-test
+
+    components-search-input--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-search-input--disabled: WCAG 2.4.7 focus visible - no focus indicator on INPUT.dda-input-field dda-search-field#search
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-dropdown/dda-dropdown.stories.tsx
+  ● Components/Dropdown › Transparent › smoke-test
+
+    components-dropdown--transparent failed accessibility checks:
+      [theme=n/a] components-dropdown--transparent: WCAG 2.4.7 focus visible - no focus indicator on BUTTON.dda-input-field dda-dropdown-header#dropdown
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-select/dda-select.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 3     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬──────────────────────────┬────────────┐
+      │ (index) │ target                   │ violations │
+      ├─────────┼──────────────────────────┼────────────┤
+      │ 0       │ '["label"]'              │ '[0]'      │
+      │ 1       │ '["#button"]'            │ '[0]'      │
+      │ 2       │ '[".dda-error-message"]' │ '[0]'      │
+      └─────────┴──────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬───────────────┬────────────┐
+      │ (index) │ target        │ violations │
+      ├─────────┼───────────────┼────────────┤
+      │ 0       │ '["#button"]' │ '[0]'      │
+      └─────────┴───────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Select › WithError › smoke-test
+
+    components-select--with-error failed accessibility checks:
+      [theme=n/a] components-select--with-error: WCAG 2.4.7 focus visible - no focus indicator on BUTTON.dda-input-field dda-select-header#button
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Select › Disabled › smoke-test
+
+    components-select--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-select--disabled: WCAG 2.4.7 focus visible - no focus indicator on BUTTON.dda-input-field dda-select-header#button
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-creditcard-field/dda-creditcard-field.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────┬────────────┐
+      │ (index) │ target                 │ violations │
+      ├─────────┼────────────────────────┼────────────┤
+      │ 0       │ '[".dda-helper-text"]' │ '[0]'      │
+      └─────────┴────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Credit Card Field › WithErrorMessage › smoke-test
+
+    components-credit-card-field--with-error-message failed accessibility checks:
+      [theme=n/a] components-credit-card-field--with-error-message: WCAG 2.4.7 focus visible - no focus indicator on INPUT.dda-input-field#input
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Credit Card Field › Disabled › smoke-test
+
+    components-credit-card-field--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-alert/dda-alert.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬──────────────────────────┬────────────┐
+      │ (index) │ target                   │ violations │
+      ├─────────┼──────────────────────────┼────────────┤
+      │ 0       │ '[".alert-description"]' │ '[0]'      │
+      └─────────┴──────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬──────────────────────────┬────────────┐
+      │ (index) │ target                   │ violations │
+      ├─────────┼──────────────────────────┼────────────┤
+      │ 0       │ '["h4"]'                 │ '[0]'      │
+      │ 1       │ '[".alert-description"]' │ '[0]'      │
+      └─────────┴──────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Alert › AlertInfo › smoke-test
+
+    components-alert--alert-info failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Alert › AlertWarning › smoke-test
+
+    components-alert--alert-warning failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-range-slider/dda-range-slider.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬───────────────┬───────────┬───────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id            │ impact    │ description                                           │ nodes │
+      ├─────────┼───────────────┼───────────┼───────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'target-size' │ 'serious' │ 'Ensure touch targets have sufficient size and space' │ 2     │
+      └─────────┴───────────────┴───────────┴───────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────┬────────────┐
+      │ (index) │ target             │ violations │
+      ├─────────┼────────────────────┼────────────┤
+      │ 0       │ '["#left_input"]'  │ '[0]'      │
+      │ 1       │ '["#right_input"]' │ '[0]'      │
+      └─────────┴────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      │ 1       │ 'target-size'    │ 'serious' │ 'Ensure touch targets have sufficient size and space'                                                            │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────┬────────────┐
+      │ (index) │ target             │ violations │
+      ├─────────┼────────────────────┼────────────┤
+      │ 0       │ '[".min-label"]'   │ '[0]'      │
+      │ 1       │ '[".max-label"]'   │ '[0]'      │
+      │ 2       │ '["#left_input"]'  │ '[1]'      │
+      │ 3       │ '["#right_input"]' │ '[1]'      │
+      └─────────┴────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬───────────────┬───────────┬───────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id            │ impact    │ description                                           │ nodes │
+      ├─────────┼───────────────┼───────────┼───────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'target-size' │ 'serious' │ 'Ensure touch targets have sufficient size and space' │ 2     │
+      └─────────┴───────────────┴───────────┴───────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────┬────────────┐
+      │ (index) │ target             │ violations │
+      ├─────────┼────────────────────┼────────────┤
+      │ 0       │ '["#left_input"]'  │ '[0]'      │
+      │ 1       │ '["#right_input"]' │ '[0]'      │
+      └─────────┴────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      │ 1       │ 'target-size'    │ 'serious' │ 'Ensure touch targets have sufficient size and space'                                                            │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────┬────────────┐
+      │ (index) │ target             │ violations │
+      ├─────────┼────────────────────┼────────────┤
+      │ 0       │ '[".min-label"]'   │ '[0]'      │
+      │ 1       │ '[".max-label"]'   │ '[0]'      │
+      │ 2       │ '["#left_input"]'  │ '[1]'      │
+      │ 3       │ '["#right_input"]' │ '[1]'      │
+      └─────────┴────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬───────────────┬───────────┬───────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id            │ impact    │ description                                           │ nodes │
+      ├─────────┼───────────────┼───────────┼───────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'target-size' │ 'serious' │ 'Ensure touch targets have sufficient size and space' │ 2     │
+      └─────────┴───────────────┴───────────┴───────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────┬────────────┐
+      │ (index) │ target             │ violations │
+      ├─────────┼────────────────────┼────────────┤
+      │ 0       │ '["#left_input"]'  │ '[0]'      │
+      │ 1       │ '["#right_input"]' │ '[0]'      │
+      └─────────┴────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      │ 1       │ 'target-size'    │ 'serious' │ 'Ensure touch targets have sufficient size and space'                                                            │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────┬────────────┐
+      │ (index) │ target             │ violations │
+      ├─────────┼────────────────────┼────────────┤
+      │ 0       │ '[".min-label"]'   │ '[0]'      │
+      │ 1       │ '[".max-label"]'   │ '[0]'      │
+      │ 2       │ '["#left_input"]'  │ '[1]'      │
+      │ 3       │ '["#right_input"]' │ '[1]'      │
+      └─────────┴────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Range Slider › Default › smoke-test
+
+    components-range-slider--default failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 2 accessibility violations were detected
+
+    2 !== 0
+
+      [theme=n/a] components-range-slider--default: WCAG 2.5.8 target size - 2 target(s) too small and too close: input.dda-range-slider-input 1248x6; input.dda-range-slider-input 1248x6
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Range Slider › TooltipTop › smoke-test
+
+    components-range-slider--tooltip-top failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 2 accessibility violations were detected
+
+    2 !== 0
+
+      [theme=n/a] components-range-slider--tooltip-top: WCAG 2.5.8 target size - 2 target(s) too small and too close: input.dda-range-slider-input 1248x6; input.dda-range-slider-input 1248x6
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Range Slider › TooltipBottom › smoke-test
+
+    components-range-slider--tooltip-bottom failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 2 accessibility violations were detected
+
+    2 !== 0
+
+      [theme=n/a] components-range-slider--tooltip-bottom: WCAG 2.5.8 target size - 2 target(s) too small and too close: input.dda-range-slider-input 1248x6; input.dda-range-slider-input 1248x6
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-chip/dda-chip.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬───────────────────────┬────────────┐
+      │ (index) │ target                │ violations │
+      ├─────────┼───────────────────────┼────────────┤
+      │ 0       │ '[".dda-chip > i"]'   │ '[0]'      │
+      │ 1       │ '[".chip-close > i"]' │ '[0]'      │
+      └─────────┴───────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Chip › Grey › smoke-test
+
+    components-chip--grey failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-tabs/dda-tabs.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬───────────────────────────────────────────────────────────────────────────────────┬────────────┐
+      │ (index) │ target                                                                            │ violations │
+      ├─────────┼───────────────────────────────────────────────────────────────────────────────────┼────────────┤
+      │ 0       │ '[".dda-tab-item[name=\\"button\\"][aria-label=\\"tabs\\"]:nth-child(2) > span"]' │ '[0]'      │
+      │ 1       │ '[".dda-tab-item[name=\\"button\\"][aria-label=\\"tabs\\"]:nth-child(3) > span"]' │ '[0]'      │
+      └─────────┴───────────────────────────────────────────────────────────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬───────────────────────────────────────────────────────────────────────────────────┬────────────┐
+      │ (index) │ target                                                                            │ violations │
+      ├─────────┼───────────────────────────────────────────────────────────────────────────────────┼────────────┤
+      │ 0       │ '[".dda-tab-item[name=\\"button\\"][aria-label=\\"tabs\\"]:nth-child(2) > span"]' │ '[0]'      │
+      │ 1       │ '[".dda-tab-item[name=\\"button\\"][aria-label=\\"tabs\\"]:nth-child(3) > span"]' │ '[0]'      │
+      └─────────┴───────────────────────────────────────────────────────────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Tabs › TextTabs › smoke-test
+
+    components-tabs--text-tabs failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Tabs › TextIconTabs › smoke-test
+
+    components-tabs--text-icon-tabs failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-header/dda-header.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      │ 1       │ 'link-name'      │ 'serious' │ 'Ensure links have discernible text'                                                                             │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬─────────────────────────────────────────────────┬────────────┐
+      │ (index) │ target                                          │ violations │
+      ├─────────┼─────────────────────────────────────────────────┼────────────┤
+      │ 0       │ '["#ddaSearch"]'                                │ '[0]'      │
+      │ 1       │ '[".dda-head-logo > .govt-logo[href=\\"#\\"]"]' │ '[1]'      │
+      │ 2       │ '[".dda-head-logo > .entt-logo[href=\\"#\\"]"]' │ '[1]'      │
+      └─────────┴─────────────────────────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Header › Default › smoke-test
+
+    components-header--default failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 2 accessibility violations were detected
+
+    2 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-credit-card/dda-credit-card.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 4     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬───────────────────────────┬────────────┐
+      │ (index) │ target                    │ violations │
+      ├─────────┼───────────────────────────┼────────────┤
+      │ 0       │ '[".card-balance-label"]' │ '[0]'      │
+      │ 1       │ '[".card-balance"]'       │ '[0]'      │
+      │ 2       │ '[".dda-card-name"]'      │ '[0]'      │
+      │ 3       │ '[".dda-card-number"]'    │ '[0]'      │
+      └─────────┴───────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 4     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬───────────────────────────┬────────────┐
+      │ (index) │ target                    │ violations │
+      ├─────────┼───────────────────────────┼────────────┤
+      │ 0       │ '[".card-balance-label"]' │ '[0]'      │
+      │ 1       │ '[".card-balance"]'       │ '[0]'      │
+      │ 2       │ '[".dda-card-name"]'      │ '[0]'      │
+      │ 3       │ '[".dda-card-number"]'    │ '[0]'      │
+      └─────────┴───────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Credit Card › Green › smoke-test
+
+    components-credit-card--green failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Credit Card › Dark › smoke-test
+
+    components-credit-card--dark failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-attach-file/dda-attach-file.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────┬────────────┐
+      │ (index) │ target                 │ violations │
+      ├─────────┼────────────────────────┼────────────┤
+      │ 0       │ '[".dda-file-choose"]' │ '[0]'      │
+      └─────────┴────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────┬────────────┐
+      │ (index) │ target                 │ violations │
+      ├─────────┼────────────────────────┼────────────┤
+      │ 0       │ '[".dda-file-choose"]' │ '[0]'      │
+      └─────────┴────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────┬────────────┐
+      │ (index) │ target                 │ violations │
+      ├─────────┼────────────────────────┼────────────┤
+      │ 0       │ '[".dda-file-choose"]' │ '[0]'      │
+      └─────────┴────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 4     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬──────────────────────────────┬────────────┐
+      │ (index) │ target                       │ violations │
+      ├─────────┼──────────────────────────────┼────────────┤
+      │ 0       │ '[".dda-input-label"]'       │ '[0]'      │
+      │ 1       │ '[".dda-file-input > span"]' │ '[0]'      │
+      │ 2       │ '[".dda-file-choose"]'       │ '[0]'      │
+      │ 3       │ '[".dda-helper-text"]'       │ '[0]'      │
+      └─────────┴──────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬──────────────────────────────┬────────────┐
+      │ (index) │ target                       │ violations │
+      ├─────────┼──────────────────────────────┼────────────┤
+      │ 0       │ '[".dda-file-input > span"]' │ '[0]'      │
+      │ 1       │ '[".dda-file-choose"]'       │ '[0]'      │
+      └─────────┴──────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Attach File › Default › smoke-test
+
+    components-attach-file--default failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Attach File › Small › smoke-test
+
+    components-attach-file--small failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Attach File › ErrorState › smoke-test
+
+    components-attach-file--error-state failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Attach File › Disabled › smoke-test
+
+    components-attach-file--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-avatar/dda-avatar.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬─────────────────────────┬────────────┐
+      │ (index) │ target                  │ violations │
+      ├─────────┼─────────────────────────┼────────────┤
+      │ 0       │ '[".avatar-main-text"]' │ '[0]'      │
+      └─────────┴─────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Avatar › StatusText › smoke-test
+
+    components-avatar--status-text failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/dda-progressbar/dda-progressbar.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 1     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────────┬────────────┐
+      │ (index) │ target                     │ violations │
+      ├─────────┼────────────────────────────┼────────────┤
+      │ 0       │ '[".dda-percentage-text"]' │ '[0]'      │
+      └─────────┴────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Progress Bar › WithPercentageText › smoke-test
+
+    components-progress-bar--with-percentage-text failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL browser: chromium src/components/stepper/dda-horizontal-stepper/dda-horizontal-stepper.stories.tsx
+  ● Console
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 2     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬────────────────────────────────────────────────────────────────────┬────────────┐
+      │ (index) │ target                                                             │ violations │
+      ├─────────┼────────────────────────────────────────────────────────────────────┼────────────┤
+      │ 0       │ '[".h-step:nth-child(3) > .h-step-content > .h-step-subtitle"]'    │ '[0]'      │
+      │ 1       │ '[".h-step:nth-child(3) > .h-step-content > .h-step-description"]' │ '[0]'      │
+      └─────────┴────────────────────────────────────────────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+    console.log
+      ┌─────────┬──────────────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬───────┐
+      │ (index) │ id               │ impact    │ description                                                                                                      │ nodes │
+      ├─────────┼──────────────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼───────┤
+      │ 0       │ 'color-contrast' │ 'serious' │ 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds' │ 5     │
+      └─────────┴──────────────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴───────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:31:25)
+
+    console.log
+      ┌─────────┬──────────────────────────────────────────────────────────────┬────────────┐
+      │ (index) │ target                                                       │ violations │
+      ├─────────┼──────────────────────────────────────────────────────────────┼────────────┤
+      │ 0       │ '[".completed > .h-step-content > .h-step-subtitle"]'        │ '[0]'      │
+      │ 1       │ '[".completed > .h-step-content > .h-step-description"]'     │ '[0]'      │
+      │ 2       │ '[".active > .h-step-content > .h-step-subtitle"]'           │ '[0]'      │
+      │ 3       │ '[".active > .h-step-content > .h-step-description"]'        │ '[0]'      │
+      │ 4       │ '[".h-step:nth-child(3) > .h-step-content > .h-step-title"]' │ '[0]'      │
+      └─────────┴──────────────────────────────────────────────────────────────┴────────────┘
+
+      at DefaultTerminalReporter.<anonymous> (node_modules/axe-playwright/dist/reporter/defaultTerminalReporter.js:43:29)
+
+  ● Components/Stepper/Horizontal Stepper › Default › smoke-test
+
+    components-stepper-horizontal-stepper--default failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+PASS browser: chromium src/components/dda-home-banner/dda-home-banner.stories.tsx
+  ● Console
+
+    console.warn
+      components-home-banner--default: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): BUTTON.dda-btn btn-color-default-primary btn-size-lg#
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+    console.warn
+      components-home-banner--autoplay: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): BUTTON.dda-btn btn-color-default-primary btn-size-lg#
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+PASS browser: chromium src/components/dda-footer/dda-footer.stories.tsx
+  ● Console
+
+    console.warn
+      components-footer--default: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow was found anywhere in the ancestor chain (contrast not assessed by this tool): BUTTON.dda-btn btn-color-default-primary btn-size-lg#; BUTTON.dda-btn btn-color-default-tertiary btn-size-lg#
+
+      242 |
+      243 |   if (needsManual.length) {
+    > 244 |     console.warn(
+          |             ^
+      245 |       `${storyId}: WCAG 2.4.7 focus visible NEEDS-MANUAL-CHECK - colour changes on focus but no outline/box-shadow ` +
+      246 |         `was found anywhere in the ancestor chain (contrast not assessed by this tool): ${needsManual.join('; ')}`,
+      247 |     );
+
+      at warn (packages/stencil/scripts/wcag22-checks.ts:244:13)
+      at postVisit (packages/stencil/.storybook/test-runner.ts:67:7)
+
+PASS browser: chromium src/components/dda-tooltip/dda-tooltip.stories.tsx
+PASS browser: chromium src/components/dda-breadcrumb/dda-breadcrumb.stories.tsx
+PASS browser: chromium src/components/dda-accordion/dda-accordion.stories.tsx
+PASS browser: chromium src/components/segmented-groups/dda-segmented-tabs/dda-segmented-tabs.stories.tsx
+PASS browser: chromium src/components/dda-checkbox/dda-checkbox.stories.tsx
+PASS browser: chromium src/components/dda-sticky-footer/dda-sticky-footer.stories.tsx
+PASS browser: chromium src/components/dda-toggle/dda-toggle.stories.tsx
+PASS browser: chromium src/components/dda-radiobutton/dda-radiobutton.stories.tsx
+PASS browser: chromium src/components/stepper/dda-vertical-stepper/dda-vertical-stepper.stories.tsx
+
+Summary of all failing tests
+FAIL packages/stencil/src/components/dda-input/dda-input.stories.tsx
+  ● Components/Input › Witherror › smoke-test
+
+    components-input--witherror failed accessibility checks:
+      [theme=n/a] components-input--witherror: WCAG 2.4.7 focus visible - no focus indicator on INPUT.dda-input-field dda-input-text#input
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Input › disabled › smoke-test
+
+    components-input--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-input--disabled: WCAG 2.4.7 focus visible - no focus indicator on INPUT.dda-input-field dda-input-text#input
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-pagination/dda-pagination.stories.tsx (5.455 s)
+  ● Components/Pagination › Full › smoke-test
+
+    components-pagination--full failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-pagination--full: WCAG 2.5.8 target size - 8 target(s) too small and too close: button.active 10x10; button. 10x10; button. 10x10; button. 10x10; button. 10x10; button. 10x10; button. 10x10; button. 10x10
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-textarea/dda-textarea.stories.tsx
+  ● Components/Textarea › WithErrorMessage › smoke-test
+
+    components-textarea--with-error-message failed accessibility checks:
+      [theme=n/a] components-textarea--with-error-message: WCAG 2.4.7 focus visible - no focus indicator on TEXTAREA.dda-input-field dda-input-textarea#input
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Textarea › Disabled › smoke-test
+
+    components-textarea--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-textarea--disabled: WCAG 2.4.7 focus visible - no focus indicator on TEXTAREA.dda-input-field dda-input-textarea#input
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Textarea › RichEditorEnabled › smoke-test
+
+    components-textarea--rich-editor-enabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-textarea--rich-editor-enabled: WCAG 2.4.7 focus visible - no focus indicator on DIV.ql-editor ql-blank#; DIV.ql-editor#
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-phonefield/dda-phonefield.stories.tsx
+  ● Components/Phone Field › Disabled › smoke-test
+
+    components-phone-field--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-number-field/dda-number-field.stories.tsx
+  ● Components/Number Field › Disabled › smoke-test
+
+    components-number-field--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-link-button/dda-link-button.stories.tsx
+  ● Components/Link Button › Disabled › smoke-test
+
+    components-link-button--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-link-button--disabled: WCAG 2.4.7 focus visible - no focus indicator on A.dda-btn btn-color-disabled#link-button
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-button/dda-button.stories.tsx
+  ● Components/Button › Disabled › smoke-test
+
+    components-button--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-button--disabled: WCAG 2.4.7 focus visible - no focus indicator on BUTTON.dda-btn btn-color-disabled#button
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-search-input/dda-search-input.stories.tsx
+  ● Components/Search Input › WithError › smoke-test
+
+    components-search-input--with-error failed accessibility checks:
+      [theme=n/a] components-search-input--with-error: WCAG 2.4.7 focus visible - no focus indicator on INPUT.dda-input-field dda-search-field#search
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Search Input › Disabled › smoke-test
+
+    components-search-input--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-search-input--disabled: WCAG 2.4.7 focus visible - no focus indicator on INPUT.dda-input-field dda-search-field#search
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-dropdown/dda-dropdown.stories.tsx
+  ● Components/Dropdown › Transparent › smoke-test
+
+    components-dropdown--transparent failed accessibility checks:
+      [theme=n/a] components-dropdown--transparent: WCAG 2.4.7 focus visible - no focus indicator on BUTTON.dda-input-field dda-dropdown-header#dropdown
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-select/dda-select.stories.tsx
+  ● Components/Select › WithError › smoke-test
+
+    components-select--with-error failed accessibility checks:
+      [theme=n/a] components-select--with-error: WCAG 2.4.7 focus visible - no focus indicator on BUTTON.dda-input-field dda-select-header#button
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Select › Disabled › smoke-test
+
+    components-select--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=n/a] components-select--disabled: WCAG 2.4.7 focus visible - no focus indicator on BUTTON.dda-input-field dda-select-header#button
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-creditcard-field/dda-creditcard-field.stories.tsx
+  ● Components/Credit Card Field › WithErrorMessage › smoke-test
+
+    components-credit-card-field--with-error-message failed accessibility checks:
+      [theme=n/a] components-credit-card-field--with-error-message: WCAG 2.4.7 focus visible - no focus indicator on INPUT.dda-input-field#input
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Credit Card Field › Disabled › smoke-test
+
+    components-credit-card-field--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-alert/dda-alert.stories.tsx
+  ● Components/Alert › AlertInfo › smoke-test
+
+    components-alert--alert-info failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Alert › AlertWarning › smoke-test
+
+    components-alert--alert-warning failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-range-slider/dda-range-slider.stories.tsx
+  ● Components/Range Slider › Default › smoke-test
+
+    components-range-slider--default failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 2 accessibility violations were detected
+
+    2 !== 0
+
+      [theme=n/a] components-range-slider--default: WCAG 2.5.8 target size - 2 target(s) too small and too close: input.dda-range-slider-input 1248x6; input.dda-range-slider-input 1248x6
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Range Slider › TooltipTop › smoke-test
+
+    components-range-slider--tooltip-top failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 2 accessibility violations were detected
+
+    2 !== 0
+
+      [theme=n/a] components-range-slider--tooltip-top: WCAG 2.5.8 target size - 2 target(s) too small and too close: input.dda-range-slider-input 1248x6; input.dda-range-slider-input 1248x6
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Range Slider › TooltipBottom › smoke-test
+
+    components-range-slider--tooltip-bottom failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 2 accessibility violations were detected
+
+    2 !== 0
+
+      [theme=n/a] components-range-slider--tooltip-bottom: WCAG 2.5.8 target size - 2 target(s) too small and too close: input.dda-range-slider-input 1248x6; input.dda-range-slider-input 1248x6
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-chip/dda-chip.stories.tsx
+  ● Components/Chip › Grey › smoke-test
+
+    components-chip--grey failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-tabs/dda-tabs.stories.tsx
+  ● Components/Tabs › TextTabs › smoke-test
+
+    components-tabs--text-tabs failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Tabs › TextIconTabs › smoke-test
+
+    components-tabs--text-icon-tabs failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-header/dda-header.stories.tsx
+  ● Components/Header › Default › smoke-test
+
+    components-header--default failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 2 accessibility violations were detected
+
+    2 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-credit-card/dda-credit-card.stories.tsx
+  ● Components/Credit Card › Green › smoke-test
+
+    components-credit-card--green failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Credit Card › Dark › smoke-test
+
+    components-credit-card--dark failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-attach-file/dda-attach-file.stories.tsx
+  ● Components/Attach File › Default › smoke-test
+
+    components-attach-file--default failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Attach File › Small › smoke-test
+
+    components-attach-file--small failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Attach File › ErrorState › smoke-test
+
+    components-attach-file--error-state failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+  ● Components/Attach File › Disabled › smoke-test
+
+    components-attach-file--disabled failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-avatar/dda-avatar.stories.tsx
+  ● Components/Avatar › StatusText › smoke-test
+
+    components-avatar--status-text failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/dda-progressbar/dda-progressbar.stories.tsx
+  ● Components/Progress Bar › WithPercentageText › smoke-test
+
+    components-progress-bar--with-percentage-text failed accessibility checks:
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+FAIL packages/stencil/src/components/stepper/dda-horizontal-stepper/dda-horizontal-stepper.stories.tsx
+  ● Components/Stepper/Horizontal Stepper › Default › smoke-test
+
+    components-stepper-horizontal-stepper--default failed accessibility checks:
+      [theme=light] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      [theme=dark] AssertionError [ERR_ASSERTION]: 1 accessibility violation was detected
+
+    1 !== 0
+
+      74 |         .map(({ theme, message }) => `  [theme=${theme}] ${message}`)
+      75 |         .join('\n');
+    > 76 |       throw new Error(`${context.id} failed accessibility checks:\n${summary}`);
+         |             ^
+      77 |     }
+      78 |   },
+      79 | };
+
+      at postVisit (packages/stencil/.storybook/test-runner.ts:76:13)
+
+
+Test Suites: 21 failed, 11 passed, 32 total
+Tests:       35 failed, 71 passed, 106 total
+Snapshots:   0 total
+Time:        35.311 s
+Ran all test suites.
+Test results written to: ../../../../../tmp/claude-0/-root-Coding-dubai-design-system/3dc919e7-5451-470b-82d5-1b72cf693e2e/scratchpad/a11y-results.json
