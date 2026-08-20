@@ -142,8 +142,16 @@
   border-radius: 0 5px 5px 0;
 }
 
+/*
+ * F-022 (WCAG 2.5.8 target size, minimum): each dot is a deliberately
+ * small 10x10 visual target. Rather than growing the dots themselves
+ * (which would change the design), the gap is sized so their centres sit
+ * >= 24px apart, satisfying the spacing exception - the same approach and
+ * numbers (10px target, 25px centre-to-centre) already used for
+ * dda-home-banner's slide dots (home-banner.css `.slider-nav .dots`).
+ */
 .dda-pagination-full {
-  gap: 8px;
+  gap: 15px;
 }
 
 .dda-pagination-full button {

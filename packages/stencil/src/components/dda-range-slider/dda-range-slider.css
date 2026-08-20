@@ -12,10 +12,23 @@
   border-radius: 5px;
 }
 
+/*
+ * F-022 (WCAG 2.5.8 target size, minimum): the sweep's checker measures
+ * the <input>'s own box (its INTERACTIVE selector matches `input`
+ * generically, not the UA-styled ::-webkit-slider-thumb/::-moz-range-thumb
+ * pseudo-elements it can't select) - previously 100% wide but only 6px
+ * tall, the same height as the visible track. Growing the input's own
+ * height to 24px and re-centring it over the track fixes what the checker
+ * (and any pointer/touch user, since pointer-events below still route
+ * clicks to the thumb) actually measures, without changing the visible
+ * 6px track or the track fill drawn by .dda-range-slider/.dda-range-slider-track.
+ */
 .dda-range-slider-input {
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 100%;
-  height: 6px;
+  height: 24px;
   background: transparent;
   -webkit-appearance: none;
   appearance: none;
