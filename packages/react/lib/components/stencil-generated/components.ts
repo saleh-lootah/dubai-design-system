@@ -344,14 +344,14 @@ export const DdaSearchInput: StencilReactComponent<DdaSearchInputElement, DdaSea
     defineCustomElement: defineDdaSearchInput
 });
 
-type DdaSegmentedTabsEvents = NonNullable<unknown>;
+type DdaSegmentedTabsEvents = { onSegmentChange: EventName<CustomEvent<number>> };
 
 export const DdaSegmentedTabs: StencilReactComponent<DdaSegmentedTabsElement, DdaSegmentedTabsEvents> = /*@__PURE__*/ createComponent<DdaSegmentedTabsElement, DdaSegmentedTabsEvents>({
     tagName: 'dda-segmented-tabs',
     elementClass: DdaSegmentedTabsElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: {} as DdaSegmentedTabsEvents,
+    events: { onSegmentChange: 'segmentChange' } as DdaSegmentedTabsEvents,
     defineCustomElement: defineDdaSegmentedTabs
 });
 

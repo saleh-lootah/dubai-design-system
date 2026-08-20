@@ -659,11 +659,20 @@ export namespace Components {
         "size": string;
     }
     interface DdaSegmentedTabs {
+        /**
+          * Accessible name for the group (applied as aria-label on the group container).
+         */
+        "aria_label": string;
         "button_name": string;
         "component_mode"?: string;
         "custom_class": string;
         "items": string;
         "radius_type": string;
+        /**
+          * Index of the segment selected by default. Clamped to a valid item index.
+          * @default 0
+         */
+        "selected_index": number;
     }
     interface DdaSelect {
         "aria_label"?: string;
@@ -869,6 +878,10 @@ export interface DdaHeaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDdaHeaderElement;
 }
+export interface DdaSegmentedTabsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDdaSegmentedTabsElement;
+}
 export interface DdaTabsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDdaTabsElement;
@@ -1058,7 +1071,18 @@ declare global {
         prototype: HTMLDdaSearchInputElement;
         new (): HTMLDdaSearchInputElement;
     };
+    interface HTMLDdaSegmentedTabsElementEventMap {
+        "segmentChange": number;
+    }
     interface HTMLDdaSegmentedTabsElement extends Components.DdaSegmentedTabs, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDdaSegmentedTabsElementEventMap>(type: K, listener: (this: HTMLDdaSegmentedTabsElement, ev: DdaSegmentedTabsCustomEvent<HTMLDdaSegmentedTabsElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDdaSegmentedTabsElementEventMap>(type: K, listener: (this: HTMLDdaSegmentedTabsElement, ev: DdaSegmentedTabsCustomEvent<HTMLDdaSegmentedTabsElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDdaSegmentedTabsElement: {
         prototype: HTMLDdaSegmentedTabsElement;
@@ -1835,11 +1859,24 @@ declare namespace LocalJSX {
         "size"?: string;
     }
     interface DdaSegmentedTabs {
+        /**
+          * Accessible name for the group (applied as aria-label on the group container).
+         */
+        "aria_label"?: string;
         "button_name"?: string;
         "component_mode"?: string;
         "custom_class"?: string;
         "items"?: string;
+        /**
+          * Emits the newly-selected index whenever the selection changes.
+         */
+        "onSegmentChange"?: (event: DdaSegmentedTabsCustomEvent<number>) => void;
         "radius_type"?: string;
+        /**
+          * Index of the segment selected by default. Clamped to a valid item index.
+          * @default 0
+         */
+        "selected_index"?: number;
     }
     interface DdaSelect {
         "aria_label"?: string;
@@ -2391,6 +2428,8 @@ declare namespace LocalJSX {
         "custom_class": string;
         "component_mode": string;
         "button_name": string;
+        "aria_label": string;
+        "selected_index": number;
     }
     interface DdaSelectAttributes {
         "label": string;

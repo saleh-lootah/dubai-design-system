@@ -3,7 +3,15 @@ import { Meta } from '@storybook/addon-docs';
 <Meta title="Components/Segments/Segmented Tabs/Documentation" />
 
 # Segmented Tabs
-The `dda-segmented-tabs` component is a customizable button element that can be used in various UI scenarios
+The `dda-segmented-tabs` component is a group of mutually-exclusive toggle buttons.
+Exactly one segment is selected at a time (the first segment by default, or the one
+named by `selected_index`). Clicking a segment — or Tab-focusing it and pressing
+Enter or Space — selects it and fires a `segmentChange` event with the newly-selected
+index.
+
+It is `role="group"` with `aria-pressed` on each button, not the WAI tabs pattern:
+this component has no associated tabpanels, so it does not claim `role="tablist"`/
+`"tab"`/`aria-selected`. Pass `aria_label` to give the group an accessible name.
 
 ### Usage in React
 
@@ -22,6 +30,8 @@ const App = () => {
             custom_class=""
             component_mode=""
             items='["All","Recent","Saved"]'
+            aria_label="Filter results"
+            selected_index={0}
         ></DdaSegmentedTabs>
     </div>
  )
@@ -46,6 +56,8 @@ import { DdaSegmentedTabs } from '@dubai-design-system/components-vue'
             custom_class=""
             component_mode=""
             items='["All","Recent","Saved"]'
+            aria_label="Filter results"
+            selected_index={0}
         ></DdaSegmentedTabs>
     </div>
 </template>
@@ -60,5 +72,7 @@ import { DdaSegmentedTabs } from '@dubai-design-system/components-vue'
     custom_class=""
     component_mode=""
     items='["All","Recent","Saved"]'
+    aria_label="Filter results"
+    selected_index="0"
 ></dda-segmented-tabs>
 ```

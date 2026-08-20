@@ -23,12 +23,26 @@ export default {
     button_name: {
       control: { type: 'text' },
       description: 'Button name',
-    }
+    },
+    aria_label: {
+      control: { type: 'text' },
+      description: 'Accessible name for the group (applied as aria-label on the role="group" container)',
+    },
+    selected_index: {
+      control: { type: 'number' },
+      description: 'Index of the segment selected by default (clamped to a valid item index; defaults to 0)',
+    },
   },
   parameters: {
     docs: {
       description: {
         component: `
+  Exactly one segment is selected at a time. Clicking a segment, or focusing it with
+  Tab and activating it with Enter or Space, selects it and fires \`segmentChange\`
+  with the newly-selected index. This is a group of mutually-exclusive toggle
+  buttons (\`role="group"\` + \`aria-pressed\`), not the WAI tabs pattern — it has no
+  associated tabpanels, so it does not claim \`role="tablist"\`/\`"tab"\`.
+
   To use the \`dda-segmented-tabs\` component, pass the following props:
 
   \`\`\`html
@@ -38,6 +52,8 @@ export default {
     component_mode=""
     items='["All","Recent","Saved"]'
     button_name="button_name"
+    aria_label="Filter results"
+    selected_index="0"
 ></dda-segmented-tabs>
   \`\`\`
   `,
@@ -64,6 +80,8 @@ TextItems.args = {
   custom_class: '',
   component_mode: '',
   button_name: 'button',
+  aria_label: 'Filter results',
+  selected_index: 0,
 };
 
 export const IconItems = Template.bind({});
@@ -73,4 +91,6 @@ IconItems.args = {
   custom_class: '',
   component_mode: '',
   button_name: 'button',
+  aria_label: 'Text alignment',
+  selected_index: 0,
 };

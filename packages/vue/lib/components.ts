@@ -422,7 +422,10 @@ export const DdaSegmentedTabs = /*@__PURE__*/ defineContainer<JSX.DdaSegmentedTa
   'radius_type',
   'custom_class',
   'component_mode',
-  'button_name'
+  'button_name',
+  'aria_label',
+  'selected_index',
+  'segmentChange'
 ]);
 
 

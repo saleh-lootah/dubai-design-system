@@ -582,25 +582,31 @@ export declare interface DdaSearchInput extends Components.DdaSearchInput {}
 
 
 @ProxyCmp({
-  inputs: ['button_name', 'component_mode', 'custom_class', 'items', 'radius_type']
+  inputs: ['aria_label', 'button_name', 'component_mode', 'custom_class', 'items', 'radius_type', 'selected_index']
 })
 @Component({
   selector: 'dda-segmented-tabs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['button_name', 'component_mode', 'custom_class', 'items', 'radius_type'],
+  inputs: ['aria_label', 'button_name', 'component_mode', 'custom_class', 'items', 'radius_type', 'selected_index'],
 })
 export class DdaSegmentedTabs {
   protected el: HTMLDdaSegmentedTabsElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['segmentChange']);
   }
 }
 
 
-export declare interface DdaSegmentedTabs extends Components.DdaSegmentedTabs {}
+export declare interface DdaSegmentedTabs extends Components.DdaSegmentedTabs {
+  /**
+   * Emits the newly-selected index whenever the selection changes.
+   */
+  segmentChange: EventEmitter<CustomEvent<number>>;
+}
 
 
 @ProxyCmp({
