@@ -83,4 +83,56 @@ describe('dda-button', () => {
       expect(focused.boxShadow).not.toBe('none');
     });
   }
+
+  // Task 9d review follow-up: btn-color-default-link/error-link/onsurface-
+  // link already had a working native `outline: auto:focus` before this
+  // task and were never part of F-019/F-020/F-021 - dda-button.css:41-56
+  // explicitly suppresses the shared box-shadow ring for them so the
+  // family doesn't end up with two focus treatments layered at once. This
+  // is the test that would have caught the original review finding (the
+  // `variants` array above omitted the -link colours entirely).
+  const linkVariants = ['default-link', 'error-link', 'onsurface-link'];
+
+  for (const button_color of linkVariants) {
+    it(`shows no focus ring before focus (${button_color})`, async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-button button_color="${button_color}">Click me</dda-button>`);
+
+      const resting = await page.evaluate(() => {
+        const btn = document.querySelector('dda-button button') as HTMLElement;
+        const s = getComputedStyle(btn);
+        return { outlineStyle: s.outlineStyle, boxShadow: s.boxShadow };
+      });
+
+      expect(resting.outlineStyle).toBe('none');
+      expect(resting.boxShadow).toBe('none');
+    });
+
+    it(`shows only the native outline under keyboard focus, not the shared ring (${button_color})`, async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-button button_color="${button_color}">Click me</dda-button>`);
+
+      await page.keyboard.press('Tab');
+      const focused = await page.evaluate(() => {
+        const el = document.activeElement as HTMLElement;
+        if (!el || el === document.body) return null;
+        const s = getComputedStyle(el);
+        return {
+          tag: el.tagName,
+          boxShadow: s.boxShadow,
+          outlineStyle: s.outlineStyle,
+          outlineWidth: parseFloat(s.outlineWidth),
+        };
+      });
+
+      expect(focused).not.toBeNull();
+      expect(focused.tag).toBe('BUTTON');
+      // The native `outline: auto` ring is the only indicator here - the
+      // shared box-shadow ring must stay suppressed, or this variant would
+      // show two focus treatments at once.
+      expect(focused.outlineStyle).not.toBe('none');
+      expect(focused.outlineWidth).toBeGreaterThan(0);
+      expect(focused.boxShadow).toBe('none');
+    });
+  }
 });

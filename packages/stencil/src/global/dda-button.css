@@ -37,6 +37,28 @@
   outline: none;
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
+/**
+ * Deliberate exemption, not an oversight: btn-color-default-link,
+ * btn-color-error-link and btn-color-onsurface-link (22px tall, no
+ * background, no border - styled to read as inline text, not a button)
+ * already had a working, unbroken `outline: auto` on `:focus` (:158-160,
+ * 260-262, 359-361) before this task started. They were never part of
+ * F-019/F-020/F-021. Without this exemption the rule above would paint its
+ * box-shadow ring on top of that already-working outline - not a WCAG
+ * failure (over-indication, not under), but two different focus treatments
+ * inside one component family, which defeats the point of standardising on
+ * one idiom. A box-shadow ring reads as a filled rectangle; on a
+ * link-styled control with no visible button chrome at rest, that would
+ * change its resting silhouette into something that looks like a real
+ * button the instant it's focused - a worse fit than the native outline,
+ * which just traces the existing text. So: keep the native outline for the
+ * three link variants, suppress the shared ring for them specifically.
+ */
+.btn-color-default-link:focus-visible,
+.btn-color-error-link:focus-visible,
+.btn-color-onsurface-link:focus-visible {
+  box-shadow: none;
+}
 /**/
 .btn-color-default-primary{
   background-color: var(--dda-color-primary-40);

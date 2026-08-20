@@ -46,6 +46,20 @@ describe('dda-select focus indicator', () => {
     expect(focused.boxShadow).not.toBe('none');
   });
 
+  it('shows no focus ring before focus (disabled=true)', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-select button_id="button" options=\'["Option 1"]\' disabled="true"></dda-select>');
+
+    const resting = await page.evaluate(() => {
+      const el = document.querySelector('dda-select .dda-select-header') as HTMLElement;
+      const s = getComputedStyle(el);
+      return { outlineStyle: s.outlineStyle, boxShadow: s.boxShadow };
+    });
+
+    expect(resting.outlineStyle).toBe('none');
+    expect(resting.boxShadow).toBe('none');
+  });
+
   it('shows a real focus ring under keyboard focus (disabled=true)', async () => {
     const page = await newE2EPage();
     await page.setContent('<dda-select button_id="button" options=\'["Option 1"]\' disabled="true"></dda-select>');
