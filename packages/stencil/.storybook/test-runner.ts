@@ -1,5 +1,6 @@
 import type { TestRunnerConfig } from '@storybook/test-runner';
 import { injectAxe, checkA11y, configureAxe } from 'axe-playwright';
+import { checkTargetSize, checkKeyboardReach } from '../scripts/wcag22-checks';
 
 // The theme lives on <html data-theme>. A contrast fault often exists in
 // one theme only, so every story is checked in both.
@@ -47,9 +48,26 @@ const config: TestRunnerConfig = {
       }
     }
 
-    // Leave the page in a known state for whatever postVisit checks run next
-    // (Task 4 appends more to this same hook) instead of stuck on the last theme.
+    // Leave the page in a known state for the WCAG 2.2 checks below instead of
+    // stuck on the last theme.
     await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'light'));
+
+    // axe cannot measure target size or determine keyboard reachability, so these
+    // run in addition to the axe sweep above. They must run even when a theme
+    // already failed axe, or the worst stories in the library would silently go
+    // unchecked for target size and keyboard reach. Fold failures into the same
+    // accumulator so a story reports every problem it has in one aggregated error.
+    try {
+      await checkTargetSize(page, context.id);
+    } catch (error) {
+      failures.push({ theme: 'n/a', message: error instanceof Error ? error.message : String(error) });
+    }
+
+    try {
+      await checkKeyboardReach(page, context.id);
+    } catch (error) {
+      failures.push({ theme: 'n/a', message: error instanceof Error ? error.message : String(error) });
+    }
 
     if (failures.length > 0) {
       const summary = failures
