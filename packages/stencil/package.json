@@ -50,7 +50,9 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "check:api": "node scripts/check-api-consistency.mjs",
-    "check:api:test": "node --test scripts/check-api-consistency.test.mjs"
+    "check:api:test": "node --test scripts/check-api-consistency.test.mjs",
+    "test:a11y": "test-storybook --url http://127.0.0.1:6006",
+    "test:a11y:ci": "concurrently -k -s first -n SB,TEST \"http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && npm run test:a11y\""
   },
   "dependencies": {
     "chromatic": "^11.11.0",
