@@ -21,7 +21,13 @@ export class DdaProgressBar {
     return (
       <Host>
         <div class={`dda-progress-bar-container ${this.custom_class} ${this.component_mode}`}>
-          <div class="dda-progress-bar">
+          <div
+            class="dda-progress-bar"
+            role="progressbar"
+            aria-valuenow={`${this.progress}`}
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
             <div class="dda-progress-value" style={progressStyle}>
               {this.tooltip && (
                 <div class={`dda-tooltip tooltip-${this.tooltip_position}`}>
