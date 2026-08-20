@@ -2,8 +2,8 @@ import { Component, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'dda-footer',
-  styleUrl: 'dda-footer.css',
-  shadow: true,
+  styleUrls: ['dda-footer.css', '../../global/global.css'],
+  shadow: false,
 })
 export class DdaFooter {
   @Prop() footerTitle: string;
