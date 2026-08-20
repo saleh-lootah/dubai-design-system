@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build the components
+        working-directory: packages/stencil
+        run: npx stencil build
+
+      # The --ci flag makes Stencil pass --no-sandbox, --disable-setuid-sandbox
+      # and --disable-dev-shm-usage to Puppeteer. Without it Chrome refuses to
+      # start as root, which is how this container runs.
+      #
+      # Stencil passes channel: "chrome" to Puppeteer, which then looks for a
+      # system Chrome at /opt/google/chrome and ignores its own cached
+      # download. PUPPETEER_EXECUTABLE_PATH points it at the browser that
+      # `npm ci` already downloaded for this package.
+      - name: Unit and e2e tests
+        working-directory: packages/stencil
+        run: |
+          export PUPPETEER_EXECUTABLE_PATH=$(node -e "console.log(require('puppeteer').executablePath())")
+          npx stencil test --spec --e2e --ci
+
+      # A generated wrapper that differs from the source means somebody
+      # edited a generated file, or forgot to commit a rebuild.
+      # --untracked-files=no is deliberate: this check is only about tracked
+      # generated output going stale, not about a developer's scratch files.
+      - name: Check that the generated wrappers are current
+        run: |
+          if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+            echo "The build changed these files. Commit the rebuild:"
+            git status --porcelain --untracked-files=no
+            git diff
+            exit 1
+          fi
