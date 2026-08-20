@@ -60,6 +60,24 @@ export class DdaAttachFile {
     return this.fileIcons[extension] || 'path/to/default-icon.png';
   }
 
+  // F-016: ids derived from the consumer-supplied input_id, same pattern as
+  // dda-input/dda-select.
+  private get helperId(): string | undefined {
+    return this.input_id ? `${this.input_id}-helper` : undefined;
+  }
+
+  private get errorId(): string | undefined {
+    return this.input_id ? `${this.input_id}-error` : undefined;
+  }
+
+  private get describedBy(): string | undefined {
+    const ids = [
+      this.helper_text ? this.helperId : undefined,
+      this.error_message ? this.errorId : undefined,
+    ].filter(Boolean);
+    return ids.length ? ids.join(' ') : undefined;
+  }
+
   render() {
     const inputClass = [
       'dda-input-container',
@@ -90,13 +108,21 @@ export class DdaAttachFile {
                 <span>No File Selected</span>
                 <label htmlFor={this.input_id} class="dda-file-choose">
                   Choose File
-                  <input id={this.input_id} name={this.input_name} aria-label={this.aria_label} type="file" onInput={(event) => {this.handleFileInput(event)}} />
+                  <input
+                    id={this.input_id}
+                    name={this.input_name}
+                    aria-label={this.aria_label}
+                    type="file"
+                    onInput={(event) => {this.handleFileInput(event)}}
+                    aria-describedby={this.describedBy}
+                    aria-invalid={this.error_message ? 'true' : undefined}
+                  />
                 </label>
               </div>
             )}
           </div>
-          {this.helper_text && <span class="dda-helper-text">{this.helper_text}</span>}
-          {this.error_message && <span class="dda-error-message">{this.error_message}</span>}
+          {this.helper_text && <span id={this.helperId} class="dda-helper-text">{this.helper_text}</span>}
+          {this.error_message && <span id={this.errorId} class="dda-error-message">{this.error_message}</span>}
         </div>
       </Host>
     );
