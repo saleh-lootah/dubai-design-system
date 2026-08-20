@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { contrastRatio } from '../../../utils/contrast';
 
 const avatar = (attrs = '') => `<dda-avatar type="text" text="AB" options='["Option 1","Option 2"]' ${attrs}></dda-avatar>`;
 
@@ -117,5 +118,38 @@ describe('dda-avatar', () => {
 
     const trigger = await page.find('dda-avatar button.avatar-trigger');
     expect(trigger.getAttribute('aria-expanded')).toBe('false');
+  });
+});
+
+// F-023 (B2): `.avatar-type-text`'s background was the theme-flipping
+// `--dda-color-primary-40`, which lightens in dark theme, paired with fixed
+// raw white text — 2.30:1 in dark before the fix.
+describe('dda-avatar text-type contrast (F-023)', () => {
+  it('clears 4.5:1 in light theme', async () => {
+    const page = await newE2EPage();
+    await page.setContent(avatar());
+
+    const colors = await page.evaluate(() => {
+      const bg = document.querySelector('dda-avatar .avatar-type-text') as HTMLElement;
+      const text = document.querySelector('dda-avatar .avatar-main-text') as HTMLElement;
+      return { color: getComputedStyle(text).color, background: getComputedStyle(bg).backgroundColor };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('clears 4.5:1 in dark theme', async () => {
+    const page = await newE2EPage();
+    await page.setContent(avatar());
+    await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+    await page.waitForChanges();
+
+    const colors = await page.evaluate(() => {
+      const bg = document.querySelector('dda-avatar .avatar-type-text') as HTMLElement;
+      const text = document.querySelector('dda-avatar .avatar-main-text') as HTMLElement;
+      return { color: getComputedStyle(text).color, background: getComputedStyle(bg).backgroundColor };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
   });
 });

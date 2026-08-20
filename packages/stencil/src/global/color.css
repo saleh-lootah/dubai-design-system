@@ -63,7 +63,10 @@
   --dda-on-primary-94: var(--dda-primary-20);
 
   --dda-primary-variant-96: var(--dda-primary-30);
-  --dda-primary-variant-95: var(--dda-primary-30);
+  /* F-023 Decision 2: was var(--dda-primary-30) — 4.05:1 against the alert's
+     info text, failing 4.5:1. Darkening the fill (not the text, which is
+     also the alert's border/link/icon colour) brings it to 5.72:1. */
+  --dda-primary-variant-95: var(--dda-primary-20);
   --dda-primary-variant-94: var(--dda-primary-25);
   --dda-primary-variant-92: var(--dda-primary-20);
   --dda-primary-variant-87: var(--dda-primary-12);
@@ -282,7 +285,11 @@
 }
 :root[data-theme='dark'] {
   --dda-color-warning-50: var(--dda-warning-80);
-  --dda-color-warning-40: var(--dda-warning-50);
+  /* F-023 Decision 2: was var(--dda-warning-50) — 2.08:1 against the alert's
+     warning fill, failing both the 24px title's 3:1 and the description's
+     4.5:1. This token is also the alert's border/link/icon colour, so the
+     text tone moves (not the fill) to stay in one place: 5.47:1. */
+  --dda-color-warning-40: var(--dda-warning-80);
   --dda-color-warning-30: var(--dda-warning-90);
   --dda-color-warning-20: var(--dda-warning-94);
 
@@ -499,6 +506,11 @@
   --dda-on-surface-30: var(--dda-neutral-30);
   --dda-on-surface-40: var(--dda-neutral-40);
   --dda-on-surface-0: var(--dda-neutral-0);
+
+  /* F-023 Decision 1: theme-aware muted/disabled-text alias. --dda-neutral-60
+     itself stays a theme-invariant raw ramp step; this alias is the
+     theme-aware layer for the 8 call sites that use it as text. */
+  --dda-on-surface-muted: var(--dda-neutral-40);
 }
 
 :root[data-theme='dark'] {
@@ -515,6 +527,8 @@
   --dda-on-surface-20: var(--dda-neutral-90);
   --dda-on-surface-30: var(--dda-neutral-80);
   --dda-on-surface-40: var(--dda-neutral-70);
+
+  --dda-on-surface-muted: var(--dda-neutral-70);
 }
 
 :root {

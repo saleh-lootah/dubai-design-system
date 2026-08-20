@@ -85,7 +85,13 @@
 
 
 .avatar-type-text {
-  background: var(--dda-color-primary-40);
+  /* F-023 B2: was --dda-color-primary-40, a text-role alias, used here as a
+     background. It flips lighter in dark theme (fine for text, wrong for a
+     fill meant to hold fixed white text — 2.30:1). Use the raw ramp step
+     instead, matching what this same rule's own .light-mode override
+     already sets: a constant brand fill, so the white text stays legible in
+     both themes. */
+  background: var(--dda-primary-40);
   text-align: center;
 }
 

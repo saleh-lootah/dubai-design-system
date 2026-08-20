@@ -91,5 +91,9 @@
 .dda-percentage-text {
   margin-inline-start: 8px;
   font-size: 16px;
+  color: var(--dda-on-surface-0);
+}
+
+.light-mode .dda-percentage-text {
   color: var(--dda-neutral-0);
 }

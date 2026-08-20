@@ -45,13 +45,17 @@
 .h-step .h-step-title {
   font-size: 14px;
   font-weight: var(--dda-fw-400);
-  color: var(--dda-neutral-variant-30);
+  color: var(--dda-on-surface-variant-30);
   margin-bottom: 10px;
+}
+
+.light-mode .h-step .h-step-title {
+  color: var(--dda-neutral-variant-30);
 }
 
 .h-step .h-step-subtitle {
   font-size: 18px;
-  color: var(--dda-neutral-60);
+  color: var(--dda-on-surface-muted);
   font-weight: var(--dda-fw-500);
 }
 
@@ -61,7 +65,7 @@
 
 .h-step .h-step-description {
   font-size: 14px;
-  color: var(--dda-neutral-60);
+  color: var(--dda-on-surface-muted);
 }
 
 .h-step.completed .circle{
@@ -101,9 +105,17 @@
 }
 .h-step.completed .h-step-subtitle,
 .h-step.active .h-step-subtitle{
+  color: var(--dda-on-surface-0);
+}
+.light-mode .h-step.completed .h-step-subtitle,
+.light-mode .h-step.active .h-step-subtitle{
   color: var(--dda-neutral-0);
 }
 .h-step.completed .h-step-description,
 .h-step.active .h-step-description{
+  color: var(--dda-on-surface-variant-30);
+}
+.light-mode .h-step.completed .h-step-description,
+.light-mode .h-step.active .h-step-description{
   color: var(--dda-neutral-variant-30);
 }

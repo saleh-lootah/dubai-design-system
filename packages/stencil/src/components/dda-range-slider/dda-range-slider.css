@@ -74,7 +74,10 @@
 }
 
 .dda-range-slider-track span {
-  background: var(--dda-neutral-100);
+  /* F-023 B3: was raw, theme-invariant --dda-neutral-100, paired with the
+     theme-flipping text alias --dda-on-surface-variant-30. Swap to the
+     theme-aware surface alias so the background flips with the text. */
+  background: var(--dda-surface-100);
   width: 55px;
   height: 35px;
   font-size: 16px;

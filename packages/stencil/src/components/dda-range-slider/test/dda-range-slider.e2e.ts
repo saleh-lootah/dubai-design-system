@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { contrastRatio } from '../../../utils/contrast';
 
 // F-022 (WCAG 2.5.8 Target Size, minimum): the repo's own a11y sweep
 // (scripts/wcag22-checks.ts, checkTargetSize) flagged both
@@ -77,5 +78,47 @@ describe('dda-range-slider', () => {
 
     const bad = await findUndersizedTargets(page, '.dda-range-slider-input');
     expect(bad).toEqual([]);
+  });
+});
+
+// F-023 (B3): `.dda-range-slider-track span`'s background was the raw,
+// theme-invariant `--dda-neutral-100`, paired with the theme-flipping text
+// alias `--dda-on-surface-variant-30` — 2.30:1 in dark before the fix.
+//
+// dda-range-slider's own styleUrl does not import global.css/color.css (a
+// pre-existing gap, unrelated to F-023 and out of scope here) — in real
+// usage the tokens resolve because some sibling component on the page
+// always pulls color.css in. A hidden `<dda-input>` reproduces that here so
+// `--dda-surface-100`/`--dda-on-surface-variant-30` actually resolve.
+describe('dda-range-slider label contrast (F-023)', () => {
+  const renderWithTokens = (attrs = '') =>
+    `<dda-input style="display:none"></dda-input>${slider(attrs)}`;
+
+  it('min-label clears 4.5:1 in light theme', async () => {
+    const page = await newE2EPage();
+    await page.setContent(renderWithTokens());
+
+    const colors = await page.evaluate(() => {
+      const label = document.querySelector('dda-range-slider .min-label') as HTMLElement;
+      const s = getComputedStyle(label);
+      return { color: s.color, background: s.backgroundColor };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('min-label clears 4.5:1 in dark theme', async () => {
+    const page = await newE2EPage();
+    await page.setContent(renderWithTokens());
+    await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+    await page.waitForChanges();
+
+    const colors = await page.evaluate(() => {
+      const label = document.querySelector('dda-range-slider .min-label') as HTMLElement;
+      const s = getComputedStyle(label);
+      return { color: s.color, background: s.backgroundColor };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
   });
 });

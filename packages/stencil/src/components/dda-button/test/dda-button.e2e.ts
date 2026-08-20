@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { contrastRatio } from '../../../utils/contrast';
 
 describe('dda-button', () => {
   it('renders', async () => {
@@ -135,4 +136,40 @@ describe('dda-button', () => {
       expect(focused.boxShadow).toBe('none');
     });
   }
+
+  // F-023 (A3/Decision 1): the disabled button's text used to sit at 2.60:1
+  // in light theme against its own background (both `--dda-neutral-60` and
+  // `--dda-surface-92`'s light value, #E6E9E8) and a 4.51:1 coincidence in
+  // dark. Asserts the resulting ratio clears 4.5:1 in both themes now that
+  // the text is the theme-aware `--dda-on-surface-muted` alias, not the
+  // token name behind it.
+  describe('disabled button text contrast (F-023)', () => {
+    it('clears 4.5:1 in light theme', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<dda-button button_color="disabled" disabled>Click me</dda-button>');
+
+      const colors = await page.evaluate(() => {
+        const btn = document.querySelector('dda-button button') as HTMLElement;
+        const s = getComputedStyle(btn);
+        return { color: s.color, background: s.backgroundColor };
+      });
+
+      expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
+    });
+
+    it('clears 4.5:1 in dark theme', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<dda-button button_color="disabled" disabled>Click me</dda-button>');
+      await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+      await page.waitForChanges();
+
+      const colors = await page.evaluate(() => {
+        const btn = document.querySelector('dda-button button') as HTMLElement;
+        const s = getComputedStyle(btn);
+        return { color: s.color, background: s.backgroundColor };
+      });
+
+      expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
+    });
+  });
 });

@@ -74,14 +74,20 @@
 .light-mode.dda-credit-card-default{
   background: var(--dda-neutral-100);
 }
+/* F-023 B2: both fills below used a text-role alias (--dda-color-primary-40,
+   --dda-on-surface-variant-30) as a background. Both flip lighter in dark
+   theme, which is correct for text but wrong for a fill meant to hold fixed
+   white text (2.30:1 / 1.70:1). Use the raw ramp step instead, matching what
+   each rule's own .light-mode override already sets: a constant fill, so the
+   white text stays legible in both themes. */
 .dda-credit-card-green{
-  background: var(--dda-color-primary-40);
+  background: var(--dda-primary-40);
 }
 .light-mode.dda-credit-card-green{
   background: var(--dda-primary-40);
 }
 .dda-credit-card-dark{
-  background: var(--dda-on-surface-variant-30);
+  background: var(--dda-neutral-variant-30);
 }
 .light-mode.dda-credit-card-dark{
   background: var(--dda-neutral-variant-30);

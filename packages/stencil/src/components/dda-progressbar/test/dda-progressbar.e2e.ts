@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { contrastRatio } from '../../../utils/contrast';
 
 // F-013: dda-progressbar had no `role`, `aria-valuenow`, `aria-valuemin`, or
 // `aria-valuemax` anywhere — the bar's progress was conveyed only through
@@ -56,5 +57,42 @@ describe('dda-progressbar', () => {
 
     const bar = await page.find('dda-progressbar .dda-progress-bar');
     expect(bar.getAttribute('aria-valuenow')).toBe('0');
+  });
+});
+
+// F-023 (Row C): `.dda-percentage-text` hardcoded near-black
+// (--dda-neutral-0) with no dark-theme override at all — 1.22:1 against the
+// dark page body before the fix.
+describe('dda-progressbar percentage-text contrast (F-023)', () => {
+  it('clears 4.5:1 against the page background in light theme', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-progressbar progress="40" show_percentage_text="true"></dda-progressbar>');
+
+    const colors = await page.evaluate(() => {
+      const text = document.querySelector('dda-progressbar .dda-percentage-text') as HTMLElement;
+      return {
+        color: getComputedStyle(text).color,
+        background: getComputedStyle(document.body).backgroundColor,
+      };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('clears 4.5:1 against the page background in dark theme', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-progressbar progress="40" show_percentage_text="true"></dda-progressbar>');
+    await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+    await page.waitForChanges();
+
+    const colors = await page.evaluate(() => {
+      const text = document.querySelector('dda-progressbar .dda-percentage-text') as HTMLElement;
+      return {
+        color: getComputedStyle(text).color,
+        background: getComputedStyle(document.body).backgroundColor,
+      };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
   });
 });

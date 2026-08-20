@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { contrastRatio } from '../../../utils/contrast';
 
 // Task 9d — F-021: `.dda-validation-error .dda-input-field` and
 // `.dda-input-disabled .dda-input-field` (global/input.css) both set
@@ -136,5 +137,72 @@ describe('dda-input F-016 error labelling', () => {
 
     expect(result[0]).toEqual(['Error A']);
     expect(result[1]).toEqual(['Error B']);
+  });
+});
+
+// F-023 (A1/A2/Decision 1): the disabled field's label used to fail 4.5:1
+// against the page body in light theme (3.18:1), and the field's own text
+// failed against its own background in both themes (2.60:1, since the
+// background was the raw, non-theme-aware --dda-neutral-92). Asserts the
+// resulting ratios, not the token names now behind them.
+describe('dda-input disabled-state text contrast (F-023)', () => {
+  const render = async (page, theme?: 'dark') => {
+    await page.setContent(
+      '<dda-input type="disabled" input_id="d" label="Disabled label" helper_text="Helper text"></dda-input>',
+    );
+    if (theme) {
+      await page.evaluate((t) => document.documentElement.setAttribute('data-theme', t), theme);
+      await page.waitForChanges();
+    }
+  };
+
+  it('label clears 4.5:1 against the page background in light theme', async () => {
+    const page = await newE2EPage();
+    await render(page);
+
+    const colors = await page.evaluate(() => {
+      const label = document.querySelector('dda-input .dda-input-label') as HTMLElement;
+      return { color: getComputedStyle(label).color, background: getComputedStyle(document.body).backgroundColor };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('label clears 4.5:1 against the page background in dark theme', async () => {
+    const page = await newE2EPage();
+    await render(page, 'dark');
+
+    const colors = await page.evaluate(() => {
+      const label = document.querySelector('dda-input .dda-input-label') as HTMLElement;
+      return { color: getComputedStyle(label).color, background: getComputedStyle(document.body).backgroundColor };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it("field text clears 4.5:1 against its own disabled background in light theme", async () => {
+    const page = await newE2EPage();
+    await render(page);
+
+    const colors = await page.evaluate(() => {
+      const input = document.querySelector('dda-input .dda-input-field') as HTMLElement;
+      const s = getComputedStyle(input);
+      return { color: s.color, background: s.backgroundColor };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it("field text clears 4.5:1 against its own disabled background in dark theme", async () => {
+    const page = await newE2EPage();
+    await render(page, 'dark');
+
+    const colors = await page.evaluate(() => {
+      const input = document.querySelector('dda-input .dda-input-field') as HTMLElement;
+      const s = getComputedStyle(input);
+      return { color: s.color, background: s.backgroundColor };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
   });
 });

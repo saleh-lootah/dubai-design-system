@@ -511,13 +511,13 @@
 .btn-color-disabled {
   background-color: var(--dda-surface-92) !important;
   border: solid 1px var(--dda-surface-92) !important;
-  color: var(--dda-neutral-60) !important;
+  color: var(--dda-on-surface-muted) !important;
   cursor: not-allowed;
 }
 .light-mode.btn-color-disabled {
   background-color: var(--dda-neutral-92) !important;
   border: solid 1px var(--dda-neutral-92) !important;
-  color: var(--dda-neutral-60) !important;
+  color: var(--dda-neutral-40) !important;
   cursor: not-allowed;
 }
 /**/

@@ -295,14 +295,14 @@
 .dda-input-disabled .dda-dropdown-select,
 .dda-input-disabled .dda-file-input span,
 .dda-input-disabled .dda-file-choose {
-    color: var(--dda-neutral-60) !important;
+    color: var(--dda-on-surface-muted) !important;
 }
 
 .dda-input-disabled .dda-input-field-group,
 .dda-input-disabled .dda-input-field {
-    background: var(--dda-neutral-92);
+    background: var(--dda-surface-92);
     border-color: var(--dda-neutral-90);
-    color: var(--dda-neutral-60) !important;
+    color: var(--dda-on-surface-muted) !important;
     box-shadow: none;
     pointer-events: none;
 }
@@ -313,11 +313,11 @@
     fill: var(--dda-neutral-variant-60);
 }
 .dda-input-disabled .dda-input-field::-ms-input-placeholder {
-    color: var(--dda-neutral-60);
+    color: var(--dda-on-surface-muted);
 }
 
 .dda-input-disabled .dda-input-field::placeholder {
-    color: var(--dda-neutral-60);
+    color: var(--dda-on-surface-muted);
 }
 
 .dda-input-disabled .dda-btn {
@@ -552,7 +552,7 @@
 }
 .dda-file-choose {
     height: 40px;
-    background-color: var(--dda-neutral-100);
+    background-color: var(--dda-surface-100);
     border: solid 1px var(--dda-neutral-90);
     color: var(--dda-color-primary-40);
     font-weight: var(--dda-fw-500);
@@ -566,7 +566,7 @@
 }
 
 .dda-input-disabled .dda-file-choose {
-    background-color: var(--dda-neutral-95);
+    background-color: var(--dda-surface-94);
 }
 
 .dda-file-choose input {

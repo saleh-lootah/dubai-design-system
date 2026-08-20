@@ -16,7 +16,11 @@
   font-size: 7px;
 }
 .dda-chip-grey{
-  background: var(--dda-neutral-variant-94);
+  /* F-023 B3: was raw, theme-invariant --dda-neutral-variant-94, paired
+     with the theme-flipping text alias --dda-on-surface-variant-30 (used
+     here for the icon glyphs). Swap to the theme-aware surface-variant
+     alias so the background flips with the text. */
+  background: var(--dda-surface-variant-90);
   border: solid 1px var(--dda-neutral-90);
   color: var(--dda-on-surface-variant-30);
 }

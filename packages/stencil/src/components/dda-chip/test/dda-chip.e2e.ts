@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { contrastRatio } from '../../../utils/contrast';
 
 describe('dda-chip', () => {
   it('renders', async () => {
@@ -63,5 +64,39 @@ describe('dda-chip', () => {
 
     const close = await page.find('dda-chip .chip-close');
     expect(close.getAttribute('aria-label')).not.toBeNull();
+  });
+});
+
+// F-023 (B3): `.dda-chip-grey`'s background was the raw, theme-invariant
+// `--dda-neutral-variant-94`, paired with the theme-flipping text alias
+// `--dda-on-surface-variant-30` used on the icon glyph — 1.46:1 in dark
+// before the fix.
+describe('dda-chip grey icon contrast (F-023)', () => {
+  it('clears 4.5:1 in light theme', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-chip bg_color="grey" icon="close" show_close_icon="true">Tag</dda-chip>');
+
+    const colors = await page.evaluate(() => {
+      const chip = document.querySelector('dda-chip .dda-chip') as HTMLElement;
+      const icon = document.querySelector('dda-chip .dda-chip > i') as HTMLElement;
+      return { color: getComputedStyle(icon).color, background: getComputedStyle(chip).backgroundColor };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('clears 4.5:1 in dark theme', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-chip bg_color="grey" icon="close" show_close_icon="true">Tag</dda-chip>');
+    await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+    await page.waitForChanges();
+
+    const colors = await page.evaluate(() => {
+      const chip = document.querySelector('dda-chip .dda-chip') as HTMLElement;
+      const icon = document.querySelector('dda-chip .dda-chip > i') as HTMLElement;
+      return { color: getComputedStyle(icon).color, background: getComputedStyle(chip).backgroundColor };
+    });
+
+    expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
   });
 });
