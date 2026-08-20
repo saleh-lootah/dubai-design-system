@@ -215,4 +215,45 @@ describe('dda-home-banner', () => {
 
     expect((await page.findAll('dda-home-banner .dots')).length).toBe(2);
   });
+
+  // Task 9d — F-019: a slotted <dda-button button_color="default-primary">
+  // CTA (the real usage in dda-home-banner.stories.tsx:12) is a normal
+  // reachable Tab stop (shadow: false) that renders dda-button's own global
+  // CSS, not dda-home-banner's already-correct `.slider-nav *:focus-visible`
+  // ring (home-banner.css:182-187). It inherited the malformed
+  // `outline: <color>` shorthand from dda-button.css before this fix.
+  it('shows a real focus ring on a slotted dda-button CTA', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`
+      <dda-home-banner>
+        <slide>
+          <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Slide 1" />
+          <div class="slide-wrap">
+            <div class="slide-content">
+              <h2>Title 1</h2>
+              <dda-button button_color="default-primary" size="lg">Call to action</dda-button>
+            </div>
+          </div>
+        </slide>
+      </dda-home-banner>`);
+    await page.waitForChanges();
+
+    // Tab through whatever the banner puts ahead of the CTA (nav controls,
+    // dots) until the slotted button itself is reached.
+    let focused: { cls: string; boxShadow: string } | null = null;
+    for (let i = 0; i < 10; i++) {
+      await page.keyboard.press('Tab');
+      focused = await page.evaluate(() => {
+        const el = document.activeElement as HTMLElement;
+        if (!el || el === document.body) return null;
+        const s = getComputedStyle(el);
+        return { cls: el.className, boxShadow: s.boxShadow };
+      });
+      if (focused && focused.cls.includes('btn-color-default-primary')) break;
+    }
+
+    expect(focused).not.toBeNull();
+    expect(focused.cls).toContain('btn-color-default-primary');
+    expect(focused.boxShadow).not.toBe('none');
+  });
 });

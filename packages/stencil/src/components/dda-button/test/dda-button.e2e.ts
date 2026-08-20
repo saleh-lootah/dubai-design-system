@@ -41,4 +41,46 @@ describe('dda-button', () => {
 
     expect(clickSpy).toHaveReceivedEvent();
   });
+
+  // Task 9d: F-019 (default-primary, error-primary — malformed `outline: <color>`
+  // shorthand resets outline-style to `none`), F-020 (onsurface-primary — no
+  // `:focus` outline declared at all), F-021 (disabled-styled button — no focus
+  // rule of any kind). A real keyboard Tab, not a synthetic `.focus()` call, is
+  // required for `:focus-visible` to match.
+  const variants = ['default-primary', 'error-primary', 'onsurface-primary', 'disabled'];
+
+  for (const button_color of variants) {
+    it(`shows no focus ring before focus (${button_color})`, async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-button button_color="${button_color}">Click me</dda-button>`);
+
+      const resting = await page.evaluate(() => {
+        const btn = document.querySelector('dda-button button') as HTMLElement;
+        const s = getComputedStyle(btn);
+        return { outlineStyle: s.outlineStyle, boxShadow: s.boxShadow };
+      });
+
+      expect(resting.outlineStyle).toBe('none');
+      expect(resting.boxShadow).toBe('none');
+    });
+
+    it(`shows a real focus ring under keyboard focus (${button_color})`, async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-button button_color="${button_color}">Click me</dda-button>`);
+
+      await page.keyboard.press('Tab');
+      const focused = await page.evaluate(() => {
+        const el = document.activeElement as HTMLElement;
+        if (!el || el === document.body) return null;
+        const s = getComputedStyle(el);
+        return { tag: el.tagName, boxShadow: s.boxShadow, outlineStyle: s.outlineStyle };
+      });
+
+      expect(focused).not.toBeNull();
+      expect(focused.tag).toBe('BUTTON');
+      // The fix is a box-shadow ring on `:focus-visible`, not the malformed
+      // `outline: <color>` shorthand — assert the property that actually renders.
+      expect(focused.boxShadow).not.toBe('none');
+    });
+  }
 });

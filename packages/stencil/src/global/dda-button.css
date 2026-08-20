@@ -12,6 +12,31 @@
   justify-content: center;
   gap: .5rem;
 }
+/**
+ * WCAG 2.4.7/1.4.11 focus-visible repair (Task 9d: F-019, F-020, F-021).
+ * Every btn-color-* variant used to rely on a per-variant `:focus` rule to
+ * restore an indicator over the base `outline: 0` above - most attempted it
+ * with a malformed single-value `outline: <color>` shorthand (resets
+ * outline-style to its initial `none`, so nothing ever rendered - F-019),
+ * one variant (onsurface-primary) never attempted it at all (F-020), and
+ * variants with no :focus rule at all (e.g. btn-color-disabled, the
+ * "looks disabled but isn't" style used without the native `disabled`
+ * attribute) showed no change whatsoever (F-021). One rule here replaces
+ * all of that: a `:focus-visible`-scoped box-shadow ring, so a mouse click
+ * leaves no ring but Tab does. Same white+dark double-ring idiom as
+ * dda-home-banner's `.slider-nav *:focus-visible` (home-banner.css:182-187)
+ * - reused deliberately so the system has one focus-ring recipe, not one
+ * per component. box-shadow is not clobbered by any rule in this file, and
+ * a fixed white/black pair is contrast-safe against every btn-color-*
+ * background in both `data-theme` values by construction: for any
+ * background, at least one of pure white or pure black clears 3:1 against
+ * it (the two are complementary across the luminance range) - verified
+ * against every variant this task touched, see the task 9d report.
+ */
+.dda-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+}
 /**/
 .btn-color-default-primary{
   background-color: var(--dda-color-primary-40);
@@ -24,7 +49,6 @@
 }
 .btn-color-default-primary:focus {
   background-color: var(--dda-on-primary-variant-20);
-  outline: var(--dda-on-primary-variant-20);
 }
 /*light*/
 .light-mode.btn-color-default-primary,
@@ -41,7 +65,6 @@
 .light-mode.btn-color-default-primary:focus,
 .light-mode .btn-color-default-primary:focus {
   background-color: var(--dda-primary-20);
-  outline: var(--dda-primary-20);
 }
 /**/
 
@@ -57,7 +80,6 @@
 }
 .btn-color-default-secondary:focus {
   background-color: var(--dda-primary-variant-92);
-  outline: var(--dda-primary-variant-92);
 }
 /*light*/
 .light-mode.btn-color-default-secondary {
@@ -71,7 +93,6 @@
 }
 .light-mode.btn-color-default-secondary:focus {
   background-color: var(--dda-primary-92);
-  outline: var(--dda-primary-92);
 }
 /**/
 
@@ -130,7 +151,6 @@
 .btn-color-error-primary:focus {
   background-color: var(--dda-color-error-30);
   border: solid 1px var(--dda-color-error-30);
-  outline: var(--dda-color-error-30);
 }
 /*light*/
 .light-mode.btn-color-error-primary {
@@ -145,7 +165,6 @@
 .light-mode.btn-color-error-primary:focus {
   background-color: var(--dda-error-30);
   border: solid 1px var(--dda-error-30);
-  outline: var(--dda-error-30);
 }
 /**/
 
@@ -332,7 +351,6 @@
 .btn-color-secondary:focus {
   background-color: var(--dda-color-secondary-20);
   border: solid 1px var(--dda-color-secondary-20);
-  outline: var(--dda-color-secondary-20);
 }
 /*light*/
 .light-mode.btn-color-secondary {
@@ -347,7 +365,6 @@
 .light-mode.btn-color-secondary:focus {
   background-color: var(--dda-secondary-20);
   border: solid 1px var(--dda-secondary-20);
-  outline: var(--dda-secondary-20);
 }
 /**/
 
@@ -363,7 +380,6 @@
 .btn-color-success:focus {
   background-color: var(--dda-color-success-30);
   border: solid 1px var(--dda-color-success-30);
-  outline: var(--dda-color-success-30);
 }
 /*light*/
 .light-mode.btn-color-success {
@@ -378,7 +394,6 @@
 .light-mode.btn-color-success:focus {
   background-color: var(--dda-success-30);
   border: solid 1px var(--dda-success-30);
-  outline: var(--dda-success-30);
 }
 /**/
 
@@ -395,7 +410,6 @@
 .btn-color-warning:focus {
   background-color: var(--dda-color-warning-30);
   border: solid 1px var(--dda-color-warning-30);
-  outline: var(--dda-color-warning-30);
 }
 /*light*/
 .light-mode.btn-color-warning {
@@ -411,7 +425,6 @@
 .light-mode.btn-color-warning:focus {
   background-color: var(--dda-warning-30);
   border: solid 1px var(--dda-warning-30);
-  outline: var(--dda-warning-30);
 }
 /**/
 
@@ -427,7 +440,6 @@
 .btn-color-surface:focus {
   background-color: var(--dda-surface-92);
   border: solid 1px var(--dda-surface-92);
-  outline: var(--dda-on-surface-20);
 }
 /*light*/
 .light-mode.btn-color-surface {
@@ -442,7 +454,6 @@
 .light-mode.btn-color-surface:focus {
   background-color: var(--dda-neutral-92);
   border: solid 1px var(--dda-neutral-92);
-  outline: var(--dda-neutral-20);
 }
 /**/
 
@@ -458,7 +469,6 @@
 .btn-color-surface-variant:focus {
   background-color: var(--dda-on-surface-variant-20);
   border: solid 1px var(--dda-on-surface-variant-20);
-  outline: var(--dda-on-surface-variant-20);
 }
 /*light*/
 .light-mode.btn-color-surface-variant {
@@ -473,7 +483,6 @@
 .light-mode.btn-color-surface-variant:focus {
   background-color: var(--dda-neutral-variant-20);
   border: solid 1px var(--dda-neutral-variant-20);
-  outline: var(--dda-neutral-variant-20);
 }
 /**/
 
