@@ -78,6 +78,47 @@ describe('dda-select focus indicator', () => {
   });
 });
 
+// F-016: same systemic error-labelling gap; here the "field" is the trigger
+// button, not a native <input>.
+describe('dda-select F-016 error labelling', () => {
+  it('has no aria-invalid/aria-describedby on the trigger when there is no error or helper text', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-select button_id="button" options=\'["Option 1"]\'></dda-select>');
+
+    const result = await page.evaluate(() => {
+      const trigger = document.querySelector('dda-select .dda-select-header');
+      return { invalid: trigger.getAttribute('aria-invalid'), describedby: trigger.getAttribute('aria-describedby') };
+    });
+
+    expect(result.invalid).toBeNull();
+    expect(result.describedby).toBeNull();
+  });
+
+  it('points aria-describedby at an existing error element with the error text and sets aria-invalid=true', async () => {
+    const page = await newE2EPage();
+    await page.setContent(
+      '<dda-select button_id="button" options=\'["Option 1"]\' error_message="Pick one"></dda-select>'
+    );
+
+    const result = await page.evaluate(() => {
+      const trigger = document.querySelector('dda-select .dda-select-header');
+      const ids = (trigger.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
+      const texts = ids.map((id) => document.getElementById(id));
+      return {
+        invalid: trigger.getAttribute('aria-invalid'),
+        ids,
+        allExist: texts.every((t) => !!t),
+        containsError: texts.some((t) => t?.textContent?.includes('Pick one')),
+      };
+    });
+
+    expect(result.invalid).toBe('true');
+    expect(result.ids.length).toBeGreaterThan(0);
+    expect(result.allExist).toBe(true);
+    expect(result.containsError).toBe(true);
+  });
+});
+
 // Task 9e — F-014: dda-select is a custom combobox-like widget that had no
 // aria-haspopup, aria-expanded, or aria-controls on the trigger, and no
 // role="listbox"/"option" on the popup — a screen reader user had no idea

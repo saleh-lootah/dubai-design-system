@@ -35,6 +35,23 @@ export class Ddaselect {
     return `${this.button_id}-listbox`;
   }
 
+  // F-016: same button_id-derived uniqueness pattern as listboxId above.
+  private get helperId(): string | undefined {
+    return this.button_id ? `${this.button_id}-helper` : undefined;
+  }
+
+  private get errorId(): string | undefined {
+    return this.button_id ? `${this.button_id}-error` : undefined;
+  }
+
+  private get describedBy(): string | undefined {
+    const ids = [
+      this.helper_text ? this.helperId : undefined,
+      this.error_message ? this.errorId : undefined,
+    ].filter(Boolean);
+    return ids.length ? ids.join(' ') : undefined;
+  }
+
   private get parsedOptions(): string[] {
     try {
       return JSON.parse(this.options);
@@ -167,6 +184,8 @@ export class Ddaselect {
               aria-haspopup="listbox"
               aria-expanded={this.is_open ? 'true' : 'false'}
               aria-controls={this.is_open ? this.listboxId : undefined}
+              aria-describedby={this.describedBy}
+              aria-invalid={this.error_message ? 'true' : undefined}
               onClick={() => {this.toggleSelect()}}
               onKeyDown={this.onTriggerKeyDown}
             >
@@ -194,8 +213,8 @@ export class Ddaselect {
               </div>
             )}
           </div>
-          {this.helper_text && <span class="dda-helper-text">{this.helper_text}</span>}
-          {this.error_message && <span class="dda-error-message">{this.error_message}</span>}
+          {this.helper_text && <span id={this.helperId} class="dda-helper-text">{this.helper_text}</span>}
+          {this.error_message && <span id={this.errorId} class="dda-error-message">{this.error_message}</span>}
         </div>
       </Host>
     );
