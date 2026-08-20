@@ -88,7 +88,7 @@ Column definitions and how each was derived:
 | dda-footer | PASS¹¹ | PASS¹¹ | PASS¹¹ | FAIL³⁵ | PASS† | YES |
 | dda-header | FAIL¹² | PASS¹³ | PASS | FAIL² | FAIL† | YES |
 | dda-home-banner | PASS | PASS | PASS | PASS | PASS† | YES |
-| dda-horizontal-stepper | PASS³³ | PASS¹⁵ | PASS | FAIL¹⁶ | FAIL† | YES |
+| dda-horizontal-stepper | PASS³³,¹⁴ | PASS¹⁵ | PASS | FAIL¹⁶ | FAIL† | YES |
 | dda-input | PASS³³ | PASS⁶ | PASS | PASS | PASS | YES |
 | dda-link-button | PASS³³ | PASS⁶ | PASS | FAIL² | FAIL† | YES |
 | dda-number-field | PASS³³ | PASS | PASS | FAIL¹⁷ | PASS | YES |
@@ -96,7 +96,7 @@ Column definitions and how each was derived:
 | dda-phonefield | PASS³³ | PASS | PASS | FAIL¹⁸ | PASS | YES |
 | dda-progressbar | FAIL³⁶ | PASS¹⁹ | PASS | PASS | PASS† | YES |
 | dda-radiobutton | PASS | PASS | PASS | FAIL² | PASS† | YES |
-| dda-range-slider | PASS³³ | PASS²⁰ | PASS | PASS | PASS† | YES |
+| dda-range-slider | PASS³³,¹⁴ | PASS²⁰ | PASS | PASS | PASS† | YES |
 | dda-search-input | PASS³³ | PASS⁶ | PASS | FAIL²¹ | PASS | YES |
 | dda-segmented-tabs | PASS | PASS²² | PASS | FAIL²² | PASS† | YES |
 | dda-select | PASS³³ | PASS⁶ | PASS | FAIL² | PASS† | YES |
@@ -104,7 +104,7 @@ Column definitions and how each was derived:
 | dda-tabs | FAIL³⁷ | PASS²³ | PASS | FAIL²⁴ | PASS† | YES |
 | dda-textarea | FAIL³⁸ | PASS²⁵ | PASS | PASS²⁶ | PASS | YES |
 | dda-toggle | PASS | PASS²⁷ | PASS | FAIL² | FAIL⁹ | YES |
-| dda-tooltip | PASS | PASS³² | PASS | PASS | PASS† | YES |
+| dda-tooltip | PASS | PASS³²,²⁸ | PASS | PASS | PASS† | YES |
 | dda-ui-card | N/A³ | N/A³ | N/A³ | FAIL²⁹ | FAIL⁴ | YES |
 | dda-vertical-stepper | PASS | PASS³⁰ | PASS | FAIL² | FAIL† | YES |
 
