@@ -18,6 +18,7 @@
 | `error_message`      | `error_message`      |             | `string`  | `undefined` |
 | `has_error`          | `has_error`          |             | `boolean` | `false`     |
 | `helper_text`        | `helper_text`        |             | `string`  | `undefined` |
+| `input_id`           | `input_id`           |             | `string`  | `undefined` |
 | `input_status`       | `input_status`       |             | `string`  | `undefined` |
 | `label`              | `label`              |             | `string`  | `undefined` |
 | `placeholder`        | `placeholder`        |             | `string`  | `'Search'`  |

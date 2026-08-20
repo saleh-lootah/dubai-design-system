@@ -10,6 +10,7 @@
 | Property                     | Attribute                    | Description | Type      | Default                |
 | ---------------------------- | ---------------------------- | ----------- | --------- | ---------------------- |
 | `aria_label`                 | `aria_label`                 |             | `string`  | `undefined`            |
+| `autocomplete`               | `autocomplete`               |             | `string`  | `'tel'`                |
 | `button_aria_label`          | `button_aria_label`          |             | `string`  | `undefined`            |
 | `button_id`                  | `button_id`                  |             | `string`  | `undefined`            |
 | `component_mode`             | `component_mode`             |             | `string`  | `undefined`            |

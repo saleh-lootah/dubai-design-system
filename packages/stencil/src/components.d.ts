@@ -254,6 +254,10 @@ export namespace Components {
     }
     interface DdaCreditcardField {
         "aria_label"?: string;
+        /**
+          * @default 'cc-number'
+         */
+        "autocomplete": string;
         "card_icon": string;
         "component_mode"?: string;
         /**
@@ -532,6 +536,10 @@ export namespace Components {
     }
     interface DdaPhonefield {
         "aria_label": string;
+        /**
+          * @default 'tel'
+         */
+        "autocomplete": string;
         "button_aria_label": string;
         "button_id"?: string;
         "component_mode"?: string;
@@ -641,6 +649,7 @@ export namespace Components {
          */
         "has_error": boolean;
         "helper_text": string;
+        "input_id"?: string;
         "input_status"?: string;
         "label": string;
         /**
@@ -1446,6 +1455,10 @@ declare namespace LocalJSX {
     }
     interface DdaCreditcardField {
         "aria_label"?: string;
+        /**
+          * @default 'cc-number'
+         */
+        "autocomplete"?: string;
         "card_icon"?: string;
         "component_mode"?: string;
         /**
@@ -1732,6 +1745,10 @@ declare namespace LocalJSX {
     }
     interface DdaPhonefield {
         "aria_label"?: string;
+        /**
+          * @default 'tel'
+         */
+        "autocomplete"?: string;
         "button_aria_label"?: string;
         "button_id"?: string;
         "component_mode"?: string;
@@ -1841,6 +1858,7 @@ declare namespace LocalJSX {
          */
         "has_error"?: boolean;
         "helper_text"?: string;
+        "input_id"?: string;
         "input_status"?: string;
         "label"?: string;
         /**
@@ -2207,6 +2225,7 @@ declare namespace LocalJSX {
         "input_id": string;
         "aria_label": string;
         "input_name": string;
+        "autocomplete": string;
     }
     interface DdaDropdownAttributes {
         "label": string;
@@ -2365,6 +2384,7 @@ declare namespace LocalJSX {
         "toggle_button_name": string;
         "country_select_button_name": string;
         "phone_input_name": string;
+        "autocomplete": string;
     }
     interface DdaProgressbarAttributes {
         "progress": number;
@@ -2416,6 +2436,7 @@ declare namespace LocalJSX {
         "custom_class": string;
         "component_mode": string;
         "button_id": string;
+        "input_id": string;
         "aria_label": string;
         "button_aria_label": string;
         "search_input_name": string;

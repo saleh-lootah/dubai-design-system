@@ -163,7 +163,8 @@ export const DdaCreditcardField = /*@__PURE__*/ defineContainer<JSX.DdaCreditcar
   'component_mode',
   'input_id',
   'aria_label',
-  'input_name'
+  'input_name',
+  'autocomplete'
 ]);
 
 
@@ -349,7 +350,8 @@ export const DdaPhonefield = /*@__PURE__*/ defineContainer<JSX.DdaPhonefield>('d
   'button_aria_label',
   'toggle_button_name',
   'country_select_button_name',
-  'phone_input_name'
+  'phone_input_name',
+  'autocomplete'
 ]);
 
 
@@ -409,6 +411,7 @@ export const DdaSearchInput = /*@__PURE__*/ defineContainer<JSX.DdaSearchInput>(
   'custom_class',
   'component_mode',
   'button_id',
+  'input_id',
   'aria_label',
   'button_aria_label',
   'search_input_name',

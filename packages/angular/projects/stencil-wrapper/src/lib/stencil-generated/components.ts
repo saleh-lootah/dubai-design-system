@@ -234,14 +234,14 @@ export declare interface DdaCreditCard extends Components.DdaCreditCard {}
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'card_icon', 'component_mode', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_type', 'label', 'placeholder', 'restrict_input', 'size', 'validation_type', 'value']
+  inputs: ['aria_label', 'autocomplete', 'card_icon', 'component_mode', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_type', 'label', 'placeholder', 'restrict_input', 'size', 'validation_type', 'value']
 })
 @Component({
   selector: 'dda-creditcard-field',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'card_icon', 'component_mode', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_type', 'label', 'placeholder', 'restrict_input', 'size', 'validation_type', 'value'],
+  inputs: ['aria_label', 'autocomplete', 'card_icon', 'component_mode', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_type', 'label', 'placeholder', 'restrict_input', 'size', 'validation_type', 'value'],
 })
 export class DdaCreditcardField {
   protected el: HTMLDdaCreditcardFieldElement;
@@ -472,14 +472,14 @@ export declare interface DdaPagination extends Components.DdaPagination {}
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'button_aria_label', 'button_id', 'component_mode', 'country_select_button_name', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'label', 'phone_input_name', 'placeholder', 'size', 'toggle_button_name', 'validation_type']
+  inputs: ['aria_label', 'autocomplete', 'button_aria_label', 'button_id', 'component_mode', 'country_select_button_name', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'label', 'phone_input_name', 'placeholder', 'size', 'toggle_button_name', 'validation_type']
 })
 @Component({
   selector: 'dda-phonefield',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'button_aria_label', 'button_id', 'component_mode', 'country_select_button_name', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'label', 'phone_input_name', 'placeholder', 'size', 'toggle_button_name', 'validation_type'],
+  inputs: ['aria_label', 'autocomplete', 'button_aria_label', 'button_id', 'component_mode', 'country_select_button_name', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'label', 'phone_input_name', 'placeholder', 'size', 'toggle_button_name', 'validation_type'],
 })
 export class DdaPhonefield {
   protected el: HTMLDdaPhonefieldElement;
@@ -560,14 +560,14 @@ export declare interface DdaRangeSlider extends Components.DdaRangeSlider {}
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'button_aria_label', 'button_id', 'close_button_name', 'component_mode', 'custom_class', 'error_message', 'has_error', 'helper_text', 'input_status', 'label', 'placeholder', 'search_button_name', 'search_input_name', 'show_button', 'size']
+  inputs: ['aria_label', 'button_aria_label', 'button_id', 'close_button_name', 'component_mode', 'custom_class', 'error_message', 'has_error', 'helper_text', 'input_id', 'input_status', 'label', 'placeholder', 'search_button_name', 'search_input_name', 'show_button', 'size']
 })
 @Component({
   selector: 'dda-search-input',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'button_aria_label', 'button_id', 'close_button_name', 'component_mode', 'custom_class', 'error_message', 'has_error', 'helper_text', 'input_status', 'label', 'placeholder', 'search_button_name', 'search_input_name', 'show_button', 'size'],
+  inputs: ['aria_label', 'button_aria_label', 'button_id', 'close_button_name', 'component_mode', 'custom_class', 'error_message', 'has_error', 'helper_text', 'input_id', 'input_status', 'label', 'placeholder', 'search_button_name', 'search_input_name', 'show_button', 'size'],
 })
 export class DdaSearchInput {
   protected el: HTMLDdaSearchInputElement;
