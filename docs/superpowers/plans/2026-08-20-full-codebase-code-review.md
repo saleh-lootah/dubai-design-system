@@ -14,6 +14,10 @@
 
 - Node 22.14.0. It is installed at `/usr/local/bin/node`. npm 10.9.2.
 - Run all commands from `packages/stencil` unless a step says something different.
+- **Export `PUPPETEER_EXECUTABLE_PATH` before running e2e.** Stencil passes
+  `channel: "chrome"` to Puppeteer, which then hunts for a system Chrome at
+  `/opt/google/chrome` and ignores its own cached download. Use:
+  `export PUPPETEER_EXECUTABLE_PATH=$(node -e "console.log(require('puppeteer').executablePath())")`
 - **The test command must include `--ci`.** Puppeteer will not start as root without it. The `--ci` flag makes Stencil add `--no-sandbox`, `--disable-setuid-sandbox` and `--disable-dev-shm-usage`. The command is `npx stencil test --spec --e2e --ci`.
 - **Never edit a file under any `stencil-generated/` directory.** The next `stencil build` writes over it. Edit the `.tsx` in `packages/stencil/src/components/` instead.
 - `readme.md` in each component folder is generated. Do not edit it by hand.
@@ -567,6 +571,18 @@ git commit -m "test: add wcag 2.2 target size and keyboard checks"
 
 ---
 
+> **The config in Tasks 3 and 4 above is superseded by what was actually built.**
+> Task 3's review found two defects in the code as written here. `checkA11y` is
+> called with `skipFailures = false`, so it throws on the first violation, and that
+> throw escapes the theme loop — a story failing in the light theme was never
+> checked in the dark theme. Separately, the `message` option is dead code:
+> `axe-playwright`'s default reporter never reads it, so no violation could be
+> attributed to a theme. `postVisit` was rebuilt to catch each theme's failure,
+> accumulate them with the theme recorded, reset `data-theme`, and throw one
+> aggregated error at the end. Task 4's two checks fold into that same accumulator
+> and run BEFORE the throw — appended after it, they would never have run for any
+> story that already failed an axe check.
+
 ## Task 5: Record the baseline report
 
 **Files:**
@@ -584,6 +600,9 @@ cd packages/stencil
 mkdir -p ../../docs/a11y
 npx stencil build 2>&1 | tee ../../docs/a11y/raw-build.txt
 npm run lint 2>&1 | tee ../../docs/a11y/raw-lint.txt
+# lint:report exits non-zero whenever violations exist. That is by design —
+# the JSON report is still written. Do not treat the exit code as a failure.
+npm run lint:report || true
 npm run check:api 2>&1 | tee ../../docs/a11y/raw-api.txt
 npx stencil test --spec --e2e --ci 2>&1 | tee ../../docs/a11y/raw-tests.txt
 npm run build-storybook
@@ -862,7 +881,7 @@ jobs:
       # edited a generated file, or forgot to commit a rebuild.
       - name: Check that the generated wrappers are current
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
             echo "The build changed these files. Commit the rebuild:"
             git status --porcelain
             git diff
