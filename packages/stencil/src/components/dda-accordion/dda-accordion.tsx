@@ -23,7 +23,7 @@ export class DdaAccordion {
     return (
       <Host>
         <div class={`accordion-container ${this.design} ${this.custom_class} ${this.component_mode}`}>
-          <div class="accordion-header" onClick={() => this.toggleAccordion()}>
+          <button type="button" class="accordion-header" onClick={() => this.toggleAccordion()} aria-expanded={this.isOpen ? 'true' : 'false'}>
             {/* <span class="material-symbols-outlined">pen_size_1</span>
 <span class="material-symbols-rounded">face</span>
 <span class="material-symbols-sharp">face</span> */}
@@ -32,7 +32,7 @@ export class DdaAccordion {
               <span class="header-text">{this.header_text}</span>
             </div>
             <i class={`material-icons arrow-icon`}>{this.isOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
-          </div>
+          </button>
           <div class={this.isOpen ? 'accordion-body' : 'dda-d-none'}>
             <p class="body-description">{this.body_description}</p>
             <slot></slot>
