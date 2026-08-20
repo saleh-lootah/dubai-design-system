@@ -5,6 +5,24 @@
   justify-content: center;
 }
 
+.avatar-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: default;
+  border-radius: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 .avatar-shape-circle {
   border-radius: 64px;
 }

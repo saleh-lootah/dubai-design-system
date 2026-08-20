@@ -1,4 +1,4 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'dda-avatar',
@@ -42,7 +42,7 @@ export class DdaAvatar {
 
   render() {
     return (
-      <div onClick={() => this.toggleDropdown()} class={{
+      <Host class={{
         'dda-avatar': true,
         [`avatar-type-${this.type}`]: true,
         [`avatar-size-${this.size}`]: true,
@@ -52,29 +52,37 @@ export class DdaAvatar {
         [`${this.component_mode}`]: true,
         [`${this.button_name}`]: true,
       }}>
-      {this.isOpen && (
-        <div class="dda-input-dropdown-list">
-          {this.parsedOptions.length > 0 ? (
-            this.parsedOptions.map(option => (
-              <button id={this.button_id} name={this.button_name} aria-label={this.aria_label} type="button"
-                class={`dda-input-dropdown-item ${this.selected === option ? 'selected' : ''}`}
-                onClick={() => {this.selectOption(option)}}
-              >
-                {option}
-              </button>
-            ))
-          ) : (
-            <div class="dda-input-dropdown-item">No options available</div>
-          )}
-        </div>
-      )}
-        {this.type === 'photo' && <img src={this.src} alt="Avatar" />}
-        {this.type === 'icon' && <i class={`${this.icon} dda-smile`}>sentiment_satisfied</i>}
-        {this.type === 'text' && <span class='avatar-main-text'>{this.text}</span>}
+        <button
+          type="button"
+          class="avatar-trigger"
+          onClick={() => this.toggleDropdown()}
+          aria-expanded={this.isOpen ? 'true' : 'false'}
+          aria-label={this.aria_label || 'Avatar options'}
+        >
+          {this.type === 'photo' && <img src={this.src} alt="Avatar" />}
+          {this.type === 'icon' && <i class={`${this.icon} dda-smile`}>sentiment_satisfied</i>}
+          {this.type === 'text' && <span class='avatar-main-text'>{this.text}</span>}
+        </button>
         {this.design === 'status' && <div class="status-circle"></div>}
         {this.design === 'verified' && <div class="verified-icon"><span class="material-icons  material-symbols-outlined">verified</span></div>}
         {this.design === 'notification' && <div class="notification-circle">{this.notification_number}</div>}
-      </div>
+        {this.isOpen && (
+          <div class="dda-input-dropdown-list">
+            {this.parsedOptions.length > 0 ? (
+              this.parsedOptions.map(option => (
+                <button id={this.button_id} name={this.button_name} aria-label={this.aria_label} type="button"
+                  class={`dda-input-dropdown-item ${this.selected === option ? 'selected' : ''}`}
+                  onClick={() => {this.selectOption(option)}}
+                >
+                  {option}
+                </button>
+              ))
+            ) : (
+              <div class="dda-input-dropdown-item">No options available</div>
+            )}
+          </div>
+        )}
+      </Host>
     );
   }
 }
