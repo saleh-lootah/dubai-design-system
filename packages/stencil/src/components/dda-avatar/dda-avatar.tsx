@@ -41,6 +41,12 @@ export class DdaAvatar {
   }
 
   render() {
+    const hasOptions = this.parsedOptions.length > 0;
+    const avatarContent = [
+      this.type === 'photo' && <img src={this.src} alt="Avatar" />,
+      this.type === 'icon' && <i class={`${this.icon} dda-smile`}>sentiment_satisfied</i>,
+      this.type === 'text' && <span class='avatar-main-text'>{this.text}</span>,
+    ];
     return (
       <div class={{
         'dda-avatar': true,
@@ -52,33 +58,33 @@ export class DdaAvatar {
         [`${this.component_mode}`]: true,
         [`${this.button_name}`]: true,
       }}>
-      {this.isOpen && (
-        <div class="dda-input-dropdown-list">
-          {this.parsedOptions.length > 0 ? (
-            this.parsedOptions.map(option => (
+        {hasOptions ? (
+          <button
+            type="button"
+            class="avatar-trigger"
+            onClick={() => this.toggleDropdown()}
+            aria-expanded={this.isOpen ? 'true' : 'false'}
+            aria-label={this.aria_label || 'Avatar options'}
+          >
+            {avatarContent}
+          </button>
+        ) : (
+          <div class="avatar-trigger">
+            {avatarContent}
+          </div>
+        )}
+        {hasOptions && this.isOpen && (
+          <div class="dda-input-dropdown-list">
+            {this.parsedOptions.map(option => (
               <button id={this.button_id} name={this.button_name} aria-label={this.aria_label} type="button"
                 class={`dda-input-dropdown-item ${this.selected === option ? 'selected' : ''}`}
                 onClick={() => {this.selectOption(option)}}
               >
                 {option}
               </button>
-            ))
-          ) : (
-            <div class="dda-input-dropdown-item">No options available</div>
-          )}
-        </div>
-      )}
-        <button
-          type="button"
-          class="avatar-trigger"
-          onClick={() => this.toggleDropdown()}
-          aria-expanded={this.isOpen ? 'true' : 'false'}
-          aria-label={this.aria_label || 'Avatar options'}
-        >
-          {this.type === 'photo' && <img src={this.src} alt="Avatar" />}
-          {this.type === 'icon' && <i class={`${this.icon} dda-smile`}>sentiment_satisfied</i>}
-          {this.type === 'text' && <span class='avatar-main-text'>{this.text}</span>}
-        </button>
+            ))}
+          </div>
+        )}
         {this.design === 'status' && <div class="status-circle"></div>}
         {this.design === 'verified' && <div class="verified-icon"><span class="material-icons  material-symbols-outlined">verified</span></div>}
         {this.design === 'notification' && <div class="notification-circle">{this.notification_number}</div>}

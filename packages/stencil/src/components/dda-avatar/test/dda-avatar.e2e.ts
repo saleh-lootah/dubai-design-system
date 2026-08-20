@@ -12,6 +12,57 @@ describe('dda-avatar', () => {
     expect(el).toHaveClass('hydrated');
   });
 
+  // F-002's repair (a real <button class="avatar-trigger">) was applied
+  // unconditionally, with no options prop consulted — so a decorative
+  // avatar with no options became a Tab stop announcing "Avatar options"
+  // and opening a menu reading "No options available". Fix: the trigger is
+  // only a <button> when parsedOptions.length > 0; otherwise it's a plain,
+  // non-interactive <div class="avatar-trigger">. This test fails against
+  // the unconditional-button code and passes against the fix.
+  it('exposes no focusable control when there are no options', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-avatar type="photo" src="x.png"></dda-avatar>');
+
+    await page.keyboard.press('Tab');
+    const focusLandedInsideAvatar = await page.evaluate(() => {
+      const active = document.activeElement;
+      const avatar = document.querySelector('dda-avatar');
+      return !!(active && avatar && avatar.contains(active));
+    });
+    expect(focusLandedInsideAvatar).toBe(false);
+
+    const trigger = await page.find('dda-avatar .avatar-trigger');
+    expect(trigger).not.toBeNull();
+    expect(trigger.tagName).toBe('DIV');
+
+    const button = await page.find('dda-avatar button.avatar-trigger');
+    expect(button).toBeNull();
+  });
+
+  // The dropdown list must not precede the trigger in DOM order — that
+  // would put it before the trigger in tab order (Shift-Tab would reach
+  // menu items; Tab would leave the component before ever reaching the
+  // trigger that opens them).
+  it('renders the trigger before the dropdown list in DOM order', async () => {
+    const page = await newE2EPage();
+    await page.setContent(avatar());
+
+    const trigger = await page.find('dda-avatar button.avatar-trigger');
+    await trigger.click();
+    await page.waitForChanges();
+
+    const order = await page.evaluate(() => {
+      const root = document.querySelector('dda-avatar > div.dda-avatar') as HTMLElement;
+      const children = Array.from(root.children).map(c => c.className);
+      const triggerIndex = children.findIndex(c => c.includes('avatar-trigger'));
+      const listIndex = children.findIndex(c => c.includes('dda-input-dropdown-list'));
+      return { triggerIndex, listIndex };
+    });
+    expect(order.triggerIndex).toBeGreaterThanOrEqual(0);
+    expect(order.listIndex).toBeGreaterThanOrEqual(0);
+    expect(order.triggerIndex).toBeLessThan(order.listIndex);
+  });
+
   // F-002's repair must not change the published custom element's DOM shape:
   // the original root was <dda-avatar><div class="dda-avatar">...</div></dda-avatar>,
   // and it still is — only a button was added inside that div, wrapping the
