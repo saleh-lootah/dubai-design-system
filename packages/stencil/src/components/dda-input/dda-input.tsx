@@ -25,6 +25,26 @@ export class DdaInput {
     this.value = event.target.value;
   }
 
+  // F-016: ids are derived from the consumer-supplied input_id, the same
+  // pattern dda-select's listboxId already relies on for uniqueness. If a
+  // consumer omits input_id, no id-based association is emitted at all
+  // (rather than colliding on a shared literal id across instances).
+  private get helperId(): string | undefined {
+    return this.input_id ? `${this.input_id}-helper` : undefined;
+  }
+
+  private get errorId(): string | undefined {
+    return this.input_id ? `${this.input_id}-error` : undefined;
+  }
+
+  private get describedBy(): string | undefined {
+    const ids = [
+      this.helper_text ? this.helperId : undefined,
+      this.error_message ? this.errorId : undefined,
+    ].filter(Boolean);
+    return ids.length ? ids.join(' ') : undefined;
+  }
+
   render() {
     const inputClass = [
       'dda-input-container',
@@ -51,9 +71,11 @@ export class DdaInput {
             value={this.value}
             onInput={(event) => this.handleInput(event)}
             class="dda-input-field dda-input-text"
+            aria-describedby={this.describedBy}
+            aria-invalid={this.error_message ? 'true' : undefined}
           />
-          {this.helper_text && <span class="dda-helper-text">{this.helper_text}</span>}
-          {this.error_message && <span class="dda-error-message">{this.error_message}</span>}
+          {this.helper_text && <span id={this.helperId} class="dda-helper-text">{this.helper_text}</span>}
+          {this.error_message && <span id={this.errorId} class="dda-error-message">{this.error_message}</span>}
         </div>
       </Host>
     );

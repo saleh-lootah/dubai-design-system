@@ -64,3 +64,77 @@ describe('dda-input focus indicator', () => {
     expect(focused.boxShadow).not.toBe('none');
   });
 });
+
+// F-016: error text was a plain sibling <span> with no id, and the <input>
+// carried no aria-describedby/aria-invalid, so a screen-reader user tabbing
+// into an errored field heard the label only, never the error.
+describe('dda-input F-016 error labelling', () => {
+  it('has no aria-invalid and no aria-describedby when there is no error or helper text', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-input input_id="input"></dda-input>');
+
+    const result = await page.evaluate(() => {
+      const input = document.querySelector('dda-input input');
+      return {
+        invalid: input.getAttribute('aria-invalid'),
+        describedby: input.getAttribute('aria-describedby'),
+      };
+    });
+
+    expect(result.invalid).toBeNull();
+    expect(result.describedby).toBeNull();
+  });
+
+  it('points aria-describedby at an error element that exists and holds the error text, and sets aria-invalid=true', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-input input_id="input" error_message="Required field"></dda-input>');
+
+    const result = await page.evaluate(() => {
+      const input = document.querySelector('dda-input input');
+      const ids = (input.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
+      const texts = ids.map((id) => document.getElementById(id)?.textContent?.trim() ?? null);
+      return { invalid: input.getAttribute('aria-invalid'), ids, texts };
+    });
+
+    expect(result.invalid).toBe('true');
+    expect(result.ids.length).toBeGreaterThan(0);
+    expect(result.ids.every((id) => id.length > 0)).toBe(true);
+    expect(result.texts).toContain('Required field');
+    expect(result.texts.every((t) => t !== null)).toBe(true);
+  });
+
+  it('references both helper text and error message, in reading order, when both are present', async () => {
+    const page = await newE2EPage();
+    await page.setContent(
+      '<dda-input input_id="input" helper_text="Use digits only" error_message="Required field"></dda-input>'
+    );
+
+    const result = await page.evaluate(() => {
+      const input = document.querySelector('dda-input input');
+      const ids = (input.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
+      const texts = ids.map((id) => document.getElementById(id)?.textContent?.trim() ?? null);
+      return { texts };
+    });
+
+    expect(result.texts).toEqual(['Use digits only', 'Required field']);
+  });
+
+  it('gives two field instances distinct, non-colliding error ids', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`
+      <dda-input input_id="input-a" error_message="Error A"></dda-input>
+      <dda-input input_id="input-b" error_message="Error B"></dda-input>
+    `);
+
+    const result = await page.evaluate(() => {
+      const inputs = Array.from(document.querySelectorAll('dda-input input'));
+      return inputs.map((input) => {
+        const ids = (input.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
+        return ids.map((id) => document.getElementById(id)?.textContent?.trim());
+      });
+    });
+
+    expect(result[0]).toEqual(['Error A']);
+    expect(result[1]).toEqual(['Error B']);
+  });
+});
