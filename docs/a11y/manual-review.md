@@ -450,7 +450,7 @@ the actual byte size of the CSS file(s) it references:
 | Component | `styleUrls` declared | File size | Imports `global.css`? |
 | --- | --- | --- | --- |
 | `dda-footer` | `dda-footer.tsx:5`, `styleUrl: 'dda-footer.css'` (singular form, one file only) | `dda-footer.css` is **0 bytes** | No |
-| `dda-sticky-footer` | `dda-sticky-footer.tsx:6`, `styleUrl: 'dda-sticky-footer.css'`; note `:5` has a **commented-out** `styleUrls: ['dda-sticky-footer.css', '../../global/global.css']` right above it | `dda-sticky-footer.css` is **0 bytes** | No — the line that would have imported it is commented out |
+| `dda-sticky-footer` | `dda-sticky-footer.tsx:5`, `styleUrl: 'dda-sticky-footer.css'`; note `:6` has a **commented-out** `styleUrls: ['dda-sticky-footer.css', '../../global/global.css']` right below it | `dda-sticky-footer.css` is **0 bytes** | No — the line that would have imported it is commented out |
 | `dda-banner` | `dda-banner.tsx:5`, `styleUrls: ['dda-banner.css', '../../global/global.css']` | `dda-banner.css` is 28 bytes, just `:host { display: block; }` | **Yes** |
 
 **Finding, more severe than the brief's framing assumes:** the question "does the global
@@ -504,6 +504,19 @@ current position with `aria-current`. `dda-breadcrumb.tsx:31` marks the last cru
 `class={i === this.current_page ? 'active' : ''}` (same gap, no `aria-current="page"`).
 Same shape of gap as the stepper components reviewed in Group 4 (see below) — a screen
 reader user gets no non-visual indication of "this is where you are" in either component.
+
+**Open item for Task 7, not run down here given this section's lighter-touch scope:**
+`dda-breadcrumb.tsx:32` renders every crumb, including the current/last one, as a real
+`<a href={crumb.url}>` — the WAI breadcrumb pattern recommends the current page either not
+be a link at all or be marked `aria-current="page"` (which it isn't, per the finding
+above); worth asking specifically whether the last crumb should stay a clickable link to
+its own URL, since a screen reader user gets no signal that clicking it goes nowhere new.
+Separately for `dda-pagination`: `dda-pagination.tsx:111`'s page-number buttons render
+only the bare digit as their accessible name (`{i}`, no `aria-label`) — worth asking
+whether "3" read in isolation by a screen reader (with no announcement that it's a page
+number) is sufficient, or whether each button needs an `aria-label` like "Page 3".
+Neither question was investigated further here; recording them as open rather than
+implying either component passed a check it never received.
 
 ### Group 2 summary
 
@@ -736,14 +749,23 @@ single-value shorthand, e.g. `dda-button.css:25-28`:
 sub-property it doesn't mention to its initial value — `outline-style`'s initial value is
 `none`. So `outline: var(...)` sets `outline-color` and silently forces
 `outline-style: none`, producing **no rendered outline at all**, regardless of which color
-variable is passed. This is present in essentially every `btn-color-*:focus` block
+variable is passed. This malformed shorthand is present in 9 of the 11 `btn-color-*:focus`
+blocks that resolve to needs-manual entries
 (`dda-button.css:25-28,58-61,72-74,130-134,145-149,162-165,176-179,333-336,347-351,
 363-367,378-382,395-399,411-415,427-431,442-446,458-462,473-477` — the `link`-variant
 rules at `:115-117,219-221,318-320` use `outline: auto`, which *is* syntactically valid
 and would restore a real outline — those three are not part of the needs-manual set and
-are not examined further here). With the outline gone, the only surviving focus
-indication is whatever `background-color`/`border-color` change the same rule declares —
-exactly the shape of change the automated checker calls "needs manual contrast check."
+are not examined further here). **The remaining 1 of the 3 button-color variants checked
+below, `btn-color-onsurface-primary:focus` (`dda-button.css:234-236`), has no `outline`
+declaration of any kind** — it never attempts the malformed shorthand at all, it simply
+never overrides `.dda-btn`'s base `outline: 0` (`:8`), so the base rule governs directly
+by cascade. Both paths converge on the same root cause — no outline ever reaches the
+focused button — but only 9 of the 11 needs-manual rows get there via the broken
+shorthand; the `onsurface-primary` rows (1 in `dda-button`, 1 in `dda-link-button`) get
+there because no `outline` property was ever declared for that variant's focus state.
+Either way, the only surviving focus indication is whatever `background-color`/
+`border-color` change the same rule declares — exactly the shape of change the automated
+checker calls "needs manual contrast check."
 
 I computed the actual contrast ratio between the resting and focused background color for
 the three `button_color` variants the baseline's 4 button/4 link-button entries map to
@@ -770,17 +792,36 @@ blocks), `:150-210` (error scale), `:461-520` (neutral/surface scale). Method: s
 WCAG relative-luminance formula (sRGB → linear, `L = 0.2126R + 0.7152G + 0.0722B`,
 ratio `(L_lighter+0.05)/(L_darker+0.05)`), computed by hand against the hex pairs above.
 
-**Side finding, not one of the 15 but discovered while tracing this:** every
-`.light-mode.btn-color-*` rule in `dda-button.css` (e.g. `:30-45,63-75,91-101`) is dead
-code. The library's actual theme switch is the `data-theme` attribute on `<html>`
-(`.storybook/preview.js:12-13`, `setThemeAttribute` → `document.documentElement.setAttribute
-('data-theme', theme)`; `global/color.css:53` uses `:root[data-theme='dark']`), but
-`dda-button.css`'s light-specific overrides are gated behind a literal `.light-mode` CSS
-class. Grepped the entire non-`dist` source tree (`.ts`/`.js`, excluding `node_modules`)
-for anywhere that adds a `light-mode` class — zero matches. These rules can never match
-any element as the codebase is wired today. They happen to be harmless here (the base,
-always-applied rule already resolves to the same color via the CSS-variable cascade for
-light theme), but it's dead, misleading code worth flagging for Task 9's cleanup pass.
+**Side finding, not one of the 15 but discovered while tracing this — retracted and
+corrected.** An earlier draft of this section claimed every `.light-mode.btn-color-*`
+rule in `dda-button.css` (e.g. `:30-45,63-75,91-101`) was dead code, reasoning from a
+grep for the literal string `light-mode` across `.ts`/`.js` source that found no
+hardcoded class assignment. **That grep missed the dynamic path and the claim is wrong —
+retracting it.** `dda-button.tsx:38` splices the public `@Prop() component_mode` directly
+into the rendered class list (`this.component_mode` inside the `buttonClass` array,
+`dda-button.tsx:30-39`), and `dda-button.stories.tsx:58-62` exposes `'light-mode'` as a
+selectable value for that exact prop via a Storybook `control: { type: 'check' }`. The
+same pattern recurs in roughly 28 other components' stories (confirmed:
+`grep -rl "'light-mode'" packages/stencil/src/components --include="*.stories.tsx"` returns
+28 files). So `component_mode="light-mode"` is a real, documented, reachable way to apply
+the `.light-mode` class, and every `.light-mode.btn-color-*` rule does match when a
+consumer sets it — this is a live code path, not dead code, and should not be deleted.
+
+Assessed on its own merits rather than assumed identical: the `.light-mode` focus rules
+for the three variants computed above use the exact same underlying color tokens as the
+base (non-`.light-mode`) rules already resolve to in light theme —
+`.light-mode.btn-color-default-primary:focus` (`dda-button.css:41-45`) sets
+`background-color`/`outline: var(--dda-primary-20)` against a resting
+`var(--dda-primary-40)` (`:30-35`), the identical `#006A67` → `#003735` pair already
+computed as 2.04:1 above; `.light-mode.btn-color-error-primary:focus`
+(`dda-button.css:145-149`) uses `var(--dda-error-30)`/resting `var(--dda-error-40)`,
+the identical `#C0000A` → `#930005` pair computed as 1.45:1; and
+`.light-mode.btn-color-onsurface-primary:focus` (`dda-button.css:248-251`) has, like its
+non-`.light-mode` counterpart, **no `outline` property at all** — same mechanism as the
+`I1` correction above. So the `.light-mode` path is reachable, and it fails the same way,
+with the same numbers, as the base rule already does in light theme — it is not a
+separate defect to chase down, but it is real, live code, and Task 9 should not delete it
+as unreachable.
 
 **`dda-home-banner--default`/`--autoplay` (2 of 15) — same root cause, confirmed by
 tracing the actual slotted markup.** `dda-home-banner.stories.tsx:5-14` defines each
@@ -790,7 +831,7 @@ action</dda-button>` (`:12`). `dda-home-banner` is `shadow: false`
 that receives the same global `dda-button.css` as everywhere else. I checked
 `dda-home-banner`'s own CSS first, since the component's other four controls
 (prev/next/pause/dots) do have a correctly-formed focus-visible rule —
-`dda-home-banner/home-banner.css:181-186`:
+`dda-home-banner/home-banner.css:182-187`:
 ```
 .slider-nav .prev:focus-visible, .slider-nav .next:focus-visible,
 .slider-nav .pause:focus-visible, .slider-nav .dots:focus-visible {
@@ -868,13 +909,26 @@ contrast verdict that a screenshot would resolve in seconds.
 
 **Summary verdict on the 15:** 11 of 15 are confirmed WCAG 2.4.7 failures with computed
 numbers (`dda-button` x4, `dda-link-button` x4, `dda-home-banner` x2,
-`dda-search-input` x1) — all trace to the same malformed `outline: <color>` shorthand
-defect in `global/dda-button.css`. 1 of 15 (`dda-footer`) is unmeasurable-as-a-contrast-
-question because there is no authored CSS behind it at all — treat as failing. 3 of 15
-(`dda-number-field` x2, `dda-phonefield` x1) have a confirmed, different mechanism (a
-1px partial-edge border, `input.css:341-342`) that is weak but real, and I'm not
-confident enough in a static reading to call pass or fail — flagged as needing a live
-check rather than guessed.
+`dda-search-input` x1). **Correction to an earlier draft of this section:** the common
+root cause across all 11 is the base `.dda-btn { outline: 0; }` rule at
+`global/dda-button.css:8`, not the malformed per-variant shorthand as I originally
+summarized here. 9 of the 11 additionally carry the malformed `outline: <color>`
+single-value shorthand on their own `:focus` rule (an attempt to restore an outline that
+fails the same way `.dda-btn`'s base `outline: 0` already guaranteed). The remaining 2 of
+11 — `btn-color-onsurface-primary:focus` (`dda-button.css:234-236`, the `SurfacePrimary`
+variant, one row each in `dda-button` and `dda-link-button`) — have **no `outline`
+property at all**; they never attempt the malformed shorthand, they simply never override
+the base `outline: 0`, so the same "no outline, background-color-only change, and that
+change fails 3:1" outcome is reached by cascade alone, not by a broken shorthand. The
+detailed per-variant list earlier in this section already reflected this correctly (its
+line list omits 234-236); only this summary previously overstated the mechanism as
+uniform. Both the malformed-shorthand path and the outline-never-set path converge on the
+same base rule, so "1 root cause, 2 distinct paths to it" is the accurate description. 1
+of 15 (`dda-footer`) is unmeasurable-as-a-contrast-question because there is no authored
+CSS behind it at all — treat as failing. 3 of 15 (`dda-number-field` x2,
+`dda-phonefield` x1) have a confirmed, different mechanism (a 1px partial-edge border,
+`input.css:341-342`) that is weak but real, and I'm not confident enough in a static
+reading to call pass or fail — flagged as needing a live check rather than guessed.
 
 ### Q1 — `dda-chip` and `dda-avatar`: keyboard-operable?
 
@@ -975,10 +1029,18 @@ asked:**
 No dedicated question in the brief for this component. Light-touch check: purely
 presentational (`dda-credit-card.tsx:17-45`), no interactive elements of its own, so none
 of this group's keyboard/ARIA questions apply. One thing worth a one-line flag:
-`dda-credit-card.tsx:38`: `{this.name}` and `:38` `**** {this.card_number.slice(-4)}` will
+`dda-credit-card.tsx:37`: `{this.name}` and `:38` `**** {this.card_number.slice(-4)}` will
 throw if `card_number` is ever left unset (`undefined.slice` is a runtime error, no
 guard) — a robustness issue, not an accessibility one, noted in passing since it would
 crash the component rather than degrade gracefully.
+
+**Open item for Task 7, not run down here given this section's lighter-touch scope:**
+the masked number at `dda-credit-card.tsx:38` (`**** {this.card_number.slice(-4)}`) and
+the `wifi` contactless icon at `:33` (marked `aria-hidden="true"`, correctly) were not
+checked for how a screen reader actually announces the masked digits — worth asking
+specifically whether "**** 1234" reads sensibly aloud (e.g. as "star star star star one
+two three four") or needs an `aria-label` summarizing it as "card ending in 1234", since
+this was not tested against real assistive technology output, only read as markup.
 
 ### Group 4 summary
 
