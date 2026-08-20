@@ -44,7 +44,11 @@
     "generate": "stencil generate",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "release": "standard-version"
+    "release": "standard-version",
+    "lint": "eslint src",
+    "lint:report": "eslint src -f json -o ../../docs/a11y/eslint-report.json",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\""
   },
   "dependencies": {
     "chromatic": "^11.11.0",
