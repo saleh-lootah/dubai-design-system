@@ -52,6 +52,41 @@ export class DdaTextarea {
     return ids.length ? ids.join(' ') : undefined;
   }
 
+  // F-015: Quill does not make the container passed to `new Quill(...)`
+  // editable — it mounts its real editable surface as a child `.ql-editor`
+  // div with contenteditable="true" (that's what Tab actually lands on, per
+  // the pre-existing focus-ring e2e test below). aria-labelledby/role/etc.
+  // on the container never reach an AT's accessible-name computation for a
+  // descendant, so the label/description/invalid-state must be applied
+  // directly to quill.root (the `.ql-editor` element) after mount, and kept
+  // in sync whenever the driving props change.
+  private syncRichEditorA11y() {
+    if (!this.quill) {
+      return;
+    }
+    const editorEl = this.quill.root as HTMLElement;
+    editorEl.setAttribute('role', 'textbox');
+    editorEl.setAttribute('aria-multiline', 'true');
+
+    if (this.labelId) {
+      editorEl.setAttribute('aria-labelledby', this.labelId);
+    } else {
+      editorEl.removeAttribute('aria-labelledby');
+    }
+
+    if (this.describedBy) {
+      editorEl.setAttribute('aria-describedby', this.describedBy);
+    } else {
+      editorEl.removeAttribute('aria-describedby');
+    }
+
+    if (this.error_message) {
+      editorEl.setAttribute('aria-invalid', 'true');
+    } else {
+      editorEl.removeAttribute('aria-invalid');
+    }
+  }
+
   componentDidLoad() {
     if (this.enable_rich_editor) {
       // F-015: was `#editor` — the id is now the consumer-supplied
@@ -87,6 +122,14 @@ export class DdaTextarea {
         this.value = this.quill.root.innerHTML;
         this.characterCount = this.quill.getText().length - 1; // Update character count
       });
+
+      this.syncRichEditorA11y();
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.enable_rich_editor) {
+      this.syncRichEditorA11y();
     }
   }
 
@@ -111,16 +154,14 @@ export class DdaTextarea {
           {this.label && <label id={this.labelId} htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
           {this.enable_rich_editor ? (
             // F-015: previously a bare `<div id="editor">` — the visible
-            // label's `for` cannot target a non-labelable <div>, so it had
-            // no accessible name at all in rich-editor mode. aria-labelledby
-            // works on any element regardless of the HTML "labelable" list.
+            // label's `for` cannot target a non-labelable <div>, and even
+            // aria-labelledby here would be wrong: Quill turns this
+            // container into a wrapper and mounts the real editable surface
+            // as a child `.ql-editor`, which is what AT and Tab actually
+            // land on. The ARIA lives on quill.root (.ql-editor), applied
+            // imperatively in syncRichEditorA11y() after mount.
             <div
               id={this.input_id}
-              aria-labelledby={this.labelId}
-              role="textbox"
-              aria-multiline="true"
-              aria-describedby={this.describedBy}
-              aria-invalid={this.error_message ? 'true' : undefined}
               class="dda-richeditor-field"
             ></div>
           ) : (

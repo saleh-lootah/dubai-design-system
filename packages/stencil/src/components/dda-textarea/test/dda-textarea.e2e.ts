@@ -108,30 +108,51 @@ describe('dda-textarea F-015 rich editor labelling', () => {
     expect(result.targetTag).toBe('TEXTAREA');
   });
 
-  it('rich-editor mode: the visible label resolves to an accessible name on a real element in the DOM', async () => {
+  it('rich-editor mode: the element that actually receives focus resolves an accessible name, description, and invalid state', async () => {
     const page = await newE2EPage();
-    await page.setContent('<dda-textarea input_id="input" label="Notes" enable_rich_editor="true"></dda-textarea>');
+    await page.setContent(
+      '<dda-textarea input_id="input" label="Notes" helper_text="Formatting supported" error_message="Required" enable_rich_editor="true"></dda-textarea>'
+    );
+    // Quill mounts asynchronously in componentDidLoad().
     await page.waitForSelector('.ql-editor');
     await page.waitForChanges();
 
+    // Quill does not make the container passed to `new Quill(...)` editable
+    // — it mounts its real editable surface as a child `.ql-editor` div with
+    // contenteditable="true", which is what Tab actually lands on (see the
+    // focus-indicator suite above for the same Tab-order caveat). Assert
+    // against document.activeElement, not the container, so this test
+    // follows the user rather than the markup.
+    await page.keyboard.press('Tab');
+    await page.$eval('.ql-editor', (el: HTMLElement) => el.focus());
+
     const result = await page.evaluate(() => {
-      const label = document.querySelector('dda-textarea label') as HTMLLabelElement;
-      const editorContainer = document.querySelector('dda-textarea .dda-richeditor-field');
-      const labelledbyIds = (editorContainer?.getAttribute('aria-labelledby') || '').split(' ').filter(Boolean);
-      const labelledbyTargets = labelledbyIds.map((id) => document.getElementById(id));
+      const el = document.activeElement as HTMLElement;
+      if (!el || el === document.body) return null;
+      const labelledbyIds = (el.getAttribute('aria-labelledby') || '').split(' ').filter(Boolean);
+      const describedbyIds = (el.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
       return {
-        labelText: label?.textContent?.trim(),
-        editorContainerExists: !!editorContainer,
+        cls: el.className,
+        role: el.getAttribute('role'),
+        ariaMultiline: el.getAttribute('aria-multiline'),
+        ariaInvalid: el.getAttribute('aria-invalid'),
         labelledbyIds,
-        labelledbyTargetsExist: labelledbyTargets.every((el) => !!el),
-        labelledbyTargetsText: labelledbyTargets.map((el) => el?.textContent?.trim()),
+        labelledbyText: labelledbyIds.map((id) => document.getElementById(id)?.textContent?.trim()),
+        describedbyIds,
+        describedbyText: describedbyIds.map((id) => document.getElementById(id)?.textContent?.trim()),
       };
     });
 
-    expect(result.editorContainerExists).toBe(true);
+    expect(result).not.toBeNull();
+    expect(result.cls).toContain('ql-editor');
+    expect(result.role).toBe('textbox');
+    expect(result.ariaMultiline).toBe('true');
+    expect(result.ariaInvalid).toBe('true');
     expect(result.labelledbyIds.length).toBeGreaterThan(0);
-    expect(result.labelledbyTargetsExist).toBe(true);
-    expect(result.labelledbyTargetsText).toContain('Notes');
+    expect(result.labelledbyText).toContain('Notes');
+    expect(result.describedbyIds.length).toBe(2);
+    expect(result.describedbyText[0]).toContain('Formatting supported');
+    expect(result.describedbyText[1]).toContain('Required');
   });
 });
 
