@@ -102,8 +102,30 @@ jobs:
           source "$GITHUB_WORKSPACE/.github/scripts/ratchet.sh"
           source "$GITHUB_WORKSPACE/.github/quality-baseline.env"
 
-          npx prettier --list-different "src/**/*.{ts,tsx,css}" | tee /tmp/prettier-unformatted.txt || true
-          FILES=$(wc -l < /tmp/prettier-unformatted.txt)
+          # No pipe here on purpose: piping into `tee` and discarding the exit
+          # status with `|| true` was the Critical bug this step used to have
+          # — a total Prettier crash (bad config, resolution error: exits 2,
+          # every diagnostic on stderr, zero bytes on stdout) would leave the
+          # unformatted-files list empty, so FILES=0 and the ratchet below
+          # would read the crash as "0 unformatted files, IMPROVED, lower the
+          # baseline." Capturing the real exit code directly avoids that.
+          set +e
+          npx prettier --list-different "src/**/*.{ts,tsx,css}" > /tmp/prettier-unformatted.txt 2> /tmp/prettier-stderr.txt
+          PRETTIER_EXIT=$?
+          set -e
+
+          cat /tmp/prettier-unformatted.txt
+
+          # Prettier's own contract: exit 0 = nothing unformatted, exit 1 =
+          # some files unformatted (both are a real, trustworthy count). Any
+          # other exit code means it didn't run the check at all.
+          if [ "$PRETTIER_EXIT" -eq 0 ] || [ "$PRETTIER_EXIT" -eq 1 ]; then
+            FILES=$(wc -l < /tmp/prettier-unformatted.txt)
+          else
+            echo "Prettier exited $PRETTIER_EXIT (not 0 or 1) — it did not complete the check, this is not a count of 0:"
+            cat /tmp/prettier-stderr.txt
+            FILES="prettier-crashed"
+          fi
 
           ratchet "Prettier unformatted files" "$FILES" "$FORMAT_UNFORMATTED_FILES_BASELINE"
 
