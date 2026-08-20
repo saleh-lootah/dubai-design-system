@@ -1,4 +1,4 @@
-import { Component, Prop, State, h, Host } from '@stencil/core';
+import { Component, Prop, State, h } from '@stencil/core';
 
 @Component({
   tag: 'dda-avatar',
@@ -42,7 +42,7 @@ export class DdaAvatar {
 
   render() {
     return (
-      <Host class={{
+      <div class={{
         'dda-avatar': true,
         [`avatar-type-${this.type}`]: true,
         [`avatar-size-${this.size}`]: true,
@@ -52,6 +52,22 @@ export class DdaAvatar {
         [`${this.component_mode}`]: true,
         [`${this.button_name}`]: true,
       }}>
+      {this.isOpen && (
+        <div class="dda-input-dropdown-list">
+          {this.parsedOptions.length > 0 ? (
+            this.parsedOptions.map(option => (
+              <button id={this.button_id} name={this.button_name} aria-label={this.aria_label} type="button"
+                class={`dda-input-dropdown-item ${this.selected === option ? 'selected' : ''}`}
+                onClick={() => {this.selectOption(option)}}
+              >
+                {option}
+              </button>
+            ))
+          ) : (
+            <div class="dda-input-dropdown-item">No options available</div>
+          )}
+        </div>
+      )}
         <button
           type="button"
           class="avatar-trigger"
@@ -66,23 +82,7 @@ export class DdaAvatar {
         {this.design === 'status' && <div class="status-circle"></div>}
         {this.design === 'verified' && <div class="verified-icon"><span class="material-icons  material-symbols-outlined">verified</span></div>}
         {this.design === 'notification' && <div class="notification-circle">{this.notification_number}</div>}
-        {this.isOpen && (
-          <div class="dda-input-dropdown-list">
-            {this.parsedOptions.length > 0 ? (
-              this.parsedOptions.map(option => (
-                <button id={this.button_id} name={this.button_name} aria-label={this.aria_label} type="button"
-                  class={`dda-input-dropdown-item ${this.selected === option ? 'selected' : ''}`}
-                  onClick={() => {this.selectOption(option)}}
-                >
-                  {option}
-                </button>
-              ))
-            ) : (
-              <div class="dda-input-dropdown-item">No options available</div>
-            )}
-          </div>
-        )}
-      </Host>
+      </div>
     );
   }
 }
