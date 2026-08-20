@@ -32,6 +32,11 @@ export default {
       options: ['light-mode'],
       description: 'Mode of the progress bar component',
     },
+    aria_label: {
+      control: { type: 'text' },
+      description: 'Accessible name announced for the progressbar role. Defaults to "Progress".',
+      defaultValue: 'Progress',
+    },
   },
   parameters: {
     docs: {
@@ -47,6 +52,7 @@ To use the \`dda-progressbar\` component, pass the following props:
     show_percentage_text="false"
     custom_class=""
     component_mode=""
+    aria_label="Progress"
 ></dda-progressbar>
   \`\`\`
 `,

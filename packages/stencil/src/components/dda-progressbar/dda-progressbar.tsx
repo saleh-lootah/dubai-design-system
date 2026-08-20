@@ -11,7 +11,8 @@ export class DdaProgressBar {
   @Prop() tooltip_position: 'top' | 'bottom' = 'top';
   @Prop() show_percentage_text: boolean = false;
   @Prop() custom_class: string;
-  @Prop() component_mode?: string; 
+  @Prop() component_mode?: string;
+  @Prop() aria_label: string = 'Progress';
 
   render() {
     const progressStyle = {
@@ -24,6 +25,7 @@ export class DdaProgressBar {
           <div
             class="dda-progress-bar"
             role="progressbar"
+            aria-label={this.aria_label}
             aria-valuenow={`${this.progress}`}
             aria-valuemin="0"
             aria-valuemax="100"

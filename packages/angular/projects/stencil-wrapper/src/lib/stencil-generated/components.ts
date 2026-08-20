@@ -494,14 +494,14 @@ export declare interface DdaPhonefield extends Components.DdaPhonefield {}
 
 
 @ProxyCmp({
-  inputs: ['component_mode', 'custom_class', 'progress', 'show_percentage_text', 'tooltip', 'tooltip_position']
+  inputs: ['aria_label', 'component_mode', 'custom_class', 'progress', 'show_percentage_text', 'tooltip', 'tooltip_position']
 })
 @Component({
   selector: 'dda-progressbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['component_mode', 'custom_class', 'progress', 'show_percentage_text', 'tooltip', 'tooltip_position'],
+  inputs: ['aria_label', 'component_mode', 'custom_class', 'progress', 'show_percentage_text', 'tooltip', 'tooltip_position'],
 })
 export class DdaProgressbar {
   protected el: HTMLDdaProgressbarElement;

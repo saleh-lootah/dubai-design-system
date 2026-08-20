@@ -58,6 +58,26 @@ describe('dda-progressbar', () => {
     const bar = await page.find('dda-progressbar .dda-progress-bar');
     expect(bar.getAttribute('aria-valuenow')).toBe('0');
   });
+
+  // F-050 / axe `aria-progressbar-name`: role="progressbar" had no
+  // accessible name at all. Fix: a new `aria_label` prop, defaulted so
+  // every existing consumer (who never sets it) still gets a real name
+  // rather than reverting to silence.
+  it('has a real accessible name on the progressbar role by default', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-progressbar progress="40"></dda-progressbar>');
+
+    const bar = await page.find('dda-progressbar .dda-progress-bar');
+    expect(bar.getAttribute('aria-label')).toBe('Progress');
+  });
+
+  it('lets a consumer override the accessible name via aria_label', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-progressbar progress="40" aria_label="Upload progress"></dda-progressbar>');
+
+    const bar = await page.find('dda-progressbar .dda-progress-bar');
+    expect(bar.getAttribute('aria-label')).toBe('Upload progress');
+  });
 });
 
 // F-023 (Row C): `.dda-percentage-text` hardcoded near-black

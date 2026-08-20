@@ -7,14 +7,15 @@
 
 ## Properties
 
-| Property               | Attribute              | Description | Type                | Default     |
-| ---------------------- | ---------------------- | ----------- | ------------------- | ----------- |
-| `component_mode`       | `component_mode`       |             | `string`            | `undefined` |
-| `custom_class`         | `custom_class`         |             | `string`            | `undefined` |
-| `progress`             | `progress`             |             | `number`            | `0`         |
-| `show_percentage_text` | `show_percentage_text` |             | `boolean`           | `false`     |
-| `tooltip`              | `tooltip`              |             | `boolean`           | `false`     |
-| `tooltip_position`     | `tooltip_position`     |             | `"bottom" \| "top"` | `'top'`     |
+| Property               | Attribute              | Description | Type                | Default      |
+| ---------------------- | ---------------------- | ----------- | ------------------- | ------------ |
+| `aria_label`           | `aria_label`           |             | `string`            | `'Progress'` |
+| `component_mode`       | `component_mode`       |             | `string`            | `undefined`  |
+| `custom_class`         | `custom_class`         |             | `string`            | `undefined`  |
+| `progress`             | `progress`             |             | `number`            | `0`          |
+| `show_percentage_text` | `show_percentage_text` |             | `boolean`           | `false`      |
+| `tooltip`              | `tooltip`              |             | `boolean`           | `false`      |
+| `tooltip_position`     | `tooltip_position`     |             | `"bottom" \| "top"` | `'top'`      |
 
 
 ----------------------------------------------

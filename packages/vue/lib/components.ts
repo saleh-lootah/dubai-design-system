@@ -361,7 +361,8 @@ export const DdaProgressbar = /*@__PURE__*/ defineContainer<JSX.DdaProgressbar>(
   'tooltip_position',
   'show_percentage_text',
   'custom_class',
-  'component_mode'
+  'component_mode',
+  'aria_label'
 ]);
 
 

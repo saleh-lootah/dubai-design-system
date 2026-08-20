@@ -563,6 +563,10 @@ export namespace Components {
         "validation_type"?: string;
     }
     interface DdaProgressbar {
+        /**
+          * @default 'Progress'
+         */
+        "aria_label": string;
         "component_mode"?: string;
         "custom_class": string;
         /**
@@ -1772,6 +1776,10 @@ declare namespace LocalJSX {
         "validation_type"?: string;
     }
     interface DdaProgressbar {
+        /**
+          * @default 'Progress'
+         */
+        "aria_label"?: string;
         "component_mode"?: string;
         "custom_class"?: string;
         /**
@@ -2393,6 +2401,7 @@ declare namespace LocalJSX {
         "show_percentage_text": boolean;
         "custom_class": string;
         "component_mode": string;
+        "aria_label": string;
     }
     interface DdaRadiobuttonAttributes {
         "title_text": string;
