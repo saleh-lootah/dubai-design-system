@@ -702,3 +702,321 @@ New findings beyond the baseline:
 Not determined without a browser: none in this group — every question here was answerable
 directly from source (presence/absence of handlers, selectors, and attributes), unlike
 some of Group 1/2's timing- or rendering-dependent questions.
+
+---
+
+## Group 4 — Remaining components
+
+`dda-button`, `dda-link-button`, `dda-chip`, `dda-avatar`, `dda-progressbar`,
+`dda-range-slider`, `dda-credit-card`, `dda-ui-card`, `dda-home-banner`,
+`dda-horizontal-stepper`, `dda-vertical-stepper`.
+
+### The 15 needs-manual-contrast cases — verdict, with computed numbers
+
+This is the highest-value work in this task. I traced each case to the exact CSS rule
+responsible and, for 11 of the 15, computed the actual WCAG relative-luminance contrast
+ratio between the unfocused and focused colors using the real token hex values from
+`global/color.css`. The common 3:1 threshold for a perceivable UI-state change (per WCAG
+1.4.11 Non-text Contrast, the standard most reviewers apply when judging whether a
+"focus changed something, but not via outline/box-shadow" case actually satisfies 2.4.7)
+is the bar used throughout.
+
+**Root cause confirmed for 8 of 15 (`dda-button`/`dda-link-button`) plus 3 more that
+turn out to share it (`dda-home-banner` x2, `dda-search-input` x1) — 11 of 15 total:**
+`global/dda-button.css:8` sets `.dda-btn { outline: 0; }` unconditionally, and every
+`btn-color-*:focus` rule that attempts to restore a focus outline uses a malformed
+single-value shorthand, e.g. `dda-button.css:25-28`:
+```
+.btn-color-default-primary:focus {
+  background-color: var(--dda-on-primary-variant-20);
+  outline: var(--dda-on-primary-variant-20);
+}
+```
+`outline: <color>` is syntactically legal CSS, but a shorthand property resets every
+sub-property it doesn't mention to its initial value — `outline-style`'s initial value is
+`none`. So `outline: var(...)` sets `outline-color` and silently forces
+`outline-style: none`, producing **no rendered outline at all**, regardless of which color
+variable is passed. This is present in essentially every `btn-color-*:focus` block
+(`dda-button.css:25-28,58-61,72-74,130-134,145-149,162-165,176-179,333-336,347-351,
+363-367,378-382,395-399,411-415,427-431,442-446,458-462,473-477` — the `link`-variant
+rules at `:115-117,219-221,318-320` use `outline: auto`, which *is* syntactically valid
+and would restore a real outline — those three are not part of the needs-manual set and
+are not examined further here). With the outline gone, the only surviving focus
+indication is whatever `background-color`/`border-color` change the same rule declares —
+exactly the shape of change the automated checker calls "needs manual contrast check."
+
+I computed the actual contrast ratio between the resting and focused background color for
+the three `button_color` variants the baseline's 4 button/4 link-button entries map to
+(`DefaultPrimary` → `btn-color-default-primary`, `ErrorPrimary` → `btn-color-error-primary`,
+`SurfacePrimary` → `btn-color-onsurface-primary`, `IconButton` → `btn-color-default-primary`
+again — confirmed against `dda-button/dda-button.stories.tsx:91-149`), in both themes,
+using the real hex values from `global/color.css`:
+
+| Variant | Light: resting → focus | Light ratio | Dark: resting → focus | Dark ratio |
+| --- | --- | --- | --- | --- |
+| `btn-color-default-primary` (`dda-button.css:16-28`) | `#006A67` → `#003735` | **2.04:1** | `#21BEBA` → `#C2FFFB` | **2.08:1** |
+| `btn-color-error-primary` (`dda-button.css:121-134`) | `#C0000A` → `#930005` | **1.45:1** | `#FF8A7B` → `#FFDAD5` | **1.77:1** |
+| `btn-color-onsurface-primary` (`dda-button.css:225-237`) | `#000000` → `#444747` | **2.24:1** | `#FFFFFF` → `#C4C7C6` | **1.70:1** |
+
+**Verdict: all three variants, in both themes, fail the 3:1 threshold.** None comes
+within a full point of it; `error-primary` is the worst at 1.45:1–1.77:1 — barely
+perceptible as a change at all, let alone a reliable one. This resolves all 4
+`dda-button` and all 4 `dda-link-button` needs-manual entries (`dda-link-button` shares
+the exact same `btn-color-*` classes via its own `styleUrls: ['../../global/dda-button.css',
+...]`, `dda-link-button.tsx:5`, and renders them on an `<a>`, `dda-link-button.tsx:43-50`)
+as **confirmed WCAG 2.4.7 failures**, not passes. Source for the token values:
+`global/color.css:1-76` (primary scale, light `:root` and `:root[data-theme='dark']`
+blocks), `:150-210` (error scale), `:461-520` (neutral/surface scale). Method: standard
+WCAG relative-luminance formula (sRGB → linear, `L = 0.2126R + 0.7152G + 0.0722B`,
+ratio `(L_lighter+0.05)/(L_darker+0.05)`), computed by hand against the hex pairs above.
+
+**Side finding, not one of the 15 but discovered while tracing this:** every
+`.light-mode.btn-color-*` rule in `dda-button.css` (e.g. `:30-45,63-75,91-101`) is dead
+code. The library's actual theme switch is the `data-theme` attribute on `<html>`
+(`.storybook/preview.js:12-13`, `setThemeAttribute` → `document.documentElement.setAttribute
+('data-theme', theme)`; `global/color.css:53` uses `:root[data-theme='dark']`), but
+`dda-button.css`'s light-specific overrides are gated behind a literal `.light-mode` CSS
+class. Grepped the entire non-`dist` source tree (`.ts`/`.js`, excluding `node_modules`)
+for anywhere that adds a `light-mode` class — zero matches. These rules can never match
+any element as the codebase is wired today. They happen to be harmless here (the base,
+always-applied rule already resolves to the same color via the CSS-variable cascade for
+light theme), but it's dead, misleading code worth flagging for Task 9's cleanup pass.
+
+**`dda-home-banner--default`/`--autoplay` (2 of 15) — same root cause, confirmed by
+tracing the actual slotted markup.** `dda-home-banner.stories.tsx:5-14` defines each
+slide's content, including `<dda-button button_color="default-primary" size="lg">Call to
+action</dda-button>` (`:12`). `dda-home-banner` is `shadow: false`
+(`dda-home-banner.tsx:8`), so this slotted `<dda-button>` is a normal reachable Tab stop
+that receives the same global `dda-button.css` as everywhere else. I checked
+`dda-home-banner`'s own CSS first, since the component's other four controls
+(prev/next/pause/dots) do have a correctly-formed focus-visible rule —
+`dda-home-banner/home-banner.css:181-186`:
+```
+.slider-nav .prev:focus-visible, .slider-nav .next:focus-visible,
+.slider-nav .pause:focus-visible, .slider-nav .dots:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+}
+```
+— a real, well-designed box-shadow ring (the code comment above it even explains the
+white/black double-ring choice for legibility over photography). Those four controls are
+correctly excluded from the needs-manual list entirely. The slotted `dda-button`
+"Call to action" is the one element in this story without a dedicated rule, and it falls
+through to the exact same broken `btn-color-default-primary:focus` chain analyzed above.
+**Verdict: fails, same 2.04:1/2.08:1 numbers as the `dda-button` case above** — this is
+not a defect in `dda-home-banner` itself (which is otherwise carefully built — proper
+`role="region"`, `aria-roledescription="carousel"`, `aria-current` on the dots at
+`dda-home-banner.tsx:250`, a live region at `:262` — see also the baseline's note that
+this component was recently repaired), it inherits the `dda-button` defect through
+composition.
+
+**`dda-search-input--with-button` (1 of 15) — same root cause again.** The `WithButton`
+story sets `show_button: true` (`dda-search-input.stories.tsx:145`), which renders
+`dda-search-input.tsx:46`: `<button ... class="dda-btn btn-color-default-primary
+dda-btn-sm">Search</button>` — the identical class combination. **Verdict: fails, same
+numbers.**
+
+**`dda-footer--default` (1 of 15) — cannot pass, for a reason unrelated to contrast
+math.** Per this task's Group 2 findings: `dda-footer.css` is a confirmed 0-byte file and
+`dda-footer` is `shadow: true`, so no authored CSS of any kind (local or global) can reach
+inside its shadow root. There is no deliberate, designed focus-color change here to
+measure a ratio for — whatever the automated checker detected as "a color difference" is,
+at best, an artifact of browser default UA styling on the native `<button>` elements
+Stencil renders for the nested `<dda-button>` instances, not anything this codebase
+authored. **Verdict: treat as failing regardless of the precise browser mechanism** — the
+fix is "give `dda-footer` real CSS" (Group 2's recommendation), not "adjust a contrast
+value," so a pass/fail contrast ruling on the current broken state isn't a meaningful
+target.
+
+**`dda-number-field--disabled`/`--error` and `dda-phonefield--error` (3 of 15) — a real
+but different mechanism than the button case; contrast math alone doesn't settle it.**
+Both components' actual text `<input>` carries class `dda-field-group-input`
+(`dda-number-field.tsx:89`, `dda-phonefield.tsx:94`), not the generic `dda-input-field`
+class that `dda-input`/`dda-textarea`/etc. use — so the codebase's main focus ring rule
+(`global/input.css:76-79`, box-shadow-bearing) never matches these two components' actual
+input element at all (it does match their wrapping `.dda-input-field-group` div, but that
+div's `box-shadow` and `border-color` get overridden back to a static value by the later,
+equal-specificity `.dda-validation-error .dda-input-field-group` (`input.css:243-247`) or
+`.dda-input-disabled .dda-input-field-group` (`input.css:301-307`) rules — both apply
+unconditionally, focused or not, so I could not find any property on the wrapper div that
+actually changes with focus in either state). The element that **does** change is the
+input itself, via `global/input.css:341-342`:
+```
+.dda-number-field .dda-field-group-input:focus,
+.dda-phone-field .dda-field-group-input:focus {
+  border-inline-start: solid 1px var(--dda-color-primary-40);
+}
+```
+This adds a single 1px colored edge (left border only, in the RTL-aware `inline-start`
+direction) where the base rule (`input.css:21-30`) had set `border: none`. Nothing in the
+error/disabled rules overrides this specific longhand property, so it does survive in
+both the "Disabled" and "Error" stories. **This is a genuine, if unusually weak, focus
+indicator** — not the "no change at all" I initially expected from tracing the wrapper
+div, and not a simple two-color-swatch contrast question either, since it's "no border" →
+"one 1px colored edge appears," not a background recolor. I did not compute a formal
+ratio for this one: the honest description is that `--dda-color-primary-40` (a fully
+saturated teal, `#006A67` light / `#21BEBA` dark) would read with strong contrast against
+either theme's typical light/dark field background if you could see it, but a single-pixel
+partial-edge line is a genuinely marginal indicator at real-world screen density and zoom
+levels — exactly the kind of edge case that benefits from an actual rendered check rather
+than a token comparison. **Recording this as not fully resolved by static analysis**:
+the mechanism and the file:line are confirmed, but whether a 1px inline-start-only border
+change reliably reads as "focused" to a sighted low-vision user needs a live render to
+settle, and I did not run one. Recommend Task 9 treat this as a design smell regardless
+(a full-border or box-shadow ring would remove the ambiguity) rather than wait on a
+contrast verdict that a screenshot would resolve in seconds.
+
+**Summary verdict on the 15:** 11 of 15 are confirmed WCAG 2.4.7 failures with computed
+numbers (`dda-button` x4, `dda-link-button` x4, `dda-home-banner` x2,
+`dda-search-input` x1) — all trace to the same malformed `outline: <color>` shorthand
+defect in `global/dda-button.css`. 1 of 15 (`dda-footer`) is unmeasurable-as-a-contrast-
+question because there is no authored CSS behind it at all — treat as failing. 3 of 15
+(`dda-number-field` x2, `dda-phonefield` x1) have a confirmed, different mechanism (a
+1px partial-edge border, `input.css:341-342`) that is weak but real, and I'm not
+confident enough in a static reading to call pass or fail — flagged as needing a live
+check rather than guessed.
+
+### Q1 — `dda-chip` and `dda-avatar`: keyboard-operable?
+
+**Neither — no to both, same class of defect as `dda-accordion` in Group 3.**
+`dda-chip.tsx:25`: `<span class="chip-close" onClick={this.clickHandler}>` — a `<span>`,
+no `tabindex`, no `role`, no `onKeyDown` (grepped the file, confirmed zero matches on all
+three). This is the chip's *only* dismiss control (`show_close_icon`, `:12,24`) — there is
+no alternate keyboard path, unlike `dda-header`'s hamburger div which had a nested real
+button. A keyboard user cannot remove/dismiss a chip that has `show_close_icon` set.
+
+`dda-avatar.tsx:45`: `<div onClick={() => this.toggleDropdown()} class={{'dda-avatar':
+true, ...}}>` — here the handler sits on the **entire root element** of the component,
+not a small child, and again with no `tabindex`/`role`/`onKeyDown` (grepped, zero
+matches). Same failure mode: not reachable by `Tab`, not operable if it somehow were
+focused another way. Same automated-checker blind spot explained in Group 3's
+`dda-accordion` finding applies identically here (`INTERACTIVE` selector in
+`wcag22-checks.ts:3` never counts either element as "should be reachable").
+
+**Additional finding while reading `dda-avatar.tsx`, a fourth instance of the recurring
+duplicate-`id` bug:** `dda-avatar.tsx:59`:
+`<button id={this.button_id} name={this.button_name} ... type="button" ...>` sits inside
+`this.parsedOptions.map(option => (...))` (`:58-65`) — every rendered dropdown option
+shares the one static `id` from the single `button_id` prop. Same pattern already found at
+`dda-tabs.tsx:59`, `dda-phonefield.tsx:82`, and `dda-search-input.tsx:42`'s hardcoded id —
+this is the fourth independent occurrence of this exact class of bug across the codebase,
+strongly suggesting it's a copy-paste-propagated pattern rather than four unrelated
+mistakes, worth a single systemic fix in Task 9 rather than four separate ones.
+
+### Q2 — `dda-range-slider`: arrow keys, `role="slider"`, `aria-valuenow/min/max`?
+
+**Yes to all — this component gets it right, unlike most of this codebase's custom
+widgets, because it uses two real native `<input type="range">` elements instead of a
+custom div-based control.** `dda-range-slider.tsx:64-76` and `:78-92` are both genuine
+`<input type="range" min={this.min} max={this.max} step={this.step} value={...}>`
+elements. A native range input has an implicit ARIA role of `slider` and the browser
+automatically exposes `aria-valuenow`/`aria-valuemin`/`aria-valuemax` to the accessibility
+tree directly from its `value`/`min`/`max` attributes — no explicit ARIA authoring is
+needed or missing here, unlike `dda-select`/`dda-dropdown`'s custom button-and-list
+widgets reviewed in Groups 1 and 3. Native range inputs also natively respond to
+`ArrowLeft`/`ArrowRight` (and `ArrowUp`/`ArrowDown`) to change `value` by `step`, with no
+custom keydown code required — confirmed there is none in the file, and none is needed.
+The baseline's separate WCAG 2.5.8 finding (3 target-size failures for this component) is
+a distinct, already-recorded issue about the touch-target hit area, not about the
+keyboard/ARIA question asked here.
+
+### Q3 — `dda-progressbar`: `role="progressbar"` with value attributes?
+
+**No.** `dda-progressbar.tsx:16-39` is the entire component; grepped for `role`,
+`aria-valuenow`, `aria-valuemin`, `aria-valuemax` — zero matches on every term. The
+visual bar (`:24-31`, `<div class="dda-progress-value" style={{width: `${this.progress}%`}}>`)
+conveys `this.progress` only through inline `width`, with no ARIA of any kind. A screen
+reader user gets no indication this is a progress indicator or what value it holds — a
+plain, confirmed gap.
+
+### Q4 — `dda-ui-card`: no story, no document
+
+Confirmed by directory listing: `packages/stencil/src/components/dda-ui-card/` has
+`dda-ui-card.tsx`, `dda-ui-card.css`, `readme.md`, and (unlike `dda-banner`) a `test/`
+folder with `dda-ui-card.e2e.ts` and `dda-ui-card.spec.tsx` — so it has test coverage but
+no story and no `.mdx`. One functional defect worth fixing before a story is written:
+`dda-ui-card.tsx:17` declares `@Event() linkClick?: EventEmitter<void>;` but it is never
+emitted anywhere in the file (grepped `dda-ui-card.tsx` for `linkClick` — the only match
+is the declaration itself) — the `<a>` at `:38-47` that would logically fire it has no
+`onClick` handler at all. Per this task's no-repair constraint, not fixed here, but flagged
+so Task 9 doesn't write a story that silently documents a dead event as if it worked.
+
+### Q5 — do both steppers mark the current step with `aria-current="step"`?
+
+**No, neither one — confirmed by grep, zero matches in both files.**
+`stepper/dda-horizontal-stepper/dda-horizontal-stepper.tsx:24`:
+`<div class={`h-step ${index === this.current_step ? 'active' : ''} ...}>`} — CSS class
+only. `stepper/dda-vertical-stepper/dda-vertical-stepper.tsx:24`:
+`<div class={`v-step ${index <= this.current_Step ? 'active' : ''}`}>` — same gap. Same
+shape of finding as Group 2's `dda-breadcrumb`/`dda-pagination` note — a screen reader
+user gets no non-visual signal of "you are here" in either stepper.
+
+**Two additional bugs found while reading these, worth flagging even though not directly
+asked:**
+1. `dda-horizontal-stepper.tsx:10,24` — `current_step` defaults to `1`
+   (`@Prop() current_step: number = 1`) but the active-step comparison is
+   `index === this.current_step` against a 0-based `.map((step, index) => ...)` — so with
+   the documented default, the step at `index === 1` (the **second** step) is marked
+   active out of the box, not the first. Either the default should be `0` or the
+   comparison should be `index === this.current_step - 1`; as shipped they disagree.
+2. `dda-vertical-stepper.tsx:10`: `@Prop() current_Step: number = 0;` — capitalized `Step`
+   mid-prop-name. Every other prop in this file, and across the whole codebase per
+   CLAUDE.md's stated convention ("Props use `snake_case` names"), is fully lower snake_case
+   (`custom_class`, `component_mode`). This one attribute would have to be written
+   `current_-step`... no — as an HTML attribute, Stencil lowercases prop names by default
+   unless an explicit `attribute:` mapping is given, so `current_Step` the *property* likely
+   maps to `current_step` (or possibly `currentstep`) the *attribute*, and I did not verify
+   which without a build — worth Task 9 checking directly rather than assuming, since it
+   affects whether HTML consumers (React/Vue/Angular wrapper users, or raw HTML) can even
+   set this prop by its documented name.
+
+### `dda-credit-card` — not targeted by a specific question, brief note
+
+No dedicated question in the brief for this component. Light-touch check: purely
+presentational (`dda-credit-card.tsx:17-45`), no interactive elements of its own, so none
+of this group's keyboard/ARIA questions apply. One thing worth a one-line flag:
+`dda-credit-card.tsx:38`: `{this.name}` and `:38` `**** {this.card_number.slice(-4)}` will
+throw if `card_number` is ever left unset (`undefined.slice` is a runtime error, no
+guard) — a robustness issue, not an accessibility one, noted in passing since it would
+crash the component rather than degrade gracefully.
+
+### Group 4 summary
+
+New findings beyond the baseline:
+
+1. Full resolution of the 15 needs-manual-contrast cases — see the detailed section
+   above. 11 are confirmed WCAG 2.4.7 failures with computed contrast ratios (1.45:1 to
+   2.24:1, all below the 3:1 bar), all tracing to one malformed-`outline`-shorthand root
+   cause in `global/dda-button.css`. 1 (`dda-footer`) has no authored CSS to even measure.
+   3 (`dda-number-field` x2, `dda-phonefield` x1) trace to a real but different, weaker
+   mechanism (a 1px partial-edge border) that I could not confidently call pass or fail
+   from source alone.
+2. `dda-button.css`'s entire `.light-mode.btn-color-*` rule set (dozens of rules) is dead
+   code — the `.light-mode` class is never applied anywhere in the codebase; the real
+   theme switch is `data-theme`, handled correctly only by the base (non-`.light-mode`)
+   rules via CSS custom properties.
+3. `dda-chip.tsx:25` and `dda-avatar.tsx:45` both have `onClick` on non-focusable elements
+   (`<span>`/`<div>`) with no alternate keyboard path — confirmed defects, same automated-
+   checker blind spot as `dda-accordion` in Group 3.
+4. `dda-avatar.tsx:59` is a fourth independent instance of the duplicate-static-`id`-in-a-
+   `.map()` bug already found at `dda-tabs.tsx:59`, `dda-phonefield.tsx:82`, and
+   `dda-search-input.tsx:42`.
+5. `dda-range-slider` correctly implements native keyboard/ARIA slider semantics via two
+   real `<input type="range">` elements — a clean pass, worth noting as the exception.
+6. `dda-progressbar` has zero ARIA (`role="progressbar"`, `aria-valuenow/min/max` all
+   absent) — confirmed, plain gap.
+7. `dda-ui-card` has a dead `linkClick` event that's declared but never emitted
+   (`dda-ui-card.tsx:17`) — flagged so a future story doesn't document it as working.
+8. Neither stepper sets `aria-current="step"`; `dda-horizontal-stepper` additionally has
+   an off-by-one between its default `current_step` and its 0-based index comparison
+   (`:10,24`), and `dda-vertical-stepper`'s `current_Step` prop breaks the codebase's
+   snake_case convention (`:10`) in a way that may affect whether it's settable as an HTML
+   attribute at all.
+
+Not determined without a browser: whether the 1px `border-inline-start` focus indicator
+on `dda-number-field`/`dda-phonefield` (input.css:341-342) is actually perceivable at
+normal zoom — the mechanism and color are confirmed from source, the real-world
+legibility is not. Also not fully verified: which HTML attribute name
+`dda-vertical-stepper`'s `current_Step` prop maps to (item 8 above) — would need a
+build/inspection of the compiled output to confirm rather than infer from the source
+`@Prop()` declaration alone.
