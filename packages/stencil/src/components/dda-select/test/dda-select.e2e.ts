@@ -204,6 +204,62 @@ describe('dda-select listbox pattern (F-014)', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
   });
 
+  // Final-fix-wave: `.dda-input-dropdown-item:focus-visible` was paired
+  // with `:hover` (same background-color, `outline: 0`) — a 1.13:1
+  // background-only change, indistinguishable from a stray pointer resting
+  // on the item. Fix: `:focus-visible` now gets the shared double
+  // box-shadow ring (white + dark), split out of the `:hover` pairing so
+  // the two states are visually distinct. This asserts the *computed*
+  // outcome, not that a CSS rule with the right selector merely exists —
+  // it fails against the pre-fix rule (boxShadow stays 'none' under
+  // focus-visible there).
+  it('gives the focused option a real, computed focus indicator distinct from hover', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="size" options='${OPTIONS}'></dda-select>`);
+
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('ArrowDown');
+    await page.waitForChanges();
+
+    const focused = await page.evaluate(() => {
+      const el = document.activeElement as HTMLElement;
+      const s = getComputedStyle(el);
+      return { boxShadow: s.boxShadow, outlineStyle: s.outlineStyle };
+    });
+
+    expect(focused.boxShadow).not.toBe('none');
+    expect(focused.boxShadow).toMatch(/rgb/);
+
+    // The hover-only background must not be the entire story: a mouse
+    // hovering a *different*, non-focused option should not carry the same
+    // box-shadow ring the focused option has.
+    const hoveredOnlyBoxShadow = await page.evaluate(() => {
+      const items = Array.from(document.querySelectorAll('.dda-input-dropdown-item')) as HTMLElement[];
+      const nonFocused = items.find((el) => el !== document.activeElement);
+      return nonFocused ? getComputedStyle(nonFocused).boxShadow : null;
+    });
+    expect(hoveredOnlyBoxShadow).toBe('none');
+  });
+
+  it('gives the focused option the same real focus indicator in dark theme', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="size" options='${OPTIONS}'></dda-select>`);
+    await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+    await page.waitForChanges();
+
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('ArrowDown');
+    await page.waitForChanges();
+
+    const focused = await page.evaluate(() => {
+      const el = document.activeElement as HTMLElement;
+      return getComputedStyle(el).boxShadow;
+    });
+
+    expect(focused).not.toBe('none');
+    expect(focused).toMatch(/rgb/);
+  });
+
   it('ArrowDown/ArrowUp move focus between options without wrapping past the ends', async () => {
     const page = await newE2EPage();
     await page.setContent(`<dda-select button_id="size" options='${OPTIONS}'></dda-select>`);

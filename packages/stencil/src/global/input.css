@@ -210,7 +210,6 @@
     cursor: pointer;
 }
 
-.dda-input-dropdown-item:focus-visible,
 .dda-input-dropdown-item:hover {
     background-color: var(--dda-neutral-variant-95);
     outline: 0;
@@ -629,6 +628,15 @@
  * text region, dda-textarea's enable_rich_editor mode) never had a focus
  * rule of any kind - it carries no dda-* class at all.
  *
+ * `.dda-input-dropdown-item:focus-visible` (Task: final-fix-wave, F-002's
+ * arrow-navigable dda-select option list): was paired with `:hover` at
+ * line ~213, `outline: 0`, background-only - 1.13:1 against the list
+ * background, identical to the `:hover` state, so a keyboard user could
+ * not tell focus from a stray pointer. Split from `:hover` and given the
+ * same double-ring here instead. Shared by dda-select, dda-avatar,
+ * dda-phonefield and dda-number-field's option lists, all of which use
+ * this one class.
+ *
  * Each fix below adds `:focus-visible` to the exact selector that broke
  * the ring, which raises its specificity strictly above the offending rule
  * (or, for the validation-error case, ties the `.light-mode` variant's
@@ -657,6 +665,11 @@
 }
 
 .dda-richeditor-field .ql-editor:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+}
+
+.dda-input-dropdown-item:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
