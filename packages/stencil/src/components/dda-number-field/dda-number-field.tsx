@@ -58,6 +58,24 @@ export class DdaNumberField {
     }
   }
 
+  // F-016: ids derived from the consumer-supplied input_id, same pattern as
+  // dda-input/dda-select.
+  private get helperId(): string | undefined {
+    return this.input_id ? `${this.input_id}-helper` : undefined;
+  }
+
+  private get errorId(): string | undefined {
+    return this.input_id ? `${this.input_id}-error` : undefined;
+  }
+
+  private get describedBy(): string | undefined {
+    const ids = [
+      this.helper_text ? this.helperId : undefined,
+      this.error_message ? this.errorId : undefined,
+    ].filter(Boolean);
+    return ids.length ? ids.join(' ') : undefined;
+  }
+
   render() {
     const containerClass = [
       'dda-input-container',
@@ -87,6 +105,8 @@ export class DdaNumberField {
               onFocus={this.handleFocus.bind(this)}
               onBlur={this.handleBlur.bind(this)}
               class="dda-field-group-input"
+              aria-describedby={this.describedBy}
+              aria-invalid={this.error_message ? 'true' : undefined}
             />
             <div class="dda-input-dropdown-btn">
               <button name={this.toggle_button_name} type="button" class="dda-dropdown-select" onClick={() => this.toggleCurrencyDropdown()}>
@@ -107,8 +127,8 @@ export class DdaNumberField {
               )}
             </div>
           </div>
-          {this.helper_text && <span class="dda-helper-text">{this.helper_text}</span>}
-          {this.error_message && <span class="dda-error-message">{this.error_message}</span>}
+          {this.helper_text && <span id={this.helperId} class="dda-helper-text">{this.helper_text}</span>}
+          {this.error_message && <span id={this.errorId} class="dda-error-message">{this.error_message}</span>}
         </div>
       </Host>
     );
