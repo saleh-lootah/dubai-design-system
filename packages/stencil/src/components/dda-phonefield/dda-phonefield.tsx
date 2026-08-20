@@ -29,6 +29,27 @@ export class DdaPhoneField {
   @Prop() toggle_button_name: string;
   @Prop() country_select_button_name: string;
   @Prop() phone_input_name: string;
+  // F-018 (WCAG 1.3.5): telephone is exactly the field type autocomplete
+  // exists for. Default to the correct token; still overridable.
+  @Prop() autocomplete: string = 'tel';
+
+  // F-016: ids derived from the consumer-supplied input_id, same pattern as
+  // dda-input/dda-select.
+  private get helperId(): string | undefined {
+    return this.input_id ? `${this.input_id}-helper` : undefined;
+  }
+
+  private get errorId(): string | undefined {
+    return this.input_id ? `${this.input_id}-error` : undefined;
+  }
+
+  private get describedBy(): string | undefined {
+    const ids = [
+      this.helper_text && !this.validation_type ? this.helperId : undefined,
+      this.error_message ? this.errorId : undefined,
+    ].filter(Boolean);
+    return ids.length ? ids.join(' ') : undefined;
+  }
 
   // componentWillLoad() {
   //   fetch('/path/to/countries.json')
@@ -95,15 +116,18 @@ export class DdaPhoneField {
               placeholder={this.placeholder}
               inputmode='numeric'
               pattern={"[0-9]*"}
+              autocomplete={this.autocomplete}
               value={this.phone_number}
               onInput={this.handlephonenumberChange.bind(this)}
               onFocus={this.handleFocus.bind(this)}
               onBlur={this.handleBlur.bind(this)}
               disabled={this.disabled}
+              aria-describedby={this.describedBy}
+              aria-invalid={this.error_message ? 'true' : undefined}
             />
           </div>
-          {this.helper_text && !this.validation_type && <span class="dda-helper-text">{this.helper_text}</span>}
-          {this.error_message && <span class="dda-error-message">{this.error_message}</span>}
+          {this.helper_text && !this.validation_type && <span id={this.helperId} class="dda-helper-text">{this.helper_text}</span>}
+          {this.error_message && <span id={this.errorId} class="dda-error-message">{this.error_message}</span>}
         </div>
       </Host>
     );

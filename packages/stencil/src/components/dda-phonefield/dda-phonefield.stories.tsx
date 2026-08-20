@@ -72,6 +72,10 @@ export default {
     phone_input_name: {
       control: { type: 'text' },
       description: 'Name for the phone input field',
+    },
+    autocomplete: {
+      control: { type: 'text' },
+      description: 'Autocomplete token for the phone number input (WCAG 1.3.5). Defaults to "tel".',
     }
   },
   parameters: {
@@ -97,7 +101,8 @@ To use the \`dda-phonefield\` component, pass the following props:
     toggle_button_name="toggle-button"
     country_select_button_name="country-select-button"
     phone_input_name="phone-input"
-    
+    autocomplete="tel"
+
 ></dda-phonefield>
   \`\`\`
 `,
@@ -132,6 +137,7 @@ Default.args = {
   toggle_button_name: "toggle-button",
   country_select_button_name: "country-select-button",
   phone_input_name: "phone-input",
+  autocomplete: 'tel',
 };
 
 export const FocusFilled = Template.bind({});
@@ -153,6 +159,7 @@ FocusFilled.args = {
   toggle_button_name: "toggle-button",
   country_select_button_name: "country-select-button",
   phone_input_name: "phone-input",
+  autocomplete: 'tel',
 };
 
 export const Filled = Template.bind({});
@@ -173,6 +180,7 @@ Filled.args = {
   toggle_button_name: "toggle-button",
   country_select_button_name: "country-select-button",
   phone_input_name: "phone-input",
+  autocomplete: 'tel',
 };
 
 export const Error = Template.bind({});
@@ -193,6 +201,7 @@ Error.args = {
   toggle_button_name: "toggle-button",
   country_select_button_name: "country-select-button",
   phone_input_name: "phone-input",
+  autocomplete: 'tel',
 };
 
 export const Disabled = Template.bind({});
@@ -212,4 +221,5 @@ Disabled.args = {
   toggle_button_name: "toggle-button",
   country_select_button_name: "country-select-button",
   phone_input_name: "phone-input",
+  autocomplete: 'tel',
 };
