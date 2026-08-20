@@ -95,6 +95,15 @@
 
 .dda-chip .chip-close{
   display: inline-flex;
+  align-items: center;
   cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  appearance: none;
+  -webkit-appearance: none;
 }
 

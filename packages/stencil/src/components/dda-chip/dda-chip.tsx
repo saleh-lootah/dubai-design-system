@@ -22,9 +22,9 @@ export class DdaChip {
           {this.icon ? <i class="material-icons  material-symbols-outlined">{this.icon}</i> : null}
           <span><slot /></span>
           {this.show_close_icon && (
-            <span class="chip-close"   onClick={this.clickHandler}>
+            <button type="button" class="chip-close" onClick={this.clickHandler} aria-label="Remove">
               <i class="material-icons  material-symbols-outlined">close</i>
-            </span>
+            </button>
           )}
         </div>
       </Host>
