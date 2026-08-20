@@ -16,9 +16,25 @@
   opacity: 0;
   transition: opacity 0.3s;
 }
-.dda-tooltip-container:hover .dda-tooltip-box {
+/*
+ * F-011 (WCAG 1.4.13, 2.1.1): showing the tooltip only on :hover left it
+ * entirely unreachable by keyboard. :focus-within reveals it as soon as the
+ * slotted trigger (or anything inside the tooltip) is focused - matching
+ * `:hover`'s existing "hoverable" and "persistent" behaviour for free,
+ * since the box is a DOM descendant of this same container either way.
+ * Escape-driven dismissal (the third 1.4.13 sub-criterion, and the one
+ * this selector alone can't satisfy) is handled in dda-tooltip.tsx via the
+ * .dismissed class below.
+ */
+.dda-tooltip-container:hover .dda-tooltip-box,
+.dda-tooltip-container:focus-within .dda-tooltip-box {
   visibility: visible;
   opacity: 1;
+}
+
+.dda-tooltip-container.dismissed .dda-tooltip-box {
+  visibility: hidden !important;
+  opacity: 0 !important;
 }
 .dda-tooltip-box strong{
   font-size: 16px;
