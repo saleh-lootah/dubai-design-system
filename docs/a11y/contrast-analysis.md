@@ -62,7 +62,7 @@ which also separately fail `target-size`, and the 1 flaky Header story), 2 do no
 ## 2. Root-cause grouping
 
 29 stories are not 29 independent problems. They trace to **4 root causes, expressed as
-8 specific token/selector pairings**, which together account for **24 of the 29**
+9 specific token/selector pairings**, which together account for **24 of the 29**
 stories. The remaining 5 are: 2 not contrast at all (§1), 1 flaky-rule (Header), and 2
 (`Tabs TextTabs`/`TextIconTabs`) that I could not reproduce by computation at all — see
 the note below the table, which is a finding about the harness, not a colour fault.
@@ -78,14 +78,60 @@ the 4.5:1 normal-text threshold.
 
 | # | Pairing (foreground token → background token) | Light ratio | Dark ratio | Threshold | Stories (this run) |
 | --- | --- | --- | --- | --- | --- |
-| A1 | `--dda-neutral-60` (#8E9191, theme-invariant) text vs page body `--dda-surface-100` | **3.18:1 FAIL** | 5.40:1 pass | 4.5:1 | `dda-input`, `dda-textarea`, `dda-search-input`, `dda-select`, `dda-number-field`, `dda-phonefield`, `dda-attach-file`, `dda-creditcard-field` — each `Disabled`/error-adjacent story, light theme only (8 stories) |
-| A2 | Same `--dda-neutral-60` text vs the disabled field's own background, `--dda-neutral-92` (raw, **not** the theme-aware `--dda-surface-92` alias) | **2.60:1 FAIL** | **2.60:1 FAIL** (identical — the background never changes with theme) | 4.5:1 | `dda-input`, `dda-search-input`, `dda-number-field`, `dda-phonefield`, `dda-select` — each `Disabled` story's own `<input>`/toggle `<button>`, both themes (5 stories) |
+| A1 | `--dda-neutral-60` (#8E9191, theme-invariant) text vs page body `--dda-surface-100` | **3.18:1 FAIL** | 5.40:1 pass | 4.5:1 | `dda-input`, `dda-textarea`, `dda-search-input`, `dda-select`, `dda-number-field`, `dda-phonefield`, `dda-attach-file`, `dda-creditcard-field` — each `Disabled`/error-adjacent story's `label`/`.dda-helper-text`, light theme only (8 stories; `dda-attach-file`'s `Disabled` story *also* fails dark theme via A2 and A4 below — see the note after the table) |
+| A2 | Same `--dda-neutral-60` text vs the disabled field's own background, `--dda-neutral-92` (raw, **not** the theme-aware `--dda-surface-92` alias) | **2.60:1 FAIL** | **2.60:1 FAIL** (identical — the background never changes with theme) | 4.5:1 | `dda-input`, `dda-search-input`, `dda-number-field`, `dda-phonefield`, `dda-select`, `dda-attach-file` — each `Disabled` story's own `<input>`/toggle `<button>`/`.dda-file-input span`, both themes (6 stories) |
 | A3 | Same `--dda-neutral-60` text vs `.btn-color-disabled`'s background, `--dda-surface-92` — this one *is* the theme-aware alias | **2.60:1 FAIL** | 4.51:1 pass (barely — 0.01 above threshold) | 4.5:1 | `dda-button`, `dda-link-button` `Disabled`, light theme only (2 stories) |
+| A4 | Same `--dda-neutral-60` text vs `.dda-file-choose`'s own disabled-state background override, `--dda-neutral-95` (raw, a *third*, distinct theme-invariant token — not the `--dda-neutral-92` of A2) | **2.80:1 FAIL** | **2.80:1 FAIL** (identical — again the background never changes with theme) | 4.5:1 | `dda-attach-file` `Disabled` — `.dda-file-choose`, both themes (1 story, already counted under A1/A2 above — see the note after the table) |
 | B1 | `--dda-color-primary-40` (dark → `--dda-primary-70` #21BEBA) as **text**, over a hardcoded `--dda-neutral-100` (raw white) background | 6.45:1 pass | **2.30:1 FAIL** | 4.5:1 | `dda-attach-file` `Default`/`Small`/`ErrorState` — `.dda-file-choose`, dark only (3 stories) |
 | B2 | Fixed `--dda-neutral-100` (raw white) as **text**, over `--dda-color-primary-40` / `--dda-on-surface-variant-30` used as a **background** | 6.45:1 / 9.30:1 pass | **2.30:1 / 1.70:1 FAIL** | 4.5:1 | `dda-avatar` `StatusText`, `dda-credit-card` `Green`/`Dark`, dark only (3 stories) |
-| B3 | `--dda-on-surface-variant-30` text vs a raw, non-aliased light background (`--dda-neutral-variant-94` or `--dda-neutral-100`) | 8.00:1 / 9.30:1 pass | **1.46:1 / 2.30:1 FAIL** | 4.5:1 | `dda-chip` `Grey`, `dda-range-slider` `Default`/`TooltipTop`/`TooltipBottom` (`.min-label`/`.max-label`), dark only (4 stories) |
+| B3 | `--dda-on-surface-variant-30` text vs a raw, non-aliased light background (`--dda-neutral-variant-94` or `--dda-neutral-100`) | 8.00:1 / 9.30:1 pass | **1.46:1 / 2.30:1 FAIL** | 4.5:1 | `dda-chip` `Grey` (the two Material Icon glyphs, `.dda-chip > i` and `.chip-close > i` — **not** the chip's visible text label, which is an unclassed `<span>` axe did not flag, most likely because this story's slot has no text content for it to sample; the icon glyphs are literal characters and do have content), `dda-range-slider` `Default`/`TooltipTop`/`TooltipBottom` (`.min-label`/`.max-label`), dark only (4 stories) |
 | C | Raw, theme-invariant near-black text (`--dda-neutral-0` or `--dda-neutral-variant-30`) with **no dark-theme override at all**, vs the theme-aware page background | 21.0:1 / 9.30:1 pass | **1.22:1 / 1.84:1 FAIL** | 4.5:1 (3:1 for the 24px alert title, n/a here) | `dda-progressbar` (`.dda-percentage-text`), `dda-horizontal-stepper` `Default` (completed/active subtitle+description, step-3 title), dark only (2 stories) |
 | D | `--dda-color-primary-40`/`--dda-color-warning-40` text vs their **own matching theme-aware** `-variant-95` background alias — both sides are theme-aware, the dark-mode *values* just don't clear the bar | 5.54:1 / 5.73:1 pass | **4.05:1 FAIL** (description only) / **2.08:1 FAIL** (title + description) | 4.5:1 (desc) / 3:1 (24px title) | `dda-alert` `AlertInfo` (description only), `AlertWarning` (title + description), dark only (2 stories) |
+
+**`dda-attach-file`'s `Disabled` story fails in both themes, not light-only — it is
+three pairings at once, not one.** This was missing from the first version of this
+table and is worth spelling out explicitly rather than leaving it implicit in the row
+notes above, because someone applying only the A2 fix (swap `--dda-neutral-92` for the
+theme-aware `--dda-surface-92` in `input.css`'s shared disabled rule) would reasonably
+believe this story was handled, and its dark-theme failure would remain. Tracing all 6
+flagged nodes (`raw-a11y.txt:1409-1440`, `:1515-1524`) against `global/input.css`:
+
+- Light theme (4 nodes): `.dda-input-label` and `.dda-helper-text` are **A1**
+  (`--dda-neutral-60` on the page body, light-only, 3.18:1) — these are the two nodes
+  that made the story look A1-only. `.dda-file-input > span` is **A2**
+  (`--dda-neutral-60` on the shared `--dda-neutral-92` field-group background, both
+  themes, 2.60:1). `.dda-file-choose` is **A4**, a pairing this table did not name
+  before: `.dda-input-disabled .dda-file-choose` (`input.css:568-570`) overrides the
+  background specifically to `--dda-neutral-95` — a third raw, theme-invariant token,
+  distinct from A2's `--dda-neutral-92` — still paired with the same forced
+  `--dda-neutral-60` text (`input.css:296-297`). Computed: 2.80:1, failing both themes.
+- Dark theme (2 nodes): `.dda-file-input > span` (A2, still 2.60:1) and `.dda-file-choose`
+  (A4, still 2.80:1) — `.dda-input-label`/`.dda-helper-text` correctly drop out, since A1
+  passes in dark (5.40:1).
+
+So the story is fully explained — just by three pairings, not one, and two of those
+three (A2, A4) are the ones that make it a both-themes failure. A4 does not add a new
+story to the 24/29 count (the story was already counted once, under A1); it corrects
+which pairings that story is attributed to, and it strengthens rather than weakens the
+headline finding: this is a *third* distinct context (after A2's field background and
+A3's button background) where `--dda-neutral-60` is paired against a background that
+either is or isn't theme-aware, with the theme-awareness of the background — not the
+text token — deciding whether dark theme passes.
+
+I re-swept every other raw (`--dda-neutral-*`/`--dda-neutral-variant-*`) background
+token used anywhere in `global/*.css` and every component `.css` for the 29 failing
+stories, specifically looking for another place a text colour is paired directly against
+one instead of a theme-aware alias, in case A4's mechanism recurs a third time
+unnoticed. It doesn't, among the failing set: every other raw-neutral background usage I
+found is either a **border** (not evaluated by `color-contrast`), a **track/decoration**
+background with no text on it (`.dda-progress-bar`, `.dda-range-slider` track,
+`.dda-tooltip` arrows), or a background already accounted for under B1/B2/B3 above
+(`dda-chip-grey`'s `--dda-neutral-variant-94`, `dda-tabs`' active-state
+`--dda-neutral-variant-94`, which only applies to the *active* tab and isn't part of the
+failing set). `.dda-input-disabled` itself has exactly one other per-element background
+override beyond the shared `--dda-neutral-92` rule — `.dda-file-choose`'s
+`--dda-neutral-95` (A4) — confirmed by grepping every `.dda-input-disabled .X { background`
+declaration in `input.css`; there is no fourth one hiding in the same file.
 
 **Row A1's light-theme instability, resolved:** `raw-a11y-rerun1.txt`'s extra light-theme
 story, `Stepper/Horizontal Stepper Default`, is **not a rendering flake** — it is the
@@ -130,17 +176,29 @@ reached for the wrong one. Repairable without a design decision.**
   and *fails* in dark (2.60:1) — because `--dda-neutral-92` never changes with theme
   while `--dda-surface-92` does (light: same #E6E9E8; dark: #272B2A). Swapping
   `input.css`'s disabled-field background from `--dda-neutral-92` to `--dda-surface-92`
-  would recover dark-theme compliance for the 5 stories in row A2, using a token this
+  would recover dark-theme compliance for the 6 stories in row A2, using a token this
   same codebase already proves reads correctly, with no new colour chosen. It would
   **not** fix the light-theme half (A1/A2 both still fail light at the same magnitude —
-  see §4, that part needs a real value decision).
+  see §4, that part needs a real value decision), and it would **not** touch row A4:
+  `.dda-file-choose` overrides its disabled background separately, to a *third* raw
+  token (`--dda-neutral-95`), so `dda-attach-file`'s `.dda-file-choose` node needs its
+  own, identical swap to a theme-aware alias — the A2 fix alone would leave that one node
+  of that story still failing in dark.
+- **Row A4, same shape as A2, worth its own line because it's an easy miss.** Same
+  mechanism, same token family, different specific raw value
+  (`--dda-neutral-95` vs A2's `--dda-neutral-92`) and a different CSS rule
+  (`.dda-input-disabled .dda-file-choose`'s own override, not the shared
+  `.dda-input-disabled .dda-input-field-group`/`.dda-input-field` rule A2 comes from).
+  This is exactly the kind of near-duplicate rule a single global find-and-replace on
+  `--dda-neutral-92` would miss, since the string being replaced isn't present in this
+  rule at all.
 - **Row B1/B2/B3, all one shape.** Each pairs a **raw, theme-invariant** base token
   (`--dda-neutral-100`, `--dda-neutral-variant-94`) with a **theme-flipping** semantic
   alias (`--dda-color-primary-40`, `--dda-on-surface-variant-30`) used on the *wrong*
   side of the pairing — as a background where the alias was designed to be readable
   *text*, or as a background left flat white/light while the paired text alias correctly
   brightens for dark mode and consequently stops working against a background that never
-  went dark. In every one of these 7 stories (attach-file ×3, avatar, credit-card ×2,
+  went dark. In every one of these 10 stories (attach-file ×3, avatar, credit-card ×2,
   chip, range-slider ×3 — counted once each in §2, 10 stories total across B1–B3) a
   theme-aware background alias already exists elsewhere in `color.css`
   (`--dda-surface-100`, `--dda-surface-variant-90`/`-87`/`-80`, or simply not overriding
@@ -236,12 +294,15 @@ independently) would restore consistency across the 5 semantic palettes.
 **This is a recommendation, not a decision already taken; nothing in this repository has
 been changed to reflect it.**
 
-Fix the usage faults first (§3's first block — 10+ of the 24 explained stories, plus the
-2 no-dark-override cases in row C), since none of them require a design decision: each
-either has a compliant, already-proven token sitting one file away, or needs nothing
-more than adding the dark-theme override every comparable component already has. Doing
-that alone would clear roughly half of this task's explained failures without anyone
-choosing a new colour.
+Fix the usage faults first (§3's first block — the 6 stories under A2/A4, plus the 10
+under B1/B2/B3, plus the 2 no-dark-override cases in row C: 18 of the 24 explained
+stories, no two of those three groups overlapping), since none of them require a design
+decision: each either has a compliant, already-proven token sitting one file away, or
+needs nothing more than adding the dark-theme override every comparable component
+already has. Doing that alone would clear the dark-theme half of this task's explained
+failures without anyone choosing a new colour — note this doesn't fully close A2/A4's 6
+stories, since their *light*-theme failure (via A1) is the token fault addressed below,
+not the usage fault; fixing A2/A4 removes their dark-theme failure only.
 
 That leaves two genuine design decisions for the design system's owners, and I'd put the
 `--dda-neutral-60` "disabled/muted text" token (A1/A2/A3) ahead of the alert
