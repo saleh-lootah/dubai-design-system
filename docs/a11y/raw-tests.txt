@@ -1,0 +1,40 @@
+[33:35.8]  @stencil/core
+[33:36.3]  v4.43.5 🍐
+[33:36.3]  node 22.14.0
+[33:36.3]  linux, AMD EPYC-Genoa Processor
+[33:36.3]  cpus: 2, freemem: 2734MB, totalmem: 4000MB
+
+[ WARN  ]  [DEPRECATION] Stencil's integrated testing (the 'test' task, --spec
+           and --e2e flags) is deprecated and will be removed in Stencil v5.
+           Migrate spec tests to @stencil/vitest
+           (https://github.com/stenciljs/vitest) and e2e / browser tests to
+           either @stencil/vitest (https://github.com/stenciljs/vitest) or
+           @stencil/playwright (https://github.com/stenciljs/playwright). See
+           https://github.com/stenciljs/core/issues/6584 for full details.
+
+[33:36.6]  testing e2e and spec files
+[33:38.1]  build, dda, dev mode, started ...
+[33:38.2]  transpile started ...
+[33:41.3]  transpile finished in 3.05 s
+[33:41.6]  generate custom elements started ...
+[33:41.6]  generate lazy started ...
+[33:45.6]  generate custom elements finished in 3.96 s
+[33:46.3]  generate lazy finished in 4.66 s
+[33:46.3]  copy started ...
+[33:46.3]  copy finished (96 files) in 72 ms
+[33:46.4]  build finished in 8.34 s
+
+[33:46.4]  jest args: --spec --e2e --ci --max-workers=4
+PASS src/components/dda-ui-card/test/dda-ui-card.spec.tsx
+PASS src/components/dda-button/test/dda-button.spec.tsx
+PASS src/utils/utils.spec.ts
+PASS src/components/dda-ui-card/test/dda-ui-card.e2e.ts
+PASS src/components/dda-button/test/dda-button.e2e.ts
+PASS src/components/dda-home-banner/test/dda-home-banner.e2e.ts (7.398 s)
+
+Test Suites: 6 passed, 6 total
+Tests:       41 passed, 41 total
+Snapshots:   0 total
+Time:        8.849 s
+Ran all test suites.
+

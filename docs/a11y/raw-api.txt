@@ -1,0 +1,118 @@
+
+> @dubai-design-system/components-js@3.12.16 check:api
+> node scripts/check-api-consistency.mjs
+
+src/components/dda-avatar/dda-avatar-docs.mdx: <dda-avatar> uses "notification-number", but the component does not declare it
+src/components/dda-avatar/dda-avatar.stories.tsx: <dda-avatar> uses "notification-number", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-avatar> uses "notification-number", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-avatar> uses "customclass", but the component does not declare it
+src/components/dda-breadcrumb/dda-breadcrumb.stories.tsx: <dda-breadcrumb> uses "breadcrumbs", but the component does not declare it
+src/storybook/DDA with Web Components.mdx: <dda-button> uses "mode", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-button> uses "buttoncolor", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-button> uses "lefticon", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-button> uses "righticon", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-button> uses "customclass", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-button> uses "iconbuttonshape", but the component does not declare it
+src/components/dda-checkbox/dda-checkbox.stories.tsx: <dda-checkbox> uses "labelfor", but the component does not declare it
+src/storybook/cards.mdx: <dda-chip> uses "bgcolor", but the component does not declare it
+src/storybook/cards.mdx: <dda-chip> uses "showcloseicon", but the component does not declare it
+src/storybook/cards.mdx: <dda-chip> uses "customclass", but the component does not declare it
+src/storybook/tables.mdx: <dda-chip> uses "bgcolor", but the component does not declare it
+src/components/dda-dropdown/dda-dropdown.stories.tsx: <dda-dropdown> uses "placeholder", but the component does not declare it
+src/components/dda-header/dda-header-docs.mdx: <dda-header> uses "readspeakerlink", but the component does not declare it
+src/components/dda-header/dda-header-docs.mdx: <dda-header> uses "languageswitch", but the component does not declare it
+src/components/dda-header/dda-header-docs.mdx: <dda-header> uses "smtextsize", but the component does not declare it
+src/components/dda-header/dda-header-docs.mdx: <dda-header> uses "basetextsize", but the component does not declare it
+src/components/dda-header/dda-header-docs.mdx: <dda-header> uses "lgtextsize", but the component does not declare it
+src/components/dda-header/dda-header-docs.mdx: <dda-header> uses "normalcontrast", but the component does not declare it
+src/components/dda-header/dda-header-docs.mdx: <dda-header> uses "blindcontrast", but the component does not declare it
+src/components/dda-header/dda-header-docs.mdx: <dda-header> uses "redcontrast", but the component does not declare it
+src/components/dda-header/dda-header-docs.mdx: <dda-header> uses "greencontrast", but the component does not declare it
+src/components/dda-header/dda-header.stories.tsx: <dda-header> uses "readspeakerlink", but the component does not declare it
+src/components/dda-header/dda-header.stories.tsx: <dda-header> uses "languageswitch", but the component does not declare it
+src/components/dda-header/dda-header.stories.tsx: <dda-header> uses "smtextsize", but the component does not declare it
+src/components/dda-header/dda-header.stories.tsx: <dda-header> uses "basetextsize", but the component does not declare it
+src/components/dda-header/dda-header.stories.tsx: <dda-header> uses "lgtextsize", but the component does not declare it
+src/components/dda-header/dda-header.stories.tsx: <dda-header> uses "normalcontrast", but the component does not declare it
+src/components/dda-header/dda-header.stories.tsx: <dda-header> uses "blindcontrast", but the component does not declare it
+src/components/dda-header/dda-header.stories.tsx: <dda-header> uses "redcontrast", but the component does not declare it
+src/components/dda-header/dda-header.stories.tsx: <dda-header> uses "greencontrast", but the component does not declare it
+src/components/stepper/dda-horizontal-stepper/dda-horizontal-stepper-docs.mdx: <dda-horizontal-stepper> uses "mode", but the component does not declare it
+src/components/stepper/dda-horizontal-stepper/dda-horizontal-stepper.stories.tsx: <dda-horizontal-stepper> uses "mode", but the component does not declare it
+src/storybook/dda-footer.mdx: <dda-link-button> uses "buttonshape", but the component does not declare it
+src/storybook/footer.mdx: <dda-link-button> uses "buttonshape", but the component does not declare it
+src/storybook/header-footer.mdx: <dda-link-button> uses "buttonshape", but the component does not declare it
+src/components/dda-phonefield/dda-phonefield.stories.tsx: <dda-phonefield> uses "phone_number", but the component does not declare it
+src/components/dda-phonefield/dda-phonefield.stories.tsx: <dda-phonefield> uses "isFocused", but the component does not declare it
+src/components/dda-radiobutton/dda-radiobutton.stories.tsx: <dda-radiobutton> uses "labelfor", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-search-input> uses "error-message", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-search-input> uses "show-button", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-search-input> uses "has-error", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-search-input> uses "helpertext", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-search-input> uses "errormessage", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-search-input> uses "showbutton", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-search-input> uses "haserror", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-search-input> uses "customclass", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-select> uses "errormessage", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-select> uses "helpertext", but the component does not declare it
+src/storybook/dashboard-horizontal-navigation.mdx: <dda-select> uses "customclass", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticonhref", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticonsrc", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticonalt", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticontooltip", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticon2href", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticon2src", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticon2alt", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticon2tooltip", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticon3href", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticon3src", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticon3alt", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticon3tooltip", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "lefticon3text", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo1href", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo1src", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo1alt", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo1tooltip", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo2href", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo2src", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo2alt", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo2tooltip", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo3href", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo3src", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo3alt", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "middlelogo3tooltip", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "rightbutton1href", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "rightbutton1text", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "rightbutton1icon", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "rightbutton2href", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "rightbutton2text", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "rightbutton2icon", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "rightbutton3href", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "rightbutton3text", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "rightbutton3icon", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "righticon1href", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "righticon1src", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "righticon1alt", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "righticon1tooltip", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "righticon2href", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "righticon2src", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "righticon2alt", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer-docs.mdx: <dda-sticky-footer> uses "righticon2tooltip", but the component does not declare it
+src/components/dda-sticky-footer/dda-sticky-footer.stories.tsx: <dda-sticky-footer> uses "news-logo-src", but the component does not declare it
+src/components/dda-toggle/dda-toggle-docs.mdx: <dda-toggle> uses "label_on", but the component does not declare it
+src/components/dda-toggle/dda-toggle-docs.mdx: <dda-toggle> uses "label_off", but the component does not declare it
+src/components/dda-toggle/dda-toggle.stories.tsx: <dda-toggle> uses "label_on", but the component does not declare it
+src/components/dda-toggle/dda-toggle.stories.tsx: <dda-toggle> uses "label_off", but the component does not declare it
+src/components/dda-toggle/dda-toggle.stories.tsx: <dda-toggle> uses "label_for", but the component does not declare it
+src/components/stepper/dda-vertical-stepper/dda-vertical-stepper-docs.mdx: <dda-vertical-stepper> uses "current_step", but the component does not declare it
+src/components/stepper/dda-vertical-stepper/dda-vertical-stepper-docs.mdx: <dda-vertical-stepper> uses "mode", but the component does not declare it
+src/components/stepper/dda-vertical-stepper/dda-vertical-stepper.stories.tsx: <dda-vertical-stepper> uses "current_step", but the component does not declare it
+src/components/stepper/dda-vertical-stepper/dda-vertical-stepper.stories.tsx: <dda-vertical-stepper> uses "mode", but the component does not declare it
+FAIL: 106 attributes do not exist
+npm error Lifecycle script `check:api` failed with error:
+npm error code 1
+npm error path /root/Coding/dubai-design-system/packages/stencil
+npm error workspace @dubai-design-system/components-js@3.12.16
+npm error location /root/Coding/dubai-design-system/packages/stencil
+npm error command failed
+npm error command sh -c node scripts/check-api-consistency.mjs

@@ -1,0 +1,106 @@
+
+> @dubai-design-system/components-js@3.12.16 format:check
+> prettier --check "src/**/*.{ts,tsx,css}"
+
+Checking formatting...
+[warn] src/components/dda-accordion/dda-accordion.css
+[warn] src/components/dda-accordion/dda-accordion.stories.tsx
+[warn] src/components/dda-alert/dda-alert.css
+[warn] src/components/dda-alert/dda-alert.stories.tsx
+[warn] src/components/dda-attach-file/dda-attach-file.stories.tsx
+[warn] src/components/dda-attach-file/dda-attach-file.tsx
+[warn] src/components/dda-avatar/dda-avatar.css
+[warn] src/components/dda-avatar/dda-avatar.stories.tsx
+[warn] src/components/dda-avatar/dda-avatar.tsx
+[warn] src/components/dda-banner/dda-banner.tsx
+[warn] src/components/dda-breadcrumb/dda-breadcrumb.css
+[warn] src/components/dda-breadcrumb/dda-breadcrumb.stories.tsx
+[warn] src/components/dda-breadcrumb/dda-breadcrumb.tsx
+[warn] src/components/dda-button/dda-button.stories.tsx
+[warn] src/components/dda-button/dda-button.tsx
+[warn] src/components/dda-checkbox/dda-checkbox.css
+[warn] src/components/dda-checkbox/dda-checkbox.stories.tsx
+[warn] src/components/dda-checkbox/dda-checkbox.tsx
+[warn] src/components/dda-chip/dda-chip.css
+[warn] src/components/dda-chip/dda-chip.stories.tsx
+[warn] src/components/dda-chip/dda-chip.tsx
+[warn] src/components/dda-credit-card/dda-credit-card.css
+[warn] src/components/dda-credit-card/dda-credit-card.stories.tsx
+[warn] src/components/dda-credit-card/dda-credit-card.tsx
+[warn] src/components/dda-creditcard-field/dda-creditcard-field.stories.tsx
+[warn] src/components/dda-creditcard-field/dda-creditcard-field.tsx
+[warn] src/components/dda-dropdown/dda-dropdown.stories.tsx
+[warn] src/components/dda-dropdown/dda-dropdown.tsx
+[warn] src/components/dda-footer/dda-footer.stories.tsx
+[warn] src/components/dda-footer/dda-footer.tsx
+[warn] src/components/dda-header/dda-header.stories.tsx
+[warn] src/components/dda-header/dda-header.tsx
+[warn] src/components/dda-home-banner/dda-home-banner.tsx
+[warn] src/components/dda-home-banner/home-banner.css
+[warn] src/components/dda-input/dda-input.stories.tsx
+[warn] src/components/dda-input/dda-input.tsx
+[warn] src/components/dda-link-button/dda-link-button.stories.tsx
+[warn] src/components/dda-link-button/dda-link-button.tsx
+[warn] src/components/dda-number-field/dda-number-field.stories.tsx
+[warn] src/components/dda-number-field/dda-number-field.tsx
+[warn] src/components/dda-pagination/dda-pagination.css
+[warn] src/components/dda-pagination/dda-pagination.stories.tsx
+[warn] src/components/dda-pagination/dda-pagination.tsx
+[warn] src/components/dda-phonefield/dda-phonefield.stories.tsx
+[warn] src/components/dda-phonefield/dda-phonefield.tsx
+[warn] src/components/dda-progressbar/dda-progressbar.css
+[warn] src/components/dda-progressbar/dda-progressbar.stories.tsx
+[warn] src/components/dda-progressbar/dda-progressbar.tsx
+[warn] src/components/dda-radiobutton/dda-radiobutton.css
+[warn] src/components/dda-radiobutton/dda-radiobutton.stories.tsx
+[warn] src/components/dda-radiobutton/dda-radiobutton.tsx
+[warn] src/components/dda-range-slider/dda-range-slider.css
+[warn] src/components/dda-range-slider/dda-range-slider.stories.tsx
+[warn] src/components/dda-range-slider/dda-range-slider.tsx
+[warn] src/components/dda-search-input/dda-search-input.stories.tsx
+[warn] src/components/dda-search-input/dda-search-input.tsx
+[warn] src/components/dda-select/dda-select.stories.tsx
+[warn] src/components/dda-select/dda-select.tsx
+[warn] src/components/dda-sticky-footer/dda-sticky-footer.stories.tsx
+[warn] src/components/dda-sticky-footer/dda-sticky-footer.tsx
+[warn] src/components/dda-tabs/dda-tabs.css
+[warn] src/components/dda-tabs/dda-tabs.stories.tsx
+[warn] src/components/dda-tabs/dda-tabs.tsx
+[warn] src/components/dda-textarea/dda-textarea.stories.tsx
+[warn] src/components/dda-textarea/dda-textarea.tsx
+[warn] src/components/dda-toggle/dda-toggle.css
+[warn] src/components/dda-toggle/dda-toggle.stories.tsx
+[warn] src/components/dda-toggle/dda-toggle.tsx
+[warn] src/components/dda-tooltip/dda-tooltip.css
+[warn] src/components/dda-tooltip/dda-tooltip.stories.tsx
+[warn] src/components/dda-tooltip/dda-tooltip.tsx
+[warn] src/components/segmented-groups/dda-segmented-tabs/dda-segmented-tabs.css
+[warn] src/components/segmented-groups/dda-segmented-tabs/dda-segmented-tabs.stories.tsx
+[warn] src/components/segmented-groups/dda-segmented-tabs/dda-segmented-tabs.tsx
+[warn] src/components/stepper/dda-horizontal-stepper/dda-horizontal-stepper.css
+[warn] src/components/stepper/dda-horizontal-stepper/dda-horizontal-stepper.stories.tsx
+[warn] src/components/stepper/dda-horizontal-stepper/dda-horizontal-stepper.tsx
+[warn] src/components/stepper/dda-vertical-stepper/dda-vertical-stepper.css
+[warn] src/components/stepper/dda-vertical-stepper/dda-vertical-stepper.stories.tsx
+[warn] src/components/stepper/dda-vertical-stepper/dda-vertical-stepper.tsx
+[warn] src/global/color.css
+[warn] src/global/dda-button.css
+[warn] src/global/global.css
+[warn] src/global/input.css
+[warn] src/global/templates/cards.css
+[warn] src/global/templates/dashboard-navigation.css
+[warn] src/global/templates/dda-footer-main.css
+[warn] src/global/templates/dda-grid.css
+[warn] src/global/templates/dda-header-main.css
+[warn] src/global/templates/side-navigation.css
+[warn] src/global/templates/table.css
+[warn] src/global/templates/website-footer.css
+[warn] src/global/typography.css
+[warn] Code style issues found in 93 files. Run Prettier with --write to fix.
+npm error Lifecycle script `format:check` failed with error:
+npm error code 1
+npm error path /root/Coding/dubai-design-system/packages/stencil
+npm error workspace @dubai-design-system/components-js@3.12.16
+npm error location /root/Coding/dubai-design-system/packages/stencil
+npm error command failed
+npm error command sh -c prettier --check "src/**/*.{ts,tsx,css}"

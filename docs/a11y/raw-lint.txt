@@ -1,0 +1,135 @@
+
+> @dubai-design-system/components-js@3.12.16 lint
+> eslint src
+
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-accordion/dda-accordion.tsx
+   1:34  error  'h' is defined but never used                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  26:11  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  26:11  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-alert/dda-alert.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-attach-file/dda-attach-file.tsx
+  1:34  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-avatar/dda-avatar.tsx
+   1:34  error  'h' is defined but never used                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  45:7   error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  45:7   error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-banner/dda-banner.tsx
+  1:34  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-breadcrumb/dda-breadcrumb.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-button/dda-button.tsx
+  1:33  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-checkbox/dda-checkbox.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-chip/dda-chip.tsx
+   1:27  error  'h' is defined but never used                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  25:13  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  25:13  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-credit-card/dda-credit-card.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-creditcard-field/dda-creditcard-field.tsx
+  1:35  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-dropdown/dda-dropdown.tsx
+  1:34  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-footer/dda-footer.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-header/dda-header.tsx
+    1:21  error    'h' is defined but never used                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  108:9   error    'isClickInsideMenu' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                       prefer-const
+  253:13  warning  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  258:13  warning  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  268:15  error    Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element                                                                                                                                                                  jsx-a11y/no-static-element-interactions
+  268:15  error    Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                                                                                                                                                                     jsx-a11y/click-events-have-key-events
+  271:15  error    Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element                                                                                                                                                                  jsx-a11y/no-static-element-interactions
+  271:15  error    Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                                                                                                                                                                     jsx-a11y/click-events-have-key-events
+  310:25  warning  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  496:15  warning  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-home-banner/dda-home-banner.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-input/dda-input.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-link-button/dda-link-button.tsx
+  1:33  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-number-field/dda-number-field.tsx
+  1:34  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-pagination/dda-pagination.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-phonefield/dda-phonefield.tsx
+  1:34  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-progressbar/dda-progressbar.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-radiobutton/dda-radiobutton.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-range-slider/dda-range-slider.tsx
+  1:34  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-search-input/dda-search-input.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-select/dda-select.tsx
+  1:34  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-sticky-footer/dda-sticky-footer.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-tabs/dda-tabs.tsx
+  1:34  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-textarea/dda-textarea.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-toggle/dda-toggle.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-tooltip/dda-tooltip.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/dda-ui-card/dda-ui-card.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/segmented-groups/dda-segmented-tabs/dda-segmented-tabs.tsx
+  1:27  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/stepper/dda-horizontal-stepper/dda-horizontal-stepper.tsx
+  1:35  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/components/stepper/dda-vertical-stepper/dda-vertical-stepper.tsx
+  1:35  error  'h' is defined but never used  @typescript-eslint/no-unused-vars
+
+/root/Coding/dubai-design-system/packages/stencil/src/utils/applyTheme.js
+  2:18  error  'document' is not defined  no-undef
+
+✖ 50 problems (46 errors, 4 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+
+npm error Lifecycle script `lint` failed with error:
+npm error code 1
+npm error path /root/Coding/dubai-design-system/packages/stencil
+npm error workspace @dubai-design-system/components-js@3.12.16
+npm error location /root/Coding/dubai-design-system/packages/stencil
+npm error command failed
+npm error command sh -c eslint src

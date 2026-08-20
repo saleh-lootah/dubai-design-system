@@ -1,0 +1,19 @@
+[2m[33:00.8][22m  [36m@stencil/core[39m
+[2m[33:01.2][22m  [36mv4.43.5[39m 🍐
+[2m[33:03.3][22m  build, dda, prod mode, started [2m...[22m
+[2m[33:03.4][22m  transpile started [2m...[22m
+[2m[33:06.3][22m  transpile finished [2min 2.99 s[22m
+[2m[33:06.7][22m  generate custom elements started [2m...[22m
+[2m[33:06.7][22m  generate lazy started [2m...[22m
+[2m[33:11.7][22m  generate custom elements finished [2min 5.07 s[22m
+[2m[33:11.8][22m  generate lazy finished [2min 5.09 s[22m
+[2m[33:11.8][22m  copy started [2m...[22m
+[2m[33:11.9][22m  generating react-output-target started [2m...[22m
+[2m[33:12.9][22m  generating angular-library started [2m...[22m
+[2m[33:12.9][22m  generating vue-library started [2m...[22m
+[2m[33:13.0][22m  generate react-output-target finished [2min 1.03 s[22m
+[2m[33:13.0][22m  copy finished (96 files) [2min 1.20 s[22m
+[2m[33:13.0][22m  generate angular-library finished [2min 47 ms[22m
+[2m[33:13.0][22m  generate vue-library finished [2min 47 ms[22m
+[2m[33:13.1][22m  [1m[32mbuild finished[39m[22m [2min 9.80 s[22m
+
