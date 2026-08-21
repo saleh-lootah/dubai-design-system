@@ -179,6 +179,21 @@ Nothing to configure — jsDelivr syncs from npm automatically. Use a **pinned v
 Do **not** use `@latest` — jsDelivr caches version aliases at the edge, and an unversioned
 loader URL does not resolve the loader's relative chunks reliably.
 
+### A note if you are on `@latest` today
+
+`dist/dda/dda.css` was **missing from 3.12.16 entirely** — the build stopped generating it,
+and jsDelivr has been serving a stale cached copy from an older release. That cache would
+have expired on its own eventually, taking your stylesheet with it.
+
+5.0.0 restores the file, and it is a verified **superset** of the stale copy jsDelivr has
+been serving: every one of the 518 classes in that file is still present, including utility
+and typography classes that had been dropped from the source. Nothing that renders on your
+page today stops rendering.
+
+Those legacy rules live in `src/global/legacy-compat.css` and are shipped for compatibility
+only. They will be deprecated deliberately in a future major, with notice — not removed by
+silent omission.
+
 Note that `dda.css` ships **no icon font**. The Material Icons link above is required, or
 icons render as words like `chevron_right`.
 

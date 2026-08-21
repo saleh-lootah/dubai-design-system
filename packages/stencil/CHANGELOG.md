@@ -72,6 +72,17 @@ build instead of this one. 5.0.0 avoids the collision entirely.
   since the initial commit; `package-lock.json` shipped only the Windows `@swc/core` binary,
   so Storybook could not build on Linux; `@stencil/core` is now pinned exactly.
 
+### Packaging
+
+- **`dist/dda/dda.css` is generated again.** It was absent from 3.12.16 (and several
+  earlier releases) because `stencil.config.ts` had no `globalStyle` entry — the versions
+  that shipped it did so from stale build output. jsDelivr was serving a cached copy from
+  an older release to everyone on `@latest`, which is why the documented stylesheet URL
+  appeared to work while 404ing on the pinned version.
+- The shipped bundle is a **verified superset** of that stale file: all 518 of its classes
+  are present, plus current tokens, button and input styles. Legacy rules that no longer
+  exist in source are isolated in `src/global/legacy-compat.css` for compatibility.
+
 ### Tooling
 
 - ESLint, Prettier, an API-consistency checker, an axe sweep over every story in both

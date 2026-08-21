@@ -1,0 +1,8 @@
+/* Entry point for the published stylesheet, dist/dda/dda.css.
+   This is what a consumer loads from the CDN. It exists so the shipped bundle can be
+   fuller than global.css without bloating every component chunk: components import
+   global.css via styleUrls, so anything added there is duplicated into each chunk. */
+@import url('./legacy-compat.css');
+@import url('./global.css');
+@import url('./dda-button.css');
+@import url('./input.css');

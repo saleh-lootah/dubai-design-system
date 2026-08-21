@@ -5,6 +5,7 @@ import { vueOutputTarget } from '@stencil/vue-output-target';
 
 export const config: Config = {
   namespace: 'dda',
+  globalStyle: 'src/global/dda-bundle.css',
   outputTargets: [
     {
       type: 'dist',
