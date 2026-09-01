@@ -30,6 +30,14 @@ stylesheet produced a 404 for all twelve font URLs and fell back to `sans-serif`
   rules could also shadow the correct ones in a linked `dda.css` — so shipping the font files
   alone would not reliably have fixed the report. Present since at least 4.1.0. The rules now
   live in `src/global/fonts.css`, out of every component chunk.
+- **The React and Vue wrappers were published from stale generated output.** Rebuilding
+  from source recovered API surface that 5.0.0 shipped without: the Vue `DdaHomeBanner`
+  had no props declared at all, and `autocomplete` (`dda-creditcard-field`,
+  `dda-phonefield`), `input_id`/`aria_label` (`dda-search-input`) and
+  `selected_index`/`segmentChange` (`dda-segmented-tabs`) were missing. The React types
+  and event map were missing `dda-segmented-tabs`'s `onSegmentChange`. Those props and
+  events existed on the underlying web components in 5.0.0 — only the framework wrappers
+  could not reach them.
 - **Font declarations are kept out of the runtime entirely.** `dist/dda/dda.css` *is* the
   compiled `globalStyle`, which Stencil also embeds as a `globalStyles` string — used only to
   prepend a `<style>` into the shadow root of each `shadow: true` component (`dda-banner`).

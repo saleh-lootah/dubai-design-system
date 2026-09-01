@@ -226,7 +226,7 @@ export const DdaSegmentedTabs = createComponent({
     tagName: 'dda-segmented-tabs',
     elementClass: DdaSegmentedTabsElement,
     react: React,
-    events: {},
+    events: { onSegmentChange: 'segmentChange' },
     defineCustomElement: defineDdaSegmentedTabs
 });
 export const DdaSelect = createComponent({

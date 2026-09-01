@@ -95,7 +95,9 @@ type DdaRangeSliderEvents = NonNullable<unknown>;
 export declare const DdaRangeSlider: StencilReactComponent<DdaRangeSliderElement, DdaRangeSliderEvents>;
 type DdaSearchInputEvents = NonNullable<unknown>;
 export declare const DdaSearchInput: StencilReactComponent<DdaSearchInputElement, DdaSearchInputEvents>;
-type DdaSegmentedTabsEvents = NonNullable<unknown>;
+type DdaSegmentedTabsEvents = {
+    onSegmentChange: EventName<CustomEvent<number>>;
+};
 export declare const DdaSegmentedTabs: StencilReactComponent<DdaSegmentedTabsElement, DdaSegmentedTabsEvents>;
 type DdaSelectEvents = NonNullable<unknown>;
 export declare const DdaSelect: StencilReactComponent<DdaSelectElement, DdaSelectEvents>;

@@ -134,7 +134,8 @@ export const DdaCreditcardField = defineContainer('dda-creditcard-field', undefi
     'component_mode',
     'input_id',
     'aria_label',
-    'input_name'
+    'input_name',
+    'autocomplete'
 ]);
 export const DdaDropdown = defineContainer('dda-dropdown', undefined, [
     'label',
@@ -197,7 +198,17 @@ export const DdaHeader = defineContainer('dda-header', undefined, [
     'redContrast',
     'greenContrast'
 ]);
-export const DdaHomeBanner = defineContainer('dda-home-banner', undefined);
+export const DdaHomeBanner = defineContainer('dda-home-banner', undefined, [
+    'autoplay',
+    'interval',
+    'aria_label',
+    'previous_button_label',
+    'next_button_label',
+    'pause_button_label',
+    'play_button_label',
+    'slide_button_label',
+    'slide_status_label'
+]);
 export const DdaHorizontalStepper = defineContainer('dda-horizontal-stepper', undefined, [
     'steps',
     'current_step',
@@ -290,7 +301,8 @@ export const DdaPhonefield = defineContainer('dda-phonefield', undefined, [
     'button_aria_label',
     'toggle_button_name',
     'country_select_button_name',
-    'phone_input_name'
+    'phone_input_name',
+    'autocomplete'
 ]);
 export const DdaProgressbar = defineContainer('dda-progressbar', undefined, [
     'progress',
@@ -298,7 +310,8 @@ export const DdaProgressbar = defineContainer('dda-progressbar', undefined, [
     'tooltip_position',
     'show_percentage_text',
     'custom_class',
-    'component_mode'
+    'component_mode',
+    'aria_label'
 ]);
 export const DdaRadiobutton = defineContainer('dda-radiobutton', undefined, [
     'title_text',
@@ -342,6 +355,7 @@ export const DdaSearchInput = defineContainer('dda-search-input', undefined, [
     'custom_class',
     'component_mode',
     'button_id',
+    'input_id',
     'aria_label',
     'button_aria_label',
     'search_input_name',
@@ -353,7 +367,10 @@ export const DdaSegmentedTabs = defineContainer('dda-segmented-tabs', undefined,
     'radius_type',
     'custom_class',
     'component_mode',
-    'button_name'
+    'button_name',
+    'aria_label',
+    'selected_index',
+    'segmentChange'
 ]);
 export const DdaSelect = defineContainer('dda-select', undefined, [
     'label',
