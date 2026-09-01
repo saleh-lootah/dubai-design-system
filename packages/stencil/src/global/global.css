@@ -10,53 +10,6 @@
 @import url('./templates/website-footer.css');
 @import url('./templates/dda-header-main.css');
 
-@font-face {
-  font-family: "Dubai";
-  src: url("../assets/fonts/dubai/DubaiLight.eot");
-  src: url("../assets/fonts/dubai/DubaiLight.eot") format("embedded-opentype"),
-    url("../assets/fonts/dubai/DubaiLight.woff2") format("woff2"),
-    url("../assets/fonts/dubai/DubaiLight.woff") format("woff"),
-    url("../assets/fonts/dubai/DubaiLight.ttf") format("truetype"),
-    url("../assets/fonts/dubai/DubaiLight.svg#DubaiLight") format("svg");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Dubai";
-  src: url("../assets/fonts/dubai/DubaiRegular.eot");
-  src: url("../assets/fonts/dubai/DubaiRegular.eot") format("embedded-opentype"),
-    url("../assets/fonts/dubai/DubaiRegular.woff2") format("woff2"),
-    url("../assets/fonts/dubai/DubaiRegular.woff") format("woff"),
-    url("../assets/fonts/dubai/DubaiRegular.ttf") format("truetype"),
-    url("../assets/fonts/dubai/DubaiRegular.svg#DubaiRegular") format("svg");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Dubai";
-  src: url("../assets/fonts/dubai/DubaiMedium.eot");
-  src: url("../assets/fonts/dubai/DubaiMedium.eot") format("embedded-opentype"),
-    url("../assets/fonts/dubai/DubaiMedium.woff2") format("woff2"),
-    url("../assets/fonts/dubai/DubaiMedium.woff") format("woff"),
-    url("../assets/fonts/dubai/DubaiMedium.ttf") format("truetype"),
-    url("../assets/fonts/dubai/DubaiMedium.svg#DubaiMedium") format("svg");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Dubai";
-  src: url("../assets/fonts/dubai/DubaiBold.eot");
-  src: url("../assets/fonts/dubai/DubaiBold.eot") format("embedded-opentype"),
-    url("../assets/fonts/dubai/DubaiBold.woff2") format("woff2"),
-    url("../assets/fonts/dubai/DubaiBold.woff") format("woff"),
-    url("../assets/fonts/dubai/DubaiBold.ttf") format("truetype"),
-    url("../assets/fonts/dubai/DubaiBold.svg#DubaiBold") format("svg");
-  font-weight: 700;
-  font-style: normal;
-}
 :root{
   --font-family-main: 'Dubai', sans-serif;
 }

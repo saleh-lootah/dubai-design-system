@@ -1,7 +1,13 @@
 /* Entry point for the published stylesheet, dist/dda/dda.css.
    This is what a consumer loads from the CDN. It exists so the shipped bundle can be
    fuller than global.css without bloating every component chunk: components import
-   global.css via styleUrls, so anything added there is duplicated into each chunk. */
+   global.css via styleUrls, so anything added there is duplicated into each chunk.
+   The font layer (fonts.css) is deliberately NOT imported here. Stencil compiles this file
+   into both dist/dda/dda.css and a globalStyles string, and that string is prepended as a
+   <style> into the shadow root of every shadow:true component. @font-face is ignored inside
+   a shadow root, so those copies would be dead weight rather than useful. Keeping the font
+   layer out means the declarations exist in exactly one place — the stylesheet consumers
+   link. They are appended to dist/dda/dda.css after the build by scripts/emit-font-css.mjs. */
 @import url('./legacy-compat.css');
 @import url('./global.css');
 @import url('./dda-button.css');

@@ -4,6 +4,63 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## [5.0.1](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%405.0.1) (2026-09-01)
+
+A packaging fix, reported by a consumer against 5.0.0. `dist/dda/dda.css` requested Dubai
+font files the published package did not contain, so every page loading the documented CDN
+stylesheet produced a 404 for all twelve font URLs and fell back to `sans-serif`.
+
+### Bug Fixes
+
+- **The Dubai typeface 404s from `dda.css`.** The stylesheet's `@font-face` rules point at
+  `../assets/fonts/dubai/`, which has never existed in the package — no `dist/assets/` was
+  produced at all. Stencil's `dist` target applies a default copy of `**/*.svg` and
+  `**/*.js` *into `dist/collection`*, which is both why four SVG fonts were the only font
+  files ever published and why `dist.copy` could not fix it. The binaries are now copied to
+  `dist/assets/fonts/dubai/` by the `dist-custom-elements` target, whose copy tasks resolve
+  against the package root. The URLs in `dda.css` are unchanged. Introduced in 5.0.0: 4.1.0
+  published no global stylesheet, so nothing referenced these files before.
+- **The same rules were also injected into consumer pages.** `global.css` is in the
+  `styleUrls` of ~30 components, so the font rules were compiled into 91 build artifacts — 29
+  of them `shadow: false` component entry chunks. Stencil injects such a chunk's styles as a
+  `<style>` in `document.head`, and a relative `url()` inside a `<style>` resolves against the
+  *document* URL, giving a second set of 404s at
+  `https://<consumer-site>/<path>/../assets/fonts/dubai/*`. Because that `<style>` is inserted
+  ahead of the first existing one and the last matching `@font-face` wins, those page-relative
+  rules could also shadow the correct ones in a linked `dda.css` — so shipping the font files
+  alone would not reliably have fixed the report. Present since at least 4.1.0. The rules now
+  live in `src/global/fonts.css`, out of every component chunk.
+- **Font declarations are kept out of the runtime entirely.** `dist/dda/dda.css` *is* the
+  compiled `globalStyle`, which Stencil also embeds as a `globalStyles` string — used only to
+  prepend a `<style>` into the shadow root of each `shadow: true` component (`dda-banner`).
+  `@font-face` is ignored inside a shadow root, so those copies were inert weight rather than a
+  second fault. `fonts.css` is therefore not imported by `dda-bundle.css`;
+  `scripts/emit-font-css.mjs` appends it to `dist/dda/dda.css` after the build, so the font
+  rules exist in exactly one place: the stylesheet consumers link.
+
+### Behaviour Changes
+
+- A page that loads the components but does **not** link `dda.css` now has no Dubai
+  `@font-face` declarations and falls back to the generic sans-serif stack. Those rules
+  were previously present but resolved to files that did not exist, so nothing that
+  rendered correctly before changes.
+- `eot` and `svg` are no longer shipped or referenced. They served only Internet Explorer
+  and long-obsolete Safari, and accounted for 1.6 MB of the 2.4 MB font directory.
+
+### Packaging
+
+- `dist/assets/fonts/dubai/` holds twelve files — `woff2`, `woff` and `ttf` for Light (300),
+  Regular (400), Medium (500) and Bold (700). Package size 2.5 MB → 3.0 MB.
+- Self-hosting or bundling `dda.css` requires copying `dist/assets/fonts/` alongside it and
+  preserving the `../assets/fonts/dubai/` relative path.
+
+### Tooling
+
+- `scripts/check-dist-assets.mjs` runs on `postbuild` and fails the build if any `url()` in
+  `dist/dda/dda.css` does not resolve to a shipped file, if the stylesheet does not carry
+  exactly four `@font-face` blocks, or if any compiled chunk references the font path again.
+  36 unit tests cover it and `scripts/emit-font-css.mjs`.
+
 ## [5.0.0](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%405.0.0) (2026-08-21)
 
 A full accessibility and correctness review of all 34 components. This is a **major**

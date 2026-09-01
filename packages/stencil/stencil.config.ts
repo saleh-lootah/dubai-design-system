@@ -36,7 +36,23 @@ export const config: Config = {
       type: 'docs-json',
       file: './stencil-docs.json',
     },
-    { type: 'dist-custom-elements', customElementsExportBehavior: 'auto-define-custom-elements', externalRuntime: false },
+    {
+      type: 'dist-custom-elements',
+      customElementsExportBehavior: 'auto-define-custom-elements',
+      externalRuntime: false,
+      // The Dubai font binaries must land at `dist/assets/fonts/dubai/` so the
+      // `url("../assets/fonts/dubai/…")` references in `dist/dda/dda.css` resolve.
+      // This copy task hangs off `dist-custom-elements` rather than the `dist` target
+      // because `dist.copy` is hard-wired to write into `dist/collection` and cannot
+      // reach the `dist/` root; `dist-custom-elements.copy` resolves `dest` against the
+      // package root, which is the only lever that can. `src` resolves against `srcDir`.
+      // Only woff2/woff/ttf are shipped — eot and svg are dropped (see the 404 fix plan).
+      copy: [
+        { src: 'assets/fonts/dubai/*.woff2', dest: 'dist/assets/fonts/dubai', warn: true },
+        { src: 'assets/fonts/dubai/*.woff', dest: 'dist/assets/fonts/dubai', warn: true },
+        { src: 'assets/fonts/dubai/*.ttf', dest: 'dist/assets/fonts/dubai', warn: true },
+      ],
+    },
     {
       type: 'www',
       serviceWorker: null, // disable service workers

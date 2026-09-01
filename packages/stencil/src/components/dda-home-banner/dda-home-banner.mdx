@@ -101,7 +101,9 @@ these in order:
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
 <!-- dda.css does not ship the icon font. Without this link the carousel arrows
-     render as the words "chevron_left" / "chevron_right". -->
+     render as the words "chevron_left" / "chevron_right". The Dubai text font, by
+     contrast, is declared inside dda.css and loaded from dist/assets/fonts/dubai/,
+     so it needs no link of its own. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 <script type="module">
   import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.js';

@@ -1,0 +1,46 @@
+/* The Dubai font declarations. They are NOT imported by dda-bundle.css: everything in that
+   file is also compiled into a globalStyles string that Stencil prepends as a <style> into
+   every shadow:true component's shadow root, where @font-face is ignored — dead weight. They
+   are therefore appended to dist/dda/dda.css after the build, by scripts/emit-font-css.mjs,
+   so the declarations exist in exactly one place. Critically they must also stay out of
+   global.css, which components pull in via styleUrls: Stencil injects a component's styles
+   as a <style> in document.head, and a relative url() there resolves against the consumer's
+   page URL rather than the stylesheet's, which is what produced the 5.0.0 404s. The URLs are
+   relative to the stylesheet's own location, so dist/dda/dda.css resolves them against
+   dist/assets/fonts/dubai/. A page that loads the components without linking dda.css gets
+   no @font-face declarations at all and falls back to the generic sans-serif stack. */
+@font-face {
+  font-family: "Dubai";
+  src: url("../assets/fonts/dubai/DubaiLight.woff2") format("woff2"),
+    url("../assets/fonts/dubai/DubaiLight.woff") format("woff"),
+    url("../assets/fonts/dubai/DubaiLight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Dubai";
+  src: url("../assets/fonts/dubai/DubaiRegular.woff2") format("woff2"),
+    url("../assets/fonts/dubai/DubaiRegular.woff") format("woff"),
+    url("../assets/fonts/dubai/DubaiRegular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Dubai";
+  src: url("../assets/fonts/dubai/DubaiMedium.woff2") format("woff2"),
+    url("../assets/fonts/dubai/DubaiMedium.woff") format("woff"),
+    url("../assets/fonts/dubai/DubaiMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Dubai";
+  src: url("../assets/fonts/dubai/DubaiBold.woff2") format("woff2"),
+    url("../assets/fonts/dubai/DubaiBold.woff") format("woff"),
+    url("../assets/fonts/dubai/DubaiBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}

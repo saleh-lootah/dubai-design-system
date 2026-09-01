@@ -1,4 +1,5 @@
 import { defineCustomElements } from '../loader';
+import "../src/global/fonts.css";
 import "../src/global/global.css";
 import 'quill/dist/quill.snow.css';
 import 'material-icons/iconfont/material-icons.css';

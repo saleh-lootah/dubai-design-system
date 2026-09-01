@@ -1,6 +1,6 @@
 {
   "name": "@dubai-design-system/components-js",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "private": false,
   "description": "JavaScript package for the Digital Dubai Design System, offering reusable, customizable components for seamless integration into web applications",
   "main": "dist/index.cjs.js",
@@ -38,6 +38,7 @@
   ],
   "scripts": {
     "build": "stencil build",
+    "postbuild": "node scripts/emit-font-css.mjs && node scripts/check-dist-assets.mjs",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
@@ -51,6 +52,10 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "check:api": "node scripts/check-api-consistency.mjs",
     "check:api:test": "node --test scripts/check-api-consistency.test.mjs",
+    "check:dist": "node scripts/check-dist-assets.mjs",
+    "check:dist:test": "node --test scripts/check-dist-assets.test.mjs",
+    "emit:fontcss": "node scripts/emit-font-css.mjs",
+    "emit:fontcss:test": "node --test scripts/emit-font-css.test.mjs",
     "test:a11y": "test-storybook --url http://127.0.0.1:6006",
     "test:a11y:ci": "concurrently -k -s first -n SB,TEST \"http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && npm run test:a11y\""
   },
