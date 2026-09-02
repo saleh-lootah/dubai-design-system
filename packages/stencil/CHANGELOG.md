@@ -4,6 +4,30 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## 5.0.2 (2026-09-02)
+
+A metadata-only release. No component, stylesheet or runtime code changed; `dist/` differs
+from 5.0.1 only by the version string.
+
+### Packaging
+
+- **The published changelog no longer links to the source repository.** `CHANGELOG.md` is
+  listed in this package's `files`, so it ships to every consumer on npm and the CDN, and
+  5.0.1 carried twelve links out with it — eight release-tag links in the version headings
+  and four inline commit links. Three of those were already dead, pointing at commits lost
+  to rewritten history. The package is the product; where it is developed is not something
+  the package needs to publish. Version headings are now plain text and commit references
+  keep the bare hash, which still resolves for anyone with a checkout. Nothing else was
+  removed.
+- A CI gate, `npm run check:repolinks`, now fails the build if a repository link reappears
+  in any file that ships. It is not ratcheted — it starts clean and stays clean. It matches
+  the repository under any owner, so moving it to an organisation will not reopen the gap,
+  and it ignores third-party `github.com` URLs, which `dist/` legitimately carries from
+  Stencil's runtime and from Quill.
+
+5.0.1 is immutable and keeps its links; upgrade to 5.0.2 for a clean copy.
+
+
 ## 5.0.1 (2026-09-01)
 
 A packaging fix, reported by a consumer against 5.0.0. `dist/dda/dda.css` requested Dubai
