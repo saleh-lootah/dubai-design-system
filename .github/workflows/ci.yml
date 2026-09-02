@@ -8,6 +8,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    # Without this a hung `npm ci` sits until the 6-hour Actions ceiling.
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -16,8 +18,22 @@ jobs:
           node-version: '22.14.0'
           cache: npm
 
+      # `npm ci` runs puppeteer's postinstall, which downloads ~150MB of Chromium
+      # from Google's CDN with no timeout. setup-node's `cache: npm` caches the
+      # npm registry cache only, never this, so it re-downloaded on every job of
+      # every run. A stall there is invisible because npm hides lifecycle-script
+      # output, which is why the hang looked like silence mid-install.
+      - name: Cache the Puppeteer browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: puppeteer-${{ runner.os }}-
+
+      # --foreground-scripts so that if an install script does stall, the log
+      # names it instead of going quiet.
       - name: Install
-        run: npm ci
+        run: npm ci --foreground-scripts
 
       - name: Build the components
         working-directory: packages/stencil
@@ -58,6 +74,8 @@ jobs:
   # still shows the real numbers.
   lint:
     runs-on: ubuntu-latest
+    # Without this a hung `npm ci` sits until the 6-hour Actions ceiling.
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -66,8 +84,22 @@ jobs:
           node-version: '22.14.0'
           cache: npm
 
+      # `npm ci` runs puppeteer's postinstall, which downloads ~150MB of Chromium
+      # from Google's CDN with no timeout. setup-node's `cache: npm` caches the
+      # npm registry cache only, never this, so it re-downloaded on every job of
+      # every run. A stall there is invisible because npm hides lifecycle-script
+      # output, which is why the hang looked like silence mid-install.
+      - name: Cache the Puppeteer browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: puppeteer-${{ runner.os }}-
+
+      # --foreground-scripts so that if an install script does stall, the log
+      # names it instead of going quiet.
       - name: Install
-        run: npm ci
+        run: npm ci --foreground-scripts
 
       # Two invocations: the JSON formatter gives us reliable error/warning
       # counts to ratchet on, the default (stylish) formatter is only for a
@@ -157,6 +189,8 @@ jobs:
 
   accessibility:
     runs-on: ubuntu-latest
+    # Without this a hung `npm ci` sits until the 6-hour Actions ceiling.
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
@@ -165,8 +199,22 @@ jobs:
           node-version: '22.14.0'
           cache: npm
 
+      # `npm ci` runs puppeteer's postinstall, which downloads ~150MB of Chromium
+      # from Google's CDN with no timeout. setup-node's `cache: npm` caches the
+      # npm registry cache only, never this, so it re-downloaded on every job of
+      # every run. A stall there is invisible because npm hides lifecycle-script
+      # output, which is why the hang looked like silence mid-install.
+      - name: Cache the Puppeteer browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: puppeteer-${{ runner.os }}-
+
+      # --foreground-scripts so that if an install script does stall, the log
+      # names it instead of going quiet.
       - name: Install
-        run: npm ci
+        run: npm ci --foreground-scripts
 
       - name: Install the browser
         working-directory: packages/stencil
