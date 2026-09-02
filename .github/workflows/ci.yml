@@ -172,6 +172,16 @@ jobs:
         working-directory: packages/stencil
         run: npx playwright install --with-deps chromium
 
+      # Storybook's preview imports the loader (.storybook/preview.js line 1:
+      # `from '../loader'`), and packages/stencil/loader/ is a stencil build
+      # output that is gitignored, so a fresh checkout does not have it. Without
+      # this step the Storybook build fails to resolve it and the whole job dies
+      # before the sweep ever runs. build-and-test does the same thing for the
+      # same reason.
+      - name: Build the components
+        working-directory: packages/stencil
+        run: npx stencil build
+
       # Paid once: everything below reuses this same static build.
       - name: Build Storybook
         working-directory: packages/stencil
