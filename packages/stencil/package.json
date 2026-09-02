@@ -52,6 +52,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "check:api": "node scripts/check-api-consistency.mjs",
     "check:api:test": "node --test scripts/check-api-consistency.test.mjs",
+    "check:repolinks": "node scripts/check-no-repo-links.mjs",
+    "check:repolinks:test": "node --test scripts/check-no-repo-links.test.mjs",
     "check:dist": "node scripts/check-dist-assets.mjs",
     "check:dist:test": "node --test scripts/check-dist-assets.test.mjs",
     "emit:fontcss": "node scripts/emit-font-css.mjs",

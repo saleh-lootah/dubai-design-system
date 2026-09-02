@@ -168,6 +168,19 @@ jobs:
         working-directory: packages/stencil
         run: npm run check:api:test
 
+      # Not ratcheted: this one starts clean and must stay clean. CHANGELOG.md ships
+      # inside the npm package, so a link written there reaches every consumer on npm
+      # and the CDN — 5.0.1 went out with twelve of them. The published artifact must
+      # not advertise where the project is developed. Third-party github.com URLs in
+      # vendored code are not matched; only links to this project are a fault.
+      - name: Test the repository-link checker itself
+        working-directory: packages/stencil
+        run: npm run check:repolinks:test
+
+      - name: No links to the source repository in shipped files
+        working-directory: packages/stencil
+        run: npm run check:repolinks
+
       # stencil-docs.json must exist before check:api can run.
       - name: API consistency
         working-directory: packages/stencil

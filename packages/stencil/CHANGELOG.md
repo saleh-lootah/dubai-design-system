@@ -4,7 +4,7 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## [5.0.1](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%405.0.1) (2026-09-01)
+## 5.0.1 (2026-09-01)
 
 A packaging fix, reported by a consumer against 5.0.0. `dist/dda/dda.css` requested Dubai
 font files the published package did not contain, so every page loading the documented CDN
@@ -69,7 +69,7 @@ stylesheet produced a 404 for all twelve font URLs and fell back to `sans-serif`
   exactly four `@font-face` blocks, or if any compiled chunk references the font path again.
   36 unit tests cover it and `scripts/emit-font-css.mjs`.
 
-## [5.0.0](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%405.0.0) (2026-08-21)
+## 5.0.0 (2026-08-21)
 
 A full accessibility and correctness review of all 34 components. This is a **major**
 release: several fixes change the rendered DOM, remove hardcoded ids, or alter which CSS
@@ -164,20 +164,20 @@ build instead of this one. 5.0.0 avoids the collision entirely.
 - `docs/a11y/consumer-impact.md` is thorough but not guaranteed exhaustive; two items were
   found after it was first considered complete.
 
-## [3.12.16](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.16) (2026-07-16)
+## 3.12.16 (2026-07-16)
 
 ### Chores
 
 - update licensing metadata
 - documentation cleanup
 
-## [3.12.15](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.15) (2026-07-16)
+## 3.12.15 (2026-07-16)
 
 ### Bug Fixes
 
 - **header:** give the mobile search button a 40x40 touch target (was 30x22) — matches the hamburger and toolbar buttons and meets the 40px minimum target size on mobile breakpoints
 
-## [3.12.14](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.14) (2026-07-16)
+## 3.12.14 (2026-07-16)
 
 ### Documentation
 
@@ -185,29 +185,29 @@ build instead of this one. 5.0.0 avoids the collision entirely.
 - pin CDN loader URLs to an exact version in examples — unversioned jsdelivr URLs mix chunk versions and break rendering; examples now use an `X.X.X` placeholder
 - document the Vite/Rollup lazy-loader limitation and the `dist/components` workaround in the `components-js` readme
 
-## [3.12.13](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.13) (2026-07-15)
+## 3.12.13 (2026-07-15)
 
 ### Bug Fixes
 
 - **angular:** fix broken package entry points — `main`/`module`/`types`/`exports` now resolve into the ng-packagr output under `dist/stencil-wrapper/`
 
-## [3.12.12](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.12) (2026-07-15)
+## 3.12.12 (2026-07-15)
 
 ### Chores
 
 - ship CHANGELOG.md in the `components-js` npm package
 
-## [3.12.11](https://github.com/saleh-lootah/dubai-design-system/releases/tag/%40dubai-design-system%2Fcomponents-js%403.12.11) (2026-07-15)
+## 3.12.11 (2026-07-15)
 
 ### Bug Fixes
 
-- **header:** enforce 40x40 touch targets for nav-bar buttons ([0822d3f](https://github.com/saleh-lootah/dubai-design-system/commit/0822d3f))
+- **header:** enforce 40x40 touch targets for nav-bar buttons (0822d3f)
 
 ### Chores
 
-- publish all packages with public npm access ([7f30032](https://github.com/saleh-lootah/dubai-design-system/commit/7f30032))
-- rename the color palette creator app and mark it private so it is excluded from publishing ([7f30032](https://github.com/saleh-lootah/dubai-design-system/commit/7f30032))
-- regenerate stencil type declarations ([8f77df6](https://github.com/saleh-lootah/dubai-design-system/commit/8f77df6))
+- publish all packages with public npm access (7f30032)
+- rename the color palette creator app and mark it private so it is excluded from publishing (7f30032)
+- regenerate stencil type declarations (8f77df6)
 
 ## 3.12.10 and earlier
 
