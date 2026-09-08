@@ -367,7 +367,7 @@
     color: var(--dda-on-surface-10);
     font-weight: var(--dda-fw-700);
     border: 0px;
-    padding: 11px;
+    padding: 8px;
     border-radius: 50px;
     display: inline-flex;
     align-items: center;
@@ -391,7 +391,9 @@
 .dda-toolbar-menu ul li .tool-btn svg,
 .dda-toolbar-menu-sidemenu ul li .tool-btn i,
 .dda-toolbar-menu-sidemenu ul li .tool-btn svg {
-    font-size: 20px; 
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
     color: var(--dda-on-surface-variant-30);
 }
 
@@ -424,6 +426,19 @@
 .dda-search input[type="text"]:focus{
     width: 250px;
     outline: 0;
+}
+/* WCAG 2.4.7 Focus Visible: the input above drops the native outline so the
+   pill can expand cleanly; the ring is painted on the pill instead, with the
+   same idiom as .dda-btn:focus-visible in dda-button.css. */
+.dda-search:focus-within {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+}
+/* Header tool buttons that do not carry .dda-btn (the mobile search button and
+   the side-menu accessibility toggle) get the same ring. */
+.dda-mobile-search button:focus-visible,
+.dda-toolbar-menu-sidemenu ul li .tool-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
 .dda-search input[type="text"]::-ms-input-placeholder {
     color: var(--dda-on-surface-0);
@@ -717,7 +732,9 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
 
 .dda-mobile-search button i,
 .dda-mobile-search button svg {
-    font-size: 19px;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
     color: var(--dda-on-surface-variant-30);
 }
 .dda-mobile-search button svg {

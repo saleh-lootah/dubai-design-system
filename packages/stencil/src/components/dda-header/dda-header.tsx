@@ -314,8 +314,8 @@ export class DdaHeader {
                     <div class="dda-toolbar-menu-sidemenu">
                         <ul>
                             <li>
-                                <button name={this.accessibility_button_name} class="tool-btn accessibility-btn" type="button" onClick={this.toggleAccessibilty}>
-                                  <i class="material-icons  material-symbols-outlined">accessibility</i>
+                                <button name={this.accessibility_button_name} class="tool-btn accessibility-btn" type="button" aria-expanded={this.isAccessibiltyOpen ? 'true' : 'false'} onClick={this.toggleAccessibilty}>
+                                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">accessibility</i>
                                   <span class="visually-hidden">Accessibility</span>
                                 </button>
                             </li>
@@ -499,7 +499,7 @@ export class DdaHeader {
               </a>
             </div>
             <div class="dda-mobile-search">
-                <button name={this.search_button_name} class="tool-btn" type="button"><span class="visualy-hidden">Search</span><i class="material-icons  material-symbols-outlined">search</i></button>
+                <button name={this.search_button_name} class="tool-btn" type="button"><span class="visually-hidden">Search</span><i class="material-icons  material-symbols-outlined" aria-hidden="true">search</i></button>
             </div>
 
             {/* Toolbar Menu */}
@@ -508,8 +508,8 @@ export class DdaHeader {
                 <li>
                   <dda-tooltip title_text="Search" description="" position="top">
                     <div class="dda-search dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle tool-btn">
-                      <label htmlFor="ddaSearch" class="visualy-hidden">{this.searchText || "Search"}</label>
-                      <i class="material-icons  material-symbols-outlined">search</i>
+                      <label htmlFor="ddaSearch" class="visually-hidden">{this.searchText || "Search"}</label>
+                      <i class="material-icons  material-symbols-outlined" aria-hidden="true">search</i>
                       <input name={this.search_input_name} type="text" id='ddaSearch' class="" placeholder={this.searchText || "Search"} />
                     </div>
                   </dda-tooltip>
@@ -517,8 +517,8 @@ export class DdaHeader {
 
                 <li>
                   <dda-tooltip title_text="Accessibility" position="top">
-                    <button name={this.toggle_accessibility_button_name} class="tool-btn dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle accessibility-btn" type="button" onClick={this.toggleAccessibilty}>
-                      <i class="material-icons  material-symbols-outlined">accessibility</i>
+                    <button name={this.toggle_accessibility_button_name} class="tool-btn dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle accessibility-btn" type="button" aria-expanded={this.isAccessibiltyOpen ? 'true' : 'false'} onClick={this.toggleAccessibilty}>
+                      <i class="material-icons  material-symbols-outlined" aria-hidden="true">accessibility</i>
                       <span class="visually-hidden">Accessibility</span>
                     </button>
                   </dda-tooltip>
