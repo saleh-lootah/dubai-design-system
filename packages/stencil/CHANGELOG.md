@@ -4,6 +4,36 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## 5.0.3 (2026-09-08)
+
+An accessibility release for `dda-header`. The search and accessibility controls in the
+header now meet WCAG 2.2 AA, and the header tool icons render on the native 24px Material
+Symbols grid.
+
+### Accessibility
+
+- **Focus is visible on every header tool control (2.4.7).** The desktop search field
+  dropped the browser outline so the pill could expand, and replaced it with nothing. The
+  pill now paints the same two-tone ring the button library uses while the field has focus.
+  The mobile search button and the side-menu accessibility toggle, which do not carry
+  `.dda-btn`, get the same ring.
+- **The accessibility toggle reports its state (4.1.2).** Both accessibility buttons now set
+  `aria-expanded` from the open state of the panel they control.
+- **Icon ligature text is no longer announced.** Material Symbols glyphs such as `search` and
+  `accessibility` are hidden from assistive technology, so screen readers announce the
+  control's label once instead of twice. The search button and search label now use the
+  standard clipped `.visually-hidden` class instead of a zero-width variant.
+
+### Styles
+
+- **Header tool icons render at 24px.** The desktop toolbar and side-menu icons were 20px and
+  the mobile search icon was 19px. All are now 24px with an explicit 24px box, so SVG icons
+  match font glyphs. Desktop button padding drops from 11px to 8px so the button stays a
+  40px circle and the target size is unchanged.
+
+Icon contrast is unchanged and passes 1.4.11 in the light, dark and transparent headers.
+
+
 ## 5.0.2 (2026-09-02)
 
 A metadata-only release. No component, stylesheet or runtime code changed; `dist/` differs
