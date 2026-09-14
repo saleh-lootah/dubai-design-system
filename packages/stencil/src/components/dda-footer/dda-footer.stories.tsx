@@ -35,6 +35,7 @@ export default {
       description="${args.introText}"
       logo-src="${args.logoUrl}"
       logo-alt="${args.logoAlt}"
+      logo-description="${args.logoDescription}"
       sign-up-button-text="${args.signUpLabel}"
       login-button-text="${args.loginLabel}"
       copyright-text="${args.copyrightText}"
@@ -49,6 +50,7 @@ export default {
     introText: "Let us help you take you from zero to serious business and beyond. Our no-strings attached free trial lets you test our product today.",
     logoUrl: "https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg",
     logoAlt: "Dubai-Digital-Authority",
+    logoDescription: "Digital services for everyone in Dubai.",
     signUpLabel: "Sign Up",
     loginLabel: "Login",
     copyrightText: "© 2023 Digitaldubai. All Rights Reserved.",

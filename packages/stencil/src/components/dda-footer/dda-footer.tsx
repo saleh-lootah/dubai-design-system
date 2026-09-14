@@ -13,6 +13,8 @@ export class DdaFooter {
   @Prop() logoSrc: string;
   @Prop() logoAlt: string;
   @Prop() copyrightText: string;
+  /** Short text shown under the footer logo. Nothing is shown when it is not set. */
+  @Prop() logoDescription: string;
   
   // Updated to accept JSON strings
   @Prop() footerSections: string;
@@ -53,9 +55,7 @@ export class DdaFooter {
             <div class="dda-col-lg-4 mb-3">
               <div class="text-center">
                 <img class="entt-logo" src={this.logoSrc} alt={this.logoAlt} />
-                <p class="dda-fs-title-sm">
-                  Design outstanding interfaces with advanced Figma features in a matter of minutes.
-                </p>
+                {this.logoDescription && <p class="dda-fs-title-sm">{this.logoDescription}</p>}
               </div>
             </div>
             <div class="dda-col-lg-8">

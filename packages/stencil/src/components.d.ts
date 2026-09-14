@@ -325,6 +325,10 @@ export namespace Components {
         "footerTitle": string;
         "loginButtonText": string;
         "logoAlt": string;
+        /**
+          * Short text shown under the footer logo. Nothing is shown when it is not set.
+         */
+        "logoDescription": string;
         "logoSrc": string;
         "signUpButtonText": string;
         "socialIcons": string;
@@ -1535,6 +1539,10 @@ declare namespace LocalJSX {
         "footerTitle"?: string;
         "loginButtonText"?: string;
         "logoAlt"?: string;
+        /**
+          * Short text shown under the footer logo. Nothing is shown when it is not set.
+         */
+        "logoDescription"?: string;
         "logoSrc"?: string;
         "signUpButtonText"?: string;
         "socialIcons"?: string;
@@ -2270,6 +2278,7 @@ declare namespace LocalJSX {
         "logoSrc": string;
         "logoAlt": string;
         "copyrightText": string;
+        "logoDescription": string;
         "footerSections": string;
         "socialIcons": string;
     }
