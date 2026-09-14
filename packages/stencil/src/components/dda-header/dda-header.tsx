@@ -241,24 +241,23 @@ export class DdaHeader {
   render() {
     const sideMenuItems = this.parseJsonArray(this.sideMenuItems);
     const quickLinks = this.parseJsonArray(this.quickLinks);
-    const isHomepage = window.location.pathname === '/';
     const setActiveMenuIndex = (index: number | null) => {
       this.activeMenuIndex = index;
     };
 
+    // The transparent style is opt-in at page level (<body class="transparent">);
+    // CSS shows the white or colored logo to match.
     return (
-      <header class={`dda-header ${isHomepage ? 'transparent' : ''}`}>
+      <header class="dda-header">
           {/* Logo Section */}
           <div class="dda-head-logo">
             <a href="#" class="govt-logo">
-              {isHomepage ? (<img class="logo-white" src={this.firstLogoWhiteSrc} alt={this.firstLogoAlt} />) : (<img class="logo-colored" src={this.firstLogoSrc} alt={this.firstLogoAlt} />)}
-              {/* <img class="logo-colored" src={this.firstLogoSrc} alt={this.firstLogoAlt} />
-              <img class="logo-white" src={this.firstLogoWhiteSrc} alt={this.firstLogoAlt} /> */}
+              <img class="logo-colored" src={this.firstLogoSrc} alt={this.firstLogoAlt} />
+              <img class="logo-white" src={this.firstLogoWhiteSrc || this.firstLogoSrc} alt={this.firstLogoAlt} />
             </a>
             <a href="#" class="entt-logo">
-              {isHomepage ? (<img class="logo-white" src={this.secondLogoWhiteSrc} alt={this.secondLogoAlt} />) : (<img class="logo-colored" src={this.secondLogoSrc} alt={this.secondLogoAlt} />)}
-              {/* <img class="logo-colored" src={this.secondLogoSrc} alt={this.secondLogoAlt} />
-              <img class="logo-white" src={this.secondLogoWhiteSrc} alt={this.secondLogoAlt} /> */}
+              <img class="logo-colored" src={this.secondLogoSrc} alt={this.secondLogoAlt} />
+              <img class="logo-white" src={this.secondLogoWhiteSrc || this.secondLogoSrc} alt={this.secondLogoAlt} />
             </a>
           </div>
 
