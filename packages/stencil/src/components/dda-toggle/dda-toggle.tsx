@@ -15,6 +15,10 @@ export class DdaToggle {
   @Prop() input_id?: string;
   @Prop() component_mode?: string; 
   @Prop() aria_label: string;
+  /** Label shown next to the switch. Nothing is shown when it is not set. */
+  @Prop() title_text?: string;
+  /** Secondary text shown under the title. */
+  @Prop() supporting?: string;
 
   render() {
     const toggleClass = [
@@ -29,10 +33,12 @@ export class DdaToggle {
         <label class={toggleClass} htmlFor={this.input_id}>
           <input aria-label={this.aria_label} type="checkbox" id={this.input_id} name={this.group_name} checked={this.checked}/>
             <span class="toggle"></span> 
-            <p>
-              <span class="toggle-title">Radio Button Title</span>
-              <span class="toggle-supporting">Supporting Text</span>
-            </p>
+            {(this.title_text || this.supporting) && (
+              <p>
+                {this.title_text && <span class="toggle-title">{this.title_text}</span>}
+                {this.supporting && <span class="toggle-supporting">{this.supporting}</span>}
+              </p>
+            )}
         </label>
       </Host>
     );

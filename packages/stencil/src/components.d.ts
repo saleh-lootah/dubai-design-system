@@ -826,6 +826,14 @@ export namespace Components {
         "group_name"?: string;
         "input_id"?: string;
         "size"?: string;
+        /**
+          * Secondary text shown under the title.
+         */
+        "supporting"?: string;
+        /**
+          * Label shown next to the switch. Nothing is shown when it is not set.
+         */
+        "title_text"?: string;
     }
     interface DdaTooltip {
         "component_mode"?: string;
@@ -2053,6 +2061,14 @@ declare namespace LocalJSX {
         "group_name"?: string;
         "input_id"?: string;
         "size"?: string;
+        /**
+          * Secondary text shown under the title.
+         */
+        "supporting"?: string;
+        /**
+          * Label shown next to the switch. Nothing is shown when it is not set.
+         */
+        "title_text"?: string;
     }
     interface DdaTooltip {
         "component_mode"?: string;
@@ -2576,6 +2592,8 @@ declare namespace LocalJSX {
         "input_id": string;
         "component_mode": string;
         "aria_label": string;
+        "title_text": string;
+        "supporting": string;
     }
     interface DdaTooltipAttributes {
         "title_text": string;

@@ -49,9 +49,8 @@ describe('dda-toggle', () => {
     expect(checkedAfterSecondPress).toBe(false);
   });
 
-  // WCAG 4.1.2. The accessible name must resolve, via aria-label since the
-  // component has no title-text prop of its own (the "Radio Button Title"
-  // text baked into its markup is not a real accessible-name mechanism).
+  // WCAG 4.1.2. The accessible name must resolve. aria_label sets it directly;
+  // title_text is visible label text inside the same <label>.
   it('gives the input an accessible name from aria_label', async () => {
     const page = await newE2EPage();
     await page.setContent('<dda-toggle input_id="t1" aria_label="Notifications"></dda-toggle>');

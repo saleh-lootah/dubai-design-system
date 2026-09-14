@@ -10,13 +10,13 @@ export default {
       control: 'boolean',
       description: 'Checked state of the toggle',
     },
-    label_on: {
+    title_text: {
       control: 'text',
-      description: 'Label for the "On" state',
+      description: 'Label shown next to the switch',
     },
-    label_off: {
+    supporting: {
       control: 'text',
-      description: 'Label for the "Off" state',
+      description: 'Secondary text shown under the title',
     },
     group_name: {
       control: 'text',
@@ -56,8 +56,8 @@ export default {
   \`\`\`html
 <dda-toggle
     checked="false"
-    label_on="On"
-    label_off="Off"
+    title_text="Notifications"
+    supporting="Email me updates"
     size="md"
     group_name="togglegroup1"
     input_id="testId"
@@ -85,8 +85,8 @@ const Template = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   checked: false,
-  label_on: 'On',
-  label_off: 'Off',
+  title_text: 'Notifications',
+  supporting: 'Email me updates',
   size: 'md',
   group_name: 'togglegroup1',
   input_id: 'testId',
@@ -99,8 +99,8 @@ Default.args = {
 export const Checked = Template.bind({});
 Checked.args = {
   checked: true,
-  label_on: 'On',
-  label_off: 'Off',
+  title_text: 'Notifications',
+  supporting: 'Email me updates',
   size: 'md',
   group_name: 'togglegroup1',
   input_id: 'testId',
