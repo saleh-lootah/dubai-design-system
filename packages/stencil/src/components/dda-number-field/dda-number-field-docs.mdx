@@ -1,97 +1,154 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Number Field/Documentation" />
 
 # Number Field
-The `dda-number-field` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-number-field` component renders an amount input with a currency dropdown. The input
+accepts only digits and a decimal point. Pass the currency options as a JSON array string.
 
-```jsx
-import React from 'react'
-import { DdaNumberField } from "@dubai-design-system/components-react";
+## API
 
+<Markdown>{componentApi(readme)}</Markdown>
 
+## Usage
 
+### Vanilla JS
 
-const App = () => {
-  return (
-    <div>
-        <DdaNumberField
-            label="Amount"
-            value=""
-            placeholder="Enter amount"
-            helper_text="Helper or footer text"
-            error_message=""
-            validation_type="normal"
-            size="medium"
-            input_status="normal"
-            selected_currency="USD"
-            custom_class=""
-            component_mode=""
-            input_id="input"
-            aria_label="input"
-            currencies='["USD","EUR","GBP","AED","PKR"]'
-            onchange="console.log('changed')"
-        ></DdaNumberField>
-    </div>
- )
-}
+**From the CDN.** Replace `X.X.X` with the exact package version.
 
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-number-field
+  input_id="fee-amount"
+  input_name="fee_amount"
+  label="Amount"
+  placeholder="0.00"
+  helper_text="Enter the fee shown on your invoice."
+  currencies='["AED","USD","EUR"]'
+  selected_currency="AED"
+></dda-number-field>
 ```
 
-### Usage in Vue
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-number-field.js';
+
+const field = document.querySelector('dda-number-field');
+field.currencies = JSON.stringify(['AED', 'USD', 'EUR']);
+
+// The native input event comes from the inner <input>. Non-numeric characters are already removed.
+field.addEventListener('input', event => console.log(event.target.value));
+
+// The component has no custom events. Read the chosen currency from the property.
+const currency = field.selected_currency;
+```
+
+### React
 
 ```jsx
-<script>
+import { DdaNumberField } from '@dubai-design-system/components-react';
 
+export function FeeAmountField() {
+  return (
+    <DdaNumberField
+      input_id="fee-amount"
+      input_name="fee_amount"
+      label="Amount"
+      placeholder="0.00"
+      helper_text="Enter the fee shown on your invoice."
+      currencies={JSON.stringify(['AED', 'USD', 'EUR'])}
+      selected_currency="AED"
+      onInput={event => console.log(event.target.value)}
+    />
+  );
+}
+```
 
-import { DdaNumberField } from '@dubai-design-system/components-vue'
+### Vue
 
+```html
+<script setup>
+import { DdaNumberField } from '@dubai-design-system/components-vue';
+
+const currencies = JSON.stringify(['AED', 'USD', 'EUR']);
+
+function onInput(event) {
+  console.log(event.target.value);
+}
 </script>
 
 <template>
-    <div>
-        <DdaNumberField
-            label="Amount"
-            value=""
-            placeholder="Enter amount"
-            helper_text="Helper or footer text"
-            error_message=""
-            validation_type="normal"
-            size="medium"
-            input_status="normal"
-            selected_currency="USD"
-            custom_class=""
-            component_mode=""
-            input_id="input"
-            aria_label="input"
-            currencies='["USD","EUR","GBP","AED","PKR"]'
-            onchange="console.log('changed')"
-        ></DdaNumberField>
-    </div>
+  <DdaNumberField
+    input_id="fee-amount"
+    input_name="fee_amount"
+    label="Amount"
+    placeholder="0.00"
+    helper_text="Enter the fee shown on your invoice."
+    :currencies="currencies"
+    selected_currency="AED"
+    @input="onInput"
+  />
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-number-field
-    label="Amount"
-    value=""
-    placeholder="Enter amount"
-    helper_text="Helper or footer text"
-    error_message=""
-    validation_type="normal"
-    size="medium"
-    input_status="normal"
-    selected_currency="USD"
-    custom_class=""
-    component_mode=""
-    input_id="input"
-    aria_label="input"
-    currencies='["USD","EUR","GBP","AED","PKR"]'
-    onchange="console.log('changed')"
+  input_id="fee-amount"
+  input_name="fee_amount"
+  label="Amount"
+  placeholder="0.00"
+  helper_text="Enter the fee shown on your invoice."
+  currencies='["AED","USD","EUR"]'
+  selected_currency="AED"
+  (input)="onInput($event)"
 ></dda-number-field>
 ```
+
+
+## Currencies
+
+`currencies` must be a JSON array of strings. If the JSON is not valid, the open dropdown shows
+"No options available". `selected_currency` sets the currency on the dropdown button (default `USD`)
+and changes when the user picks a currency. No event fires when the currency changes, so read
+`selected_currency` from the element when you submit the form. The currency is not submitted with
+the form.
+
+## Validation and error messages
+
+The input removes every character that is not a digit or `.`. It does not check the range or the
+number of decimal places. Validate the amount in your application, then set
+`validation_type="error"` for the error colors and `error_message` for the message.
+
+```html
+<dda-number-field
+  input_id="fee-amount"
+  label="Amount"
+  currencies='["AED","USD","EUR"]'
+  selected_currency="AED"
+  validation_type="error"
+  error_message="Enter an amount greater than 0."
+></dda-number-field>
+```
+
+## Accessibility
+
+- Always set `input_id`. The label `for`, and the ids of the helper and error text, come from it.
+- `helper_text` and `error_message` are linked to the input with `aria-describedby`.
+  When `error_message` is set, the input also gets `aria-invalid="true"`.
+- Use `aria_label` only when the field has no visible `label`.
+- `input_status="disabled"` changes only the styling. The input and the currency button still
+  receive focus.

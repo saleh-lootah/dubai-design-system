@@ -10,150 +10,266 @@ export { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
 export namespace Components {
     interface DdaAccordion {
         /**
+          * Material Symbols icon name shown before the header text, e.g. `info`.
           * @default 'info'
          */
         "accordion_icon": string;
         /**
+          * Paragraph text shown in the panel when it is open. Slotted content follows it.
           * @default ''
          */
         "body_description": string;
+        /**
+          * Theme override class for the container, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the accordion container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Container style: `bg-border` (filled background with border) or `no-border` (no background or border).
           * @default 'bg-border'
          */
         "design": 'bg-border' | 'no-border';
         /**
+          * Text shown in the header button that opens and closes the panel.
           * @default 'Accordion Header'
          */
         "header_text": string;
     }
     interface DdaAlert {
+        /**
+          * `name` of the close button.
+         */
         "button_name"?: string;
         /**
+          * Not used by the component; nothing is rendered from this value.
           * @default ''
          */
         "button_text": string;
+        /**
+          * Click handler for the close button, set as a JavaScript property. The alert does not hide itself.
+         */
         "clickHandler"?: (event: MouseEvent) => void;
+        /**
+          * Not used by the component; it is not applied to any element.
+         */
         "component_id"?: string;
+        /**
+          * Theme override class for the alert, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the alert container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Body text shown below the heading.
           * @default ''
          */
         "description": string;
+        /**
+          * Label of the first action link. The link shows only when this is set.
+         */
         "first_button"?: string;
+        /**
+          * `href` of the first action link.
+         */
         "first_link"?: string;
+        /**
+          * Label of the second action link. The link shows only when this is set.
+         */
         "second_button"?: string;
+        /**
+          * `href` of the second action link.
+         */
         "second_link"?: string;
         /**
+          * Heading text of the alert.
           * @default ''
          */
         "title_text": string;
         /**
+          * Style: `primary` uses a tinted background and border in the variation color; `secondary` uses a neutral surface and border.
           * @default 'primary'
          */
         "type": 'primary' | 'secondary';
         /**
+          * Color and screen reader urgency: `info`, `warning`, `error` or `success`. `error` uses `role="alert"`; the others use `role="status"`.
           * @default 'info'
          */
         "variation": 'info' | 'warning' | 'error' | 'success';
     }
     interface DdaAttachFile {
         /**
+          * Accessible name of the file input.
           * @default ''
          */
         "aria_label"?: string;
         /**
+          * Accessible name of the remove button shown after a file is chosen, e.g. `Remove file`.
           * @default ''
          */
         "button_aria_label"?: string;
+        /**
+          * `id` of the remove button shown after a file is chosen.
+         */
         "button_id": string;
+        /**
+          * `name` of the remove button shown after a file is chosen.
+         */
         "button_name"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the field container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Error text shown below the field. Also sets `aria-invalid="true"` on the file input.
+         */
         "error_message": string;
+        /**
+          * Helper text shown below the field. Linked by `aria-describedby` when `input_id` is set.
+         */
         "helper_text": string;
+        /**
+          * `id` of the file input. Also used to link the label, helper text and error message.
+         */
         "input_id": string;
+        /**
+          * `name` of the file input.
+         */
         "input_name"?: string;
+        /**
+          * Adds the class `dda-input-<value>`. `disabled` gives the disabled look only; it does not disable the file input.
+         */
         "input_type"?: string;
+        /**
+          * Label text shown above the field. Linked to the file input when `input_id` is set.
+         */
         "label": string;
+        /**
+          * Size: `default` or `small`.
+         */
         "size"?: string;
+        /**
+          * Validation state: `error` applies the error colors.
+         */
         "validation_type"?: string;
     }
     interface DdaAvatar {
+        /**
+          * Accessible name of the avatar button and of each option button. The avatar button falls back to `Avatar options`.
+         */
         "aria_label": string;
+        /**
+          * `id` applied to each option button in the dropdown.
+         */
         "button_id"?: string;
+        /**
+          * `name` of each option button in the dropdown. Also added as a CSS class on the avatar container.
+         */
         "button_name"?: string;
+        /**
+          * Theme override class for the avatar, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the avatar container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Badge: `default` (none), `status` (green dot), `verified` (check badge), `notification` (count from `notification_number`). `story` has no style yet.
           * @default 'default'
          */
         "design": 'default' | 'status' | 'verified' | 'story' | 'notification';
         /**
+          * CSS class of the icon font used when `type` is `icon`, e.g. `material-icons`. The icon glyph is always `sentiment_satisfied`.
           * @default 'material-icons'
          */
         "icon": string;
         /**
+          * Count shown in the badge when `design` is `notification`. Hidden at sizes `xs` and `sm`.
           * @default 0
          */
         "notification_number": number;
+        /**
+          * Dropdown options as a JSON array of strings, e.g. `["Profile","Sign out"]`. When set, the avatar becomes a button that opens the list.
+         */
         "options": string;
         /**
+          * Shape: `circle` or `square` (rounded corners).
           * @default 'circle'
          */
         "rounded": 'square' | 'circle';
+        /**
+          * The selected option. Matches one entry of `options`; updated when the user picks an option.
+         */
         "selected": string;
         /**
+          * Size: `xs` (24px), `sm` (32px), `md` (40px), `lg` (48px), `xl` (56px) or `xxl` (64px).
           * @default 'md'
          */
         "size": 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
         /**
+          * Image URL shown when `type` is `photo`.
           * @default ''
          */
         "src": string;
         /**
+          * Initials shown when `type` is `text`.
           * @default 'AB'
          */
         "text": string;
         /**
+          * Content: `photo` shows the `src` image, `icon` shows a smiley icon, `text` shows `text` as initials.
           * @default 'photo'
          */
         "type": 'photo' | 'icon' | 'text';
     }
     interface DdaBanner {
+        /**
+          * CSS height of each slide image, e.g. `220px`.
+         */
         "slider_height": string;
+        /**
+          * CSS width of each slide image, e.g. `360px`.
+         */
         "slider_width": string;
+        /**
+          * Slide images. JSON array of `{ image, title }`; `image` is the image URL and `title` its alternative text. Read once, when the component loads.
+         */
         "slides": string;
     }
     interface DdaBreadcrumb {
         /**
-          * The items, as an array or a JSON string. The `data-breadcrumbs` attribute is still read when this is not set.
+          * The items, as an array or a JSON string of `{ text, icon?, url? }` objects. The last item is the current page. The `data-breadcrumbs` attribute is still read when this is not set.
          */
         "breadcrumbs"?: string | BreadcrumbItem[];
+        /**
+          * Theme override class on the wrapper, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the inner `<nav>`.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * What each item shows: `text` (label only), `icon-text` (icon and label) or `icon` (icon only).
           * @default 'text'
          */
         "design": 'text' | 'icon-text' | 'icon';
         /**
+          * Material Symbols icon shown between items: `chevron_right` or `pen_size_2` (a slash).
           * @default 'chevron_right'
          */
         "separator": 'chevron_right' | 'pen_size_2';
@@ -231,160 +347,400 @@ export namespace Components {
         "type": string;
     }
     interface DdaCheckbox {
+        /**
+          * Accessible name of the inner checkbox input.
+         */
         "aria_label"?: string;
+        /**
+          * Status: `disabled` shows the disabled style and blocks pointer clicks.
+         */
         "checkbox_status"?: string;
+        /**
+          * Checked state of the inner input. Read the current state from the input or its `change` event.
+         */
         "checked": boolean;
+        /**
+          * Theme override class for the checkbox, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the checkbox container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * `name` of the inner checkbox input.
+         */
         "group_name"?: string;
+        /**
+          * `id` of the inner checkbox input. The label points to it, so set a unique value to make the label clickable.
+         */
         "input_id"?: string;
+        /**
+          * Size: `sm`, `md` or `lg`.
+         */
         "size"?: string;
+        /**
+          * Box shape: `square` or `rounded`.
+         */
         "style_type"?: string;
+        /**
+          * Secondary text shown under the title.
+         */
         "supporting"?: string;
+        /**
+          * Label shown next to the checkbox.
+         */
         "title_text": string;
     }
     interface DdaChip {
         /**
+          * Color: `grey`, `primary`, `green`, `yellow`, `red` or `purple`. Other values, including the default, use the base primary style.
           * @default 'success'
          */
         "bg_color": string;
+        /**
+          * Click handler for the close button, set as a JavaScript property. The chip does not remove itself.
+         */
         "clickHandler"?: (event: MouseEvent) => void;
+        /**
+          * Theme override class for the chip, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Extra CSS classes added to the chip container.
+         */
         "custom_class"?: string;
+        /**
+          * Material Symbols icon name shown before the label, e.g. `check_circle`.
+         */
         "icon": string;
         /**
+          * Corner radius: `sm`, `md`, `lg` or `circle`.
           * @default ''
          */
         "rounded"?: string;
         /**
+          * Shows a close button with the accessible name `Remove` after the label.
           * @default false
          */
         "show_close_icon": boolean;
+        /**
+          * Height: `sm` (24px), `md` (26px) or `lg` (32px).
+         */
         "size"?: string;
     }
     interface DdaCreditCard {
+        /**
+          * Balance text shown under the fixed "Current Balance" label, e.g. `AED 5,750.20`.
+         */
         "balance": string;
+        /**
+          * Card number. Only the last four characters are shown, after `****`. Required: the card fails to render without it.
+         */
         "card_number": string;
+        /**
+          * URL of the card type image (e.g. a card brand logo) shown at the bottom end of the card.
+         */
         "card_type": string;
+        /**
+          * Theme override class for the card, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the card container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Background design: `default`, `green` or `dark`.
+         */
         "design": string;
+        /**
+          * Card holder name.
+         */
         "name": string;
     }
     interface DdaCreditcardField {
+        /**
+          * Accessible name of the input. Use it when there is no visible `label`.
+         */
         "aria_label"?: string;
         /**
+          * `autocomplete` token of the input. Defaults to `cc-number`.
           * @default 'cc-number'
          */
         "autocomplete": string;
+        /**
+          * URL of an image shown at the start of the input, e.g. a card brand logo.
+         */
         "card_icon": string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the field container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Disables the input and applies the disabled look.
           * @default false
          */
         "disabled": boolean;
+        /**
+          * Error text shown below the input. Also sets `aria-invalid="true"` on the input.
+         */
         "error_message": string;
+        /**
+          * Helper text shown below the input. Linked by `aria-describedby` when `input_id` is set.
+         */
         "helper_text": string;
+        /**
+          * `id` of the inner `<input>`. Also used to link the label, helper text and error message.
+         */
         "input_id": string;
+        /**
+          * `name` of the inner `<input>`, submitted with its form.
+         */
         "input_name"?: string;
+        /**
+          * Adds the class `dda-input-<value>`. `disabled` gives only the disabled look; use `disabled` to disable the input.
+         */
         "input_type"?: string;
+        /**
+          * Label text shown above the input. Linked to the input when `input_id` is set.
+         */
         "label": string;
+        /**
+          * Placeholder text of the input, e.g. `0000 - 0000 - 0000 - 0000`.
+         */
         "placeholder": string;
         /**
+          * Sets the input `maxlength`: 25 characters when `false` (16 digits with separators), 100 when `true`.
           * @default false
          */
         "restrict_input": boolean;
+        /**
+          * Size: `default` or `small`.
+         */
         "size"?: string;
+        /**
+          * Validation state: `error` applies the error colors.
+         */
         "validation_type"?: string;
         /**
+          * Card number. Shown as groups of four digits separated by ` - `; the component updates it as the user types.
           * @default ''
          */
         "value": string;
     }
     interface DdaDropdown {
+        /**
+          * Accessible name of the dropdown button. Set it when `icon_mode` is on.
+         */
         "aria_label"?: string;
+        /**
+          * `name` of the dropdown button that opens the list.
+         */
         "arrow_button_name"?: string;
+        /**
+          * `id` of the dropdown button. The label points to it.
+         */
         "button_id": string;
+        /**
+          * Theme override class for the dropdown, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the dropdown container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Disables the dropdown: the list does not open and options cannot be picked.
           * @default false
          */
         "disabled": boolean;
+        /**
+          * `name` of each option button in the list.
+         */
         "dropdown_button_name"?: string;
+        /**
+          * Error text shown under the dropdown.
+         */
         "error": string;
+        /**
+          * Helper text shown under the dropdown.
+         */
         "helper_text": string;
         /**
+          * Shows only the three-dots icon, without the selected text and arrow.
           * @default false
          */
         "icon_mode": boolean;
+        /**
+          * Label shown above the dropdown.
+         */
         "label": string;
+        /**
+          * Options as a JSON array string, e.g. `'["Edit","Download","Delete"]'`. Invalid JSON shows "No options available".
+         */
         "options": string;
+        /**
+          * The selected option. Must match an entry in `options`. The button shows "Select an option" when it is empty. Updated when the user picks an option.
+         */
         "selected": string;
         /**
+          * Size: `medium` or `small`.
           * @default 'medium'
          */
         "size": 'small' | 'medium';
         /**
+          * Button background: `bg-white` (field style) or `bg-transparent` (no border, background or padding).
           * @default 'bg-white'
          */
         "type": 'bg-transparent' | 'bg-white';
     }
     interface DdaFooter {
+        /**
+          * Copyright text in the bottom row.
+         */
         "copyrightText": string;
+        /**
+          * Paragraph under `footerTitle`.
+         */
         "description": string;
+        /**
+          * Link columns. JSON array of `{ title, links: [{ label, href }] }`.
+         */
         "footerSections": string;
+        /**
+          * Heading of the call-to-action area at the top of the footer.
+         */
         "footerTitle": string;
+        /**
+          * Label of the tertiary (Login) button. The button has no link or action.
+         */
         "loginButtonText": string;
+        /**
+          * Alternative text for the footer logo.
+         */
         "logoAlt": string;
         /**
           * Short text shown under the footer logo. Nothing is shown when it is not set.
          */
         "logoDescription": string;
+        /**
+          * Image URL of the footer logo.
+         */
         "logoSrc": string;
+        /**
+          * Label of the primary (Sign up) button. The button has no link or action.
+         */
         "signUpButtonText": string;
+        /**
+          * Social links in the bottom row. JSON array of `{ href, src, alt }`, where `src` is an image URL.
+         */
         "socialIcons": string;
     }
     interface DdaHeader {
+        /**
+          * `name` attribute of the accessibility button in the side menu.
+         */
         "accessibility_button_name": string;
+        /**
+          * `name` attribute of the buttons that close the accessibility panel.
+         */
         "close_accessibility_button_name": string;
+        /**
+          * `name` attribute of the button that closes the side menu.
+         */
         "close_menu_button_name": string;
+        /**
+          * Not used: the current markup does not render an element with this name.
+         */
         "close_sidebar_button_name": string;
+        /**
+          * Alternative text for the first logo.
+         */
         "firstLogoAlt": string;
+        /**
+          * Image URL of the first (government) logo, on the left of the header and in the side menu.
+         */
         "firstLogoSrc": string;
+        /**
+          * Image URL of the white first logo, shown in dark theme and on a transparent header (`<body class="transparent">`). Falls back to `firstLogoSrc`.
+         */
         "firstLogoWhiteSrc": string;
+        /**
+          * `name` attribute of the hamburger menu button.
+         */
         "hamburger_menu_button_name": string;
+        /**
+          * `name` attribute of the language button in the side menu.
+         */
         "language_button_name": string;
+        /**
+          * Label of the language button in the desktop toolbar, e.g. `العربية`.
+         */
         "language_text": string;
+        /**
+          * Material Symbols icon name of the Login link in the side menu. Default: `sentiment_satisfied`.
+         */
         "loginIcon": string;
+        /**
+          * URL of the Login link in the toolbar and the side menu.
+         */
         "loginLink": string;
+        /**
+          * Label of the Login link in the side menu. Default: `Login`.
+         */
         "loginText": string;
+        /**
+          * Main navigation links. JSON array of `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu.
+         */
         "quickLinks": string;
+        /**
+          * URL of the ReadSpeaker "listen" link in the accessibility panel.
+         */
         "readSpeakerLink": string;
+        /**
+          * Placeholder and accessible label of the search input. Default: `Search`.
+         */
         "searchText": string;
         /**
           * Results page URL. When set, a search does a GET to this URL with the query in `search_input_name` (default `q`).
          */
         "search_action": string;
+        /**
+          * `name` attribute of the mobile search button.
+         */
         "search_button_name": string;
+        /**
+          * `name` of the search input, which is the query parameter sent to `search_action`. Default: `q`.
+         */
         "search_input_name": string;
+        /**
+          * Alternative text for the second logo.
+         */
         "secondLogoAlt": string;
+        /**
+          * Image URL of the second (entity) logo.
+         */
         "secondLogoSrc": string;
+        /**
+          * Image URL of the white second logo, shown in dark theme and on a transparent header. Falls back to `secondLogoSrc` on desktop.
+         */
         "secondLogoWhiteSrc": string;
+        /**
+          * Side menu items. JSON array of `{ label, href, subMenu }`; each `subMenu` item is `{ headerLabel, label, href, subMenu }` and can nest.
+         */
         "sideMenuItems": string;
+        /**
+          * `name` attribute of the accessibility button in the desktop toolbar.
+         */
         "toggle_accessibility_button_name": string;
     }
     interface DdaHomeBanner {
@@ -435,271 +791,591 @@ export namespace Components {
         "slide_status_label": string;
     }
     interface DdaHorizontalStepper {
+        /**
+          * Theme override class on the stepper container, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Index of the active step, from 0. Steps before it show as completed.
           * @default 1
          */
         "current_step": number;
+        /**
+          * Extra CSS classes added to the stepper container.
+         */
         "custom_class"?: string;
+        /**
+          * Steps, as a JSON string array of `{ title, subtitle, description }` objects.
+         */
         "steps": string;
     }
     interface DdaInput {
+        /**
+          * Accessible name of the inner `<input>`. Use it when there is no visible label.
+         */
         "aria_label"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Extra CSS classes added to the field container.
+         */
         "custom_class"?: string;
+        /**
+          * Error text shown below the input. When set, the input gets `aria-invalid="true"`.
+         */
         "error_message": string;
+        /**
+          * Helper text shown below the input and linked with `aria-describedby`.
+         */
         "helper_text": string;
+        /**
+          * `id` of the inner `<input>`. Also used for the label `for` and the helper and error text ids.
+         */
         "input_id": string;
+        /**
+          * `name` of the inner `<input>`, submitted with its form.
+         */
         "input_name"?: string;
+        /**
+          * Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute.
+         */
         "input_status"?: string;
+        /**
+          * Visible label text, linked to the input through `input_id`.
+         */
         "label": string;
+        /**
+          * Placeholder text of the inner `<input>`.
+         */
         "placeholder": string;
+        /**
+          * Size. `small` shows a smaller field; omit for the default size.
+         */
         "size"?: string;
         /**
+          * Native input type, e.g. `text`, `password`, `email`, `number`, `date` or `time`. The legacy values `Witherror` and `disabled` only apply the error or disabled styling.
           * @default 'text'
          */
         "type": string;
+        /**
+          * Validation style. `error` shows the error colors.
+         */
         "validation_type"?: string;
+        /**
+          * Value of the inner `<input>`. Updates as the user types.
+         */
         "value": string;
     }
     interface DdaLinkButton {
         /**
+          * Accessible name of the link. Required when the link shows only an icon.
           * @default ''
          */
         "aria_label"?: string;
         /**
+          * Color variant, e.g. `default-primary`, `default-secondary`, `error-primary`, `onsurface-link` or `disabled`.
           * @default 'primary'
          */
         "button_color": string;
+        /**
+          * `id` of the inner `<a>`.
+         */
         "button_id": string;
         /**
+          * Shape: `default` or `circle`.
           * @default ''
          */
         "button_shape"?: string;
+        /**
+          * Theme override class for the link, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the inner `<a>`.
           * @default ''
          */
         "custom_class"?: string;
         /**
-          * Disable the button
+          * Not used: the link stays active. For a disabled look, set `button_color` to `disabled`.
           * @default false
          */
         "disabled": boolean;
         /**
+          * Material Symbols icon name shown after the label, e.g. `arrow_forward`.
           * @default ''
          */
         "end_icon": string;
+        /**
+          * Gap between icon and label, as a spacing step: 1–6, 8, 10, 12 or 16.
+         */
         "gap"?: number;
         /**
+          * URL the link opens.
           * @default '#'
          */
         "href"?: string;
         /**
+          * Shape of an icon-only link: `default` or `circle`.
           * @default ''
          */
         "icon_button_shape"?: string;
+        /**
+          * Size: `sm`, `md`, `lg` or `xl`.
+         */
         "size"?: string;
         /**
-          * Icon class for the starting icon
+          * Material Symbols icon name shown before the label, e.g. `arrow_back`.
           * @default ''
          */
         "start_icon": string;
         /**
-          * Type of button, e.g., "button", "submit"
+          * Not used: the component renders an `<a>` link, which has no `type`.
           * @default 'button'
          */
         "type": string;
     }
     interface DdaNumberField {
+        /**
+          * Accessible name of the amount input. Use it when there is no visible label.
+         */
         "aria_label"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Currency options for the dropdown, as a JSON array string, e.g. `'["AED","USD"]'`.
+         */
         "currencies": string;
+        /**
+          * `name` of each currency option button.
+         */
         "currency_button_name"?: string;
         /**
+          * Extra CSS classes added to the field container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Error text shown below the field. When set, the input gets `aria-invalid="true"`.
+         */
         "error_message": string;
+        /**
+          * Helper text shown below the field and linked with `aria-describedby`.
+         */
         "helper_text": string;
+        /**
+          * `id` of the amount input. Also used for the label `for` and the helper and error text ids.
+         */
         "input_id": string;
+        /**
+          * `name` of the amount input, submitted with its form.
+         */
         "input_name"?: string;
+        /**
+          * Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute.
+         */
         "input_status"?: string;
+        /**
+          * Visible label text, linked to the amount input through `input_id`.
+         */
         "label": string;
+        /**
+          * Placeholder text of the amount input.
+         */
         "placeholder": string;
         /**
+          * Currency shown on the dropdown button. Updates when the user picks a currency.
           * @default 'USD'
          */
         "selected_currency": string;
+        /**
+          * Size. `small` shows a smaller field; omit for the default size.
+         */
         "size"?: string;
+        /**
+          * `name` of the currency dropdown button.
+         */
         "toggle_button_name"?: string;
+        /**
+          * Validation style. `error` shows the error colors.
+         */
         "validation_type"?: string;
+        /**
+          * Initial value of the amount input. Characters other than digits and `.` are removed as the user types.
+         */
         "value": string;
     }
     interface DdaPagination {
+        /**
+          * `name` of the next page button when `type` is `button-text`.
+         */
         "button_text_next_button": string;
+        /**
+          * `name` of the previous page button when `type` is `button-text`.
+         */
         "button_text_prev_button": string;
+        /**
+          * `name` of the next page button when `type` is `buttons`.
+         */
         "buttons_next_button": string;
+        /**
+          * `name` of the next page button when `type` is `buttons-pages`.
+         */
         "buttons_pages_next_button": string;
+        /**
+          * `name` of the previous page button when `type` is `buttons-pages`.
+         */
         "buttons_pages_prev_button": string;
+        /**
+          * `name` of the previous page button when `type` is `buttons`.
+         */
         "buttons_prev_button": string;
+        /**
+          * Theme override class on the pagination element, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Selected page, counted from 1. Kept between 1 and `total_pages`; updates when the user changes the page.
           * @default 1
          */
         "current_page": number;
         /**
+          * Extra CSS classes added to the pagination element.
           * @default ''
          */
         "custom_class": string;
+        /**
+          * `name` of the next page button when `type` is `simple-slider`.
+         */
         "simple_slider_next_button": string;
+        /**
+          * `name` of the previous page button when `type` is `simple-slider`.
+         */
         "simple_slider_prev_button": string;
+        /**
+          * `name` of the next page button when `type` is `text`.
+         */
         "text_next_button": string;
+        /**
+          * `name` of the next page button when `type` is `text-pages`.
+         */
         "text_pages_next_button": string;
+        /**
+          * `name` of the previous page button when `type` is `text-pages`.
+         */
         "text_pages_prev_button": string;
+        /**
+          * `name` of the previous page button when `type` is `text`.
+         */
         "text_prev_button": string;
         /**
+          * Number of pages. Values below 1 become 1.
           * @default 8
          */
         "total_pages": number;
         /**
+          * Layout: `simple-slider`, `buttons`, `text`, `text-pages`, `button-text`, `buttons-pages` or `full`.
           * @default 'simple-slider'
          */
         "type": 'simple-slider' | 'buttons' | 'text' | 'text-pages' | 'button-text' | 'buttons-pages' | 'full';
     }
     interface DdaPhonefield {
+        /**
+          * Accessible name of the phone input. Use it when there is no visible label.
+         */
         "aria_label": string;
         /**
+          * `autocomplete` token of the phone input. Defaults to `tel`.
           * @default 'tel'
          */
         "autocomplete": string;
+        /**
+          * Accessible name set on each country option button in the open list.
+         */
         "button_aria_label": string;
+        /**
+          * `id` set on each country option button in the open list.
+         */
         "button_id"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * `name` of each country option button.
+         */
         "country_select_button_name": string;
+        /**
+          * Extra CSS classes added to the field container.
+         */
         "custom_class": string;
         /**
+          * Disables the phone input and shows the disabled styling.
           * @default false
          */
         "disabled": boolean;
+        /**
+          * Error text shown below the field. When set, the input gets `aria-invalid="true"`.
+         */
         "error_message": string;
+        /**
+          * Helper text shown below the field. Hidden when `validation_type` is set.
+         */
         "helper_text": string;
+        /**
+          * `id` of the phone input. Also used for the label `for` and the helper and error text ids.
+         */
         "input_id"?: string;
+        /**
+          * Visible label text, linked to the phone input through `input_id`.
+         */
         "label": string;
+        /**
+          * `name` of the phone input, submitted with its form.
+         */
         "phone_input_name": string;
         /**
+          * Placeholder text of the phone input.
           * @default 'Enter phone number'
          */
         "placeholder": string;
+        /**
+          * Size. `small` shows a smaller field; omit for the default size.
+         */
         "size"?: string;
+        /**
+          * `name` of the country code dropdown button.
+         */
         "toggle_button_name": string;
+        /**
+          * Validation style. `error` shows the error colors. Any value hides `helper_text`.
+         */
         "validation_type"?: string;
     }
     interface DdaProgressbar {
         /**
+          * Accessible name of the progress bar.
           * @default 'Progress'
          */
         "aria_label": string;
+        /**
+          * Theme override class for the progress bar, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Extra CSS classes added to the progress bar container.
+         */
         "custom_class": string;
         /**
+          * Progress in percent, from 0 to 100. Sets the bar width and `aria-valuenow`.
           * @default 0
          */
         "progress": number;
         /**
+          * Shows the percentage as text after the bar.
           * @default false
          */
         "show_percentage_text": boolean;
         /**
+          * Shows the percentage in a tooltip at the end of the filled bar.
           * @default false
          */
         "tooltip": boolean;
         /**
+          * Tooltip position: `top` or `bottom`.
           * @default 'top'
          */
         "tooltip_position": 'top' | 'bottom';
     }
     interface DdaRadiobutton {
+        /**
+          * Accessible name of the inner radio input.
+         */
         "aria_label"?: string;
+        /**
+          * Checked state of the inner input. Read the current state from the input or its `change` event.
+         */
         "checked": boolean;
+        /**
+          * Theme override class for the radio button, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra class suffix. The value is added as `dda-radio-<value>` on the container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * `name` of the inner radio input. Give all radio buttons in one group the same value.
+         */
         "group_name"?: string;
+        /**
+          * `id` of the inner radio input. The label points to it, so set a unique value to make the label clickable.
+         */
         "input_id"?: string;
+        /**
+          * Status: `disabled` shows the disabled style and blocks pointer clicks.
+         */
         "radio_status"?: string;
+        /**
+          * Size: `sm`, `md` or `lg`.
+         */
         "size"?: string;
+        /**
+          * Secondary text shown under the title.
+         */
         "supporting"?: string;
+        /**
+          * Label shown next to the radio button.
+         */
         "title_text": string;
+        /**
+          * Style variant: `outlined` or `faded`. Leave empty (or `normal`) for the default style.
+         */
         "variants"?: string;
     }
     interface DdaRangeSlider {
+        /**
+          * Theme override class for the slider, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the slider container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Start value of the upper (right) handle. Read only when the component loads.
           * @default 100
          */
         "initial_max": number;
         /**
+          * Start value of the lower (left) handle. Read only when the component loads.
           * @default 0
          */
         "initial_min": number;
+        /**
+          * Accessible name of the lower (left) range input, e.g. `Minimum amount`.
+         */
         "left_aria_label"?: string;
+        /**
+          * `id` of the lower (left) range input.
+         */
         "left_input_id": string;
+        /**
+          * `name` of the lower (left) range input, submitted with its form.
+         */
         "left_input_name": string;
         /**
+          * Highest value of the range.
           * @default 100
          */
         "max": number;
         /**
+          * Lowest value of the range.
           * @default 0
          */
         "min": number;
+        /**
+          * Accessible name of the upper (right) range input, e.g. `Maximum amount`.
+         */
         "right_aria_label"?: string;
+        /**
+          * `id` of the upper (right) range input.
+         */
         "right_input_id": string;
+        /**
+          * `name` of the upper (right) range input, submitted with its form.
+         */
         "right_input_name": string;
+        /**
+          * Not used by the current version; it has no effect.
+         */
         "size"?: string;
         /**
+          * Step between selectable values.
           * @default 1
          */
         "step": number;
+        /**
+          * Value labels shown as tooltips: `top` or `bottom`. Without it, plain labels show below the track.
+         */
         "tooltip_position"?: string;
     }
     interface DdaSearchInput {
+        /**
+          * Accessible name of the search input. Use it when there is no visible label.
+         */
         "aria_label"?: string;
+        /**
+          * Accessible name of the clear button, e.g. `Clear search`.
+         */
         "button_aria_label"?: string;
+        /**
+          * `id` of the clear button.
+         */
         "button_id"?: string;
+        /**
+          * `name` of the clear button.
+         */
         "close_button_name": string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the field container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Error text shown below the field. When set, the input gets `aria-invalid="true"`.
+         */
         "error_message": string;
         /**
+          * Shows the error colors.
           * @default false
          */
         "has_error": boolean;
+        /**
+          * Helper text shown below the field and linked with `aria-describedby`.
+         */
         "helper_text": string;
+        /**
+          * `id` of the search input. Also used for the label `for` and the helper and error text ids.
+         */
         "input_id"?: string;
+        /**
+          * Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute.
+         */
         "input_status"?: string;
+        /**
+          * Visible label text, linked to the search input through `input_id`.
+         */
         "label": string;
         /**
+          * Placeholder text of the search input.
           * @default 'Search'
          */
         "placeholder": string;
+        /**
+          * `name` of the "Search" button.
+         */
         "search_button_name": string;
+        /**
+          * `name` of the search input, submitted with its form.
+         */
         "search_input_name": string;
         /**
+          * Shows a "Search" button after the clear button.
           * @default false
          */
         "show_button": boolean;
         /**
+          * Size. `small` shows a smaller field; other values show the default size.
           * @default 'sm'
          */
         "size": string;
@@ -709,151 +1385,398 @@ export namespace Components {
           * Accessible name for the group (applied as aria-label on the group container).
          */
         "aria_label": string;
+        /**
+          * `name` set on every segment button.
+         */
         "button_name": string;
+        /**
+          * Theme override class on the group, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Extra CSS classes added to the group.
+         */
         "custom_class": string;
+        /**
+          * Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`).
+         */
         "items": string;
+        /**
+          * Corner shape of the group: `square` or `rounded`.
+         */
         "radius_type": string;
         /**
-          * Index of the segment selected by default. Clamped to a valid item index.
+          * Index of the segment selected on load, from 0. An out-of-range value selects the first segment.
           * @default 0
          */
         "selected_index": number;
     }
     interface DdaSelect {
+        /**
+          * Accessible name of the trigger button and the option list. The list falls back to `label`.
+         */
         "aria_label"?: string;
+        /**
+          * `id` of the trigger button. Also used to build the ids of the list, helper text and error message, so keep it unique.
+         */
         "button_id": string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the field container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Disables the select: the list does not open and options cannot be picked.
           * @default false
          */
         "disabled": boolean;
+        /**
+          * Validation state. `error` shows the error styling.
+         */
         "error"?: string;
+        /**
+          * Error text shown under the field. Also sets `aria-invalid` on the trigger.
+         */
         "error_message": string;
+        /**
+          * Helper text shown under the field.
+         */
         "helper_text": string;
+        /**
+          * Label shown above the field and linked to the trigger button.
+         */
         "label": string;
+        /**
+          * `name` of each option button in the list.
+         */
         "option_select_button_name": string;
+        /**
+          * Options as a JSON array string, e.g. `'["Dubai","Abu Dhabi","Sharjah"]'`. Invalid JSON shows "No options available".
+         */
         "options": string;
+        /**
+          * The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option.
+         */
         "selected": string;
+        /**
+          * Field size. `small` gives the compact field; leave empty for the default size.
+         */
         "size"?: string;
+        /**
+          * `name` of the trigger button.
+         */
         "toggle_button_name": string;
     }
     interface DdaStickyFooter {
+        /**
+          * Alternative text for the accessibility icon.
+         */
         "accessibilityIconAlt": string;
+        /**
+          * Link URL of the accessibility icon, the second icon in the left section.
+         */
         "accessibilityIconHref": string;
+        /**
+          * Image URL of the accessibility icon.
+         */
         "accessibilityIconSrc": string;
+        /**
+          * Tooltip text of the accessibility icon.
+         */
         "accessibilityIconTooltip": string;
+        /**
+          * Alternative text for the AI assistant icon.
+         */
         "aiIconAlt": string;
+        /**
+          * Link URL of the AI assistant icon (right section).
+         */
         "aiIconHref": string;
+        /**
+          * Image URL of the AI assistant icon.
+         */
         "aiIconSrc": string;
+        /**
+          * Tooltip text of the AI assistant icon.
+         */
         "aiIconTooltip": string;
+        /**
+          * Alternative text for the chat icon.
+         */
         "chatIconAlt": string;
+        /**
+          * Link URL of the chat icon (right section).
+         */
         "chatIconHref": string;
+        /**
+          * Image URL of the chat icon.
+         */
         "chatIconSrc": string;
+        /**
+          * Tooltip text of the chat icon.
+         */
         "chatIconTooltip": string;
+        /**
+          * Alternative text for the first logo.
+         */
         "firstLogoAlt": string;
         /**
-          * Middle Section Props
+          * Link URL of the first logo (middle section).
          */
         "firstLogoHref": string;
+        /**
+          * Image URL of the first logo.
+         */
         "firstLogoSrc": string;
+        /**
+          * Tooltip text of the first logo.
+         */
         "firstLogoTooltip": string;
+        /**
+          * Alternative text for the happiness icon.
+         */
         "happinessIconAlt": string;
         /**
-          * Left Section Props
+          * Link URL of the happiness icon (left section).
          */
         "happinessIconHref": string;
+        /**
+          * Image URL of the happiness icon.
+         */
         "happinessIconSrc": string;
+        /**
+          * Tooltip text of the happiness icon.
+         */
         "happinessIconTooltip": string;
+        /**
+          * Hides the middle logo section. The section shows only when this is explicitly `false`.
+         */
         "hideMiddleSection": boolean;
         /**
-          * Right Section Props
+          * Link URL of the location icon (right section).
          */
         "locationButtonHref": string;
+        /**
+          * Not used: the current markup does not render it.
+         */
         "locationButtonIcon": string;
+        /**
+          * Tooltip text and alternative text of the location icon.
+         */
         "locationButtonText": string;
+        /**
+          * Image URL of the location icon.
+         */
         "locationLogoSrc": string;
+        /**
+          * Link URL of the news icon (right section).
+         */
         "newsButtonHref": string;
+        /**
+          * Not used: the current markup does not render it.
+         */
         "newsButtonIcon": string;
+        /**
+          * Image URL of the news icon.
+         */
         "newsButtonSrc": string;
+        /**
+          * Tooltip text and alternative text of the news icon.
+         */
         "newsButtonText": string;
+        /**
+          * Alternative text for the second logo.
+         */
         "secondLogoAlt": string;
+        /**
+          * Link URL of the second logo (middle section).
+         */
         "secondLogoHref": string;
+        /**
+          * Image URL of the second logo.
+         */
         "secondLogoSrc": string;
+        /**
+          * Tooltip text of the second logo.
+         */
         "secondLogoTooltip": string;
+        /**
+          * Alternative text for the services icon.
+         */
         "servicesIconAlt": string;
+        /**
+          * Link URL of the services icon (left section).
+         */
         "servicesIconHref": string;
+        /**
+          * Image URL of the services icon.
+         */
         "servicesIconSrc": string;
+        /**
+          * Text shown next to the services icon. Nothing is shown when it is not set.
+         */
         "servicesIconText": string;
+        /**
+          * Tooltip text of the services icon.
+         */
         "servicesIconTooltip": string;
+        /**
+          * Alternative text for the third logo.
+         */
         "thirdLogoAlt": string;
+        /**
+          * Link URL of the third logo (middle section).
+         */
         "thirdLogoHref": string;
+        /**
+          * Image URL of the third logo.
+         */
         "thirdLogoSrc": string;
+        /**
+          * Tooltip text of the third logo.
+         */
         "thirdLogoTooltip": string;
     }
     interface DdaTabs {
+        /**
+          * Accessible name for the tab group (`aria-label` on the `role="group"` container).
+         */
         "aria_label": string;
         /**
+          * Not used by the component; it has no effect.
           * @default false
          */
         "border_bottom": boolean;
+        /**
+          * `id` set on every tab button.
+         */
         "button_id"?: string;
+        /**
+          * `name` set on every tab button.
+         */
         "button_name": string;
+        /**
+          * Theme override class on the tab group, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the tab group.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Style of the active and hovered tab: `dda-tab-default`, `dda-tab-filed`, `dda-tab-underline` or `dda-tab-underline-filled`.
           * @default 'dda-tab-default'
          */
         "hover_style": 'dda-tab-default' | 'dda-tab-filed' | 'dda-tab-underline' | 'dda-tab-underline-filled';
         /**
+          * Material Icons names, one per tab in the same order, as a JSON string array. Shown when `type` is `text-icon`.
           * @default '["sentiment_satisfied", "sentiment_satisfied", "sentiment_satisfied"]'
          */
         "tab_icons": string;
         /**
+          * Tab labels, as a JSON string array, e.g. `'["Details", "Documents"]'`.
           * @default '["Tab 1", "Tab 2", "Tab 3"]'
          */
         "tab_texts": string;
         /**
+          * Tab content: `text` (label only) or `text-icon` (icon from `tab_icons` before the label).
           * @default 'text'
          */
         "type": 'text' | 'text-icon';
     }
     interface DdaTextarea {
+        /**
+          * Accessible name of the textarea. Use it when there is no visible label.
+         */
         "aria_label"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Extra CSS classes added to the field container.
+         */
         "custom_class"?: string;
+        /**
+          * Replaces the textarea with a Quill rich text editor and toolbar.
+         */
         "enable_rich_editor"?: boolean;
+        /**
+          * Error text shown below the field with the character count. When set, the field gets `aria-invalid="true"`.
+         */
         "error_message": string;
+        /**
+          * Helper text shown below the field with the character count, linked with `aria-describedby`.
+         */
         "helper_text"?: string;
+        /**
+          * `id` of the textarea or editor. Also used for the label and the helper and error text ids.
+         */
         "input_id": string;
+        /**
+          * Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute.
+         */
         "input_status"?: string;
+        /**
+          * Visible label text, linked to the field through `input_id`.
+         */
         "label": string;
+        /**
+          * Maximum number of characters (`maxlength` of the textarea), shown in the character count.
+         */
         "max_characters": number;
+        /**
+          * Placeholder text of the textarea or the rich text editor.
+         */
         "placeholder": string;
+        /**
+          * `name` of the textarea, submitted with its form.
+         */
         "textarea_name": string;
+        /**
+          * Validation style. `error` shows the error colors.
+         */
         "validation_type"?: string;
         /**
+          * Value of the textarea. Updates as the user types; in rich text mode it holds the editor HTML.
           * @default ''
          */
         "value": string;
     }
     interface DdaToggle {
+        /**
+          * Accessible name of the inner checkbox input. Set it when there is no `title_text`.
+         */
         "aria_label": string;
+        /**
+          * Checked (on) state of the inner input. Read the current state from the input or its `change` event.
+         */
         "checked": boolean;
+        /**
+          * Theme override class for the toggle, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the toggle label.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * `name` of the inner checkbox input.
+         */
         "group_name"?: string;
+        /**
+          * `id` of the inner checkbox input.
+         */
         "input_id"?: string;
+        /**
+          * Size: `sm`, `md` or `lg`.
+         */
         "size"?: string;
         /**
           * Secondary text shown under the title.
@@ -865,53 +1788,75 @@ export namespace Components {
         "title_text"?: string;
     }
     interface DdaTooltip {
+        /**
+          * Theme class added to the tooltip container, e.g. `light-mode`. The tooltip styles do not change with it.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the tooltip container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Text shown below the heading in the tooltip box.
+         */
         "description": string;
         /**
+          * Side of the trigger where the box appears: `top`, `bottom`, `left` or `right`.
           * @default 'top'
          */
         "position": 'top' | 'bottom' | 'left' | 'right';
+        /**
+          * Bold heading shown in the tooltip box.
+         */
         "title_text": string;
     }
     interface DdaUiCard {
         /**
+          * Material Icons name shown at the top of the card, e.g. `description`.
           * @default ''
          */
         "icon": string;
         /**
+          * URL of an image shown at the top of the card. Its alt text is `maintitle`.
           * @default ''
          */
         "image": string;
         /**
+          * URL of the card link. The link shows only when this is set.
           * @default ''
          */
         "link": string;
         /**
+          * Material Icons name shown after the link text. Set it to an empty string to hide the icon.
           * @default 'arrow_forward'
          */
         "linkicon": string;
         /**
+          * Text of the card link.
           * @default ''
          */
         "linktext": string;
         /**
+          * Card title, rendered as an `<h1>`.
           * @default ''
          */
         "maintitle": string;
         /**
+          * Muted text shown below the title.
           * @default ''
          */
         "subtitle": string;
         /**
+          * `default` renders the icon, image, title, subtitle and link from props before the slot; `custom` renders only the slot.
           * @default 'default'
          */
         "type": 'default' | 'custom';
     }
     interface DdaVerticalStepper {
+        /**
+          * Class added to the stepper container, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
           * @deprecated Use `current_step`. Its attribute is `current_-step`, so it never worked in HTML.
@@ -923,9 +1868,13 @@ export namespace Components {
          */
         "current_step"?: number;
         /**
+          * Extra CSS classes added to the stepper container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Steps, as a JSON string array of `{ icon, title, subtitle, description }` objects. `icon` is a Material Icons name.
+         */
         "steps": string;
     }
 }
@@ -1258,152 +2207,274 @@ declare global {
 declare namespace LocalJSX {
     interface DdaAccordion {
         /**
+          * Material Symbols icon name shown before the header text, e.g. `info`.
           * @default 'info'
          */
         "accordion_icon"?: string;
         /**
+          * Paragraph text shown in the panel when it is open. Slotted content follows it.
           * @default ''
          */
         "body_description"?: string;
+        /**
+          * Theme override class for the container, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the accordion container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Container style: `bg-border` (filled background with border) or `no-border` (no background or border).
           * @default 'bg-border'
          */
         "design"?: 'bg-border' | 'no-border';
         /**
+          * Text shown in the header button that opens and closes the panel.
           * @default 'Accordion Header'
          */
         "header_text"?: string;
     }
     interface DdaAlert {
+        /**
+          * `name` of the close button.
+         */
         "button_name"?: string;
         /**
+          * Not used by the component; nothing is rendered from this value.
           * @default ''
          */
         "button_text"?: string;
+        /**
+          * Click handler for the close button, set as a JavaScript property. The alert does not hide itself.
+         */
         "clickHandler"?: (event: MouseEvent) => void;
+        /**
+          * Not used by the component; it is not applied to any element.
+         */
         "component_id"?: string;
+        /**
+          * Theme override class for the alert, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the alert container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Body text shown below the heading.
           * @default ''
          */
         "description"?: string;
+        /**
+          * Label of the first action link. The link shows only when this is set.
+         */
         "first_button"?: string;
+        /**
+          * `href` of the first action link.
+         */
         "first_link"?: string;
+        /**
+          * Fires when the first action link is clicked. No detail.
+         */
         "onFirstClick"?: (event: DdaAlertCustomEvent<void>) => void;
+        /**
+          * Fires when the second action link is clicked. No detail.
+         */
         "onSecondClick"?: (event: DdaAlertCustomEvent<void>) => void;
+        /**
+          * Label of the second action link. The link shows only when this is set.
+         */
         "second_button"?: string;
+        /**
+          * `href` of the second action link.
+         */
         "second_link"?: string;
         /**
+          * Heading text of the alert.
           * @default ''
          */
         "title_text"?: string;
         /**
+          * Style: `primary` uses a tinted background and border in the variation color; `secondary` uses a neutral surface and border.
           * @default 'primary'
          */
         "type"?: 'primary' | 'secondary';
         /**
+          * Color and screen reader urgency: `info`, `warning`, `error` or `success`. `error` uses `role="alert"`; the others use `role="status"`.
           * @default 'info'
          */
         "variation"?: 'info' | 'warning' | 'error' | 'success';
     }
     interface DdaAttachFile {
         /**
+          * Accessible name of the file input.
           * @default ''
          */
         "aria_label"?: string;
         /**
+          * Accessible name of the remove button shown after a file is chosen, e.g. `Remove file`.
           * @default ''
          */
         "button_aria_label"?: string;
+        /**
+          * `id` of the remove button shown after a file is chosen.
+         */
         "button_id"?: string;
+        /**
+          * `name` of the remove button shown after a file is chosen.
+         */
         "button_name"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the field container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Error text shown below the field. Also sets `aria-invalid="true"` on the file input.
+         */
         "error_message"?: string;
+        /**
+          * Helper text shown below the field. Linked by `aria-describedby` when `input_id` is set.
+         */
         "helper_text"?: string;
+        /**
+          * `id` of the file input. Also used to link the label, helper text and error message.
+         */
         "input_id"?: string;
+        /**
+          * `name` of the file input.
+         */
         "input_name"?: string;
+        /**
+          * Adds the class `dda-input-<value>`. `disabled` gives the disabled look only; it does not disable the file input.
+         */
         "input_type"?: string;
+        /**
+          * Label text shown above the field. Linked to the file input when `input_id` is set.
+         */
         "label"?: string;
+        /**
+          * Size: `default` or `small`.
+         */
         "size"?: string;
+        /**
+          * Validation state: `error` applies the error colors.
+         */
         "validation_type"?: string;
     }
     interface DdaAvatar {
+        /**
+          * Accessible name of the avatar button and of each option button. The avatar button falls back to `Avatar options`.
+         */
         "aria_label"?: string;
+        /**
+          * `id` applied to each option button in the dropdown.
+         */
         "button_id"?: string;
+        /**
+          * `name` of each option button in the dropdown. Also added as a CSS class on the avatar container.
+         */
         "button_name"?: string;
+        /**
+          * Theme override class for the avatar, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the avatar container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Badge: `default` (none), `status` (green dot), `verified` (check badge), `notification` (count from `notification_number`). `story` has no style yet.
           * @default 'default'
          */
         "design"?: 'default' | 'status' | 'verified' | 'story' | 'notification';
         /**
+          * CSS class of the icon font used when `type` is `icon`, e.g. `material-icons`. The icon glyph is always `sentiment_satisfied`.
           * @default 'material-icons'
          */
         "icon"?: string;
         /**
+          * Count shown in the badge when `design` is `notification`. Hidden at sizes `xs` and `sm`.
           * @default 0
          */
         "notification_number"?: number;
+        /**
+          * Dropdown options as a JSON array of strings, e.g. `["Profile","Sign out"]`. When set, the avatar becomes a button that opens the list.
+         */
         "options"?: string;
         /**
+          * Shape: `circle` or `square` (rounded corners).
           * @default 'circle'
          */
         "rounded"?: 'square' | 'circle';
+        /**
+          * The selected option. Matches one entry of `options`; updated when the user picks an option.
+         */
         "selected"?: string;
         /**
+          * Size: `xs` (24px), `sm` (32px), `md` (40px), `lg` (48px), `xl` (56px) or `xxl` (64px).
           * @default 'md'
          */
         "size"?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
         /**
+          * Image URL shown when `type` is `photo`.
           * @default ''
          */
         "src"?: string;
         /**
+          * Initials shown when `type` is `text`.
           * @default 'AB'
          */
         "text"?: string;
         /**
+          * Content: `photo` shows the `src` image, `icon` shows a smiley icon, `text` shows `text` as initials.
           * @default 'photo'
          */
         "type"?: 'photo' | 'icon' | 'text';
     }
     interface DdaBanner {
+        /**
+          * CSS height of each slide image, e.g. `220px`.
+         */
         "slider_height"?: string;
+        /**
+          * CSS width of each slide image, e.g. `360px`.
+         */
         "slider_width"?: string;
+        /**
+          * Slide images. JSON array of `{ image, title }`; `image` is the image URL and `title` its alternative text. Read once, when the component loads.
+         */
         "slides"?: string;
     }
     interface DdaBreadcrumb {
         /**
-          * The items, as an array or a JSON string. The `data-breadcrumbs` attribute is still read when this is not set.
+          * The items, as an array or a JSON string of `{ text, icon?, url? }` objects. The last item is the current page. The `data-breadcrumbs` attribute is still read when this is not set.
          */
         "breadcrumbs"?: string | BreadcrumbItem[];
+        /**
+          * Theme override class on the wrapper, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the inner `<nav>`.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * What each item shows: `text` (label only), `icon-text` (icon and label) or `icon` (icon only).
           * @default 'text'
          */
         "design"?: 'text' | 'icon-text' | 'icon';
         /**
+          * Material Symbols icon shown between items: `chevron_right` or `pen_size_2` (a slash).
           * @default 'chevron_right'
          */
         "separator"?: 'chevron_right' | 'pen_size_2';
@@ -1481,172 +2552,436 @@ declare namespace LocalJSX {
         "type"?: string;
     }
     interface DdaCheckbox {
+        /**
+          * Accessible name of the inner checkbox input.
+         */
         "aria_label"?: string;
+        /**
+          * Status: `disabled` shows the disabled style and blocks pointer clicks.
+         */
         "checkbox_status"?: string;
+        /**
+          * Checked state of the inner input. Read the current state from the input or its `change` event.
+         */
         "checked"?: boolean;
+        /**
+          * Theme override class for the checkbox, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the checkbox container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * `name` of the inner checkbox input.
+         */
         "group_name"?: string;
+        /**
+          * `id` of the inner checkbox input. The label points to it, so set a unique value to make the label clickable.
+         */
         "input_id"?: string;
+        /**
+          * Size: `sm`, `md` or `lg`.
+         */
         "size"?: string;
+        /**
+          * Box shape: `square` or `rounded`.
+         */
         "style_type"?: string;
+        /**
+          * Secondary text shown under the title.
+         */
         "supporting"?: string;
+        /**
+          * Label shown next to the checkbox.
+         */
         "title_text"?: string;
     }
     interface DdaChip {
         /**
+          * Color: `grey`, `primary`, `green`, `yellow`, `red` or `purple`. Other values, including the default, use the base primary style.
           * @default 'success'
          */
         "bg_color"?: string;
+        /**
+          * Click handler for the close button, set as a JavaScript property. The chip does not remove itself.
+         */
         "clickHandler"?: (event: MouseEvent) => void;
+        /**
+          * Theme override class for the chip, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Extra CSS classes added to the chip container.
+         */
         "custom_class"?: string;
+        /**
+          * Material Symbols icon name shown before the label, e.g. `check_circle`.
+         */
         "icon"?: string;
         /**
+          * Corner radius: `sm`, `md`, `lg` or `circle`.
           * @default ''
          */
         "rounded"?: string;
         /**
+          * Shows a close button with the accessible name `Remove` after the label.
           * @default false
          */
         "show_close_icon"?: boolean;
+        /**
+          * Height: `sm` (24px), `md` (26px) or `lg` (32px).
+         */
         "size"?: string;
     }
     interface DdaCreditCard {
+        /**
+          * Balance text shown under the fixed "Current Balance" label, e.g. `AED 5,750.20`.
+         */
         "balance"?: string;
+        /**
+          * Card number. Only the last four characters are shown, after `****`. Required: the card fails to render without it.
+         */
         "card_number"?: string;
+        /**
+          * URL of the card type image (e.g. a card brand logo) shown at the bottom end of the card.
+         */
         "card_type"?: string;
+        /**
+          * Theme override class for the card, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the card container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Background design: `default`, `green` or `dark`.
+         */
         "design"?: string;
+        /**
+          * Card holder name.
+         */
         "name"?: string;
     }
     interface DdaCreditcardField {
+        /**
+          * Accessible name of the input. Use it when there is no visible `label`.
+         */
         "aria_label"?: string;
         /**
+          * `autocomplete` token of the input. Defaults to `cc-number`.
           * @default 'cc-number'
          */
         "autocomplete"?: string;
+        /**
+          * URL of an image shown at the start of the input, e.g. a card brand logo.
+         */
         "card_icon"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the field container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Disables the input and applies the disabled look.
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Error text shown below the input. Also sets `aria-invalid="true"` on the input.
+         */
         "error_message"?: string;
+        /**
+          * Helper text shown below the input. Linked by `aria-describedby` when `input_id` is set.
+         */
         "helper_text"?: string;
+        /**
+          * `id` of the inner `<input>`. Also used to link the label, helper text and error message.
+         */
         "input_id"?: string;
+        /**
+          * `name` of the inner `<input>`, submitted with its form.
+         */
         "input_name"?: string;
+        /**
+          * Adds the class `dda-input-<value>`. `disabled` gives only the disabled look; use `disabled` to disable the input.
+         */
         "input_type"?: string;
+        /**
+          * Label text shown above the input. Linked to the input when `input_id` is set.
+         */
         "label"?: string;
+        /**
+          * Placeholder text of the input, e.g. `0000 - 0000 - 0000 - 0000`.
+         */
         "placeholder"?: string;
         /**
+          * Sets the input `maxlength`: 25 characters when `false` (16 digits with separators), 100 when `true`.
           * @default false
          */
         "restrict_input"?: boolean;
+        /**
+          * Size: `default` or `small`.
+         */
         "size"?: string;
+        /**
+          * Validation state: `error` applies the error colors.
+         */
         "validation_type"?: string;
         /**
+          * Card number. Shown as groups of four digits separated by ` - `; the component updates it as the user types.
           * @default ''
          */
         "value"?: string;
     }
     interface DdaDropdown {
+        /**
+          * Accessible name of the dropdown button. Set it when `icon_mode` is on.
+         */
         "aria_label"?: string;
+        /**
+          * `name` of the dropdown button that opens the list.
+         */
         "arrow_button_name"?: string;
+        /**
+          * `id` of the dropdown button. The label points to it.
+         */
         "button_id"?: string;
+        /**
+          * Theme override class for the dropdown, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the dropdown container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Disables the dropdown: the list does not open and options cannot be picked.
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * `name` of each option button in the list.
+         */
         "dropdown_button_name"?: string;
+        /**
+          * Error text shown under the dropdown.
+         */
         "error"?: string;
+        /**
+          * Helper text shown under the dropdown.
+         */
         "helper_text"?: string;
         /**
+          * Shows only the three-dots icon, without the selected text and arrow.
           * @default false
          */
         "icon_mode"?: boolean;
+        /**
+          * Label shown above the dropdown.
+         */
         "label"?: string;
+        /**
+          * Options as a JSON array string, e.g. `'["Edit","Download","Delete"]'`. Invalid JSON shows "No options available".
+         */
         "options"?: string;
+        /**
+          * The selected option. Must match an entry in `options`. The button shows "Select an option" when it is empty. Updated when the user picks an option.
+         */
         "selected"?: string;
         /**
+          * Size: `medium` or `small`.
           * @default 'medium'
          */
         "size"?: 'small' | 'medium';
         /**
+          * Button background: `bg-white` (field style) or `bg-transparent` (no border, background or padding).
           * @default 'bg-white'
          */
         "type"?: 'bg-transparent' | 'bg-white';
     }
     interface DdaFooter {
+        /**
+          * Copyright text in the bottom row.
+         */
         "copyrightText"?: string;
+        /**
+          * Paragraph under `footerTitle`.
+         */
         "description"?: string;
+        /**
+          * Link columns. JSON array of `{ title, links: [{ label, href }] }`.
+         */
         "footerSections"?: string;
+        /**
+          * Heading of the call-to-action area at the top of the footer.
+         */
         "footerTitle"?: string;
+        /**
+          * Label of the tertiary (Login) button. The button has no link or action.
+         */
         "loginButtonText"?: string;
+        /**
+          * Alternative text for the footer logo.
+         */
         "logoAlt"?: string;
         /**
           * Short text shown under the footer logo. Nothing is shown when it is not set.
          */
         "logoDescription"?: string;
+        /**
+          * Image URL of the footer logo.
+         */
         "logoSrc"?: string;
+        /**
+          * Label of the primary (Sign up) button. The button has no link or action.
+         */
         "signUpButtonText"?: string;
+        /**
+          * Social links in the bottom row. JSON array of `{ href, src, alt }`, where `src` is an image URL.
+         */
         "socialIcons"?: string;
     }
     interface DdaHeader {
+        /**
+          * `name` attribute of the accessibility button in the side menu.
+         */
         "accessibility_button_name"?: string;
+        /**
+          * `name` attribute of the buttons that close the accessibility panel.
+         */
         "close_accessibility_button_name"?: string;
+        /**
+          * `name` attribute of the button that closes the side menu.
+         */
         "close_menu_button_name"?: string;
+        /**
+          * Not used: the current markup does not render an element with this name.
+         */
         "close_sidebar_button_name"?: string;
+        /**
+          * Alternative text for the first logo.
+         */
         "firstLogoAlt"?: string;
+        /**
+          * Image URL of the first (government) logo, on the left of the header and in the side menu.
+         */
         "firstLogoSrc"?: string;
+        /**
+          * Image URL of the white first logo, shown in dark theme and on a transparent header (`<body class="transparent">`). Falls back to `firstLogoSrc`.
+         */
         "firstLogoWhiteSrc"?: string;
+        /**
+          * `name` attribute of the hamburger menu button.
+         */
         "hamburger_menu_button_name"?: string;
+        /**
+          * `name` attribute of the language button in the side menu.
+         */
         "language_button_name"?: string;
+        /**
+          * Label of the language button in the desktop toolbar, e.g. `العربية`.
+         */
         "language_text"?: string;
+        /**
+          * Material Symbols icon name of the Login link in the side menu. Default: `sentiment_satisfied`.
+         */
         "loginIcon"?: string;
+        /**
+          * URL of the Login link in the toolbar and the side menu.
+         */
         "loginLink"?: string;
+        /**
+          * Label of the Login link in the side menu. Default: `Login`.
+         */
         "loginText"?: string;
+        /**
+          * Emitted when the user clicks the `A` (default text size) button in the accessibility panel.
+         */
         "onBaseTextSize"?: (event: DdaHeaderCustomEvent<void>) => void;
+        /**
+          * Emitted when the user selects the Colours Blind contrast option.
+         */
         "onBlindContrast"?: (event: DdaHeaderCustomEvent<void>) => void;
+        /**
+          * Emitted when the user selects the Green Weakness contrast option.
+         */
         "onGreenContrast"?: (event: DdaHeaderCustomEvent<void>) => void;
+        /**
+          * Emitted when the user clicks the language button.
+         */
         "onLanguageSwitch"?: (event: DdaHeaderCustomEvent<void>) => void;
+        /**
+          * Emitted when the user clicks the `A+` (larger text) button in the accessibility panel.
+         */
         "onLgTextSize"?: (event: DdaHeaderCustomEvent<void>) => void;
+        /**
+          * Emitted when the user selects the Normal contrast option.
+         */
         "onNormalContrast"?: (event: DdaHeaderCustomEvent<void>) => void;
+        /**
+          * Emitted when the user selects the Red Weakness contrast option.
+         */
         "onRedContrast"?: (event: DdaHeaderCustomEvent<void>) => void;
         /**
           * Emitted when a non-empty search is submitted. Call `preventDefault()` to stop the browser navigating to `search_action`, for example to route inside a single-page app.
          */
         "onSearchSubmit"?: (event: DdaHeaderCustomEvent<{ query: string }>) => void;
+        /**
+          * Emitted when the user clicks the `A-` (smaller text) button in the accessibility panel.
+         */
         "onSmTextSize"?: (event: DdaHeaderCustomEvent<void>) => void;
+        /**
+          * Main navigation links. JSON array of `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu.
+         */
         "quickLinks"?: string;
+        /**
+          * URL of the ReadSpeaker "listen" link in the accessibility panel.
+         */
         "readSpeakerLink"?: string;
+        /**
+          * Placeholder and accessible label of the search input. Default: `Search`.
+         */
         "searchText"?: string;
         /**
           * Results page URL. When set, a search does a GET to this URL with the query in `search_input_name` (default `q`).
          */
         "search_action"?: string;
+        /**
+          * `name` attribute of the mobile search button.
+         */
         "search_button_name"?: string;
+        /**
+          * `name` of the search input, which is the query parameter sent to `search_action`. Default: `q`.
+         */
         "search_input_name"?: string;
+        /**
+          * Alternative text for the second logo.
+         */
         "secondLogoAlt"?: string;
+        /**
+          * Image URL of the second (entity) logo.
+         */
         "secondLogoSrc"?: string;
+        /**
+          * Image URL of the white second logo, shown in dark theme and on a transparent header. Falls back to `secondLogoSrc` on desktop.
+         */
         "secondLogoWhiteSrc"?: string;
+        /**
+          * Side menu items. JSON array of `{ label, href, subMenu }`; each `subMenu` item is `{ headerLabel, label, href, subMenu }` and can nest.
+         */
         "sideMenuItems"?: string;
+        /**
+          * `name` attribute of the accessibility button in the desktop toolbar.
+         */
         "toggle_accessibility_button_name"?: string;
     }
     interface DdaHomeBanner {
@@ -1697,271 +3032,591 @@ declare namespace LocalJSX {
         "slide_status_label"?: string;
     }
     interface DdaHorizontalStepper {
+        /**
+          * Theme override class on the stepper container, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Index of the active step, from 0. Steps before it show as completed.
           * @default 1
          */
         "current_step"?: number;
+        /**
+          * Extra CSS classes added to the stepper container.
+         */
         "custom_class"?: string;
+        /**
+          * Steps, as a JSON string array of `{ title, subtitle, description }` objects.
+         */
         "steps"?: string;
     }
     interface DdaInput {
+        /**
+          * Accessible name of the inner `<input>`. Use it when there is no visible label.
+         */
         "aria_label"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Extra CSS classes added to the field container.
+         */
         "custom_class"?: string;
+        /**
+          * Error text shown below the input. When set, the input gets `aria-invalid="true"`.
+         */
         "error_message"?: string;
+        /**
+          * Helper text shown below the input and linked with `aria-describedby`.
+         */
         "helper_text"?: string;
+        /**
+          * `id` of the inner `<input>`. Also used for the label `for` and the helper and error text ids.
+         */
         "input_id"?: string;
+        /**
+          * `name` of the inner `<input>`, submitted with its form.
+         */
         "input_name"?: string;
+        /**
+          * Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute.
+         */
         "input_status"?: string;
+        /**
+          * Visible label text, linked to the input through `input_id`.
+         */
         "label"?: string;
+        /**
+          * Placeholder text of the inner `<input>`.
+         */
         "placeholder"?: string;
+        /**
+          * Size. `small` shows a smaller field; omit for the default size.
+         */
         "size"?: string;
         /**
+          * Native input type, e.g. `text`, `password`, `email`, `number`, `date` or `time`. The legacy values `Witherror` and `disabled` only apply the error or disabled styling.
           * @default 'text'
          */
         "type"?: string;
+        /**
+          * Validation style. `error` shows the error colors.
+         */
         "validation_type"?: string;
+        /**
+          * Value of the inner `<input>`. Updates as the user types.
+         */
         "value"?: string;
     }
     interface DdaLinkButton {
         /**
+          * Accessible name of the link. Required when the link shows only an icon.
           * @default ''
          */
         "aria_label"?: string;
         /**
+          * Color variant, e.g. `default-primary`, `default-secondary`, `error-primary`, `onsurface-link` or `disabled`.
           * @default 'primary'
          */
         "button_color"?: string;
+        /**
+          * `id` of the inner `<a>`.
+         */
         "button_id"?: string;
         /**
+          * Shape: `default` or `circle`.
           * @default ''
          */
         "button_shape"?: string;
+        /**
+          * Theme override class for the link, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the inner `<a>`.
           * @default ''
          */
         "custom_class"?: string;
         /**
-          * Disable the button
+          * Not used: the link stays active. For a disabled look, set `button_color` to `disabled`.
           * @default false
          */
         "disabled"?: boolean;
         /**
+          * Material Symbols icon name shown after the label, e.g. `arrow_forward`.
           * @default ''
          */
         "end_icon"?: string;
+        /**
+          * Gap between icon and label, as a spacing step: 1–6, 8, 10, 12 or 16.
+         */
         "gap"?: number;
         /**
+          * URL the link opens.
           * @default '#'
          */
         "href"?: string;
         /**
+          * Shape of an icon-only link: `default` or `circle`.
           * @default ''
          */
         "icon_button_shape"?: string;
+        /**
+          * Size: `sm`, `md`, `lg` or `xl`.
+         */
         "size"?: string;
         /**
-          * Icon class for the starting icon
+          * Material Symbols icon name shown before the label, e.g. `arrow_back`.
           * @default ''
          */
         "start_icon"?: string;
         /**
-          * Type of button, e.g., "button", "submit"
+          * Not used: the component renders an `<a>` link, which has no `type`.
           * @default 'button'
          */
         "type"?: string;
     }
     interface DdaNumberField {
+        /**
+          * Accessible name of the amount input. Use it when there is no visible label.
+         */
         "aria_label"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Currency options for the dropdown, as a JSON array string, e.g. `'["AED","USD"]'`.
+         */
         "currencies"?: string;
+        /**
+          * `name` of each currency option button.
+         */
         "currency_button_name"?: string;
         /**
+          * Extra CSS classes added to the field container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Error text shown below the field. When set, the input gets `aria-invalid="true"`.
+         */
         "error_message"?: string;
+        /**
+          * Helper text shown below the field and linked with `aria-describedby`.
+         */
         "helper_text"?: string;
+        /**
+          * `id` of the amount input. Also used for the label `for` and the helper and error text ids.
+         */
         "input_id"?: string;
+        /**
+          * `name` of the amount input, submitted with its form.
+         */
         "input_name"?: string;
+        /**
+          * Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute.
+         */
         "input_status"?: string;
+        /**
+          * Visible label text, linked to the amount input through `input_id`.
+         */
         "label"?: string;
+        /**
+          * Placeholder text of the amount input.
+         */
         "placeholder"?: string;
         /**
+          * Currency shown on the dropdown button. Updates when the user picks a currency.
           * @default 'USD'
          */
         "selected_currency"?: string;
+        /**
+          * Size. `small` shows a smaller field; omit for the default size.
+         */
         "size"?: string;
+        /**
+          * `name` of the currency dropdown button.
+         */
         "toggle_button_name"?: string;
+        /**
+          * Validation style. `error` shows the error colors.
+         */
         "validation_type"?: string;
+        /**
+          * Initial value of the amount input. Characters other than digits and `.` are removed as the user types.
+         */
         "value"?: string;
     }
     interface DdaPagination {
+        /**
+          * `name` of the next page button when `type` is `button-text`.
+         */
         "button_text_next_button"?: string;
+        /**
+          * `name` of the previous page button when `type` is `button-text`.
+         */
         "button_text_prev_button"?: string;
+        /**
+          * `name` of the next page button when `type` is `buttons`.
+         */
         "buttons_next_button"?: string;
+        /**
+          * `name` of the next page button when `type` is `buttons-pages`.
+         */
         "buttons_pages_next_button"?: string;
+        /**
+          * `name` of the previous page button when `type` is `buttons-pages`.
+         */
         "buttons_pages_prev_button"?: string;
+        /**
+          * `name` of the previous page button when `type` is `buttons`.
+         */
         "buttons_prev_button"?: string;
+        /**
+          * Theme override class on the pagination element, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Selected page, counted from 1. Kept between 1 and `total_pages`; updates when the user changes the page.
           * @default 1
          */
         "current_page"?: number;
         /**
+          * Extra CSS classes added to the pagination element.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * `name` of the next page button when `type` is `simple-slider`.
+         */
         "simple_slider_next_button"?: string;
+        /**
+          * `name` of the previous page button when `type` is `simple-slider`.
+         */
         "simple_slider_prev_button"?: string;
+        /**
+          * `name` of the next page button when `type` is `text`.
+         */
         "text_next_button"?: string;
+        /**
+          * `name` of the next page button when `type` is `text-pages`.
+         */
         "text_pages_next_button"?: string;
+        /**
+          * `name` of the previous page button when `type` is `text-pages`.
+         */
         "text_pages_prev_button"?: string;
+        /**
+          * `name` of the previous page button when `type` is `text`.
+         */
         "text_prev_button"?: string;
         /**
+          * Number of pages. Values below 1 become 1.
           * @default 8
          */
         "total_pages"?: number;
         /**
+          * Layout: `simple-slider`, `buttons`, `text`, `text-pages`, `button-text`, `buttons-pages` or `full`.
           * @default 'simple-slider'
          */
         "type"?: 'simple-slider' | 'buttons' | 'text' | 'text-pages' | 'button-text' | 'buttons-pages' | 'full';
     }
     interface DdaPhonefield {
+        /**
+          * Accessible name of the phone input. Use it when there is no visible label.
+         */
         "aria_label"?: string;
         /**
+          * `autocomplete` token of the phone input. Defaults to `tel`.
           * @default 'tel'
          */
         "autocomplete"?: string;
+        /**
+          * Accessible name set on each country option button in the open list.
+         */
         "button_aria_label"?: string;
+        /**
+          * `id` set on each country option button in the open list.
+         */
         "button_id"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * `name` of each country option button.
+         */
         "country_select_button_name"?: string;
+        /**
+          * Extra CSS classes added to the field container.
+         */
         "custom_class"?: string;
         /**
+          * Disables the phone input and shows the disabled styling.
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Error text shown below the field. When set, the input gets `aria-invalid="true"`.
+         */
         "error_message"?: string;
+        /**
+          * Helper text shown below the field. Hidden when `validation_type` is set.
+         */
         "helper_text"?: string;
+        /**
+          * `id` of the phone input. Also used for the label `for` and the helper and error text ids.
+         */
         "input_id"?: string;
+        /**
+          * Visible label text, linked to the phone input through `input_id`.
+         */
         "label"?: string;
+        /**
+          * `name` of the phone input, submitted with its form.
+         */
         "phone_input_name"?: string;
         /**
+          * Placeholder text of the phone input.
           * @default 'Enter phone number'
          */
         "placeholder"?: string;
+        /**
+          * Size. `small` shows a smaller field; omit for the default size.
+         */
         "size"?: string;
+        /**
+          * `name` of the country code dropdown button.
+         */
         "toggle_button_name"?: string;
+        /**
+          * Validation style. `error` shows the error colors. Any value hides `helper_text`.
+         */
         "validation_type"?: string;
     }
     interface DdaProgressbar {
         /**
+          * Accessible name of the progress bar.
           * @default 'Progress'
          */
         "aria_label"?: string;
+        /**
+          * Theme override class for the progress bar, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Extra CSS classes added to the progress bar container.
+         */
         "custom_class"?: string;
         /**
+          * Progress in percent, from 0 to 100. Sets the bar width and `aria-valuenow`.
           * @default 0
          */
         "progress"?: number;
         /**
+          * Shows the percentage as text after the bar.
           * @default false
          */
         "show_percentage_text"?: boolean;
         /**
+          * Shows the percentage in a tooltip at the end of the filled bar.
           * @default false
          */
         "tooltip"?: boolean;
         /**
+          * Tooltip position: `top` or `bottom`.
           * @default 'top'
          */
         "tooltip_position"?: 'top' | 'bottom';
     }
     interface DdaRadiobutton {
+        /**
+          * Accessible name of the inner radio input.
+         */
         "aria_label"?: string;
+        /**
+          * Checked state of the inner input. Read the current state from the input or its `change` event.
+         */
         "checked"?: boolean;
+        /**
+          * Theme override class for the radio button, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra class suffix. The value is added as `dda-radio-<value>` on the container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * `name` of the inner radio input. Give all radio buttons in one group the same value.
+         */
         "group_name"?: string;
+        /**
+          * `id` of the inner radio input. The label points to it, so set a unique value to make the label clickable.
+         */
         "input_id"?: string;
+        /**
+          * Status: `disabled` shows the disabled style and blocks pointer clicks.
+         */
         "radio_status"?: string;
+        /**
+          * Size: `sm`, `md` or `lg`.
+         */
         "size"?: string;
+        /**
+          * Secondary text shown under the title.
+         */
         "supporting"?: string;
+        /**
+          * Label shown next to the radio button.
+         */
         "title_text"?: string;
+        /**
+          * Style variant: `outlined` or `faded`. Leave empty (or `normal`) for the default style.
+         */
         "variants"?: string;
     }
     interface DdaRangeSlider {
+        /**
+          * Theme override class for the slider, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the slider container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Start value of the upper (right) handle. Read only when the component loads.
           * @default 100
          */
         "initial_max"?: number;
         /**
+          * Start value of the lower (left) handle. Read only when the component loads.
           * @default 0
          */
         "initial_min"?: number;
+        /**
+          * Accessible name of the lower (left) range input, e.g. `Minimum amount`.
+         */
         "left_aria_label"?: string;
+        /**
+          * `id` of the lower (left) range input.
+         */
         "left_input_id"?: string;
+        /**
+          * `name` of the lower (left) range input, submitted with its form.
+         */
         "left_input_name"?: string;
         /**
+          * Highest value of the range.
           * @default 100
          */
         "max"?: number;
         /**
+          * Lowest value of the range.
           * @default 0
          */
         "min"?: number;
+        /**
+          * Accessible name of the upper (right) range input, e.g. `Maximum amount`.
+         */
         "right_aria_label"?: string;
+        /**
+          * `id` of the upper (right) range input.
+         */
         "right_input_id"?: string;
+        /**
+          * `name` of the upper (right) range input, submitted with its form.
+         */
         "right_input_name"?: string;
+        /**
+          * Not used by the current version; it has no effect.
+         */
         "size"?: string;
         /**
+          * Step between selectable values.
           * @default 1
          */
         "step"?: number;
+        /**
+          * Value labels shown as tooltips: `top` or `bottom`. Without it, plain labels show below the track.
+         */
         "tooltip_position"?: string;
     }
     interface DdaSearchInput {
+        /**
+          * Accessible name of the search input. Use it when there is no visible label.
+         */
         "aria_label"?: string;
+        /**
+          * Accessible name of the clear button, e.g. `Clear search`.
+         */
         "button_aria_label"?: string;
+        /**
+          * `id` of the clear button.
+         */
         "button_id"?: string;
+        /**
+          * `name` of the clear button.
+         */
         "close_button_name"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the field container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Error text shown below the field. When set, the input gets `aria-invalid="true"`.
+         */
         "error_message"?: string;
         /**
+          * Shows the error colors.
           * @default false
          */
         "has_error"?: boolean;
+        /**
+          * Helper text shown below the field and linked with `aria-describedby`.
+         */
         "helper_text"?: string;
+        /**
+          * `id` of the search input. Also used for the label `for` and the helper and error text ids.
+         */
         "input_id"?: string;
+        /**
+          * Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute.
+         */
         "input_status"?: string;
+        /**
+          * Visible label text, linked to the search input through `input_id`.
+         */
         "label"?: string;
         /**
+          * Placeholder text of the search input.
           * @default 'Search'
          */
         "placeholder"?: string;
+        /**
+          * `name` of the "Search" button.
+         */
         "search_button_name"?: string;
+        /**
+          * `name` of the search input, submitted with its form.
+         */
         "search_input_name"?: string;
         /**
+          * Shows a "Search" button after the clear button.
           * @default false
          */
         "show_button"?: boolean;
         /**
+          * Size. `small` shows a smaller field; other values show the default size.
           * @default 'sm'
          */
         "size"?: string;
@@ -1971,156 +3626,406 @@ declare namespace LocalJSX {
           * Accessible name for the group (applied as aria-label on the group container).
          */
         "aria_label"?: string;
+        /**
+          * `name` set on every segment button.
+         */
         "button_name"?: string;
+        /**
+          * Theme override class on the group, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Extra CSS classes added to the group.
+         */
         "custom_class"?: string;
+        /**
+          * Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`).
+         */
         "items"?: string;
         /**
-          * Emits the newly-selected index whenever the selection changes.
+          * Fires when the user selects a different segment. `detail` is the new index, from 0.
          */
         "onSegmentChange"?: (event: DdaSegmentedTabsCustomEvent<number>) => void;
+        /**
+          * Corner shape of the group: `square` or `rounded`.
+         */
         "radius_type"?: string;
         /**
-          * Index of the segment selected by default. Clamped to a valid item index.
+          * Index of the segment selected on load, from 0. An out-of-range value selects the first segment.
           * @default 0
          */
         "selected_index"?: number;
     }
     interface DdaSelect {
+        /**
+          * Accessible name of the trigger button and the option list. The list falls back to `label`.
+         */
         "aria_label"?: string;
+        /**
+          * `id` of the trigger button. Also used to build the ids of the list, helper text and error message, so keep it unique.
+         */
         "button_id"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the field container.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Disables the select: the list does not open and options cannot be picked.
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Validation state. `error` shows the error styling.
+         */
         "error"?: string;
+        /**
+          * Error text shown under the field. Also sets `aria-invalid` on the trigger.
+         */
         "error_message"?: string;
+        /**
+          * Helper text shown under the field.
+         */
         "helper_text"?: string;
+        /**
+          * Label shown above the field and linked to the trigger button.
+         */
         "label"?: string;
+        /**
+          * `name` of each option button in the list.
+         */
         "option_select_button_name"?: string;
+        /**
+          * Options as a JSON array string, e.g. `'["Dubai","Abu Dhabi","Sharjah"]'`. Invalid JSON shows "No options available".
+         */
         "options"?: string;
+        /**
+          * The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option.
+         */
         "selected"?: string;
+        /**
+          * Field size. `small` gives the compact field; leave empty for the default size.
+         */
         "size"?: string;
+        /**
+          * `name` of the trigger button.
+         */
         "toggle_button_name"?: string;
     }
     interface DdaStickyFooter {
+        /**
+          * Alternative text for the accessibility icon.
+         */
         "accessibilityIconAlt"?: string;
+        /**
+          * Link URL of the accessibility icon, the second icon in the left section.
+         */
         "accessibilityIconHref"?: string;
+        /**
+          * Image URL of the accessibility icon.
+         */
         "accessibilityIconSrc"?: string;
+        /**
+          * Tooltip text of the accessibility icon.
+         */
         "accessibilityIconTooltip"?: string;
+        /**
+          * Alternative text for the AI assistant icon.
+         */
         "aiIconAlt"?: string;
+        /**
+          * Link URL of the AI assistant icon (right section).
+         */
         "aiIconHref"?: string;
+        /**
+          * Image URL of the AI assistant icon.
+         */
         "aiIconSrc"?: string;
+        /**
+          * Tooltip text of the AI assistant icon.
+         */
         "aiIconTooltip"?: string;
+        /**
+          * Alternative text for the chat icon.
+         */
         "chatIconAlt"?: string;
+        /**
+          * Link URL of the chat icon (right section).
+         */
         "chatIconHref"?: string;
+        /**
+          * Image URL of the chat icon.
+         */
         "chatIconSrc"?: string;
+        /**
+          * Tooltip text of the chat icon.
+         */
         "chatIconTooltip"?: string;
+        /**
+          * Alternative text for the first logo.
+         */
         "firstLogoAlt"?: string;
         /**
-          * Middle Section Props
+          * Link URL of the first logo (middle section).
          */
         "firstLogoHref"?: string;
+        /**
+          * Image URL of the first logo.
+         */
         "firstLogoSrc"?: string;
+        /**
+          * Tooltip text of the first logo.
+         */
         "firstLogoTooltip"?: string;
+        /**
+          * Alternative text for the happiness icon.
+         */
         "happinessIconAlt"?: string;
         /**
-          * Left Section Props
+          * Link URL of the happiness icon (left section).
          */
         "happinessIconHref"?: string;
+        /**
+          * Image URL of the happiness icon.
+         */
         "happinessIconSrc"?: string;
+        /**
+          * Tooltip text of the happiness icon.
+         */
         "happinessIconTooltip"?: string;
+        /**
+          * Hides the middle logo section. The section shows only when this is explicitly `false`.
+         */
         "hideMiddleSection"?: boolean;
         /**
-          * Right Section Props
+          * Link URL of the location icon (right section).
          */
         "locationButtonHref"?: string;
+        /**
+          * Not used: the current markup does not render it.
+         */
         "locationButtonIcon"?: string;
+        /**
+          * Tooltip text and alternative text of the location icon.
+         */
         "locationButtonText"?: string;
+        /**
+          * Image URL of the location icon.
+         */
         "locationLogoSrc"?: string;
+        /**
+          * Link URL of the news icon (right section).
+         */
         "newsButtonHref"?: string;
+        /**
+          * Not used: the current markup does not render it.
+         */
         "newsButtonIcon"?: string;
+        /**
+          * Image URL of the news icon.
+         */
         "newsButtonSrc"?: string;
+        /**
+          * Tooltip text and alternative text of the news icon.
+         */
         "newsButtonText"?: string;
+        /**
+          * Alternative text for the second logo.
+         */
         "secondLogoAlt"?: string;
+        /**
+          * Link URL of the second logo (middle section).
+         */
         "secondLogoHref"?: string;
+        /**
+          * Image URL of the second logo.
+         */
         "secondLogoSrc"?: string;
+        /**
+          * Tooltip text of the second logo.
+         */
         "secondLogoTooltip"?: string;
+        /**
+          * Alternative text for the services icon.
+         */
         "servicesIconAlt"?: string;
+        /**
+          * Link URL of the services icon (left section).
+         */
         "servicesIconHref"?: string;
+        /**
+          * Image URL of the services icon.
+         */
         "servicesIconSrc"?: string;
+        /**
+          * Text shown next to the services icon. Nothing is shown when it is not set.
+         */
         "servicesIconText"?: string;
+        /**
+          * Tooltip text of the services icon.
+         */
         "servicesIconTooltip"?: string;
+        /**
+          * Alternative text for the third logo.
+         */
         "thirdLogoAlt"?: string;
+        /**
+          * Link URL of the third logo (middle section).
+         */
         "thirdLogoHref"?: string;
+        /**
+          * Image URL of the third logo.
+         */
         "thirdLogoSrc"?: string;
+        /**
+          * Tooltip text of the third logo.
+         */
         "thirdLogoTooltip"?: string;
     }
     interface DdaTabs {
+        /**
+          * Accessible name for the tab group (`aria-label` on the `role="group"` container).
+         */
         "aria_label"?: string;
         /**
+          * Not used by the component; it has no effect.
           * @default false
          */
         "border_bottom"?: boolean;
+        /**
+          * `id` set on every tab button.
+         */
         "button_id"?: string;
+        /**
+          * `name` set on every tab button.
+         */
         "button_name"?: string;
+        /**
+          * Theme override class on the tab group, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the tab group.
           * @default ''
          */
         "custom_class"?: string;
         /**
+          * Style of the active and hovered tab: `dda-tab-default`, `dda-tab-filed`, `dda-tab-underline` or `dda-tab-underline-filled`.
           * @default 'dda-tab-default'
          */
         "hover_style"?: 'dda-tab-default' | 'dda-tab-filed' | 'dda-tab-underline' | 'dda-tab-underline-filled';
+        /**
+          * Fires when the user clicks a tab. `detail` is the tab index, from 0.
+         */
         "onTabClick"?: (event: DdaTabsCustomEvent<void>) => void;
         /**
+          * Material Icons names, one per tab in the same order, as a JSON string array. Shown when `type` is `text-icon`.
           * @default '["sentiment_satisfied", "sentiment_satisfied", "sentiment_satisfied"]'
          */
         "tab_icons"?: string;
         /**
+          * Tab labels, as a JSON string array, e.g. `'["Details", "Documents"]'`.
           * @default '["Tab 1", "Tab 2", "Tab 3"]'
          */
         "tab_texts"?: string;
         /**
+          * Tab content: `text` (label only) or `text-icon` (icon from `tab_icons` before the label).
           * @default 'text'
          */
         "type"?: 'text' | 'text-icon';
     }
     interface DdaTextarea {
+        /**
+          * Accessible name of the textarea. Use it when there is no visible label.
+         */
         "aria_label"?: string;
+        /**
+          * Theme override class for the field, e.g. `light-mode`.
+         */
         "component_mode"?: string;
+        /**
+          * Extra CSS classes added to the field container.
+         */
         "custom_class"?: string;
+        /**
+          * Replaces the textarea with a Quill rich text editor and toolbar.
+         */
         "enable_rich_editor"?: boolean;
+        /**
+          * Error text shown below the field with the character count. When set, the field gets `aria-invalid="true"`.
+         */
         "error_message"?: string;
+        /**
+          * Helper text shown below the field with the character count, linked with `aria-describedby`.
+         */
         "helper_text"?: string;
+        /**
+          * `id` of the textarea or editor. Also used for the label and the helper and error text ids.
+         */
         "input_id"?: string;
+        /**
+          * Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute.
+         */
         "input_status"?: string;
+        /**
+          * Visible label text, linked to the field through `input_id`.
+         */
         "label"?: string;
+        /**
+          * Maximum number of characters (`maxlength` of the textarea), shown in the character count.
+         */
         "max_characters"?: number;
+        /**
+          * Placeholder text of the textarea or the rich text editor.
+         */
         "placeholder"?: string;
+        /**
+          * `name` of the textarea, submitted with its form.
+         */
         "textarea_name"?: string;
+        /**
+          * Validation style. `error` shows the error colors.
+         */
         "validation_type"?: string;
         /**
+          * Value of the textarea. Updates as the user types; in rich text mode it holds the editor HTML.
           * @default ''
          */
         "value"?: string;
     }
     interface DdaToggle {
+        /**
+          * Accessible name of the inner checkbox input. Set it when there is no `title_text`.
+         */
         "aria_label"?: string;
+        /**
+          * Checked (on) state of the inner input. Read the current state from the input or its `change` event.
+         */
         "checked"?: boolean;
+        /**
+          * Theme override class for the toggle, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the toggle label.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * `name` of the inner checkbox input.
+         */
         "group_name"?: string;
+        /**
+          * `id` of the inner checkbox input.
+         */
         "input_id"?: string;
+        /**
+          * Size: `sm`, `md` or `lg`.
+         */
         "size"?: string;
         /**
           * Secondary text shown under the title.
@@ -2132,54 +4037,79 @@ declare namespace LocalJSX {
         "title_text"?: string;
     }
     interface DdaTooltip {
+        /**
+          * Theme class added to the tooltip container, e.g. `light-mode`. The tooltip styles do not change with it.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the tooltip container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Text shown below the heading in the tooltip box.
+         */
         "description"?: string;
         /**
+          * Side of the trigger where the box appears: `top`, `bottom`, `left` or `right`.
           * @default 'top'
          */
         "position"?: 'top' | 'bottom' | 'left' | 'right';
+        /**
+          * Bold heading shown in the tooltip box.
+         */
         "title_text"?: string;
     }
     interface DdaUiCard {
         /**
+          * Material Icons name shown at the top of the card, e.g. `description`.
           * @default ''
          */
         "icon"?: string;
         /**
+          * URL of an image shown at the top of the card. Its alt text is `maintitle`.
           * @default ''
          */
         "image"?: string;
         /**
+          * URL of the card link. The link shows only when this is set.
           * @default ''
          */
         "link"?: string;
         /**
+          * Material Icons name shown after the link text. Set it to an empty string to hide the icon.
           * @default 'arrow_forward'
          */
         "linkicon"?: string;
         /**
+          * Text of the card link.
           * @default ''
          */
         "linktext"?: string;
         /**
+          * Card title, rendered as an `<h1>`.
           * @default ''
          */
         "maintitle"?: string;
+        /**
+          * Declared but never emitted by the current version. Listen for the native `click` event on the link instead.
+         */
         "onLinkClick"?: (event: DdaUiCardCustomEvent<void>) => void;
         /**
+          * Muted text shown below the title.
           * @default ''
          */
         "subtitle"?: string;
         /**
+          * `default` renders the icon, image, title, subtitle and link from props before the slot; `custom` renders only the slot.
           * @default 'default'
          */
         "type"?: 'default' | 'custom';
     }
     interface DdaVerticalStepper {
+        /**
+          * Class added to the stepper container, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
           * @deprecated Use `current_step`. Its attribute is `current_-step`, so it never worked in HTML.
@@ -2191,9 +4121,13 @@ declare namespace LocalJSX {
          */
         "current_step"?: number;
         /**
+          * Extra CSS classes added to the stepper container.
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Steps, as a JSON string array of `{ icon, title, subtitle, description }` objects. `icon` is a Material Icons name.
+         */
         "steps"?: string;
     }
 

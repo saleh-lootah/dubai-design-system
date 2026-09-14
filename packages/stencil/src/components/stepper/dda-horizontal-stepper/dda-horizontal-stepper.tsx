@@ -6,9 +6,13 @@ import { Component, Prop,  State, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaHorizontalStepper {
-  @Prop() steps: string; // JSON string of steps
+  /** Steps, as a JSON string array of `{ title, subtitle, description }` objects. */
+  @Prop() steps: string;
+  /** Index of the active step, from 0. Steps before it show as completed. */
   @Prop() current_step: number = 1;
+  /** Extra CSS classes added to the stepper container. */
   @Prop() custom_class?: string; 
+  /** Theme override class on the stepper container, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
   @State() parsedSteps: { title: string, subtitle: string, description: string }[] = [];
 

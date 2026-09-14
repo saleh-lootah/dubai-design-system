@@ -6,22 +6,33 @@ import { Host, Component, Prop, h } from '@stencil/core';
   shadow: false,
 })
 export class DdaLinkButton {
-  /** Type of button, e.g., "button", "submit" */
+  /** Not used: the component renders an `<a>` link, which has no `type`. */
   @Prop() type: string = 'button';
-  /** Disable the button */
+  /** Not used: the link stays active. For a disabled look, set `button_color` to `disabled`. */
   @Prop() disabled: boolean = false;
-  /** Icon class for the starting icon */
+  /** Material Symbols icon name shown before the label, e.g. `arrow_back`. */
   @Prop() start_icon: string = '';
-  @Prop() end_icon: string = '';  // icon class
+  /** Material Symbols icon name shown after the label, e.g. `arrow_forward`. */
+  @Prop() end_icon: string = '';
+  /** Accessible name of the link. Required when the link shows only an icon. */
   @Prop() aria_label?: string = '';
-  @Prop() button_color: string = 'primary'; // e.g., 'primary', 'error'
-  @Prop() size?: string; // e.g., 'sm', 'md', 'lg'
+  /** Color variant, e.g. `default-primary`, `default-secondary`, `error-primary`, `onsurface-link` or `disabled`. */
+  @Prop() button_color: string = 'primary';
+  /** Size: `sm`, `md`, `lg` or `xl`. */
+  @Prop() size?: string;
+  /** Shape: `default` or `circle`. */
   @Prop() button_shape?: string = '';
+  /** Shape of an icon-only link: `default` or `circle`. */
   @Prop() icon_button_shape?: string = '';
+  /** Gap between icon and label, as a spacing step: 1–6, 8, 10, 12 or 16. */
   @Prop() gap?: number;
-  @Prop() custom_class?: string = ''; // Custom class prop
-  @Prop() href?: string = '#'; // Custom class prop
+  /** Extra CSS classes added to the inner `<a>`. */
+  @Prop() custom_class?: string = '';
+  /** URL the link opens. */
+  @Prop() href?: string = '#';
+  /** Theme override class for the link, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
+  /** `id` of the inner `<a>`. */
   @Prop() button_id: string;
 
   render() {

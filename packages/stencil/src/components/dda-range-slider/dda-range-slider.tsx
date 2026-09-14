@@ -6,22 +6,37 @@ import { Component, Prop, State, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaRangeSlider {
+  /** Lowest value of the range. */
   @Prop() min: number = 0;
+  /** Highest value of the range. */
   @Prop() max: number = 100;
+  /** Step between selectable values. */
   @Prop() step: number = 1;
+  /** Start value of the lower (left) handle. Read only when the component loads. */
   @Prop() initial_min: number = 0;
+  /** Start value of the upper (right) handle. Read only when the component loads. */
   @Prop() initial_max: number = 100;
+  /** Not used by the current version; it has no effect. */
   @Prop() size?: string;
+  /** Value labels shown as tooltips: `top` or `bottom`. Without it, plain labels show below the track. */
   @Prop() tooltip_position?: string;
   @State() min_value: number;
   @State() max_value: number;
-  @Prop() custom_class?: string = ''; 
-  @Prop() component_mode?: string; 
+  /** Extra CSS classes added to the slider container. */
+  @Prop() custom_class?: string = '';
+  /** Theme override class for the slider, e.g. `light-mode`. */
+  @Prop() component_mode?: string;
+  /** `id` of the lower (left) range input. */
   @Prop() left_input_id: string;
+  /** `id` of the upper (right) range input. */
   @Prop() right_input_id: string;
+  /** Accessible name of the lower (left) range input, e.g. `Minimum amount`. */
   @Prop() left_aria_label?: string;
+  /** Accessible name of the upper (right) range input, e.g. `Maximum amount`. */
   @Prop() right_aria_label?: string;
+  /** `name` of the lower (left) range input, submitted with its form. */
   @Prop() left_input_name: string;
+  /** `name` of the upper (right) range input, submitted with its form. */
   @Prop() right_input_name: string;
 
   componentWillLoad() {

@@ -1,80 +1,138 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Footer/Documentation" />
 
 # Footer
-The `dda-footer` component is customizable that can be used in various UI scenarios
 
-#### Usage in React
+The `dda-footer` component renders a page footer in three rows: a call-to-action area with a
+title, text and two buttons; the logo with columns of links; and the copyright text with social
+links. Pass the link columns and social links as JSON strings.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-footer
+  footer-title="Services for everyone in Dubai"
+  description="Apply, pay and track your requests online."
+  sign-up-button-text="Create an account"
+  login-button-text="Log in"
+  logo-src="/img/entity-logo.svg"
+  logo-alt="Dubai Digital Authority"
+  logo-description="Digital services for residents, visitors and businesses."
+  copyright-text="© 2026 Dubai Digital Authority. All rights reserved."
+  footer-sections='[{"title":"Services","links":[{"label":"Residents","href":"/services/residents"},{"label":"Businesses","href":"/services/business"}]},{"title":"Help","links":[{"label":"Contact us","href":"/contact"},{"label":"FAQ","href":"/faq"}]}]'
+  social-icons='[{"href":"https://x.com/example","src":"/img/icon-x.svg","alt":"X"}]'
+></dda-footer>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-footer.js';
+
+const footer = document.querySelector('dda-footer');
+footer.footerSections = JSON.stringify([
+  { title: 'Services', links: [{ label: 'Residents', href: '/services/residents' }] },
+  { title: 'Help', links: [{ label: 'Contact us', href: '/contact' }] },
+]);
+footer.socialIcons = JSON.stringify([{ href: 'https://x.com/example', src: '/img/icon-x.svg', alt: 'X' }]);
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaFooter } from "@dubai-design-system/components-react";
+import { DdaFooter } from '@dubai-design-system/components-react';
 
+const sections = [
+  { title: 'Services', links: [{ label: 'Residents', href: '/services/residents' }] },
+  { title: 'Help', links: [{ label: 'Contact us', href: '/contact' }] },
+];
+const socialIcons = [{ href: 'https://x.com/example', src: '/img/icon-x.svg', alt: 'X' }];
 
-const App = () => {
+export function SiteFooter() {
   return (
- <DdaFooter
-    title="Welcome to your new digital reality."
-    description="Let us help you take you from zero to serious business and beyond. Our no-strings attached free trial lets you test our product today."
-    logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    logo-alt="Dubai-Digital-Authority"
-    sign-up-button-text="Sign Up"
-    login-button-text="Login"
-    copyright-text="© 2023 Digitaldubai. All Rights Reserved."
-    footer-sections='[{"title":"About Us","links":[{"label":"Our Competition","href":"#"},{"label":"Channels","href":"#"},{"label":"Scale","href":"#"},{"label":"Watch the Demo","href":"#"}]},{"title":"Products","links":[{"label":"Features","href":"#"},{"label":"Products","href":"#"},{"label":"Enterprise","href":"#"},{"label":"Solutions","href":"#"}]},{"title":"Resources","links":[{"label":"Partners","href":"#"},{"label":"Developers","href":"#"},{"label":"Community","href":"#"},{"label":"Apps","href":"#"}]},{"title":"Company","links":[{"label":"About Us","href":"#"},{"label":"Leadership","href":"#"},{"label":"News","href":"#"}]}]'
-    social-icons='[{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Facebook"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Google"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Apple"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Instagram"}]'
-    class="hydrated"
-  />
- )
+    <DdaFooter
+      footerTitle="Services for everyone in Dubai"
+      description="Apply, pay and track your requests online."
+      signUpButtonText="Create an account"
+      loginButtonText="Log in"
+      logoSrc="/img/entity-logo.svg"
+      logoAlt="Dubai Digital Authority"
+      copyrightText="© 2026 Dubai Digital Authority. All rights reserved."
+      footerSections={JSON.stringify(sections)}
+      socialIcons={JSON.stringify(socialIcons)}
+    />
+  );
 }
 ```
 
-#### Usage in Vue
+### Vue
 
-```jsx
-<script>
+```html
+<script setup>
+import { DdaFooter } from '@dubai-design-system/components-vue';
 
-
-import { DdaFooter } from '@dubai-design-system/components-vue'
-
+const sections = JSON.stringify([
+  { title: 'Services', links: [{ label: 'Residents', href: '/services/residents' }] },
+  { title: 'Help', links: [{ label: 'Contact us', href: '/contact' }] },
+]);
+const socialIcons = JSON.stringify([{ href: 'https://x.com/example', src: '/img/icon-x.svg', alt: 'X' }]);
 </script>
 
 <template>
-    <div>
-     <DdaFooter
-    title="Welcome to your new digital reality."
-    description="Let us help you take you from zero to serious business and beyond. Our no-strings attached free trial lets you test our product today."
-    logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    logo-alt="Dubai-Digital-Authority"
-    sign-up-button-text="Sign Up"
-    login-button-text="Login"
-    copyright-text="© 2023 Digitaldubai. All Rights Reserved."
-    footer-sections='[{"title":"About Us","links":[{"label":"Our Competition","href":"#"},{"label":"Channels","href":"#"},{"label":"Scale","href":"#"},{"label":"Watch the Demo","href":"#"}]},{"title":"Products","links":[{"label":"Features","href":"#"},{"label":"Products","href":"#"},{"label":"Enterprise","href":"#"},{"label":"Solutions","href":"#"}]},{"title":"Resources","links":[{"label":"Partners","href":"#"},{"label":"Developers","href":"#"},{"label":"Community","href":"#"},{"label":"Apps","href":"#"}]},{"title":"Company","links":[{"label":"About Us","href":"#"},{"label":"Leadership","href":"#"},{"label":"News","href":"#"}]}]'
-    social-icons='[{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Facebook"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Google"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Apple"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Instagram"}]'
-    class="hydrated"
-></DdaFooter>
-
-    </div>
+  <DdaFooter
+    footerTitle="Services for everyone in Dubai"
+    description="Apply, pay and track your requests online."
+    signUpButtonText="Create an account"
+    loginButtonText="Log in"
+    logoSrc="/img/entity-logo.svg"
+    logoAlt="Dubai Digital Authority"
+    copyrightText="© 2026 Dubai Digital Authority. All rights reserved."
+    :footerSections="sections"
+    :socialIcons="socialIcons"
+  />
 </template>
-
 ```
 
-#### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-footer
-    title="Welcome to your new digital reality."
-    description="Let us help you take you from zero to serious business and beyond. Our no-strings attached free trial lets you test our product today."
-    logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    logo-alt="Dubai-Digital-Authority"
-    sign-up-button-text="Sign Up"
-    login-button-text="Login"
-    copyright-text="© 2023 Digitaldubai. All Rights Reserved."
-    footer-sections='[{"title":"About Us","links":[{"label":"Our Competition","href":"#"},{"label":"Channels","href":"#"},{"label":"Scale","href":"#"},{"label":"Watch the Demo","href":"#"}]},{"title":"Products","links":[{"label":"Features","href":"#"},{"label":"Products","href":"#"},{"label":"Enterprise","href":"#"},{"label":"Solutions","href":"#"}]},{"title":"Resources","links":[{"label":"Partners","href":"#"},{"label":"Developers","href":"#"},{"label":"Community","href":"#"},{"label":"Apps","href":"#"}]},{"title":"Company","links":[{"label":"About Us","href":"#"},{"label":"Leadership","href":"#"},{"label":"News","href":"#"}]}]'
-    social-icons='[{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Facebook"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Google"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Apple"},{"href":"#","src":"https://img.icons8.com/?size=256&amp;id=118497&amp;format=png","alt":"Instagram"}]'
-    class="hydrated"
+  footer-title="Services for everyone in Dubai"
+  description="Apply, pay and track your requests online."
+  sign-up-button-text="Create an account"
+  login-button-text="Log in"
+  logo-src="/img/entity-logo.svg"
+  logo-alt="Dubai Digital Authority"
+  copyright-text="© 2026 Dubai Digital Authority. All rights reserved."
+  [footerSections]="sectionsJson"
+  [socialIcons]="socialIconsJson"
 ></dda-footer>
-
-
 ```
+
+In the component class, set `sectionsJson` and `socialIconsJson` to `JSON.stringify(...)` of the
+arrays.
+
+## Notes
+
+- Every object in `footer-sections` needs a `links` array, even an empty one.
+- The two call-to-action buttons show only a label. They have no link and emit no event of their own.

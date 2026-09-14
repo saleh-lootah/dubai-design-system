@@ -21,8 +21,7 @@ To use the \`dda-alert\` component, pass the following props:
     component_mode=""
     first_link=""
     second_link=""
-    button_name=""
-    onclick="console.log("clicked!")">
+    button_name="">
 </dda-alert>
 \`\`\`
 `,
@@ -59,7 +58,7 @@ To use the \`dda-alert\` component, pass the following props:
   
 };
 
-const Template = ({ type, variation, title_text, description, button_text, button_name, custom_class, component_mode, first_link, second_link, onclick}) => html`
+const Template = ({ type, variation, title_text, description, button_text, button_name, custom_class, component_mode, first_link, second_link}) => html`
   <dda-alert
     type=${type}
     variation=${variation}
@@ -70,7 +69,6 @@ const Template = ({ type, variation, title_text, description, button_text, butto
     component_mode=${component_mode}
     first_link=${first_link}
     second_link=${second_link}
-    onclick=${onclick}
     button_name=${button_name}
   >
   </dda-alert>
@@ -88,7 +86,6 @@ AlertInfo.args = {
   component_mode: '',
   first_link: '',
   second_link: '',
-  onclick: "console.log('clicked')",
 };
 
 export const AlertWarning = Template.bind({});
@@ -103,7 +100,6 @@ AlertWarning.args = {
   component_mode: '',
   first_link: '',
   second_link: '',
-  onclick: "console.log('clicked')",
 };
 
 export const AlertError = Template.bind({});
@@ -118,7 +114,6 @@ AlertError.args = {
   component_mode: '',
   first_link: '',
   second_link: '',
-  onclick: "console.log('clicked')",
 };
 
 export const AlertSuccess = Template.bind({});
@@ -133,5 +128,4 @@ AlertSuccess.args = {
   component_mode: '',
   first_link: '',
   second_link: '',
-  onclick: "console.log('clicked')",
 };

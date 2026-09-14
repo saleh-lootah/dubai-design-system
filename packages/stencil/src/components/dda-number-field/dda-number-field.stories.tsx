@@ -62,10 +62,6 @@ export default {
         control: { type: 'text' },
         description: 'Aria label for the number field',
       },
-      onchange: {
-        control: { type: 'text' },
-        description: 'onchange event for the number field',
-      },
       input_name: {
         control: { type: 'text' },
         description: 'Name of the input field',
@@ -101,7 +97,6 @@ export default {
     input_id="input"
     aria_label="input"
     currencies='["USD","EUR","GBP","AED","PKR"]'
-    onchange="console.log('changed')"
 ></dda-number-field>
     \`\`\`
   `,
@@ -137,7 +132,6 @@ export default {
     component_mode: '',
     input_id: 'input',
     aria_label: 'input',
-    onchange: '',
     input_name: 'input',
     toggle_button_name: 'toggle-button',
     currency_button_name: 'currency-button',
@@ -159,7 +153,6 @@ export default {
     component_mode: '',
     input_id: 'input',
     aria_label: 'input',
-    onchange: '',
     input_name: 'input',
     toggle_button_name: 'toggle-button',
     currency_button_name: 'currency-button',
@@ -180,7 +173,6 @@ export default {
     component_mode: '',
     input_id: 'input',
     aria_label: 'input',
-    onchange: '',
     input_name: 'input',
     toggle_button_name: 'toggle-button',
     currency_button_name: 'currency-button',
@@ -202,7 +194,6 @@ export default {
     component_mode: '',
     input_id: 'input',
     aria_label: 'input',
-    onchange: '',
     input_name: 'input',
     toggle_button_name: 'toggle-button',
     currency_button_name: 'currency-button',

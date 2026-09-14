@@ -8,10 +8,15 @@ import { Component, Prop, h, Host, State, Element } from '@stencil/core';
 export class DdaTooltip {
   @Element() el: HTMLElement;
 
+  /** Bold heading shown in the tooltip box. */
   @Prop() title_text: string;
+  /** Text shown below the heading in the tooltip box. */
   @Prop() description: string;
-  @Prop() position: 'top' | 'bottom' | 'left' | 'right' = 'top'; // Default to top position
+  /** Side of the trigger where the box appears: `top`, `bottom`, `left` or `right`. */
+  @Prop() position: 'top' | 'bottom' | 'left' | 'right' = 'top';
+  /** Extra CSS classes added to the tooltip container. */
   @Prop() custom_class?: string = '';
+  /** Theme class added to the tooltip container, e.g. `light-mode`. The tooltip styles do not change with it. */
   @Prop() component_mode?: string;
 
   // F-011 (WCAG 1.4.13 dismissible): Escape hides the tooltip without

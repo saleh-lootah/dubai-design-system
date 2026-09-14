@@ -6,13 +6,21 @@ import { Component, Prop, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaChip {
+  /** Color: `grey`, `primary`, `green`, `yellow`, `red` or `purple`. Other values, including the default, use the base primary style. */
   @Prop() bg_color: string = 'success';
+  /** Corner radius: `sm`, `md`, `lg` or `circle`. */
   @Prop() rounded?: string = '';
+  /** Material Symbols icon name shown before the label, e.g. `check_circle`. */
   @Prop() icon: string;
+  /** Shows a close button with the accessible name `Remove` after the label. */
   @Prop() show_close_icon: boolean = false;
-  @Prop() size?: string; // e.g., 'sm', 'md', 'lg'
+  /** Height: `sm` (24px), `md` (26px) or `lg` (32px). */
+  @Prop() size?: string;
+  /** Extra CSS classes added to the chip container. */
   @Prop() custom_class?: string;
+  /** Theme override class for the chip, e.g. `light-mode`. */
   @Prop() component_mode?: string;  
+  /** Click handler for the close button, set as a JavaScript property. The chip does not remove itself. */
   @Prop() clickHandler?: (event: MouseEvent) => void;
 
   render() {

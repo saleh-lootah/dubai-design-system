@@ -14,10 +14,6 @@ export default {
       control: 'text',
       description: 'default',
     },
-    labelfor: {
-      control: 'text',
-      description: 'default',
-    },
     input_id: {
       control: 'text',
       description: 'default',
@@ -50,10 +46,6 @@ export default {
       control: { type: 'text' },
       description: 'Aria label for the checkbox',
     },
-    onclick: {
-      control: { type: 'text' },
-      description: 'Event handler for the checkbox component',
-    }
   },
   parameters: {
     docs: {
@@ -73,7 +65,6 @@ To use the \`dda-checkbox\` component, pass the following props:
     custom_class=""
     component_mode=""
     aria_label="checkbox"
-    onclick="console.log('Checkbox clicked')"
 ></dda-checkbox>
   \`\`\`
 `,
@@ -102,7 +93,6 @@ checkboxSquare.args = {
   input_id: 'testId',
   custom_class: '',
   component_mode: '',
-  onclick: "",
 };
 
 export const checkboxRounded = Template.bind({});
@@ -117,5 +107,4 @@ checkboxRounded.args = {
   custom_class: '',
   component_mode: '',
   aria_label: 'checkbox',
-  onclick: "",
 };

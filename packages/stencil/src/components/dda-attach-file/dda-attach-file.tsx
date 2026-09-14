@@ -13,20 +13,34 @@ import onenoteIcon from '../../assets/img/icn/icn-OneNote.svg';
   shadow: false,
 })
 export class DdaAttachFile {
+  /** Label text shown above the field. Linked to the file input when `input_id` is set. */
   @Prop() label: string;
+  /** Helper text shown below the field. Linked by `aria-describedby` when `input_id` is set. */
   @Prop() helper_text: string;
+  /** Error text shown below the field. Also sets `aria-invalid="true"` on the file input. */
   @Prop() error_message: string;
+  /** Size: `default` or `small`. */
   @Prop() size?: string;
+  /** Validation state: `error` applies the error colors. */
   @Prop() validation_type?: string;
+  /** Adds the class `dda-input-<value>`. `disabled` gives the disabled look only; it does not disable the file input. */
   @Prop() input_type?: string;
   @State() file: File | null = null;
-  @Prop() custom_class?: string = ''; 
-  @Prop() component_mode?: string; 
+  /** Extra CSS classes added to the field container. */
+  @Prop() custom_class?: string = '';
+  /** Theme override class for the field, e.g. `light-mode`. */
+  @Prop() component_mode?: string;
+  /** Accessible name of the file input. */
   @Prop() aria_label?: string = '';
+  /** Accessible name of the remove button shown after a file is chosen, e.g. `Remove file`. */
   @Prop() button_aria_label?: string = '';
+  /** `id` of the file input. Also used to link the label, helper text and error message. */
   @Prop() input_id: string;
+  /** `id` of the remove button shown after a file is chosen. */
   @Prop() button_id: string;
+  /** `name` of the remove button shown after a file is chosen. */
   @Prop() button_name?: string;
+  /** `name` of the file input. */
   @Prop() input_name?: string;
 
   private fileIcons = {

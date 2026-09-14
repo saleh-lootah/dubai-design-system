@@ -8,19 +8,33 @@ import 'quill/dist/quill.snow.css';
   shadow: false,
 })
 export class DdaTextarea {
+  /** Placeholder text of the textarea or the rich text editor. */
   @Prop() placeholder: string;
+  /** Visible label text, linked to the field through `input_id`. */
   @Prop() label: string;
+  /** Value of the textarea. Updates as the user types; in rich text mode it holds the editor HTML. */
   @Prop() value: string = '';
+  /** Error text shown below the field with the character count. When set, the field gets `aria-invalid="true"`. */
   @Prop() error_message: string;
+  /** Validation style. `error` shows the error colors. */
   @Prop() validation_type?: string;
-  @Prop() input_status?: string; // Custom prop for different textarea types
+  /** Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute. */
+  @Prop() input_status?: string;
+  /** Helper text shown below the field with the character count, linked with `aria-describedby`. */
   @Prop() helper_text?: string;
+  /** Extra CSS classes added to the field container. */
   @Prop() custom_class?: string;
-  @Prop() enable_rich_editor?: boolean; // Prop to enable rich text editor
+  /** Replaces the textarea with a Quill rich text editor and toolbar. */
+  @Prop() enable_rich_editor?: boolean;
+  /** Maximum number of characters (`maxlength` of the textarea), shown in the character count. */
   @Prop() max_characters: number;
+  /** Theme override class for the field, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
+  /** `id` of the textarea or editor. Also used for the label and the helper and error text ids. */
   @Prop() input_id: string;
+  /** Accessible name of the textarea. Use it when there is no visible label. */
   @Prop() aria_label?: string;
+  /** `name` of the textarea, submitted with its form. */
   @Prop() textarea_name: string;
 
   @Element() el: HTMLElement;

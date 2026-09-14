@@ -32,8 +32,8 @@ export default {
 <dda-horizontal-stepper
     steps='[{"title":"Step 1","subtitle":"Subtitle 1","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 2","subtitle":"Subtitle 2","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 3","subtitle":"Subtitle 3","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."}]'
     current_step="1"
-    custom_class=''
-    mode='light'
+    custom_class=""
+    component_mode="light-mode"
 ></dda-horizontal-stepper>
     \`\`\`
   `,

@@ -1,73 +1,91 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Tooltip/Documentation" />
 
 # Tooltip
-The `dda-tooltip` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-tooltip` component shows a small box with a heading and a description next to the element
+you put between the tags. The box appears when the user hovers over the element or moves focus into it.
 
-```jsx
-import React from 'react'
-import { DdaTooltip } from "@dubai-design-system/components-react";
+## API
 
+<Markdown>{componentApi(readme)}</Markdown>
 
+## Usage
 
+### Vanilla JS
 
-const App = () => {
-  return (
-    <div>
-        <DdaTooltip
-            title_text="Tooltip"
-            description="This is a tooltip description."
-            position="top"
-            custom_class=""
-            component_mode=""
-            >
-            <button>Hover me</button>
-        </DdaTooltip>
-    </div>
- )
-}
+**From the CDN.** Replace `X.X.X` with the exact package version.
 
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-tooltip title_text="Processing time" description="Most applications finish in 3 working days." position="top">
+  <dda-button button_color="default-tertiary" start_icon="info">Processing time</dda-button>
+</dda-tooltip>
 ```
 
-### Usage in Vue
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-tooltip.js';
+
+const tooltip = document.querySelector('dda-tooltip');
+tooltip.description = 'Most applications finish in 3 working days.';
+```
+
+### React
 
 ```jsx
-<script>
+import { DdaTooltip } from '@dubai-design-system/components-react';
 
+export function ProcessingTimeHint() {
+  return (
+    <DdaTooltip title_text="Processing time" description="Most applications finish in 3 working days." position="top">
+      <button type="button">Processing time</button>
+    </DdaTooltip>
+  );
+}
+```
 
-import { DdaTooltip } from '@dubai-design-system/components-vue'
+### Vue
 
+```html
+<script setup>
+import { DdaTooltip } from '@dubai-design-system/components-vue';
 </script>
 
 <template>
-    <div>
-        <DdaTooltip
-            title_text="Tooltip"
-            description="This is a tooltip description."
-            position="top"
-            custom_class=""
-            component_mode=""
-            >
-            <button>Hover me</button>
-        </DdaTooltip>
-    </div>
+  <DdaTooltip title_text="Processing time" description="Most applications finish in 3 working days." position="top">
+    <button type="button">Processing time</button>
+  </DdaTooltip>
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
-<dda-tooltip
-    title_text="Tooltip"
-    description="This is a tooltip description."
-    position="top"
-    custom_class=""
-    component_mode=""
-    >
-    <button>Hover me</button>
+```html
+<dda-tooltip title_text="Processing time" description="Most applications finish in 3 working days." position="top">
+  <button type="button">Processing time</button>
 </dda-tooltip>
 ```
+
+## Keyboard and accessibility
+
+- Put a focusable element (for example a button) between the tags. The tooltip shows when that element
+  gets keyboard focus, not only on hover.
+- Press **Escape** to hide the tooltip without moving the pointer or focus. The tooltip shows again the
+  next time the pointer leaves and returns, or focus leaves and returns.
+- The pointer can move onto the tooltip box without closing it, because the box is inside the same
+  container as the trigger.
+- The component does not connect the box to the trigger with `aria-describedby`. If screen reader users
+  need the text, also put it in the trigger's accessible name or description.

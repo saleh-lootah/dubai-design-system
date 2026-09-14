@@ -1,92 +1,143 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Search Input/Documentation" />
 
 # Search Input
-The `dda-search-input` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-search-input` component renders a text input with a search icon, a clear button and an
+optional "Search" button. Select the clear button to empty the input.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-search-input
+  input_id="service-search"
+  search_input_name="q"
+  label="Search services"
+  placeholder="Search for a service"
+  button_aria_label="Clear search"
+  show_button
+></dda-search-input>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-search-input.js';
+
+const search = document.querySelector('dda-search-input');
+
+// The native input event comes from the inner <input>.
+search.addEventListener('input', event => console.log(event.target.value));
+
+// The component has no custom events. Read the query from the inner input.
+const query = search.querySelector('.dda-search-field').value;
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaSearchInput } from "@dubai-design-system/components-react";
+import { DdaSearchInput } from '@dubai-design-system/components-react';
 
-
-
-
-const App = () => {
+export function ServiceSearch() {
   return (
-    <div>
-        <DdaSearchInput
-            placeholder="Search"
-            label="Search"
-            size="default"
-            helper_text="Helper or footer text"
-            error_message=""
-            show_button="false"
-            has_error="false"
-            custom_class=""
-            component_mode=""
-            button_id="button"
-            input_id="search"
-            aria_label="search-input"
-            button_aria_label="clear-search"
-            onchange="console.log('changed')"
-        ></DdaSearchInput>
-    </div>
- )
+    <DdaSearchInput
+      input_id="service-search"
+      search_input_name="q"
+      label="Search services"
+      placeholder="Search for a service"
+      button_aria_label="Clear search"
+      show_button={true}
+      onInput={event => console.log(event.target.value)}
+    />
+  );
 }
 ```
 
-### Usage in Vue
+### Vue
 
-```jsx
-<script>
+```html
+<script setup>
+import { DdaSearchInput } from '@dubai-design-system/components-vue';
 
-
-import { DdaSearchInput } from '@dubai-design-system/components-vue'
+function onInput(event) {
+  console.log(event.target.value);
+}
 </script>
 
 <template>
-    <div>
-        <DdaSearchInput
-            placeholder="Search"
-            label="Search"
-            size="default"
-            helper_text="Helper or footer text"
-            error_message=""
-            show_button="false"
-            has_error="false"
-            custom_class=""
-            component_mode=""
-            button_id="button"
-            input_id="search"
-            aria_label="search-input"
-            button_aria_label="clear-search"
-            onchange="console.log('changed')"
-        ></DdaSearchInput>
-    </div>
+  <DdaSearchInput
+    input_id="service-search"
+    search_input_name="q"
+    label="Search services"
+    placeholder="Search for a service"
+    button_aria_label="Clear search"
+    :show_button="true"
+    @input="onInput"
+  />
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-search-input
-    placeholder="Search"
-    label="Search"
-    size="default"
-    helper_text="Helper or footer text"
-    error_message=""
-    show_button="false"
-    has_error="false"
-    custom_class=""
-    component_mode=""
-    button_id="button"
-    input_id="search"
-    aria_label="search-input"
-    button_aria_label="clear-search"
-    onchange="console.log('changed')"
+  input_id="service-search"
+  search_input_name="q"
+  label="Search services"
+  placeholder="Search for a service"
+  button_aria_label="Clear search"
+  show_button
+  (input)="onInput($event)"
 ></dda-search-input>
 ```
+
+
+## Behaviour
+
+- The clear button empties the input. It does not fire an `input` or `change` event.
+- The "Search" button (`show_button`) has `type="button"` and no built-in action. Listen for `click`
+  on the `.dda-btn` button inside the component and run the search yourself.
+- The component has no `value` prop. Read the query from the inner `<input>`.
+
+## Error messages
+
+Set `has_error` for the error colors and `error_message` for the message.
+
+```html
+<dda-search-input
+  input_id="service-search"
+  label="Search services"
+  button_aria_label="Clear search"
+  has_error
+  error_message="Enter at least 3 characters."
+></dda-search-input>
+```
+
+## Accessibility
+
+- Always set `input_id`. The label `for`, and the ids of the helper and error text, come from it.
+- Set `button_aria_label` (for example `Clear search`). The clear button shows only an icon.
+- `helper_text` and `error_message` are linked to the input with `aria-describedby`.
+  When `error_message` is set, the input also gets `aria-invalid="true"`.
+- Use `aria_label` only when the field has no visible `label`.
+- `input_status="disabled"` changes only the styling. The input still receives focus and input.

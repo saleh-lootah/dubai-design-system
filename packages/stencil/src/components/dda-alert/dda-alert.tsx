@@ -6,21 +6,37 @@ import { Component, Prop, h, Event, EventEmitter } from '@stencil/core';
   shadow: false,
 })
 export class DdaAlert {
+  /** Style: `primary` uses a tinted background and border in the variation color; `secondary` uses a neutral surface and border. */
   @Prop() type: 'primary' | 'secondary' = 'primary';
+  /** Color and screen reader urgency: `info`, `warning`, `error` or `success`. `error` uses `role="alert"`; the others use `role="status"`. */
   @Prop() variation: 'info' | 'warning' | 'error' | 'success' = 'info';
+  /** Heading text of the alert. */
   @Prop() title_text: string = '';
+  /** Body text shown below the heading. */
   @Prop() description: string = '';
+  /** Not used by the component; nothing is rendered from this value. */
   @Prop() button_text: string = '';
+  /** Extra CSS classes added to the alert container. */
   @Prop() custom_class?: string = '';
+  /** Theme override class for the alert, e.g. `light-mode`. */
   @Prop() component_mode?: string;
+  /** Not used by the component; it is not applied to any element. */
   @Prop() component_id?: string;
+  /** `href` of the first action link. */
   @Prop() first_link?: string;
+  /** `href` of the second action link. */
   @Prop() second_link?: string;
+  /** Label of the first action link. The link shows only when this is set. */
   @Prop() first_button?: string;
+  /** Label of the second action link. The link shows only when this is set. */
   @Prop() second_button?: string;
+  /** `name` of the close button. */
   @Prop() button_name?: string;
+  /** Click handler for the close button, set as a JavaScript property. The alert does not hide itself. */
   @Prop() clickHandler?: (event: MouseEvent) => void;
+  /** Fires when the first action link is clicked. No detail. */
   @Event() firstClick?: EventEmitter<void>;
+  /** Fires when the second action link is clicked. No detail. */
   @Event() secondClick?: EventEmitter<void>;
 
   private firstClickHandler = () => {

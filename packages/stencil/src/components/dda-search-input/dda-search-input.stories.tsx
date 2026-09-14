@@ -61,10 +61,6 @@ export default {
       control: { type: 'text' },
       describe: 'Aria label for the clear button',
     },
-    onchange:{
-      control: { type: 'text' },
-      description: 'onchange event for the search field',
-    },
     search_input_name: {
       control: { type: 'text' },
       description: 'Name for the search input field',
@@ -99,7 +95,6 @@ export default {
     input_id="search"
     aria_label="search-input"
     button_aria_label="clear-search"
-    onchange="console.log('changed')"
     search_input_name="search-input"
     close_button_name="close-button"
     search_button_name="search-button"
@@ -135,7 +130,6 @@ Default.args = {
   input_id: 'search',
   aria_label: 'search-input',
   button_aria_label: 'clear-search',
-  onchange: '',
   search_input_name: "search-input",
   close_button_name: "close-button",
   search_button_name: "search-button",
@@ -156,7 +150,6 @@ WithButton.args = {
   input_id: 'search',
   aria_label: 'search-input',
   button_aria_label: 'clear-search',
-  onchange: '',
   search_input_name: "search-input",
   close_button_name: "close-button",
   search_button_name: "search-button",
@@ -176,7 +169,6 @@ WithError.args = {
   input_id: 'search',
   aria_label: 'search-input',
   button_aria_label: 'clear-search',
-  onchange: '',
   search_input_name: "search-input",
   close_button_name: "close-button",
   search_button_name: "search-button",
@@ -197,7 +189,6 @@ Disabled.args = {
   input_id: 'search',
   aria_label: 'search-input',
   button_aria_label: 'clear-search',
-  onchange: '',
   search_input_name: "search-input",
   close_button_name: "close-button",
   search_button_name: "search-button",

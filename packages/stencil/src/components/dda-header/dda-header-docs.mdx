@@ -1,102 +1,176 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Header/Documentation" />
 
 # Header
-The `dda-header` component is customizable that can be used in various UI scenarios
 
-#### Usage in React
+The `dda-header` component renders the site header: two logos, the main navigation with mega
+menus, a side menu, search, an accessibility panel (contrast, screen reader, text size), a
+language button and a Login link. Pass the menus as JSON strings and listen to the events to
+react to the user's choices.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-header
+  first-logo-src="/img/government-of-dubai.svg"
+  first-logo-white-src="/img/government-of-dubai-white.svg"
+  first-logo-alt="Government of Dubai"
+  second-logo-src="/img/entity-logo.svg"
+  second-logo-white-src="/img/entity-logo-white.svg"
+  second-logo-alt="Dubai Digital Authority"
+  login-link="/login"
+  language_text="العربية"
+  search_action="/search"
+  quick-links='[{"label":"Home","href":"/"},{"label":"Services","menuLabel":"Services","href":"#","subMenu":[{"title":"Renew a trade licence","description":"Renew your licence online","icon":"badge","href":"/services/licence"}]}]'
+  side-menu-items='[{"label":"Home","href":"/"},{"label":"Services","href":"#","subMenu":[{"headerLabel":"Services","label":"Business","href":"/services/business"}]},{"label":"Contact Us","href":"/contact"}]'
+></dda-header>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-header.js';
+
+const header = document.querySelector('dda-header');
+header.quickLinks = JSON.stringify([
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+]);
+header.sideMenuItems = JSON.stringify([
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '#', subMenu: [{ headerLabel: 'Services', label: 'Business', href: '/services/business' }] },
+]);
+
+header.addEventListener('languageSwitch', () => console.log('switch language'));
+header.addEventListener('lgTextSize', () => console.log('larger text'));
+header.addEventListener('searchSubmit', event => console.log('search', event.detail.query));
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaHeader } from "@dubai-design-system/components-react";
+import { DdaHeader } from '@dubai-design-system/components-react';
 
+const quickLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+];
+const sideMenuItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Contact Us', href: '/contact' },
+];
 
-const App = () => {
+export function SiteHeader() {
   return (
- <DdaHeader
- first-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    first-logo-alt="undefined"
-    second-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    second-logo-alt="Dubai-Digital-Authority"
-    login-link="/login"
-    readspeakerlink="app-eu.readspeaker.com"
-    languageswitch="() => console.log('Language Switcher')"
-    smtextsize="() => console.log('Small Text')"
-    basetextsize="() => console.log('Base Text')"
-    lgtextsize="() => console.log('Large Text')"
-    normalcontrast="() => console.log('Normal Text')"
-    blindcontrast="() => console.log('Blind Text')"
-    redcontrast="() => console.log('Red Text')"
-    greencontrast="() => console.log('Green Text')"
-    quick-links='[{"label":"Home","href":"#","subMenu":[]},{"label":"Services","href":"#","subMenu":[{"title":"Web Development","description":"Build and maintain websites","icon":"sentiment_satisfied","href":"#"},{"title":"SEO Services","description":"Improve your site ranking","icon":"sentiment_satisfied","href":"#"}]},{"label":"About","href":"#","subMenu":[]},{"label":"Contact","href":"#","subMenu":[]}]'
-    side-menu-items='[{"label":"Home","href":"#","subMenu":[]},{"label":"Initiatives","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]},{"label":"Services","href":"#","subMenu":[]},{"label":"Data","href":"#","subMenu":[]},{"label":"Government Services","href":"#","subMenu":[]},{"label":"Investor Relations","href":"#","subMenu":[]},{"label":"Locations","href":"#","subMenu":[]},{"label":"Newsroom","href":"#","subMenu":[]},{"label":"Contact Us","href":"#","subMenu":[]}]'
-  />
- )
+    <DdaHeader
+      firstLogoSrc="/img/government-of-dubai.svg"
+      firstLogoAlt="Government of Dubai"
+      secondLogoSrc="/img/entity-logo.svg"
+      secondLogoAlt="Dubai Digital Authority"
+      loginLink="/login"
+      language_text="العربية"
+      quickLinks={JSON.stringify(quickLinks)}
+      sideMenuItems={JSON.stringify(sideMenuItems)}
+      onLanguageSwitch={() => console.log('switch language')}
+      onSearchSubmit={event => console.log('search', event.detail.query)}
+    />
+  );
 }
 ```
 
-#### Usage in Vue
+### Vue
 
-```jsx
-<script>
+```html
+<script setup>
+import { DdaHeader } from '@dubai-design-system/components-vue';
 
-
-import { DdaHeader } from '@dubai-design-system/components-vue'
-
+const quickLinks = JSON.stringify([
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+]);
+const sideMenuItems = JSON.stringify([
+  { label: 'Home', href: '/' },
+  { label: 'Contact Us', href: '/contact' },
+]);
 </script>
 
 <template>
-    <div>
-     <DdaHeader
- first-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    first-logo-alt="undefined"
-    second-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    second-logo-alt="Dubai-Digital-Authority"
-    login-link="/login"
-    readspeakerlink="app-eu.readspeaker.com"
-    languageswitch="() => console.log('Language Switcher')"
-    smtextsize="() => console.log('Small Text')"
-    basetextsize="() => console.log('Base Text')"
-    lgtextsize="() => console.log('Large Text')"
-    normalcontrast="() => console.log('Normal Text')"
-    blindcontrast="() => console.log('Blind Text')"
-    redcontrast="() => console.log('Red Text')"
-    greencontrast="() => console.log('Green Text')"
-    quick-links='[{"label":"Home","href":"#","subMenu":[]},{"label":"Services","href":"#","subMenu":[{"title":"Web Development","description":"Build and maintain websites","icon":"sentiment_satisfied","href":"#"},{"title":"SEO Services","description":"Improve your site ranking","icon":"sentiment_satisfied","href":"#"}]},{"label":"About","href":"#","subMenu":[]},{"label":"Contact","href":"#","subMenu":[]}]'
-    side-menu-items='[{"label":"Home","href":"#","subMenu":[]},{"label":"Initiatives","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]},{"label":"Services","href":"#","subMenu":[]},{"label":"Data","href":"#","subMenu":[]},{"label":"Government Services","href":"#","subMenu":[]},{"label":"Investor Relations","href":"#","subMenu":[]},{"label":"Locations","href":"#","subMenu":[]},{"label":"Newsroom","href":"#","subMenu":[]},{"label":"Contact Us","href":"#","subMenu":[]}]'
-
-></DdaHeader>
-
-    </div>
+  <DdaHeader
+    firstLogoSrc="/img/government-of-dubai.svg"
+    firstLogoAlt="Government of Dubai"
+    secondLogoSrc="/img/entity-logo.svg"
+    secondLogoAlt="Dubai Digital Authority"
+    loginLink="/login"
+    language_text="العربية"
+    :quickLinks="quickLinks"
+    :sideMenuItems="sideMenuItems"
+    @languageSwitch="console.log('switch language')"
+    @searchSubmit="event => console.log('search', event.detail.query)"
+  />
 </template>
-
 ```
 
-#### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-header
-    first-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    first-logo-alt="undefined"
-    second-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
-    second-logo-alt="Dubai-Digital-Authority"
-    login-link="/login"
-    readspeakerlink="app-eu.readspeaker.com"
-    languageswitch="() => console.log('Language Switcher')"
-    smtextsize="() => console.log('Small Text')"
-    basetextsize="() => console.log('Base Text')"
-    lgtextsize="() => console.log('Large Text')"
-    normalcontrast="() => console.log('Normal Text')"
-    blindcontrast="() => console.log('Blind Text')"
-    redcontrast="() => console.log('Red Text')"
-    greencontrast="() => console.log('Green Text')"
-    quick-links='[{"label":"Home","href":"#","subMenu":[]},{"label":"Services","href":"#","subMenu":[{"title":"Web Development","description":"Build and maintain websites","icon":"sentiment_satisfied","href":"#"},{"title":"SEO Services","description":"Improve your site ranking","icon":"sentiment_satisfied","href":"#"}]},{"label":"About","href":"#","subMenu":[]},{"label":"Contact","href":"#","subMenu":[]}]'
-    side-menu-items='[{"label":"Home","href":"#","subMenu":[]},{"label":"Initiatives","href":"#","subMenu":[{"label":"Submenu-1","href":"#"},{"label":"Submenu-2","href":"#"}]},{"label":"Services","href":"#","subMenu":[]},{"label":"Data","href":"#","subMenu":[]},{"label":"Government Services","href":"#","subMenu":[]},{"label":"Investor Relations","href":"#","subMenu":[]},{"label":"Locations","href":"#","subMenu":[]},{"label":"Newsroom","href":"#","subMenu":[]},{"label":"Contact Us","href":"#","subMenu":[]}]'
+  first-logo-src="/img/government-of-dubai.svg"
+  first-logo-alt="Government of Dubai"
+  second-logo-src="/img/entity-logo.svg"
+  second-logo-alt="Dubai Digital Authority"
+  login-link="/login"
+  language_text="العربية"
+  [quickLinks]="quickLinksJson"
+  [sideMenuItems]="sideMenuItemsJson"
+  (languageSwitch)="switchLanguage()"
+  (searchSubmit)="search($event.detail.query)"
 ></dda-header>
-
-
 ```
+
+In the component class, set `quickLinksJson` and `sideMenuItemsJson` to `JSON.stringify(...)` of
+the menu arrays.
+
+## Menus
+
+`quick-links` builds the main navigation. An item without `subMenu` is a plain link. An item with
+a `subMenu` opens a mega menu titled `menuLabel`; each entry shows a Material Symbols `icon`, a
+`title` and a `description`.
+
+`side-menu-items` builds the side menu that the hamburger button opens. A `subMenu` opens a nested
+list; `headerLabel` of its first item is the list title. Sub-menus can nest to any depth.
+
+## Accessibility panel
+
+The panel has no built-in effect on the page. It emits events, and your code applies the change:
+
+<table>
+  <thead><tr><th>Control</th><th>Event</th></tr></thead>
+  <tbody>
+    <tr><td>Normal, Colours Blind, Red Weakness, Green Weakness</td><td><code>normalContrast</code>, <code>blindContrast</code>, <code>redContrast</code>, <code>greenContrast</code></td></tr>
+    <tr><td><code>A</code>, <code>A+</code>, <code>A-</code></td><td><code>baseTextSize</code>, <code>lgTextSize</code>, <code>smTextSize</code></td></tr>
+    <tr><td>Listen</td><td>Opens <code>read-speaker-link</code></td></tr>
+  </tbody>
+</table>
 
 ## Search
 
@@ -107,11 +181,14 @@ Empty searches do nothing.
 Every non-empty search emits a cancelable `searchSubmit` event with `detail.query`. What
 happens next depends on two things:
 
-| `search_action` set | Event cancelled | Result |
-| --- | --- | --- |
-| yes | no | The browser goes to `search_action?q=<query>` (a plain GET, no JavaScript needed). |
-| yes | yes | No navigation; your code handles the search. |
-| no | either | No navigation; your code handles the search. |
+<table>
+  <thead><tr><th><code>search_action</code> set</th><th>Event cancelled</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td>yes</td><td>no</td><td>The browser goes to <code>search_action?q=&lt;query&gt;</code> (a plain GET, no JavaScript needed).</td></tr>
+    <tr><td>yes</td><td>yes</td><td>No navigation; your code handles the search.</td></tr>
+    <tr><td>no</td><td>either</td><td>No navigation; your code handles the search.</td></tr>
+  </tbody>
+</table>
 
 The query parameter is named by `search_input_name` and defaults to `q`.
 

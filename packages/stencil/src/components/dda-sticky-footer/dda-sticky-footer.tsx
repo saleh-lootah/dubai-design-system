@@ -7,64 +7,106 @@ import { Component, Element, Prop, h, State } from '@stencil/core';
 })
 export class DdaStickyFooter {
   @Element() el: HTMLElement;
-  /** Left Section Props */
+  // Left section
+  /** Link URL of the happiness icon (left section). */
   @Prop() happinessIconHref: string;
+  /** Image URL of the happiness icon. */
   @Prop() happinessIconSrc: string;
+  /** Alternative text for the happiness icon. */
   @Prop() happinessIconAlt: string;
+  /** Tooltip text of the happiness icon. */
   @Prop() happinessIconTooltip: string;
 
+  /** Link URL of the accessibility icon, the second icon in the left section. */
   @Prop() accessibilityIconHref: string;
+  /** Image URL of the accessibility icon. */
   @Prop() accessibilityIconSrc: string;
+  /** Alternative text for the accessibility icon. */
   @Prop() accessibilityIconAlt: string;
+  /** Tooltip text of the accessibility icon. */
   @Prop() accessibilityIconTooltip: string;
 
+  /** Link URL of the services icon (left section). */
   @Prop() servicesIconHref: string;
+  /** Image URL of the services icon. */
   @Prop() servicesIconSrc: string;
+  /** Alternative text for the services icon. */
   @Prop() servicesIconAlt: string;
+  /** Tooltip text of the services icon. */
   @Prop() servicesIconTooltip: string;
+  /** Text shown next to the services icon. Nothing is shown when it is not set. */
   @Prop() servicesIconText: string;
 
-  /** Middle Section Props */
+  // Middle section
+  /** Link URL of the first logo (middle section). */
   @Prop() firstLogoHref: string;
+  /** Image URL of the first logo. */
   @Prop() firstLogoSrc: string;
+  /** Alternative text for the first logo. */
   @Prop() firstLogoAlt: string;
+  /** Tooltip text of the first logo. */
   @Prop() firstLogoTooltip: string;
 
+  /** Link URL of the second logo (middle section). */
   @Prop() secondLogoHref: string;
+  /** Image URL of the second logo. */
   @Prop() secondLogoSrc: string;
+  /** Alternative text for the second logo. */
   @Prop() secondLogoAlt: string;
+  /** Tooltip text of the second logo. */
   @Prop() secondLogoTooltip: string;
 
+  /** Link URL of the third logo (middle section). */
   @Prop() thirdLogoHref: string;
+  /** Image URL of the third logo. */
   @Prop() thirdLogoSrc: string;
+  /** Alternative text for the third logo. */
   @Prop() thirdLogoAlt: string;
+  /** Tooltip text of the third logo. */
   @Prop() thirdLogoTooltip: string;
 
-  /** Right Section Props */
+  // Right section
+  /** Link URL of the location icon (right section). */
   @Prop() locationButtonHref: string;
+  /** Image URL of the location icon. */
   @Prop() locationLogoSrc: string;
+  /** Tooltip text and alternative text of the location icon. */
   @Prop() locationButtonText: string;
+  /** Not used: the current markup does not render it. */
   @Prop() locationButtonIcon: string;
 
+  /** Link URL of the news icon (right section). */
   @Prop() newsButtonHref: string;
+  /** Image URL of the news icon. */
   @Prop() newsButtonSrc: string;
+  /** Tooltip text and alternative text of the news icon. */
   @Prop() newsButtonText: string;
+  /** Not used: the current markup does not render it. */
   @Prop() newsButtonIcon: string;
 
+  /** Link URL of the AI assistant icon (right section). */
   @Prop() aiIconHref: string;
+  /** Image URL of the AI assistant icon. */
   @Prop() aiIconSrc: string;
+  /** Alternative text for the AI assistant icon. */
   @Prop() aiIconAlt: string;
+  /** Tooltip text of the AI assistant icon. */
   @Prop() aiIconTooltip: string;
 
+  /** Link URL of the chat icon (right section). */
   @Prop() chatIconHref: string;
+  /** Image URL of the chat icon. */
   @Prop() chatIconSrc: string;
+  /** Alternative text for the chat icon. */
   @Prop() chatIconAlt: string;
+  /** Tooltip text of the chat icon. */
   @Prop() chatIconTooltip: string;
 
 
   @State() isHidden: boolean = false;
   private lastScrollY: number = 0;
 
+  /** Hides the middle logo section. The section shows only when this is explicitly `false`. */
   @Prop() hideMiddleSection: boolean;
 
   componentWillLoad() {

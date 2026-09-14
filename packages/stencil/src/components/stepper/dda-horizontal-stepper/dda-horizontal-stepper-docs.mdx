@@ -1,64 +1,101 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../../storybook/component-api';
 
 <Meta title="Components/Stepper/Horizontal Stepper/Documentation" />
 
 # Horizontal Stepper
-The `dda-horizontal-stepper` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-horizontal-stepper` component shows the steps of a process in a row, each with a title,
+subtitle and description. `current_step` is an index from 0: that step is active and the steps
+before it show as completed. The stepper is display only; it has no events.
 
-```jsx
-import React from 'react'
-import { DdaHorizontalStepper } from "@dubai-design-system/components-react";
+## API
 
+<Markdown>{componentApi(readme)}</Markdown>
 
+## Usage
 
+### Vanilla JS
 
-const App = () => {
-  return (
-    <div>
-        <DdaHorizontalStepper
-            steps='[{"title":"Step 1","subtitle":"Subtitle 1","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 2","subtitle":"Subtitle 2","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 3","subtitle":"Subtitle 3","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."}]'
-            current_step="1"
-            custom_class='""'
-            mode='"light"'
-        ></DdaHorizontalStepper>
-    </div>
- )
-}
+**From the CDN.** Replace `X.X.X` with the exact package version.
 
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-horizontal-stepper
+  current_step="1"
+  steps='[{"title":"Step 1","subtitle":"Applicant details","description":"Enter your name and Emirates ID."},{"title":"Step 2","subtitle":"Documents","description":"Upload the required documents."},{"title":"Step 3","subtitle":"Payment","description":"Pay the service fee."}]'
+></dda-horizontal-stepper>
 ```
 
-### Usage in Vue
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-horizontal-stepper.js';
+
+const stepper = document.createElement('dda-horizontal-stepper');
+stepper.steps = JSON.stringify([
+  { title: 'Step 1', subtitle: 'Applicant details', description: 'Enter your name and Emirates ID.' },
+  { title: 'Step 2', subtitle: 'Documents', description: 'Upload the required documents.' },
+  { title: 'Step 3', subtitle: 'Payment', description: 'Pay the service fee.' },
+]);
+stepper.current_step = 1;
+document.body.append(stepper);
+
+// Later, move to the next step.
+stepper.current_step = 2;
+```
+
+Set `steps` before the element is added to the page. The component reads it once, when it first
+renders. You can change `current_step` at any time.
+
+### React
 
 ```jsx
-<script>
+import { DdaHorizontalStepper } from '@dubai-design-system/components-react';
 
+const steps = [
+  { title: 'Step 1', subtitle: 'Applicant details', description: 'Enter your name and Emirates ID.' },
+  { title: 'Step 2', subtitle: 'Documents', description: 'Upload the required documents.' },
+  { title: 'Step 3', subtitle: 'Payment', description: 'Pay the service fee.' },
+];
 
-import { DdaHorizontalStepper } from '@dubai-design-system/components-vue'
+export function ApplicationProgress({ step }) {
+  return <DdaHorizontalStepper steps={JSON.stringify(steps)} current_step={step} />;
+}
+```
 
+### Vue
+
+```html
+<script setup>
+import { DdaHorizontalStepper } from '@dubai-design-system/components-vue';
+
+const steps = JSON.stringify([
+  { title: 'Step 1', subtitle: 'Applicant details', description: 'Enter your name and Emirates ID.' },
+  { title: 'Step 2', subtitle: 'Documents', description: 'Upload the required documents.' },
+  { title: 'Step 3', subtitle: 'Payment', description: 'Pay the service fee.' },
+]);
 </script>
 
 <template>
-    <div>
-        <DdaHorizontalStepper
-            steps='[{"title":"Step 1","subtitle":"Subtitle 1","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 2","subtitle":"Subtitle 2","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 3","subtitle":"Subtitle 3","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."}]'
-            current_step="1"
-            custom_class='""'
-            mode='"light"'
-        ></DdaHorizontalStepper>
-    </div>
+  <DdaHorizontalStepper :steps="steps" :current_step="1" />
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-horizontal-stepper
-    steps='[{"title":"Step 1","subtitle":"Subtitle 1","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 2","subtitle":"Subtitle 2","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."},{"title":"Step 3","subtitle":"Subtitle 3","description":"Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry."}]'
-    current_step="1"
-    custom_class='""'
-    mode='"light"'
+  current_step="1"
+  steps='[{"title":"Step 1","subtitle":"Applicant details","description":"Enter your name and Emirates ID."},{"title":"Step 2","subtitle":"Documents","description":"Upload the required documents."},{"title":"Step 3","subtitle":"Payment","description":"Pay the service fee."}]'
 ></dda-horizontal-stepper>
 ```

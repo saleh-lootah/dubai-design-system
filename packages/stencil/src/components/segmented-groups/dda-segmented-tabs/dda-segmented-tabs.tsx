@@ -6,21 +6,26 @@ import { Component, Prop, State, Event, EventEmitter, h } from '@stencil/core';
   shadow: false,
 })
 export class DdaSegmentedTabs {
+  /** Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`). */
   @Prop() items: string;
+  /** Corner shape of the group: `square` or `rounded`. */
   @Prop() radius_type: string;
+  /** Extra CSS classes added to the group. */
   @Prop() custom_class: string;
+  /** Theme override class on the group, e.g. `light-mode`. */
   @Prop() component_mode?: string;
+  /** `name` set on every segment button. */
   @Prop() button_name: string;
   /** Accessible name for the group (applied as aria-label on the group container). */
   @Prop() aria_label: string;
-  /** Index of the segment selected by default. Clamped to a valid item index. */
+  /** Index of the segment selected on load, from 0. An out-of-range value selects the first segment. */
   @Prop() selected_index: number = 0;
 
   /** F-004 repair: the currently-selected segment. Exactly one segment is
    * selected at a time; this is what makes the component interactive at all. */
   @State() active_index: number = 0;
 
-  /** Emits the newly-selected index whenever the selection changes. */
+  /** Fires when the user selects a different segment. `detail` is the new index, from 0. */
   @Event() segmentChange: EventEmitter<number>;
 
   private parsedItems: string[] = [];

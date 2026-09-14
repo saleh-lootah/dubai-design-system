@@ -1,0 +1,115 @@
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
+
+<Meta title="Components/UI Card/Documentation" />
+
+# UI Card
+
+The `dda-ui-card` component renders a content card with an optional icon or image, a title, a
+subtitle and a link. Content between the tags goes into a slot after these parts. Set
+`type="custom"` to render only the slot content inside the card frame.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-ui-card
+  icon="description"
+  maintitle="Trade licence renewal"
+  subtitle="Renew your trade licence online in a few steps."
+  link="/services/trade-licence-renewal"
+  linktext="Start service"
+></dda-ui-card>
+
+<dda-ui-card type="custom">
+  <h2 class="dda-card-title">Need help?</h2>
+  <p class="dda-card-text-muted">Call the service centre from 8 am to 8 pm.</p>
+</dda-ui-card>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-ui-card.js';
+
+const card = document.querySelector('dda-ui-card');
+card.subtitle = 'Renew your trade licence online in a few steps.';
+
+// The `linkClick` event is not emitted. Listen for the native click on the link.
+card.addEventListener('click', event => {
+  if (event.target.closest('.dda-card-link')) console.log('link clicked');
+});
+```
+
+### React
+
+```jsx
+import { DdaUiCard } from '@dubai-design-system/components-react';
+
+export function RenewalCard() {
+  return (
+    <DdaUiCard
+      icon="description"
+      maintitle="Trade licence renewal"
+      subtitle="Renew your trade licence online in a few steps."
+      link="/services/trade-licence-renewal"
+      linktext="Start service"
+    />
+  );
+}
+```
+
+### Vue
+
+```html
+<script setup>
+import { DdaUiCard } from '@dubai-design-system/components-vue';
+</script>
+
+<template>
+  <DdaUiCard
+    icon="description"
+    maintitle="Trade licence renewal"
+    subtitle="Renew your trade licence online in a few steps."
+    link="/services/trade-licence-renewal"
+    linktext="Start service"
+  />
+</template>
+```
+
+### Angular
+
+```html
+<dda-ui-card
+  icon="description"
+  maintitle="Trade licence renewal"
+  subtitle="Renew your trade licence online in a few steps."
+  link="/services/trade-licence-renewal"
+  linktext="Start service"
+></dda-ui-card>
+```
+
+## Notes
+
+- `icon` and `linkicon` take Material Icons names. Load the Material Icons font.
+- When you set `image`, the component uses `maintitle` as the image alt text.
+- The title renders as an `<h1>`. For a page with several cards, consider `type="custom"`
+  with your own heading level, as in the example above.
+- The `linkClick` event is declared but the component does not emit it.

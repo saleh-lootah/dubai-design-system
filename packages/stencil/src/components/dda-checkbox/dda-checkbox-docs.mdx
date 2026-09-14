@@ -1,82 +1,109 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Checkbox/Documentation" />
 
-# Accordion
-The `dda-checkbox` component is a customizable button element that can be used in various UI scenarios
+# Checkbox
 
-### Usage in React
+The `dda-checkbox` component renders a native checkbox input with a styled box, a title and optional
+supporting text. Read its state from the inner input's native `change` event.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-checkbox
+  input_id="accept-terms"
+  group_name="accept_terms"
+  title_text="I accept the terms and conditions"
+  supporting="You must accept the terms to submit the application"
+  size="md"
+  style_type="square"
+></dda-checkbox>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-checkbox.js';
+
+// The component has no custom events. The native `change` event of the inner input bubbles to the element.
+const checkbox = document.querySelector('dda-checkbox');
+checkbox.addEventListener('change', event => console.log('accepted:', event.target.checked));
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaCheckbox } from "@dubai-design-system/components-react";
+import { DdaCheckbox } from '@dubai-design-system/components-react';
 
-
-const App = () => {
+export function AcceptTerms() {
   return (
-    <div>
-        <DdaCheckbox
-            title_text="Checkbox Title"
-            checked="false"
-            size="md"
-            style_type="square"
-            supporting="Supporting Text"
-            group_name="checkboxgroup"
-            input_id="testId"
-            custom_class=""
-            component_mode=""
-            on_checked="() => void 0"
-            aria_label="checkbox"
-        ></DdaCheckbox>
-    </div>
- )
+    <DdaCheckbox
+      input_id="accept-terms"
+      group_name="accept_terms"
+      title_text="I accept the terms and conditions"
+      supporting="You must accept the terms to submit the application"
+      size="md"
+      style_type="square"
+      onChange={event => console.log('accepted:', event.target.checked)}
+    />
+  );
 }
 ```
 
-### Usage in Vue
+### Vue
 
-```jsx
-<script>
-
-
-import { DdaCheckbox } from '@dubai-design-system/components-vue'
-
+```html
+<script setup>
+import { DdaCheckbox } from '@dubai-design-system/components-vue';
 </script>
 
 <template>
-    <div>
-        <DdaCheckbox
-            title_text="Checkbox Title"
-            checked="false"
-            size="md"
-            style_type="square"
-            supporting="Supporting Text"
-            group_name="checkboxgroup"
-            input_id="testId"
-            custom_class=""
-            component_mode=""
-            on_checked="() => void 0"
-            aria_label="checkbox"
-        ></DdaCheckbox>
-    </div>
-</template>
-
-```
-
-### Usage in Angular
-
-```jsx
-<dda-checkbox
-    title_text="Checkbox Title"
-    checked="false"
+  <DdaCheckbox
+    input_id="accept-terms"
+    group_name="accept_terms"
+    title_text="I accept the terms and conditions"
+    supporting="You must accept the terms to submit the application"
     size="md"
     style_type="square"
-    supporting="Supporting Text"
-    group_name="checkboxgroup"
-    input_id="testId"
-    custom_class=""
-    component_mode=""
-    on_checked="() => void 0"
-    aria_label="checkbox"
+    @change="event => console.log('accepted:', event.target.checked)"
+  />
+</template>
+```
+
+### Angular
+
+```html
+<dda-checkbox
+  input_id="accept-terms"
+  group_name="accept_terms"
+  title_text="I accept the terms and conditions"
+  supporting="You must accept the terms to submit the application"
+  size="md"
+  style_type="square"
+  (change)="onAcceptChange($event)"
 ></dda-checkbox>
 ```
+
+## Labels and ids
+
+Set a unique `input_id` on every checkbox. The label points to the input by this id, so without it
+clicking the title does not toggle the checkbox.

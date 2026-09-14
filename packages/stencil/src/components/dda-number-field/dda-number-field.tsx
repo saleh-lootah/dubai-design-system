@@ -6,23 +6,40 @@ import { Component, Prop, State, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaNumberField {
+  /** Placeholder text of the amount input. */
   @Prop() placeholder: string;
+  /** Visible label text, linked to the amount input through `input_id`. */
   @Prop() label: string;
+  /** Initial value of the amount input. Characters other than digits and `.` are removed as the user types. */
   @Prop() value: string;
+  /** Helper text shown below the field and linked with `aria-describedby`. */
   @Prop() helper_text: string;
+  /** Error text shown below the field. When set, the input gets `aria-invalid="true"`. */
   @Prop() error_message: string;
+  /** Validation style. `error` shows the error colors. */
   @Prop() validation_type?: string;
+  /** Size. `small` shows a smaller field; omit for the default size. */
   @Prop() size?: string;
-  @Prop() input_status?: string; // JSON string of currency options
+  /** Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute. */
+  @Prop() input_status?: string;
+  /** Currency options for the dropdown, as a JSON array string, e.g. `'["AED","USD"]'`. */
   @Prop() currencies: string;
+  /** Currency shown on the dropdown button. Updates when the user picks a currency. */
   @Prop() selected_currency: string = 'USD';
   @State() is_focused: boolean = false;
+  /** Extra CSS classes added to the field container. */
   @Prop() custom_class?: string = '';
+  /** Theme override class for the field, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
+  /** `id` of the amount input. Also used for the label `for` and the helper and error text ids. */
   @Prop() input_id: string;
+  /** Accessible name of the amount input. Use it when there is no visible label. */
   @Prop() aria_label?: string;
+  /** `name` of the amount input, submitted with its form. */
   @Prop() input_name?: string;
+  /** `name` of the currency dropdown button. */
   @Prop() toggle_button_name?: string;
+  /** `name` of each currency option button. */
   @Prop() currency_button_name?: string;
 
   @State() isCurrencyDropdownOpen: boolean = false;

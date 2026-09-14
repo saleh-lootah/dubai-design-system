@@ -6,21 +6,36 @@ import { Component, Prop, State, h } from '@stencil/core';
   shadow: false,
 })
 export class DdaAvatar {
+  /** Content: `photo` shows the `src` image, `icon` shows a smiley icon, `text` shows `text` as initials. */
   @Prop() type: 'photo' | 'icon' | 'text' = 'photo';
+  /** Size: `xs` (24px), `sm` (32px), `md` (40px), `lg` (48px), `xl` (56px) or `xxl` (64px). */
   @Prop() size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' = 'md';
+  /** Badge: `default` (none), `status` (green dot), `verified` (check badge), `notification` (count from `notification_number`). `story` has no style yet. */
   @Prop() design: 'default' | 'status' | 'verified' | 'story' | 'notification' = 'default';
+  /** Shape: `circle` or `square` (rounded corners). */
   @Prop() rounded: 'square' | 'circle' = 'circle';
-  @Prop() src: string = ''; // For photo type
-  @Prop() icon: string = 'material-icons'; // For icon type
-  @Prop() text: string = 'AB'; // For text type
-  @Prop() notification_number: number = 0; // For notification design
+  /** Image URL shown when `type` is `photo`. */
+  @Prop() src: string = '';
+  /** CSS class of the icon font used when `type` is `icon`, e.g. `material-icons`. The icon glyph is always `sentiment_satisfied`. */
+  @Prop() icon: string = 'material-icons';
+  /** Initials shown when `type` is `text`. */
+  @Prop() text: string = 'AB';
+  /** Count shown in the badge when `design` is `notification`. Hidden at sizes `xs` and `sm`. */
+  @Prop() notification_number: number = 0;
+  /** Extra CSS classes added to the avatar container. */
   @Prop() custom_class?: string = ''; 
   @State() isOpen: boolean = false;
+  /** The selected option. Matches one entry of `options`; updated when the user picks an option. */
   @Prop() selected: string;
+  /** Dropdown options as a JSON array of strings, e.g. `["Profile","Sign out"]`. When set, the avatar becomes a button that opens the list. */
   @Prop() options: string;
+  /** Theme override class for the avatar, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
+  /** Accessible name of the avatar button and of each option button. The avatar button falls back to `Avatar options`. */
   @Prop() aria_label: string;
+  /** `id` applied to each option button in the dropdown. */
   @Prop() button_id?: string;
+  /** `name` of each option button in the dropdown. Also added as a CSS class on the avatar container. */
   @Prop() button_name?: string;
 
   toggleDropdown() {

@@ -10,27 +10,49 @@ let headerInstanceCount = 0;
 })
 
 export class DdaHeader {
+  /** Image URL of the first (government) logo, on the left of the header and in the side menu. */
   @Prop() firstLogoSrc: string;
+  /** Image URL of the white first logo, shown in dark theme and on a transparent header (`<body class="transparent">`). Falls back to `firstLogoSrc`. */
   @Prop() firstLogoWhiteSrc: string;
+  /** Alternative text for the first logo. */
   @Prop() firstLogoAlt: string;
+  /** Image URL of the second (entity) logo. */
   @Prop() secondLogoSrc: string;
+  /** Image URL of the white second logo, shown in dark theme and on a transparent header. Falls back to `secondLogoSrc` on desktop. */
   @Prop() secondLogoWhiteSrc: string;
+  /** Alternative text for the second logo. */
   @Prop() secondLogoAlt: string;
+  /** URL of the Login link in the toolbar and the side menu. */
   @Prop() loginLink: string;
+  /** Side menu items. JSON array of `{ label, href, subMenu }`; each `subMenu` item is `{ headerLabel, label, href, subMenu }` and can nest. */
   @Prop() sideMenuItems: string;
+  /** Main navigation links. JSON array of `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu. */
   @Prop() quickLinks: string;
+  /** URL of the ReadSpeaker "listen" link in the accessibility panel. */
   @Prop() readSpeakerLink: string;
+  /** Placeholder and accessible label of the search input. Default: `Search`. */
   @Prop() searchText: string;
+  /** Material Symbols icon name of the Login link in the side menu. Default: `sentiment_satisfied`. */
   @Prop() loginIcon: string;
+  /** Label of the Login link in the side menu. Default: `Login`. */
   @Prop() loginText: string;
+  /** Label of the language button in the desktop toolbar, e.g. `العربية`. */
   @Prop() language_text: string;
+  /** Emitted when the user clicks the language button. */
   @Event() languageSwitch: EventEmitter<void>;
+  /** Emitted when the user clicks the `A-` (smaller text) button in the accessibility panel. */
   @Event() smTextSize: EventEmitter<void>;
+  /** Emitted when the user clicks the `A` (default text size) button in the accessibility panel. */
   @Event() baseTextSize: EventEmitter<void>;
+  /** Emitted when the user clicks the `A+` (larger text) button in the accessibility panel. */
   @Event() lgTextSize: EventEmitter<void>;
+  /** Emitted when the user selects the Normal contrast option. */
   @Event() normalContrast: EventEmitter<void>;
+  /** Emitted when the user selects the Colours Blind contrast option. */
   @Event() blindContrast: EventEmitter<void>;
+  /** Emitted when the user selects the Red Weakness contrast option. */
   @Event() redContrast: EventEmitter<void>;
+  /** Emitted when the user selects the Green Weakness contrast option. */
   @Event() greenContrast: EventEmitter<void>;
   /**
    * Emitted when a non-empty search is submitted. Call `preventDefault()` to stop the
@@ -49,16 +71,25 @@ export class DdaHeader {
   private focusSearchAfterRender = false;
   private lastScrollTop = 0;
 
+  /** `name` attribute of the hamburger menu button. */
   @Prop() hamburger_menu_button_name: string;
+  /** `name` attribute of the accessibility button in the side menu. */
   @Prop() accessibility_button_name: string;
+  /** `name` attribute of the mobile search button. */
   @Prop() search_button_name: string;
+  /** `name` of the search input, which is the query parameter sent to `search_action`. Default: `q`. */
   @Prop() search_input_name: string;
   /** Results page URL. When set, a search does a GET to this URL with the query in `search_input_name` (default `q`). */
   @Prop() search_action: string;
+  /** `name` attribute of the language button in the side menu. */
   @Prop() language_button_name: string;
+  /** `name` attribute of the button that closes the side menu. */
   @Prop() close_menu_button_name: string;
+  /** `name` attribute of the buttons that close the accessibility panel. */
   @Prop() close_accessibility_button_name: string;
+  /** Not used: the current markup does not render an element with this name. */
   @Prop() close_sidebar_button_name: string;
+  /** `name` attribute of the accessibility button in the desktop toolbar. */
   @Prop() toggle_accessibility_button_name: string;
 
   @State() openMenus: { [index: string]: boolean } = {};

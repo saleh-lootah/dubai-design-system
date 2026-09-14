@@ -6,24 +6,41 @@ import { Component, Prop,  State, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaCreditCardField {
+  /** Placeholder text of the input, e.g. `0000 - 0000 - 0000 - 0000`. */
   @Prop() placeholder: string;
+  /** Label text shown above the input. Linked to the input when `input_id` is set. */
   @Prop() label: string;
+  /** Card number. Shown as groups of four digits separated by ` - `; the component updates it as the user types. */
   @Prop() value: string = '';
+  /** URL of an image shown at the start of the input, e.g. a card brand logo. */
   @Prop() card_icon: string;
+  /** Error text shown below the input. Also sets `aria-invalid="true"` on the input. */
   @Prop() error_message: string;
+  /** Validation state: `error` applies the error colors. */
   @Prop() validation_type?: string;
+  /** Size: `default` or `small`. */
   @Prop() size?: string;
+  /** Adds the class `dda-input-<value>`. `disabled` gives only the disabled look; use `disabled` to disable the input. */
   @Prop() input_type?: string;
+  /** Helper text shown below the input. Linked by `aria-describedby` when `input_id` is set. */
   @Prop() helper_text: string;
+  /** Disables the input and applies the disabled look. */
   @Prop() disabled: boolean = false;
+  /** Extra CSS classes added to the field container. */
   @Prop() custom_class?: string = '';
+  /** Sets the input `maxlength`: 25 characters when `false` (16 digits with separators), 100 when `true`. */
   @Prop() restrict_input: boolean = false;
-  @Prop() component_mode?: string; 
+  /** Theme override class for the field, e.g. `light-mode`. */
+  @Prop() component_mode?: string;
+  /** `id` of the inner `<input>`. Also used to link the label, helper text and error message. */
   @Prop() input_id: string;
+  /** Accessible name of the input. Use it when there is no visible `label`. */
   @Prop() aria_label?: string;
+  /** `name` of the inner `<input>`, submitted with its form. */
   @Prop() input_name?: string;
   // F-018 (WCAG 1.3.5): card number is exactly the field type autocomplete
   // exists for. Default to the correct token; still overridable.
+  /** `autocomplete` token of the input. Defaults to `cc-number`. */
   @Prop() autocomplete: string = 'cc-number';
 
   @State() formattedValue: string = '';

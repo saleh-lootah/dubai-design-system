@@ -12,7 +12,7 @@ export default {
       },
       restrict_input: {
         control: 'boolean',
-        description: 'Restrict the input field to 16 digits',
+        description: 'Sets maxlength to 100 characters instead of 25',
       },
       value: {
         control: 'text',
@@ -66,10 +66,6 @@ export default {
         control: { type: 'text' },
         description: 'Accessible label for the credit card field',
       },
-      onchange:{
-        control: { type: 'text' },
-        description: 'onchange event for the credit card field',
-      },
       input_name: {
         control: { type: 'text' },
         description: 'Name of the input field',
@@ -100,7 +96,6 @@ export default {
     component_mode=""
     input_id="input"
     aria_label="credit-card-field"
-    onchange="console.log('changed')"
     input_name="input"
     autocomplete="cc-number"
 ></dda-creditcard-field>
@@ -135,7 +130,6 @@ export default {
     component_mode: '',
     input_id: 'input',
     aria_label: 'credit-card-field',
-    onchange: '',
     input_name: 'input',
     autocomplete: 'cc-number',
   };
@@ -155,7 +149,6 @@ export default {
     component_mode: '',
     input_id: 'input',
     aria_label: 'credit-card-field',
-    onchange: '',
     input_name: 'input',
     autocomplete: 'cc-number',
   };
@@ -175,7 +168,6 @@ export default {
     component_mode: '',
     input_id: 'input',
     aria_label: 'credit-card-field',
-    onchange: '',
     input_name: 'input',
     autocomplete: 'cc-number',
   };
@@ -196,7 +188,6 @@ export default {
     component_mode: '',
     input_id: 'input',
     aria_label: 'credit-card-field',
-    onchange: '',
     input_name: 'input',
     autocomplete: 'cc-number',
   };  

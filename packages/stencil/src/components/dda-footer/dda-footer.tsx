@@ -6,18 +6,27 @@ import { Component, Prop, h } from '@stencil/core';
   shadow: false,
 })
 export class DdaFooter {
+  /** Heading of the call-to-action area at the top of the footer. */
   @Prop() footerTitle: string;
+  /** Paragraph under `footerTitle`. */
   @Prop() description: string;
+  /** Label of the primary (Sign up) button. The button has no link or action. */
   @Prop() signUpButtonText: string;
+  /** Label of the tertiary (Login) button. The button has no link or action. */
   @Prop() loginButtonText: string;
+  /** Image URL of the footer logo. */
   @Prop() logoSrc: string;
+  /** Alternative text for the footer logo. */
   @Prop() logoAlt: string;
+  /** Copyright text in the bottom row. */
   @Prop() copyrightText: string;
   /** Short text shown under the footer logo. Nothing is shown when it is not set. */
   @Prop() logoDescription: string;
   
   // Updated to accept JSON strings
+  /** Link columns. JSON array of `{ title, links: [{ label, href }] }`. */
   @Prop() footerSections: string;
+  /** Social links in the bottom row. JSON array of `{ href, src, alt }`, where `src` is an image URL. */
   @Prop() socialIcons: string;
 
   private parseJsonArray(jsonString: string) {

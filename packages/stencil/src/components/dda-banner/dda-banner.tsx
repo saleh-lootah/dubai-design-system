@@ -6,8 +6,11 @@ import { Component, Prop, State, h, Host } from '@stencil/core';
   shadow: true,
 })
 export class DdaBanner {
-  @Prop() slides: string; // JSON string of slides;
+  /** Slide images. JSON array of `{ image, title }`; `image` is the image URL and `title` its alternative text. Read once, when the component loads. */
+  @Prop() slides: string;
+  /** CSS width of each slide image, e.g. `360px`. */
   @Prop() slider_width: string;
+  /** CSS height of each slide image, e.g. `220px`. */
   @Prop() slider_height: string;
   @State() parsedSlides: { image: string; title: string; subtitle: string; link: string }[] = [];
 

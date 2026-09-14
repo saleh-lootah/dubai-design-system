@@ -6,16 +6,27 @@ import { Component, Prop, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaRadiobutton {
+  /** Label shown next to the radio button. */
   @Prop() title_text: string;
+  /** Secondary text shown under the title. */
   @Prop() supporting?: string;
+  /** `name` of the inner radio input. Give all radio buttons in one group the same value. */
   @Prop() group_name?: string;
+  /** `id` of the inner radio input. The label points to it, so set a unique value to make the label clickable. */
   @Prop() input_id?: string;
+  /** Checked state of the inner input. Read the current state from the input or its `change` event. */
   @Prop() checked: boolean;
+  /** Status: `disabled` shows the disabled style and blocks pointer clicks. */
   @Prop() radio_status?: string;
-  @Prop() size?: string; // e.g., 'sm', 'md', 'lg'
-  @Prop() variants?: string; // e.g., 'sm', 'md', 'lg'
+  /** Size: `sm`, `md` or `lg`. */
+  @Prop() size?: string;
+  /** Style variant: `outlined` or `faded`. Leave empty (or `normal`) for the default style. */
+  @Prop() variants?: string;
+  /** Extra class suffix. The value is added as `dda-radio-<value>` on the container. */
   @Prop() custom_class?: string = ''; 
+  /** Theme override class for the radio button, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
+  /** Accessible name of the inner radio input. */
   @Prop() aria_label?: string;
   
   render() {

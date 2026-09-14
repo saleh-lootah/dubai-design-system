@@ -1,73 +1,79 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Progress Bar/Documentation" />
 
 # Progress Bar
-The `dda-progressbar` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-progressbar` component shows how far a task has progressed, as a bar filled from 0 to
+100 percent. It can also show the percentage in a tooltip or as text after the bar.
 
-```jsx
-import React from 'react'
-import { DdaProgressbar } from "@dubai-design-system/components-react";
+## API
 
+<Markdown>{componentApi(readme)}</Markdown>
 
+## Usage
 
+### Vanilla JS
 
-const App = () => {
-  return (
-    <div>
-        <DdaProgressbar
-            progress="20"
-            tooltip="false"
-            tooltip_position="top"
-            show_percentage_text="false"
-            custom_class=""
-            component_mode=""
-            aria_label="Progress"
-        ></DdaProgressbar>
-    </div>
- )
-}
+**From the CDN.** Replace `X.X.X` with the exact package version.
 
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-progressbar progress="40" show_percentage_text aria_label="Application progress"></dda-progressbar>
 ```
 
-### Usage in Vue
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-progressbar.js';
+
+const bar = document.querySelector('dda-progressbar');
+bar.progress = 60;
+```
+
+### React
 
 ```jsx
-<script>
+import { DdaProgressbar } from '@dubai-design-system/components-react';
 
+export function ApplicationProgress({ percent }) {
+  return <DdaProgressbar progress={percent} tooltip tooltip_position="top" aria_label="Application progress" />;
+}
+```
 
-import { DdaProgressbar } from '@dubai-design-system/components-vue'
+### Vue
 
+```html
+<script setup>
+import { DdaProgressbar } from '@dubai-design-system/components-vue';
+
+defineProps({ percent: Number });
 </script>
 
 <template>
-    <div>
-        <DdaProgressbar
-            progress="20"
-            tooltip="false"
-            tooltip_position="top"
-            show_percentage_text="false"
-            custom_class=""
-            component_mode=""
-            aria_label="Progress"
-        ></DdaProgressbar>
-    </div>
+  <DdaProgressbar :progress="percent" :tooltip="true" tooltip_position="top" aria_label="Application progress" />
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
-<dda-progressbar
-    progress="20"
-    tooltip="false"
-    tooltip_position="top"
-    show_percentage_text="false"
-    custom_class=""
-    component_mode=""
-    aria_label="Progress"
-></dda-progressbar>
+```html
+<dda-progressbar [progress]="percent" [tooltip]="true" tooltip_position="top" aria_label="Application progress"></dda-progressbar>
 ```
+
+## Notes
+
+- `progress` is a percentage. The component does not clamp it, so pass a value from 0 to 100.
+- The element has `role="progressbar"` with `aria-valuemin="0"`, `aria-valuemax="100"` and
+  `aria-valuenow` set from `progress`. Set `aria_label` to describe the task; the default is "Progress".
+- When you use `tooltip`, leave space above (`top`) or below (`bottom`) the bar for it.

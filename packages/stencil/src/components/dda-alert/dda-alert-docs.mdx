@@ -1,77 +1,133 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Alert/Documentation" />
 
 # Alert
-The `dda-alert` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-alert` component shows a message with a heading, a description, up to two action links and
+a close button. Screen readers announce `error` alerts immediately (`role="alert"`) and other
+variations politely (`role="status"`).
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-alert
+  type="primary"
+  variation="warning"
+  title_text="Your trade licence expires soon"
+  description="Renew your licence before 30 September to avoid a late fee."
+  first_button="Renew now"
+  first_link="/licence/renew"
+  second_button="Remind me later"
+  second_link="#"
+  button_name="close-alert"
+></dda-alert>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+The close button does not hide the alert. Set `clickHandler` as a property to handle it.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-alert.js';
+
+const alert = document.querySelector('dda-alert');
+alert.clickHandler = () => alert.remove();
+alert.addEventListener('firstClick', () => console.log('Renew now clicked'));
+alert.addEventListener('secondClick', () => console.log('Remind me later clicked'));
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaAlert } from "@dubai-design-system/components-react";
+import { useState } from 'react';
+import { DdaAlert } from '@dubai-design-system/components-react';
 
+export function LicenceAlert() {
+  const [visible, setVisible] = useState(true);
+  if (!visible) return null;
 
-const App = () => {
   return (
-    <div>
-        <DdaAlert
-            type="primary"
-            variation="info"
-            title_text="Alert Title"
-            description="This is an informational alert."
-            button_text="Learn more"
-            custom_class=""
-            component_mode=""
-              onclick="console.log('clicked!')"
-            >
-        </DdaAlert>
-    </div>
- )
+    <DdaAlert
+      type="primary"
+      variation="warning"
+      title_text="Your trade licence expires soon"
+      description="Renew your licence before 30 September to avoid a late fee."
+      first_button="Renew now"
+      first_link="/licence/renew"
+      clickHandler={() => setVisible(false)}
+      onFirstClick={() => console.log('Renew now clicked')}
+    />
+  );
 }
 ```
 
-### Usage in Vue
+### Vue
 
-```jsx
-<script>
+```html
+<script setup>
+import { ref } from 'vue';
+import { DdaAlert } from '@dubai-design-system/components-vue';
 
-
-import { DdaAlert } from '@dubai-design-system/components-vue'
-
+const visible = ref(true);
+const close = () => (visible.value = false);
 </script>
 
 <template>
-    <div>
-        <DdaAlert
-            type="primary"
-            variation="info"
-            title_text="Alert Title"
-            description="This is an informational alert."
-            button_text="Learn more"
-            custom_class=""
-            component_mode=""
-              onclick="console.log('clicked!')"
-            >
-        </DdaAlert>
-    </div>
-</template>
-
-```
-
-### Usage in Angular
-
-```jsx
-<dda-alert
+  <DdaAlert
+    v-if="visible"
     type="primary"
-    variation="info"
-    title_text="Alert Title"
-    description="This is an informational alert."
-    button_text="Learn more"
-    custom_class=""
-    component_mode=""
-      onclick="console.log('clicked!')"
-    >
-</dda-alert>
-
+    variation="warning"
+    title_text="Your trade licence expires soon"
+    description="Renew your licence before 30 September to avoid a late fee."
+    first_button="Renew now"
+    first_link="/licence/renew"
+    :clickHandler="close"
+    @firstClick="console.log('Renew now clicked')"
+  />
+</template>
 ```
+
+### Angular
+
+```html
+<dda-alert
+  *ngIf="visible"
+  type="primary"
+  variation="warning"
+  title_text="Your trade licence expires soon"
+  description="Renew your licence before 30 September to avoid a late fee."
+  first_button="Renew now"
+  first_link="/licence/renew"
+  [clickHandler]="close"
+  (firstClick)="renew()"
+></dda-alert>
+```
+
+In the component class, define `close` as an arrow function (`close = () => (this.visible = false);`)
+so `this` stays bound when the alert calls it.
+
+## Variations
+
+- `variation`: `info`, `warning`, `error` or `success` sets the color. Use `error` only for problems
+  that need immediate attention, because it interrupts the screen reader.
+- `type`: `primary` uses a tinted background in the variation color. `secondary` uses a neutral
+  surface.

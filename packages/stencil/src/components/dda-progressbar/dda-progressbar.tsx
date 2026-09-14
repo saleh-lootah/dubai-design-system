@@ -6,12 +6,19 @@ import { Component, Prop, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaProgressBar {
+  /** Progress in percent, from 0 to 100. Sets the bar width and `aria-valuenow`. */
   @Prop() progress: number = 0;
+  /** Shows the percentage in a tooltip at the end of the filled bar. */
   @Prop() tooltip: boolean = false;
+  /** Tooltip position: `top` or `bottom`. */
   @Prop() tooltip_position: 'top' | 'bottom' = 'top';
+  /** Shows the percentage as text after the bar. */
   @Prop() show_percentage_text: boolean = false;
+  /** Extra CSS classes added to the progress bar container. */
   @Prop() custom_class: string;
+  /** Theme override class for the progress bar, e.g. `light-mode`. */
   @Prop() component_mode?: string;
+  /** Accessible name of the progress bar. */
   @Prop() aria_label: string = 'Progress';
 
   render() {

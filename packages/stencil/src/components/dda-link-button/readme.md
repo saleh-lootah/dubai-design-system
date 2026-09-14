@@ -7,22 +7,22 @@
 
 ## Properties
 
-| Property            | Attribute           | Description                              | Type      | Default     |
-| ------------------- | ------------------- | ---------------------------------------- | --------- | ----------- |
-| `aria_label`        | `aria_label`        |                                          | `string`  | `''`        |
-| `button_color`      | `button_color`      |                                          | `string`  | `'primary'` |
-| `button_id`         | `button_id`         |                                          | `string`  | `undefined` |
-| `button_shape`      | `button_shape`      |                                          | `string`  | `''`        |
-| `component_mode`    | `component_mode`    |                                          | `string`  | `undefined` |
-| `custom_class`      | `custom_class`      |                                          | `string`  | `''`        |
-| `disabled`          | `disabled`          | Disable the button                       | `boolean` | `false`     |
-| `end_icon`          | `end_icon`          |                                          | `string`  | `''`        |
-| `gap`               | `gap`               |                                          | `number`  | `undefined` |
-| `href`              | `href`              |                                          | `string`  | `'#'`       |
-| `icon_button_shape` | `icon_button_shape` |                                          | `string`  | `''`        |
-| `size`              | `size`              |                                          | `string`  | `undefined` |
-| `start_icon`        | `start_icon`        | Icon class for the starting icon         | `string`  | `''`        |
-| `type`              | `type`              | Type of button, e.g., "button", "submit" | `string`  | `'button'`  |
+| Property            | Attribute           | Description                                                                                                  | Type      | Default     |
+| ------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------ | --------- | ----------- |
+| `aria_label`        | `aria_label`        | Accessible name of the link. Required when the link shows only an icon.                                      | `string`  | `''`        |
+| `button_color`      | `button_color`      | Color variant, e.g. `default-primary`, `default-secondary`, `error-primary`, `onsurface-link` or `disabled`. | `string`  | `'primary'` |
+| `button_id`         | `button_id`         | `id` of the inner `<a>`.                                                                                     | `string`  | `undefined` |
+| `button_shape`      | `button_shape`      | Shape: `default` or `circle`.                                                                                | `string`  | `''`        |
+| `component_mode`    | `component_mode`    | Theme override class for the link, e.g. `light-mode`.                                                        | `string`  | `undefined` |
+| `custom_class`      | `custom_class`      | Extra CSS classes added to the inner `<a>`.                                                                  | `string`  | `''`        |
+| `disabled`          | `disabled`          | Not used: the link stays active. For a disabled look, set `button_color` to `disabled`.                      | `boolean` | `false`     |
+| `end_icon`          | `end_icon`          | Material Symbols icon name shown after the label, e.g. `arrow_forward`.                                      | `string`  | `''`        |
+| `gap`               | `gap`               | Gap between icon and label, as a spacing step: 1–6, 8, 10, 12 or 16.                                         | `number`  | `undefined` |
+| `href`              | `href`              | URL the link opens.                                                                                          | `string`  | `'#'`       |
+| `icon_button_shape` | `icon_button_shape` | Shape of an icon-only link: `default` or `circle`.                                                           | `string`  | `''`        |
+| `size`              | `size`              | Size: `sm`, `md`, `lg` or `xl`.                                                                              | `string`  | `undefined` |
+| `start_icon`        | `start_icon`        | Material Symbols icon name shown before the label, e.g. `arrow_back`.                                        | `string`  | `''`        |
+| `type`              | `type`              | Not used: the component renders an `<a>` link, which has no `type`.                                          | `string`  | `'button'`  |
 
 
 ## Dependencies

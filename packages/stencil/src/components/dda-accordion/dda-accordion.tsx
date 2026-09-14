@@ -6,12 +6,18 @@ import { Component, Prop, State, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaAccordion {
-  @Prop() design: 'bg-border' | 'no-border' = 'bg-border'; // Default to background and border design
-  @Prop() header_text: string = 'Accordion Header'; // Default header text
-  @Prop() body_description: string = ''; // Default body description
+  /** Container style: `bg-border` (filled background with border) or `no-border` (no background or border). */
+  @Prop() design: 'bg-border' | 'no-border' = 'bg-border';
+  /** Text shown in the header button that opens and closes the panel. */
+  @Prop() header_text: string = 'Accordion Header';
+  /** Paragraph text shown in the panel when it is open. Slotted content follows it. */
+  @Prop() body_description: string = '';
+  /** Extra CSS classes added to the accordion container. */
   @Prop() custom_class?: string = '';
+  /** Theme override class for the container, e.g. `light-mode`. */
   @Prop() component_mode?: string;
-  @Prop() accordion_icon: string = 'info'; // Default Material icon
+  /** Material Symbols icon name shown before the header text, e.g. `info`. */
+  @Prop() accordion_icon: string = 'info';
 
   @State() isOpen: boolean = false;
 

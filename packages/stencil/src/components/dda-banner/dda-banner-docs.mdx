@@ -1,0 +1,101 @@
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
+
+<Meta title="Components/Banner/Documentation" />
+
+# Banner
+
+The `dda-banner` component renders a row of images that scrolls horizontally and snaps to each
+image. Pass the images as a JSON string in `slides`, and set the image size with `slider_width` and
+`slider_height`. For a full-screen landing-page carousel, use `dda-home-banner`.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-banner
+  slider_width="360px"
+  slider_height="220px"
+  slides='[{"image":"/img/service-centre.jpg","title":"Customer service centre"},{"image":"/img/smart-kiosk.jpg","title":"Smart service kiosk"}]'
+></dda-banner>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-banner.js';
+
+const banner = document.createElement('dda-banner');
+banner.slider_width = '360px';
+banner.slider_height = '220px';
+banner.slides = JSON.stringify([
+  { image: '/img/service-centre.jpg', title: 'Customer service centre' },
+  { image: '/img/smart-kiosk.jpg', title: 'Smart service kiosk' },
+]);
+document.querySelector('main').append(banner);
+```
+
+### React
+
+```jsx
+import { DdaBanner } from '@dubai-design-system/components-react';
+
+const slides = [
+  { image: '/img/service-centre.jpg', title: 'Customer service centre' },
+  { image: '/img/smart-kiosk.jpg', title: 'Smart service kiosk' },
+];
+
+export function Gallery() {
+  return <DdaBanner slider_width="360px" slider_height="220px" slides={JSON.stringify(slides)} />;
+}
+```
+
+### Vue
+
+```html
+<script setup>
+import { DdaBanner } from '@dubai-design-system/components-vue';
+
+const slides = JSON.stringify([
+  { image: '/img/service-centre.jpg', title: 'Customer service centre' },
+  { image: '/img/smart-kiosk.jpg', title: 'Smart service kiosk' },
+]);
+</script>
+
+<template>
+  <DdaBanner slider_width="360px" slider_height="220px" :slides="slides" />
+</template>
+```
+
+### Angular
+
+```html
+<dda-banner slider_width="360px" slider_height="220px" [slides]="slidesJson"></dda-banner>
+```
+
+In the component class, set `slidesJson` to `JSON.stringify(...)` of the slide array.
+
+## Notes
+
+- `title` becomes the image's `alt` text. Give every slide a meaningful `title`.
+- The component reads `slides` once, when it loads. Set `slides` before the element is added to
+  the page; a later change does not update the images.
+- The banner renders into a shadow root, unlike most `dda-*` components. Page CSS does not
+  reach the images inside it.

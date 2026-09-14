@@ -1,72 +1,103 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Breadcrumb/Documentation" />
 
 # Breadcrumb
-The `dda-breadcrumb` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-breadcrumb` component renders a trail of links inside a `<nav aria-label="breadcrumb">`.
+Each item can show a label, an icon, or both. The last item is styled as the current page.
 
-```jsx
-import React from 'react'
-import { DdaBreadcrumb } from "@dubai-design-system/components-react";
+## API
 
-const App = () => {
-  return (
-    <div>
-        <DdaBreadcrumb
-            design="text"
-            separator="chevron-right"
-            custom_class=""
-            component_mode=""
-            data-breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"Library","icon":"menu_book","url":"/library"},{"text":"Data","icon":"storage","url":"/data"}]'
-        ></DdaBreadcrumb>
-    </div>
- )
-}
-```
+<Markdown>{componentApi(readme)}</Markdown>
 
-### Usage in Vue
+## Usage
 
-```jsx
-<script>
+### Vanilla JS
 
+**From the CDN.** Replace `X.X.X` with the exact package version.
 
-import { DdaBreadcrumb } from '@dubai-design-system/components-vue'
-
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
 </script>
 
-<template>
-    <div>
-        <DdaBreadcrumb
-            design="text"
-            separator="chevron-right"
-            custom_class=""
-            component_mode=""
-            data-breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"Library","icon":"menu_book","url":"/library"},{"text":"Data","icon":"storage","url":"/data"}]'
-        ></DdaBreadcrumb>
-    </div>
-</template>
-
-```
-
-### Usage in Angular
-
-```jsx
 <dda-breadcrumb
-    design="text"
-    separator="chevron-right"
-    custom_class=""
-    component_mode=""
-    data-breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"Library","icon":"menu_book","url":"/library"},{"text":"Data","icon":"storage","url":"/data"}]'
+  design="icon-text"
+  separator="chevron_right"
+  breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"Services","icon":"apps","url":"/services"},{"text":"Trade licence renewal","icon":"description"}]'
 ></dda-breadcrumb>
 ```
 
-### Setting the items from JavaScript
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
 
-The items can also come from the `breadcrumbs` property, as an array or a JSON string. Use it
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-breadcrumb.js';
+
+const breadcrumb = document.querySelector('dda-breadcrumb');
+breadcrumb.breadcrumbs = [
+  { text: 'Home', icon: 'home', url: '/' },
+  { text: 'Services', icon: 'apps', url: '/services' },
+  { text: 'Trade licence renewal', icon: 'description' },
+];
+```
+
+### React
+
+```jsx
+import { DdaBreadcrumb } from '@dubai-design-system/components-react';
+
+const items = [
+  { text: 'Home', icon: 'home', url: '/' },
+  { text: 'Services', icon: 'apps', url: '/services' },
+  { text: 'Trade licence renewal', icon: 'description' },
+];
+
+export function ServiceBreadcrumb() {
+  return <DdaBreadcrumb design="text" separator="chevron_right" breadcrumbs={JSON.stringify(items)} />;
+}
+```
+
+### Vue
+
+```html
+<script setup>
+import { DdaBreadcrumb } from '@dubai-design-system/components-vue';
+
+const items = [
+  { text: 'Home', icon: 'home', url: '/' },
+  { text: 'Services', icon: 'apps', url: '/services' },
+  { text: 'Trade licence renewal', icon: 'description' },
+];
+</script>
+
+<template>
+  <DdaBreadcrumb design="text" separator="chevron_right" :breadcrumbs="items" />
+</template>
+```
+
+### Angular
+
+```html
+<dda-breadcrumb
+  design="text"
+  separator="chevron_right"
+  breadcrumbs='[{"text":"Home","url":"/"},{"text":"Services","url":"/services"},{"text":"Trade licence renewal"}]'
+></dda-breadcrumb>
+```
+
+## Setting the items from JavaScript
+
+The items can come from the `breadcrumbs` property, as an array or a JSON string. Use it
 when a framework or script sets the data. When `breadcrumbs` is set, it takes precedence over
-`data-breadcrumbs`, and the component re-renders when it changes.
+the older `data-breadcrumbs` attribute, and the component re-renders when it changes.
 
 ```js
 const breadcrumb = document.querySelector('dda-breadcrumb');

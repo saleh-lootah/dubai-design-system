@@ -1,71 +1,104 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Credit Card/Documentation" />
 
 # Credit Card
-The `dda-credit-card` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-credit-card` component shows a payment card summary: the current balance, the card
+holder name, the last four characters of the card number and a card type image. It displays
+data only and has no interactive parts.
 
-```jsx
-import React from 'react'
-import { DdaCreditCard } from "@dubai-design-system/components-react";
+## API
 
+<Markdown>{componentApi(readme)}</Markdown>
 
-const App = () => {
-  return (
-    <div>
-        <DdaCreditCard
-            balance="$5,750.20"
-            name="MARIA GOMEZ"
-            card_number="1289"
-            card_type="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
-            design="default"
-            custom_class=""
-            component_mode=""
-        ></DdaCreditCard>
-    </div>
- )
-}
+## Usage
 
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-credit-card
+  balance="AED 5,750.20"
+  name="CARD HOLDER NAME"
+  card_number="0000"
+  card_type="/images/card-type.svg"
+  design="green"
+></dda-credit-card>
 ```
 
-### Usage in Vue
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-credit-card.js';
+
+const card = document.querySelector('dda-credit-card');
+card.balance = 'AED 4,120.00';
+```
+
+### React
 
 ```jsx
-<script>
+import { DdaCreditCard } from '@dubai-design-system/components-react';
 
+export function WalletCard() {
+  return (
+    <DdaCreditCard
+      balance="AED 5,750.20"
+      name="CARD HOLDER NAME"
+      card_number="0000"
+      card_type="/images/card-type.svg"
+      design="green"
+    />
+  );
+}
+```
 
-import { DdaCreditCard } from '@dubai-design-system/components-vue'
+### Vue
 
+```html
+<script setup>
+import { DdaCreditCard } from '@dubai-design-system/components-vue';
 </script>
 
 <template>
-    <div>
-        <DdaCreditCard
-            balance="$5,750.20"
-            name="MARIA GOMEZ"
-            card_number="1289"
-            card_type="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
-            design="default"
-            custom_class=""
-            component_mode=""
-        ></DdaCreditCard>
-    </div>
+  <DdaCreditCard
+    balance="AED 5,750.20"
+    name="CARD HOLDER NAME"
+    card_number="0000"
+    card_type="/images/card-type.svg"
+    design="green"
+  />
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-credit-card
-    balance="$5,750.20"
-    name="MARIA GOMEZ"
-    card_number="1289"
-    card_type="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
-    design="default"
-    custom_class=""
-    component_mode=""
+  balance="AED 5,750.20"
+  name="CARD HOLDER NAME"
+  card_number="0000"
+  card_type="/images/card-type.svg"
+  design="green"
 ></dda-credit-card>
 ```
+
+## Notes
+
+- Always set `card_number`. The component shows `****` followed by its last four characters.
+  Pass only the last four digits; never pass a full card number to the page.
+- The "Current Balance" label is fixed text.
+- `card_type` is an image URL. Host the card type image with your application.

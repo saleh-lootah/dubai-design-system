@@ -1,88 +1,123 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Attach File/Documentation" />
 
-# Accordion
-The `dda-accordion` component is a customizable button element that can be used in various UI scenarios
+# Attach File
 
-### Usage in React
+The `dda-attach-file` component renders a labelled file picker with a "Choose File" button.
+After the user chooses a file, it shows the file name with a file type icon and a button to
+remove the file. It accepts one file.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-attach-file
+  input_id="trade-licence"
+  input_name="trade_licence"
+  label="Trade licence"
+  helper_text="Upload a PDF of your trade licence."
+  button_aria_label="Remove file"
+></dda-attach-file>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-attach-file.js';
+
+const attach = document.querySelector('dda-attach-file');
+
+// The component has no custom events. The native `input` event of the inner
+// file input bubbles to the host.
+attach.addEventListener('input', event => {
+  const file = event.target.files?.[0];
+  if (file) console.log(file.name, file.size);
+});
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaAttachFile } from "@dubai-design-system/components-react";
+import { DdaAttachFile } from '@dubai-design-system/components-react';
 
-
-const App = () => {
+export function TradeLicenceUpload({ onFile }) {
   return (
-    <div>
-        <DdaAttachFile
-            label="Attach File"
-            helper_text="Helper or footer text"
-            error_message=""
-            size="default"
-            validation_type="normal"
-            input_type="normal"
-            custom_class=""
-            component_mode=""
-            onchange=""
-            input_id="input"
-            button_id="button"
-            aria_label="input"
-            button_aria_label="button"
-        ></DdaAttachFile>
-    </div>
- )
+    <DdaAttachFile
+      input_id="trade-licence"
+      input_name="trade_licence"
+      label="Trade licence"
+      helper_text="Upload a PDF of your trade licence."
+      button_aria_label="Remove file"
+      onInput={e => onFile(e.target.files?.[0])}
+    />
+  );
 }
 ```
 
-### Usage in Vue
+### Vue
 
-```jsx
-<script>
+```html
+<script setup>
+import { DdaAttachFile } from '@dubai-design-system/components-vue';
 
-
-import { DdaAttachFile } from '@dubai-design-system/components-vue'
-
+const onFile = event => console.log(event.target.files?.[0]);
 </script>
 
 <template>
-    <div>
-        <DdaAttachFile
-            label="Attach File"
-            helper_text="Helper or footer text"
-            error_message=""
-            size="default"
-            validation_type="normal"
-            input_type="normal"
-            custom_class=""
-            component_mode=""
-            onchange=""
-            input_id="input"
-            button_id="button"
-            aria_label="input"
-            button_aria_label="button"
-        ></DdaAttachFile>
-    </div>
+  <DdaAttachFile
+    input_id="trade-licence"
+    input_name="trade_licence"
+    label="Trade licence"
+    helper_text="Upload a PDF of your trade licence."
+    button_aria_label="Remove file"
+    @input="onFile"
+  />
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-attach-file
-    label="Attach File"
-    helper_text="Helper or footer text"
-    error_message=""
-    size="default"
-    validation_type="normal"
-    input_type="normal"
-    custom_class=""
-    component_mode=""
-    onchange=""
-    input_id="input"
-    button_id="button"
-    aria_label="input"
-    button_aria_label="button"
+  input_id="trade-licence"
+  input_name="trade_licence"
+  label="Trade licence"
+  helper_text="Upload a PDF of your trade licence."
+  button_aria_label="Remove file"
+  (input)="onFile($event)"
 ></dda-attach-file>
 ```
+
+## States
+
+- **Error:** set `validation_type="error"` and `error_message`. The file input gets `aria-invalid="true"`.
+- **Disabled look:** set `input_type="disabled"`. This changes only the look; the file input stays usable.
+- **Small:** set `size="small"`.
+
+## Notes
+
+- Keep the file from the `input` event. After a file is chosen, the component removes the
+  file input from the page, so a native form submit does not include the file.
+- The file icon matches the file extension: `pdf`, `pptx`, `docx`, `xlsx`, `png`, `jpg`,
+  `jpeg`, `mp4`, `mkv` and `one`.
+- Set `input_id` so the label, helper text and error message are linked to the file input.
+- Set `button_aria_label` so the icon-only remove button has an accessible name.

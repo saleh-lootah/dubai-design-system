@@ -6,22 +6,39 @@ import { Component, Prop, h, Host, Watch } from '@stencil/core';
   shadow: false,
 })
 export class DdaPagination {
+  /** Number of pages. Values below 1 become 1. */
   @Prop() total_pages: number = 8;
+  /** Selected page, counted from 1. Kept between 1 and `total_pages`; updates when the user changes the page. */
   @Prop() current_page: number = 1;
+  /** Layout: `simple-slider`, `buttons`, `text`, `text-pages`, `button-text`, `buttons-pages` or `full`. */
   @Prop() type: 'simple-slider' | 'buttons' | 'text' | 'text-pages' | 'button-text' | 'buttons-pages' | 'full' = 'simple-slider';
+  /** Extra CSS classes added to the pagination element. */
   @Prop() custom_class: string = '';
+  /** Theme override class on the pagination element, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
+  /** `name` of the previous page button when `type` is `simple-slider`. */
   @Prop() simple_slider_prev_button: string;
+  /** `name` of the next page button when `type` is `simple-slider`. */
   @Prop() simple_slider_next_button: string;
+  /** `name` of the previous page button when `type` is `buttons`. */
   @Prop() buttons_prev_button: string;
+  /** `name` of the next page button when `type` is `buttons`. */
   @Prop() buttons_next_button: string;
+  /** `name` of the previous page button when `type` is `text`. */
   @Prop() text_prev_button: string;
+  /** `name` of the next page button when `type` is `text`. */
   @Prop() text_next_button: string;
+  /** `name` of the previous page button when `type` is `text-pages`. */
   @Prop() text_pages_prev_button: string;
+  /** `name` of the next page button when `type` is `text-pages`. */
   @Prop() text_pages_next_button: string;
+  /** `name` of the previous page button when `type` is `button-text`. */
   @Prop() button_text_prev_button: string;
+  /** `name` of the next page button when `type` is `button-text`. */
   @Prop() button_text_next_button: string;
+  /** `name` of the previous page button when `type` is `buttons-pages`. */
   @Prop() buttons_pages_prev_button: string;
+  /** `name` of the next page button when `type` is `buttons-pages`. */
   @Prop() buttons_pages_next_button: string;
 
   @Watch('total_pages')

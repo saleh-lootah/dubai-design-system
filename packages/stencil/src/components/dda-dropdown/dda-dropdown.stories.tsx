@@ -12,10 +12,6 @@ export default {
       options: ['bg-transparent', 'bg-white'],
       description: 'Type of the dropdown field',
     },
-    placeholder: {
-      control: 'text',
-      description: 'Placeholder text for the dropdown field',
-    },
     label: {
       control: 'text',
       description: 'Label for the dropdown field',

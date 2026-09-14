@@ -1,94 +1,124 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Credit Card Field/Documentation" />
 
-# Credit Card
-The `dda-creditcard-field` component is a customizable button element that can be used in various UI scenarios
+# Credit Card Field
 
-### Usage in React
+The `dda-creditcard-field` component renders a labelled text input for a card number. It
+accepts digits only and shows them in groups of four, separated by ` - `. It can show a card
+icon, helper text and an error message.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-creditcard-field
+  input_id="card-number"
+  input_name="card_number"
+  label="Card number"
+  placeholder="0000 - 0000 - 0000 - 0000"
+  card_icon="/images/card-icon.svg"
+  helper_text="Enter the 16-digit number on the front of your card."
+></dda-creditcard-field>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-creditcard-field.js';
+
+const field = document.querySelector('dda-creditcard-field');
+
+// The component has no custom events. The native `input` event of the inner
+// <input> bubbles to the host; `field.value` holds the entered card number.
+field.addEventListener('input', () => console.log(field.value));
+
+// Show an error
+field.validation_type = 'error';
+field.error_message = 'Enter a valid card number.';
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaCreditcardField } from "@dubai-design-system/components-react";
+import { DdaCreditcardField } from '@dubai-design-system/components-react';
 
-
-const App = () => {
+export function CardNumberField() {
   return (
-    <div>
-        <DdaCreditcardField
-            placeholder="0000 - 0000 - 0000 - 0000"
-            label="Card Number"
-            restrict_input="false"
-            value=""
-            card_icon="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
-            size="default"
-            helper_text="Helper or footer text"
-            error_message=""
-            validation_type="normal"
-            custom_class=""
-            component_mode=""
-            input_id="input"
-            aria_label="credit-card-field"
-            autocomplete="cc-number"
-            onchange="console.log('changed')"
-        ></DdaCreditcardField>
-    </div>
- )
+    <DdaCreditcardField
+      input_id="card-number"
+      input_name="card_number"
+      label="Card number"
+      placeholder="0000 - 0000 - 0000 - 0000"
+      card_icon="/images/card-icon.svg"
+      helper_text="Enter the 16-digit number on the front of your card."
+      onInput={e => console.log(e.currentTarget.value)}
+    />
+  );
 }
 ```
 
-### Usage in Vue
+### Vue
 
-```jsx
-<script>
-
-
-import { DdaCreditcardField } from '@dubai-design-system/components-vue'
-
+```html
+<script setup>
+import { DdaCreditcardField } from '@dubai-design-system/components-vue';
 </script>
 
 <template>
-    <div>
-        <DdaCreditcardField
-            placeholder="0000 - 0000 - 0000 - 0000"
-            label="Card Number"
-            restrict_input="false"
-            value=""
-            card_icon="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
-            size="default"
-            helper_text="Helper or footer text"
-            error_message=""
-            validation_type="normal"
-            custom_class=""
-            component_mode=""
-            input_id="input"
-            aria_label="credit-card-field"
-            autocomplete="cc-number"
-            onchange="console.log('changed')"
-        ></DdaCreditcardField>
-    </div>
+  <DdaCreditcardField
+    input_id="card-number"
+    input_name="card_number"
+    label="Card number"
+    placeholder="0000 - 0000 - 0000 - 0000"
+    card_icon="/images/card-icon.svg"
+    helper_text="Enter the 16-digit number on the front of your card."
+    @input="e => console.log(e.currentTarget.value)"
+  />
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-creditcard-field
-    placeholder="0000 - 0000 - 0000 - 0000"
-    label="Card Number"
-    restrict_input="false"
-    value=""
-    card_icon="https://www.mastercard.com/content/dam/public/brandcenter/assets/images/logos/mclogo-for-footer.svg"
-    size="default"
-    helper_text="Helper or footer text"
-    error_message=""
-    validation_type="normal"
-    custom_class=""
-    component_mode=""
-    input_id="input"
-    aria_label="credit-card-field"
-    autocomplete="cc-number"
-    onchange="console.log('changed')"
+  input_id="card-number"
+  input_name="card_number"
+  label="Card number"
+  placeholder="0000 - 0000 - 0000 - 0000"
+  card_icon="/images/card-icon.svg"
+  helper_text="Enter the 16-digit number on the front of your card."
+  (input)="onCardNumberInput($event)"
 ></dda-creditcard-field>
 ```
+
+## States
+
+- **Error:** set `validation_type="error"` and `error_message`. The input gets `aria-invalid="true"`.
+- **Disabled:** set `disabled`. The `input_type="disabled"` value changes only the look; it does not disable the input.
+- **Small:** set `size="small"`.
+
+## Accessibility
+
+- Set `input_id`. The component uses it to link the label, and to link the helper text and
+  error message to the input through `aria-describedby`.
+- The input has `inputmode="numeric"` and `autocomplete="cc-number"` by default.
+- Use `aria_label` only when the field has no visible `label`.

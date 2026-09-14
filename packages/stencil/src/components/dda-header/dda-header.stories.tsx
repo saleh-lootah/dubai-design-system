@@ -63,7 +63,7 @@ To use the \`dda-header\` component, pass the following props:
     second-logo-white-src="digital-logo-white.svg"
     second-logo-alt="Dubai-Digital-Authority"
     login-link="/login"
-    readSpeakerLink=""
+    read-speaker-link=""
     language_text="العربية"
     hamburger_menu_button_name="hamburger_menu_button_name"
     accessibility_button_name="accessibility_button_name"
@@ -73,15 +73,7 @@ To use the \`dda-header\` component, pass the following props:
     close_menu_button_name="close_menu_button_name"
     close_accessibility_button_name="close_accessibility_button_name"
     close_sidebar_button_name="close_sidebar_button_name"
-    toggle_accessibility_button_name="toggle_accessibility_button_name"
-    languageswitch="() => console.log('Language Switcher')"
-    smtextsize="() => console.log('Small Text')"
-    basetextsize="() => console.log('Base Text')"
-    lgtextsize="() => console.log('Large Text')"
-    normalcontrast="() => console.log('Normal Text')"
-    blindcontrast="() => console.log('Blind Text')"
-    redcontrast="() => console.log('Red Text')"
-    greencontrast="() => console.log('Green Text')">
+    toggle_accessibility_button_name="toggle_accessibility_button_name">
 </dda-header>
   \`\`\`
 `,
@@ -110,15 +102,7 @@ const Template = args => `
       close_accessibility_button_name="${args.close_accessibility_button_name}"
       close_sidebar_button_name="${args.close_sidebar_button_name}"
       toggle_accessibility_button_name="${args.toggle_accessibility_button_name}"
-      readSpeakerLink="app-eu.readspeaker.com"
-      languageSwitch="() => console.log('Language Switcher')"
-      smTextSize="() => console.log('Small Text')"
-      baseTextSize="() => console.log('Base Text')"
-      lgTextSize="() => console.log('Large Text')"
-       normalContrast="() => console.log('Normal Text')"
-        blindContrast="() => console.log('Blind Text')"
-         redContrast="() => console.log('Red Text')"
-          greenContrast="() => console.log('Green Text')"
+      read-speaker-link="${args.readSpeakerLink}"
       quick-links='${JSON.stringify(args.quickLinks)}'
       side-menu-items='${JSON.stringify(args.sideMenuItems)}'
     ></dda-header>

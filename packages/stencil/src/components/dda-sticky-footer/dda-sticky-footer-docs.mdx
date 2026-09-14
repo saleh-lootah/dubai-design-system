@@ -1,220 +1,156 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Sticky Footer/Documentation" />
 
 # Sticky Footer
-The `dda-sticky-footer` component is customizable that can be used in various UI scenarios
 
-#### Usage in React
+The `dda-sticky-footer` component renders a bar fixed to the bottom of the page with three groups of
+icon links: happiness, accessibility and services on the left; up to three logos in the middle;
+location, news, AI assistant and chat on the right. Each icon is an image link with a tooltip. The
+bar hides while the user scrolls down and shows again when they scroll up.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-sticky-footer
+  happiness-icon-href="/feedback"
+  happiness-icon-src="/img/icn-happy.svg"
+  happiness-icon-alt="Rate your experience"
+  happiness-icon-tooltip="Happiness"
+  accessibility-icon-href="/complaints"
+  accessibility-icon-src="/img/icn-complaints.svg"
+  accessibility-icon-alt="Suggestions and complaints"
+  accessibility-icon-tooltip="Suggestions and complaints"
+  services-icon-href="/services"
+  services-icon-src="/img/icn-grid-view.svg"
+  services-icon-alt="Services"
+  services-icon-tooltip="Services"
+  services-icon-text="Services"
+  hide-middle-section="false"
+  first-logo-href="/"
+  first-logo-src="/img/entity-logo.svg"
+  first-logo-alt="Dubai Digital Authority"
+  first-logo-tooltip="Dubai Digital Authority"
+  location-button-href="/locations"
+  location-logo-src="/img/icn-location-pin.svg"
+  location-button-text="Locations"
+  news-button-href="/news"
+  news-button-src="/img/icn-news.svg"
+  news-button-text="News"
+  chat-icon-href="/chat"
+  chat-icon-src="/img/icn-chat.svg"
+  chat-icon-alt="Online chat"
+  chat-icon-tooltip="Online chat"
+></dda-sticky-footer>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-sticky-footer.js';
+
+const bar = document.querySelector('dda-sticky-footer');
+bar.hideMiddleSection = true;
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaStickyFooter } from "@dubai-design-system/components-react";
+import { DdaStickyFooter } from '@dubai-design-system/components-react';
 
-
-
-const App = () => {
+export function ServiceBar() {
   return (
-<DdaStickyFooter
-      class="hydrated"
-
-      /** Left Section Props */
-      leftIconHref="#"
-      leftIconSrc="https://via.placeholder.com/24"
-      leftIconAlt="Left Icon 1"
-      leftIconTooltip="Tooltip for Left Icon 1"
-
-      leftIcon2Href="#"
-      leftIcon2Src="https://via.placeholder.com/24"
-      leftIcon2Alt="Left Icon 2"
-      leftIcon2Tooltip="Tooltip for Left Icon 2"
-
-      leftIcon3Href="#"
-      leftIcon3Src="https://via.placeholder.com/24"
-      leftIcon3Alt="Left Icon 3"
-      leftIcon3Tooltip="Tooltip for Left Icon 3"
-      leftIcon3Text="Services"
-
-      /** Middle Section Props */
-      middleLogo1Href="#"
-      middleLogo1Src="https://via.placeholder.com/100"
-      middleLogo1Alt="Middle Logo 1"
-      middleLogo1Tooltip="Tooltip for Middle Logo 1"
-
-      middleLogo2Href="#"
-      middleLogo2Src="https://via.placeholder.com/100"
-      middleLogo2Alt="Middle Logo 2"
-      middleLogo2Tooltip="Tooltip for Middle Logo 2"
-
-      middleLogo3Href="#"
-      middleLogo3Src="https://via.placeholder.com/100"
-      middleLogo3Alt="Middle Logo 3"
-      middleLogo3Tooltip="Tooltip for Middle Logo 3"
-
-      /** Right Section Props */
-      rightButton1Href="#"
-      rightButton1Text="Location"
-      rightButton1Icon="https://via.placeholder.com/16"
-
-      rightButton2Href="#"
-      rightButton2Text="Support"
-      rightButton2Icon="https://via.placeholder.com/16"
-
-      rightButton3Href="#"
-      rightButton3Text="Contact"
-      rightButton3Icon="https://via.placeholder.com/16"
-
-      rightIcon1Href="#"
-      rightIcon1Src="https://via.placeholder.com/24"
-      rightIcon1Alt="Right Icon 1"
-      rightIcon1Tooltip="Tooltip for Right Icon 1"
-
-      rightIcon2Href="#"
-      rightIcon2Src="https://via.placeholder.com/24"
-      rightIcon2Alt="Right Icon 2"
-      rightIcon2Tooltip="Tooltip for Right Icon 2"
+    <DdaStickyFooter
+      happinessIconHref="/feedback"
+      happinessIconSrc="/img/icn-happy.svg"
+      happinessIconAlt="Rate your experience"
+      happinessIconTooltip="Happiness"
+      servicesIconHref="/services"
+      servicesIconSrc="/img/icn-grid-view.svg"
+      servicesIconAlt="Services"
+      servicesIconTooltip="Services"
+      hideMiddleSection={true}
+      chatIconHref="/chat"
+      chatIconSrc="/img/icn-chat.svg"
+      chatIconAlt="Online chat"
+      chatIconTooltip="Online chat"
     />
- )
+  );
 }
 ```
 
-#### Usage in Vue
+### Vue
 
-```jsx
-<script>
-
-
-import { DdaStickyFooter } from '@dubai-design-system/components-vue'
-
+```html
+<script setup>
+import { DdaStickyFooter } from '@dubai-design-system/components-vue';
 </script>
 
 <template>
-    <div>
-     <DdaStickyFooter
-       class="hydrated"
-             /** Left Section Props */
-      leftIconHref="#"
-      leftIconSrc="https://via.placeholder.com/24"
-      leftIconAlt="Left Icon 1"
-      leftIconTooltip="Tooltip for Left Icon 1"
-
-      leftIcon2Href="#"
-      leftIcon2Src="https://via.placeholder.com/24"
-      leftIcon2Alt="Left Icon 2"
-      leftIcon2Tooltip="Tooltip for Left Icon 2"
-
-      leftIcon3Href="#"
-      leftIcon3Src="https://via.placeholder.com/24"
-      leftIcon3Alt="Left Icon 3"
-      leftIcon3Tooltip="Tooltip for Left Icon 3"
-      leftIcon3Text="Services"
-
-      /** Middle Section Props */
-      middleLogo1Href="#"
-      middleLogo1Src="https://via.placeholder.com/100"
-      middleLogo1Alt="Middle Logo 1"
-      middleLogo1Tooltip="Tooltip for Middle Logo 1"
-
-      middleLogo2Href="#"
-      middleLogo2Src="https://via.placeholder.com/100"
-      middleLogo2Alt="Middle Logo 2"
-      middleLogo2Tooltip="Tooltip for Middle Logo 2"
-
-      middleLogo3Href="#"
-      middleLogo3Src="https://via.placeholder.com/100"
-      middleLogo3Alt="Middle Logo 3"
-      middleLogo3Tooltip="Tooltip for Middle Logo 3"
-
-      /** Right Section Props */
-      rightButton1Href="#"
-      rightButton1Text="Location"
-      rightButton1Icon="https://via.placeholder.com/16"
-
-      rightButton2Href="#"
-      rightButton2Text="Support"
-      rightButton2Icon="https://via.placeholder.com/16"
-
-      rightButton3Href="#"
-      rightButton3Text="Contact"
-      rightButton3Icon="https://via.placeholder.com/16"
-
-      rightIcon1Href="#"
-      rightIcon1Src="https://via.placeholder.com/24"
-      rightIcon1Alt="Right Icon 1"
-      rightIcon1Tooltip="Tooltip for Right Icon 1"
-
-      rightIcon2Href="#"
-      rightIcon2Src="https://via.placeholder.com/24"
-      rightIcon2Alt="Right Icon 2"
-      rightIcon2Tooltip="Tooltip for Right Icon 2"
-></DdaStickyFooter>
-
-    </div>
+  <DdaStickyFooter
+    happinessIconHref="/feedback"
+    happinessIconSrc="/img/icn-happy.svg"
+    happinessIconAlt="Rate your experience"
+    happinessIconTooltip="Happiness"
+    servicesIconHref="/services"
+    servicesIconSrc="/img/icn-grid-view.svg"
+    servicesIconAlt="Services"
+    servicesIconTooltip="Services"
+    :hideMiddleSection="true"
+    chatIconHref="/chat"
+    chatIconSrc="/img/icn-chat.svg"
+    chatIconAlt="Online chat"
+    chatIconTooltip="Online chat"
+  />
 </template>
-
 ```
 
-#### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-sticky-footer
-       class="hydrated"
-             /** Left Section Props */
-      leftIconHref="#"
-      leftIconSrc="https://via.placeholder.com/24"
-      leftIconAlt="Left Icon 1"
-      leftIconTooltip="Tooltip for Left Icon 1"
-
-      leftIcon2Href="#"
-      leftIcon2Src="https://via.placeholder.com/24"
-      leftIcon2Alt="Left Icon 2"
-      leftIcon2Tooltip="Tooltip for Left Icon 2"
-
-      leftIcon3Href="#"
-      leftIcon3Src="https://via.placeholder.com/24"
-      leftIcon3Alt="Left Icon 3"
-      leftIcon3Tooltip="Tooltip for Left Icon 3"
-      leftIcon3Text="Services"
-
-      /** Middle Section Props */
-      middleLogo1Href="#"
-      middleLogo1Src="https://via.placeholder.com/100"
-      middleLogo1Alt="Middle Logo 1"
-      middleLogo1Tooltip="Tooltip for Middle Logo 1"
-
-      middleLogo2Href="#"
-      middleLogo2Src="https://via.placeholder.com/100"
-      middleLogo2Alt="Middle Logo 2"
-      middleLogo2Tooltip="Tooltip for Middle Logo 2"
-
-      middleLogo3Href="#"
-      middleLogo3Src="https://via.placeholder.com/100"
-      middleLogo3Alt="Middle Logo 3"
-      middleLogo3Tooltip="Tooltip for Middle Logo 3"
-
-      /** Right Section Props */
-      rightButton1Href="#"
-      rightButton1Text="Location"
-      rightButton1Icon="https://via.placeholder.com/16"
-
-      rightButton2Href="#"
-      rightButton2Text="Support"
-      rightButton2Icon="https://via.placeholder.com/16"
-
-      rightButton3Href="#"
-      rightButton3Text="Contact"
-      rightButton3Icon="https://via.placeholder.com/16"
-
-      rightIcon1Href="#"
-      rightIcon1Src="https://via.placeholder.com/24"
-      rightIcon1Alt="Right Icon 1"
-      rightIcon1Tooltip="Tooltip for Right Icon 1"
-
-      rightIcon2Href="#"
-      rightIcon2Src="https://via.placeholder.com/24"
-      rightIcon2Alt="Right Icon 2"
-      rightIcon2Tooltip="Tooltip for Right Icon 2"
+  happiness-icon-href="/feedback"
+  happiness-icon-src="/img/icn-happy.svg"
+  happiness-icon-alt="Rate your experience"
+  happiness-icon-tooltip="Happiness"
+  services-icon-href="/services"
+  services-icon-src="/img/icn-grid-view.svg"
+  services-icon-alt="Services"
+  services-icon-tooltip="Services"
+  [hideMiddleSection]="true"
+  chat-icon-href="/chat"
+  chat-icon-src="/img/icn-chat.svg"
+  chat-icon-alt="Online chat"
+  chat-icon-tooltip="Online chat"
 ></dda-sticky-footer>
-
-
 ```
+
+## Behaviour
+
+- **Middle section.** The logos show only when `hide-middle-section` is set to `false`. If you do
+  not set it, the middle section is hidden.
+- **Every icon renders.** The component always renders all icon slots. Set the `src`, `alt` and
+  tooltip of each icon you use; an icon without a `src` shows as an empty link.
+- **Hide on scroll.** While the page scrolls down the bar hides and becomes `inert`; scrolling up
+  shows it again.
+- **Page layout.** The component sets the CSS variable `--dda-sticky-footer-height` on `<html>` to
+  the bar's height, so content fixed above the bar can clear it.

@@ -6,14 +6,23 @@ import { Component, Prop, h, Host, Event, EventEmitter } from '@stencil/core';
   shadow: false,
 })
 export class DdaUiCard {
+  /** `default` renders the icon, image, title, subtitle and link from props before the slot; `custom` renders only the slot. */
   @Prop() type: 'default' | 'custom' = 'default';
+  /** Material Icons name shown at the top of the card, e.g. `description`. */
   @Prop() icon: string = '';
+  /** URL of an image shown at the top of the card. Its alt text is `maintitle`. */
   @Prop() image: string = '';
+  /** Card title, rendered as an `<h1>`. */
   @Prop() maintitle: string = '';
+  /** Muted text shown below the title. */
   @Prop() subtitle: string = '';
+  /** URL of the card link. The link shows only when this is set. */
   @Prop() link: string = '';
+  /** Text of the card link. */
   @Prop() linktext: string = '';
+  /** Material Icons name shown after the link text. Set it to an empty string to hide the icon. */
   @Prop() linkicon: string = 'arrow_forward';
+  /** Declared but never emitted by the current version. Listen for the native `click` event on the link instead. */
   @Event() linkClick?: EventEmitter<void>;
 
   render() {

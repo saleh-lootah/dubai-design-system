@@ -1,62 +1,94 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Accordion/Documentation" />
 
 # Accordion
-The `dda-accordion` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-accordion` component shows a header button with an icon and a collapsible panel. Select the
+header to open or close the panel. The panel shows `body_description` and any content you put
+between the tags.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-accordion
+  design="bg-border"
+  accordion_icon="description"
+  header_text="Which documents do I need?"
+  body_description="Bring a valid Emirates ID and a copy of your trade licence."
+></dda-accordion>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-accordion.js';
+
+const accordion = document.querySelector('dda-accordion');
+accordion.header_text = 'Which documents do I need?';
+accordion.body_description = 'Bring a valid Emirates ID and a copy of your trade licence.';
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaAccordion } from "@dubai-design-system/components-react";
+import { DdaAccordion } from '@dubai-design-system/components-react';
 
-
-const App = () => {
+export function DocumentsFaq() {
   return (
-    <div>
-        <DdaAccordion 
-        design="bg-border" 
-        header_text="Accordion Header" 
-        body_description="This is the accordion body content." 
-        custom_class="" 
-        component_mode="">
-        </DdaAccordion>
-    </div>
- )
+    <DdaAccordion
+      design="bg-border"
+      accordion_icon="description"
+      header_text="Which documents do I need?"
+      body_description="Bring a valid Emirates ID and a copy of your trade licence."
+    />
+  );
 }
 ```
 
-### Usage in Vue
+### Vue
 
-```jsx
-<script>
-
-import { DdaAccordion } from '@dubai-design-system/components-vue'
-
+```html
+<script setup>
+import { DdaAccordion } from '@dubai-design-system/components-vue';
 </script>
 
 <template>
-    <div>
-        <DdaAccordion 
-        design="bg-border" 
-        header_text="Accordion Header" 
-        body_description="This is the accordion body content." 
-        custom_class="" 
-        component_mode="">
-        </DdaAccordion>
-    </div>
+  <DdaAccordion
+    design="bg-border"
+    accordion_icon="description"
+    header_text="Which documents do I need?"
+    body_description="Bring a valid Emirates ID and a copy of your trade licence."
+  />
 </template>
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
-<dda-accordion 
-  design="bg-border" 
-  header_text="Accordion Header" 
-  body_description="This is the accordion body content." 
-  custom_class="" 
-  component_mode="">
-</dda-accordion>
+```html
+<dda-accordion
+  design="bg-border"
+  accordion_icon="description"
+  header_text="Which documents do I need?"
+  body_description="Bring a valid Emirates ID and a copy of your trade licence."
+></dda-accordion>
 ```

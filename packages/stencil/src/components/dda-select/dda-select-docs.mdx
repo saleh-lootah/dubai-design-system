@@ -1,84 +1,136 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Select/Documentation" />
 
 # Select
-The `dda-select` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-select` component renders a labelled trigger button that opens a list of options. Pass
+the options as a JSON array string and read the chosen value from the `selected` property.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-select
+  button_id="emirate"
+  label="Emirate"
+  helper_text="Select the emirate of your residence"
+  options='["Dubai","Abu Dhabi","Sharjah"]'
+></dda-select>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-select.js';
+
+const select = document.querySelector('dda-select');
+select.options = JSON.stringify(['Dubai', 'Abu Dhabi', 'Sharjah']);
+
+// The component does not emit a change event. Read the `selected` property when you need the value.
+document.querySelector('#continue').addEventListener('click', () => {
+  console.log('Emirate:', select.selected);
+});
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaSelect } from "@dubai-design-system/components-react";
+import { useRef } from 'react';
+import { DdaSelect } from '@dubai-design-system/components-react';
 
+export function EmirateSelect() {
+  const select = useRef(null);
 
-
-
-const App = () => {
   return (
-    <div>
-        <DdaSelect
-            label="Select an option"
-            selected="Option 1"
-            disabled="false"
-            helper_text="Helper or footer text"
-            error_message=""
-            size="default"
-            custom_class=""
-            component_mode=""
-            button_id="button"
-            aria_label="select"
-            options='["Option 1","Option 2","Option 3"]'
-        ></DdaSelect>
-    </div>
- )
+    <>
+      <DdaSelect
+        ref={select}
+        button_id="emirate"
+        label="Emirate"
+        helper_text="Select the emirate of your residence"
+        options={JSON.stringify(['Dubai', 'Abu Dhabi', 'Sharjah'])}
+      />
+      <button type="button" onClick={() => console.log('Emirate:', select.current.selected)}>Continue</button>
+    </>
+  );
 }
 ```
 
-### Usage in Vue
+### Vue
 
-```jsx
-<script>
+```html
+<script setup>
+import { ref } from 'vue';
+import { DdaSelect } from '@dubai-design-system/components-vue';
 
-
-import { DdaSelect } from '@dubai-design-system/components-vue'
-
+const select = ref(null);
+const options = JSON.stringify(['Dubai', 'Abu Dhabi', 'Sharjah']);
 </script>
 
 <template>
-    <div>
-        <DdaSelect
-            label="Select an option"
-            selected="Option 1"
-            disabled="false"
-            helper_text="Helper or footer text"
-            error_message=""
-            size="default"
-            custom_class=""
-            component_mode=""
-            button_id="button"
-            aria_label="select"
-            options='["Option 1","Option 2","Option 3"]'
-        ></DdaSelect>
-    </div>
+  <DdaSelect
+    ref="select"
+    button_id="emirate"
+    label="Emirate"
+    helper_text="Select the emirate of your residence"
+    :options="options"
+  />
+  <button type="button" @click="console.log('Emirate:', select.$el.selected)">Continue</button>
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-select
-    label="Select an option"
-    selected="Option 1"
-    disabled="false"
-    helper_text="Helper or footer text"
-    error_message=""
-    size="default"
-    custom_class=""
-    component_mode=""
-    button_id="button"
-    aria_label="select"
-    options='["Option 1","Option 2","Option 3"]'
+  #emirate
+  button_id="emirate"
+  label="Emirate"
+  helper_text="Select the emirate of your residence"
+  options='["Dubai","Abu Dhabi","Sharjah"]'
+></dda-select>
+<button type="button" (click)="saveEmirate(emirate.selected)">Continue</button>
+```
+
+## Errors
+
+Set `error="error"` to show the error styling and `error_message` to show the message. The message
+is linked to the trigger with `aria-describedby`, and the trigger gets `aria-invalid="true"`.
+
+```html
+<dda-select
+  button_id="emirate"
+  label="Emirate"
+  options='["Dubai","Abu Dhabi","Sharjah"]'
+  error="error"
+  error_message="Select an emirate"
 ></dda-select>
 ```
+
+## Keyboard
+
+- **Arrow Down / Arrow Up** on the trigger opens the list and moves focus to the selected option.
+- **Arrow Down / Arrow Up, Home, End** move between options.
+- **Enter / Space** selects the focused option and returns focus to the trigger.
+- **Escape** closes the list. **Tab** closes the list and moves focus on.
+
+Set a unique `button_id`. The component uses it for the list, helper text and error message ids.

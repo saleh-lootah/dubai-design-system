@@ -26,51 +26,51 @@ export default {
     },
     simple_slider_prev_button: {
       control: { type: 'text' },
-      description: 'Text for the previous button in simple slider mode',
+      description: '`name` of the previous button when type is simple-slider',
     },
     simple_slider_next_button: {
       control: { type: 'text' },
-      description: 'Text for the next button in simple slider mode',
+      description: '`name` of the next button when type is simple-slider',
     },
     buttons_prev_button: {
       control: { type: 'text' },
-      description: 'Text for the previous button in buttons mode',
+      description: '`name` of the previous button when type is buttons',
     },
     buttons_next_button: {
       control: { type: 'text' },
-      description: 'Text for the next button in buttons mode',
+      description: '`name` of the next button when type is buttons',
     },
     text_prev_button: {
       control: { type: 'text' },
-      description: 'Text for the previous button in text mode',
+      description: '`name` of the previous button when type is text',
     },
     text_next_button: {
       control: { type: 'text' },
-      description: 'Text for the next button in text mode',
+      description: '`name` of the next button when type is text',
     },
     text_pages_prev_button: {
       control: { type: 'text' },
-      description: 'Text for the previous button in text-pages mode',
+      description: '`name` of the previous button when type is text-pages',
     },
     text_pages_next_button: {
       control: { type: 'text' },
-      description: 'Text for the next button in text-pages mode',
+      description: '`name` of the next button when type is text-pages',
     },
     button_text_prev_button: {
       control: { type: 'text' },
-      description: 'Text for the previous button in button-text mode',
+      description: '`name` of the previous button when type is button-text',
     },
     button_text_next_button: {
       control: { type: 'text' },
-      description: 'Text for the next button in button-text mode',
+      description: '`name` of the next button when type is button-text',
     },
     buttons_pages_prev_button: {
       control: { type: 'text' },
-      description: 'Text for the previous button in buttons-pages mode',
+      description: '`name` of the previous button when type is buttons-pages',
     },
     buttons_pages_next_button: {
       control: { type: 'text' },
-      description: 'Text for the next button in buttons-pages mode',
+      description: '`name` of the next button when type is buttons-pages',
     },
   },
   parameters: {
@@ -86,18 +86,18 @@ To use the \`dda-pagination\` component, pass the following props:
     type="simple-slider"
     custom_class=""
     component_mode=""
-    simple_slider_prev_button: ""
-    simple_slider_next_button: ""
-    buttons_prev_button: ""
-    buttons_next_button: ""
-    text_prev_button: ""
-    text_next_button: ""
-    text_pages_prev_button: ""
-    text_pages_next_button: ""
-    button_text_prev_button: ""
-    button_text_next_button: ""
-    buttons_pages_prev_button: ""
-    buttons_pages_next_button: ""
+    simple_slider_prev_button=""
+    simple_slider_next_button=""
+    buttons_prev_button=""
+    buttons_next_button=""
+    text_prev_button=""
+    text_next_button=""
+    text_pages_prev_button=""
+    text_pages_next_button=""
+    button_text_prev_button=""
+    button_text_next_button=""
+    buttons_pages_prev_button=""
+    buttons_pages_next_button=""
 ></dda-pagination>
   \`\`\`
 `,

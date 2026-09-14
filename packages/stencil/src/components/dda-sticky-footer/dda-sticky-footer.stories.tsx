@@ -67,7 +67,7 @@ const Template = args => `
     news-button-href="${args.newsButtonHref}"
     news-button-text="${args.newsButtonText}"
     news-button-icon="${args.newsButtonIcon}"
-    news-logo-src="${args.newsButtonSrc}"
+    news-button-src="${args.newsButtonSrc}"
 
     ai-icon-href="${args.aiIconHref}"
     ai-icon-src="${args.aiIconSrc}"

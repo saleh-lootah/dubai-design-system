@@ -6,13 +6,20 @@ import { Component, Prop, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaCreditCard {
+  /** Balance text shown under the fixed "Current Balance" label, e.g. `AED 5,750.20`. */
   @Prop() balance: string;
+  /** Card holder name. */
   @Prop() name: string;
+  /** Card number. Only the last four characters are shown, after `****`. Required: the card fails to render without it. */
   @Prop() card_number: string;
+  /** URL of the card type image (e.g. a card brand logo) shown at the bottom end of the card. */
   @Prop() card_type: string;
+  /** Background design: `default`, `green` or `dark`. */
   @Prop() design: string;
-  @Prop() custom_class?: string = ''; 
-  @Prop() component_mode?: string; 
+  /** Extra CSS classes added to the card container. */
+  @Prop() custom_class?: string = '';
+  /** Theme override class for the card, e.g. `light-mode`. */
+  @Prop() component_mode?: string;
 
   render() {
     const cardClass = [

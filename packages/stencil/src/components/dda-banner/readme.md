@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property        | Attribute       | Description | Type     | Default     |
-| --------------- | --------------- | ----------- | -------- | ----------- |
-| `slider_height` | `slider_height` |             | `string` | `undefined` |
-| `slider_width`  | `slider_width`  |             | `string` | `undefined` |
-| `slides`        | `slides`        |             | `string` | `undefined` |
+| Property        | Attribute       | Description                                                                                                                                     | Type     | Default     |
+| --------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `slider_height` | `slider_height` | CSS height of each slide image, e.g. `220px`.                                                                                                   | `string` | `undefined` |
+| `slider_width`  | `slider_width`  | CSS width of each slide image, e.g. `360px`.                                                                                                    | `string` | `undefined` |
+| `slides`        | `slides`        | Slide images. JSON array of `{ image, title }`; `image` is the image URL and `title` its alternative text. Read once, when the component loads. | `string` | `undefined` |
 
 
 ----------------------------------------------

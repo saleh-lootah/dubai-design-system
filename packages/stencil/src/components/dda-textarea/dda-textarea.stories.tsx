@@ -57,10 +57,6 @@ export default {
       control: { type: 'text' },
       description: 'Aria label for the textarea field'
     },
-    onchange: {
-      control: { type: 'text' },
-      description: 'onchange event for the textarea field',
-    },
     textarea_name: {
       control: { type: 'text' },
       description: 'Name of the textarea field',
@@ -84,7 +80,6 @@ export default {
     component_mode=""
     input_id="input"
     aria_label="textarea"
-    onchange="console.log('changed')"
     textarea_name="textarea-name"
 ></dda-textarea>
   \`\`\`
@@ -115,7 +110,6 @@ Default.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'textarea',
-  onchange: '',
   textarea_name: "textarea-name",
 };
 
@@ -131,7 +125,6 @@ WithErrorMessage.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'textarea',
-  onchange: '',
   textarea_name: "textarea-name",
 };
 
@@ -147,7 +140,6 @@ Disabled.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'textarea',
-  onchange: '',
   textarea_name: "textarea-name",
 };
 export const RichEditorEnabled = Template.bind({});
@@ -162,7 +154,6 @@ RichEditorEnabled.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'textarea',
-  onchange: '',
   textarea_name: "textarea-name",
 };
 

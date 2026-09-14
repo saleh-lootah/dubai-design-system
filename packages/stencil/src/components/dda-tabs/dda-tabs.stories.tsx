@@ -33,10 +33,6 @@ export default {
       control: { type: 'array' },
       description: 'Array of tab labels',
     },
-    onTabClick: {
-      action: 'tab-clicked',
-      description: 'Callback function when a tab is clicked',
-    },
     button_name: { 
       control: { type: 'text' },
       description: 'Button name for the tabs',
@@ -57,14 +53,13 @@ export default {
       button_id="button"
       aria_label="tabs"
       tab_texts='["Tab 1", "Tab 2", "Tab 3"]'
-      onTabClick="handleTabClick"
       button_name="button"
     ></dda-tabs>
 
     <script>
-      function handleTabClick(index) {
-        console.log('Clicked Tab:', index);
-      }
+      document.querySelector('dda-tabs').addEventListener('tabClick', e => {
+        console.log('Clicked Tab:', e.detail);
+      });
     </script>
   \`\`\`
   `,
@@ -93,7 +88,6 @@ TextTabs.args = {
   button_id: 'button',
   aria_label: 'tabs',
   tab_texts: ['Tab 1', 'Tab 2', 'Tab 3'],
-  onTabClick: (index) => alert(`Tab ${index + 1} clicked!`), // Example event
   button_name: 'button',
 };
 
@@ -106,6 +100,5 @@ TextIconTabs.args = {
   button_id: 'button',
   aria_label: 'tabs',
   tab_texts: ['Tab 1', 'Tab 2', 'Tab 3'],
-  onTabClick: (index) => alert(`Tab ${index + 1} clicked!`), // Example event
   button_name: 'button',
 };

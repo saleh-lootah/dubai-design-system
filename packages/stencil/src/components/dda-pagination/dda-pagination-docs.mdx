@@ -1,67 +1,91 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Pagination/Documentation" />
 
 # Pagination
-The `dda-pagination` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-pagination` component renders page controls in one of seven layouts, chosen with `type`.
+Pages count from 1. When the user clicks a control, the component updates its own `current_page`
+property; it does not fire a custom event.
 
-```jsx
-import React from 'react'
-import { DdaPagination } from "@dubai-design-system/components-react";
+## API
 
+<Markdown>{componentApi(readme)}</Markdown>
 
+## Usage
 
+### Vanilla JS
 
-const App = () => {
-  return (
-    <div>
-        <DdaPagination
-            total_pages="8"
-            current_page="1"
-            type="simple-slider"
-            custom_class=""
-            component_mode=""
-        ></DdaPagination>
-    </div>
- )
-}
+**From the CDN.** Replace `X.X.X` with the exact package version.
 
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-pagination type="text-pages" total_pages="5" current_page="1"></dda-pagination>
 ```
 
-### Usage in Vue
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-pagination.js';
+
+const pagination = document.querySelector('dda-pagination');
+pagination.total_pages = 12;
+pagination.current_page = 3;
+```
+
+### React
 
 ```jsx
-<script>
+import { DdaPagination } from '@dubai-design-system/components-react';
 
+export function ApplicationsPagination() {
+  return <DdaPagination type="text-pages" total_pages={5} current_page={1} />;
+}
+```
 
-import { DdaPagination } from '@dubai-design-system/components-vue'
+### Vue
 
+```html
+<script setup>
+import { DdaPagination } from '@dubai-design-system/components-vue';
 </script>
 
 <template>
-    <div>
-        <DdaPagination
-            total_pages="8"
-            current_page="1"
-            type="simple-slider"
-            custom_class=""
-            component_mode=""
-        ></DdaPagination>
-    </div>
+  <DdaPagination type="text-pages" :total_pages="5" :current_page="1" />
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
-<dda-pagination
-    total_pages="8"
-    current_page="1"
-    type="simple-slider"
-    custom_class=""
-    component_mode=""
-></dda-pagination>
+```html
+<dda-pagination type="text-pages" total_pages="5" current_page="1"></dda-pagination>
 ```
+
+## Layouts
+
+<table>
+  <thead><tr><th><code>type</code></th><th>Renders</th></tr></thead>
+  <tbody>
+    <tr><td><code>simple-slider</code></td><td>"Prev" and "Next" buttons with "Page X of Y" between them</td></tr>
+    <tr><td><code>buttons</code></td><td>"Prev" and "Next" buttons with a button for each page</td></tr>
+    <tr><td><code>text</code></td><td>Arrow buttons with "Page X of Y" between them</td></tr>
+    <tr><td><code>text-pages</code></td><td>Arrow buttons with a button for each page</td></tr>
+    <tr><td><code>button-text</code></td><td>Joined arrow buttons with a button for each page</td></tr>
+    <tr><td><code>buttons-pages</code></td><td>Joined previous and next arrow buttons only</td></tr>
+    <tr><td><code>full</code></td><td>A button for each page, with no previous or next buttons</td></tr>
+  </tbody>
+</table>
+
+The `*_prev_button` and `*_next_button` properties set the `name` attribute of the previous and
+next buttons. Each pair applies only to the layout in its name, for example
+`text_pages_prev_button` when `type` is `text-pages`.

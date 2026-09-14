@@ -19,7 +19,6 @@ To use the \`dda-radiobutton\` component, pass the following props:
     custom_class=""
     component_mode=""
     aria_label="radio-button"
-    onclick="console.log('clicked')"
 ></dda-radiobutton>
   \`\`\`
 `,
@@ -36,10 +35,6 @@ To use the \`dda-radiobutton\` component, pass the following props:
       description: 'Supporting Text',
     },
     group_name: {
-      control: 'text',
-      description: 'default',
-    },
-    labelfor: {
       control: 'text',
       description: 'default',
     },
@@ -70,16 +65,13 @@ To use the \`dda-radiobutton\` component, pass the following props:
     aria_label: {
       control: { type: 'text' },
       description: 'Aria label for the radio button',
+    },
     radio_status: {
       control: { type: 'select' },
       options: ['normal','disabled'],
     },
-    onclick:{
-      control: { type: 'text' },
-      description: 'event handler for radio button',
-    }
   },
-}};
+};
 
 const Template = (args) => {
   const attributes = Object.entries(args)
@@ -102,7 +94,6 @@ DefaultRadio.args = {
   custom_class: '',
   component_mode: '',
   aria_label: 'radio-button',
-  onclick: '',
 };
 
 export const CheckedRadio = Template.bind({});
@@ -117,6 +108,4 @@ CheckedRadio.args = {
   custom_class: '',
   component_mode: '',
   aria_label: 'radio-button',
-  onclick: '',
-
 };

@@ -60,10 +60,6 @@ export default {
       control: {type: 'text'},
       description: 'Aria label for the input field',
     },
-    onchange: {
-      control: {type: 'text'},
-      description: 'onchange event for the input field',
-    },
     input_name: {
       control: {type: 'text'},
       description: 'Name of the input field',
@@ -89,7 +85,6 @@ To use the \`dda-input\` component, pass the following props:
     component_mode=""
     input_id="input"
     aria_label="input"
-    onchange="console.log('changed')"
     input_name=""
 ></dda-input>
   \`\`\`
@@ -122,7 +117,6 @@ Text.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'input',
-  onchange: '',
   input_name: 'input',
 };
 
@@ -139,7 +133,6 @@ Password.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'input',
-  onchange: '',
   input_name: 'input',
 };
 
@@ -156,7 +149,6 @@ Email.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'input',
-  onchange: '',
   input_name: 'input',
 };
 
@@ -173,7 +165,6 @@ Number.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'input',
-  onchange: '',
   input_name: 'input',
 };
 export const Date = Template.bind({});
@@ -189,7 +180,6 @@ Date.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'input',
-  onchange: '',
   input_name: 'input',
 };
 
@@ -206,7 +196,6 @@ Time.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'input',
-  onchange: '',
   input_name: 'input',
 };
 
@@ -224,7 +213,6 @@ Witherror.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'input',
-  onchange: '',
   input_name: 'input',
 };
 
@@ -242,6 +230,5 @@ disabled.args = {
   component_mode: '',
   input_id: 'input',
   aria_label: 'input',
-  onchange: '',
   input_name: 'input',
 };

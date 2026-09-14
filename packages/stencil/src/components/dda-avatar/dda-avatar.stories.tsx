@@ -70,7 +70,7 @@ To use the \`dda-avatar\` component, pass the following props:
     icon="sentiment_satisfied"
     text="AB"
     options='["Option 1","Option 2","Option 3"]'
-    notification-number="20"
+    notification_number="20"
     custom_class=""
     component_mode=""
     aria_label="avatar"

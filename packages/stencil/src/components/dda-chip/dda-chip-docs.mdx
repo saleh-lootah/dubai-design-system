@@ -1,70 +1,86 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Chip/Documentation" />
 
 # Chip
-The `dda-chip` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-chip` component shows a short colored label, with an optional icon before it and an optional
+close button after it. Put the label between the tags.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-chip bg_color="green" size="md" rounded="circle" icon="check_circle">Approved</dda-chip>
+
+<dda-chip id="filter-chip" bg_color="grey" size="md" show_close_icon="true">Trade licences</dda-chip>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+The close button does not remove the chip. Set `clickHandler` as a property to handle it.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-chip.js';
+
+const chip = document.querySelector('#filter-chip');
+chip.clickHandler = () => chip.remove();
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaChip } from "@dubai-design-system/components-react";
+import { DdaChip } from '@dubai-design-system/components-react';
 
-
-const App = () => {
+export function FilterChip({ onRemove }) {
   return (
-    <div>
-        <DdaChip 
-            bg_color="grey" 
-            icon="" 
-            show_close_icon="true" 
-            custom_class="" 
-            component_mode=""
-            onclick="console.log('clicked!')"
-            >Label
-        </DdaChip>
-    </div>
- )
+    <DdaChip bg_color="grey" size="md" show_close_icon={true} clickHandler={onRemove}>
+      Trade licences
+    </DdaChip>
+  );
 }
 ```
 
-### Usage in Vue
+### Vue
 
-```jsx
-<script>
+```html
+<script setup>
+import { DdaChip } from '@dubai-design-system/components-vue';
 
-
-import { DdaChip } from '@dubai-design-system/components-vue'
-
+const removeFilter = () => console.log('filter removed');
 </script>
 
 <template>
-    <div>
-        <DdaChip 
-            bg_color="grey" 
-            icon="" 
-            show_close_icon="true" 
-            custom_class="" 
-            component_mode=""
-            onclick="console.log('clicked!')"
-            >Label
-        </DdaChip>
-    </div>
+  <DdaChip bg_color="grey" size="md" :show_close_icon="true" :clickHandler="removeFilter">
+    Trade licences
+  </DdaChip>
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
-<dda-chip 
-    bg_color="grey" 
-    icon="" 
-    show_close_icon="true" 
-    custom_class="" 
-    component_mode=""
-    onclick="console.log('clicked!')"
-    >Label
+```html
+<dda-chip bg_color="grey" size="md" [show_close_icon]="true" [clickHandler]="removeFilter">
+  Trade licences
 </dda-chip>
 ```
+
+In the component class, define `removeFilter` as an arrow function so `this` stays bound when the chip
+calls it.

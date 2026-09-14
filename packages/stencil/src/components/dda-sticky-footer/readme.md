@@ -7,50 +7,50 @@
 
 ## Properties
 
-| Property                   | Attribute                    | Description          | Type      | Default     |
-| -------------------------- | ---------------------------- | -------------------- | --------- | ----------- |
-| `accessibilityIconAlt`     | `accessibility-icon-alt`     |                      | `string`  | `undefined` |
-| `accessibilityIconHref`    | `accessibility-icon-href`    |                      | `string`  | `undefined` |
-| `accessibilityIconSrc`     | `accessibility-icon-src`     |                      | `string`  | `undefined` |
-| `accessibilityIconTooltip` | `accessibility-icon-tooltip` |                      | `string`  | `undefined` |
-| `aiIconAlt`                | `ai-icon-alt`                |                      | `string`  | `undefined` |
-| `aiIconHref`               | `ai-icon-href`               |                      | `string`  | `undefined` |
-| `aiIconSrc`                | `ai-icon-src`                |                      | `string`  | `undefined` |
-| `aiIconTooltip`            | `ai-icon-tooltip`            |                      | `string`  | `undefined` |
-| `chatIconAlt`              | `chat-icon-alt`              |                      | `string`  | `undefined` |
-| `chatIconHref`             | `chat-icon-href`             |                      | `string`  | `undefined` |
-| `chatIconSrc`              | `chat-icon-src`              |                      | `string`  | `undefined` |
-| `chatIconTooltip`          | `chat-icon-tooltip`          |                      | `string`  | `undefined` |
-| `firstLogoAlt`             | `first-logo-alt`             |                      | `string`  | `undefined` |
-| `firstLogoHref`            | `first-logo-href`            | Middle Section Props | `string`  | `undefined` |
-| `firstLogoSrc`             | `first-logo-src`             |                      | `string`  | `undefined` |
-| `firstLogoTooltip`         | `first-logo-tooltip`         |                      | `string`  | `undefined` |
-| `happinessIconAlt`         | `happiness-icon-alt`         |                      | `string`  | `undefined` |
-| `happinessIconHref`        | `happiness-icon-href`        | Left Section Props   | `string`  | `undefined` |
-| `happinessIconSrc`         | `happiness-icon-src`         |                      | `string`  | `undefined` |
-| `happinessIconTooltip`     | `happiness-icon-tooltip`     |                      | `string`  | `undefined` |
-| `hideMiddleSection`        | `hide-middle-section`        |                      | `boolean` | `undefined` |
-| `locationButtonHref`       | `location-button-href`       | Right Section Props  | `string`  | `undefined` |
-| `locationButtonIcon`       | `location-button-icon`       |                      | `string`  | `undefined` |
-| `locationButtonText`       | `location-button-text`       |                      | `string`  | `undefined` |
-| `locationLogoSrc`          | `location-logo-src`          |                      | `string`  | `undefined` |
-| `newsButtonHref`           | `news-button-href`           |                      | `string`  | `undefined` |
-| `newsButtonIcon`           | `news-button-icon`           |                      | `string`  | `undefined` |
-| `newsButtonSrc`            | `news-button-src`            |                      | `string`  | `undefined` |
-| `newsButtonText`           | `news-button-text`           |                      | `string`  | `undefined` |
-| `secondLogoAlt`            | `second-logo-alt`            |                      | `string`  | `undefined` |
-| `secondLogoHref`           | `second-logo-href`           |                      | `string`  | `undefined` |
-| `secondLogoSrc`            | `second-logo-src`            |                      | `string`  | `undefined` |
-| `secondLogoTooltip`        | `second-logo-tooltip`        |                      | `string`  | `undefined` |
-| `servicesIconAlt`          | `services-icon-alt`          |                      | `string`  | `undefined` |
-| `servicesIconHref`         | `services-icon-href`         |                      | `string`  | `undefined` |
-| `servicesIconSrc`          | `services-icon-src`          |                      | `string`  | `undefined` |
-| `servicesIconText`         | `services-icon-text`         |                      | `string`  | `undefined` |
-| `servicesIconTooltip`      | `services-icon-tooltip`      |                      | `string`  | `undefined` |
-| `thirdLogoAlt`             | `third-logo-alt`             |                      | `string`  | `undefined` |
-| `thirdLogoHref`            | `third-logo-href`            |                      | `string`  | `undefined` |
-| `thirdLogoSrc`             | `third-logo-src`             |                      | `string`  | `undefined` |
-| `thirdLogoTooltip`         | `third-logo-tooltip`         |                      | `string`  | `undefined` |
+| Property                   | Attribute                    | Description                                                                            | Type      | Default     |
+| -------------------------- | ---------------------------- | -------------------------------------------------------------------------------------- | --------- | ----------- |
+| `accessibilityIconAlt`     | `accessibility-icon-alt`     | Alternative text for the accessibility icon.                                           | `string`  | `undefined` |
+| `accessibilityIconHref`    | `accessibility-icon-href`    | Link URL of the accessibility icon, the second icon in the left section.               | `string`  | `undefined` |
+| `accessibilityIconSrc`     | `accessibility-icon-src`     | Image URL of the accessibility icon.                                                   | `string`  | `undefined` |
+| `accessibilityIconTooltip` | `accessibility-icon-tooltip` | Tooltip text of the accessibility icon.                                                | `string`  | `undefined` |
+| `aiIconAlt`                | `ai-icon-alt`                | Alternative text for the AI assistant icon.                                            | `string`  | `undefined` |
+| `aiIconHref`               | `ai-icon-href`               | Link URL of the AI assistant icon (right section).                                     | `string`  | `undefined` |
+| `aiIconSrc`                | `ai-icon-src`                | Image URL of the AI assistant icon.                                                    | `string`  | `undefined` |
+| `aiIconTooltip`            | `ai-icon-tooltip`            | Tooltip text of the AI assistant icon.                                                 | `string`  | `undefined` |
+| `chatIconAlt`              | `chat-icon-alt`              | Alternative text for the chat icon.                                                    | `string`  | `undefined` |
+| `chatIconHref`             | `chat-icon-href`             | Link URL of the chat icon (right section).                                             | `string`  | `undefined` |
+| `chatIconSrc`              | `chat-icon-src`              | Image URL of the chat icon.                                                            | `string`  | `undefined` |
+| `chatIconTooltip`          | `chat-icon-tooltip`          | Tooltip text of the chat icon.                                                         | `string`  | `undefined` |
+| `firstLogoAlt`             | `first-logo-alt`             | Alternative text for the first logo.                                                   | `string`  | `undefined` |
+| `firstLogoHref`            | `first-logo-href`            | Link URL of the first logo (middle section).                                           | `string`  | `undefined` |
+| `firstLogoSrc`             | `first-logo-src`             | Image URL of the first logo.                                                           | `string`  | `undefined` |
+| `firstLogoTooltip`         | `first-logo-tooltip`         | Tooltip text of the first logo.                                                        | `string`  | `undefined` |
+| `happinessIconAlt`         | `happiness-icon-alt`         | Alternative text for the happiness icon.                                               | `string`  | `undefined` |
+| `happinessIconHref`        | `happiness-icon-href`        | Link URL of the happiness icon (left section).                                         | `string`  | `undefined` |
+| `happinessIconSrc`         | `happiness-icon-src`         | Image URL of the happiness icon.                                                       | `string`  | `undefined` |
+| `happinessIconTooltip`     | `happiness-icon-tooltip`     | Tooltip text of the happiness icon.                                                    | `string`  | `undefined` |
+| `hideMiddleSection`        | `hide-middle-section`        | Hides the middle logo section. The section shows only when this is explicitly `false`. | `boolean` | `undefined` |
+| `locationButtonHref`       | `location-button-href`       | Link URL of the location icon (right section).                                         | `string`  | `undefined` |
+| `locationButtonIcon`       | `location-button-icon`       | Not used: the current markup does not render it.                                       | `string`  | `undefined` |
+| `locationButtonText`       | `location-button-text`       | Tooltip text and alternative text of the location icon.                                | `string`  | `undefined` |
+| `locationLogoSrc`          | `location-logo-src`          | Image URL of the location icon.                                                        | `string`  | `undefined` |
+| `newsButtonHref`           | `news-button-href`           | Link URL of the news icon (right section).                                             | `string`  | `undefined` |
+| `newsButtonIcon`           | `news-button-icon`           | Not used: the current markup does not render it.                                       | `string`  | `undefined` |
+| `newsButtonSrc`            | `news-button-src`            | Image URL of the news icon.                                                            | `string`  | `undefined` |
+| `newsButtonText`           | `news-button-text`           | Tooltip text and alternative text of the news icon.                                    | `string`  | `undefined` |
+| `secondLogoAlt`            | `second-logo-alt`            | Alternative text for the second logo.                                                  | `string`  | `undefined` |
+| `secondLogoHref`           | `second-logo-href`           | Link URL of the second logo (middle section).                                          | `string`  | `undefined` |
+| `secondLogoSrc`            | `second-logo-src`            | Image URL of the second logo.                                                          | `string`  | `undefined` |
+| `secondLogoTooltip`        | `second-logo-tooltip`        | Tooltip text of the second logo.                                                       | `string`  | `undefined` |
+| `servicesIconAlt`          | `services-icon-alt`          | Alternative text for the services icon.                                                | `string`  | `undefined` |
+| `servicesIconHref`         | `services-icon-href`         | Link URL of the services icon (left section).                                          | `string`  | `undefined` |
+| `servicesIconSrc`          | `services-icon-src`          | Image URL of the services icon.                                                        | `string`  | `undefined` |
+| `servicesIconText`         | `services-icon-text`         | Text shown next to the services icon. Nothing is shown when it is not set.             | `string`  | `undefined` |
+| `servicesIconTooltip`      | `services-icon-tooltip`      | Tooltip text of the services icon.                                                     | `string`  | `undefined` |
+| `thirdLogoAlt`             | `third-logo-alt`             | Alternative text for the third logo.                                                   | `string`  | `undefined` |
+| `thirdLogoHref`            | `third-logo-href`            | Link URL of the third logo (middle section).                                           | `string`  | `undefined` |
+| `thirdLogoSrc`             | `third-logo-src`             | Image URL of the third logo.                                                           | `string`  | `undefined` |
+| `thirdLogoTooltip`         | `third-logo-tooltip`         | Tooltip text of the third logo.                                                        | `string`  | `undefined` |
 
 
 ## Dependencies

@@ -1,97 +1,98 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Avatar/Documentation" />
 
 # Avatar
-The `dda-avatar` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-avatar` component shows a user as a photo, an icon or initials, in six sizes and two shapes.
+It can show a status, verified or notification badge. When you set `options`, the avatar becomes a
+button that opens a dropdown list.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-avatar type="photo" src="/images/avatar.jpg" size="md" rounded="circle" design="verified"></dda-avatar>
+
+<dda-avatar type="text" text="FA" size="lg" design="notification" notification_number="3"></dda-avatar>
+
+<dda-avatar
+  type="photo"
+  src="/images/avatar.jpg"
+  aria_label="Account menu"
+  options='["My profile","My applications","Sign out"]'
+></dda-avatar>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+The avatar does not emit an event when the user picks an option. Read the `selected` property.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-avatar.js';
+
+const avatar = document.querySelector('dda-avatar');
+avatar.options = JSON.stringify(['My profile', 'My applications', 'Sign out']);
+avatar.selected = 'My profile';
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaAvatar } from "@dubai-design-system/components-react";
+import { DdaAvatar } from '@dubai-design-system/components-react';
 
-const App = () => {
+export function AccountAvatar() {
   return (
-    <div>
-        <div id="root-inner"
-            ><!---->
-            <DdaAvatar
-                type="photo"
-                size="md"
-                design="default"
-                rounded="circle"
-                src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
-                icon="sentiment_satisfied"
-                text="AB"
-                options='["Option 1","Option 2","Option 3"]'
-                notification-number="20"
-                custom_class=""
-                component_mode=""
-                aria_label="avatar"
-                button_id="button"
-            >
-            </DdaAvatar>
-        </div>
-    </div>
- )
+    <DdaAvatar
+      type="photo"
+      src="/images/avatar.jpg"
+      size="md"
+      aria_label="Account menu"
+      options={JSON.stringify(['My profile', 'My applications', 'Sign out'])}
+    />
+  );
 }
 ```
 
-### Usage in Vue
+### Vue
 
-```jsx
-<script>
+```html
+<script setup>
+import { DdaAvatar } from '@dubai-design-system/components-vue';
 
-
-import { DdaAvatar } from '@dubai-design-system/components-vue'
-
+const options = JSON.stringify(['My profile', 'My applications', 'Sign out']);
 </script>
 
 <template>
-    <div id="root-inner"
-        ><!---->
-        <DdaAvatar
-            type="photo"
-            size="md"
-            design="default"
-            rounded="circle"
-            src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
-            icon="sentiment_satisfied"
-            text="AB"
-            options='["Option 1","Option 2","Option 3"]'
-            notification-number="20"
-            custom_class=""
-            component_mode=""
-            aria_label="avatar"
-            button_id="button"
-        >
-        </DdaAvatar>
-    </div>
+  <DdaAvatar type="photo" src="/images/avatar.jpg" size="md" aria_label="Account menu" :options="options" />
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
-<div id="root-inner"
-    ><!---->
-    <dda-avatar
-        type="photo"
-        size="md"
-        design="default"
-        rounded="circle"
-        src="https://img.freepik.com/premium-vector/traditional-arabic-man-head-icon-vector-avatar_55610-6301.jpg"
-        icon="sentiment_satisfied"
-        text="AB"
-        options='["Option 1","Option 2","Option 3"]'
-        notification-number="20"
-        custom_class=""
-        component_mode=""
-        aria_label="avatar"
-        button_id="button"
-    >
-    </dda-avatar>
-</div>
+```html
+<dda-avatar
+  type="photo"
+  src="/images/avatar.jpg"
+  size="md"
+  aria_label="Account menu"
+  options='["My profile","My applications","Sign out"]'
+></dda-avatar>
 ```

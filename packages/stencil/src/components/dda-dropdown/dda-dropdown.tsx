@@ -6,20 +6,35 @@ import { Component, Prop, State, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaDropdown {
+  /** Label shown above the dropdown. */
   @Prop() label: string;
-  @Prop() options: string; // Receive options as a string
+  /** Options as a JSON array string, e.g. `'["Edit","Download","Delete"]'`. Invalid JSON shows "No options available". */
+  @Prop() options: string;
+  /** The selected option. Must match an entry in `options`. The button shows "Select an option" when it is empty. Updated when the user picks an option. */
   @Prop() selected: string;
+  /** Disables the dropdown: the list does not open and options cannot be picked. */
   @Prop() disabled: boolean = false;
+  /** Error text shown under the dropdown. */
   @Prop() error: string;
+  /** Helper text shown under the dropdown. */
   @Prop() helper_text: string;
+  /** Button background: `bg-white` (field style) or `bg-transparent` (no border, background or padding). */
   @Prop() type: 'bg-transparent' | 'bg-white' = 'bg-white';
+  /** Size: `medium` or `small`. */
   @Prop() size: 'small' | 'medium' = 'medium';
-  @Prop() icon_mode: boolean = false; // New prop for icon mode
+  /** Shows only the three-dots icon, without the selected text and arrow. */
+  @Prop() icon_mode: boolean = false;
+  /** Extra CSS classes added to the dropdown container. */
   @Prop() custom_class?: string = ''; 
+  /** Theme override class for the dropdown, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
+  /** `id` of the dropdown button. The label points to it. */
   @Prop() button_id: string;
+  /** Accessible name of the dropdown button. Set it when `icon_mode` is on. */
   @Prop() aria_label?: string;
+  /** `name` of the dropdown button that opens the list. */
   @Prop() arrow_button_name?: string;
+  /** `name` of each option button in the list. */
   @Prop() dropdown_button_name?: string;
   
   @State() isopen: boolean = false;

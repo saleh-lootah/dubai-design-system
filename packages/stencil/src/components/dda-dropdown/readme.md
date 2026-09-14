@@ -7,23 +7,23 @@
 
 ## Properties
 
-| Property               | Attribute              | Description | Type                             | Default      |
-| ---------------------- | ---------------------- | ----------- | -------------------------------- | ------------ |
-| `aria_label`           | `aria_label`           |             | `string`                         | `undefined`  |
-| `arrow_button_name`    | `arrow_button_name`    |             | `string`                         | `undefined`  |
-| `button_id`            | `button_id`            |             | `string`                         | `undefined`  |
-| `component_mode`       | `component_mode`       |             | `string`                         | `undefined`  |
-| `custom_class`         | `custom_class`         |             | `string`                         | `''`         |
-| `disabled`             | `disabled`             |             | `boolean`                        | `false`      |
-| `dropdown_button_name` | `dropdown_button_name` |             | `string`                         | `undefined`  |
-| `error`                | `error`                |             | `string`                         | `undefined`  |
-| `helper_text`          | `helper_text`          |             | `string`                         | `undefined`  |
-| `icon_mode`            | `icon_mode`            |             | `boolean`                        | `false`      |
-| `label`                | `label`                |             | `string`                         | `undefined`  |
-| `options`              | `options`              |             | `string`                         | `undefined`  |
-| `selected`             | `selected`             |             | `string`                         | `undefined`  |
-| `size`                 | `size`                 |             | `"medium" \| "small"`            | `'medium'`   |
-| `type`                 | `type`                 |             | `"bg-transparent" \| "bg-white"` | `'bg-white'` |
+| Property               | Attribute              | Description                                                                                                                                         | Type                             | Default      |
+| ---------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------------ |
+| `aria_label`           | `aria_label`           | Accessible name of the dropdown button. Set it when `icon_mode` is on.                                                                              | `string`                         | `undefined`  |
+| `arrow_button_name`    | `arrow_button_name`    | `name` of the dropdown button that opens the list.                                                                                                  | `string`                         | `undefined`  |
+| `button_id`            | `button_id`            | `id` of the dropdown button. The label points to it.                                                                                                | `string`                         | `undefined`  |
+| `component_mode`       | `component_mode`       | Theme override class for the dropdown, e.g. `light-mode`.                                                                                           | `string`                         | `undefined`  |
+| `custom_class`         | `custom_class`         | Extra CSS classes added to the dropdown container.                                                                                                  | `string`                         | `''`         |
+| `disabled`             | `disabled`             | Disables the dropdown: the list does not open and options cannot be picked.                                                                         | `boolean`                        | `false`      |
+| `dropdown_button_name` | `dropdown_button_name` | `name` of each option button in the list.                                                                                                           | `string`                         | `undefined`  |
+| `error`                | `error`                | Error text shown under the dropdown.                                                                                                                | `string`                         | `undefined`  |
+| `helper_text`          | `helper_text`          | Helper text shown under the dropdown.                                                                                                               | `string`                         | `undefined`  |
+| `icon_mode`            | `icon_mode`            | Shows only the three-dots icon, without the selected text and arrow.                                                                                | `boolean`                        | `false`      |
+| `label`                | `label`                | Label shown above the dropdown.                                                                                                                     | `string`                         | `undefined`  |
+| `options`              | `options`              | Options as a JSON array string, e.g. `'["Edit","Download","Delete"]'`. Invalid JSON shows "No options available".                                   | `string`                         | `undefined`  |
+| `selected`             | `selected`             | The selected option. Must match an entry in `options`. The button shows "Select an option" when it is empty. Updated when the user picks an option. | `string`                         | `undefined`  |
+| `size`                 | `size`                 | Size: `medium` or `small`.                                                                                                                          | `"medium" \| "small"`            | `'medium'`   |
+| `type`                 | `type`                 | Button background: `bg-white` (field style) or `bg-transparent` (no border, background or padding).                                                 | `"bg-transparent" \| "bg-white"` | `'bg-white'` |
 
 
 ----------------------------------------------

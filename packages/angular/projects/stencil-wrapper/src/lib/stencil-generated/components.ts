@@ -50,9 +50,13 @@ export class DdaAlert {
 
 
 export declare interface DdaAlert extends Components.DdaAlert {
-
+  /**
+   * Fires when the first action link is clicked. No detail.
+   */
   firstClick: EventEmitter<CustomEvent<void>>;
-
+  /**
+   * Fires when the second action link is clicked. No detail.
+   */
   secondClick: EventEmitter<CustomEvent<void>>;
 }
 
@@ -320,21 +324,37 @@ export class DdaHeader {
 
 
 export declare interface DdaHeader extends Components.DdaHeader {
-
+  /**
+   * Emitted when the user clicks the language button.
+   */
   languageSwitch: EventEmitter<CustomEvent<void>>;
-
+  /**
+   * Emitted when the user clicks the `A-` (smaller text) button in the accessibility panel.
+   */
   smTextSize: EventEmitter<CustomEvent<void>>;
-
+  /**
+   * Emitted when the user clicks the `A` (default text size) button in the accessibility panel.
+   */
   baseTextSize: EventEmitter<CustomEvent<void>>;
-
+  /**
+   * Emitted when the user clicks the `A+` (larger text) button in the accessibility panel.
+   */
   lgTextSize: EventEmitter<CustomEvent<void>>;
-
+  /**
+   * Emitted when the user selects the Normal contrast option.
+   */
   normalContrast: EventEmitter<CustomEvent<void>>;
-
+  /**
+   * Emitted when the user selects the Colours Blind contrast option.
+   */
   blindContrast: EventEmitter<CustomEvent<void>>;
-
+  /**
+   * Emitted when the user selects the Red Weakness contrast option.
+   */
   redContrast: EventEmitter<CustomEvent<void>>;
-
+  /**
+   * Emitted when the user selects the Green Weakness contrast option.
+   */
   greenContrast: EventEmitter<CustomEvent<void>>;
   /**
    * Emitted when a non-empty search is submitted. Call `preventDefault()` to stop the
@@ -608,7 +628,7 @@ export class DdaSegmentedTabs {
 
 export declare interface DdaSegmentedTabs extends Components.DdaSegmentedTabs {
   /**
-   * Emits the newly-selected index whenever the selection changes.
+   * Fires when the user selects a different segment. `detail` is the new index, from 0.
    */
   segmentChange: EventEmitter<CustomEvent<number>>;
 }
@@ -679,7 +699,9 @@ export class DdaTabs {
 
 
 export declare interface DdaTabs extends Components.DdaTabs {
-
+  /**
+   * Fires when the user clicks a tab. `detail` is the tab index, from 0.
+   */
   tabClick: EventEmitter<CustomEvent<void>>;
 }
 
@@ -771,7 +793,9 @@ export class DdaUiCard {
 
 
 export declare interface DdaUiCard extends Components.DdaUiCard {
-
+  /**
+   * Declared but never emitted by the current version. Listen for the native `click` event on the link instead.
+   */
   linkClick: EventEmitter<CustomEvent<void>>;
 }
 

@@ -31,8 +31,8 @@ export default {
 <dda-vertical-stepper
     steps='[{"icon":"sentiment_satisfied","title":"Step 1","subtitle":"Subtitle 1","description":"Description 1"},{"icon":"sentiment_satisfied","title":"Step 2","subtitle":"Subtitle 2","description":"Description 2"},{"icon":"sentiment_satisfied","title":"Step 3","subtitle":"Subtitle 3","description":"Description 3"}]'
     current_step="1"
-    custom_class='""'
-    mode='"light"'
+    custom_class=""
+    component_mode="light-mode"
 ></dda-vertical-stepper>
   \`\`\`
   `,

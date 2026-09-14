@@ -6,26 +6,43 @@ import { Component, Prop, h, Host, Element } from '@stencil/core';
   shadow: false,
 })
 export class DdaSearchInput {
+  /** Placeholder text of the search input. */
   @Prop() placeholder: string = 'Search';
+  /** Visible label text, linked to the search input through `input_id`. */
   @Prop() label: string;
-  @Prop() size: string = 'sm'; // default to small size
+  /** Size. `small` shows a smaller field; other values show the default size. */
+  @Prop() size: string = 'sm';
+  /** Error text shown below the field. When set, the input gets `aria-invalid="true"`. */
   @Prop() error_message: string;
-  @Prop() show_button: boolean = false; // control to show/hide search button
+  /** Shows a "Search" button after the clear button. */
+  @Prop() show_button: boolean = false;
+  /** Helper text shown below the field and linked with `aria-describedby`. */
   @Prop() helper_text: string;
+  /** Status style. `disabled` shows the disabled styling only; it does not set the native `disabled` attribute. */
   @Prop() input_status?: string;
-  @Prop() has_error: boolean = false; // control error state
+  /** Shows the error colors. */
+  @Prop() has_error: boolean = false;
+  /** Extra CSS classes added to the field container. */
   @Prop() custom_class?: string = ''; 
+  /** Theme override class for the field, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
+  /** `id` of the clear button. */
   @Prop() button_id?: string;
   // F-017: the search <input> needs its own prop-driven id — it previously
   // had a hardcoded id='search', which the visible <label> never targeted
   // (the label pointed at button_id, the clear button's id, instead) and
   // which collided across multiple instances of this component on one page.
+  /** `id` of the search input. Also used for the label `for` and the helper and error text ids. */
   @Prop() input_id?: string;
+  /** Accessible name of the search input. Use it when there is no visible label. */
   @Prop() aria_label?: string;
+  /** Accessible name of the clear button, e.g. `Clear search`. */
   @Prop() button_aria_label?: string;
+  /** `name` of the search input, submitted with its form. */
   @Prop() search_input_name: string;
+  /** `name` of the clear button. */
   @Prop() close_button_name: string;
+  /** `name` of the "Search" button. */
   @Prop() search_button_name: string;
 
   @Element() el: HTMLElement;

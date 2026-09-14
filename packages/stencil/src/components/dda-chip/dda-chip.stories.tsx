@@ -38,10 +38,6 @@ export default {
       options: ['light-mode'],
       description: 'Mode of the chip component',
     },
-    onclick:{
-      control: { type: 'text' },
-      description: 'Function triggered when the close icon is clicked',
-    },
   },
   
   parameters: {
@@ -57,7 +53,6 @@ To use the \`dda-chip\` component, pass the following props:
     show_close_icon="true"
     custom_class=""
     component_mode=""
-    onclick="console.log("clicked!")"
     >Label
 </dda-chip>
   \`\`\`
@@ -85,7 +80,6 @@ Grey.args = {
   bg_color: 'grey',
   icon: 'sentiment_satisfied',
   show_close_icon: true,
-  onclick: "console.log('clicked')",
 };
 
 
@@ -97,7 +91,6 @@ Primary.args = {
   show_close_icon: true,
   custom_class: '',
   component_mode: '',
-  onclick: "alert('Close icon clicked!')",
 };
 
 export const Green = Template.bind({});
@@ -108,7 +101,6 @@ Green.args = {
   show_close_icon: true,
   custom_class: '',
   component_mode: '',
-  onclick: "() => alert('Close icon clicked!')",
 };
 
 export const Yellow = Template.bind({});
@@ -119,7 +111,6 @@ Yellow.args = {
   show_close_icon: true,
   custom_class: '',
   component_mode: '',
-  onclick: "() => alert('Close icon clicked!')",
 };
 
 export const Red = Template.bind({});
@@ -130,7 +121,6 @@ Red.args = {
   show_close_icon: true,
   custom_class: '',
   component_mode: '',
-  onclick: "() => alert('Close icon clicked!')",
 };
 
 export const Purple = Template.bind({});
@@ -141,5 +131,4 @@ Purple.args = {
   show_close_icon: true,
   custom_class: '',
   component_mode: '',
-  onclick: "() => alert('Close icon clicked!')",
 };

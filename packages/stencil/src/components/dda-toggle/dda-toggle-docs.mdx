@@ -1,80 +1,105 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Toggle/Documentation" />
 
 # Toggle
-The `dda-toggle` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-toggle` component renders an on/off switch built on a native checkbox input, with an
+optional title and supporting text. Read its state from the inner input's native `change` event.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-toggle
+  input_id="sms-updates"
+  group_name="sms_updates"
+  title_text="SMS updates"
+  supporting="Receive a text message when your application status changes"
+  size="md"
+></dda-toggle>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-toggle.js';
+
+// The component has no custom events. The native `change` event of the inner input bubbles to the element.
+const toggle = document.querySelector('dda-toggle');
+toggle.addEventListener('change', event => console.log('SMS updates:', event.target.checked));
+```
+
+### React
 
 ```jsx
-import React from 'react'
-import { DdaToggle } from "@dubai-design-system/components-react";
+import { DdaToggle } from '@dubai-design-system/components-react';
 
-
-
-
-const App = () => {
+export function SmsUpdates() {
   return (
-    <div>
-        <DdaToggle
-            checked="false"
-            title_text="Notifications"
-            supporting="Email me updates"
-            size="md"
-            group_name="togglegroup1"
-            input_id="testId"
-            custom_class=""
-            component_mode=""
-            aria_label="toggle"
-            onchange="console.log('changed')"
-        ></DdaToggle>
-    </div>
- )
+    <DdaToggle
+      input_id="sms-updates"
+      group_name="sms_updates"
+      title_text="SMS updates"
+      supporting="Receive a text message when your application status changes"
+      size="md"
+      onChange={event => console.log('SMS updates:', event.target.checked)}
+    />
+  );
 }
 ```
 
-### Usage in Vue
+### Vue
 
-```jsx
-<script>
-
-
-import { DdaToggle } from '@dubai-design-system/components-vue'
-
+```html
+<script setup>
+import { DdaToggle } from '@dubai-design-system/components-vue';
 </script>
 
 <template>
-    <div>
-        <DdaToggle
-            checked="false"
-            title_text="Notifications"
-            supporting="Email me updates"
-            size="md"
-            group_name="togglegroup1"
-            input_id="testId"
-            custom_class=""
-            component_mode=""
-            aria_label="toggle"
-            onchange="console.log('changed')"
-        ></DdaToggle>
-    </div>
+  <DdaToggle
+    input_id="sms-updates"
+    group_name="sms_updates"
+    title_text="SMS updates"
+    supporting="Receive a text message when your application status changes"
+    size="md"
+    @change="event => console.log('SMS updates:', event.target.checked)"
+  />
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
+```html
 <dda-toggle
-    checked="false"
-    title_text="Notifications"
-    supporting="Email me updates"
-    size="md"
-    group_name="togglegroup1"
-    input_id="testId"
-    custom_class=""
-    component_mode=""
-    aria_label="toggle"
-    onchange="console.log('changed')"
-></dda-toggle>```
+  input_id="sms-updates"
+  group_name="sms_updates"
+  title_text="SMS updates"
+  supporting="Receive a text message when your application status changes"
+  size="md"
+  (change)="onSmsUpdatesChange($event)"
+></dda-toggle>
+```
+
+## Accessible name
+
+The inner input is inside the label, so `title_text` gives it an accessible name. When you show the
+switch without `title_text`, set `aria_label`.

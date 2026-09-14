@@ -57,10 +57,6 @@ export default {
       control: { type: 'text' },
       description: 'Aria label for the button inside the phone field',
     },
-    onchange: {
-      control: { type: 'text' },
-      description: 'onchange event for the phone field',
-    },
     toggle_button_name: {
       control: { type: 'text' },
       description: 'Name for the toggle button',
@@ -97,7 +93,6 @@ To use the \`dda-phonefield\` component, pass the following props:
     button_id="button"
     aria_label="phone-field"
     button_aria_label="phone-button"
-    onchange="console.log('changed')"
     toggle_button_name="toggle-button"
     country_select_button_name="country-select-button"
     phone_input_name="phone-input"
@@ -133,7 +128,6 @@ Default.args = {
   button_id: 'button',
   aria_label: 'phone-field',
   button_aria_label: 'phone-button',
-  onchange: '',
   toggle_button_name: "toggle-button",
   country_select_button_name: "country-select-button",
   phone_input_name: "phone-input",
@@ -147,15 +141,12 @@ FocusFilled.args = {
   helper_text: 'Helper or footer text',
   error_message: '',
   disabled: false,
-  phone_number: '',
-  isFocused: true,
   custom_class: 'dda-input-focus',
   component_mode: '',
   input_id: 'input',
   button_id: 'button',
   aria_label: 'phone-field',
   button_aria_label: 'phone-button',
-  onchange: '',
   toggle_button_name: "toggle-button",
   country_select_button_name: "country-select-button",
   phone_input_name: "phone-input",
@@ -169,14 +160,12 @@ Filled.args = {
   helper_text: 'Helper or footer text',
   error_message: '',
   disabled: false,
-  phone_number: '56 546 0000',
   custom_class: '',
   component_mode: '',
   input_id: 'input',
   button_id: 'button',
   aria_label: 'phone-field',
   button_aria_label: 'phone-button',
-  onchange: '',
   toggle_button_name: "toggle-button",
   country_select_button_name: "country-select-button",
   phone_input_name: "phone-input",
@@ -197,7 +186,6 @@ Error.args = {
   button_id: 'button',
   aria_label: 'phone-field',
   button_aria_label: 'phone-button',
-  onchange: '',
   toggle_button_name: "toggle-button",
   country_select_button_name: "country-select-button",
   phone_input_name: "phone-input",
@@ -217,7 +205,6 @@ Disabled.args = {
   button_id: 'button',
   aria_label: 'phone-field',
   button_aria_label: 'phone-button',
-  onchange: '',
   toggle_button_name: "toggle-button",
   country_select_button_name: "country-select-button",
   phone_input_name: "phone-input",

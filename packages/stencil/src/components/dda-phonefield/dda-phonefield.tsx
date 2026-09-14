@@ -7,12 +7,19 @@ import { CountriesList } from '../../assets/countries';
   shadow: false,
 })
 export class DdaPhoneField {
+  /** Visible label text, linked to the phone input through `input_id`. */
   @Prop() label: string;
+  /** Placeholder text of the phone input. */
   @Prop() placeholder: string = 'Enter phone number';
+  /** Helper text shown below the field. Hidden when `validation_type` is set. */
   @Prop() helper_text: string;
+  /** Validation style. `error` shows the error colors. Any value hides `helper_text`. */
   @Prop() validation_type?: string;
+  /** Error text shown below the field. When set, the input gets `aria-invalid="true"`. */
   @Prop() error_message: string;
+  /** Disables the phone input and shows the disabled styling. */
   @Prop() disabled: boolean = false;
+  /** Size. `small` shows a smaller field; omit for the default size. */
   @Prop() size?: string;
   @State() country_code: string = '+971';
   @State() country_flag: string = 'https://flagcdn.com/w320/ae.png'; // Default UAE flag
@@ -20,17 +27,27 @@ export class DdaPhoneField {
   @State() is_focused: boolean = false;
   @State() dropdown_open: boolean = false;
   @State() countries: { code: string; flag: string }[] = [];
+  /** Extra CSS classes added to the field container. */
   @Prop() custom_class: string;
+  /** Theme override class for the field, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
+  /** `id` of the phone input. Also used for the label `for` and the helper and error text ids. */
   @Prop() input_id?: string;
+  /** Accessible name of the phone input. Use it when there is no visible label. */
   @Prop() aria_label: string;
+  /** `id` set on each country option button in the open list. */
   @Prop() button_id?: string;
+  /** Accessible name set on each country option button in the open list. */
   @Prop() button_aria_label: string;
+  /** `name` of the country code dropdown button. */
   @Prop() toggle_button_name: string;
+  /** `name` of each country option button. */
   @Prop() country_select_button_name: string;
+  /** `name` of the phone input, submitted with its form. */
   @Prop() phone_input_name: string;
   // F-018 (WCAG 1.3.5): telephone is exactly the field type autocomplete
   // exists for. Default to the correct token; still overridable.
+  /** `autocomplete` token of the phone input. Defaults to `tel`. */
   @Prop() autocomplete: string = 'tel';
 
   // F-016: ids derived from the consumer-supplied input_id, same pattern as

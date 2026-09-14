@@ -23,7 +23,6 @@ export default {
     button_aria_label="button"
     button_name="button"
     input_name="input"
-    onchange="console.log('changed')"
 ></dda-attach-file>
     \`\`\`
   `,
@@ -84,10 +83,6 @@ export default {
         control: 'text',
         description: 'Aria label for the upload button',
       },
-      onchange:{
-        control: 'text',
-        description: 'onchange event for the attach file component',
-      },
       button_name:{
         control: 'text',
         description: 'Name for the upload button',
@@ -122,7 +117,6 @@ export default {
     button_id: 'button',
     aria_label: 'input',
     button_aria_label: 'button',
-    onchange: '',
     button_name: 'button',
     input_name: 'input'
   };
@@ -141,7 +135,6 @@ export default {
     button_id: 'button',
     aria_label: 'input',
     button_aria_label: 'button',
-    onchange: '',
     button_name: 'button',
     input_name: 'input'
   };
@@ -160,7 +153,6 @@ export default {
     button_id: 'button',
     aria_label: 'input',
     button_aria_label: 'button',
-    onchange: '',
     button_name: 'button',
     input_name: 'input'
   };
@@ -179,7 +171,6 @@ export default {
     button_id: 'button',
     aria_label: 'input',
     button_aria_label: 'button',
-    onchange: '',
     button_name: 'button',
     input_name: 'input'
   };

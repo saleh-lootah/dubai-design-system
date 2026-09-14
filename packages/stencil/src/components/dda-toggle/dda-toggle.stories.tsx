@@ -22,10 +22,6 @@ export default {
       control: 'text',
       description: 'default',
     },
-    label_for: {
-      control: 'text',
-      description: 'default',
-    },
     input_id: {
       control: 'text',
       description: 'default',
@@ -42,10 +38,6 @@ export default {
       control: { type: 'text' },
       description: 'Aria label for the toggle component',
     },
-    onchange: {
-      control: { type: 'text' },
-      description: 'onchange event for the toggle component',
-    }
   },
   parameters: {
     docs: {
@@ -64,7 +56,6 @@ export default {
     custom_class=""
     component_mode=""
     aria_label="toggle"
-    onchange="console.log('changed')"
 ></dda-toggle>
   \`\`\`
   `,
@@ -93,7 +84,6 @@ Default.args = {
   custom_class: '',
   component_mode: '',
   aria_label: 'toggle',
-  onchange: '',
 };
 
 export const Checked = Template.bind({});
@@ -106,7 +96,5 @@ Checked.args = {
   input_id: 'testId',
   custom_class: '',
   component_mode: '',
-  on_toggled: () => void(0),
   aria_label: 'toggle',
-  onchange: '',
 };

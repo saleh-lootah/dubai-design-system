@@ -6,22 +6,36 @@ import { Component, Element, Prop, State, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class Ddaselect {
+  /** Label shown above the field and linked to the trigger button. */
   @Prop() label: string;
-  @Prop() options: string; // Receive options as a string
+  /** Options as a JSON array string, e.g. `'["Dubai","Abu Dhabi","Sharjah"]'`. Invalid JSON shows "No options available". */
+  @Prop() options: string;
     // @Prop() options: { title: string }[];
+  /** The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option. */
   @Prop() selected: string;
+  /** Disables the select: the list does not open and options cannot be picked. */
   @Prop() disabled: boolean = false;
+  /** Validation state. `error` shows the error styling. */
   @Prop() error?: string;
+  /** Error text shown under the field. Also sets `aria-invalid` on the trigger. */
   @Prop() error_message: string;
+  /** Helper text shown under the field. */
   @Prop() helper_text: string;
   @State() is_open: boolean = false;
+  /** Field size. `small` gives the compact field; leave empty for the default size. */
   @Prop() size?: string;
   //@Prop() validationtype?: string;
+  /** Extra CSS classes added to the field container. */
   @Prop() custom_class?: string = '';
+  /** Theme override class for the field, e.g. `light-mode`. */
   @Prop() component_mode?: string;
+  /** Accessible name of the trigger button and the option list. The list falls back to `label`. */
   @Prop() aria_label?: string;
+  /** `id` of the trigger button. Also used to build the ids of the list, helper text and error message, so keep it unique. */
   @Prop() button_id: string;
+  /** `name` of the trigger button. */
   @Prop() toggle_button_name: string;
+  /** `name` of each option button in the list. */
   @Prop() option_select_button_name: string;
 
   @Element() el: HTMLElement;

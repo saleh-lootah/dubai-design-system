@@ -6,12 +6,15 @@ import { Component, Prop,  State, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaVerticalStepper {
-  @Prop() steps: string; // JSON string of steps
+  /** Steps, as a JSON string array of `{ icon, title, subtitle, description }` objects. `icon` is a Material Icons name. */
+  @Prop() steps: string;
   /** Index of the current step, from 0. Steps up to and including it are active. */
   @Prop() current_step?: number;
   /** @deprecated Use `current_step`. Its attribute is `current_-step`, so it never worked in HTML. */
   @Prop() current_Step: number = 0;
+  /** Extra CSS classes added to the stepper container. */
   @Prop() custom_class?: string = ''; 
+  /** Class added to the stepper container, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
   @State() parsedSteps: { icon: string, title: string, subtitle: string, description: string }[] = [];
 
