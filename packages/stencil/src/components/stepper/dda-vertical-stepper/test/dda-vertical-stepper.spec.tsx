@@ -21,7 +21,7 @@ describe('dda-vertical-stepper', () => {
 
   it('still accepts the current_Step property', async () => {
     const page = await newSpecPage({ components: [DdaVerticalStepper], html: `<dda-vertical-stepper steps='${STEPS}'></dda-vertical-stepper>` });
-    (page.root as any).current_Step = 2;
+    (page.root as HTMLDdaVerticalStepperElement).current_Step = 2;
     await page.waitForChanges();
 
     expect(activeSteps(page.root)).toEqual([true, true, true]);
