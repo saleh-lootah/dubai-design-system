@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About us</title>
+    <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiMedium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <script type="module" src="/setup.js"></script>
+  </head>
+  <body>
+    <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
+
+    <main class="demo-main">
+      <dda-breadcrumb breadcrumbs='[{"text":"Home","url":"./"},{"text":"About"}]'></dda-breadcrumb>
+
+      <section class="demo-hero">
+        <div>
+          <h1>About us</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. We make government services simple, digital and open to everyone in the city.</p>
+          <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+        </div>
+        <img class="demo-hero-media" src="https://picsum.photos/id/1076/1280/720" alt="Sample photo of a modern building" />
+      </section>
+
+      <section>
+        <h2>Our values</h2>
+        <div class="demo-grid">
+          <dda-ui-card maintitle="People first" subtitle="We design every service around the needs of the people who use it." icon="groups"></dda-ui-card>
+          <dda-ui-card maintitle="Open and trusted" subtitle="We keep data safe and explain how we use it." icon="verified_user"></dda-ui-card>
+          <dda-ui-card maintitle="Always improving" subtitle="We measure, listen to feedback and make services better." icon="trending_up"></dda-ui-card>
+        </div>
+      </section>
+
+      <section class="demo-columns">
+        <div>
+          <h2>Our journey</h2>
+          <dda-vertical-stepper current_step="2"
+            steps='[{"icon":"flag","title":"2021","subtitle":"Founded","description":"The authority starts work."},{"icon":"devices","title":"2023","subtitle":"Digital services","description":"Most services move online."},{"icon":"rocket_launch","title":"2026","subtitle":"One platform","description":"All services in one place."}]'></dda-vertical-stepper>
+        </div>
+
+        <div>
+          <h2>Frequently asked questions</h2>
+          <dda-accordion header_text="Who can use these services?" body_description="Placeholder answer. Residents, visitors and businesses can use most services."></dda-accordion>
+          <dda-accordion header_text="Do I need an account?" body_description="Placeholder answer. Some services need a sign-in; many do not."></dda-accordion>
+          <dda-accordion header_text="How do I give feedback?" body_description="Placeholder answer. Use the contact page to send us a message."></dda-accordion>
+        </div>
+      </section>
+    </main>
+
+    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Footer description placeholder." copyright-text="© 2026 Placeholder. All rights reserved." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
+
+    <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
+  </body>
+</html>

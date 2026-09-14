@@ -11,13 +11,92 @@
   }
 }
 
+/* Page loading. Until setup.js adds .dda-ready to <html>, the page is hidden and a spinner
+   shows. The spinner waits 300ms, so fast loads do not flash it. */
+html:not(.dda-ready) body > * {
+  visibility: hidden;
+  opacity: 0;
+  /* Failsafe: if a script fails, show the page after 8s anyway. */
+  animation: page-reveal 0s 8s forwards;
+}
+
+body > * {
+  transition: opacity 200ms ease-out;
+}
+
+html:not(.dda-ready) body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  border: 4px solid var(--dda-surface-variant-80, #e5e7eb);
+  border-top-color: var(--dda-color-primary-40, #00665f);
+  border-radius: 50%;
+  animation:
+    page-loader-in 200ms 300ms both,
+    page-loader-spin 800ms linear infinite;
+}
+
+@keyframes page-reveal {
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes page-loader-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes page-loader-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body > * {
+    transition: none;
+  }
+
+  html:not(.dda-ready) body::before {
+    animation: page-loader-in 200ms 300ms both;
+  }
+}
+
 .demo-main {
   max-width: 1200px;
   margin: 0 auto;
   /* dda-header is fixed; keep content below it. */
   padding: 180px 16px 32px;
   display: grid;
+  /* minmax(0, 1fr): a wide child must not make the page scroll sideways on a phone. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 48px;
+}
+
+/* An element with the hidden attribute stays hidden, even if a component sets its display. */
+[hidden] {
+  display: none !important;
+}
+
+/* Page headings. dda.css has `h1, .h1, .dda-h1 { font-size: var(--font-h1) !important }` (and
+   the same for h2-h6) with --font-h* undefined, so every heading falls back to the body size.
+   !important is needed to use the package's own --dda-h* type tokens instead. */
+.demo-main h1 {
+  font-size: var(--dda-h4) !important;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.demo-main h2 {
+  font-size: var(--dda-h6) !important;
+  font-weight: 700;
+  line-height: 1.3;
 }
 
 /* The popular-services cards are positioned over the bottom of the home banner. */
@@ -33,20 +112,43 @@
 .demo-hero,
 .demo-columns {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: 32px;
   align-items: center;
 }
 
 .demo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 24px;
 }
 
 .demo-form {
   display: grid;
   gap: 16px;
+}
+
+/* Nested grids get a column that can shrink, like .demo-main, so wide components cannot
+   push the page wider than a phone screen. */
+.demo-form,
+.demo-gallery-item,
+.demo-page-intro,
+.demo-flow,
+.demo-step {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Components wider than a phone screen (steppers, pagination) scroll inside their own box. */
+.demo-scroll-x,
+.demo-main dda-pagination {
+  display: block;
+  overflow-x: auto;
+}
+
+/* Keep stepper labels readable on a phone; the box scrolls instead. */
+.demo-scroll-x dda-horizontal-stepper {
+  display: block;
+  min-width: 560px;
 }
 
 .demo-hero-media {
@@ -69,4 +171,72 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 16px;
+}
+
+.demo-columns-top {
+  align-items: start;
+}
+
+.demo-page-intro {
+  display: grid;
+  gap: 8px;
+}
+
+/* The category tabs scroll sideways on a narrow screen, not the page. */
+.demo-filter {
+  overflow-x: auto;
+}
+
+.demo-flow {
+  display: grid;
+  gap: 32px;
+}
+
+.demo-facts,
+.demo-summary {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+}
+
+.demo-facts {
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+}
+
+.demo-facts > div,
+.demo-summary > div {
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.demo-summary > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.demo-facts dt,
+.demo-summary dt {
+  color: #4b5563;
+}
+
+.demo-facts dd,
+.demo-summary dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+.demo-step {
+  display: grid;
+  gap: 16px;
+}
+
+.demo-step h2:focus {
+  outline: none;
+}
+
+.demo-error {
+  color: #b42318;
 }

@@ -1,4 +1,4 @@
-name: Deploy Storybook to GitHub Pages
+name: Deploy Storybook and the sample site to GitHub Pages
 
 on:
   push:
@@ -45,8 +45,23 @@ jobs:
         working-directory: packages/stencil
 
       - uses: actions/configure-pages@v5
+        id: pages
         with:
           enablement: true
+
+      # The sample site, served at <Pages URL>/sample/ next to Storybook.
+      # It installs the components built above, packed the way npm publishes them,
+      # so it always shows this commit even before the version is on npm.
+      - name: Build the sample site
+        working-directory: samples/js-demo
+        env:
+          SAMPLE_BASE: ${{ steps.pages.outputs.base_path }}/sample/
+        run: |
+          npm ci
+          TGZ="$RUNNER_TEMP/$(npm pack ../../packages/stencil --pack-destination "$RUNNER_TEMP" --silent)"
+          npm install --no-save "$TGZ"
+          npm run build
+          cp -r dist ../../packages/stencil/storybook-static/sample
 
       - uses: actions/upload-pages-artifact@v3
         with:

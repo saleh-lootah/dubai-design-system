@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service application</title>
+    <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiMedium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <!-- service.js fills in the service, then loads setup.js, so setup.js loads every component on the page. -->
+    <script type="module" src="/service.js"></script>
+  </head>
+  <body>
+    <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
+
+    <main class="demo-main">
+      <dda-breadcrumb id="service-breadcrumb"></dda-breadcrumb>
+
+      <div class="demo-page-intro">
+        <h1 id="service-title">Service application</h1>
+        <p id="service-description"></p>
+      </div>
+
+      <div id="service-flow" class="demo-flow">
+        <dl class="demo-facts">
+          <div><dt>Fee</dt><dd id="service-fee"></dd></div>
+          <div><dt>Time to complete</dt><dd id="service-time"></dd></div>
+          <div><dt>Category</dt><dd id="service-category"></dd></div>
+        </dl>
+
+        <div class="demo-scroll-x">
+          <dda-horizontal-stepper id="service-stepper" current_step="0"
+            steps='[{"title":"Step 1","subtitle":"Your details","description":""},{"title":"Step 2","subtitle":"Documents","description":""},{"title":"Step 3","subtitle":"Review and pay","description":""},{"title":"Step 4","subtitle":"Confirmation","description":""}]'></dda-horizontal-stepper>
+        </div>
+
+        <form id="service-form" class="demo-form" novalidate>
+          <section class="demo-step" data-step="0" aria-labelledby="step-0-title">
+            <h2 id="step-0-title" tabindex="-1">Your details</h2>
+            <dda-input label="Full name" placeholder="As on your Emirates ID" input_id="applicant-name" input_name="name"></dda-input>
+            <dda-input label="Email" type="email" placeholder="name@example.com" input_id="applicant-email" input_name="email"></dda-input>
+            <dda-phonefield label="Mobile number"></dda-phonefield>
+            <dda-input label="Emirates ID number" placeholder="784-0000-0000000-0" input_id="applicant-eid" input_name="eid"></dda-input>
+          </section>
+
+          <section class="demo-step" data-step="1" aria-labelledby="step-1-title" hidden>
+            <h2 id="step-1-title" tabindex="-1">Documents</h2>
+            <p>Upload clear copies. This is a sample: files stay on your device.</p>
+            <dda-attach-file label="Copy of Emirates ID" helper_text="PDF, JPG or PNG, max 5 MB" input_id="doc-eid"></dda-attach-file>
+            <dda-attach-file label="Supporting document (optional)" helper_text="PDF, max 5 MB" input_id="doc-support"></dda-attach-file>
+          </section>
+
+          <section class="demo-step" data-step="2" aria-labelledby="step-2-title" hidden>
+            <h2 id="step-2-title" tabindex="-1">Review and pay</h2>
+            <dl class="demo-summary">
+              <div><dt>Service</dt><dd id="review-service"></dd></div>
+              <div><dt>Name</dt><dd id="review-name"></dd></div>
+              <div><dt>Email</dt><dd id="review-email"></dd></div>
+              <div><dt>Emirates ID</dt><dd id="review-eid"></dd></div>
+              <div><dt>Fee</dt><dd id="review-fee"></dd></div>
+            </dl>
+            <dda-checkbox title_text="I confirm that the information is correct" input_id="review-confirm"></dda-checkbox>
+            <p id="review-confirm-error" class="demo-error" role="alert" hidden>Confirm that the information is correct.</p>
+          </section>
+
+          <section class="demo-step" data-step="3" aria-labelledby="step-3-title" hidden>
+            <h2 id="step-3-title" tabindex="-1">Application sent</h2>
+            <dda-alert variation="success" type="primary" title_text="Your application is sent" description="This is a sample service, so nothing was sent."></dda-alert>
+            <p>Your reference number is <strong id="service-reference"></strong>. Keep it to follow your application.</p>
+            <div class="demo-row">
+              <dda-link-button button_color="default-primary" href="services.html" start_icon="arrow_back">Back to services</dda-link-button>
+              <dda-link-button button_color="default-secondary" href="./">Go to the home page</dda-link-button>
+            </div>
+          </section>
+
+          <div class="demo-row demo-step-actions">
+            <dda-button id="step-back" button_color="default-secondary" start_icon="arrow_back">Back</dda-button>
+            <dda-button id="step-next" button_color="default-primary" end_icon="arrow_forward" type="submit">Continue</dda-button>
+            <dda-button id="step-pay" button_color="default-primary" end_icon="payments" type="submit" hidden>Pay and send</dda-button>
+          </div>
+        </form>
+      </div>
+
+      <dda-alert id="service-missing" hidden variation="error" type="primary" title_text="Service not found" description="Choose a service from the services page."></dda-alert>
+    </main>
+
+    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Footer description placeholder." copyright-text="© 2026 Placeholder. All rights reserved." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
+
+    <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
+  </body>
+</html>

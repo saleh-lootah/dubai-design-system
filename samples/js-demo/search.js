@@ -1,16 +1,5 @@
 // Results page for the header search. dda-header submits a GET to /search.html?q=<query>.
-
-// Sample data until a real search service exists.
-const services = [
-  { title: 'Pay traffic fines', description: 'Check and pay vehicle fines.', icon: 'directions_car' },
-  { title: 'Renew vehicle registration', description: 'Renew the registration of a car or motorcycle.', icon: 'directions_car' },
-  { title: 'Renew Emirates ID', description: 'Renew or replace an identity card.', icon: 'badge' },
-  { title: 'Pay utility bills', description: 'Pay electricity and water bills.', icon: 'receipt_long' },
-  { title: 'Renew trade licence', description: 'Renew a business trade licence.', icon: 'storefront' },
-  { title: 'Apply for a visa', description: 'Apply for a residence or visit visa.', icon: 'flight' },
-  { title: 'Housing assistance', description: 'Apply for a housing loan or grant.', icon: 'home' },
-  { title: 'Book a health appointment', description: 'Book a visit at a public health centre.', icon: 'medical_services' },
-];
+import { serviceCard, services } from './services-data.js';
 
 const query = (new URLSearchParams(location.search).get('q') ?? '').trim();
 const words = query.toLowerCase().split(/\s+/).filter(Boolean);
@@ -35,15 +24,11 @@ if (!query) {
   results.replaceWith(alert);
 } else {
   summary.textContent = `${matches.length} ${matches.length === 1 ? 'result' : 'results'} for "${query}".`;
-  for (const service of matches) {
-    const card = document.createElement('dda-ui-card');
-    card.setAttribute('maintitle', service.title);
-    card.setAttribute('subtitle', service.description);
-    card.setAttribute('icon', service.icon);
-    card.setAttribute('linktext', 'Start service');
-    card.setAttribute('link', '#');
-    results.append(card);
-  }
+  results.append(...matches.map(serviceCard));
 }
 
 if (query) document.title = `${query} – Search results`;
+
+// Load setup.js only now: it loads the components that are on the page, including the cards above.
+// A second <script> tag would not keep this order, because the build merges the page's scripts.
+import('./setup.js');

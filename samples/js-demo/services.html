@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search results</title>
+    <title>Browse services</title>
     <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
     <link rel="stylesheet" href="/style.css">
     <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
@@ -13,19 +13,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
-    <!-- search.js adds the result cards, then loads setup.js, so setup.js loads the card component too. -->
-    <script type="module" src="/search.js"></script>
+    <!-- services.js adds the service cards, then loads setup.js, so setup.js loads the card component too. -->
+    <script type="module" src="/services.js"></script>
   </head>
   <body>
     <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
 
     <main class="demo-main">
-      <div>
-        <h1>Search results</h1>
-        <p id="search-summary"></p>
+      <dda-breadcrumb breadcrumbs='[{"text":"Home","url":"./"},{"text":"Services"}]'></dda-breadcrumb>
+
+      <div class="demo-page-intro">
+        <h1>Browse services</h1>
+        <p id="services-summary">All government services, in one place.</p>
       </div>
 
-      <div id="search-results" class="demo-grid"></div>
+      <div class="demo-filter">
+        <dda-segmented-tabs id="services-filter" radius_type="square" aria_label="Filter services by category"></dda-segmented-tabs>
+      </div>
+
+      <div id="services-list" class="demo-grid"></div>
     </main>
 
     <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Footer description placeholder." copyright-text="© 2026 Placeholder. All rights reserved." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
