@@ -1,77 +1,79 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
 
 <Meta title="Components/Button/Documentation" />
 
 # Button
-The `dda-button` component is a customizable button element that can be used in various UI scenarios
 
-### Usage in React
+The `dda-button` component renders a native `<button>` with Dubai Design System colors, sizes
+and optional Material Symbols icons. Put the label between the tags.
 
-```jsx
-import React from 'react'
-import { DdaButton } from "@dubai-design-system/components-react";
+## API
 
-const App = () => {
-  return (
-    <div>
-        <DdaButton
-            button_color="default-primary"
-            start_icon="sentiment_satisfied"
-            end_icon="arrow_forward"
-            custom_class=""
-            component_mode=""
-            button_id="button"
-            aria_label="button"
-            onclick="console.log('clicked')"
-            >Button
-        </DdaButton>
-    </div>
- )
-}
+<Markdown>{componentApi(readme)}</Markdown>
 
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-button button_id="save" button_color="default-primary" end_icon="arrow_forward">
+  Save and continue
+</dda-button>
 ```
 
-### Usage in Vue
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-button.js';
+
+const button = document.querySelector('dda-button');
+button.addEventListener('click', () => console.log('clicked'));
+```
+
+### React
 
 ```jsx
-<script>
+import { DdaButton } from '@dubai-design-system/components-react';
 
+export function SaveButton() {
+  return (
+    <DdaButton button_id="save" button_color="default-primary" end_icon="arrow_forward" onClick={() => console.log('clicked')}>
+      Save and continue
+    </DdaButton>
+  );
+}
+```
 
-import { DdaButton } from '@dubai-design-system/components-vue'
+### Vue
 
+```html
+<script setup>
+import { DdaButton } from '@dubai-design-system/components-vue';
 </script>
 
 <template>
-    <div>
-        <DdaButton
-            button_color="default-primary"
-            start_icon="sentiment_satisfied"
-            end_icon="arrow_forward"
-            custom_class=""
-            component_mode=""
-            button_id="button"
-            aria_label="button"
-            onclick="console.log('clicked')"
-            ><!---->Button
-        </DdaButton>
-    </div>
+  <DdaButton button_id="save" button_color="default-primary" end_icon="arrow_forward" @click="console.log('clicked')">
+    Save and continue
+  </DdaButton>
 </template>
-
 ```
 
-### Usage in Angular
+### Angular
 
-```jsx
-<dda-button
-    button_color="default-primary"
-    start_icon="sentiment_satisfied"
-    end_icon="arrow_forward"
-    custom_class=""
-    component_mode=""
-    button_id="button"
-    aria_label="button"
-    onclick="console.log('clicked')"
-    ><!---->Button
+```html
+<dda-button button_id="save" button_color="default-primary" end_icon="arrow_forward" (click)="save()">
+  Save and continue
 </dda-button>
-
 ```

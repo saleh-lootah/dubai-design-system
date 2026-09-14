@@ -6,24 +6,35 @@ import { Host, Component, Prop, h } from '@stencil/core';
   shadow: false,
 })
 export class DdaButton {
-  /** Type of button, e.g., "button", "submit" */
+  /** Native button type: `button`, `submit` or `reset`. */
   @Prop() type: string = 'button';
-  /** Disable the button */
+  /** Disables the button. */
   @Prop() disabled: boolean = false;
-  /** Icon class for the starting icon */
+  /** Material Symbols icon name shown before the label, e.g. `arrow_back`. */
   @Prop() start_icon: string = '';
-  @Prop() end_icon: string = ''; // icon class
+  /** Material Symbols icon name shown after the label, e.g. `arrow_forward`. */
+  @Prop() end_icon: string = '';
+  /** Accessible name. Required when the button shows only an icon. */
   @Prop() aria_label?: string = '';
-  @Prop() button_color: string = 'primary'; // e.g., 'primary', 'error'
-  @Prop() size?: string; // e.g., 'sm', 'md', 'lg'
+  /** Color variant, e.g. `default-primary`, `default-secondary`, `error-primary`, `onsurface-link`. */
+  @Prop() button_color: string = 'primary';
+  /** Size: `sm`, `md`, `lg` or `xl`. */
+  @Prop() size?: string;
+  /** Shape: `default` or `circle`. */
   @Prop() button_shape?: string = '';
+  /** Shape of an icon-only button: `default` or `circle`. */
   @Prop() icon_button_shape?: string = '';
+  /** Gap between icon and label, as a spacing step: 1–6, 8, 10, 12 or 16. */
   @Prop() gap?: number;
-  @Prop() custom_class?: string = ''; // Custom class prop
+  /** Extra CSS classes added to the inner `<button>`. */
+  @Prop() custom_class?: string = '';
+  /** Theme override class for the button, e.g. `light-mode`. */
   @Prop() component_mode?: string;
+  /** `id` of the inner `<button>`. */
   @Prop() button_id: string;
+  /** `name` of the inner `<button>`, submitted with its form. */
   @Prop() button_name?: string = '';
-  /** Function to be called on button click */
+  /** Click handler, set as a JavaScript property. You can also listen for the native `click` event. */
   @Prop() clickHandler?: (event: MouseEvent) => void;
 
   render() {
