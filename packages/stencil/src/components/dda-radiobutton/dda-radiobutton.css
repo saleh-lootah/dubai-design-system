@@ -18,6 +18,10 @@
 }
 .dda-radio-container .radio-circle{
   display: inline-block;
+  /* The md size; without it the circle is 0x0 when no size is set. The size rules below override it. */
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
   margin-top: 2px;
   background: var(--dda-neutral-100);
   border-radius: 50px;

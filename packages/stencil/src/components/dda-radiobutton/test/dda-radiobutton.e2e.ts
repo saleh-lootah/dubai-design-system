@@ -90,4 +90,25 @@ describe('dda-radiobutton', () => {
     expect(inner).toHaveClass('dda-radio-lg');
     expect(inner).toHaveClass('dda-radio-outlined');
   });
+
+  it('shows the radio circle when no size is set', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-radiobutton title_text="Small" input_id="r1" group_name="size"></dda-radiobutton>');
+
+    const circle = await page.evaluate(() => {
+      const rect = document.querySelector('.radio-circle').getBoundingClientRect();
+      return { width: rect.width, height: rect.height };
+    });
+
+    expect(circle.width).toBeGreaterThan(0);
+    expect(circle.height).toBeGreaterThan(0);
+  });
+
+  it('keeps the size-specific circle when size is set', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-radiobutton title_text="Small" input_id="r1" group_name="size" size="lg"></dda-radiobutton>');
+
+    const width = await page.evaluate(() => document.querySelector('.radio-circle').getBoundingClientRect().width);
+    expect(width).toBe(23);
+  });
 });
