@@ -337,3 +337,134 @@ describe('dda-header search', () => {
     });
   });
 });
+
+// The toolbar items are search, accessibility, language and login; the accessibility panel has its own dda-buttons.
+const LANGUAGE_BUTTON = '.dda-toolbar-menu > ul > li:nth-child(3) dda-button';
+
+describe('dda-header accessibility', () => {
+  const megaMenu = JSON.stringify([
+    { label: 'Services', menuLabel: 'Services', href: '#', subMenu: [{ title: 'Licence', description: 'Renew', icon: 'badge', href: '/licence' }] },
+  ]);
+  const setup = async (attrs = '', width = 1280) => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height: 800 });
+    await page.setContent(`<dda-header ${attrs}></dda-header>`);
+    await page.waitForChanges();
+    return page;
+  };
+
+  it('names the hamburger menu button "Menu" by default', async () => {
+    const page = await setup('hamburger_menu_button_name="menu"', 390);
+
+    const button = await page.evaluate(() => {
+      const el = document.querySelector('.hamburger-menu-btn');
+      return { text: el.textContent.trim(), name: el.getAttribute('name') };
+    });
+
+    expect(button).toEqual({ text: 'Menu', name: 'menu' });
+  });
+
+  it('uses menu_button_label as the hamburger menu button text', async () => {
+    const page = await setup('menu_button_label="Main menu"', 390);
+
+    const text = await page.evaluate(() => document.querySelector('.hamburger-menu-btn .hamburger-menu-text').textContent);
+    expect(text).toBe('Main menu');
+  });
+
+  it('hides every Material icon it renders from assistive tech, and keeps icon-only controls named', async () => {
+    const page = await setup(`quick-links='${megaMenu}' read-speaker-link="https://app.readspeaker.com/"`);
+
+    const result = await page.evaluate(() => {
+      const icons = Array.from(document.querySelectorAll('dda-header i'))
+        // dda-button and dda-link-button render their own icons; their own tests cover them.
+        .filter(icon => !icon.parentElement.closest('dda-button, dda-link-button'));
+      return {
+        count: icons.length,
+        notHidden: icons.filter(icon => icon.getAttribute('aria-hidden') !== 'true').map(icon => icon.outerHTML),
+        unnamedControls: icons
+          .map(icon => icon.closest('button, a'))
+          .filter(control => control && !control.getAttribute('aria-label') && !control.textContent.replace(/close|search|accessibility|volume_up|badge/g, '').trim())
+          .map(control => control.outerHTML),
+      };
+    });
+
+    expect(result.count).toBeGreaterThan(0);
+    expect(result.notHidden).toEqual([]);
+    expect(result.unnamedControls).toEqual([]);
+  });
+
+  it('marks both language buttons as Arabic by default', async () => {
+    const page = await setup('language_text="العربية"');
+
+    const langs = await page.evaluate(
+      (languageButton: string) => ({
+        desktop: document.querySelector(languageButton).getAttribute('lang'),
+        desktopInner: document.querySelector(`${languageButton} button`).closest('[lang]').getAttribute('lang'),
+        side: document.querySelector('.dda-toolbar-menu-sidemenu li:nth-child(2) button').getAttribute('lang'),
+      }),
+      LANGUAGE_BUTTON,
+    );
+
+    expect(langs).toEqual({ desktop: 'ar', desktopInner: 'ar', side: 'ar' });
+  });
+
+  it('uses language_text and language_lang in the side menu language button', async () => {
+    const page = await setup('language_text="English" language_lang="en"');
+
+    const side = await page.evaluate(() => {
+      const button = document.querySelector('.dda-toolbar-menu-sidemenu li:nth-child(2) button');
+      return { text: button.textContent.trim(), lang: button.getAttribute('lang') };
+    });
+
+    expect(side).toEqual({ text: 'English', lang: 'en' });
+  });
+
+  it('falls back to العربية as the language button text', async () => {
+    const page = await setup();
+
+    const texts = await page.evaluate(
+      (languageButton: string) => ({
+        desktop: document.querySelector(languageButton).textContent.trim(),
+        side: document.querySelector('.dda-toolbar-menu-sidemenu li:nth-child(2) button').textContent.trim(),
+      }),
+      LANGUAGE_BUTTON,
+    );
+
+    expect(texts).toEqual({ desktop: 'العربية', side: 'العربية' });
+  });
+
+  it('does not render a ReadSpeaker link without read-speaker-link', async () => {
+    const page = await setup();
+
+    const count = await page.evaluate(() => document.querySelectorAll('dda-header .readspeaker, dda-header .rsbtn').length);
+    expect(count).toBe(0);
+  });
+
+  it('renders the ReadSpeaker link with its href when read-speaker-link is set', async () => {
+    const page = await setup('read-speaker-link="https://app.readspeaker.com/listen"');
+
+    const hrefs = await page.evaluate(() => Array.from(document.querySelectorAll('dda-header a.readspeaker')).map(a => a.getAttribute('href')));
+    expect(hrefs.length).toBe(2);
+    hrefs.forEach(href => expect(href).toBe('https://app.readspeaker.com/listen'));
+  });
+
+  it('links the logos to first-logo-href and second-logo-href', async () => {
+    const page = await setup('first-logo-href="/gov" second-logo-href="/entity"');
+
+    const hrefs = await page.evaluate(() => ({
+      first: Array.from(document.querySelectorAll('dda-header a.govt-logo')).map(a => a.getAttribute('href')),
+      second: Array.from(document.querySelectorAll('dda-header a.entt-logo')).map(a => a.getAttribute('href')),
+    }));
+
+    // Desktop and side-menu first logo; desktop and mobile second logo.
+    expect(hrefs).toEqual({ first: ['/gov', '/gov'], second: ['/entity', '/entity'] });
+  });
+
+  it('links the logos to / by default', async () => {
+    const page = await setup();
+
+    const hrefs = await page.evaluate(() => Array.from(document.querySelectorAll('dda-header a.govt-logo, dda-header a.entt-logo')).map(a => a.getAttribute('href')));
+    expect(hrefs.length).toBe(4);
+    hrefs.forEach(href => expect(href).toBe('/'));
+  });
+});

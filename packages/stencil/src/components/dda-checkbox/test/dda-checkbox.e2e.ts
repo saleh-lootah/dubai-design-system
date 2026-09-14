@@ -78,4 +78,47 @@ describe('dda-checkbox', () => {
     expect(inner).toHaveClass('dda-checkbox-lg');
     expect(inner).toHaveClass('dda-checkbox-round');
   });
+
+  // WCAG 1.1.1 / 4.1.2: the check glyph is a ligature; exposed, the name was
+  // "check Subscribe".
+  it('hides the check icon from assistive technology', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-checkbox title_text="Subscribe" input_id="cb1"></dda-checkbox>');
+
+    const icon = await page.find('dda-checkbox label i.material-icons');
+    expect(icon.getAttribute('aria-hidden')).toBe('true');
+  });
+
+  // WCAG 2.4.7. The native input is hidden, so the styled box must show the
+  // ring. A real Tab is required for :focus-visible to match.
+  const boxShadowOfBox = page => page.evaluate(() => getComputedStyle(document.querySelector('dda-checkbox label i') as HTMLElement).boxShadow);
+
+  it('shows no focus ring on the box before focus', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-checkbox title_text="Subscribe" input_id="cb1"></dda-checkbox>');
+
+    expect(await boxShadowOfBox(page)).toBe('none');
+  });
+
+  it('shows a focus ring on the box under keyboard focus', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-checkbox title_text="Subscribe" input_id="cb1"></dda-checkbox>');
+
+    await page.keyboard.press('Tab');
+    const focusedIsInput = await page.evaluate(() => document.activeElement === document.querySelector('dda-checkbox input'));
+    expect(focusedIsInput).toBe(true);
+
+    expect(await boxShadowOfBox(page)).not.toBe('none');
+  });
+
+  it('shows a focus ring on the checked box under keyboard focus', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-checkbox title_text="Subscribe" input_id="cb1" checked></dda-checkbox>');
+
+    await page.keyboard.press('Tab');
+    const shadow = await boxShadowOfBox(page);
+    expect(shadow).not.toBe('none');
+    // The two-tone ring: a white inner ring and a dark outer ring.
+    expect(shadow).toContain('rgba(0, 0, 0, 0.65)');
+  });
 });

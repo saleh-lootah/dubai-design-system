@@ -154,3 +154,7 @@ import { DdaStickyFooter } from '@dubai-design-system/components-vue';
   shows it again.
 - **Page layout.** The component sets the CSS variable `--dda-sticky-footer-height` on `<html>` to
   the bar's height, so content fixed above the bar can clear it.
+- **Landmark.** The bar is an `<aside>` landmark, not a second `<footer>`. `aria_label` names it;
+  default: `Quick actions`.
+- **Services text.** When `services-icon-text` is set, the text names the link and the icon image
+  gets `alt=""`. Set `services-icon-alt` for an icon without text.

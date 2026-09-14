@@ -36,6 +36,8 @@ export class DdaDropdown {
   @Prop() arrow_button_name?: string;
   /** `name` of each option button in the list. */
   @Prop() dropdown_button_name?: string;
+  /** Accessible name of the dropdown button in `icon_mode` when `aria_label` and `label` are not set. */
+  @Prop() toggle_button_label?: string = 'Show options';
   
   @State() isopen: boolean = false;
 
@@ -74,9 +76,9 @@ export class DdaDropdown {
         <div class={containerClass}>
           {this.label && <label htmlFor={this.button_id} class="dda-input-label">{this.label}</label>}
           <div class={`dda-dropdown-container ${this.type}`}>
-            <button id={this.button_id} name={this.arrow_button_name} aria-label={this.aria_label} type="button" class="dda-input-field dda-dropdown-header" onClick={() => this.toggleDropdown()}>
-              <i class={`three-dots material-icons`}>{this.isopen ? 'more_vert' : 'more_vert'}</i>
-              {!this.icon_mode && <span class="dda-dropdown-text"><span>{this.selected || 'Select an option'}</span> <i class={`material-icons`}>{this.isopen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i></span>
+            <button id={this.button_id} name={this.arrow_button_name} aria-label={this.aria_label || (this.icon_mode && !this.label ? this.toggle_button_label : undefined)} aria-expanded={this.isopen ? 'true' : 'false'} type="button" class="dda-input-field dda-dropdown-header" onClick={() => this.toggleDropdown()}>
+              <i class={`three-dots material-icons`} aria-hidden="true">{this.isopen ? 'more_vert' : 'more_vert'}</i>
+              {!this.icon_mode && <span class="dda-dropdown-text"><span>{this.selected || 'Select an option'}</span> <i class={`material-icons`} aria-hidden="true">{this.isopen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i></span>
               }
             </button>
             {this.isopen && (

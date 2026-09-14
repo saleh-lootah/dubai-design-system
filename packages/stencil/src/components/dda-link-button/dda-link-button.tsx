@@ -59,9 +59,9 @@ export class DdaLinkButton {
         //   disabled={this.disabled}
           aria-label={this.aria_label}
         >
-          {this.start_icon && <i class="material-icons  material-symbols-outlined">{this.start_icon}</i>}
+          {this.start_icon && <i class="material-icons  material-symbols-outlined" aria-hidden="true">{this.start_icon}</i>}
           <slot />
-          {this.end_icon && <i class="material-icons  material-symbols-outlined">{this.end_icon }</i>}
+          {this.end_icon && <i class="material-icons  material-symbols-outlined" aria-hidden="true">{this.end_icon }</i>}
         </a>
       </Host>
     );

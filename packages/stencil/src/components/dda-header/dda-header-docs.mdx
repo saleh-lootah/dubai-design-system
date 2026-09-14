@@ -172,6 +172,18 @@ The panel has no built-in effect on the page. It emits events, and your code app
   </tbody>
 </table>
 
+The Screen Reader item shows only when `read-speaker-link` is set.
+
+## Links and labels
+
+- **Logo links.** `first-logo-href` and `second-logo-href` set the link of each logo. Both default
+  to `/`.
+- **Menu button.** `menu_button_label` is the accessible name of the hamburger button. Default:
+  `Menu`.
+- **Language buttons.** `language_text` is the label of both language buttons (default `العربية`).
+  `language_lang` sets their `lang` attribute (default `ar`), so screen readers read the label in
+  that language. When the label is English, set `language_lang="en"`.
+
 ## Search
 
 The header search is a `<form role="search">`. Enter submits it on desktop. On small screens the

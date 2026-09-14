@@ -65,6 +65,32 @@ describe('dda-chip', () => {
     const close = await page.find('dda-chip .chip-close');
     expect(close.getAttribute('aria-label')).not.toBeNull();
   });
+
+  it('names the close button "Remove" by default', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-chip show_close_icon="true">Tag</dda-chip>');
+
+    const close = await page.find('dda-chip .chip-close');
+    expect(close.getAttribute('aria-label')).toBe('Remove');
+  });
+
+  it('uses close_button_label as the close button name when set', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-chip show_close_icon="true" close_button_label="Remove Trade licences">Trade licences</dda-chip>');
+
+    const close = await page.find('dda-chip .chip-close');
+    expect(close.getAttribute('aria-label')).toBe('Remove Trade licences');
+  });
+
+  // WCAG 1.1.1 / 2.5.3 / 4.1.2: the leading icon and the close glyph are
+  // ligatures; exposed, they were read as "check_circle Tag close".
+  it('hides the leading icon and the close icon from assistive technology', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-chip icon="check_circle" show_close_icon="true">Tag</dda-chip>');
+
+    const hidden = await page.$$eval('dda-chip i.material-icons', (els: Element[]) => els.map(el => el.getAttribute('aria-hidden')));
+    expect(hidden).toEqual(['true', 'true']);
+  });
 });
 
 // F-023 (B3): `.dda-chip-grey`'s background was the raw, theme-invariant

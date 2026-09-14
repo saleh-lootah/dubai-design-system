@@ -110,6 +110,9 @@ import { DdaUiCard } from '@dubai-design-system/components-vue';
 
 - `icon` and `linkicon` take Material Icons names. Load the Material Icons font.
 - When you set `image`, the component uses `maintitle` as the image alt text.
-- The title renders as an `<h1>`. For a page with several cards, consider `type="custom"`
-  with your own heading level, as in the example above.
+- The title renders as an `<h3>` by default. Set `heading_level` (1–6) to fit the page outline,
+  for example `heading_level="2"` for cards directly under the page `<h1>`. The title looks the
+  same at every level.
+- The icon and the link arrow are hidden from screen readers, so the link is read as its
+  `linktext` only.
 - The `linkClick` event is declared but the component does not emit it.

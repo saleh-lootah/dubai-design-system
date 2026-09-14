@@ -44,7 +44,7 @@ export class DdaCheckbox {
         <div class={checkboxClass}>
           <input aria-label={this.aria_label} type="checkbox" id={this.input_id} name={this.group_name} checked={this.checked}/>
           <label htmlFor={this.input_id}>
-            <i class="material-icons  material-symbols-outlined">check</i>
+            <i class="material-icons  material-symbols-outlined" aria-hidden="true">check</i>
             <p>
               <span class="dda-checkbox-title">{this.title_text}</span>
               {this.supporting && <span class="dda-checkbox-supporting">{this.supporting}</span>}

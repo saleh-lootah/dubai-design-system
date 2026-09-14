@@ -30,14 +30,14 @@ export declare interface DdaAccordion extends Components.DdaAccordion {}
 
 
 @ProxyCmp({
-  inputs: ['button_name', 'button_text', 'clickHandler', 'component_id', 'component_mode', 'custom_class', 'description', 'first_button', 'first_link', 'second_button', 'second_link', 'title_text', 'type', 'variation']
+  inputs: ['button_name', 'button_text', 'clickHandler', 'close_button_label', 'component_id', 'component_mode', 'custom_class', 'description', 'first_button', 'first_link', 'heading_level', 'second_button', 'second_link', 'title_text', 'type', 'variation']
 })
 @Component({
   selector: 'dda-alert',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['button_name', 'button_text', 'clickHandler', 'component_id', 'component_mode', 'custom_class', 'description', 'first_button', 'first_link', 'second_button', 'second_link', 'title_text', 'type', 'variation'],
+  inputs: ['button_name', 'button_text', 'clickHandler', 'close_button_label', 'component_id', 'component_mode', 'custom_class', 'description', 'first_button', 'first_link', 'heading_level', 'second_button', 'second_link', 'title_text', 'type', 'variation'],
 })
 export class DdaAlert {
   protected el: HTMLDdaAlertElement;
@@ -106,14 +106,14 @@ export declare interface DdaAvatar extends Components.DdaAvatar {}
 
 
 @ProxyCmp({
-  inputs: ['slider_height', 'slider_width', 'slides']
+  inputs: ['aria_label', 'slider_height', 'slider_width', 'slides']
 })
 @Component({
   selector: 'dda-banner',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['slider_height', 'slider_width', 'slides'],
+  inputs: ['aria_label', 'slider_height', 'slider_width', 'slides'],
 })
 export class DdaBanner {
   protected el: HTMLDdaBannerElement;
@@ -194,14 +194,14 @@ export declare interface DdaCheckbox extends Components.DdaCheckbox {}
 
 
 @ProxyCmp({
-  inputs: ['bg_color', 'clickHandler', 'component_mode', 'custom_class', 'icon', 'rounded', 'show_close_icon', 'size']
+  inputs: ['bg_color', 'clickHandler', 'close_button_label', 'component_mode', 'custom_class', 'icon', 'rounded', 'show_close_icon', 'size']
 })
 @Component({
   selector: 'dda-chip',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['bg_color', 'clickHandler', 'component_mode', 'custom_class', 'icon', 'rounded', 'show_close_icon', 'size'],
+  inputs: ['bg_color', 'clickHandler', 'close_button_label', 'component_mode', 'custom_class', 'icon', 'rounded', 'show_close_icon', 'size'],
 })
 export class DdaChip {
   protected el: HTMLDdaChipElement;
@@ -260,14 +260,14 @@ export declare interface DdaCreditcardField extends Components.DdaCreditcardFiel
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'arrow_button_name', 'button_id', 'component_mode', 'custom_class', 'disabled', 'dropdown_button_name', 'error', 'helper_text', 'icon_mode', 'label', 'options', 'selected', 'size', 'type']
+  inputs: ['aria_label', 'arrow_button_name', 'button_id', 'component_mode', 'custom_class', 'disabled', 'dropdown_button_name', 'error', 'helper_text', 'icon_mode', 'label', 'options', 'selected', 'size', 'toggle_button_label', 'type']
 })
 @Component({
   selector: 'dda-dropdown',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'arrow_button_name', 'button_id', 'component_mode', 'custom_class', 'disabled', 'dropdown_button_name', 'error', 'helper_text', 'icon_mode', 'label', 'options', 'selected', 'size', 'type'],
+  inputs: ['aria_label', 'arrow_button_name', 'button_id', 'component_mode', 'custom_class', 'disabled', 'dropdown_button_name', 'error', 'helper_text', 'icon_mode', 'label', 'options', 'selected', 'size', 'toggle_button_label', 'type'],
 })
 export class DdaDropdown {
   protected el: HTMLDdaDropdownElement;
@@ -282,14 +282,14 @@ export declare interface DdaDropdown extends Components.DdaDropdown {}
 
 
 @ProxyCmp({
-  inputs: ['copyrightText', 'description', 'footerSections', 'footerTitle', 'loginButtonText', 'logoAlt', 'logoDescription', 'logoSrc', 'signUpButtonText', 'socialIcons']
+  inputs: ['copyrightText', 'description', 'footerSections', 'footerTitle', 'heading_level', 'loginButtonText', 'logoAlt', 'logoDescription', 'logoSrc', 'signUpButtonText', 'socialIcons']
 })
 @Component({
   selector: 'dda-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['copyrightText', 'description', 'footerSections', 'footerTitle', 'loginButtonText', 'logoAlt', 'logoDescription', 'logoSrc', 'signUpButtonText', 'socialIcons'],
+  inputs: ['copyrightText', 'description', 'footerSections', 'footerTitle', 'heading_level', 'loginButtonText', 'logoAlt', 'logoDescription', 'logoSrc', 'signUpButtonText', 'socialIcons'],
 })
 export class DdaFooter {
   protected el: HTMLDdaFooterElement;
@@ -304,14 +304,14 @@ export declare interface DdaFooter extends Components.DdaFooter {}
 
 
 @ProxyCmp({
-  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'language_button_name', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name']
+  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'language_button_name', 'language_lang', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'menu_button_label', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name']
 })
 @Component({
   selector: 'dda-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'language_button_name', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name'],
+  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'language_button_name', 'language_lang', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'menu_button_label', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name'],
 })
 export class DdaHeader {
   protected el: HTMLDdaHeaderElement;
@@ -453,14 +453,14 @@ export declare interface DdaLinkButton extends Components.DdaLinkButton {}
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'component_mode', 'currencies', 'currency_button_name', 'custom_class', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_status', 'label', 'placeholder', 'selected_currency', 'size', 'toggle_button_name', 'validation_type', 'value']
+  inputs: ['aria_label', 'component_mode', 'currencies', 'currency_button_name', 'custom_class', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_status', 'label', 'placeholder', 'selected_currency', 'size', 'toggle_button_label', 'toggle_button_name', 'validation_type', 'value']
 })
 @Component({
   selector: 'dda-number-field',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'component_mode', 'currencies', 'currency_button_name', 'custom_class', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_status', 'label', 'placeholder', 'selected_currency', 'size', 'toggle_button_name', 'validation_type', 'value'],
+  inputs: ['aria_label', 'component_mode', 'currencies', 'currency_button_name', 'custom_class', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_status', 'label', 'placeholder', 'selected_currency', 'size', 'toggle_button_label', 'toggle_button_name', 'validation_type', 'value'],
 })
 export class DdaNumberField {
   protected el: HTMLDdaNumberFieldElement;
@@ -475,14 +475,14 @@ export declare interface DdaNumberField extends Components.DdaNumberField {}
 
 
 @ProxyCmp({
-  inputs: ['button_text_next_button', 'button_text_prev_button', 'buttons_next_button', 'buttons_pages_next_button', 'buttons_pages_prev_button', 'buttons_prev_button', 'component_mode', 'current_page', 'custom_class', 'simple_slider_next_button', 'simple_slider_prev_button', 'text_next_button', 'text_pages_next_button', 'text_pages_prev_button', 'text_prev_button', 'total_pages', 'type']
+  inputs: ['button_text_next_button', 'button_text_prev_button', 'buttons_next_button', 'buttons_pages_next_button', 'buttons_pages_prev_button', 'buttons_prev_button', 'component_mode', 'current_page', 'custom_class', 'next_button_label', 'previous_button_label', 'simple_slider_next_button', 'simple_slider_prev_button', 'text_next_button', 'text_pages_next_button', 'text_pages_prev_button', 'text_prev_button', 'total_pages', 'type']
 })
 @Component({
   selector: 'dda-pagination',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['button_text_next_button', 'button_text_prev_button', 'buttons_next_button', 'buttons_pages_next_button', 'buttons_pages_prev_button', 'buttons_prev_button', 'component_mode', 'current_page', 'custom_class', 'simple_slider_next_button', 'simple_slider_prev_button', 'text_next_button', 'text_pages_next_button', 'text_pages_prev_button', 'text_prev_button', 'total_pages', 'type'],
+  inputs: ['button_text_next_button', 'button_text_prev_button', 'buttons_next_button', 'buttons_pages_next_button', 'buttons_pages_prev_button', 'buttons_prev_button', 'component_mode', 'current_page', 'custom_class', 'next_button_label', 'previous_button_label', 'simple_slider_next_button', 'simple_slider_prev_button', 'text_next_button', 'text_pages_next_button', 'text_pages_prev_button', 'text_prev_button', 'total_pages', 'type'],
 })
 export class DdaPagination {
   protected el: HTMLDdaPaginationElement;
@@ -497,14 +497,14 @@ export declare interface DdaPagination extends Components.DdaPagination {}
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'autocomplete', 'button_aria_label', 'button_id', 'component_mode', 'country_select_button_name', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'label', 'phone_input_name', 'placeholder', 'size', 'toggle_button_name', 'validation_type']
+  inputs: ['aria_label', 'autocomplete', 'button_aria_label', 'button_id', 'component_mode', 'country_select_button_name', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'label', 'phone_input_name', 'placeholder', 'size', 'toggle_button_label', 'toggle_button_name', 'validation_type']
 })
 @Component({
   selector: 'dda-phonefield',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'autocomplete', 'button_aria_label', 'button_id', 'component_mode', 'country_select_button_name', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'label', 'phone_input_name', 'placeholder', 'size', 'toggle_button_name', 'validation_type'],
+  inputs: ['aria_label', 'autocomplete', 'button_aria_label', 'button_id', 'component_mode', 'country_select_button_name', 'custom_class', 'disabled', 'error_message', 'helper_text', 'input_id', 'label', 'phone_input_name', 'placeholder', 'size', 'toggle_button_label', 'toggle_button_name', 'validation_type'],
 })
 export class DdaPhonefield {
   protected el: HTMLDdaPhonefieldElement;
@@ -585,14 +585,14 @@ export declare interface DdaRangeSlider extends Components.DdaRangeSlider {}
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'button_aria_label', 'button_id', 'close_button_name', 'component_mode', 'custom_class', 'error_message', 'has_error', 'helper_text', 'input_id', 'input_status', 'label', 'placeholder', 'search_button_name', 'search_input_name', 'show_button', 'size']
+  inputs: ['aria_label', 'button_aria_label', 'button_id', 'clear_button_label', 'close_button_name', 'component_mode', 'custom_class', 'error_message', 'has_error', 'helper_text', 'input_id', 'input_status', 'label', 'placeholder', 'search_button_name', 'search_input_name', 'show_button', 'size']
 })
 @Component({
   selector: 'dda-search-input',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'button_aria_label', 'button_id', 'close_button_name', 'component_mode', 'custom_class', 'error_message', 'has_error', 'helper_text', 'input_id', 'input_status', 'label', 'placeholder', 'search_button_name', 'search_input_name', 'show_button', 'size'],
+  inputs: ['aria_label', 'button_aria_label', 'button_id', 'clear_button_label', 'close_button_name', 'component_mode', 'custom_class', 'error_message', 'has_error', 'helper_text', 'input_id', 'input_status', 'label', 'placeholder', 'search_button_name', 'search_input_name', 'show_button', 'size'],
 })
 export class DdaSearchInput {
   protected el: HTMLDdaSearchInputElement;
@@ -607,14 +607,14 @@ export declare interface DdaSearchInput extends Components.DdaSearchInput {}
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'button_name', 'component_mode', 'custom_class', 'items', 'radius_type', 'selected_index']
+  inputs: ['aria_label', 'button_name', 'component_mode', 'custom_class', 'icon_labels', 'items', 'radius_type', 'selected_index']
 })
 @Component({
   selector: 'dda-segmented-tabs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'button_name', 'component_mode', 'custom_class', 'items', 'radius_type', 'selected_index'],
+  inputs: ['aria_label', 'button_name', 'component_mode', 'custom_class', 'icon_labels', 'items', 'radius_type', 'selected_index'],
 })
 export class DdaSegmentedTabs {
   protected el: HTMLDdaSegmentedTabsElement;
@@ -657,14 +657,14 @@ export declare interface DdaSelect extends Components.DdaSelect {}
 
 
 @ProxyCmp({
-  inputs: ['accessibilityIconAlt', 'accessibilityIconHref', 'accessibilityIconSrc', 'accessibilityIconTooltip', 'aiIconAlt', 'aiIconHref', 'aiIconSrc', 'aiIconTooltip', 'chatIconAlt', 'chatIconHref', 'chatIconSrc', 'chatIconTooltip', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoTooltip', 'happinessIconAlt', 'happinessIconHref', 'happinessIconSrc', 'happinessIconTooltip', 'hideMiddleSection', 'locationButtonHref', 'locationButtonIcon', 'locationButtonText', 'locationLogoSrc', 'newsButtonHref', 'newsButtonIcon', 'newsButtonSrc', 'newsButtonText', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoTooltip', 'servicesIconAlt', 'servicesIconHref', 'servicesIconSrc', 'servicesIconText', 'servicesIconTooltip', 'thirdLogoAlt', 'thirdLogoHref', 'thirdLogoSrc', 'thirdLogoTooltip']
+  inputs: ['accessibilityIconAlt', 'accessibilityIconHref', 'accessibilityIconSrc', 'accessibilityIconTooltip', 'aiIconAlt', 'aiIconHref', 'aiIconSrc', 'aiIconTooltip', 'aria_label', 'chatIconAlt', 'chatIconHref', 'chatIconSrc', 'chatIconTooltip', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoTooltip', 'happinessIconAlt', 'happinessIconHref', 'happinessIconSrc', 'happinessIconTooltip', 'hideMiddleSection', 'locationButtonHref', 'locationButtonIcon', 'locationButtonText', 'locationLogoSrc', 'newsButtonHref', 'newsButtonIcon', 'newsButtonSrc', 'newsButtonText', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoTooltip', 'servicesIconAlt', 'servicesIconHref', 'servicesIconSrc', 'servicesIconText', 'servicesIconTooltip', 'thirdLogoAlt', 'thirdLogoHref', 'thirdLogoSrc', 'thirdLogoTooltip']
 })
 @Component({
   selector: 'dda-sticky-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['accessibilityIconAlt', 'accessibilityIconHref', 'accessibilityIconSrc', 'accessibilityIconTooltip', 'aiIconAlt', 'aiIconHref', 'aiIconSrc', 'aiIconTooltip', 'chatIconAlt', 'chatIconHref', 'chatIconSrc', 'chatIconTooltip', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoTooltip', 'happinessIconAlt', 'happinessIconHref', 'happinessIconSrc', 'happinessIconTooltip', 'hideMiddleSection', 'locationButtonHref', 'locationButtonIcon', 'locationButtonText', 'locationLogoSrc', 'newsButtonHref', 'newsButtonIcon', 'newsButtonSrc', 'newsButtonText', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoTooltip', 'servicesIconAlt', 'servicesIconHref', 'servicesIconSrc', 'servicesIconText', 'servicesIconTooltip', 'thirdLogoAlt', 'thirdLogoHref', 'thirdLogoSrc', 'thirdLogoTooltip'],
+  inputs: ['accessibilityIconAlt', 'accessibilityIconHref', 'accessibilityIconSrc', 'accessibilityIconTooltip', 'aiIconAlt', 'aiIconHref', 'aiIconSrc', 'aiIconTooltip', 'aria_label', 'chatIconAlt', 'chatIconHref', 'chatIconSrc', 'chatIconTooltip', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoTooltip', 'happinessIconAlt', 'happinessIconHref', 'happinessIconSrc', 'happinessIconTooltip', 'hideMiddleSection', 'locationButtonHref', 'locationButtonIcon', 'locationButtonText', 'locationLogoSrc', 'newsButtonHref', 'newsButtonIcon', 'newsButtonSrc', 'newsButtonText', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoTooltip', 'servicesIconAlt', 'servicesIconHref', 'servicesIconSrc', 'servicesIconText', 'servicesIconTooltip', 'thirdLogoAlt', 'thirdLogoHref', 'thirdLogoSrc', 'thirdLogoTooltip'],
 })
 export class DdaStickyFooter {
   protected el: HTMLDdaStickyFooterElement;
@@ -773,14 +773,14 @@ export declare interface DdaTooltip extends Components.DdaTooltip {}
 
 
 @ProxyCmp({
-  inputs: ['icon', 'image', 'link', 'linkicon', 'linktext', 'maintitle', 'subtitle', 'type']
+  inputs: ['heading_level', 'icon', 'image', 'link', 'linkicon', 'linktext', 'maintitle', 'subtitle', 'type']
 })
 @Component({
   selector: 'dda-ui-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['icon', 'image', 'link', 'linkicon', 'linktext', 'maintitle', 'subtitle', 'type'],
+  inputs: ['heading_level', 'icon', 'image', 'link', 'linkicon', 'linktext', 'maintitle', 'subtitle', 'type'],
 })
 export class DdaUiCard {
   protected el: HTMLDdaUiCardElement;

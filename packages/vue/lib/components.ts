@@ -33,6 +33,8 @@ export const DdaAlert = /*@__PURE__*/ defineContainer<JSX.DdaAlert>('dda-alert',
   'second_button',
   'button_name',
   'clickHandler',
+  'close_button_label',
+  'heading_level',
   'firstClick',
   'secondClick'
 ]);
@@ -78,7 +80,8 @@ export const DdaAvatar = /*@__PURE__*/ defineContainer<JSX.DdaAvatar>('dda-avata
 export const DdaBanner = /*@__PURE__*/ defineContainer<JSX.DdaBanner>('dda-banner', undefined, [
   'slides',
   'slider_width',
-  'slider_height'
+  'slider_height',
+  'aria_label'
 ]);
 
 
@@ -130,6 +133,7 @@ export const DdaChip = /*@__PURE__*/ defineContainer<JSX.DdaChip>('dda-chip', un
   'rounded',
   'icon',
   'show_close_icon',
+  'close_button_label',
   'size',
   'custom_class',
   'component_mode',
@@ -184,12 +188,14 @@ export const DdaDropdown = /*@__PURE__*/ defineContainer<JSX.DdaDropdown>('dda-d
   'button_id',
   'aria_label',
   'arrow_button_name',
-  'dropdown_button_name'
+  'dropdown_button_name',
+  'toggle_button_label'
 ]);
 
 
 export const DdaFooter = /*@__PURE__*/ defineContainer<JSX.DdaFooter>('dda-footer', undefined, [
   'footerTitle',
+  'heading_level',
   'description',
   'signUpButtonText',
   'loginButtonText',
@@ -206,9 +212,11 @@ export const DdaHeader = /*@__PURE__*/ defineContainer<JSX.DdaHeader>('dda-heade
   'firstLogoSrc',
   'firstLogoWhiteSrc',
   'firstLogoAlt',
+  'firstLogoHref',
   'secondLogoSrc',
   'secondLogoWhiteSrc',
   'secondLogoAlt',
+  'secondLogoHref',
   'loginLink',
   'sideMenuItems',
   'quickLinks',
@@ -217,7 +225,9 @@ export const DdaHeader = /*@__PURE__*/ defineContainer<JSX.DdaHeader>('dda-heade
   'loginIcon',
   'loginText',
   'language_text',
+  'language_lang',
   'hamburger_menu_button_name',
+  'menu_button_label',
   'accessibility_button_name',
   'search_button_name',
   'search_input_name',
@@ -313,7 +323,8 @@ export const DdaNumberField = /*@__PURE__*/ defineContainer<JSX.DdaNumberField>(
   'aria_label',
   'input_name',
   'toggle_button_name',
-  'currency_button_name'
+  'currency_button_name',
+  'toggle_button_label'
 ]);
 
 
@@ -334,7 +345,9 @@ export const DdaPagination = /*@__PURE__*/ defineContainer<JSX.DdaPagination>('d
   'button_text_prev_button',
   'button_text_next_button',
   'buttons_pages_prev_button',
-  'buttons_pages_next_button'
+  'buttons_pages_next_button',
+  'previous_button_label',
+  'next_button_label'
 ]);
 
 
@@ -354,6 +367,7 @@ export const DdaPhonefield = /*@__PURE__*/ defineContainer<JSX.DdaPhonefield>('d
   'button_aria_label',
   'toggle_button_name',
   'country_select_button_name',
+  'toggle_button_label',
   'phone_input_name',
   'autocomplete'
 ]);
@@ -421,6 +435,7 @@ export const DdaSearchInput = /*@__PURE__*/ defineContainer<JSX.DdaSearchInput>(
   'button_aria_label',
   'search_input_name',
   'close_button_name',
+  'clear_button_label',
   'search_button_name'
 ]);
 
@@ -433,6 +448,7 @@ export const DdaSegmentedTabs = /*@__PURE__*/ defineContainer<JSX.DdaSegmentedTa
   'button_name',
   'aria_label',
   'selected_index',
+  'icon_labels',
   'segmentChange'
 ]);
 
@@ -497,6 +513,7 @@ export const DdaStickyFooter = /*@__PURE__*/ defineContainer<JSX.DdaStickyFooter
   'chatIconSrc',
   'chatIconAlt',
   'chatIconTooltip',
+  'aria_label',
   'hideMiddleSection'
 ]);
 
@@ -565,6 +582,7 @@ export const DdaUiCard = /*@__PURE__*/ defineContainer<JSX.DdaUiCard>('dda-ui-ca
   'link',
   'linktext',
   'linkicon',
+  'heading_level',
   'linkClick'
 ]);
 

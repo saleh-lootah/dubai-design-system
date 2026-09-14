@@ -141,6 +141,8 @@ Set `disabled` to disable the phone input. The country code button is not disabl
 
 - Always set `input_id`. The label `for`, and the ids of the helper and error text, come from it.
 - `autocomplete` defaults to `tel`, so browsers can fill in the number.
+- The country code button is named by `toggle_button_label` and the selected code, for example
+  `Choose country code: +971`. Set `toggle_button_label` in the language of the page.
 - `helper_text` and `error_message` are linked to the input with `aria-describedby`.
   When `error_message` is set, the input also gets `aria-invalid="true"`.
 - Use `aria_label` only when the field has no visible `label`.

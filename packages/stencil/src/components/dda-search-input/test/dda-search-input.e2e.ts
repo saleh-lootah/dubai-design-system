@@ -1,4 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { contrastRatio } from '../../../utils/contrast';
+import { readPlaceholderColors } from '../../../utils/placeholder-color';
 
 // Task 9d.
 // - F-019: show_button=true renders a `.dda-btn.btn-color-default-primary`
@@ -173,4 +175,70 @@ describe('dda-search-input F-016 error labelling', () => {
     expect(result.allExist).toBe(true);
     expect(result.containsError).toBe(true);
   });
+});
+
+// WCAG 1.1.1/4.1.2: the icon-only clear button was named only by its icon
+// ligature ("close"), and the search icon's "search" text was exposed.
+describe('dda-search-input clear button name', () => {
+  it('hides every Material icon from assistive technology', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-search-input input_id="search" button_id="button"></dda-search-input>`);
+
+    const icons = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('dda-search-input i.material-icons')).map((i) => i.getAttribute('aria-hidden')),
+    );
+
+    expect(icons.length).toBeGreaterThan(0);
+    icons.forEach((hidden) => expect(hidden).toBe('true'));
+  });
+
+  it('names the clear button "Clear search" by default', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-search-input input_id="search" button_id="button"></dda-search-input>`);
+
+    const name = await page.evaluate(() => document.querySelector('dda-search-input .icon-close').getAttribute('aria-label'));
+
+    expect(name).toBe('Clear search');
+  });
+
+  it('uses clear_button_label when set', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-search-input input_id="search" button_id="button" clear_button_label="Clear the field"></dda-search-input>`);
+
+    const name = await page.evaluate(() => document.querySelector('dda-search-input .icon-close').getAttribute('aria-label'));
+
+    expect(name).toBe('Clear the field');
+  });
+
+  it('keeps button_aria_label ahead of clear_button_label', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-search-input input_id="search" button_id="button" button_aria_label="Reset" clear_button_label="Clear the field"></dda-search-input>`);
+
+    const name = await page.evaluate(() => document.querySelector('dda-search-input .icon-close').getAttribute('aria-label'));
+
+    expect(name).toBe('Reset');
+  });
+});
+
+// WCAG 1.4.3: the global `::placeholder` colour (#8E9191) was 3.18:1 on the
+// white field. input.css now uses --dda-on-surface-variant-40 on the field.
+// Chromium's getComputedStyle(el, '::placeholder') returns the element's own
+// colour, so readPlaceholderColors resolves the winning ::placeholder rule.
+describe('dda-search-input placeholder contrast (WCAG 1.4.3)', () => {
+  for (const theme of [undefined, 'dark'] as const) {
+    const label = theme ? 'dark' : 'light';
+
+    it(`placeholder clears 4.5:1 against the field background in ${label} theme`, async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-search-input input_id="search" button_id="button"></dda-search-input>`);
+      if (theme) {
+        await page.evaluate(t => document.documentElement.setAttribute('data-theme', t), theme);
+        await page.waitForChanges();
+      }
+
+      const colors = await page.evaluate(readPlaceholderColors, { field: 'dda-search-input .dda-search-field' });
+
+      expect(contrastRatio(colors.placeholder, colors.background)).toBeGreaterThanOrEqual(4.5);
+    });
+  }
 });

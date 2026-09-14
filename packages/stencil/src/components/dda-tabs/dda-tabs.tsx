@@ -83,7 +83,7 @@ export class DdaTabs {
               class={`dda-tab-item ${this.active_tab === index ? 'active' : ''}`}
               onClick={() => this.setActiveTab(index)}
             >
-              {this.type === 'text-icon' && <i class={`material-icons`}>{this.parsedIcons[index] || ""}</i>}
+              {this.type === 'text-icon' && <i class={`material-icons`} aria-hidden="true">{this.parsedIcons[index] || ""}</i>}
               <span>{title}</span>
             </button>
           ))}

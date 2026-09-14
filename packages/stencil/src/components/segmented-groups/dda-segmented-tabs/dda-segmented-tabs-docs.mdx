@@ -103,7 +103,10 @@ const items = JSON.stringify(['All', 'Pending', 'Approved']);
 
 An item that starts with `fo` renders as a Material Symbols icon instead of text, for example
 `'["format_align_left", "format_align_center", "format_align_right"]'`. Icon segments have no
-visible label, so give the group a clear `aria_label`.
+visible label, so give the group a clear `aria_label`, and give each icon segment an accessible
+name with `icon_labels`: a JSON string array in the same order as `items`, for example
+`icon_labels='["Align left", "Align center", "Align right"]'`. Without it, the segment name is the
+icon name with spaces, such as "format align left".
 
 ## Accessibility
 

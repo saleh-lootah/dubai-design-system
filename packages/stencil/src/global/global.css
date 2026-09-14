@@ -71,6 +71,13 @@ a:hover {
   text-decoration: none !important;
 }
 
+/* WCAG 1.4.1: links in running text keep an underline so color is not the only cue.
+   Classed links (buttons, cards) and list links (menus) stay undecorated. */
+:where(p, td, dd, blockquote, figcaption) a:not([class]),
+:where(p, td, dd, blockquote, figcaption) a:not([class]):hover {
+  text-decoration: underline !important;
+}
+
 button {
   cursor: pointer;
 }

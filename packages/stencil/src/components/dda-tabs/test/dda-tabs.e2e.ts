@@ -94,4 +94,14 @@ describe('dda-tabs', () => {
     const buttons = await page.findAll('dda-tabs button');
     expect(buttons[1].getAttribute('aria-pressed')).toBe('true');
   });
+
+  // WCAG 1.1.1 / 2.5.3 / 4.1.2: the icon ligature was read before the tab
+  // label ("sentiment_satisfied Tab 1").
+  it('hides the tab icons from assistive technology (text-icon)', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-tabs type="text-icon" tab_texts='${TEXTS}' tab_icons='["home","sell","help"]'></dda-tabs>`);
+
+    const hidden = await page.$$eval('dda-tabs i.material-icons', (els: Element[]) => els.map(el => el.getAttribute('aria-hidden')));
+    expect(hidden).toEqual(['true', 'true', 'true']);
+  });
 });

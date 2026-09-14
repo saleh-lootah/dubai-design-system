@@ -103,6 +103,9 @@ export class DdaStickyFooter {
   @Prop() chatIconTooltip: string;
 
 
+  /** Accessible name of the bar's `<aside>` landmark. Default: `Quick actions`. */
+  @Prop() aria_label: string = 'Quick actions';
+
   @State() isHidden: boolean = false;
   private lastScrollY: number = 0;
 
@@ -119,7 +122,7 @@ export class DdaStickyFooter {
     window.addEventListener('scroll', this.handleScroll);
 
     // Publish the bar's height so page layouts fixed above it (.quick-links-wrap) can clear it.
-    const bar = this.el.querySelector('footer');
+    const bar = this.el.querySelector<HTMLElement>('.dda-footer');
     if (bar && typeof ResizeObserver !== 'undefined') {
       this.resizeObserver = new ResizeObserver(() => {
         document.documentElement.style.setProperty('--dda-sticky-footer-height', `${bar.offsetHeight}px`);
@@ -144,8 +147,10 @@ export class DdaStickyFooter {
 
   render() {
     return (
-      <footer
+      // An <aside>, not a <footer>: the page footer (dda-footer) is the only contentinfo landmark.
+      <aside
         class={{ 'dda-footer': true, 'hidden': this.isHidden }}
+        aria-label={this.aria_label}
         aria-hidden={this.isHidden ? 'true' : 'false'}
         inert={this.isHidden}
       >
@@ -170,7 +175,8 @@ export class DdaStickyFooter {
               <li class="foot-icon-btn">
                 <dda-tooltip title_text={this.servicesIconTooltip} description="" position="top">
                   <a href={this.servicesIconHref}>
-                    <img src={this.servicesIconSrc} alt={this.servicesIconAlt} />
+                    {/* With visible text the image is decorative; the text names the link. */}
+                    <img src={this.servicesIconSrc} alt={this.servicesIconText ? '' : this.servicesIconAlt} />
                     {this.servicesIconText && <span>{this.servicesIconText}</span>}
                   </a>
                 </dda-tooltip>
@@ -262,7 +268,7 @@ export class DdaStickyFooter {
             </ul>
           </div>
         </div>
-      </footer>
+      </aside>
     );
   }
 }

@@ -162,6 +162,17 @@ Before 5.1.0 every nested `side-menu-items` link cancelled its click. Links with
 `subMenu` now go to their `href`. Check that nested items have real URLs; `"#"` now jumps to
 the top of the page.
 
+**Accessibility fixes that change markup.** **Silent** if your CSS or scripts target the old markup.
+
+- `dda-sticky-footer` renders `<aside aria-label="Quick actions">`, not `<footer>`. Replace
+  selectors such as `dda-sticky-footer footer` with `dda-sticky-footer .dda-footer`.
+- `dda-ui-card` renders its title as `h3`, not `h1`. Set `heading_level` (1–6) to match your
+  page outline, and target `.dda-card-title`, not `h1`.
+- `dda-header` logo links go to `/` instead of `#`. Set `first-logo-href` and
+  `second-logo-href`. The ReadSpeaker item shows only when `read-speaker-link` is set.
+- Icon-only buttons now have English default names ("Close", "Remove", "Clear search",
+  "Previous page", "Next page", "Menu"). On an Arabic page, set the matching `*_label` props.
+
 ### Changes to check, no code change expected
 
 - **The page no longer scrolls behind the open hamburger menu.** While the menu is open, the
@@ -181,6 +192,11 @@ the top of the page.
 - **`dda-home-banner`** logs a console warning when it has no `<slide>` children. Only
   `<slide>` elements are shown.
 - **Material icons in `.quick-links .link-item`** get the same size as SVG icons.
+- **Placeholder text is darker** (4.5:1 contrast or better), **links inside paragraphs and table
+  cells are underlined**, and **home-banner slides have a dark scrim behind the text.** If you
+  restyled any of these, check that your override still meets contrast.
+- **`dda-checkbox` and `dda-toggle` show a focus ring** under keyboard focus, and the
+  `dda-banner` slide row is a keyboard tab stop.
 
 ### New, optional
 
@@ -191,6 +207,11 @@ the top of the page.
 | `dda-toggle` | `title_text`, `supporting` | Show a visible label |
 | `dda-footer` | `logo-description` | Show text under the footer logo |
 | `dda-vertical-stepper` | `current_step` | Set the active step |
+| `dda-alert`, `dda-footer`, `dda-ui-card` | `heading_level` | Match the heading level to your page |
+| `dda-alert`, `dda-chip`, `dda-search-input`, `dda-pagination`, `dda-dropdown`, `dda-number-field`, `dda-phonefield`, `dda-header` | `*_label` props | Name icon-only buttons, e.g. in Arabic |
+| `dda-segmented-tabs` | `icon_labels` | Name icon-only segments |
+| `dda-header` | `first-logo-href`, `second-logo-href`, `language_lang` | Logo link targets, language of the language button |
+| `dda-banner`, `dda-sticky-footer` | `aria_label` | Name the slide region / quick actions |
 
 ---
 

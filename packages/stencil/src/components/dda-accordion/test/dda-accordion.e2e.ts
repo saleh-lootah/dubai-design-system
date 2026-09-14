@@ -60,4 +60,21 @@ describe('dda-accordion', () => {
     const header = await page.find('dda-accordion .accordion-header');
     expect(header.getAttribute('aria-expanded')).toBe('false');
   });
+
+  // WCAG 1.1.1 / 2.5.3 / 4.1.2: the header name was "info Section
+  // keyboard_arrow_down" because both ligature icons were exposed.
+  it('hides the leading icon and the arrow icon from assistive technology, open or closed', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-accordion header_text="Section" body_description="Body text"></dda-accordion>');
+
+    const closed = await page.$$eval('dda-accordion .accordion-header i.material-icons', (els: Element[]) => els.map(el => el.getAttribute('aria-hidden')));
+    expect(closed).toEqual(['true', 'true']);
+
+    const header = await page.find('dda-accordion .accordion-header');
+    await header.click();
+    await page.waitForChanges();
+
+    const open = await page.$$eval('dda-accordion .accordion-header i.material-icons', (els: Element[]) => els.map(el => el.getAttribute('aria-hidden')));
+    expect(open).toEqual(['true', 'true']);
+  });
 });

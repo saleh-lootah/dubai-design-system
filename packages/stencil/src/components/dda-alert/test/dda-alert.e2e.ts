@@ -67,6 +67,72 @@ describe('dda-alert', () => {
   });
 });
 
+// Audit: the close button was named "close" (the icon ligature) and the
+// title was always an <h4>, which broke the page heading order.
+describe('dda-alert names and headings', () => {
+  it('names the close button "Close" by default', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-alert title_text="Heads up" description="d"></dda-alert>');
+
+    const close = await page.find('dda-alert .dda-alert-close');
+    expect(close.getAttribute('aria-label')).toBe('Close');
+  });
+
+  it('names the close button from close_button_label', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-alert title_text="Heads up" description="d" close_button_label="Dismiss alert"></dda-alert>');
+
+    const close = await page.find('dda-alert .dda-alert-close');
+    expect(close.getAttribute('aria-label')).toBe('Dismiss alert');
+  });
+
+  it('hides every decorative icon from assistive tech', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-alert title_text="Heads up" description="d"></dda-alert>');
+
+    const hidden = await page.evaluate(() => Array.from(document.querySelectorAll('dda-alert i')).map(i => i.getAttribute('aria-hidden')));
+    expect(hidden.length).toBe(2);
+    expect(hidden).toEqual(['true', 'true']);
+  });
+
+  it('renders the title as an h4 by default', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-alert title_text="Heads up" description="d"></dda-alert>');
+
+    const tag = await page.evaluate(() => document.querySelector('dda-alert .alert-title').tagName);
+    expect(tag).toBe('H4');
+  });
+
+  it('renders the title at heading_level', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-alert title_text="Heads up" description="d" heading_level="2"></dda-alert>');
+
+    const tag = await page.evaluate(() => document.querySelector('dda-alert .alert-title').tagName);
+    expect(tag).toBe('H2');
+  });
+
+  it('clamps heading_level to 1-6', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-alert id="high" title_text="A" heading_level="9"></dda-alert><dda-alert id="low" title_text="B" heading_level="0"></dda-alert>');
+
+    const tags = await page.evaluate(() => [document.querySelector('#high .alert-title').tagName, document.querySelector('#low .alert-title').tagName]);
+    expect(tags).toEqual(['H6', 'H1']);
+  });
+
+  it('keeps the title size when heading_level changes', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-alert id="a" title_text="A"></dda-alert><dda-alert id="b" title_text="B" heading_level="2"></dda-alert>');
+
+    const sizes = await page.evaluate(() =>
+      ['#a', '#b'].map(id => {
+        const style = getComputedStyle(document.querySelector(`${id} .alert-title`));
+        return `${style.fontSize} ${style.fontWeight} ${style.lineHeight} ${style.margin}`;
+      }),
+    );
+    expect(sizes[1]).toBe(sizes[0]);
+  });
+});
+
 // F-023 Decision 2: info and warning were the two semantic palettes whose
 // dark-theme "-40 text on -variant-95 fill" recipe fell short — info at
 // 4.05:1 (needs 4.5:1) and warning at 2.08:1 (needs 3:1 for the 24px title,

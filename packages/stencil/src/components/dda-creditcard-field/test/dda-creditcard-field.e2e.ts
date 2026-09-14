@@ -1,4 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { contrastRatio } from '../../../utils/contrast';
+import { readPlaceholderColors } from '../../../utils/placeholder-color';
 
 // Task 9d — F-021: same `.dda-validation-error .dda-input-field` box-shadow:
 // none clobber as dda-input, on the credit-card number <input>.
@@ -107,4 +109,27 @@ describe('dda-creditcard-field F-018 autocomplete', () => {
 
     expect(autocomplete).toBe('off');
   });
+});
+
+// WCAG 1.4.3: the global `::placeholder` colour (#8E9191) was 3.18:1 on the
+// white field. input.css now uses --dda-on-surface-variant-40 on the field.
+// Chromium's getComputedStyle(el, '::placeholder') returns the element's own
+// colour, so readPlaceholderColors resolves the winning ::placeholder rule.
+describe('dda-creditcard-field placeholder contrast (WCAG 1.4.3)', () => {
+  for (const theme of [undefined, 'dark'] as const) {
+    const label = theme ? 'dark' : 'light';
+
+    it(`placeholder clears 4.5:1 against the field background in ${label} theme`, async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-creditcard-field input_id="input" placeholder="Card number"></dda-creditcard-field>`);
+      if (theme) {
+        await page.evaluate(t => document.documentElement.setAttribute('data-theme', t), theme);
+        await page.waitForChanges();
+      }
+
+      const colors = await page.evaluate(readPlaceholderColors, { field: 'dda-creditcard-field input' });
+
+      expect(contrastRatio(colors.placeholder, colors.background)).toBeGreaterThanOrEqual(4.5);
+    });
+  }
 });

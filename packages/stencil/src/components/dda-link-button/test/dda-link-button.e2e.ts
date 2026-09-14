@@ -47,4 +47,24 @@ describe('dda-link-button', () => {
       expect(focused.boxShadow).not.toBe('none');
     });
   }
+
+  // WCAG 1.1.1 / 2.5.3 / 4.1.2: without aria-hidden the link name was
+  // "Browse all services arrow_forward".
+  it('hides decorative start and end icons from assistive technology', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-link-button href="/services" start_icon="apps" end_icon="arrow_forward">Browse all services</dda-link-button>');
+
+    const hidden = await page.$$eval('dda-link-button i.material-icons', (els: Element[]) => els.map(el => el.getAttribute('aria-hidden')));
+    expect(hidden).toEqual(['true', 'true']);
+  });
+
+  it('keeps aria_label as the name of an icon-only link, with the icon hidden', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-link-button href="/search" start_icon="search" aria_label="Search"></dda-link-button>');
+
+    const link = await page.find('dda-link-button a');
+    expect(link.getAttribute('aria-label')).toBe('Search');
+    const icon = await page.find('dda-link-button a i.material-icons');
+    expect(icon.getAttribute('aria-hidden')).toBe('true');
+  });
 });

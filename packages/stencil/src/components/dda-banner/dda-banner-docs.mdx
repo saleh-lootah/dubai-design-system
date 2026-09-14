@@ -97,5 +97,8 @@ In the component class, set `slidesJson` to `JSON.stringify(...)` of the slide a
 - `title` becomes the image's `alt` text. Give every slide a meaningful `title`.
 - The component reads `slides` once, when it loads. Set `slides` before the element is added to
   the page; a later change does not update the images.
+- The slide row is one keyboard tab stop. It is a `role="region"` named by `aria_label` (default
+  `Slides`). When it has focus, the arrow keys scroll it, and it shows a focus ring. Set
+  `aria_label` to describe the content, e.g. `aria_label="Service centres"`.
 - The banner renders into a shadow root, unlike most `dda-*` components. Page CSS does not
   reach the images inside it.

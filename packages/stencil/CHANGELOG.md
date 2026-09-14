@@ -27,6 +27,41 @@ against the published package. The two `dda-header` navigation faults were also 
   `supporting`, `dda-footer` `logo-description`, `dda-breadcrumb` `breadcrumbs`, and
   `dda-vertical-stepper` `current_step` (details below).
 
+### Accessibility
+
+Fixes from an axe-core and accessibility-tree audit of a sample site built on the package.
+
+- **Icon names are no longer read aloud (1.1.1, 4.1.2).** Decorative Material icons in
+  dda-button, dda-link-button, dda-accordion, dda-checkbox, dda-chip, dda-pagination, dda-tabs,
+  dda-segmented-tabs, dda-select, dda-dropdown, dda-number-field, dda-phonefield,
+  dda-search-input, dda-textarea, dda-alert, dda-ui-card and dda-header are `aria-hidden`, so a
+  button reads "Continue", not "Continue arrow_forward".
+- **Icon-only controls have names.** New label props with English defaults:
+  dda-alert `close_button_label` ("Close"), dda-chip `close_button_label` ("Remove"),
+  dda-search-input `clear_button_label` ("Clear search"), dda-pagination
+  `previous_button_label` / `next_button_label` ("Previous page" / "Next page"),
+  dda-dropdown / dda-number-field / dda-phonefield `toggle_button_label`, dda-header
+  `menu_button_label` ("Menu", replacing the text "hamburger menu text"), and dda-segmented-tabs
+  `icon_labels` for icon-only segments. Toggles that open a list set `aria-expanded`, and
+  dda-pagination marks the current page with `aria-current="page"`.
+- **Keyboard focus is visible on dda-checkbox and dda-toggle (2.4.7).**
+- **dda-banner is reachable by keyboard (2.1.1).** The slide row is one focusable, named
+  region (`aria_label`, default "Slides") with a focus ring.
+- **Placeholder text meets 4.5:1 (1.4.3).** Grouped and single fields use
+  `--dda-on-surface-variant-40`: 6.49:1 in light theme and 7.46:1 in dark theme, up from 3.18:1.
+- **dda-home-banner text stays readable over any photo (1.4.3).** A built-in scrim sits behind
+  the slide text, mirrored for right-to-left pages.
+- **Links in running text are underlined (1.4.1).** `dda.css` removed every link underline;
+  unclassed links inside `p`, `td`, `dd`, `blockquote` and `figcaption` now keep one.
+- **Heading levels can follow the page outline.** New `heading_level` prop on dda-alert
+  (default 4), dda-footer (default 4) and dda-ui-card (default 3, was a fixed `h1`).
+- **dda-sticky-footer is an `<aside>` named "Quick actions"** (`aria_label`), so it no longer
+  adds a second footer landmark. Its services image is decorative when the text is shown.
+- **dda-header:** the language buttons carry `lang` (`language_lang`, default `ar`); the
+  side-menu language button uses `language_text`; the ReadSpeaker item is rendered only when
+  `read-speaker-link` is set; and logo links use `first-logo-href` / `second-logo-href`
+  (default `/`, previously `#`).
+
 ### Bug Fixes
 
 - **dda-header: the page scrolled behind the open side menu.** While the hamburger menu is
@@ -100,6 +135,15 @@ against the published package. The two `dda-header` navigation faults were also 
   `getElementById('ddaSearch')` should listen for `searchSubmit` instead.
 - **dda-header adds `dda-scroll-lock` to `<html>` while the side menu is open,** which sets
   `overflow: hidden` on `html` and `body`.
+- **dda-ui-card renders its title as `h3`, not `h1`.** Set `heading_level` to keep another level.
+- **dda-sticky-footer renders `<aside>`, not `<footer>`.** Selectors such as
+  `dda-sticky-footer footer` must use the `.dda-footer` class.
+- **dda-header logo links point to `/` by default,** not `#`. Set `first-logo-href` and
+  `second-logo-href` for another URL.
+- **dda-header hides the ReadSpeaker item when `read-speaker-link` is not set.** It did nothing
+  without the link.
+- **Placeholder text is darker, links in running text are underlined, and home-banner slides
+  have a scrim.** These are deliberate contrast fixes; check pages that restyled them.
 
 ## 5.0.3 (2026-09-08)
 

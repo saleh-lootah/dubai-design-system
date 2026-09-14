@@ -68,4 +68,80 @@ describe('dda-pagination', () => {
       expect(s.h).toBe(10);
     });
   });
+
+  // WCAG 1.1.1 / 2.5.3 / 4.1.2: the arrow ligatures were read as part of the
+  // button names ("arrow_back Prev", "Next arrow_forward").
+  for (const type of ['simple-slider', 'buttons', 'text', 'text-pages', 'button-text', 'buttons-pages']) {
+    it(`hides every arrow icon from assistive technology (${type})`, async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-pagination type="${type}" total_pages="5" current_page="2"></dda-pagination>`);
+
+      const hidden = await page.$$eval('dda-pagination i.material-icons', (els: Element[]) => els.map(el => el.getAttribute('aria-hidden')));
+      expect(hidden.length).toBe(2);
+      hidden.forEach(value => expect(value).toBe('true'));
+    });
+  }
+
+  // WCAG 4.1.2: with the icon hidden, arrow-only buttons need a real name.
+  for (const type of ['text', 'text-pages', 'button-text', 'buttons-pages']) {
+    it(`names the arrow-only previous and next buttons by default (${type})`, async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-pagination type="${type}" total_pages="5" current_page="2"></dda-pagination>`);
+
+      const prev = await page.find('dda-pagination button.prev');
+      const next = await page.find('dda-pagination button.next');
+      expect(prev.getAttribute('aria-label')).toBe('Previous page');
+      expect(next.getAttribute('aria-label')).toBe('Next page');
+    });
+  }
+
+  it('uses previous_button_label and next_button_label when set', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-pagination type="text-pages" total_pages="5" current_page="2" previous_button_label="Go back" next_button_label="Go forward"></dda-pagination>');
+
+    const prev = await page.find('dda-pagination button.prev');
+    const next = await page.find('dda-pagination button.next');
+    expect(prev.getAttribute('aria-label')).toBe('Go back');
+    expect(next.getAttribute('aria-label')).toBe('Go forward');
+  });
+
+  it('keeps the visible text as the name of the Prev and Next buttons (simple-slider)', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-pagination type="simple-slider" total_pages="5" current_page="2"></dda-pagination>');
+
+    const prev = await page.find('dda-pagination button.prev');
+    const next = await page.find('dda-pagination button.next');
+    expect(prev.getAttribute('aria-label')).toBeNull();
+    expect(next.getAttribute('aria-label')).toBeNull();
+  });
+
+  // WCAG 4.1.2: the current page was only a CSS class.
+  it('marks only the current page button with aria-current="page" and names each page', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-pagination type="text-pages" total_pages="5" current_page="3"></dda-pagination>');
+
+    const pages = await page.$$eval('dda-pagination button:not(.prev):not(.next)', (els: Element[]) =>
+      els.map(el => ({ label: el.getAttribute('aria-label'), current: el.getAttribute('aria-current') })),
+    );
+
+    expect(pages).toEqual([
+      { label: 'Page 1', current: null },
+      { label: 'Page 2', current: null },
+      { label: 'Page 3', current: 'page' },
+      { label: 'Page 4', current: null },
+      { label: 'Page 5', current: null },
+    ]);
+  });
+
+  it('moves aria-current to the page the user selects', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-pagination type="full" total_pages="4" current_page="1"></dda-pagination>');
+
+    const buttons = await page.findAll('dda-pagination .dda-pagination-full button');
+    await buttons[2].click();
+    await page.waitForChanges();
+
+    const current = await page.$$eval('dda-pagination .dda-pagination-full button', (els: Element[]) => els.map(el => el.getAttribute('aria-current')));
+    expect(current).toEqual([null, null, 'page', null]);
+  });
 });

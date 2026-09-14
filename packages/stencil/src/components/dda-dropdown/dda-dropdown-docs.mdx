@@ -112,7 +112,8 @@ const options = JSON.stringify(['Newest first', 'Oldest first', 'Status']);
 ## Icon-only menu
 
 Set `icon_mode` to show only the three-dots icon, and `type="bg-transparent"` to remove the field
-border and background. The button then has no visible text, so set `aria_label`.
+border and background. The button then has no visible text, so set `aria_label`. If `aria_label` and
+`label` are not set, the button is named by `toggle_button_label` (default `Show options`).
 
 ```html
 <dda-dropdown

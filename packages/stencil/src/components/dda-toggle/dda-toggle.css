@@ -53,6 +53,15 @@
 .dda-toggle-btn input:checked~.toggle::after {
   left: 17px;
 }
+/* WCAG 2.4.7 Focus Visible: the native input is hidden, so keyboard focus
+   draws the shared two-tone ring (same idiom as .dda-btn:focus-visible in
+   dda-button.css) on the track. */
+.dda-toggle-btn input:focus-visible~.toggle,
+.dda-toggle-btn input:checked:focus-visible~.toggle{
+  -webkit-box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+  -moz-box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+}
 
 .dda-toggle-sm .toggle{
   width: 27px;

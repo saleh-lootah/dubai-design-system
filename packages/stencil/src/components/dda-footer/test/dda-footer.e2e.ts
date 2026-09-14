@@ -58,3 +58,39 @@ describe('dda-footer', () => {
     expect(bg).not.toBeNull();
   });
 });
+
+describe('dda-footer heading level', () => {
+  const titleTag = async (attrs = '') => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-footer footer-title="Stay in touch" ${attrs}></dda-footer>`);
+    await page.waitForChanges();
+    return page.evaluate(() => {
+      const title = document.querySelector('dda-footer .dda-fs-display-sm');
+      return { tag: title.tagName.toLowerCase(), text: title.textContent, className: title.className };
+    });
+  };
+
+  it('renders the title as h4 by default', async () => {
+    expect(await titleTag()).toEqual({ tag: 'h4', text: 'Stay in touch', className: 'dda-fs-display-sm dda-fw-700 dda-color-black' });
+  });
+
+  it('renders the title at heading_level, with the same classes', async () => {
+    expect(await titleTag('heading_level="2"')).toEqual({ tag: 'h2', text: 'Stay in touch', className: 'dda-fs-display-sm dda-fw-700 dda-color-black' });
+  });
+
+  it('clamps heading_level to 1-6', async () => {
+    expect((await titleTag('heading_level="9"')).tag).toBe('h6');
+    expect((await titleTag('heading_level="0"')).tag).toBe('h1');
+  });
+
+  it('keeps the same title size at every heading level', async () => {
+    const fontSize = async (attrs: string) => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-footer footer-title="Stay in touch" ${attrs}></dda-footer>`);
+      await page.waitForChanges();
+      return page.evaluate(() => getComputedStyle(document.querySelector('dda-footer .dda-fs-display-sm')).fontSize);
+    };
+
+    expect(await fontSize('heading_level="2"')).toBe(await fontSize(''));
+  });
+});

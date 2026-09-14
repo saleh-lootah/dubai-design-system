@@ -66,4 +66,34 @@ describe('dda-toggle', () => {
     const label = await page.find('dda-toggle .dda-toggle-btn');
     expect(label).toHaveClass('dda-toggle-lg');
   });
+
+  // WCAG 2.4.7. The native input is hidden, so the track must show the ring.
+  // A real Tab is required for :focus-visible to match.
+  const boxShadowOfTrack = page => page.evaluate(() => getComputedStyle(document.querySelector('dda-toggle .toggle') as HTMLElement).boxShadow);
+
+  it('shows no focus ring on the track before focus', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-toggle input_id="t1" aria_label="Notifications"></dda-toggle>');
+
+    expect(await boxShadowOfTrack(page)).toBe('none');
+  });
+
+  it('shows a focus ring on the track under keyboard focus', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-toggle input_id="t1" aria_label="Notifications"></dda-toggle>');
+
+    await page.keyboard.press('Tab');
+    const focusedIsInput = await page.evaluate(() => document.activeElement === document.querySelector('dda-toggle input'));
+    expect(focusedIsInput).toBe(true);
+
+    expect(await boxShadowOfTrack(page)).not.toBe('none');
+  });
+
+  it('shows the two-tone focus ring on a checked track under keyboard focus', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-toggle input_id="t1" aria_label="Notifications" checked></dda-toggle>');
+
+    await page.keyboard.press('Tab');
+    expect(await boxShadowOfTrack(page)).toContain('rgba(0, 0, 0, 0.65)');
+  });
 });

@@ -366,3 +366,30 @@ describe('dda-select listbox pattern (F-014)', () => {
     expect(refreshedTrigger.getAttribute('aria-expanded')).toBe('false');
   });
 });
+
+// WCAG 1.1.1/4.1.2: the arrow icon's ligature text ("keyboard_arrow_down")
+// was part of the trigger's accessible name.
+describe('dda-select decorative icons', () => {
+  it('hides every Material icon from assistive technology', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="select" label="City" options='["Dubai","Sharjah"]'></dda-select>`);
+
+    const icons = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('dda-select i.material-icons')).map((i) => i.getAttribute('aria-hidden')),
+    );
+
+    expect(icons.length).toBeGreaterThan(0);
+    icons.forEach((hidden) => expect(hidden).toBe('true'));
+  });
+
+  it('keeps the icon ligature out of the trigger name when the list is open', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="select" label="City" options='["Dubai","Sharjah"]'></dda-select>`);
+    await page.click('dda-select .dda-select-header');
+    await page.waitForChanges();
+
+    const hidden = await page.evaluate(() => document.querySelector('dda-select .dda-select-header i').getAttribute('aria-hidden'));
+
+    expect(hidden).toBe('true');
+  });
+});

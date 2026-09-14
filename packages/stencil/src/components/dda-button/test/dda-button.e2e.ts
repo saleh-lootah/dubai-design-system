@@ -172,4 +172,24 @@ describe('dda-button', () => {
       expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
     });
   });
+
+  // WCAG 1.1.1 / 2.5.3 / 4.1.2: the Material icon is a ligature, so without
+  // aria-hidden a screen reader reads "Continue arrow_forward".
+  it('hides decorative start and end icons from assistive technology', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-button start_icon="arrow_back" end_icon="arrow_forward">Continue</dda-button>');
+
+    const hidden = await page.$$eval('dda-button i.material-icons', (els: Element[]) => els.map(el => el.getAttribute('aria-hidden')));
+    expect(hidden).toEqual(['true', 'true']);
+  });
+
+  it('keeps aria_label as the name of an icon-only button, with the icon hidden', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-button start_icon="search" aria_label="Search"></dda-button>');
+
+    const button = await page.find('dda-button button');
+    expect(button.getAttribute('aria-label')).toBe('Search');
+    const icon = await page.find('dda-button button i.material-icons');
+    expect(icon.getAttribute('aria-hidden')).toBe('true');
+  });
 });

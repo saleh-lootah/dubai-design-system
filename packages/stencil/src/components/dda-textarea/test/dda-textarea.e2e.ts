@@ -1,4 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { contrastRatio } from '../../../utils/contrast';
+import { readPlaceholderColors } from '../../../utils/placeholder-color';
 
 // Task 9d — F-021: same `.dda-validation-error`/`.dda-input-disabled`
 // `box-shadow: none` clobber as dda-input, plus a third, distinct case —
@@ -192,4 +194,43 @@ describe('dda-textarea F-016 error labelling', () => {
     expect(result.allExist).toBe(true);
     expect(result.containsError).toBe(true);
   });
+});
+
+// WCAG 1.1.1: the helper/error "info" icon ligature was read as part of the
+// text that aria-describedby points at.
+describe('dda-textarea decorative icons', () => {
+  it('hides every Material icon from assistive technology', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-textarea input_id="input" helper_text="Keep it short" max_characters="100"></dda-textarea>`);
+
+    const icons = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('dda-textarea i.material-icons')).map((i) => i.getAttribute('aria-hidden')),
+    );
+
+    expect(icons.length).toBeGreaterThan(0);
+    icons.forEach((hidden) => expect(hidden).toBe('true'));
+  });
+});
+
+// WCAG 1.4.3: the global `::placeholder` colour (#8E9191) was 3.18:1 on the
+// white field. input.css now uses --dda-on-surface-variant-40 on the field.
+// Chromium's getComputedStyle(el, '::placeholder') returns the element's own
+// colour, so readPlaceholderColors resolves the winning ::placeholder rule.
+describe('dda-textarea placeholder contrast (WCAG 1.4.3)', () => {
+  for (const theme of [undefined, 'dark'] as const) {
+    const label = theme ? 'dark' : 'light';
+
+    it(`placeholder clears 4.5:1 against the field background in ${label} theme`, async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-textarea input_id="input" placeholder="Enter text"></dda-textarea>`);
+      if (theme) {
+        await page.evaluate(t => document.documentElement.setAttribute('data-theme', t), theme);
+        await page.waitForChanges();
+      }
+
+      const colors = await page.evaluate(readPlaceholderColors, { field: 'dda-textarea textarea' });
+
+      expect(contrastRatio(colors.placeholder, colors.background)).toBeGreaterThanOrEqual(4.5);
+    });
+  }
 });

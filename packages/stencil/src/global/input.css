@@ -69,6 +69,35 @@
     border: 1px solid var(--dda-neutral-90);
     color: var(--dda-neutral-0);
 }
+
+/*
+ * WCAG 1.4.3 placeholder contrast. The global `::placeholder` colour in
+ * global.css (#8E9191) is 3.18:1 on the white field background. The
+ * theme-aware --dda-on-surface-variant-40 is 6.49:1 on surface-100 in the
+ * light theme (#56605F on #FFFFFF) and 7.46:1 in the dark theme (#A3ADAC on
+ * #191C1C). `.light-mode` forces a white field, so it uses the raw light
+ * step. Kept above the validation-error and disabled placeholder rules so
+ * those still win at equal specificity.
+ */
+.dda-input-field::-ms-input-placeholder,
+.dda-field-group-input::-ms-input-placeholder {
+    color: var(--dda-on-surface-variant-40);
+}
+
+.dda-input-field::placeholder,
+.dda-field-group-input::placeholder {
+    color: var(--dda-on-surface-variant-40);
+}
+
+.light-mode .dda-input-field::-ms-input-placeholder,
+.light-mode .dda-field-group-input::-ms-input-placeholder {
+    color: var(--dda-neutral-variant-40);
+}
+
+.light-mode .dda-input-field::placeholder,
+.light-mode .dda-field-group-input::placeholder {
+    color: var(--dda-neutral-variant-40);
+}
 .dda-input-size-small .dda-input-field-group,
 .dda-input-size-small .dda-input-field {
     height: 48px;

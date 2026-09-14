@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { readPlaceholderColors } from '../../../utils/placeholder-color';
 import { contrastRatio } from '../../../utils/contrast';
 
 // Task 9d — F-021: `.dda-validation-error .dda-input-field` and
@@ -205,4 +206,27 @@ describe('dda-input disabled-state text contrast (F-023)', () => {
 
     expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
   });
+});
+
+// WCAG 1.4.3: the global `::placeholder` colour (#8E9191) was 3.18:1 on the
+// white field. input.css now uses --dda-on-surface-variant-40 on the field.
+// Chromium's getComputedStyle(el, '::placeholder') returns the element's own
+// colour, so readPlaceholderColors resolves the winning ::placeholder rule.
+describe('dda-input placeholder contrast (WCAG 1.4.3)', () => {
+  for (const theme of [undefined, 'dark'] as const) {
+    const label = theme ? 'dark' : 'light';
+
+    it(`placeholder clears 4.5:1 against the field background in ${label} theme`, async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<dda-input input_id="input" placeholder="Enter text"></dda-input>`);
+      if (theme) {
+        await page.evaluate(t => document.documentElement.setAttribute('data-theme', t), theme);
+        await page.waitForChanges();
+      }
+
+      const colors = await page.evaluate(readPlaceholderColors, { field: 'dda-input input' });
+
+      expect(contrastRatio(colors.placeholder, colors.background)).toBeGreaterThanOrEqual(4.5);
+    });
+  }
 });

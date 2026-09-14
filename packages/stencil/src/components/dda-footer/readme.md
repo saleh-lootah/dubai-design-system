@@ -13,6 +13,7 @@
 | `description`      | `description`         | Paragraph under `footerTitle`.                                                                   | `string` | `undefined` |
 | `footerSections`   | `footer-sections`     | Link columns. JSON array of `{ title, links: [{ label, href }] }`.                               | `string` | `undefined` |
 | `footerTitle`      | `footer-title`        | Heading of the call-to-action area at the top of the footer.                                     | `string` | `undefined` |
+| `heading_level`    | `heading_level`       | Heading level (1 to 6) of `footerTitle`, to fit the page's heading order. Default: `4`.          | `number` | `4`         |
 | `loginButtonText`  | `login-button-text`   | Label of the tertiary (Login) button. The button has no link or action.                          | `string` | `undefined` |
 | `logoAlt`          | `logo-alt`            | Alternative text for the footer logo.                                                            | `string` | `undefined` |
 | `logoDescription`  | `logo-description`    | Short text shown under the footer logo. Nothing is shown when it is not set.                     | `string` | `undefined` |

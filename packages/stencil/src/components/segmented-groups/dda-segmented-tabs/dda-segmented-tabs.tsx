@@ -20,6 +20,8 @@ export class DdaSegmentedTabs {
   @Prop() aria_label: string;
   /** Index of the segment selected on load, from 0. An out-of-range value selects the first segment. */
   @Prop() selected_index: number = 0;
+  /** Accessible names for icon-only segments, as a JSON string array in the same order as `items`, e.g. `'["Align left", "Align center"]'`. */
+  @Prop() icon_labels?: string;
 
   /** F-004 repair: the currently-selected segment. Exactly one segment is
    * selected at a time; this is what makes the component interactive at all. */
@@ -43,6 +45,26 @@ export class DdaSegmentedTabs {
       return 0;
     }
     return index;
+  }
+
+  private get parsedIconLabels(): string[] {
+    if (!this.icon_labels) {
+      return [];
+    }
+    try {
+      const labels = JSON.parse(this.icon_labels);
+      return Array.isArray(labels) ? labels : [];
+    } catch (error) {
+      console.error('Error parsing icon_labels:', error);
+      return [];
+    }
+  }
+
+  /** Accessible name of an icon-only segment: the matching `icon_labels`
+   * entry, else the item text with underscores read as spaces. */
+  private iconLabel(item: string, index: number): string {
+    const label = this.parsedIconLabels[index];
+    return typeof label === 'string' && label.trim() ? label : item.replace(/_/g, ' ');
   }
 
   private selectSegment(index: number) {
@@ -69,9 +91,10 @@ export class DdaSegmentedTabs {
               type="button"
               class={className}
               aria-pressed={isSelected ? 'true' : 'false'}
+              aria-label={this.iconLabel(item, index)}
               onClick={() => this.selectSegment(index)}
             >
-              <i class="material-icons  material-symbols-outlined">{item}</i>
+              <i class="material-icons  material-symbols-outlined" aria-hidden="true">{item}</i>
             </button>
           ) : (
             <button

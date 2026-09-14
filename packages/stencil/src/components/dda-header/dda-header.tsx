@@ -16,12 +16,16 @@ export class DdaHeader {
   @Prop() firstLogoWhiteSrc: string;
   /** Alternative text for the first logo. */
   @Prop() firstLogoAlt: string;
+  /** Link URL of the first logo in the header and the side menu. Default: `/`. */
+  @Prop() firstLogoHref: string = '/';
   /** Image URL of the second (entity) logo. */
   @Prop() secondLogoSrc: string;
   /** Image URL of the white second logo, shown in dark theme and on a transparent header. Falls back to `secondLogoSrc` on desktop. */
   @Prop() secondLogoWhiteSrc: string;
   /** Alternative text for the second logo. */
   @Prop() secondLogoAlt: string;
+  /** Link URL of the second logo on desktop and mobile. Default: `/`. */
+  @Prop() secondLogoHref: string = '/';
   /** URL of the Login link in the toolbar and the side menu. */
   @Prop() loginLink: string;
   /** Side menu items. JSON array of `{ label, href, subMenu }`; each `subMenu` item is `{ headerLabel, label, href, subMenu }` and can nest. */
@@ -36,8 +40,10 @@ export class DdaHeader {
   @Prop() loginIcon: string;
   /** Label of the Login link in the side menu. Default: `Login`. */
   @Prop() loginText: string;
-  /** Label of the language button in the desktop toolbar, e.g. `العربية`. */
+  /** Label of the language buttons in the desktop toolbar and the side menu. Default: `العربية`. */
   @Prop() language_text: string;
+  /** `lang` attribute of the language buttons, the language of `language_text`. Default: `ar`. */
+  @Prop() language_lang: string = 'ar';
   /** Emitted when the user clicks the language button. */
   @Event() languageSwitch: EventEmitter<void>;
   /** Emitted when the user clicks the `A-` (smaller text) button in the accessibility panel. */
@@ -73,6 +79,8 @@ export class DdaHeader {
 
   /** `name` attribute of the hamburger menu button. */
   @Prop() hamburger_menu_button_name: string;
+  /** Accessible name of the hamburger menu button (visually hidden text). Default: `Menu`. */
+  @Prop() menu_button_label: string = 'Menu';
   /** `name` attribute of the accessibility button in the side menu. */
   @Prop() accessibility_button_name: string;
   /** `name` attribute of the mobile search button. */
@@ -363,11 +371,11 @@ export class DdaHeader {
       <header class="dda-header">
           {/* Logo Section */}
           <div class="dda-head-logo">
-            <a href="#" class="govt-logo">
+            <a href={this.firstLogoHref} class="govt-logo">
               <img class="logo-colored" src={this.firstLogoSrc} alt={this.firstLogoAlt} />
               <img class="logo-white" src={this.firstLogoWhiteSrc || this.firstLogoSrc} alt={this.firstLogoAlt} />
             </a>
-            <a href="#" class="entt-logo">
+            <a href={this.secondLogoHref} class="entt-logo">
               <img class="logo-colored" src={this.secondLogoSrc} alt={this.secondLogoAlt} />
               <img class="logo-white" src={this.secondLogoWhiteSrc || this.secondLogoSrc} alt={this.secondLogoAlt} />
             </a>
@@ -383,7 +391,7 @@ export class DdaHeader {
                 <dda-tooltip title_text="Menu" position="top" class="d-block">
                   <button type="button" class="hamburger-menu-btn" name={this.hamburger_menu_button_name}>
                     <span class="hamburger-line"></span>
-                    <span class="hamburger-menu-text">hamburger menu text</span>
+                    <span class="hamburger-menu-text">{this.menu_button_label}</span>
                   </button>
                 </dda-tooltip>
               </div>
@@ -418,7 +426,7 @@ export class DdaHeader {
 
                 <div class="dda-sidemenu-bottom">
                     <div class="dda-sidemenu-gov-logo">
-                        <a href="#" class="govt-logo mb-2">
+                        <a href={this.firstLogoHref} class="govt-logo mb-2">
                           <img class="" src={this.firstLogoSrc} alt={this.firstLogoAlt} />
                         </a>
                     </div>
@@ -431,7 +439,7 @@ export class DdaHeader {
                                 </button>
                             </li>
                             <li>
-                                <button name={this.language_button_name} class="tool-btn" type="button" onClick={this.languagehandler}>العربية</button>
+                                <button name={this.language_button_name} class="tool-btn" type="button" lang={this.language_lang} onClick={this.languagehandler}>{this.language_text || 'العربية'}</button>
                             </li>
                             <li>
                               <dda-link-button
@@ -449,7 +457,7 @@ export class DdaHeader {
                 </div>
                 
                 <button name={this.close_menu_button_name} class="close-btn side-nav-close-btn" aria-label="Close Sidebar" onClick={this.toggleMenu}>
-                  <i class="material-icons  material-symbols-outlined">close</i>
+                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
                 </button>
 
 
@@ -515,15 +523,18 @@ export class DdaHeader {
                         </fieldset>
                       </form>
                     </div>
+                    {/* Without a ReadSpeaker URL the link has no target, so the item is not shown. */}
+                    {this.readSpeakerLink && (
                     <div class="dda-col-md-4 dda-accessibility-item">
                       <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Screen Reader</h2>
                       <p class="mb-3">Listen to the content of the page by clicking play or listen</p>
                       <div class="rs_skip rsbtn rs_preserve" id="readspeaker_button1">
                         <a href={this.readSpeakerLink} rel="nofollow" class="rsbtn_play circle readspeaker" accessKey="L" aria-label="Listen to this page using ReadSpeaker">
-                          <i class="material-icons  material-symbols-outlined">volume_up</i>
+                          <i class="material-icons  material-symbols-outlined" aria-hidden="true">volume_up</i>
                         </a>
                       </div>
                     </div>
+                    )}
                     <div class="dda-col-md-4 dda-accessibility-item">
                       <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Text Size</h2>
                       <p class="mb-3">Use the buttons below to increase or decrease the text size</p>
@@ -542,7 +553,7 @@ export class DdaHeader {
                   </div>
 
                 <button name={this.close_accessibility_button_name} class="close-btn close_accessibility" aria-label="Close Accessibility" onClick={this.toggleAccessibilty}>
-                  <i class="material-icons  material-symbols-outlined">close</i>
+                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
                 </button>
                 </div>
               </div>
@@ -574,7 +585,7 @@ export class DdaHeader {
                                   <li key={subIndex}>
                                     <a class="megamenu-link" href={subItem.href}>
                                       <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default">
-                                        <i class="material-icons material-symbols-outlined">{subItem.icon}</i>
+                                        <i class="material-icons material-symbols-outlined" aria-hidden="true">{subItem.icon}</i>
                                       </span>
                                       <span class="text-wrap">
                                         <span class="title-text dda-fs-body-lg dda-fw-700">{subItem.title}</span>
@@ -592,7 +603,7 @@ export class DdaHeader {
                             aria-label="Close Sidebar" 
                             onClick={() => setActiveMenuIndex(null)}
                           >
-                            <i class="material-icons material-symbols-outlined">close</i>
+                            <i class="material-icons material-symbols-outlined" aria-hidden="true">close</i>
                           </button>
                         </div>
                       </div>
@@ -604,7 +615,7 @@ export class DdaHeader {
             </div>
 
             <div class="dda-mobile-entt-logo">
-              <a href="#" class="entt-logo">
+              <a href={this.secondLogoHref} class="entt-logo">
                 <img class="logo-colored" src={this.secondLogoSrc} alt={this.secondLogoAlt} />
                 <img class="logo-white" src={this.secondLogoWhiteSrc} alt={this.secondLogoAlt} />
               </a>
@@ -719,15 +730,18 @@ export class DdaHeader {
                             </fieldset>
                           </form>
                         </div>
+                        {/* Without a ReadSpeaker URL the link has no target, so the item is not shown. */}
+                        {this.readSpeakerLink && (
                         <div class="dda-col-md-4 dda-accessibility-item">
                           <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Screen Reader</h2>
                           <p class="mb-3">Listen to the content of the page by clicking play or listen</p>
                           <div class="rs_skip rsbtn rs_preserve" id="readspeaker_button1">
                             <a href={this.readSpeakerLink} rel="nofollow" class="rsbtn_play circle readspeaker" accessKey="L" aria-label="Listen to this page using ReadSpeaker">
-                              <i class="material-icons  material-symbols-outlined">volume_up</i>
+                              <i class="material-icons  material-symbols-outlined" aria-hidden="true">volume_up</i>
                             </a>
                           </div>
                         </div>
+                        )}
                         <div class="dda-col-md-4 dda-accessibility-item">
                           <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Text Size</h2>
                           <p class="mb-3">Use the buttons below to increase or decrease the text size</p>
@@ -746,7 +760,7 @@ export class DdaHeader {
                       </div>
 
                       <button name={this.close_accessibility_button_name} class="close-btn close_accessibility" aria-label="Close Sidebar" onClick={this.toggleAccessibilty}>
-                        <i class="materinal-icons  material-symbols-outlined">close</i>
+                        <i class="materinal-icons  material-symbols-outlined" aria-hidden="true">close</i>
                         {/* <i class="fa-solid fa-close"></i> */}
                       </button>
                     </div>
@@ -754,8 +768,8 @@ export class DdaHeader {
                 </li>
                 <li>
                   <dda-tooltip title_text="Language" position="top">
-                    <dda-button button_color="onsurface-secondary" custom_class="tool-btn" button_shape="circle" size="sm" onClick={this.languagehandler}>
-                      {this.language_text}
+                    <dda-button button_color="onsurface-secondary" custom_class="tool-btn" button_shape="circle" size="sm" lang={this.language_lang} onClick={this.languagehandler}>
+                      {this.language_text || 'العربية'}
                     </dda-button>
                   </dda-tooltip>
                 </li>

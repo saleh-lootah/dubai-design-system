@@ -89,3 +89,8 @@ import { DdaPagination } from '@dubai-design-system/components-vue';
 The `*_prev_button` and `*_next_button` properties set the `name` attribute of the previous and
 next buttons. Each pair applies only to the layout in its name, for example
 `text_pages_prev_button` when `type` is `text-pages`.
+
+The `text`, `text-pages`, `button-text` and `buttons-pages` layouts show only an arrow icon in the
+previous and next buttons. Their accessible names are "Previous page" and "Next page" by default.
+Set `previous_button_label` and `next_button_label` to change them, for example in an Arabic page.
+Each page button has the name "Page N", and the current page button has `aria-current="page"`.

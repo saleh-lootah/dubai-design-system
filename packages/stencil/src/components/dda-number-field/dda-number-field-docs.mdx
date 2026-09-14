@@ -150,5 +150,7 @@ number of decimal places. Validate the amount in your application, then set
 - `helper_text` and `error_message` are linked to the input with `aria-describedby`.
   When `error_message` is set, the input also gets `aria-invalid="true"`.
 - Use `aria_label` only when the field has no visible `label`.
+- The currency button is named by `toggle_button_label` and the selected currency, for example
+  `Choose currency: USD`. Set `toggle_button_label` in the language of the page.
 - `input_status="disabled"` changes only the styling. The input and the currency button still
   receive focus.

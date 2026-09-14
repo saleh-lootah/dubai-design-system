@@ -40,6 +40,10 @@ export class DdaPagination {
   @Prop() buttons_pages_prev_button: string;
   /** `name` of the next page button when `type` is `buttons-pages`. */
   @Prop() buttons_pages_next_button: string;
+  /** Accessible name of the icon-only previous page button (`text`, `text-pages`, `button-text` and `buttons-pages` layouts). */
+  @Prop() previous_button_label: string = 'Previous page';
+  /** Accessible name of the icon-only next page button (`text`, `text-pages`, `button-text` and `buttons-pages` layouts). */
+  @Prop() next_button_label: string = 'Next page';
 
   @Watch('total_pages')
   validateTotalPages(newValue: number) {
@@ -67,48 +71,48 @@ export class DdaPagination {
       case 'simple-slider':
         return (
           <div class={`dda-pagination dda-pagination-simple-slider ${this.custom_class} ${this.component_mode}`}>
-            <button name={this.simple_slider_prev_button} class="prev" disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined">arrow_back</i> Prev</button>
+            <button name={this.simple_slider_prev_button} class="prev" disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_back</i> Prev</button>
             <span>Page {this.current_page} of {this.total_pages}</span>
-            <button name={this.simple_slider_next_button} class="next" disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}>Next <i class="material-icons  material-symbols-outlined">arrow_forward</i></button>
+            <button name={this.simple_slider_next_button} class="next" disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}>Next <i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_forward</i></button>
           </div>
         );
       case 'buttons':
         return (
           <div class={`dda-pagination dda-pagination-buttons ${this.custom_class} ${this.component_mode}`}>
-            <button name={this.buttons_prev_button} class="prev" disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined">arrow_back</i> Prev</button>
+            <button name={this.buttons_prev_button} class="prev" disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_back</i> Prev</button>
             {this.renderPageButtons()}
-            <button name={this.buttons_next_button} class="next" disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}>Next <i class="material-icons  material-symbols-outlined">arrow_forward</i></button>
+            <button name={this.buttons_next_button} class="next" disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}>Next <i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_forward</i></button>
           </div>
         );
       case 'text':
         return (
           <div class={`dda-pagination dda-pagination-text ${this.custom_class} ${this.component_mode}`}>
-            <button name={this.text_prev_button} class="prev" disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined">arrow_back</i></button>
+            <button name={this.text_prev_button} class="prev" aria-label={this.previous_button_label} disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_back</i></button>
             <span>Page {this.current_page} of {this.total_pages}</span>
-            <button name={this.text_next_button} class="next" disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}><i class="material-icons  material-symbols-outlined">arrow_forward</i></button>
+            <button name={this.text_next_button} class="next" aria-label={this.next_button_label} disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}><i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_forward</i></button>
           </div>
         );
       case 'text-pages':
         return (
           <div class={`dda-pagination dda-pagination-text-pages ${this.custom_class} ${this.component_mode}`}>
-            <button name={this.text_pages_prev_button} class="prev" disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined">arrow_back</i></button>
+            <button name={this.text_pages_prev_button} class="prev" aria-label={this.previous_button_label} disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_back</i></button>
             {this.renderPageButtons()}
-            <button name={this.text_pages_next_button} class="next" disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}><i class="material-icons  material-symbols-outlined">arrow_forward</i></button>
+            <button name={this.text_pages_next_button} class="next" aria-label={this.next_button_label} disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}><i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_forward</i></button>
           </div>
         );
       case 'button-text':
         return (
           <div class={`dda-pagination dda-pagination-button-text ${this.custom_class} ${this.component_mode}`}>
-            <button name={this.button_text_prev_button} class="prev" disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined">arrow_back</i></button>
+            <button name={this.button_text_prev_button} class="prev" aria-label={this.previous_button_label} disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_back</i></button>
             {this.renderPageButtons()}
-            <button name={this.button_text_next_button} class="next" disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}><i class="material-icons  material-symbols-outlined">arrow_forward</i></button>
+            <button name={this.button_text_next_button} class="next" aria-label={this.next_button_label} disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}><i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_forward</i></button>
           </div>
         );
       case 'buttons-pages':
         return (
           <div class={`dda-pagination dda-pagination-buttons-pages ${this.custom_class} ${this.component_mode}`}>
-            <button name={this.buttons_pages_prev_button} class="prev" disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined">arrow_back</i></button>
-            <button name={this.buttons_pages_next_button} class="next" disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}><i class="material-icons  material-symbols-outlined">arrow_forward</i></button>
+            <button name={this.buttons_pages_prev_button} class="prev" aria-label={this.previous_button_label} disabled={this.current_page === 1} onClick={() => this.setcurrentpage(this.current_page - 1)}><i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_back</i></button>
+            <button name={this.buttons_pages_next_button} class="next" aria-label={this.next_button_label} disabled={this.current_page === this.total_pages} onClick={() => this.setcurrentpage(this.current_page + 1)}><i class="material-icons  material-symbols-outlined" aria-hidden="true">arrow_forward</i></button>
           </div>
         );
       case 'full':
@@ -125,7 +129,12 @@ export class DdaPagination {
     const buttons = [];
     for (let i = 1; i <= this.total_pages; i++) {
       buttons.push(
-        <button class={i === this.current_page ? 'active' : ''} onClick={() => this.setcurrentpage(i)}>
+        <button
+          class={i === this.current_page ? 'active' : ''}
+          aria-label={`Page ${i}`}
+          aria-current={i === this.current_page ? 'page' : undefined}
+          onClick={() => this.setcurrentpage(i)}
+        >
           {i}
         </button>
       );

@@ -55,6 +55,19 @@
   align-items: center;
 }
 
+/* Built-in scrim behind the slide text. The ::before gradient only darkens the bottom and fades
+   to nothing mid-slide, so white text over a bright photo fell to 2-3:1. At 0.55+ black the
+   background under white text stays at or below sRGB 115 even on a pure white photo (4.5:1+).
+   The dark side follows the text start edge; RTL mirrors it. */
+.home-slider .slide-wrap {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+[dir='rtl'] .home-slider .slide-wrap,
+.home-slider[dir='rtl'] .slide-wrap {
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.2) 100%);
+}
+
 .home-slider .dda-slider-container {
   width: 100vw;
   height: 100vh;
@@ -191,5 +204,11 @@
 @media screen and (max-width:992px) {
   .slider-nav {
     bottom: 100px;
+  }
+  /* Below 992px the text runs the full width, so the scrim must too. */
+  .home-slider .slide-wrap,
+  [dir='rtl'] .home-slider .slide-wrap,
+  .home-slider[dir='rtl'] .slide-wrap {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
   }
 }

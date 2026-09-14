@@ -34,6 +34,10 @@ export class DdaAlert {
   @Prop() button_name?: string;
   /** Click handler for the close button, set as a JavaScript property. The alert does not hide itself. */
   @Prop() clickHandler?: (event: MouseEvent) => void;
+  /** Accessible name of the close button, read by screen readers instead of the icon ligature. */
+  @Prop() close_button_label: string = 'Close';
+  /** Heading level (1–6) of the title; pick the level that fits the page outline. */
+  @Prop() heading_level: number = 4;
   /** Fires when the first action link is clicked. No detail. */
   @Event() firstClick?: EventEmitter<void>;
   /** Fires when the second action link is clicked. No detail. */
@@ -55,12 +59,22 @@ export class DdaAlert {
     return this.variation === 'error' ? 'alert' : 'status';
   }
 
+  // The title was always an <h4>, which broke the page heading order.
+  // Clamp to a valid heading level; anything unparsable falls back to 4.
+  private get headingTag(): 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' {
+    const level = Math.round(Number(this.heading_level));
+    return `h${Number.isFinite(level) ? Math.min(6, Math.max(1, level)) : 4}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  }
+
   render() {
+    const HeadingTag = this.headingTag;
     return (
       <div role={this.role} class={`dda-alert dda-alert-${this.type} dda-alert-${this.variation} ${this.custom_class} ${this.component_mode}`}>
-        <i class="material-icons  material-symbols-outlined">info</i>
+        <i class="material-icons  material-symbols-outlined" aria-hidden="true">
+          info
+        </i>
         <div class="alert-content">
-          <h4 class="alert-title">{this.title_text}</h4>
+          <HeadingTag class="alert-title">{this.title_text}</HeadingTag>
           <p class="alert-description">{this.description}</p>
           <div class="alert-btn-wrap">
             {!!this.first_button && (
@@ -75,8 +89,10 @@ export class DdaAlert {
             )}
           </div>
         </div>
-        <button name={this.button_name} class="dda-alert-close" onClick={this.clickHandler}>
-          <i class="material-icons  material-symbols-outlined">close</i>
+        <button name={this.button_name} class="dda-alert-close" aria-label={this.close_button_label} onClick={this.clickHandler}>
+          <i class="material-icons  material-symbols-outlined" aria-hidden="true">
+            close
+          </i>
         </button>
       </div>
     );

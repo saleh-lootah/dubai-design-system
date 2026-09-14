@@ -140,4 +140,35 @@ describe('dda-segmented-tabs', () => {
     expect(changeSpy).toHaveReceivedEventDetail(1);
     expect(buttons[1].getAttribute('aria-pressed')).toBe('true');
   });
+
+  // WCAG 1.1.1 / 4.1.2: an icon-only segment was named by its raw ligature
+  // ("format_align_left"). The icon is now hidden and the button is named.
+  it('hides the icon and names icon-only segments from icon_labels', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-segmented-tabs items='["format_align_left","format_align_center"]' icon_labels='["Align left","Align center"]'></dda-segmented-tabs>`);
+
+    const segments = await page.$$eval('dda-segmented-tabs button', (els: Element[]) =>
+      els.map(el => ({ label: el.getAttribute('aria-label'), iconHidden: el.querySelector('i').getAttribute('aria-hidden') })),
+    );
+    expect(segments).toEqual([
+      { label: 'Align left', iconHidden: 'true' },
+      { label: 'Align center', iconHidden: 'true' },
+    ]);
+  });
+
+  it('falls back to the item text without underscores when icon_labels is not set', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-segmented-tabs items='["format_align_left","format_align_center"]'></dda-segmented-tabs>`);
+
+    const labels = await page.$$eval('dda-segmented-tabs button', (els: Element[]) => els.map(el => el.getAttribute('aria-label')));
+    expect(labels).toEqual(['format align left', 'format align center']);
+  });
+
+  it('does not add aria-label to text segments', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-segmented-tabs items='${ITEMS}' icon_labels='["x","y","z"]'></dda-segmented-tabs>`);
+
+    const labels = await page.$$eval('dda-segmented-tabs button', (els: Element[]) => els.map(el => el.getAttribute('aria-label')));
+    expect(labels).toEqual([null, null, null]);
+  });
 });

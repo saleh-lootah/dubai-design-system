@@ -190,6 +190,10 @@ these in order:
   cannot reach offscreen calls to action and screen readers do not read them.
 - A visually hidden live region announces "Slide 2 of 3" on manual slide changes. It is
   silent while the carousel rotates on its own, so autoplay does not chatter.
+- The component paints a dark scrim on `.slide-wrap` behind `.slide-content`, so white slide
+  text keeps at least 4.5:1 contrast on any photo. The dark side follows the text start edge and
+  mirrors under `dir="rtl"`; below 992px the scrim covers the full width. To change it, override
+  `background-image` on `.home-slider .slide-wrap` and keep text contrast at 4.5:1.
 - Give every slide `<img>` a meaningful `alt`; use `alt=""` if the image is decorative
   and the message is carried by `.slide-content`.
 - **Slotted `<video autoplay>` is your responsibility.** The pause button stops the slide

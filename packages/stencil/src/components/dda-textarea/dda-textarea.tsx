@@ -194,13 +194,13 @@ export class DdaTextarea {
           )}
           {this.helper_text && (
             <div id={this.helperId} class="dda-helper-text">
-              <span class="dda-flex dda-align-center dda-gap-2"><i class="material-icons  material-symbols-outlined">info</i> {this.helper_text}</span>
+              <span class="dda-flex dda-align-center dda-gap-2"><i class="material-icons  material-symbols-outlined" aria-hidden="true">info</i> {this.helper_text}</span>
               <span class="dda-letter-count">{this.characterCount} / {this.max_characters}</span>
             </div>
           )}
           {this.error_message && (
             <div id={this.errorId} class="dda-error-message">
-              <span class="dda-flex dda-align-center dda-gap-2"><i class="material-icons  material-symbols-outlined">info</i> {this.error_message}</span>
+              <span class="dda-flex dda-align-center dda-gap-2"><i class="material-icons  material-symbols-outlined" aria-hidden="true">info</i> {this.error_message}</span>
               <span class="dda-letter-count">{this.characterCount} / {this.max_characters}</span>
             </div>
           )}

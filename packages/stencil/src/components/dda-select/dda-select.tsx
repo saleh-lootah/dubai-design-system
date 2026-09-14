@@ -204,7 +204,7 @@ export class Ddaselect {
               onKeyDown={this.onTriggerKeyDown}
             >
               {this.selected || 'Select an option'}
-              <i class={`material-icons`}>{this.is_open ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
+              <i class={`material-icons`} aria-hidden="true">{this.is_open ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
             </button>
             {this.is_open && (
               <div id={this.listboxId} role="listbox" aria-label={this.aria_label || this.label} class="dda-input-dropdown-list dda-select-list">

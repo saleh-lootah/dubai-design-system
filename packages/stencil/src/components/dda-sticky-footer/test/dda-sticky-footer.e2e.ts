@@ -193,7 +193,7 @@ describe('dda-sticky-footer and the home-page quick links', () => {
     const layout = await page.evaluate(() => ({
       position: getComputedStyle(document.querySelector('.quick-links-wrap')).position,
       cardBottom: document.querySelector('.link-item').getBoundingClientRect().bottom,
-      footerTop: document.querySelector('dda-sticky-footer footer').getBoundingClientRect().top,
+      footerTop: document.querySelector('dda-sticky-footer aside').getBoundingClientRect().top,
     }));
 
     expect(layout.position).toBe('absolute');
@@ -238,5 +238,60 @@ describe('dda-sticky-footer and the home-page quick links', () => {
     await page.evaluate(() => document.querySelector('dda-sticky-footer').remove());
     await page.waitForChanges();
     expect(await read()).toBe('');
+  });
+});
+
+describe('dda-sticky-footer landmarks and names', () => {
+  it('renders an aside named "Quick actions", not a second footer landmark', async () => {
+    const page = await newE2EPage();
+    await page.setContent(content());
+
+    const root = await page.evaluate(() => {
+      const el = document.querySelector('dda-sticky-footer').firstElementChild;
+      return {
+        tag: el.tagName.toLowerCase(),
+        label: el.getAttribute('aria-label'),
+        isBar: el.classList.contains('dda-footer'),
+        footers: document.querySelectorAll('dda-sticky-footer footer').length,
+      };
+    });
+
+    expect(root).toEqual({ tag: 'aside', label: 'Quick actions', isBar: true, footers: 0 });
+  });
+
+  it('uses aria_label as the name of the aside', async () => {
+    const page = await newE2EPage();
+    await page.setContent(content('aria_label="Shortcuts"'));
+
+    const label = await page.evaluate(() => document.querySelector('dda-sticky-footer aside').getAttribute('aria-label'));
+    expect(label).toBe('Shortcuts');
+  });
+
+  it('keeps the aside fixed to the bottom of the viewport', async () => {
+    const page = await newE2EPage();
+    await page.setContent(content());
+
+    const position = await page.evaluate(() => getComputedStyle(document.querySelector('dda-sticky-footer aside')).position);
+    expect(position).toBe('fixed');
+  });
+
+  it('makes the services image decorative when the services text is shown', async () => {
+    const page = await newE2EPage();
+    await page.setContent(content('services-icon-src="grid.svg" services-icon-alt="Services" services-icon-text="Services"'));
+
+    const services = await page.evaluate(() => {
+      const img = document.querySelector('dda-sticky-footer img[src="grid.svg"]');
+      return { alt: img.getAttribute('alt'), linkText: img.closest('a').textContent.trim() };
+    });
+
+    expect(services).toEqual({ alt: '', linkText: 'Services' });
+  });
+
+  it('keeps the services alt text when there is no services text', async () => {
+    const page = await newE2EPage();
+    await page.setContent(content('services-icon-src="grid.svg" services-icon-alt="Services"'));
+
+    const alt = await page.evaluate(() => document.querySelector('dda-sticky-footer img[src="grid.svg"]').getAttribute('alt'));
+    expect(alt).toBe('Services');
   });
 });

@@ -98,21 +98,85 @@ describe('dda-banner', () => {
   });
 
   // F-026: the component has no autoplay, no navigation controls, and no
-  // interaction model of any kind - each slide's `link` field (present in
-  // the parsed-slide type) is never rendered as an anchor or button. There
-  // is nothing interactive to reach with a keyboard. This test documents
-  // that real, current state (a real defect, already tracked - not fixed
-  // here) rather than asserting a keyboard operation the component does
-  // not implement.
-  it('has no interactive element for a keyboard to reach (documents F-026: no interaction model)', async () => {
+  // per-slide link (the parsed `link` field is never rendered). Its only
+  // interaction is scrolling the overflow row, so the row itself is the one
+  // keyboard focus stop (axe scrollable-region-focusable, WCAG 2.1.1): a
+  // named region with tabindex="0" that arrow keys scroll natively.
+  it('has exactly one keyboard focus stop: the slider region', async () => {
     const page = await newE2EPage();
     await page.setContent(`<dda-banner slides='${SLIDES}'></dda-banner>`);
 
-    const interactiveCount = await page.evaluate(() => {
+    const focusables = await page.evaluate(() => {
       const root = document.querySelector('dda-banner').shadowRoot;
-      return root.querySelectorAll('a, button, [tabindex]').length;
+      return Array.from(root.querySelectorAll('a, button, [tabindex]')).map(el => el.classList.contains('dda-banner-slider'));
     });
-    expect(interactiveCount).toBe(0);
+    expect(focusables).toEqual([true]);
+  });
+
+  it('makes the slider a focusable, named region', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-banner slides='${SLIDES}'></dda-banner>`);
+
+    const slider = await page.evaluate(() => {
+      const el = document.querySelector('dda-banner').shadowRoot.querySelector('.dda-banner-slider');
+      return { tabindex: el.getAttribute('tabindex'), role: el.getAttribute('role'), label: el.getAttribute('aria-label') };
+    });
+    expect(slider).toEqual({ tabindex: '0', role: 'region', label: 'Slides' });
+  });
+
+  it('names the slider region from aria_label', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-banner slides='${SLIDES}' aria_label="Service centres"></dda-banner>`);
+
+    const label = await page.evaluate(() => document.querySelector('dda-banner').shadowRoot.querySelector('.dda-banner-slider').getAttribute('aria-label'));
+    expect(label).toBe('Service centres');
+  });
+
+  it('does not make the host itself focusable', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-banner slides='${SLIDES}'></dda-banner>`);
+
+    const host = await page.evaluate(() => {
+      const el = document.querySelector('dda-banner') as HTMLElement;
+      return { tabIndex: el.tabIndex, tabindexAttr: el.getAttribute('tabindex'), role: el.getAttribute('role') };
+    });
+    expect(host).toEqual({ tabIndex: -1, tabindexAttr: null, role: null });
+  });
+
+  it('focuses the slider on the first Tab press and shows a focus ring', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-banner slides='${SLIDES}'></dda-banner>`);
+
+    await page.keyboard.press('Tab');
+    await page.waitForChanges();
+
+    const focus = await page.evaluate(() => {
+      const host = document.querySelector('dda-banner');
+      const active = host.shadowRoot.activeElement as HTMLElement | null;
+      const style = active ? getComputedStyle(active) : null;
+      return {
+        hostIsActive: document.activeElement === host,
+        activeIsSlider: !!active && active.classList.contains('dda-banner-slider'),
+        focusVisible: active ? active.matches(':focus-visible') : false,
+        ringVisible: !!style && (style.boxShadow !== 'none' || style.outlineStyle !== 'none'),
+      };
+    });
+    expect(focus).toEqual({ hostIsActive: true, activeIsSlider: true, focusVisible: true, ringVisible: true });
+  });
+
+  it('draws the design-system ring box-shadow on the keyboard-focused slider', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-banner slides='${SLIDES}'></dda-banner>`);
+
+    await page.keyboard.press('Tab');
+    await page.waitForChanges();
+
+    const boxShadow = await page.evaluate(() => {
+      const slider = document.querySelector('dda-banner').shadowRoot.querySelector('.dda-banner-slider');
+      return getComputedStyle(slider).boxShadow;
+    });
+    expect(boxShadow).not.toBe('none');
+    expect(boxShadow).toContain('rgb(255, 255, 255)');
   });
 
   // componentWillLoad guards JSON.parse(this.slides): a missing or invalid

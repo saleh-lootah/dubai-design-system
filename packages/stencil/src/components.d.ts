@@ -54,6 +54,11 @@ export namespace Components {
          */
         "clickHandler"?: (event: MouseEvent) => void;
         /**
+          * Accessible name of the close button, read by screen readers instead of the icon ligature.
+          * @default 'Close'
+         */
+        "close_button_label": string;
+        /**
           * Not used by the component; it is not applied to any element.
          */
         "component_id"?: string;
@@ -79,6 +84,11 @@ export namespace Components {
           * `href` of the first action link.
          */
         "first_link"?: string;
+        /**
+          * Heading level (1–6) of the title; pick the level that fits the page outline.
+          * @default 4
+         */
+        "heading_level": number;
         /**
           * Label of the second action link. The link shows only when this is set.
          */
@@ -236,6 +246,11 @@ export namespace Components {
         "type": 'photo' | 'icon' | 'text';
     }
     interface DdaBanner {
+        /**
+          * Accessible name of the scrollable slide region that keyboard users focus to scroll.
+          * @default 'Slides'
+         */
+        "aria_label": string;
         /**
           * CSS height of each slide image, e.g. `220px`.
          */
@@ -404,6 +419,11 @@ export namespace Components {
          */
         "clickHandler"?: (event: MouseEvent) => void;
         /**
+          * Accessible name of the icon-only close button.
+          * @default 'Remove'
+         */
+        "close_button_label": string;
+        /**
           * Theme override class for the chip, e.g. `light-mode`.
          */
         "component_mode"?: string;
@@ -421,7 +441,7 @@ export namespace Components {
          */
         "rounded"?: string;
         /**
-          * Shows a close button with the accessible name `Remove` after the label.
+          * Shows a close button after the label. Its accessible name comes from `close_button_label`.
           * @default false
          */
         "show_close_icon": boolean;
@@ -598,6 +618,11 @@ export namespace Components {
          */
         "size": 'small' | 'medium';
         /**
+          * Accessible name of the dropdown button in `icon_mode` when `aria_label` and `label` are not set.
+          * @default 'Show options'
+         */
+        "toggle_button_label"?: string;
+        /**
           * Button background: `bg-white` (field style) or `bg-transparent` (no border, background or padding).
           * @default 'bg-white'
          */
@@ -620,6 +645,11 @@ export namespace Components {
           * Heading of the call-to-action area at the top of the footer.
          */
         "footerTitle": string;
+        /**
+          * Heading level (1 to 6) of `footerTitle`, to fit the page's heading order. Default: `4`.
+          * @default 4
+         */
+        "heading_level": number;
         /**
           * Label of the tertiary (Login) button. The button has no link or action.
          */
@@ -667,6 +697,11 @@ export namespace Components {
          */
         "firstLogoAlt": string;
         /**
+          * Link URL of the first logo in the header and the side menu. Default: `/`.
+          * @default '/'
+         */
+        "firstLogoHref": string;
+        /**
           * Image URL of the first (government) logo, on the left of the header and in the side menu.
          */
         "firstLogoSrc": string;
@@ -683,7 +718,12 @@ export namespace Components {
          */
         "language_button_name": string;
         /**
-          * Label of the language button in the desktop toolbar, e.g. `العربية`.
+          * `lang` attribute of the language buttons, the language of `language_text`. Default: `ar`.
+          * @default 'ar'
+         */
+        "language_lang": string;
+        /**
+          * Label of the language buttons in the desktop toolbar and the side menu. Default: `العربية`.
          */
         "language_text": string;
         /**
@@ -698,6 +738,11 @@ export namespace Components {
           * Label of the Login link in the side menu. Default: `Login`.
          */
         "loginText": string;
+        /**
+          * Accessible name of the hamburger menu button (visually hidden text). Default: `Menu`.
+          * @default 'Menu'
+         */
+        "menu_button_label": string;
         /**
           * Main navigation links. JSON array of `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu.
          */
@@ -726,6 +771,11 @@ export namespace Components {
           * Alternative text for the second logo.
          */
         "secondLogoAlt": string;
+        /**
+          * Link URL of the second logo on desktop and mobile. Default: `/`.
+          * @default '/'
+         */
+        "secondLogoHref": string;
         /**
           * Image URL of the second (entity) logo.
          */
@@ -996,6 +1046,11 @@ export namespace Components {
          */
         "size"?: string;
         /**
+          * Accessible name of the currency dropdown button; the selected currency is added after it.
+          * @default 'Choose currency'
+         */
+        "toggle_button_label"?: string;
+        /**
           * `name` of the currency dropdown button.
          */
         "toggle_button_name"?: string;
@@ -1047,6 +1102,16 @@ export namespace Components {
           * @default ''
          */
         "custom_class": string;
+        /**
+          * Accessible name of the icon-only next page button (`text`, `text-pages`, `button-text` and `buttons-pages` layouts).
+          * @default 'Next page'
+         */
+        "next_button_label": string;
+        /**
+          * Accessible name of the icon-only previous page button (`text`, `text-pages`, `button-text` and `buttons-pages` layouts).
+          * @default 'Previous page'
+         */
+        "previous_button_label": string;
         /**
           * `name` of the next page button when `type` is `simple-slider`.
          */
@@ -1146,6 +1211,11 @@ export namespace Components {
           * Size. `small` shows a smaller field; omit for the default size.
          */
         "size"?: string;
+        /**
+          * Accessible name of the country code dropdown button; the selected code is added after it.
+          * @default 'Choose country code'
+         */
+        "toggle_button_label": string;
         /**
           * `name` of the country code dropdown button.
          */
@@ -1319,6 +1389,11 @@ export namespace Components {
          */
         "button_id"?: string;
         /**
+          * Accessible name of the clear button. `button_aria_label` wins when set.
+          * @default 'Clear search'
+         */
+        "clear_button_label": string;
+        /**
           * `name` of the clear button.
          */
         "close_button_name": string;
@@ -1397,6 +1472,10 @@ export namespace Components {
           * Extra CSS classes added to the group.
          */
         "custom_class": string;
+        /**
+          * Accessible names for icon-only segments, as a JSON string array in the same order as `items`, e.g. `'["Align left", "Align center"]'`.
+         */
+        "icon_labels"?: string;
         /**
           * Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`).
          */
@@ -1504,6 +1583,11 @@ export namespace Components {
           * Tooltip text of the AI assistant icon.
          */
         "aiIconTooltip": string;
+        /**
+          * Accessible name of the bar's `<aside>` landmark. Default: `Quick actions`.
+          * @default 'Quick actions'
+         */
+        "aria_label": string;
         /**
           * Alternative text for the chat icon.
          */
@@ -1813,6 +1897,11 @@ export namespace Components {
     }
     interface DdaUiCard {
         /**
+          * Heading level (1–6) of the title; pick the level that fits the page outline.
+          * @default 3
+         */
+        "heading_level": number;
+        /**
           * Material Icons name shown at the top of the card, e.g. `description`.
           * @default ''
          */
@@ -1838,7 +1927,7 @@ export namespace Components {
          */
         "linktext": string;
         /**
-          * Card title, rendered as an `<h1>`.
+          * Card title, rendered as a heading at `heading_level`.
           * @default ''
          */
         "maintitle": string;
@@ -2251,6 +2340,11 @@ declare namespace LocalJSX {
          */
         "clickHandler"?: (event: MouseEvent) => void;
         /**
+          * Accessible name of the close button, read by screen readers instead of the icon ligature.
+          * @default 'Close'
+         */
+        "close_button_label"?: string;
+        /**
           * Not used by the component; it is not applied to any element.
          */
         "component_id"?: string;
@@ -2276,6 +2370,11 @@ declare namespace LocalJSX {
           * `href` of the first action link.
          */
         "first_link"?: string;
+        /**
+          * Heading level (1–6) of the title; pick the level that fits the page outline.
+          * @default 4
+         */
+        "heading_level"?: number;
         /**
           * Fires when the first action link is clicked. No detail.
          */
@@ -2441,6 +2540,11 @@ declare namespace LocalJSX {
         "type"?: 'photo' | 'icon' | 'text';
     }
     interface DdaBanner {
+        /**
+          * Accessible name of the scrollable slide region that keyboard users focus to scroll.
+          * @default 'Slides'
+         */
+        "aria_label"?: string;
         /**
           * CSS height of each slide image, e.g. `220px`.
          */
@@ -2609,6 +2713,11 @@ declare namespace LocalJSX {
          */
         "clickHandler"?: (event: MouseEvent) => void;
         /**
+          * Accessible name of the icon-only close button.
+          * @default 'Remove'
+         */
+        "close_button_label"?: string;
+        /**
           * Theme override class for the chip, e.g. `light-mode`.
          */
         "component_mode"?: string;
@@ -2626,7 +2735,7 @@ declare namespace LocalJSX {
          */
         "rounded"?: string;
         /**
-          * Shows a close button with the accessible name `Remove` after the label.
+          * Shows a close button after the label. Its accessible name comes from `close_button_label`.
           * @default false
          */
         "show_close_icon"?: boolean;
@@ -2803,6 +2912,11 @@ declare namespace LocalJSX {
          */
         "size"?: 'small' | 'medium';
         /**
+          * Accessible name of the dropdown button in `icon_mode` when `aria_label` and `label` are not set.
+          * @default 'Show options'
+         */
+        "toggle_button_label"?: string;
+        /**
           * Button background: `bg-white` (field style) or `bg-transparent` (no border, background or padding).
           * @default 'bg-white'
          */
@@ -2825,6 +2939,11 @@ declare namespace LocalJSX {
           * Heading of the call-to-action area at the top of the footer.
          */
         "footerTitle"?: string;
+        /**
+          * Heading level (1 to 6) of `footerTitle`, to fit the page's heading order. Default: `4`.
+          * @default 4
+         */
+        "heading_level"?: number;
         /**
           * Label of the tertiary (Login) button. The button has no link or action.
          */
@@ -2872,6 +2991,11 @@ declare namespace LocalJSX {
          */
         "firstLogoAlt"?: string;
         /**
+          * Link URL of the first logo in the header and the side menu. Default: `/`.
+          * @default '/'
+         */
+        "firstLogoHref"?: string;
+        /**
           * Image URL of the first (government) logo, on the left of the header and in the side menu.
          */
         "firstLogoSrc"?: string;
@@ -2888,7 +3012,12 @@ declare namespace LocalJSX {
          */
         "language_button_name"?: string;
         /**
-          * Label of the language button in the desktop toolbar, e.g. `العربية`.
+          * `lang` attribute of the language buttons, the language of `language_text`. Default: `ar`.
+          * @default 'ar'
+         */
+        "language_lang"?: string;
+        /**
+          * Label of the language buttons in the desktop toolbar and the side menu. Default: `العربية`.
          */
         "language_text"?: string;
         /**
@@ -2903,6 +3032,11 @@ declare namespace LocalJSX {
           * Label of the Login link in the side menu. Default: `Login`.
          */
         "loginText"?: string;
+        /**
+          * Accessible name of the hamburger menu button (visually hidden text). Default: `Menu`.
+          * @default 'Menu'
+         */
+        "menu_button_label"?: string;
         /**
           * Emitted when the user clicks the `A` (default text size) button in the accessibility panel.
          */
@@ -2967,6 +3101,11 @@ declare namespace LocalJSX {
           * Alternative text for the second logo.
          */
         "secondLogoAlt"?: string;
+        /**
+          * Link URL of the second logo on desktop and mobile. Default: `/`.
+          * @default '/'
+         */
+        "secondLogoHref"?: string;
         /**
           * Image URL of the second (entity) logo.
          */
@@ -3237,6 +3376,11 @@ declare namespace LocalJSX {
          */
         "size"?: string;
         /**
+          * Accessible name of the currency dropdown button; the selected currency is added after it.
+          * @default 'Choose currency'
+         */
+        "toggle_button_label"?: string;
+        /**
           * `name` of the currency dropdown button.
          */
         "toggle_button_name"?: string;
@@ -3288,6 +3432,16 @@ declare namespace LocalJSX {
           * @default ''
          */
         "custom_class"?: string;
+        /**
+          * Accessible name of the icon-only next page button (`text`, `text-pages`, `button-text` and `buttons-pages` layouts).
+          * @default 'Next page'
+         */
+        "next_button_label"?: string;
+        /**
+          * Accessible name of the icon-only previous page button (`text`, `text-pages`, `button-text` and `buttons-pages` layouts).
+          * @default 'Previous page'
+         */
+        "previous_button_label"?: string;
         /**
           * `name` of the next page button when `type` is `simple-slider`.
          */
@@ -3387,6 +3541,11 @@ declare namespace LocalJSX {
           * Size. `small` shows a smaller field; omit for the default size.
          */
         "size"?: string;
+        /**
+          * Accessible name of the country code dropdown button; the selected code is added after it.
+          * @default 'Choose country code'
+         */
+        "toggle_button_label"?: string;
         /**
           * `name` of the country code dropdown button.
          */
@@ -3560,6 +3719,11 @@ declare namespace LocalJSX {
          */
         "button_id"?: string;
         /**
+          * Accessible name of the clear button. `button_aria_label` wins when set.
+          * @default 'Clear search'
+         */
+        "clear_button_label"?: string;
+        /**
           * `name` of the clear button.
          */
         "close_button_name"?: string;
@@ -3638,6 +3802,10 @@ declare namespace LocalJSX {
           * Extra CSS classes added to the group.
          */
         "custom_class"?: string;
+        /**
+          * Accessible names for icon-only segments, as a JSON string array in the same order as `items`, e.g. `'["Align left", "Align center"]'`.
+         */
+        "icon_labels"?: string;
         /**
           * Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`).
          */
@@ -3749,6 +3917,11 @@ declare namespace LocalJSX {
           * Tooltip text of the AI assistant icon.
          */
         "aiIconTooltip"?: string;
+        /**
+          * Accessible name of the bar's `<aside>` landmark. Default: `Quick actions`.
+          * @default 'Quick actions'
+         */
+        "aria_label"?: string;
         /**
           * Alternative text for the chat icon.
          */
@@ -4062,6 +4235,11 @@ declare namespace LocalJSX {
     }
     interface DdaUiCard {
         /**
+          * Heading level (1–6) of the title; pick the level that fits the page outline.
+          * @default 3
+         */
+        "heading_level"?: number;
+        /**
           * Material Icons name shown at the top of the card, e.g. `description`.
           * @default ''
          */
@@ -4087,7 +4265,7 @@ declare namespace LocalJSX {
          */
         "linktext"?: string;
         /**
-          * Card title, rendered as an `<h1>`.
+          * Card title, rendered as a heading at `heading_level`.
           * @default ''
          */
         "maintitle"?: string;
@@ -4153,6 +4331,8 @@ declare namespace LocalJSX {
         "first_button": string;
         "second_button": string;
         "button_name": string;
+        "close_button_label": string;
+        "heading_level": number;
     }
     interface DdaAttachFileAttributes {
         "label": string;
@@ -4191,6 +4371,7 @@ declare namespace LocalJSX {
         "slides": string;
         "slider_width": string;
         "slider_height": string;
+        "aria_label": string;
     }
     interface DdaBreadcrumbAttributes {
         "design": 'text' | 'icon-text' | 'icon';
@@ -4233,6 +4414,7 @@ declare namespace LocalJSX {
         "rounded": string;
         "icon": string;
         "show_close_icon": boolean;
+        "close_button_label": string;
         "size": string;
         "custom_class": string;
         "component_mode": string;
@@ -4281,9 +4463,11 @@ declare namespace LocalJSX {
         "aria_label": string;
         "arrow_button_name": string;
         "dropdown_button_name": string;
+        "toggle_button_label": string;
     }
     interface DdaFooterAttributes {
         "footerTitle": string;
+        "heading_level": number;
         "description": string;
         "signUpButtonText": string;
         "loginButtonText": string;
@@ -4298,9 +4482,11 @@ declare namespace LocalJSX {
         "firstLogoSrc": string;
         "firstLogoWhiteSrc": string;
         "firstLogoAlt": string;
+        "firstLogoHref": string;
         "secondLogoSrc": string;
         "secondLogoWhiteSrc": string;
         "secondLogoAlt": string;
+        "secondLogoHref": string;
         "loginLink": string;
         "sideMenuItems": string;
         "quickLinks": string;
@@ -4309,7 +4495,9 @@ declare namespace LocalJSX {
         "loginIcon": string;
         "loginText": string;
         "language_text": string;
+        "language_lang": string;
         "hamburger_menu_button_name": string;
+        "menu_button_label": string;
         "accessibility_button_name": string;
         "search_button_name": string;
         "search_input_name": string;
@@ -4387,6 +4575,7 @@ declare namespace LocalJSX {
         "input_name": string;
         "toggle_button_name": string;
         "currency_button_name": string;
+        "toggle_button_label": string;
     }
     interface DdaPaginationAttributes {
         "total_pages": number;
@@ -4406,6 +4595,8 @@ declare namespace LocalJSX {
         "button_text_next_button": string;
         "buttons_pages_prev_button": string;
         "buttons_pages_next_button": string;
+        "previous_button_label": string;
+        "next_button_label": string;
     }
     interface DdaPhonefieldAttributes {
         "label": string;
@@ -4423,6 +4614,7 @@ declare namespace LocalJSX {
         "button_aria_label": string;
         "toggle_button_name": string;
         "country_select_button_name": string;
+        "toggle_button_label": string;
         "phone_input_name": string;
         "autocomplete": string;
     }
@@ -4482,6 +4674,7 @@ declare namespace LocalJSX {
         "button_aria_label": string;
         "search_input_name": string;
         "close_button_name": string;
+        "clear_button_label": string;
         "search_button_name": string;
     }
     interface DdaSegmentedTabsAttributes {
@@ -4492,6 +4685,7 @@ declare namespace LocalJSX {
         "button_name": string;
         "aria_label": string;
         "selected_index": number;
+        "icon_labels": string;
     }
     interface DdaSelectAttributes {
         "label": string;
@@ -4551,6 +4745,7 @@ declare namespace LocalJSX {
         "chatIconSrc": string;
         "chatIconAlt": string;
         "chatIconTooltip": string;
+        "aria_label": string;
         "hideMiddleSection": boolean;
     }
     interface DdaTabsAttributes {
@@ -4608,6 +4803,7 @@ declare namespace LocalJSX {
         "link": string;
         "linktext": string;
         "linkicon": string;
+        "heading_level": number;
     }
     interface DdaVerticalStepperAttributes {
         "steps": string;

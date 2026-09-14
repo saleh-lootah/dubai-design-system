@@ -41,6 +41,8 @@ export class DdaNumberField {
   @Prop() toggle_button_name?: string;
   /** `name` of each currency option button. */
   @Prop() currency_button_name?: string;
+  /** Accessible name of the currency dropdown button; the selected currency is added after it. */
+  @Prop() toggle_button_label?: string = 'Choose currency';
 
   @State() isCurrencyDropdownOpen: boolean = false;
 
@@ -126,8 +128,8 @@ export class DdaNumberField {
               aria-invalid={this.error_message ? 'true' : undefined}
             />
             <div class="dda-input-dropdown-btn">
-              <button name={this.toggle_button_name} type="button" class="dda-dropdown-select" onClick={() => this.toggleCurrencyDropdown()}>
-                {this.selected_currency} <i class={`material-icons`}>{this.isCurrencyDropdownOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
+              <button name={this.toggle_button_name} type="button" class="dda-dropdown-select" aria-label={this.toggle_button_label ? `${this.toggle_button_label}: ${this.selected_currency}` : undefined} aria-expanded={this.isCurrencyDropdownOpen ? 'true' : 'false'} onClick={() => this.toggleCurrencyDropdown()}>
+                {this.selected_currency} <i class={`material-icons`} aria-hidden="true">{this.isCurrencyDropdownOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
               </button>
               {this.isCurrencyDropdownOpen && (
                 <div class="dda-input-dropdown-list">

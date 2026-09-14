@@ -276,4 +276,35 @@ describe('dda-home-banner', () => {
 
     expect(warnings.filter(w => w.includes('dda-home-banner'))).toEqual([]);
   });
+
+  // Audit: the ::before gradient covers only the bottom and fades out, so
+  // white slide text measured 2.1-3.1:1 over a real photo. The component
+  // now paints its own scrim on .slide-wrap, behind .slide-content.
+  it('paints a scrim gradient behind the slide text', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1280, height: 800 });
+    await page.setContent(banner());
+
+    const backgroundImage = await page.evaluate(() => getComputedStyle(document.querySelector('dda-home-banner .slide-wrap')).backgroundImage);
+    expect(backgroundImage).toContain('gradient');
+  });
+
+  it('keeps the scrim on narrow screens', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 400, height: 800 });
+    await page.setContent(banner());
+
+    const backgroundImage = await page.evaluate(() => getComputedStyle(document.querySelector('dda-home-banner .slide-wrap')).backgroundImage);
+    expect(backgroundImage).toContain('gradient');
+  });
+
+  it('mirrors the scrim for right-to-left pages', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1280, height: 800 });
+    await page.setContent(`<div dir="rtl">${banner()}</div><div id="ltr">${banner()}</div>`);
+
+    const images = await page.evaluate(() => Array.from(document.querySelectorAll('dda-home-banner')).map(el => getComputedStyle(el.querySelector('.slide-wrap')).backgroundImage));
+    expect(images[0]).toContain('gradient');
+    expect(images[0]).not.toBe(images[1]);
+  });
 });

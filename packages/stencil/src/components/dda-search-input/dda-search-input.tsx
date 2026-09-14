@@ -42,6 +42,8 @@ export class DdaSearchInput {
   @Prop() search_input_name: string;
   /** `name` of the clear button. */
   @Prop() close_button_name: string;
+  /** Accessible name of the clear button. `button_aria_label` wins when set. */
+  @Prop() clear_button_label: string = 'Clear search';
   /** `name` of the "Search" button. */
   @Prop() search_button_name: string;
 
@@ -80,7 +82,7 @@ export class DdaSearchInput {
         <div class={`dda-input-container dda-input-size-${this.size} ${this.component_mode} ${this.custom_class}  ${this.input_status ? `dda-input-${this.input_status}` : ''} ${this.has_error ? 'dda-validation-error' : ''}`}>
           {this.label && <label htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
           <div class="dda-search-area dda-search-action">
-            <i class="material-icons icon-left">search</i>
+            <i class="material-icons icon-left" aria-hidden="true">search</i>
             <input
               name={this.search_input_name}
               aria-label={this.aria_label}
@@ -92,7 +94,7 @@ export class DdaSearchInput {
               aria-invalid={this.error_message ? 'true' : undefined}
             />
             <div class="dda-search-btngroup">
-              <button name={this.close_button_name} aria-label={this.button_aria_label} id={this.button_id} type="button" class="icon-close" onClick={() => this.clearInput()}><i class="material-icons  material-symbols-outlined">close</i></button>
+              <button name={this.close_button_name} aria-label={this.button_aria_label || this.clear_button_label} id={this.button_id} type="button" class="icon-close" onClick={() => this.clearInput()}><i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i></button>
               {this.show_button && (
                 <button name={this.search_button_name} type="button" class="dda-btn btn-color-default-primary dda-btn-sm">Search</button>
               )}

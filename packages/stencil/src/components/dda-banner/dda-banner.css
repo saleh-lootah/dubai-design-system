@@ -10,6 +10,15 @@
   scroll-behavior: smooth;
 }
 
+/* The slider is the keyboard focus stop. The ring is outside the box, so the slider's own
+   overflow does not clip it; white inner and dark outer rings read on any background. */
+.dda-banner-slider:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 4px rgba(0, 0, 0, 0.65);
+}
+
 .dda-banner-slide {
   flex: 0 0 auto;
   scroll-snap-align: start;

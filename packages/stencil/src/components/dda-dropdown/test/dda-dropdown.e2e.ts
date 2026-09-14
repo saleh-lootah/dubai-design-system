@@ -49,3 +49,55 @@ describe('dda-dropdown focus indicator', () => {
     expect(focused.boxShadow).not.toBe('none');
   });
 });
+
+// WCAG 1.1.1/4.1.2: "more_vert" and "keyboard_arrow_down" ligature text was
+// announced as part of the button name, and the icon-only button had no name.
+describe('dda-dropdown accessible name', () => {
+  it('hides every Material icon from assistive technology', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-dropdown button_id="dropdown" options='["Option 1"]'></dda-dropdown>`);
+
+    const icons = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('dda-dropdown i.material-icons')).map((i) => i.getAttribute('aria-hidden')),
+    );
+
+    expect(icons.length).toBeGreaterThan(0);
+    icons.forEach((hidden) => expect(hidden).toBe('true'));
+  });
+
+  it('names the icon-only button "Show options" by default', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-dropdown button_id="dropdown" icon_mode="true" options='["Option 1"]'></dda-dropdown>`);
+
+    const name = await page.evaluate(() => document.querySelector('dda-dropdown .dda-dropdown-header').getAttribute('aria-label'));
+
+    expect(name).toBe('Show options');
+  });
+
+  it('uses toggle_button_label, and aria_label wins over it', async () => {
+    const page = await newE2EPage();
+    await page.setContent(
+      `<dda-dropdown button_id="a" icon_mode="true" toggle_button_label="More actions" options='["Option 1"]'></dda-dropdown>` +
+        `<dda-dropdown button_id="b" icon_mode="true" toggle_button_label="More actions" aria_label="File actions" options='["Option 1"]'></dda-dropdown>`,
+    );
+
+    const names = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('dda-dropdown .dda-dropdown-header')).map((b) => b.getAttribute('aria-label')),
+    );
+
+    expect(names).toEqual(['More actions', 'File actions']);
+  });
+
+  it('sets aria-expanded on the button, false by default and true when open', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-dropdown button_id="dropdown" icon_mode="true" options='["Option 1"]'></dda-dropdown>`);
+
+    const before = await page.evaluate(() => document.querySelector('dda-dropdown .dda-dropdown-header').getAttribute('aria-expanded'));
+    await page.click('dda-dropdown .dda-dropdown-header');
+    await page.waitForChanges();
+    const after = await page.evaluate(() => document.querySelector('dda-dropdown .dda-dropdown-header').getAttribute('aria-expanded'));
+
+    expect(before).toBe('false');
+    expect(after).toBe('true');
+  });
+});

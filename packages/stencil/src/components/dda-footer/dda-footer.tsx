@@ -8,6 +8,8 @@ import { Component, Prop, h } from '@stencil/core';
 export class DdaFooter {
   /** Heading of the call-to-action area at the top of the footer. */
   @Prop() footerTitle: string;
+  /** Heading level (1 to 6) of `footerTitle`, to fit the page's heading order. Default: `4`. */
+  @Prop() heading_level: number = 4;
   /** Paragraph under `footerTitle`. */
   @Prop() description: string;
   /** Label of the primary (Sign up) button. The button has no link or action. */
@@ -41,12 +43,16 @@ export class DdaFooter {
   render() {
     const sections = this.parseJsonArray(this.footerSections);
     const icons = this.parseJsonArray(this.socialIcons);
+    // Clamp to a valid heading element; the classes keep the same look at every level.
+    const requestedLevel = Math.round(Number(this.heading_level));
+    const level = Number.isNaN(requestedLevel) ? 4 : Math.min(6, Math.max(1, requestedLevel));
+    const TitleTag = `h${level}` as any;
 
     return (
       <footer class="WB-footer">
         <div class="dda-container line-seperater">
           <div class="dda-flex dda-align-center flex-column dda-gap-5">
-            <h4 class="dda-fs-display-sm dda-fw-700 dda-color-black">{this.footerTitle}</h4>
+            <TitleTag class="dda-fs-display-sm dda-fw-700 dda-color-black">{this.footerTitle}</TitleTag>
             <p class="dda-fs-title-sm dda-fw-400 mb-3">{this.description}</p>
             <div class="dda-flex dda-gap-5">
               <dda-button button_color="default-primary" size="lg">

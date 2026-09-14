@@ -43,6 +43,8 @@ export class DdaPhoneField {
   @Prop() toggle_button_name: string;
   /** `name` of each country option button. */
   @Prop() country_select_button_name: string;
+  /** Accessible name of the country code dropdown button; the selected code is added after it. */
+  @Prop() toggle_button_label: string = 'Choose country code';
   /** `name` of the phone input, submitted with its form. */
   @Prop() phone_input_name: string;
   // F-018 (WCAG 1.3.5): telephone is exactly the field type autocomplete
@@ -111,8 +113,8 @@ export class DdaPhoneField {
           {this.label && <label htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
           <div class={`dda-input-field-group dda-phone-field`}>
             <div class="dda-input-dropdown-btn">
-              <button type="button" name={this.toggle_button_name}  class="dda-dropdown-select" onClick={() => this.toggleDropdown()}>
-                <img src={this.country_flag} alt="" width="20" /> {this.country_code} <i class={`material-icons`}>{this.dropdown_open ? 'keyboard_arrow_down' : 'keyboard_arrow_down'}</i>
+              <button type="button" name={this.toggle_button_name}  class="dda-dropdown-select" aria-label={this.toggle_button_label ? `${this.toggle_button_label}: ${this.country_code}` : undefined} aria-expanded={this.dropdown_open ? 'true' : 'false'} onClick={() => this.toggleDropdown()}>
+                <img src={this.country_flag} alt="" width="20" /> {this.country_code} <i class={`material-icons`} aria-hidden="true">{this.dropdown_open ? 'keyboard_arrow_down' : 'keyboard_arrow_down'}</i>
               </button>
               {this.dropdown_open && (
                 <div class="dda-input-dropdown-list">
