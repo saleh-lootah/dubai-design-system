@@ -1,4 +1,5 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { E2EPage, newE2EPage } from '@stencil/core/testing';
+import type { Page } from 'puppeteer';
 
 // F-009: .dda-header is `position: fixed; top: 0; z-index: 6`
 // (dda-header.css) with no scroll-padding/scroll-margin anywhere in the
@@ -177,5 +178,162 @@ describe('dda-header side menu scroll lock', () => {
     expect(await page.evaluate(() => document.documentElement.classList.contains('dda-scroll-lock'))).toBe(false);
     await wheelAt(page, 200, 400);
     expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+  });
+});
+
+// Stencil's E2EPage type omits Puppeteer's waitForNavigation, which the page does provide.
+const waitForNavigation = (page: E2EPage) => (page as unknown as Page).waitForNavigation();
+
+describe('dda-header search', () => {
+  const desktop = async (attrs = '') => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1280, height: 800 });
+    await page.setContent(`<dda-header ${attrs}></dda-header>`);
+    await page.waitForChanges();
+    return page;
+  };
+  const typeAndSubmit = async (page, selector: string, text: string) => {
+    await page.focus(selector);
+    await page.keyboard.type(text);
+    await page.keyboard.press('Enter');
+    await page.waitForChanges();
+  };
+
+  it('emits searchSubmit with the trimmed query when Enter is pressed, and stays on the page without search_action', async () => {
+    const page = await desktop();
+    const url = page.url();
+    const spy = await page.spyOnEvent('searchSubmit');
+
+    await typeAndSubmit(page, '.dda-search input', '  permits ');
+
+    expect(spy).toHaveReceivedEventDetail({ query: 'permits' });
+    expect(page.url()).toBe(url);
+  });
+
+  it('does not emit for an empty query', async () => {
+    const page = await desktop();
+    const spy = await page.spyOnEvent('searchSubmit');
+
+    await typeAndSubmit(page, '.dda-search input', '   ');
+
+    expect(spy).not.toHaveReceivedEvent();
+  });
+
+  it('navigates to search_action with the query when the event is not cancelled', async () => {
+    const page = await desktop('search_action="/results.html" search_input_name="term"');
+
+    await page.focus('.dda-search input');
+    await page.keyboard.type('driving licence');
+    await Promise.all([waitForNavigation(page), page.keyboard.press('Enter')]);
+
+    const url = new URL(page.url());
+    expect(url.pathname).toBe('/results.html');
+    expect(url.searchParams.get('term')).toBe('driving licence');
+  });
+
+  it('uses q as the query parameter by default', async () => {
+    const page = await desktop('search_action="/results.html"');
+
+    await page.focus('.dda-search input');
+    await page.keyboard.type('visa');
+    await Promise.all([waitForNavigation(page), page.keyboard.press('Enter')]);
+
+    expect(new URL(page.url()).searchParams.get('q')).toBe('visa');
+  });
+
+  it('does not navigate when a listener cancels searchSubmit', async () => {
+    const page = await desktop('search_action="/results.html"');
+    const url = page.url();
+    await page.evaluate(() => document.querySelector('dda-header').addEventListener('searchSubmit', event => event.preventDefault()));
+
+    await typeAndSubmit(page, '.dda-search input', 'visa');
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    expect(page.url()).toBe(url);
+  });
+
+  it('gives each header its own search input id, linked to its label', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-header></dda-header><dda-header></dda-header>');
+    await page.waitForChanges();
+
+    const ids = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('.dda-search')).map(search => ({
+        id: search.querySelector('input').id,
+        labelFor: search.querySelector('label').htmlFor,
+      })),
+    );
+
+    expect(ids[0].id).not.toBe(ids[1].id);
+    ids.forEach(({ id, labelFor }) => {
+      expect(id).not.toBe('');
+      expect(labelFor).toBe(id);
+    });
+  });
+
+  describe('on mobile', () => {
+    const mobile = async () => {
+      const page = await newE2EPage();
+      await page.setViewport({ width: 390, height: 800 });
+      await page.setContent('<dda-header></dda-header>');
+      await page.waitForChanges();
+      return page;
+    };
+    const state = page =>
+      page.evaluate(() => {
+        const button = document.querySelector('.dda-mobile-search button');
+        const panel = document.getElementById(button.getAttribute('aria-controls'));
+        return {
+          expanded: button.getAttribute('aria-expanded'),
+          panelVisible: !!panel && getComputedStyle(panel).display !== 'none',
+          focusInPanel: !!panel && panel.contains(document.activeElement) && document.activeElement.tagName === 'INPUT',
+          focusOnButton: document.activeElement === button,
+        };
+      });
+
+    it('opens a search field from the search button and moves focus into it', async () => {
+      const page = await mobile();
+      expect(await state(page)).toMatchObject({ expanded: 'false', panelVisible: false });
+
+      await page.click('.dda-mobile-search button');
+      await page.waitForChanges();
+
+      expect(await state(page)).toMatchObject({ expanded: 'true', panelVisible: true, focusInPanel: true });
+    });
+
+    it('submits from the mobile field', async () => {
+      const page = await mobile();
+      const spy = await page.spyOnEvent('searchSubmit');
+      await page.click('.dda-mobile-search button');
+      await page.waitForChanges();
+
+      await page.keyboard.type('housing');
+      await page.keyboard.press('Enter');
+      await page.waitForChanges();
+
+      expect(spy).toHaveReceivedEventDetail({ query: 'housing' });
+    });
+
+    it('closes with Escape and returns focus to the search button', async () => {
+      const page = await mobile();
+      await page.click('.dda-mobile-search button');
+      await page.waitForChanges();
+
+      await page.keyboard.press('Escape');
+      await page.waitForChanges();
+
+      expect(await state(page)).toMatchObject({ expanded: 'false', panelVisible: false, focusOnButton: true });
+    });
+
+    it('closes with the close button and returns focus to the search button', async () => {
+      const page = await mobile();
+      await page.click('.dda-mobile-search button');
+      await page.waitForChanges();
+
+      await page.click('.dda-mobile-search-close');
+      await page.waitForChanges();
+
+      expect(await state(page)).toMatchObject({ expanded: 'false', panelVisible: false, focusOnButton: true });
+    });
   });
 });

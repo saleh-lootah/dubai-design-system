@@ -17,7 +17,11 @@ export default {
     },
     search_input_name: {
       control: {type: 'text'},
-      description: 'Name for the search input',
+      description: 'Query parameter name for the search input (default q)',
+    },
+    search_action: {
+      control: {type: 'text'},
+      description: 'Results page URL. A search does a GET to it unless searchSubmit is cancelled',
     },
     language_button_name: {
       control: {type: 'text'},
@@ -100,6 +104,7 @@ const Template = args => `
       accessibility_button_name="${args.accessibility_button_name}"
       search_button_name="${args.search_button_name}"
       search_input_name="${args.search_input_name}"
+      search_action="${args.search_action}"
       language_button_name="${args.language_button_name}"
       close_menu_button_name="${args.close_menu_button_name}"
       close_accessibility_button_name="${args.close_accessibility_button_name}"
@@ -120,6 +125,7 @@ const Template = args => `
         <script>
       const header = document.querySelector('dda-header');
       header.addEventListener('languageSwitch', ${args.languageSwitch});
+      header.addEventListener('searchSubmit', (event) => console.log('Search', event.detail.query));
        header.addEventListener('smTextSize', ${args.smTextSize});
               header.addEventListener('baseTextSize', ${args.baseTextSize});
                      header.addEventListener('lgTextSize', ${args.lgTextSize});
@@ -143,7 +149,8 @@ Default.args = {
   hamburger_menu_button_name:"hamburger_menu_button_name",
   accessibility_button_name:"accessibility_button_name",
   search_button_name:"search_button_name",
-  search_input_name:"search_input_name",
+  search_input_name:"q",
+  search_action:"",
   language_button_name:"language_button_name",
   close_menu_button_name:"close_menu_button_name",
   close_accessibility_button_name:"close_accessibility_button_name",

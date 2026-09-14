@@ -1,5 +1,8 @@
 import { Component, h, Prop, State, Event, EventEmitter, Watch } from '@stencil/core';
 
+// Gives each header its own search input ids, so several headers on a page do not clash.
+let headerInstanceCount = 0;
+
 @Component({
   tag: 'dda-header',
   styleUrls: ['dda-header.css',],
@@ -29,17 +32,29 @@ export class DdaHeader {
   @Event() blindContrast: EventEmitter<void>;
   @Event() redContrast: EventEmitter<void>;
   @Event() greenContrast: EventEmitter<void>;
+  /**
+   * Emitted when a non-empty search is submitted. Call `preventDefault()` to stop the
+   * browser navigating to `search_action`, for example to route inside a single-page app.
+   */
+  @Event({ cancelable: true }) searchSubmit: EventEmitter<{ query: string }>;
 
   @State() isMenuOpen: boolean = false;
   @State() isSubMenuOpen: boolean = false;
   @State() isSideSubMenuOpen: boolean = false;
   @State() isAccessibiltyOpen: boolean = false;
+  @State() isSearchOpen: boolean = false;
+  private readonly searchId = `dda-header-search-${++headerInstanceCount}`;
+  private mobileSearchButton: HTMLButtonElement;
+  private mobileSearchInput: HTMLInputElement;
+  private focusSearchAfterRender = false;
   private lastScrollTop = 0;
 
   @Prop() hamburger_menu_button_name: string;
   @Prop() accessibility_button_name: string;
   @Prop() search_button_name: string;
   @Prop() search_input_name: string;
+  /** Results page URL. When set, a search does a GET to this URL with the query in `search_input_name` (default `q`). */
+  @Prop() search_action: string;
   @Prop() language_button_name: string;
   @Prop() close_menu_button_name: string;
   @Prop() close_accessibility_button_name: string;
@@ -81,6 +96,9 @@ export class DdaHeader {
 
   toggleEscapeKey = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
+      if (this.isSearchOpen) {
+        this.closeMobileSearch();
+      }
       this.isMenuOpen = false;
       this.isAccessibiltyOpen = false;
       this.isSubMenuOpen = false;
@@ -114,6 +132,55 @@ export class DdaHeader {
 
   private lockPageScroll(lock: boolean) {
     document.documentElement.classList.toggle('dda-scroll-lock', lock);
+  }
+
+  private handleSearchSubmit = (event: Event) => {
+    const input = (event.currentTarget as HTMLFormElement).querySelector('input');
+    const query = input.value.trim();
+    if (!query) {
+      event.preventDefault();
+      input.focus();
+      return;
+    }
+    const searchEvent = this.searchSubmit.emit({ query });
+    // Without a results URL there is nowhere to go; a cancelled event means the app routes itself.
+    if (searchEvent.defaultPrevented || !this.search_action) {
+      event.preventDefault();
+    }
+  };
+
+  private openMobileSearch = () => {
+    this.focusSearchAfterRender = true;
+    this.isSearchOpen = true;
+  };
+
+  private closeMobileSearch = () => {
+    this.isSearchOpen = false;
+    this.mobileSearchButton?.focus();
+  };
+
+  componentDidUpdate() {
+    // The panel is hidden until this render, so focus can only move into it now.
+    if (this.focusSearchAfterRender) {
+      this.focusSearchAfterRender = false;
+      this.mobileSearchInput?.focus();
+    }
+  }
+
+  private renderSearchInput(id: string, ref?: (el: HTMLInputElement) => void) {
+    return [
+      <label htmlFor={id} class="visually-hidden">{this.searchText || 'Search'}</label>,
+      <i class="material-icons  material-symbols-outlined" aria-hidden="true">search</i>,
+      <input
+        name={this.search_input_name || 'q'}
+        type="text"
+        id={id}
+        placeholder={this.searchText || 'Search'}
+        enterkeyhint="search"
+        autocomplete="off"
+        ref={ref}
+      />,
+    ];
   }
 
   handleOutsideClick = (event: MouseEvent) => {
@@ -512,7 +579,26 @@ export class DdaHeader {
               </a>
             </div>
             <div class="dda-mobile-search">
-                <button name={this.search_button_name} class="tool-btn" type="button"><span class="visually-hidden">Search</span><i class="material-icons  material-symbols-outlined" aria-hidden="true">search</i></button>
+                <button
+                  name={this.search_button_name}
+                  class="tool-btn"
+                  type="button"
+                  aria-expanded={this.isSearchOpen ? 'true' : 'false'}
+                  aria-controls={`${this.searchId}-mobile-panel`}
+                  onClick={this.isSearchOpen ? this.closeMobileSearch : this.openMobileSearch}
+                  ref={el => (this.mobileSearchButton = el)}
+                >
+                  <span class="visually-hidden">Search</span>
+                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">search</i>
+                </button>
+            </div>
+            <div id={`${this.searchId}-mobile-panel`} class="dda-mobile-search-panel" hidden={!this.isSearchOpen}>
+              <form class="dda-mobile-search-form" role="search" method="get" action={this.search_action} onSubmit={this.handleSearchSubmit}>
+                {this.renderSearchInput(`${this.searchId}-mobile`, el => (this.mobileSearchInput = el))}
+                <button type="button" class="dda-mobile-search-close" aria-label="Close search" onClick={this.closeMobileSearch}>
+                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
+                </button>
+              </form>
             </div>
 
             {/* Toolbar Menu */}
@@ -520,11 +606,15 @@ export class DdaHeader {
               <ul>
                 <li>
                   <dda-tooltip title_text="Search" description="" position="top">
-                    <div class="dda-search dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle tool-btn">
-                      <label htmlFor="ddaSearch" class="visually-hidden">{this.searchText || "Search"}</label>
-                      <i class="material-icons  material-symbols-outlined" aria-hidden="true">search</i>
-                      <input name={this.search_input_name} type="text" id='ddaSearch' class="" placeholder={this.searchText || "Search"} />
-                    </div>
+                    <form
+                      class="dda-search dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle tool-btn"
+                      role="search"
+                      method="get"
+                      action={this.search_action}
+                      onSubmit={this.handleSearchSubmit}
+                    >
+                      {this.renderSearchInput(this.searchId)}
+                    </form>
                   </dda-tooltip>
                 </li>
 

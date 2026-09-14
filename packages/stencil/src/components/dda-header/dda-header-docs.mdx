@@ -97,3 +97,43 @@ import { DdaHeader } from '@dubai-design-system/components-vue'
 
 
 ```
+
+## Search
+
+The header search is a `<form role="search">`. Enter submits it on desktop. On small screens the
+search button opens a search field under the header; Escape or the close button dismisses it.
+Empty searches do nothing.
+
+Every non-empty search emits a cancelable `searchSubmit` event with `detail.query`. What
+happens next depends on two things:
+
+| `search_action` set | Event cancelled | Result |
+| --- | --- | --- |
+| yes | no | The browser goes to `search_action?q=<query>` (a plain GET, no JavaScript needed). |
+| yes | yes | No navigation; your code handles the search. |
+| no | either | No navigation; your code handles the search. |
+
+The query parameter is named by `search_input_name` and defaults to `q`.
+
+#### Static site: send searches to a results page
+
+```html
+<dda-header search_action="/search.html" search_input_name="q"></dda-header>
+```
+
+`/search.html` reads the query with `new URLSearchParams(location.search).get('q')`.
+
+#### Framework app: route the search yourself
+
+```jsx
+// React
+<DdaHeader
+  search_action="/search"
+  onSearchSubmit={event => {
+    event.preventDefault();
+    navigate(`/search?q=${encodeURIComponent(event.detail.query)}`);
+  }}
+/>
+```
+
+Keeping `search_action` set means the search still works if JavaScript has not loaded yet.

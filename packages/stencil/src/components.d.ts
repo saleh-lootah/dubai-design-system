@@ -356,6 +356,10 @@ export namespace Components {
         "quickLinks": string;
         "readSpeakerLink": string;
         "searchText": string;
+        /**
+          * Results page URL. When set, a search does a GET to this URL with the query in `search_input_name` (default `q`).
+         */
+        "search_action": string;
         "search_button_name": string;
         "search_input_name": string;
         "secondLogoAlt": string;
@@ -1026,6 +1030,7 @@ declare global {
         "blindContrast": void;
         "redContrast": void;
         "greenContrast": void;
+        "searchSubmit": { query: string };
     }
     interface HTMLDdaHeaderElement extends Components.DdaHeader, HTMLStencilElement {
         addEventListener<K extends keyof HTMLDdaHeaderElementEventMap>(type: K, listener: (this: HTMLDdaHeaderElement, ev: DdaHeaderCustomEvent<HTMLDdaHeaderElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1586,10 +1591,18 @@ declare namespace LocalJSX {
         "onLgTextSize"?: (event: DdaHeaderCustomEvent<void>) => void;
         "onNormalContrast"?: (event: DdaHeaderCustomEvent<void>) => void;
         "onRedContrast"?: (event: DdaHeaderCustomEvent<void>) => void;
+        /**
+          * Emitted when a non-empty search is submitted. Call `preventDefault()` to stop the browser navigating to `search_action`, for example to route inside a single-page app.
+         */
+        "onSearchSubmit"?: (event: DdaHeaderCustomEvent<{ query: string }>) => void;
         "onSmTextSize"?: (event: DdaHeaderCustomEvent<void>) => void;
         "quickLinks"?: string;
         "readSpeakerLink"?: string;
         "searchText"?: string;
+        /**
+          * Results page URL. When set, a search does a GET to this URL with the query in `search_input_name` (default `q`).
+         */
+        "search_action"?: string;
         "search_button_name"?: string;
         "search_input_name"?: string;
         "secondLogoAlt"?: string;
@@ -2328,6 +2341,7 @@ declare namespace LocalJSX {
         "accessibility_button_name": string;
         "search_button_name": string;
         "search_input_name": string;
+        "search_action": string;
         "language_button_name": string;
         "close_menu_button_name": string;
         "close_accessibility_button_name": string;
