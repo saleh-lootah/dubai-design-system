@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Event, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, State, Event, EventEmitter, Watch } from '@stencil/core';
 
 @Component({
   tag: 'dda-header',
@@ -100,8 +100,20 @@ export class DdaHeader {
   disconnectedCallback() {
     window.removeEventListener('scroll', this.handleScroll);
     document.removeEventListener('click', this.handleOutsideClick);
+    document.removeEventListener('keydown', this.toggleEscapeKey);
     document.removeEventListener('click', this.handleOutsideAccessibilityClick);
-    document.addEventListener('click', this.handleOutsideMegaMenuClick)
+    document.removeEventListener('click', this.handleOutsideMegaMenuClick);
+    this.lockPageScroll(false);
+  }
+
+  // While the side menu is open, the page underneath must not scroll; the menu itself still does.
+  @Watch('isMenuOpen')
+  onMenuOpenChange(isOpen: boolean) {
+    this.lockPageScroll(isOpen);
+  }
+
+  private lockPageScroll(lock: boolean) {
+    document.documentElement.classList.toggle('dda-scroll-lock', lock);
   }
 
   handleOutsideClick = (event: MouseEvent) => {

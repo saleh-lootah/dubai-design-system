@@ -113,3 +113,69 @@ describe('dda-header', () => {
     expect(rects.targetTop).toBeGreaterThanOrEqual(rects.headerBottom);
   });
 });
+
+describe('dda-header side menu scroll lock', () => {
+  const items = JSON.stringify(Array.from({ length: 40 }, (_, i) => ({ label: `Link ${i + 1}`, href: '#', subMenu: [] })));
+  const setup = async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 390, height: 700 });
+    await page.setContent(`
+      <dda-header side-menu-items='${items}'></dda-header>
+      <div style="height: 4000px;"></div>
+    `);
+    await page.waitForChanges();
+    return page;
+  };
+  const openMenu = async page => {
+    await page.click('.hamburger-menu-btn');
+    await page.waitForChanges();
+  };
+  const wheelAt = async (page, x: number, y: number) => {
+    await page.mouse.move(x, y);
+    await page.mouse.wheel({ deltaY: 600 });
+    await new Promise(resolve => setTimeout(resolve, 300));
+  };
+
+  it('stops the page scrolling while the menu is open', async () => {
+    const page = await setup();
+    await openMenu(page);
+
+    // The overlay beside the 375px-wide menu is the only page area left to scroll on.
+    await wheelAt(page, 385, 400);
+
+    expect(await page.evaluate(() => window.scrollY)).toBe(0);
+  });
+
+  it('still scrolls the menu itself while it is open', async () => {
+    const page = await setup();
+    await openMenu(page);
+
+    await wheelAt(page, 150, 400);
+
+    const scroll = await page.evaluate(() => ({ menu: document.querySelector('.dda-sidemenu-content').scrollTop, page: window.scrollY }));
+    expect(scroll.menu).toBeGreaterThan(0);
+    expect(scroll.page).toBe(0);
+  });
+
+  it('lets the page scroll again after the menu closes', async () => {
+    const page = await setup();
+    await openMenu(page);
+    await page.click('.side-nav-close-btn');
+    await page.waitForChanges();
+
+    await wheelAt(page, 200, 400);
+
+    expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+  });
+
+  it('releases the lock when the header is removed while the menu is open', async () => {
+    const page = await setup();
+    await openMenu(page);
+    await page.evaluate(() => document.querySelector('dda-header').remove());
+    await page.waitForChanges();
+
+    expect(await page.evaluate(() => document.documentElement.classList.contains('dda-scroll-lock'))).toBe(false);
+    await wheelAt(page, 200, 400);
+    expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+  });
+});

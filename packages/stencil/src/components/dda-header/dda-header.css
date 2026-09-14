@@ -34,3 +34,14 @@
     scroll-padding-top: 100px;
   }
 }
+
+/* The header adds this class to <html> while its side menu is open, so the page underneath
+   cannot scroll. The gutter keeps the layout from shifting when a desktop scrollbar hides. */
+:root.dda-scroll-lock {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+:root.dda-scroll-lock body {
+  overflow: hidden;
+}

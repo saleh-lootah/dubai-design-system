@@ -472,6 +472,8 @@
     gap: 15px;
     padding: 32px;
     overflow-y: auto;
+    /* Reaching the end of the menu must not start scrolling the locked page. */
+    overscroll-behavior: contain;
     height: 100%;
 }
 
