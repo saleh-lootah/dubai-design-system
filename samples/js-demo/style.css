@@ -1,0 +1,72 @@
+@import '@dubai-design-system/components-js/dist/dda/dda.css';
+
+/* Cross-fade between pages instead of a white flash (Chrome 126+, Safari 18.2+). */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+.demo-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  /* dda-header is fixed; keep content below it. */
+  padding: 180px 16px 32px;
+  display: grid;
+  gap: 48px;
+}
+
+/* The popular-services cards are positioned over the bottom of the home banner. */
+.home-intros {
+  position: relative;
+}
+
+/* The home banner sits above main, so main needs no header offset. */
+.demo-main-after-banner {
+  padding-top: 48px;
+}
+
+.demo-hero,
+.demo-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  align-items: center;
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.demo-form {
+  display: grid;
+  gap: 16px;
+}
+
+.demo-hero-media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.demo-gallery-item {
+  display: grid;
+  gap: 16px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DDA Component Gallery</title>
+    <!-- Styles, fonts and scripts start in <head>, so the first paint is already styled. -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiMedium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet">
+    <!-- blocking="render" holds the first paint until setup.js has rendered every component. -->
+    <script type="module" src="/setup.js" blocking="render"></script>
+  </head>
+  <body>
+    <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
+
+    <main class="demo-main">
+      <div>
+        <h1>Component gallery</h1>
+        <p>Every component in the package, with placeholder content.</p>
+      </div>
+
+      <section class="demo-gallery-item">
+        <h2>Button</h2>
+        <div class="demo-row">
+          <dda-button button_color="default-primary">Primary</dda-button>
+          <dda-button button_color="default-secondary">Secondary</dda-button>
+          <dda-button button_color="default-primary" start_icon="sentiment_satisfied" end_icon="arrow_forward">With icons</dda-button>
+          <dda-button button_color="default-primary" disabled>Disabled</dda-button>
+        </div>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Link button</h2>
+        <div class="demo-row">
+          <dda-link-button button_color="default-primary" href="#">Link button</dda-link-button>
+          <dda-link-button button_color="default-secondary" href="#" end_icon="arrow_forward">With icon</dda-link-button>
+        </div>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Alert</h2>
+        <dda-alert variation="info" type="primary" title_text="Info title" description="Alert description placeholder."></dda-alert>
+        <dda-alert variation="error" type="primary" title_text="Error title" description="Alert description placeholder."></dda-alert>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Accordion</h2>
+        <dda-accordion header_text="Accordion header" body_description="Accordion body placeholder."></dda-accordion>
+        <dda-accordion design="no-border" header_text="Accordion header (no border)" body_description="Accordion body placeholder."></dda-accordion>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Breadcrumb</h2>
+        <dda-breadcrumb design="text" separator="chevron_right"
+          data-breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"Section","icon":"menu_book","url":"#"},{"text":"Page"}]'></dda-breadcrumb>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Tabs</h2>
+        <dda-tabs type="text" tab_texts='["Tab 1", "Tab 2", "Tab 3"]'></dda-tabs>
+        <dda-tabs type="text-icon" tab_texts='["Tab 1", "Tab 2", "Tab 3"]'></dda-tabs>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Segmented tabs</h2>
+        <dda-segmented-tabs items='["All","Recent","Saved"]' radius_type="square" aria_label="Filter results"></dda-segmented-tabs>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Chip</h2>
+        <div class="demo-row">
+          <dda-chip bg_color="grey" icon="sentiment_satisfied">Grey</dda-chip>
+          <dda-chip bg_color="success">Success</dda-chip>
+          <dda-chip bg_color="grey" show_close_icon>Closable</dda-chip>
+        </div>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Avatar</h2>
+        <div class="demo-row">
+          <dda-avatar type="text" size="md" rounded="circle" text="AB" aria_label="Avatar"></dda-avatar>
+          <dda-avatar type="icon" size="md" rounded="circle" aria_label="Avatar"></dda-avatar>
+          <dda-avatar type="photo" size="md" rounded="circle" src="https://picsum.photos/seed/dda-avatar/96/96" aria_label="Avatar"></dda-avatar>
+        </div>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Tooltip</h2>
+        <dda-tooltip title_text="Tooltip title" description="Tooltip description placeholder.">
+          <dda-button button_color="default-secondary">Hover me</dda-button>
+        </dda-tooltip>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Progress bar</h2>
+        <dda-progressbar progress="60" show_percentage_text></dda-progressbar>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Card</h2>
+        <div class="demo-grid">
+          <dda-ui-card maintitle="Card title" subtitle="Card description placeholder." icon="sentiment_satisfied" linktext="Learn more" link="#"></dda-ui-card>
+          <dda-credit-card balance="AED 0.00" name="CARD HOLDER" card_number="0000" design="default" card_type="https://placehold.co/64x40?text=Card"></dda-credit-card>
+        </div>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Form fields</h2>
+        <div class="demo-grid">
+          <dda-input label="Text input" placeholder="Placeholder" helper_text="Helper text"></dda-input>
+          <dda-input label="Error input" placeholder="Placeholder" input_status="error" error_message="Error message"></dda-input>
+          <dda-search-input label="Search" placeholder="Search"></dda-search-input>
+          <dda-number-field label="Amount" placeholder="0.00" currencies='["AED","USD","EUR"]' selected_currency="AED"></dda-number-field>
+          <dda-phonefield label="Phone"></dda-phonefield>
+          <dda-creditcard-field label="Card number" placeholder="0000 0000 0000 0000"></dda-creditcard-field>
+          <dda-select label="Select" options='["Option 1","Option 2","Option 3"]'></dda-select>
+          <dda-dropdown label="Dropdown" options='["Option 1","Option 2","Option 3"]'></dda-dropdown>
+          <dda-attach-file label="Attach file" helper_text="PDF, max 5 MB"></dda-attach-file>
+          <dda-textarea label="Textarea" placeholder="Placeholder"></dda-textarea>
+        </div>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Selection controls</h2>
+        <div class="demo-grid">
+          <dda-checkbox title_text="Checkbox" supporting="Supporting text" input_id="g-check"></dda-checkbox>
+          <dda-radiobutton title_text="Radio option 1" group_name="g-radio" input_id="g-radio-1" checked></dda-radiobutton>
+          <dda-radiobutton title_text="Radio option 2" group_name="g-radio" input_id="g-radio-2"></dda-radiobutton>
+          <dda-toggle input_id="g-toggle" title_text="Toggle" supporting="Supporting text" aria_label="Toggle"></dda-toggle>
+        </div>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Range slider</h2>
+        <dda-range-slider min="0" max="100" initial_min="20" initial_max="80" left_aria_label="Minimum" right_aria_label="Maximum"></dda-range-slider>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Steppers</h2>
+        <!-- current_step counts from 0, so 1 is the second step. -->
+        <dda-horizontal-stepper current_step="1"
+          steps='[{"title":"Step 1","subtitle":"Subtitle","description":"Description placeholder."},{"title":"Step 2","subtitle":"Subtitle","description":"Description placeholder."},{"title":"Step 3","subtitle":"Subtitle","description":"Description placeholder."}]'></dda-horizontal-stepper>
+        <dda-vertical-stepper current_step="1"
+          steps='[{"icon":"sentiment_satisfied","title":"Step 1","subtitle":"Subtitle","description":"Description"},{"icon":"sentiment_satisfied","title":"Step 2","subtitle":"Subtitle","description":"Description"},{"icon":"sentiment_satisfied","title":"Step 3","subtitle":"Subtitle","description":"Description"}]'></dda-vertical-stepper>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Pagination</h2>
+        <dda-pagination current_page="1" total_pages="8"></dda-pagination>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Banner</h2>
+        <dda-banner slider_width="360px" slider_height="220px"
+          slides='[{"image":"https://picsum.photos/seed/dda-slide-1/720/440","title":"Sample photo 1"},{"image":"https://picsum.photos/seed/dda-slide-2/720/440","title":"Sample photo 2"},{"image":"https://picsum.photos/seed/dda-slide-3/720/440","title":"Sample photo 3"},{"image":"https://picsum.photos/seed/dda-slide-4/720/440","title":"Sample photo 4"}]'></dda-banner>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Home banner</h2>
+        <p>The home banner fills the full screen. See it at the top of the <a href="/">home page</a>.</p>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Sticky footer</h2>
+        <p>The sticky footer is fixed to the bottom of every page. Scroll up to show it, and scroll down to hide it.</p>
+      </section>
+    </main>
+
+    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Footer description placeholder." copyright-text="© 2026 Placeholder. All rights reserved." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
+
+    <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
+  </body>
+</html>
