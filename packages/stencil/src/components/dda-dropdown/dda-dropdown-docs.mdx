@@ -8,6 +8,9 @@ import { componentApi } from '../../storybook/component-api';
 
 The `dda-dropdown` component renders a button with a three-dots icon that opens a list of options.
 Use `icon_mode` for a compact icon-only menu, or show the selected option next to the icon.
+Every time the user picks an option, the component updates its `selected` property and fires
+`optionSelect` with `detail.value`, the option. It also fires when the user picks the option that
+is already selected, so you can use the dropdown as an action menu.
 
 ## API
 
@@ -35,6 +38,12 @@ Use `icon_mode` for a compact icon-only menu, or show the selected option next t
   size="medium"
   options='["Newest first","Oldest first","Status"]'
 ></dda-dropdown>
+
+<script>
+  document
+    .querySelector('dda-dropdown')
+    .addEventListener('optionSelect', event => console.log('Sort order:', event.detail.value));
+</script>
 ```
 
 **From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
@@ -45,32 +54,26 @@ import '@dubai-design-system/components-js/dist/components/dda-dropdown.js';
 
 const dropdown = document.querySelector('dda-dropdown');
 dropdown.options = JSON.stringify(['Newest first', 'Oldest first', 'Status']);
-
-// The component does not emit a change event. Read the `selected` property when you need the value.
-console.log('Sort order:', dropdown.selected);
+dropdown.addEventListener('optionSelect', event => {
+  console.log('Sort order:', event.detail.value);
+});
 ```
 
 ### React
 
 ```jsx
-import { useRef } from 'react';
 import { DdaDropdown } from '@dubai-design-system/components-react';
 
-export function SortRequests() {
-  const dropdown = useRef(null);
-
+export function SortRequests({ onSort }) {
   return (
-    <>
-      <DdaDropdown
-        ref={dropdown}
-        button_id="sort-requests"
-        label="Sort requests"
-        type="bg-white"
-        size="medium"
-        options={JSON.stringify(['Newest first', 'Oldest first', 'Status'])}
-      />
-      <button type="button" onClick={() => console.log('Sort order:', dropdown.current.selected)}>Apply</button>
-    </>
+    <DdaDropdown
+      button_id="sort-requests"
+      label="Sort requests"
+      type="bg-white"
+      size="medium"
+      options={JSON.stringify(['Newest first', 'Oldest first', 'Status'])}
+      onOptionSelect={event => onSort(event.detail.value)}
+    />
   );
 }
 ```
@@ -91,6 +94,7 @@ const options = JSON.stringify(['Newest first', 'Oldest first', 'Status']);
     type="bg-white"
     size="medium"
     :options="options"
+    @optionSelect="event => console.log('Sort order:', event.detail.value)"
   />
 </template>
 ```
@@ -99,14 +103,13 @@ const options = JSON.stringify(['Newest first', 'Oldest first', 'Status']);
 
 ```html
 <dda-dropdown
-  #sortRequests
   button_id="sort-requests"
   label="Sort requests"
   type="bg-white"
   size="medium"
   options='["Newest first","Oldest first","Status"]'
+  (optionSelect)="applySort($event.detail.value)"
 ></dda-dropdown>
-<button type="button" (click)="applySort(sortRequests.selected)">Apply</button>
 ```
 
 ## Icon-only menu

@@ -24,8 +24,8 @@ export class DdaUiCard {
   @Prop() linkicon: string = 'arrow_forward';
   /** Heading level (1–6) of the title; pick the level that fits the page outline. */
   @Prop() heading_level: number = 3;
-  /** Declared but never emitted by the current version. Listen for the native `click` event on the link instead. */
-  @Event() linkClick?: EventEmitter<void>;
+  /** Emitted when the user clicks the card link. `detail` is the original click `MouseEvent`; call `detail.preventDefault()` to stop the navigation. */
+  @Event() linkClick?: EventEmitter<MouseEvent>;
 
   // The title was always an <h1>, so a page of cards had many h1s.
   // Clamp to a valid heading level; anything unparsable falls back to 3.
@@ -57,7 +57,7 @@ export class DdaUiCard {
                 {!!this.maintitle && <HeadingTag class={'dda-card-title'}>{this.maintitle}</HeadingTag>}
                 {!!this.subtitle && <p class={'dda-card-text-muted'}>{this.subtitle}</p>}
                 {!!this.link && (
-                  <a href={this.link} class={'dda-card-link'}>
+                  <a href={this.link} class={'dda-card-link'} onClick={(event: MouseEvent) => this.linkClick.emit(event)}>
                     {this.linktext}{' '}
                     {this.linkicon && (
                       <span>

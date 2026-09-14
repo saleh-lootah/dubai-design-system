@@ -26,10 +26,10 @@ export class DdaTabs {
   @Prop() tab_icons: string = '["sentiment_satisfied", "sentiment_satisfied", "sentiment_satisfied"]';
   /** `name` set on every tab button. */
   @Prop() button_name: string;
-  /** Fires when the user clicks a tab. `detail` is the tab index, from 0. */
-  @Event() tabClick?: EventEmitter<void>;
+  /** Fires when the user clicks a tab. `detail` is the tab index, a number from 0. */
+  @Event() tabClick?: EventEmitter<number>;
 
-  private tabhandler = (index) => {
+  private tabhandler = (index: number) => {
     this.tabClick.emit(index);
   };
 

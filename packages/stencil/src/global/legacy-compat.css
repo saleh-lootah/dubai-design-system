@@ -12,6 +12,43 @@
    Loaded FIRST in dda-bundle.css so current tokens and rules override anything here.
    Deprecate deliberately in a future major, with notice — not by silent omission. */
 
+/* The legacy rules below use an older token set (--font-*, --line-height-*, --font-weight-*,
+   --gap-*) that nothing defined, so every rule using them was invalid: headings, .dda-h*,
+   captions and the Light/Regular/Medium/Bold weights all fell back to body text. These aliases
+   map them to the current tokens. :where() keeps specificity at zero, so a site that defines
+   any of these variables itself still wins. */
+:where(:root) {
+  --font-display: var(--dda-fs-display-lg);
+  --font-h1: var(--dda-h1);
+  --font-h2: var(--dda-h2);
+  --font-h3: var(--dda-h3);
+  --font-h4: var(--dda-h4);
+  --font-h5: var(--dda-h5);
+  --font-h6: var(--dda-h6);
+  --font-body: var(--dda-body);
+  --font-caption: var(--dda-caption);
+  --font-small: var(--dda-fs-body-sm);
+
+  --line-height-display: 1.2;
+  --line-height-h1: 1.2;
+  --line-height-h2: 1.2;
+  --line-height-h3: 1.2;
+  --line-height-h4: 1.3;
+  --line-height-h5: 1.3;
+  --line-height-h6: 1.3;
+  --line-height-body: 1.5;
+  --line-height-caption: 1.4;
+  --line-height-small: 1.4;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  --gap-xs: 0.25rem;
+  --gap-lg: 1.5rem;
+}
+
 .display {
   font-size: var(--font-display);
   line-height: var(--line-height-display) !important;
@@ -810,52 +847,54 @@
   color: var(--dda-primary-40);
 }
 
-/* --- top-up: rules whose compound selectors were missed by the first pass --- */
+/* --- top-up: rules whose compound selectors were missed by the first pass ---
+   No !important: these element and class rules set the type scale, and a component's own class
+   (for example a card or alert title) must be able to set a different size. */
 h1,
 .h1,
 .dda-h1 {
-  font-size: var(--font-h1) !important;
-  line-height: var(--line-height-h1) !important;
+  font-size: var(--font-h1);
+  line-height: var(--line-height-h1);
 }
 h2,
 .h2,
 .dda-h2 {
-  font-size: var(--font-h2) !important;
-  line-height: var(--line-height-h2) !important;
+  font-size: var(--font-h2);
+  line-height: var(--line-height-h2);
 }
 h3,
 .h3,
 .dda-h3 {
-  font-size: var(--font-h3) !important;
-  line-height: var(--line-height-h3) !important;
+  font-size: var(--font-h3);
+  line-height: var(--line-height-h3);
 }
 h4,
 .h4,
 .dda-h4 {
-  font-size: var(--font-h4) !important;
-  line-height: var(--line-height-h4) !important;
+  font-size: var(--font-h4);
+  line-height: var(--line-height-h4);
 }
 h5,
 .h5,
 .dda-h5 {
-  font-size: var(--font-h5) !important;
-  line-height: var(--line-height-h5) !important;
+  font-size: var(--font-h5);
+  line-height: var(--line-height-h5);
 }
 h6,
 .h6,
 .dda-h6 {
-  font-size: var(--font-h6) !important;
-  line-height: var(--line-height-h6) !important;
+  font-size: var(--font-h6);
+  line-height: var(--line-height-h6);
 }
 .body,
 .dda-body {
-  font-size: var(--font-body) !important;
-  line-height: var(--line-height-body) !important;
+  font-size: var(--font-body);
+  line-height: var(--line-height-body);
 }
 .caption,
 .dda-caption {
-  font-size: var(--font-caption) !important;
-  line-height: var(--line-height-caption) !important;
+  font-size: var(--font-caption);
+  line-height: var(--line-height-caption);
 }
 .display.Light,
 h1.Light,

@@ -1,4 +1,4 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, h, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'dda-avatar',
@@ -25,8 +25,8 @@ export class DdaAvatar {
   /** Extra CSS classes added to the avatar container. */
   @Prop() custom_class?: string = ''; 
   @State() isOpen: boolean = false;
-  /** The selected option. Matches one entry of `options`; updated when the user picks an option. */
-  @Prop() selected: string;
+  /** The selected option. Matches one entry of `options`; updated when the user picks an option. Mutable: the component assigns it. */
+  @Prop({ mutable: true }) selected: string;
   /** Dropdown options as a JSON array of strings, e.g. `["Profile","Sign out"]`. When set, the avatar becomes a button that opens the list. */
   @Prop() options: string;
   /** Theme override class for the avatar, e.g. `light-mode`. */
@@ -37,6 +37,8 @@ export class DdaAvatar {
   @Prop() button_id?: string;
   /** `name` of each option button in the dropdown. Also added as a CSS class on the avatar container. */
   @Prop() button_name?: string;
+  /** Emitted every time the user picks an option from the dropdown, also when it is already selected. `detail.value` is the option. */
+  @Event() optionSelect: EventEmitter<{ value: string }>;
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
@@ -45,6 +47,7 @@ export class DdaAvatar {
   selectOption(option: string) {
     this.selected = option
     this.isOpen = false
+    this.optionSelect.emit({ value: option })
   }
 
   private get parsedOptions(): string[] {

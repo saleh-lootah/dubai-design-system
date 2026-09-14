@@ -171,4 +171,94 @@ describe('dda-segmented-tabs', () => {
     const labels = await page.$$eval('dda-segmented-tabs button', (els: Element[]) => els.map(el => el.getAttribute('aria-label')));
     expect(labels).toEqual([null, null, null]);
   });
+
+  // `items` was JSON.parse'd once in componentWillLoad with no guard: a
+  // missing or invalid value threw, and later changes to `items` or
+  // `selected_index` were ignored.
+  it('renders no segments and logs no errors when the items attribute is missing', async () => {
+    const page = await newE2EPage();
+    const errors: string[] = [];
+    page.on('pageerror', err => errors.push(String(err)));
+    page.on('console', m => m.type() === 'error' && errors.push(m.text()));
+    await page.setContent('<dda-segmented-tabs></dda-segmented-tabs>');
+    await page.waitForChanges();
+
+    const el = await page.find('dda-segmented-tabs');
+    expect(el).toHaveClass('hydrated');
+    expect(await page.findAll('dda-segmented-tabs button')).toHaveLength(0);
+    expect(errors).toEqual([]);
+  });
+
+  it('renders no segments and logs no errors when items is invalid JSON', async () => {
+    const page = await newE2EPage();
+    const errors: string[] = [];
+    page.on('pageerror', err => errors.push(String(err)));
+    page.on('console', m => m.type() === 'error' && errors.push(m.text()));
+    await page.setContent(`<dda-segmented-tabs items='not json'></dda-segmented-tabs>`);
+    await page.waitForChanges();
+
+    const el = await page.find('dda-segmented-tabs');
+    expect(el).toHaveClass('hydrated');
+    expect(await page.findAll('dda-segmented-tabs button')).toHaveLength(0);
+    expect(errors).toEqual([]);
+  });
+
+  it('re-renders when items changes after load', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-segmented-tabs items='${ITEMS}'></dda-segmented-tabs>`);
+    expect(await page.findAll('dda-segmented-tabs button')).toHaveLength(3);
+
+    await page.$eval('dda-segmented-tabs', (el: HTMLDdaSegmentedTabsElement, value: string) => (el.items = value), '["One","Two","Three","Four"]');
+    await page.waitForChanges();
+
+    const labels = await page.$$eval('dda-segmented-tabs button', (els: Element[]) => els.map(el => el.textContent));
+    expect(labels).toEqual(['One', 'Two', 'Three', 'Four']);
+  });
+
+  it('moves the selection when selected_index changes after load', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-segmented-tabs items='${ITEMS}'></dda-segmented-tabs>`);
+
+    await page.$eval('dda-segmented-tabs', (el: HTMLDdaSegmentedTabsElement) => (el.selected_index = 2));
+    await page.waitForChanges();
+
+    const pressed = await page.$$eval('dda-segmented-tabs button', (els: Element[]) => els.map(el => el.getAttribute('aria-pressed')));
+    expect(pressed).toEqual(['false', 'false', 'true']);
+  });
+
+  it('keeps the selection when items changes and the selected index is still in range', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-segmented-tabs items='${ITEMS}' selected_index="1"></dda-segmented-tabs>`);
+
+    await page.$eval('dda-segmented-tabs', (el: HTMLDdaSegmentedTabsElement, value: string) => (el.items = value), '["A","B"]');
+    await page.waitForChanges();
+
+    const pressed = await page.$$eval('dda-segmented-tabs button', (els: Element[]) => els.map(el => el.getAttribute('aria-pressed')));
+    expect(pressed).toEqual(['false', 'true']);
+  });
+
+  it('selects the first segment when items shrinks below the selected index', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-segmented-tabs items='${ITEMS}' selected_index="2"></dda-segmented-tabs>`);
+
+    await page.$eval('dda-segmented-tabs', (el: HTMLDdaSegmentedTabsElement, value: string) => (el.items = value), '["A","B"]');
+    await page.waitForChanges();
+
+    const pressed = await page.$$eval('dda-segmented-tabs button', (els: Element[]) => els.map(el => el.getAttribute('aria-pressed')));
+    expect(pressed).toEqual(['true', 'false']);
+  });
+});
+
+describe('dda-segmented-tabs non-string items', () => {
+  it('renders numeric items as text instead of throwing', async () => {
+    const page = await newE2EPage();
+    const errors: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await page.setContent(`<dda-segmented-tabs items='[2024, 2025]'></dda-segmented-tabs>`);
+    await page.waitForChanges();
+
+    const labels = await page.evaluate(() => Array.from(document.querySelectorAll('dda-segmented-tabs button')).map(button => button.textContent.trim()));
+    expect(labels).toEqual(['2024', '2025']);
+    expect(errors).toEqual([]);
+  });
 });

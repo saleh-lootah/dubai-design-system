@@ -175,6 +175,12 @@ the top of the page.
 
 ### Changes to check, no code change expected
 
+- **Headings are larger.** Before 5.1.0 an undefined token made every heading, `.dda-h1`–`.dda-h6`
+  and component title render at body size (16px). Headings now follow the type scale (`h1`
+  57px, `h2` 48px, `h3` 40px at a 16px base) and component titles use their own sizes. If a page
+  looks too large, set a smaller heading level or class rather than restyling the tokens; to
+  change the scale itself, override `--dda-h1`…`--dda-h6`.
+
 - **The page no longer scrolls behind the open hamburger menu.** While the menu is open, the
   header adds `dda-scroll-lock` to `<html>`, which sets `overflow: hidden` on `html` and
   `body`. If your own CSS sets `overflow` on `html` or `body`, check the open menu on a phone.
@@ -212,6 +218,11 @@ the top of the page.
 | `dda-segmented-tabs` | `icon_labels` | Name icon-only segments |
 | `dda-header` | `first-logo-href`, `second-logo-href`, `language_lang` | Logo link targets, language of the language button |
 | `dda-banner`, `dda-sticky-footer` | `aria_label` | Name the slide region / quick actions |
+| `dda-pagination` | `pageChange` event | React when the user changes page |
+| `dda-select` | `selectionChange` event | React when the selected value changes |
+| `dda-dropdown`, `dda-avatar` | `optionSelect` event | React to a menu pick |
+| `dda-creditcard-field` | `valueChange` event | Read the value as the user types |
+| `dda-ui-card` | `linkClick` event (now fired) | Track or intercept card link clicks |
 
 ---
 

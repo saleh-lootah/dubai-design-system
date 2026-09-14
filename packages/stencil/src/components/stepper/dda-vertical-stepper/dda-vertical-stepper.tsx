@@ -1,4 +1,4 @@
-import { Component, Prop,  State, h, Host } from '@stencil/core';
+import { Component, Prop,  State, Watch, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'dda-vertical-stepper',
@@ -19,7 +19,18 @@ export class DdaVerticalStepper {
   @State() parsedSteps: { icon: string, title: string, subtitle: string, description: string }[] = [];
 
   componentWillLoad() {
-    this.parsedSteps = JSON.parse(this.steps);
+    this.parseSteps();
+  }
+
+  /** Re-parses `steps` when it changes after load. A missing or invalid value renders no steps. */
+  @Watch('steps')
+  parseSteps() {
+    try {
+      const steps = JSON.parse(this.steps ?? '[]');
+      this.parsedSteps = Array.isArray(steps) ? steps : [];
+    } catch {
+      this.parsedSteps = [];
+    }
   }
 
   render() {

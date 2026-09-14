@@ -11,6 +11,51 @@ describe('dda-credit-card', () => {
     const el = await page.find('dda-credit-card');
     expect(el).toHaveClass('hydrated');
   });
+
+  // card_number was sliced unconditionally, so a card without it threw
+  // during render and never showed.
+  it('renders without errors when card_number is not set', async () => {
+    const page = await newE2EPage();
+    const errors: string[] = [];
+    page.on('pageerror', err => errors.push(String(err)));
+    page.on('console', msg => {
+      if (msg.type() === 'error') errors.push(msg.text());
+    });
+    await page.setContent('<dda-credit-card balance="AED 1,000" name="A B"></dda-credit-card>');
+
+    const el = await page.find('dda-credit-card');
+    expect(el).toHaveClass('hydrated');
+
+    const number = await page.find('dda-credit-card .dda-card-number');
+    expect(number.textContent.trim()).toBe('****');
+    expect(errors).toEqual([]);
+  });
+
+  it('shows the last four characters of card_number', async () => {
+    const page = await newE2EPage();
+    await page.setContent(card('default'));
+
+    const number = await page.find('dda-credit-card .dda-card-number');
+    expect(number.textContent).toBe('**** 3456');
+  });
+
+  // The image was always rendered, so an empty card_type showed as a broken image.
+  it('renders no card type image when card_type is not set', async () => {
+    const page = await newE2EPage();
+    await page.setContent(card('default'));
+
+    const img = await page.find('dda-credit-card img');
+    expect(img).toBeNull();
+  });
+
+  it('renders the card type image with the card_type URL when set', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-credit-card name="A B" card_number="1234" card_type="/images/card-type.svg"></dda-credit-card>');
+
+    const img = await page.find('dda-credit-card img.card-type-icon');
+    expect(img).not.toBeNull();
+    expect(img.getAttribute('src')).toBe('/images/card-type.svg');
+  });
 });
 
 // F-023 (B2): both the green and dark variants' backgrounds were the

@@ -7,6 +7,7 @@
 
 /* eslint-disable */
 
+import { type DdaUiCardCustomEvent } from "@dubai-design-system/components-js";
 import { DdaAccordion as DdaAccordionElement, defineCustomElement as defineDdaAccordion } from "@dubai-design-system/components-js/dist/components/dda-accordion.js";
 import { DdaAlert as DdaAlertElement, defineCustomElement as defineDdaAlert } from "@dubai-design-system/components-js/dist/components/dda-alert.js";
 import { DdaAttachFile as DdaAttachFileElement, defineCustomElement as defineDdaAttachFile } from "@dubai-design-system/components-js/dist/components/dda-attach-file.js";
@@ -84,14 +85,14 @@ export const DdaAttachFile: StencilReactComponent<DdaAttachFileElement, DdaAttac
     defineCustomElement: defineDdaAttachFile
 });
 
-type DdaAvatarEvents = NonNullable<unknown>;
+type DdaAvatarEvents = { onOptionSelect: EventName<CustomEvent<{ value: string }>> };
 
 export const DdaAvatar: StencilReactComponent<DdaAvatarElement, DdaAvatarEvents> = /*@__PURE__*/ createComponent<DdaAvatarElement, DdaAvatarEvents>({
     tagName: 'dda-avatar',
     elementClass: DdaAvatarElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: {} as DdaAvatarEvents,
+    events: { onOptionSelect: 'optionSelect' } as DdaAvatarEvents,
     defineCustomElement: defineDdaAvatar
 });
 
@@ -161,25 +162,25 @@ export const DdaCreditCard: StencilReactComponent<DdaCreditCardElement, DdaCredi
     defineCustomElement: defineDdaCreditCard
 });
 
-type DdaCreditcardFieldEvents = NonNullable<unknown>;
+type DdaCreditcardFieldEvents = { onValueChange: EventName<CustomEvent<{ value: string }>> };
 
 export const DdaCreditcardField: StencilReactComponent<DdaCreditcardFieldElement, DdaCreditcardFieldEvents> = /*@__PURE__*/ createComponent<DdaCreditcardFieldElement, DdaCreditcardFieldEvents>({
     tagName: 'dda-creditcard-field',
     elementClass: DdaCreditcardFieldElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: {} as DdaCreditcardFieldEvents,
+    events: { onValueChange: 'valueChange' } as DdaCreditcardFieldEvents,
     defineCustomElement: defineDdaCreditcardField
 });
 
-type DdaDropdownEvents = NonNullable<unknown>;
+type DdaDropdownEvents = { onOptionSelect: EventName<CustomEvent<{ value: string }>> };
 
 export const DdaDropdown: StencilReactComponent<DdaDropdownElement, DdaDropdownEvents> = /*@__PURE__*/ createComponent<DdaDropdownElement, DdaDropdownEvents>({
     tagName: 'dda-dropdown',
     elementClass: DdaDropdownElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: {} as DdaDropdownEvents,
+    events: { onOptionSelect: 'optionSelect' } as DdaDropdownEvents,
     defineCustomElement: defineDdaDropdown
 });
 
@@ -280,14 +281,14 @@ export const DdaNumberField: StencilReactComponent<DdaNumberFieldElement, DdaNum
     defineCustomElement: defineDdaNumberField
 });
 
-type DdaPaginationEvents = NonNullable<unknown>;
+type DdaPaginationEvents = { onPageChange: EventName<CustomEvent<{ page: number }>> };
 
 export const DdaPagination: StencilReactComponent<DdaPaginationElement, DdaPaginationEvents> = /*@__PURE__*/ createComponent<DdaPaginationElement, DdaPaginationEvents>({
     tagName: 'dda-pagination',
     elementClass: DdaPaginationElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: {} as DdaPaginationEvents,
+    events: { onPageChange: 'pageChange' } as DdaPaginationEvents,
     defineCustomElement: defineDdaPagination
 });
 
@@ -357,14 +358,14 @@ export const DdaSegmentedTabs: StencilReactComponent<DdaSegmentedTabsElement, Dd
     defineCustomElement: defineDdaSegmentedTabs
 });
 
-type DdaSelectEvents = NonNullable<unknown>;
+type DdaSelectEvents = { onSelectionChange: EventName<CustomEvent<{ value: string }>> };
 
 export const DdaSelect: StencilReactComponent<DdaSelectElement, DdaSelectEvents> = /*@__PURE__*/ createComponent<DdaSelectElement, DdaSelectEvents>({
     tagName: 'dda-select',
     elementClass: DdaSelectElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: {} as DdaSelectEvents,
+    events: { onSelectionChange: 'selectionChange' } as DdaSelectEvents,
     defineCustomElement: defineDdaSelect
 });
 
@@ -379,7 +380,7 @@ export const DdaStickyFooter: StencilReactComponent<DdaStickyFooterElement, DdaS
     defineCustomElement: defineDdaStickyFooter
 });
 
-type DdaTabsEvents = { onTabClick: EventName<CustomEvent<void>> };
+type DdaTabsEvents = { onTabClick: EventName<CustomEvent<number>> };
 
 export const DdaTabs: StencilReactComponent<DdaTabsElement, DdaTabsEvents> = /*@__PURE__*/ createComponent<DdaTabsElement, DdaTabsEvents>({
     tagName: 'dda-tabs',
@@ -423,7 +424,7 @@ export const DdaTooltip: StencilReactComponent<DdaTooltipElement, DdaTooltipEven
     defineCustomElement: defineDdaTooltip
 });
 
-type DdaUiCardEvents = { onLinkClick: EventName<CustomEvent<void>> };
+type DdaUiCardEvents = { onLinkClick: EventName<DdaUiCardCustomEvent<MouseEvent>> };
 
 export const DdaUiCard: StencilReactComponent<DdaUiCardElement, DdaUiCardEvents> = /*@__PURE__*/ createComponent<DdaUiCardElement, DdaUiCardEvents>({
     tagName: 'dda-ui-card',

@@ -221,7 +221,7 @@ export namespace Components {
          */
         "rounded": 'square' | 'circle';
         /**
-          * The selected option. Matches one entry of `options`; updated when the user picks an option.
+          * The selected option. Matches one entry of `options`; updated when the user picks an option. Mutable: the component assigns it.
          */
         "selected": string;
         /**
@@ -456,11 +456,11 @@ export namespace Components {
          */
         "balance": string;
         /**
-          * Card number. Only the last four characters are shown, after `****`. Required: the card fails to render without it.
+          * Card number. Only the last four characters are shown, after `****`. When not set, only `****` is shown.
          */
         "card_number": string;
         /**
-          * URL of the card type image (e.g. a card brand logo) shown at the bottom end of the card.
+          * URL of the card type image (e.g. a card brand logo) shown at the bottom end of the card. When not set, no image is rendered.
          */
         "card_type": string;
         /**
@@ -551,7 +551,7 @@ export namespace Components {
          */
         "validation_type"?: string;
         /**
-          * Card number. Shown as groups of four digits separated by ` - `; the component updates it as the user types.
+          * Card number. Shown as groups of four digits separated by ` - `; the component updates it as the user types. Mutable: the component assigns it.
           * @default ''
          */
         "value": string;
@@ -609,7 +609,7 @@ export namespace Components {
          */
         "options": string;
         /**
-          * The selected option. Must match an entry in `options`. The button shows "Select an option" when it is empty. Updated when the user picks an option.
+          * The selected option. Must match an entry in `options`. The button shows "Select an option" when it is empty. Updated when the user picks an option. Mutable: the component assigns it.
          */
         "selected": string;
         /**
@@ -1093,7 +1093,7 @@ export namespace Components {
          */
         "component_mode"?: string;
         /**
-          * Selected page, counted from 1. Kept between 1 and `total_pages`; updates when the user changes the page.
+          * Selected page, counted from 1. Kept between 1 and `total_pages`; updates when the user changes the page. Mutable: the component assigns it.
           * @default 1
          */
         "current_page": number;
@@ -1137,7 +1137,7 @@ export namespace Components {
          */
         "text_prev_button": string;
         /**
-          * Number of pages. Values below 1 become 1.
+          * Number of pages. Values below 1 become 1. Mutable: the component corrects out-of-range values.
           * @default 8
          */
         "total_pages": number;
@@ -1477,7 +1477,7 @@ export namespace Components {
          */
         "icon_labels"?: string;
         /**
-          * Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`).
+          * Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. A missing or invalid value renders no segments. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`).
          */
         "items": string;
         /**
@@ -1485,7 +1485,7 @@ export namespace Components {
          */
         "radius_type": string;
         /**
-          * Index of the segment selected on load, from 0. An out-of-range value selects the first segment.
+          * Index of the selected segment, from 0. Changing it after load moves the selection. An out-of-range value selects the first segment.
           * @default 0
          */
         "selected_index": number;
@@ -1538,7 +1538,7 @@ export namespace Components {
          */
         "options": string;
         /**
-          * The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option.
+          * The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option. Mutable: the component assigns it.
          */
         "selected": string;
         /**
@@ -1971,13 +1971,33 @@ export interface DdaAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDdaAlertElement;
 }
+export interface DdaAvatarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDdaAvatarElement;
+}
+export interface DdaCreditcardFieldCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDdaCreditcardFieldElement;
+}
+export interface DdaDropdownCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDdaDropdownElement;
+}
 export interface DdaHeaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDdaHeaderElement;
 }
+export interface DdaPaginationCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDdaPaginationElement;
+}
 export interface DdaSegmentedTabsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDdaSegmentedTabsElement;
+}
+export interface DdaSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDdaSelectElement;
 }
 export interface DdaTabsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2018,7 +2038,18 @@ declare global {
         prototype: HTMLDdaAttachFileElement;
         new (): HTMLDdaAttachFileElement;
     };
+    interface HTMLDdaAvatarElementEventMap {
+        "optionSelect": { value: string };
+    }
     interface HTMLDdaAvatarElement extends Components.DdaAvatar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDdaAvatarElementEventMap>(type: K, listener: (this: HTMLDdaAvatarElement, ev: DdaAvatarCustomEvent<HTMLDdaAvatarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDdaAvatarElementEventMap>(type: K, listener: (this: HTMLDdaAvatarElement, ev: DdaAvatarCustomEvent<HTMLDdaAvatarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDdaAvatarElement: {
         prototype: HTMLDdaAvatarElement;
@@ -2060,13 +2091,35 @@ declare global {
         prototype: HTMLDdaCreditCardElement;
         new (): HTMLDdaCreditCardElement;
     };
+    interface HTMLDdaCreditcardFieldElementEventMap {
+        "valueChange": { value: string };
+    }
     interface HTMLDdaCreditcardFieldElement extends Components.DdaCreditcardField, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDdaCreditcardFieldElementEventMap>(type: K, listener: (this: HTMLDdaCreditcardFieldElement, ev: DdaCreditcardFieldCustomEvent<HTMLDdaCreditcardFieldElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDdaCreditcardFieldElementEventMap>(type: K, listener: (this: HTMLDdaCreditcardFieldElement, ev: DdaCreditcardFieldCustomEvent<HTMLDdaCreditcardFieldElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDdaCreditcardFieldElement: {
         prototype: HTMLDdaCreditcardFieldElement;
         new (): HTMLDdaCreditcardFieldElement;
     };
+    interface HTMLDdaDropdownElementEventMap {
+        "optionSelect": { value: string };
+    }
     interface HTMLDdaDropdownElement extends Components.DdaDropdown, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDdaDropdownElementEventMap>(type: K, listener: (this: HTMLDdaDropdownElement, ev: DdaDropdownCustomEvent<HTMLDdaDropdownElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDdaDropdownElementEventMap>(type: K, listener: (this: HTMLDdaDropdownElement, ev: DdaDropdownCustomEvent<HTMLDdaDropdownElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDdaDropdownElement: {
         prototype: HTMLDdaDropdownElement;
@@ -2133,7 +2186,18 @@ declare global {
         prototype: HTMLDdaNumberFieldElement;
         new (): HTMLDdaNumberFieldElement;
     };
+    interface HTMLDdaPaginationElementEventMap {
+        "pageChange": { page: number };
+    }
     interface HTMLDdaPaginationElement extends Components.DdaPagination, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDdaPaginationElementEventMap>(type: K, listener: (this: HTMLDdaPaginationElement, ev: DdaPaginationCustomEvent<HTMLDdaPaginationElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDdaPaginationElementEventMap>(type: K, listener: (this: HTMLDdaPaginationElement, ev: DdaPaginationCustomEvent<HTMLDdaPaginationElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDdaPaginationElement: {
         prototype: HTMLDdaPaginationElement;
@@ -2186,7 +2250,18 @@ declare global {
         prototype: HTMLDdaSegmentedTabsElement;
         new (): HTMLDdaSegmentedTabsElement;
     };
+    interface HTMLDdaSelectElementEventMap {
+        "selectionChange": { value: string };
+    }
     interface HTMLDdaSelectElement extends Components.DdaSelect, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDdaSelectElementEventMap>(type: K, listener: (this: HTMLDdaSelectElement, ev: DdaSelectCustomEvent<HTMLDdaSelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDdaSelectElementEventMap>(type: K, listener: (this: HTMLDdaSelectElement, ev: DdaSelectCustomEvent<HTMLDdaSelectElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDdaSelectElement: {
         prototype: HTMLDdaSelectElement;
@@ -2199,7 +2274,7 @@ declare global {
         new (): HTMLDdaStickyFooterElement;
     };
     interface HTMLDdaTabsElementEventMap {
-        "tabClick": void;
+        "tabClick": number;
     }
     interface HTMLDdaTabsElement extends Components.DdaTabs, HTMLStencilElement {
         addEventListener<K extends keyof HTMLDdaTabsElementEventMap>(type: K, listener: (this: HTMLDdaTabsElement, ev: DdaTabsCustomEvent<HTMLDdaTabsElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -2234,7 +2309,7 @@ declare global {
         new (): HTMLDdaTooltipElement;
     };
     interface HTMLDdaUiCardElementEventMap {
-        "linkClick": void;
+        "linkClick": MouseEvent;
     }
     interface HTMLDdaUiCardElement extends Components.DdaUiCard, HTMLStencilElement {
         addEventListener<K extends keyof HTMLDdaUiCardElementEventMap>(type: K, listener: (this: HTMLDdaUiCardElement, ev: DdaUiCardCustomEvent<HTMLDdaUiCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -2506,6 +2581,10 @@ declare namespace LocalJSX {
          */
         "notification_number"?: number;
         /**
+          * Emitted every time the user picks an option from the dropdown, also when it is already selected. `detail.value` is the option.
+         */
+        "onOptionSelect"?: (event: DdaAvatarCustomEvent<{ value: string }>) => void;
+        /**
           * Dropdown options as a JSON array of strings, e.g. `["Profile","Sign out"]`. When set, the avatar becomes a button that opens the list.
          */
         "options"?: string;
@@ -2515,7 +2594,7 @@ declare namespace LocalJSX {
          */
         "rounded"?: 'square' | 'circle';
         /**
-          * The selected option. Matches one entry of `options`; updated when the user picks an option.
+          * The selected option. Matches one entry of `options`; updated when the user picks an option. Mutable: the component assigns it.
          */
         "selected"?: string;
         /**
@@ -2750,11 +2829,11 @@ declare namespace LocalJSX {
          */
         "balance"?: string;
         /**
-          * Card number. Only the last four characters are shown, after `****`. Required: the card fails to render without it.
+          * Card number. Only the last four characters are shown, after `****`. When not set, only `****` is shown.
          */
         "card_number"?: string;
         /**
-          * URL of the card type image (e.g. a card brand logo) shown at the bottom end of the card.
+          * URL of the card type image (e.g. a card brand logo) shown at the bottom end of the card. When not set, no image is rendered.
          */
         "card_type"?: string;
         /**
@@ -2828,6 +2907,10 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Emitted when user input changes `value`, after the component removes characters other than digits and `-`. `detail.value` is the new `value`.
+         */
+        "onValueChange"?: (event: DdaCreditcardFieldCustomEvent<{ value: string }>) => void;
+        /**
           * Placeholder text of the input, e.g. `0000 - 0000 - 0000 - 0000`.
          */
         "placeholder"?: string;
@@ -2845,7 +2928,7 @@ declare namespace LocalJSX {
          */
         "validation_type"?: string;
         /**
-          * Card number. Shown as groups of four digits separated by ` - `; the component updates it as the user types.
+          * Card number. Shown as groups of four digits separated by ` - `; the component updates it as the user types. Mutable: the component assigns it.
           * @default ''
          */
         "value"?: string;
@@ -2899,11 +2982,15 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Emitted every time the user picks an option, also when it is already selected, so the dropdown works as an action menu. `detail.value` is the option.
+         */
+        "onOptionSelect"?: (event: DdaDropdownCustomEvent<{ value: string }>) => void;
+        /**
           * Options as a JSON array string, e.g. `'["Edit","Download","Delete"]'`. Invalid JSON shows "No options available".
          */
         "options"?: string;
         /**
-          * The selected option. Must match an entry in `options`. The button shows "Select an option" when it is empty. Updated when the user picks an option.
+          * The selected option. Must match an entry in `options`. The button shows "Select an option" when it is empty. Updated when the user picks an option. Mutable: the component assigns it.
          */
         "selected"?: string;
         /**
@@ -3423,7 +3510,7 @@ declare namespace LocalJSX {
          */
         "component_mode"?: string;
         /**
-          * Selected page, counted from 1. Kept between 1 and `total_pages`; updates when the user changes the page.
+          * Selected page, counted from 1. Kept between 1 and `total_pages`; updates when the user changes the page. Mutable: the component assigns it.
           * @default 1
          */
         "current_page"?: number;
@@ -3437,6 +3524,10 @@ declare namespace LocalJSX {
           * @default 'Next page'
          */
         "next_button_label"?: string;
+        /**
+          * Emitted when the user moves to a different page. `detail.page` is the new page, counted from 1.
+         */
+        "onPageChange"?: (event: DdaPaginationCustomEvent<{ page: number }>) => void;
         /**
           * Accessible name of the icon-only previous page button (`text`, `text-pages`, `button-text` and `buttons-pages` layouts).
           * @default 'Previous page'
@@ -3467,7 +3558,7 @@ declare namespace LocalJSX {
          */
         "text_prev_button"?: string;
         /**
-          * Number of pages. Values below 1 become 1.
+          * Number of pages. Values below 1 become 1. Mutable: the component corrects out-of-range values.
           * @default 8
          */
         "total_pages"?: number;
@@ -3807,7 +3898,7 @@ declare namespace LocalJSX {
          */
         "icon_labels"?: string;
         /**
-          * Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`).
+          * Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. A missing or invalid value renders no segments. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`).
          */
         "items"?: string;
         /**
@@ -3819,7 +3910,7 @@ declare namespace LocalJSX {
          */
         "radius_type"?: string;
         /**
-          * Index of the segment selected on load, from 0. An out-of-range value selects the first segment.
+          * Index of the selected segment, from 0. Changing it after load moves the selection. An out-of-range value selects the first segment.
           * @default 0
          */
         "selected_index"?: number;
@@ -3864,6 +3955,10 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Emitted when the user picks an option other than the selected one, by mouse or keyboard. `detail.value` is the new option.
+         */
+        "onSelectionChange"?: (event: DdaSelectCustomEvent<{ value: string }>) => void;
+        /**
           * `name` of each option button in the list.
          */
         "option_select_button_name"?: string;
@@ -3872,7 +3967,7 @@ declare namespace LocalJSX {
          */
         "options"?: string;
         /**
-          * The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option.
+          * The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option. Mutable: the component assigns it.
          */
         "selected"?: string;
         /**
@@ -4092,9 +4187,9 @@ declare namespace LocalJSX {
          */
         "hover_style"?: 'dda-tab-default' | 'dda-tab-filed' | 'dda-tab-underline' | 'dda-tab-underline-filled';
         /**
-          * Fires when the user clicks a tab. `detail` is the tab index, from 0.
+          * Fires when the user clicks a tab. `detail` is the tab index, a number from 0.
          */
-        "onTabClick"?: (event: DdaTabsCustomEvent<void>) => void;
+        "onTabClick"?: (event: DdaTabsCustomEvent<number>) => void;
         /**
           * Material Icons names, one per tab in the same order, as a JSON string array. Shown when `type` is `text-icon`.
           * @default '["sentiment_satisfied", "sentiment_satisfied", "sentiment_satisfied"]'
@@ -4270,9 +4365,9 @@ declare namespace LocalJSX {
          */
         "maintitle"?: string;
         /**
-          * Declared but never emitted by the current version. Listen for the native `click` event on the link instead.
+          * Emitted when the user clicks the card link. `detail` is the original click `MouseEvent`; call `detail.preventDefault()` to stop the navigation.
          */
-        "onLinkClick"?: (event: DdaUiCardCustomEvent<void>) => void;
+        "onLinkClick"?: (event: DdaUiCardCustomEvent<MouseEvent>) => void;
         /**
           * Muted text shown below the title.
           * @default ''

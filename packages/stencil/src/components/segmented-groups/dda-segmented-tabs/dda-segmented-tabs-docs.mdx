@@ -47,7 +47,7 @@ const segments = document.querySelector('dda-segmented-tabs');
 segments.addEventListener('segmentChange', e => console.log('selected segment', e.detail));
 ```
 
-Set `items` before the element loads. The component reads it once, when it first renders.
+You can change `items` and `selected_index` at any time. A missing or invalid `items` value renders no segments.
 
 ### React
 

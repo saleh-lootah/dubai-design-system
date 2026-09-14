@@ -23,9 +23,9 @@
 
 ## Events
 
-| Event      | Description                                                          | Type                |
-| ---------- | -------------------------------------------------------------------- | ------------------- |
-| `tabClick` | Fires when the user clicks a tab. `detail` is the tab index, from 0. | `CustomEvent<void>` |
+| Event      | Description                                                                   | Type                  |
+| ---------- | ----------------------------------------------------------------------------- | --------------------- |
+| `tabClick` | Fires when the user clicks a tab. `detail` is the tab index, a number from 0. | `CustomEvent<number>` |
 
 
 ----------------------------------------------

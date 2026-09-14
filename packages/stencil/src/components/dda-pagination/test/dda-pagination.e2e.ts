@@ -144,4 +144,77 @@ describe('dda-pagination', () => {
     const current = await page.$$eval('dda-pagination .dda-pagination-full button', (els: Element[]) => els.map(el => el.getAttribute('aria-current')));
     expect(current).toEqual([null, null, 'page', null]);
   });
+
+  describe('pageChange', () => {
+    it('emits the new page when the user clicks Next', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<dda-pagination type="simple-slider" total_pages="5" current_page="1"></dda-pagination>');
+      const spy = await page.spyOnEvent('pageChange');
+
+      await page.click('dda-pagination button.next');
+      await page.waitForChanges();
+
+      expect(spy).toHaveReceivedEventTimes(1);
+      expect(spy).toHaveReceivedEventDetail({ page: 2 });
+      const el = await page.find('dda-pagination');
+      expect(await el.getProperty('current_page')).toBe(2);
+    });
+
+    it('emits the new page when the user clicks Prev', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<dda-pagination type="text" total_pages="5" current_page="3"></dda-pagination>');
+      const spy = await page.spyOnEvent('pageChange');
+
+      await page.click('dda-pagination button.prev');
+      await page.waitForChanges();
+
+      expect(spy).toHaveReceivedEventDetail({ page: 2 });
+    });
+
+    it('emits the new page when the user clicks a page button', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<dda-pagination type="text-pages" total_pages="5" current_page="1"></dda-pagination>');
+      const spy = await page.spyOnEvent('pageChange');
+
+      await page.click('dda-pagination button[aria-label="Page 4"]');
+      await page.waitForChanges();
+
+      expect(spy).toHaveReceivedEventDetail({ page: 4 });
+    });
+
+    it('emits the new page when the user clicks a dot (full)', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<dda-pagination type="full" total_pages="4" current_page="1"></dda-pagination>');
+      const spy = await page.spyOnEvent('pageChange');
+
+      const buttons = await page.findAll('dda-pagination .dda-pagination-full button');
+      await buttons[2].click();
+      await page.waitForChanges();
+
+      expect(spy).toHaveReceivedEventDetail({ page: 3 });
+    });
+
+    it('does not emit when the user clicks the current page', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<dda-pagination type="text-pages" total_pages="5" current_page="2"></dda-pagination>');
+      const spy = await page.spyOnEvent('pageChange');
+
+      await page.click('dda-pagination button[aria-label="Page 2"]');
+      await page.waitForChanges();
+
+      expect(spy).not.toHaveReceivedEvent();
+    });
+
+    it('does not emit when the page cannot change (prev on page 1)', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<dda-pagination type="buttons-pages" total_pages="5" current_page="1"></dda-pagination>');
+      const spy = await page.spyOnEvent('pageChange');
+
+      // The button is disabled; dispatch a click directly so the handler guard is tested too.
+      await page.$eval('dda-pagination button.prev', (el: HTMLButtonElement) => el.click());
+      await page.waitForChanges();
+
+      expect(spy).not.toHaveReceivedEvent();
+    });
+  });
 });

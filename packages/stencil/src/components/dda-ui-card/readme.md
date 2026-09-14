@@ -22,9 +22,9 @@
 
 ## Events
 
-| Event       | Description                                                                                                 | Type                |
-| ----------- | ----------------------------------------------------------------------------------------------------------- | ------------------- |
-| `linkClick` | Declared but never emitted by the current version. Listen for the native `click` event on the link instead. | `CustomEvent<void>` |
+| Event       | Description                                                                                                                                     | Type                      |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| `linkClick` | Emitted when the user clicks the card link. `detail` is the original click `MouseEvent`; call `detail.preventDefault()` to stop the navigation. | `CustomEvent<MouseEvent>` |
 
 
 ----------------------------------------------

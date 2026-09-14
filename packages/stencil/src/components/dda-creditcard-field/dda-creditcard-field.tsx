@@ -1,4 +1,4 @@
-import { Component, Prop,  State, h, Host } from '@stencil/core';
+import { Component, Prop,  State, h, Host, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'dda-creditcard-field',
@@ -10,8 +10,8 @@ export class DdaCreditCardField {
   @Prop() placeholder: string;
   /** Label text shown above the input. Linked to the input when `input_id` is set. */
   @Prop() label: string;
-  /** Card number. Shown as groups of four digits separated by ` - `; the component updates it as the user types. */
-  @Prop() value: string = '';
+  /** Card number. Shown as groups of four digits separated by ` - `; the component updates it as the user types. Mutable: the component assigns it. */
+  @Prop({ mutable: true }) value: string = '';
   /** URL of an image shown at the start of the input, e.g. a card brand logo. */
   @Prop() card_icon: string;
   /** Error text shown below the input. Also sets `aria-invalid="true"` on the input. */
@@ -42,6 +42,8 @@ export class DdaCreditCardField {
   // exists for. Default to the correct token; still overridable.
   /** `autocomplete` token of the input. Defaults to `cc-number`. */
   @Prop() autocomplete: string = 'cc-number';
+  /** Emitted when user input changes `value`, after the component removes characters other than digits and `-`. `detail.value` is the new `value`. */
+  @Event() valueChange: EventEmitter<{ value: string }>;
 
   @State() formattedValue: string = '';
 
@@ -69,9 +71,13 @@ export class DdaCreditCardField {
     const maxLength = this.restrict_input ? 100 : 25;
     
     if (inputValue.length <= maxLength) {
+      const changed = inputValue !== this.value;
       this.value = inputValue;
       this.formatCardNumber(this.value);
       inputElement.value = this.formattedValue;
+      if (changed) {
+        this.valueChange.emit({ value: this.value });
+      }
     } else {
       inputElement.value = this.formattedValue;
     }

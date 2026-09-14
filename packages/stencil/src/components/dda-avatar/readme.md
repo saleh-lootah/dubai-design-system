@@ -19,11 +19,18 @@
 | `notification_number` | `notification_number` | Count shown in the badge when `design` is `notification`. Hidden at sizes `xs` and `sm`.                                                              | `number`                                                           | `0`                |
 | `options`             | `options`             | Dropdown options as a JSON array of strings, e.g. `["Profile","Sign out"]`. When set, the avatar becomes a button that opens the list.                | `string`                                                           | `undefined`        |
 | `rounded`             | `rounded`             | Shape: `circle` or `square` (rounded corners).                                                                                                        | `"circle" \| "square"`                                             | `'circle'`         |
-| `selected`            | `selected`            | The selected option. Matches one entry of `options`; updated when the user picks an option.                                                           | `string`                                                           | `undefined`        |
+| `selected`            | `selected`            | The selected option. Matches one entry of `options`; updated when the user picks an option. Mutable: the component assigns it.                        | `string`                                                           | `undefined`        |
 | `size`                | `size`                | Size: `xs` (24px), `sm` (32px), `md` (40px), `lg` (48px), `xl` (56px) or `xxl` (64px).                                                                | `"lg" \| "md" \| "sm" \| "xl" \| "xs" \| "xxl"`                    | `'md'`             |
 | `src`                 | `src`                 | Image URL shown when `type` is `photo`.                                                                                                               | `string`                                                           | `''`               |
 | `text`                | `text`                | Initials shown when `type` is `text`.                                                                                                                 | `string`                                                           | `'AB'`             |
 | `type`                | `type`                | Content: `photo` shows the `src` image, `icon` shows a smiley icon, `text` shows `text` as initials.                                                  | `"icon" \| "photo" \| "text"`                                      | `'photo'`          |
+
+
+## Events
+
+| Event          | Description                                                                                                                    | Type                              |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------- |
+| `optionSelect` | Emitted every time the user picks an option from the dropdown, also when it is already selected. `detail.value` is the option. | `CustomEvent<{ value: string; }>` |
 
 
 ----------------------------------------------

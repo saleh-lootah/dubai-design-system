@@ -98,7 +98,7 @@ import { DdaCreditCard } from '@dubai-design-system/components-vue';
 
 ## Notes
 
-- Always set `card_number`. The component shows `****` followed by its last four characters.
+- Set `card_number`. The component shows `****` followed by its last four characters, or only `****` when it is not set.
   Pass only the last four digits; never pass a full card number to the page.
 - The "Current Balance" label is fixed text.
-- `card_type` is an image URL. Host the card type image with your application.
+- `card_type` is an image URL. Host the card type image with your application. When `card_type` is not set, no image is rendered.

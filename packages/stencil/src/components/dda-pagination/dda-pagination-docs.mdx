@@ -7,8 +7,9 @@ import { componentApi } from '../../storybook/component-api';
 # Pagination
 
 The `dda-pagination` component renders page controls in one of seven layouts, chosen with `type`.
-Pages count from 1. When the user clicks a control, the component updates its own `current_page`
-property; it does not fire a custom event.
+Pages count from 1. When the user moves to a different page, the component updates its own
+`current_page` property and fires `pageChange` with `detail.page`, the new page. It does not fire
+the event when the page stays the same, for example when the user clicks the current page.
 
 ## API
 
@@ -30,6 +31,12 @@ property; it does not fire a custom event.
 </script>
 
 <dda-pagination type="text-pages" total_pages="5" current_page="1"></dda-pagination>
+
+<script>
+  document
+    .querySelector('dda-pagination')
+    .addEventListener('pageChange', event => console.log('page', event.detail.page));
+</script>
 ```
 
 **From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
@@ -41,6 +48,7 @@ import '@dubai-design-system/components-js/dist/components/dda-pagination.js';
 const pagination = document.querySelector('dda-pagination');
 pagination.total_pages = 12;
 pagination.current_page = 3;
+pagination.addEventListener('pageChange', event => loadPage(event.detail.page));
 ```
 
 ### React
@@ -49,7 +57,14 @@ pagination.current_page = 3;
 import { DdaPagination } from '@dubai-design-system/components-react';
 
 export function ApplicationsPagination() {
-  return <DdaPagination type="text-pages" total_pages={5} current_page={1} />;
+  return (
+    <DdaPagination
+      type="text-pages"
+      total_pages={5}
+      current_page={1}
+      onPageChange={event => console.log('page', event.detail.page)}
+    />
+  );
 }
 ```
 
@@ -61,14 +76,24 @@ import { DdaPagination } from '@dubai-design-system/components-vue';
 </script>
 
 <template>
-  <DdaPagination type="text-pages" :total_pages="5" :current_page="1" />
+  <DdaPagination
+    type="text-pages"
+    :total_pages="5"
+    :current_page="1"
+    @pageChange="event => console.log('page', event.detail.page)"
+  />
 </template>
 ```
 
 ### Angular
 
 ```html
-<dda-pagination type="text-pages" total_pages="5" current_page="1"></dda-pagination>
+<dda-pagination
+  type="text-pages"
+  total_pages="5"
+  current_page="1"
+  (pageChange)="loadPage($event.detail.page)"
+></dda-pagination>
 ```
 
 ## Layouts

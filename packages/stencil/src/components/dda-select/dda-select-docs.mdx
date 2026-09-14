@@ -7,7 +7,8 @@ import { componentApi } from '../../storybook/component-api';
 # Select
 
 The `dda-select` component renders a labelled trigger button that opens a list of options. Pass
-the options as a JSON array string and read the chosen value from the `selected` property.
+the options as a JSON array string. When the user picks a different option, the component updates
+its `selected` property and fires `selectionChange` with `detail.value`, the new option.
 
 ## API
 
@@ -34,6 +35,12 @@ the options as a JSON array string and read the chosen value from the `selected`
   helper_text="Select the emirate of your residence"
   options='["Dubai","Abu Dhabi","Sharjah"]'
 ></dda-select>
+
+<script>
+  document
+    .querySelector('dda-select')
+    .addEventListener('selectionChange', event => console.log('Emirate:', event.detail.value));
+</script>
 ```
 
 **From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
@@ -44,33 +51,29 @@ import '@dubai-design-system/components-js/dist/components/dda-select.js';
 
 const select = document.querySelector('dda-select');
 select.options = JSON.stringify(['Dubai', 'Abu Dhabi', 'Sharjah']);
-
-// The component does not emit a change event. Read the `selected` property when you need the value.
-document.querySelector('#continue').addEventListener('click', () => {
-  console.log('Emirate:', select.selected);
+select.addEventListener('selectionChange', event => {
+  console.log('Emirate:', event.detail.value);
 });
 ```
 
 ### React
 
 ```jsx
-import { useRef } from 'react';
+import { useState } from 'react';
 import { DdaSelect } from '@dubai-design-system/components-react';
 
 export function EmirateSelect() {
-  const select = useRef(null);
+  const [emirate, setEmirate] = useState('');
 
   return (
-    <>
-      <DdaSelect
-        ref={select}
-        button_id="emirate"
-        label="Emirate"
-        helper_text="Select the emirate of your residence"
-        options={JSON.stringify(['Dubai', 'Abu Dhabi', 'Sharjah'])}
-      />
-      <button type="button" onClick={() => console.log('Emirate:', select.current.selected)}>Continue</button>
-    </>
+    <DdaSelect
+      button_id="emirate"
+      label="Emirate"
+      helper_text="Select the emirate of your residence"
+      options={JSON.stringify(['Dubai', 'Abu Dhabi', 'Sharjah'])}
+      selected={emirate}
+      onSelectionChange={event => setEmirate(event.detail.value)}
+    />
   );
 }
 ```
@@ -82,19 +85,19 @@ export function EmirateSelect() {
 import { ref } from 'vue';
 import { DdaSelect } from '@dubai-design-system/components-vue';
 
-const select = ref(null);
+const emirate = ref('');
 const options = JSON.stringify(['Dubai', 'Abu Dhabi', 'Sharjah']);
 </script>
 
 <template>
   <DdaSelect
-    ref="select"
     button_id="emirate"
     label="Emirate"
     helper_text="Select the emirate of your residence"
     :options="options"
+    :selected="emirate"
+    @selectionChange="event => (emirate = event.detail.value)"
   />
-  <button type="button" @click="console.log('Emirate:', select.$el.selected)">Continue</button>
 </template>
 ```
 
@@ -102,13 +105,12 @@ const options = JSON.stringify(['Dubai', 'Abu Dhabi', 'Sharjah']);
 
 ```html
 <dda-select
-  #emirate
   button_id="emirate"
   label="Emirate"
   helper_text="Select the emirate of your residence"
   options='["Dubai","Abu Dhabi","Sharjah"]'
+  (selectionChange)="saveEmirate($event.detail.value)"
 ></dda-select>
-<button type="button" (click)="saveEmirate(emirate.selected)">Continue</button>
 ```
 
 ## Errors

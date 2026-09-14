@@ -24,6 +24,53 @@ describe('dda-horizontal-stepper', () => {
     const el = await page.find('dda-horizontal-stepper');
     expect(el).toHaveClass('hydrated');
   });
+
+  // `steps` was JSON.parse'd once in componentWillLoad with no guard: a
+  // missing or invalid value threw, and later changes were ignored.
+  it('renders no steps and logs no errors when the steps attribute is missing', async () => {
+    const page = await newE2EPage();
+    const errors: string[] = [];
+    page.on('pageerror', err => errors.push(String(err)));
+    page.on('console', m => m.type() === 'error' && errors.push(m.text()));
+    await page.setContent('<dda-horizontal-stepper></dda-horizontal-stepper>');
+    await page.waitForChanges();
+
+    const el = await page.find('dda-horizontal-stepper');
+    expect(el).toHaveClass('hydrated');
+    expect(await page.findAll('dda-horizontal-stepper .h-step')).toHaveLength(0);
+    expect(errors).toEqual([]);
+  });
+
+  it('renders no steps and logs no errors when steps is invalid JSON', async () => {
+    const page = await newE2EPage();
+    const errors: string[] = [];
+    page.on('pageerror', err => errors.push(String(err)));
+    page.on('console', m => m.type() === 'error' && errors.push(m.text()));
+    await page.setContent(`<dda-horizontal-stepper steps='not json'></dda-horizontal-stepper>`);
+    await page.waitForChanges();
+
+    const el = await page.find('dda-horizontal-stepper');
+    expect(el).toHaveClass('hydrated');
+    expect(await page.findAll('dda-horizontal-stepper .h-step')).toHaveLength(0);
+    expect(errors).toEqual([]);
+  });
+
+  it('re-renders when steps changes after load', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-horizontal-stepper steps='${STEPS}' current_step="1"></dda-horizontal-stepper>`);
+    expect(await page.findAll('dda-horizontal-stepper .h-step')).toHaveLength(3);
+
+    const next = JSON.stringify([
+      { title: 'New 1', subtitle: 'Subtitle 1', description: 'Description 1' },
+      { title: 'New 2', subtitle: 'Subtitle 2', description: 'Description 2' },
+    ]);
+    await page.$eval('dda-horizontal-stepper', (el: HTMLDdaHorizontalStepperElement, value: string) => (el.steps = value), next);
+    await page.waitForChanges();
+
+    expect(await page.findAll('dda-horizontal-stepper .h-step')).toHaveLength(2);
+    const titles = await page.evaluate(() => Array.from(document.querySelectorAll('dda-horizontal-stepper .h-step-title')).map(e => e.textContent));
+    expect(titles).toEqual(['New 1', 'New 2']);
+  });
 });
 
 describe('dda-horizontal-stepper text contrast (F-023)', () => {

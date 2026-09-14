@@ -204,3 +204,52 @@ describe('dda-avatar text-type contrast (F-023)', () => {
     expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
   });
 });
+
+describe('dda-avatar optionSelect', () => {
+  it('emits the picked option, updates selected and closes the list', async () => {
+    const page = await newE2EPage();
+    await page.setContent(avatar());
+    const spy = await page.spyOnEvent('optionSelect');
+
+    await page.click('dda-avatar button.avatar-trigger');
+    await page.waitForChanges();
+    const items = await page.findAll('dda-avatar .dda-input-dropdown-list button');
+    expect(items).toHaveLength(2);
+    await items[1].click();
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventTimes(1);
+    expect(spy).toHaveReceivedEventDetail({ value: 'Option 2' });
+    const el = await page.find('dda-avatar');
+    expect(await el.getProperty('selected')).toBe('Option 2');
+    expect(await page.find('dda-avatar .dda-input-dropdown-list')).toBeNull();
+  });
+
+  it('emits when the user picks with the keyboard', async () => {
+    const page = await newE2EPage();
+    await page.setContent(avatar());
+    const spy = await page.spyOnEvent('optionSelect');
+
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.waitForChanges();
+    await page.keyboard.press('Tab'); // first option follows the trigger in DOM order
+    await page.keyboard.press('Enter');
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventDetail({ value: 'Option 1' });
+  });
+
+  it('does not emit when the user only opens and closes the list', async () => {
+    const page = await newE2EPage();
+    await page.setContent(avatar());
+    const spy = await page.spyOnEvent('optionSelect');
+
+    await page.click('dda-avatar button.avatar-trigger');
+    await page.waitForChanges();
+    await page.click('dda-avatar button.avatar-trigger');
+    await page.waitForChanges();
+
+    expect(spy).not.toHaveReceivedEvent();
+  });
+});

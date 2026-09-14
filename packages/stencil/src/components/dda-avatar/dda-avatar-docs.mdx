@@ -8,7 +8,8 @@ import { componentApi } from '../../storybook/component-api';
 
 The `dda-avatar` component shows a user as a photo, an icon or initials, in six sizes and two shapes.
 It can show a status, verified or notification badge. When you set `options`, the avatar becomes a
-button that opens a dropdown list.
+button that opens a dropdown list. When the user picks an option, the avatar updates its `selected`
+property and fires `optionSelect` with `detail.value`, the option.
 
 ## API
 
@@ -39,10 +40,15 @@ button that opens a dropdown list.
   aria_label="Account menu"
   options='["My profile","My applications","Sign out"]'
 ></dda-avatar>
+
+<script>
+  document
+    .querySelector('dda-avatar[options]')
+    .addEventListener('optionSelect', event => console.log('Account menu:', event.detail.value));
+</script>
 ```
 
 **From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
-The avatar does not emit an event when the user picks an option. Read the `selected` property.
 
 ```js
 import '@dubai-design-system/components-js/dist/dda/dda.css';
@@ -50,7 +56,9 @@ import '@dubai-design-system/components-js/dist/components/dda-avatar.js';
 
 const avatar = document.querySelector('dda-avatar');
 avatar.options = JSON.stringify(['My profile', 'My applications', 'Sign out']);
-avatar.selected = 'My profile';
+avatar.addEventListener('optionSelect', event => {
+  if (event.detail.value === 'Sign out') signOut();
+});
 ```
 
 ### React
@@ -58,7 +66,7 @@ avatar.selected = 'My profile';
 ```jsx
 import { DdaAvatar } from '@dubai-design-system/components-react';
 
-export function AccountAvatar() {
+export function AccountAvatar({ onMenuSelect }) {
   return (
     <DdaAvatar
       type="photo"
@@ -66,6 +74,7 @@ export function AccountAvatar() {
       size="md"
       aria_label="Account menu"
       options={JSON.stringify(['My profile', 'My applications', 'Sign out'])}
+      onOptionSelect={event => onMenuSelect(event.detail.value)}
     />
   );
 }
@@ -81,7 +90,14 @@ const options = JSON.stringify(['My profile', 'My applications', 'Sign out']);
 </script>
 
 <template>
-  <DdaAvatar type="photo" src="/images/avatar.jpg" size="md" aria_label="Account menu" :options="options" />
+  <DdaAvatar
+    type="photo"
+    src="/images/avatar.jpg"
+    size="md"
+    aria_label="Account menu"
+    :options="options"
+    @optionSelect="event => console.log('Account menu:', event.detail.value)"
+  />
 </template>
 ```
 
@@ -94,5 +110,6 @@ const options = JSON.stringify(['My profile', 'My applications', 'Sign out']);
   size="md"
   aria_label="Account menu"
   options='["My profile","My applications","Sign out"]'
+  (optionSelect)="onMenuSelect($event.detail.value)"
 ></dda-avatar>
 ```

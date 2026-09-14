@@ -8,7 +8,8 @@ import { componentApi } from '../../storybook/component-api';
 
 The `dda-ui-card` component renders a content card with an optional icon or image, a title, a
 subtitle and a link. Content between the tags goes into a slot after these parts. Set
-`type="custom"` to render only the slot content inside the card frame.
+`type="custom"` to render only the slot content inside the card frame. When the user clicks the
+link, the component fires `linkClick` with the original click `MouseEvent` as `detail`.
 
 ## API
 
@@ -37,6 +38,12 @@ subtitle and a link. Content between the tags goes into a slot after these parts
   linktext="Start service"
 ></dda-ui-card>
 
+<script>
+  document
+    .querySelector('dda-ui-card')
+    .addEventListener('linkClick', () => console.log('Start service clicked'));
+</script>
+
 <dda-ui-card type="custom">
   <h2 class="dda-card-title">Need help?</h2>
   <p class="dda-card-text-muted">Call the service centre from 8 am to 8 pm.</p>
@@ -52,9 +59,10 @@ import '@dubai-design-system/components-js/dist/components/dda-ui-card.js';
 const card = document.querySelector('dda-ui-card');
 card.subtitle = 'Renew your trade licence online in a few steps.';
 
-// The `linkClick` event is not emitted. Listen for the native click on the link.
-card.addEventListener('click', event => {
-  if (event.target.closest('.dda-card-link')) console.log('link clicked');
+// `detail` is the original click. Call preventDefault() on it to route inside a single-page app.
+card.addEventListener('linkClick', event => {
+  event.detail.preventDefault();
+  router.push(card.link);
 });
 ```
 
@@ -71,6 +79,7 @@ export function RenewalCard() {
       subtitle="Renew your trade licence online in a few steps."
       link="/services/trade-licence-renewal"
       linktext="Start service"
+      onLinkClick={() => console.log('Start service clicked')}
     />
   );
 }
@@ -90,6 +99,7 @@ import { DdaUiCard } from '@dubai-design-system/components-vue';
     subtitle="Renew your trade licence online in a few steps."
     link="/services/trade-licence-renewal"
     linktext="Start service"
+    @linkClick="() => console.log('Start service clicked')"
   />
 </template>
 ```
@@ -103,6 +113,7 @@ import { DdaUiCard } from '@dubai-design-system/components-vue';
   subtitle="Renew your trade licence online in a few steps."
   link="/services/trade-licence-renewal"
   linktext="Start service"
+  (linkClick)="onStartService($event.detail)"
 ></dda-ui-card>
 ```
 
@@ -115,4 +126,5 @@ import { DdaUiCard } from '@dubai-design-system/components-vue';
   same at every level.
 - The icon and the link arrow are hidden from screen readers, so the link is read as its
   `linktext` only.
-- The `linkClick` event is declared but the component does not emit it.
+- The `linkClick` event fires when the user clicks the link. The browser still follows `link`
+  unless a listener calls `event.detail.preventDefault()`.

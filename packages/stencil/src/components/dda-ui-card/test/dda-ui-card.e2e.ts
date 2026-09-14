@@ -59,4 +59,42 @@ describe('dda-ui-card', () => {
     expect(link).not.toBeNull();
     expect(name).toBe('Start service');
   });
+
+  it('emits linkClick when the user clicks the link, and keeps the navigation', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-ui-card maintitle="Permit" link="#start" linktext="Start service"></dda-ui-card>');
+    const spy = await page.spyOnEvent('linkClick');
+
+    await page.click('dda-ui-card .dda-card-link');
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventTimes(1);
+    expect(await page.evaluate(() => location.hash)).toBe('#start');
+  });
+
+  it('does not navigate when a linkClick listener calls preventDefault on detail', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-ui-card maintitle="Permit" link="#start" linktext="Start service"></dda-ui-card>');
+    await page.evaluate(() => {
+      document.querySelector('dda-ui-card').addEventListener('linkClick', (event: CustomEvent<MouseEvent>) => event.detail.preventDefault());
+    });
+    const spy = await page.spyOnEvent('linkClick');
+
+    await page.click('dda-ui-card .dda-card-link');
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventTimes(1);
+    expect(await page.evaluate(() => location.hash)).toBe('');
+  });
+
+  it('does not emit linkClick when the user clicks the card outside the link', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-ui-card maintitle="Permit" link="#start" linktext="Start service"></dda-ui-card>');
+    const spy = await page.spyOnEvent('linkClick');
+
+    await page.click('dda-ui-card .dda-card-title');
+    await page.waitForChanges();
+
+    expect(spy).not.toHaveReceivedEvent();
+  });
 });

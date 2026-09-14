@@ -10,9 +10,9 @@ export class DdaCreditCard {
   @Prop() balance: string;
   /** Card holder name. */
   @Prop() name: string;
-  /** Card number. Only the last four characters are shown, after `****`. Required: the card fails to render without it. */
+  /** Card number. Only the last four characters are shown, after `****`. When not set, only `****` is shown. */
   @Prop() card_number: string;
-  /** URL of the card type image (e.g. a card brand logo) shown at the bottom end of the card. */
+  /** URL of the card type image (e.g. a card brand logo) shown at the bottom end of the card. When not set, no image is rendered. */
   @Prop() card_type: string;
   /** Background design: `default`, `green` or `dark`. */
   @Prop() design: string;
@@ -42,9 +42,9 @@ export class DdaCreditCard {
           <div class="dda-credit-card-body">
             <div class="card-userinfo">
               <span class="dda-card-name">{this.name}</span>
-              <span class="dda-card-number">**** {this.card_number.slice(-4)}</span>
+              <span class="dda-card-number">**** {String(this.card_number ?? '').slice(-4)}</span>
             </div>
-            <div><img src={this.card_type} alt="Card Type" class="card-type-icon"/></div>
+            <div>{this.card_type && <img src={this.card_type} alt="Card Type" class="card-type-icon"/>}</div>
           </div>
         </div>
       </Host>

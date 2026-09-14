@@ -1,4 +1,4 @@
-import { Component, Prop, h, Host, Watch } from '@stencil/core';
+import { Component, Prop, h, Host, Watch, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'dda-pagination',
@@ -6,10 +6,10 @@ import { Component, Prop, h, Host, Watch } from '@stencil/core';
   shadow: false,
 })
 export class DdaPagination {
-  /** Number of pages. Values below 1 become 1. */
-  @Prop() total_pages: number = 8;
-  /** Selected page, counted from 1. Kept between 1 and `total_pages`; updates when the user changes the page. */
-  @Prop() current_page: number = 1;
+  /** Number of pages. Values below 1 become 1. Mutable: the component corrects out-of-range values. */
+  @Prop({ mutable: true }) total_pages: number = 8;
+  /** Selected page, counted from 1. Kept between 1 and `total_pages`; updates when the user changes the page. Mutable: the component assigns it. */
+  @Prop({ mutable: true }) current_page: number = 1;
   /** Layout: `simple-slider`, `buttons`, `text`, `text-pages`, `button-text`, `buttons-pages` or `full`. */
   @Prop() type: 'simple-slider' | 'buttons' | 'text' | 'text-pages' | 'button-text' | 'buttons-pages' | 'full' = 'simple-slider';
   /** Extra CSS classes added to the pagination element. */
@@ -44,6 +44,8 @@ export class DdaPagination {
   @Prop() previous_button_label: string = 'Previous page';
   /** Accessible name of the icon-only next page button (`text`, `text-pages`, `button-text` and `buttons-pages` layouts). */
   @Prop() next_button_label: string = 'Next page';
+  /** Emitted when the user moves to a different page. `detail.page` is the new page, counted from 1. */
+  @Event() pageChange: EventEmitter<{ page: number }>;
 
   @Watch('total_pages')
   validateTotalPages(newValue: number) {
@@ -143,8 +145,9 @@ export class DdaPagination {
   }
 
   private setcurrentpage(page: number) {
-    if (page >= 1 && page <= this.total_pages) {
+    if (page >= 1 && page <= this.total_pages && page !== this.current_page) {
       this.current_page = page;
+      this.pageChange.emit({ page });
     }
   }
 

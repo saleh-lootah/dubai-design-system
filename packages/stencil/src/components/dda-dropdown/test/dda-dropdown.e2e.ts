@@ -101,3 +101,52 @@ describe('dda-dropdown accessible name', () => {
     expect(after).toBe('true');
   });
 });
+
+describe('dda-dropdown optionSelect', () => {
+  const OPTIONS = '["Edit","Download","Delete"]';
+
+  it('emits the picked option and updates selected', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-dropdown button_id="dropdown" options='${OPTIONS}'></dda-dropdown>`);
+    const spy = await page.spyOnEvent('optionSelect');
+
+    await page.click('dda-dropdown .dda-dropdown-header');
+    await page.waitForChanges();
+    const items = await page.findAll('dda-dropdown .dda-input-dropdown-list .dda-input-dropdown-item');
+    expect(items).toHaveLength(3);
+    await items[1].click();
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventTimes(1);
+    expect(spy).toHaveReceivedEventDetail({ value: 'Download' });
+    const el = await page.find('dda-dropdown');
+    expect(await el.getProperty('selected')).toBe('Download');
+  });
+
+  it('emits when the user picks with the keyboard (Enter on an option)', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-dropdown button_id="dropdown" icon_mode="true" options='${OPTIONS}'></dda-dropdown>`);
+    const spy = await page.spyOnEvent('optionSelect');
+
+    await page.click('dda-dropdown .dda-dropdown-header');
+    await page.waitForChanges();
+    await page.focus('dda-dropdown .dda-input-dropdown-list .dda-input-dropdown-item:last-child');
+    await page.keyboard.press('Enter');
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventDetail({ value: 'Delete' });
+  });
+
+  it('does not emit when the user only opens and closes the list', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-dropdown button_id="dropdown" options='${OPTIONS}'></dda-dropdown>`);
+    const spy = await page.spyOnEvent('optionSelect');
+
+    await page.click('dda-dropdown .dda-dropdown-header');
+    await page.waitForChanges();
+    await page.click('dda-dropdown .dda-dropdown-header');
+    await page.waitForChanges();
+
+    expect(spy).not.toHaveReceivedEvent();
+  });
+});

@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State, h, Host } from '@stencil/core';
+import { Component, Element, Prop, State, h, Host, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'dda-select',
@@ -11,8 +11,8 @@ export class Ddaselect {
   /** Options as a JSON array string, e.g. `'["Dubai","Abu Dhabi","Sharjah"]'`. Invalid JSON shows "No options available". */
   @Prop() options: string;
     // @Prop() options: { title: string }[];
-  /** The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option. */
-  @Prop() selected: string;
+  /** The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option. Mutable: the component assigns it. */
+  @Prop({ mutable: true }) selected: string;
   /** Disables the select: the list does not open and options cannot be picked. */
   @Prop() disabled: boolean = false;
   /** Validation state. `error` shows the error styling. */
@@ -37,6 +37,8 @@ export class Ddaselect {
   @Prop() toggle_button_name: string;
   /** `name` of each option button in the list. */
   @Prop() option_select_button_name: string;
+  /** Emitted when the user picks an option other than the selected one, by mouse or keyboard. `detail.value` is the new option. */
+  @Event() selectionChange: EventEmitter<{ value: string }>;
 
   @Element() el: HTMLElement;
 
@@ -110,8 +112,12 @@ export class Ddaselect {
 
   selectOption(option: string) {
     if (!this.disabled) {
+      const changed = this.selected !== option;
       this.selected = option;
       this.closeAndReturnFocus();
+      if (changed) {
+        this.selectionChange.emit({ value: option });
+      }
     }
   }
 

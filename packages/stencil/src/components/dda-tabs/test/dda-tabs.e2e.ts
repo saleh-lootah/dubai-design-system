@@ -95,6 +95,23 @@ describe('dda-tabs', () => {
     expect(buttons[1].getAttribute('aria-pressed')).toBe('true');
   });
 
+  it('emits the tab index as a number for every tab, including the first', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-tabs tab_texts='${TEXTS}'></dda-tabs>`);
+
+    const clickSpy = await page.spyOnEvent('tabClick');
+
+    await page.click('dda-tabs button:nth-child(3)');
+    await page.waitForChanges();
+    expect(clickSpy).toHaveReceivedEventDetail(2);
+
+    await page.click('dda-tabs button:nth-child(1)');
+    await page.waitForChanges();
+    expect(clickSpy).toHaveReceivedEventTimes(2);
+    expect(clickSpy).toHaveReceivedEventDetail(0);
+    expect(typeof clickSpy.lastEvent.detail).toBe('number');
+  });
+
   // WCAG 1.1.1 / 2.5.3 / 4.1.2: the icon ligature was read before the tab
   // label ("sentiment_satisfied Tab 1").
   it('hides the tab icons from assistive technology (text-icon)', async () => {

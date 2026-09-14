@@ -73,7 +73,8 @@ export const DdaAvatar = /*@__PURE__*/ defineContainer<JSX.DdaAvatar>('dda-avata
   'component_mode',
   'aria_label',
   'button_id',
-  'button_name'
+  'button_name',
+  'optionSelect'
 ]);
 
 
@@ -169,7 +170,8 @@ export const DdaCreditcardField = /*@__PURE__*/ defineContainer<JSX.DdaCreditcar
   'input_id',
   'aria_label',
   'input_name',
-  'autocomplete'
+  'autocomplete',
+  'valueChange'
 ]);
 
 
@@ -189,7 +191,8 @@ export const DdaDropdown = /*@__PURE__*/ defineContainer<JSX.DdaDropdown>('dda-d
   'aria_label',
   'arrow_button_name',
   'dropdown_button_name',
-  'toggle_button_label'
+  'toggle_button_label',
+  'optionSelect'
 ]);
 
 
@@ -347,7 +350,8 @@ export const DdaPagination = /*@__PURE__*/ defineContainer<JSX.DdaPagination>('d
   'buttons_pages_prev_button',
   'buttons_pages_next_button',
   'previous_button_label',
-  'next_button_label'
+  'next_button_label',
+  'pageChange'
 ]);
 
 
@@ -467,7 +471,8 @@ export const DdaSelect = /*@__PURE__*/ defineContainer<JSX.DdaSelect>('dda-selec
   'aria_label',
   'button_id',
   'toggle_button_name',
-  'option_select_button_name'
+  'option_select_button_name',
+  'selectionChange'
 ]);
 
 

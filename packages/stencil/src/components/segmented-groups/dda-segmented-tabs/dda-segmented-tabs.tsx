@@ -1,4 +1,4 @@
-import { Component, Prop, State, Event, EventEmitter, h } from '@stencil/core';
+import { Component, Prop, State, Event, EventEmitter, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'dda-segmented-tabs',
@@ -6,7 +6,7 @@ import { Component, Prop, State, Event, EventEmitter, h } from '@stencil/core';
   shadow: false,
 })
 export class DdaSegmentedTabs {
-  /** Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`). */
+  /** Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. A missing or invalid value renders no segments. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`). */
   @Prop() items: string;
   /** Corner shape of the group: `square` or `rounded`. */
   @Prop() radius_type: string;
@@ -18,7 +18,7 @@ export class DdaSegmentedTabs {
   @Prop() button_name: string;
   /** Accessible name for the group (applied as aria-label on the group container). */
   @Prop() aria_label: string;
-  /** Index of the segment selected on load, from 0. An out-of-range value selects the first segment. */
+  /** Index of the selected segment, from 0. Changing it after load moves the selection. An out-of-range value selects the first segment. */
   @Prop() selected_index: number = 0;
   /** Accessible names for icon-only segments, as a JSON string array in the same order as `items`, e.g. `'["Align left", "Align center"]'`. */
   @Prop() icon_labels?: string;
@@ -33,8 +33,32 @@ export class DdaSegmentedTabs {
   private parsedItems: string[] = [];
 
   componentWillLoad() {
-    this.parsedItems = JSON.parse(this.items);
+    this.parseItems();
     this.active_index = this.clampIndex(this.selected_index);
+  }
+
+  /** Re-parses `items` when it changes after load, and keeps the current
+   * selection if it is still in range (else selects the first segment). */
+  @Watch('items')
+  itemsChanged() {
+    this.parseItems();
+    this.active_index = this.clampIndex(this.active_index);
+  }
+
+  /** Moves the selection when `selected_index` changes after load. */
+  @Watch('selected_index')
+  selectedIndexChanged() {
+    this.active_index = this.clampIndex(this.selected_index);
+  }
+
+  private parseItems() {
+    try {
+      const items = JSON.parse(this.items ?? '[]');
+      // Segment labels are strings; numbers in the JSON would otherwise break rendering.
+      this.parsedItems = Array.isArray(items) ? items.map(item => String(item)) : [];
+    } catch {
+      this.parsedItems = [];
+    }
   }
 
   private clampIndex(index: number): number {

@@ -133,3 +133,46 @@ describe('dda-creditcard-field placeholder contrast (WCAG 1.4.3)', () => {
     });
   }
 });
+
+describe('dda-creditcard-field valueChange', () => {
+  it('emits the new value on each input, after formatting', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-creditcard-field input_id="input"></dda-creditcard-field>');
+    const spy = await page.spyOnEvent('valueChange');
+
+    await page.type('dda-creditcard-field input', '12345');
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventTimes(5);
+    expect(spy).toHaveReceivedEventDetail({ value: '12345' });
+    expect(await page.$eval('dda-creditcard-field input', (el: HTMLInputElement) => el.value)).toBe('1234 - 5');
+    const field = await page.find('dda-creditcard-field');
+    expect(await field.getProperty('value')).toBe('12345');
+  });
+
+  it('does not emit when the typed character is removed and the value stays the same', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-creditcard-field input_id="input"></dda-creditcard-field>');
+    const spy = await page.spyOnEvent('valueChange');
+
+    await page.type('dda-creditcard-field input', 'a');
+    await page.waitForChanges();
+
+    expect(spy).not.toHaveReceivedEvent();
+    expect(await page.$eval('dda-creditcard-field input', (el: HTMLInputElement) => el.value)).toBe('');
+  });
+
+  it('emits when the user deletes a digit', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-creditcard-field input_id="input"></dda-creditcard-field>');
+
+    await page.type('dda-creditcard-field input', '123');
+    await page.waitForChanges();
+    const spy = await page.spyOnEvent('valueChange');
+    await page.keyboard.press('Backspace');
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventTimes(1);
+    expect(spy).toHaveReceivedEventDetail({ value: '12' });
+  });
+});

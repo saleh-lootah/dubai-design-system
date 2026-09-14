@@ -393,3 +393,84 @@ describe('dda-select decorative icons', () => {
     expect(hidden).toBe('true');
   });
 });
+
+describe('dda-select selectionChange', () => {
+  it('emits the picked option on mouse click', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="size" options='${OPTIONS}'></dda-select>`);
+    const spy = await page.spyOnEvent('selectionChange');
+
+    await page.click('dda-select .dda-select-header');
+    await page.waitForChanges();
+    const options = await page.findAll('dda-select [role="option"]');
+    await options[1].click();
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventTimes(1);
+    expect(spy).toHaveReceivedEventDetail({ value: 'Medium' });
+    const el = await page.find('dda-select');
+    expect(await el.getProperty('selected')).toBe('Medium');
+  });
+
+  it('emits the picked option on Enter', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="size" options='${OPTIONS}'></dda-select>`);
+    const spy = await page.spyOnEvent('selectionChange');
+
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('ArrowDown'); // opens, focuses "Small"
+    await page.waitForChanges();
+    await page.keyboard.press('End'); // focus "Large"
+    await page.waitForChanges();
+    await page.keyboard.press('Enter');
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventTimes(1);
+    expect(spy).toHaveReceivedEventDetail({ value: 'Large' });
+  });
+
+  it('emits the picked option on Space', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="size" options='${OPTIONS}'></dda-select>`);
+    const spy = await page.spyOnEvent('selectionChange');
+
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('ArrowDown'); // opens, focuses "Small"
+    await page.waitForChanges();
+    await page.keyboard.press('Space');
+    await page.waitForChanges();
+
+    expect(spy).toHaveReceivedEventTimes(1);
+    expect(spy).toHaveReceivedEventDetail({ value: 'Small' });
+  });
+
+  it('does not emit when the user closes the list with Escape', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="size" options='${OPTIONS}' selected="Small"></dda-select>`);
+    const spy = await page.spyOnEvent('selectionChange');
+
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('ArrowDown');
+    await page.waitForChanges();
+    await page.keyboard.press('ArrowDown');
+    await page.waitForChanges();
+    await page.keyboard.press('Escape');
+    await page.waitForChanges();
+
+    expect(spy).not.toHaveReceivedEvent();
+  });
+
+  it('does not emit when the user picks the option that is already selected', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="size" options='${OPTIONS}' selected="Medium"></dda-select>`);
+    const spy = await page.spyOnEvent('selectionChange');
+
+    await page.click('dda-select .dda-select-header');
+    await page.waitForChanges();
+    const options = await page.findAll('dda-select [role="option"]');
+    await options[1].click();
+    await page.waitForChanges();
+
+    expect(spy).not.toHaveReceivedEvent();
+  });
+});

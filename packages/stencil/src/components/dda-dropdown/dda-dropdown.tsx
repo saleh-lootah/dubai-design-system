@@ -1,4 +1,4 @@
-import { Component, Prop, State, h, Host } from '@stencil/core';
+import { Component, Prop, State, h, Host, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'dda-dropdown',
@@ -10,8 +10,8 @@ export class DdaDropdown {
   @Prop() label: string;
   /** Options as a JSON array string, e.g. `'["Edit","Download","Delete"]'`. Invalid JSON shows "No options available". */
   @Prop() options: string;
-  /** The selected option. Must match an entry in `options`. The button shows "Select an option" when it is empty. Updated when the user picks an option. */
-  @Prop() selected: string;
+  /** The selected option. Must match an entry in `options`. The button shows "Select an option" when it is empty. Updated when the user picks an option. Mutable: the component assigns it. */
+  @Prop({ mutable: true }) selected: string;
   /** Disables the dropdown: the list does not open and options cannot be picked. */
   @Prop() disabled: boolean = false;
   /** Error text shown under the dropdown. */
@@ -38,6 +38,8 @@ export class DdaDropdown {
   @Prop() dropdown_button_name?: string;
   /** Accessible name of the dropdown button in `icon_mode` when `aria_label` and `label` are not set. */
   @Prop() toggle_button_label?: string = 'Show options';
+  /** Emitted every time the user picks an option, also when it is already selected, so the dropdown works as an action menu. `detail.value` is the option. */
+  @Event() optionSelect: EventEmitter<{ value: string }>;
   
   @State() isopen: boolean = false;
 
@@ -59,6 +61,7 @@ export class DdaDropdown {
     if (!this.disabled) {
       this.selected = option;
       this.isopen = false;
+      this.optionSelect.emit({ value: option });
     }
   }
 

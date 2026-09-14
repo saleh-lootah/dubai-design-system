@@ -23,6 +23,13 @@ against the published package. The two `dda-header` navigation faults were also 
   JavaScript; cancel the event to route inside an app. On phone-width screens the search button
   now opens a search field under the header, with `aria-expanded`, focus moved into the field,
   and Escape or a close button to dismiss it.
+- **Components report user choices.** New events: dda-pagination `pageChange`
+  (`{ page }`), dda-select `selectionChange` (`{ value }`, only when the value changes),
+  dda-dropdown and dda-avatar `optionSelect` (`{ value }`, on every pick), and
+  dda-creditcard-field `valueChange` (`{ value }`). dda-ui-card now fires its `linkClick` event,
+  which was declared but never emitted (detail: the click `MouseEvent`), and dda-tabs `tabClick`
+  is typed as the tab index it always sent. The props these components update themselves
+  (`current_page`, `total_pages`, `selected`, `value`) are declared mutable.
 - **New props for data that was hardcoded or unreachable:** `dda-toggle` `title_text` and
   `supporting`, `dda-footer` `logo-description`, `dda-breadcrumb` `breadcrumbs`, and
   `dda-vertical-stepper` `current_step` (details below).
@@ -64,6 +71,19 @@ Fixes from an axe-core and accessibility-tree audit of a sample site built on th
 
 ### Bug Fixes
 
+- **Headings rendered at body size.** `legacy-compat.css` sized `h1`–`h6`, `.h1`–`.h6` and
+  `.dda-h1`–`.dda-h6` with `--font-h1`…`--font-h6 !important`, and the same file used
+  `--font-body`, `--font-caption`, `--font-display`, `--font-small`, `--line-height-*`,
+  `--font-weight-*` and `--gap-*`. None of these were defined, so every heading, the legacy
+  caption and body classes, the Light/Regular/Medium/Bold weights and `.dda-gap-xs/-lg` fell
+  back to inherited values. They are now defined as aliases of the current tokens (with zero
+  specificity, so a site's own values still win), and the heading, body and caption rules no
+  longer use `!important`, so component classes keep their own sizes. Present since 5.0.0.
+- **Crashes on missing data.** dda-credit-card no longer throws without `card_number` (it
+  shows `****`) and renders the card-type image only when `card_type` is set.
+  dda-horizontal-stepper, dda-vertical-stepper and dda-segmented-tabs no longer throw on a
+  missing or invalid JSON attribute, re-render when `steps`, `items` or `selected_index`
+  change, and segmented tabs accept non-string items.
 - **dda-header: the page scrolled behind the open side menu.** While the hamburger menu is
   open, the page underneath no longer scrolls on touch or wheel input; the menu itself still
   does. The lock is released when the menu closes by any route and when the header is removed.
@@ -144,6 +164,10 @@ Fixes from an axe-core and accessibility-tree audit of a sample site built on th
   without the link.
 - **Placeholder text is darker, links in running text are underlined, and home-banner slides
   have a scrim.** These are deliberate contrast fixes; check pages that restyled them.
+- **Headings are larger.** With the heading fix, `h1`–`h6` follow the type scale (for example
+  `h1` 57px and `h3` 40px at a 16px base) instead of 16px, and component titles use their own
+  sizes (alert title 24px, card title 18px, footer title 36px). Check pages that relied on
+  headings rendering at body size.
 
 ## 5.0.3 (2026-09-08)
 

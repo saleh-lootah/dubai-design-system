@@ -98,11 +98,17 @@ export class DdaAvatar {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['optionSelect']);
   }
 }
 
 
-export declare interface DdaAvatar extends Components.DdaAvatar {}
+export declare interface DdaAvatar extends Components.DdaAvatar {
+  /**
+   * Emitted every time the user picks an option from the dropdown, also when it is already selected. `detail.value` is the option.
+   */
+  optionSelect: EventEmitter<CustomEvent<{ value: string }>>;
+}
 
 
 @ProxyCmp({
@@ -252,11 +258,17 @@ export class DdaCreditcardField {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['valueChange']);
   }
 }
 
 
-export declare interface DdaCreditcardField extends Components.DdaCreditcardField {}
+export declare interface DdaCreditcardField extends Components.DdaCreditcardField {
+  /**
+   * Emitted when user input changes `value`, after the component removes characters other than digits and `-`. `detail.value` is the new `value`.
+   */
+  valueChange: EventEmitter<CustomEvent<{ value: string }>>;
+}
 
 
 @ProxyCmp({
@@ -274,11 +286,17 @@ export class DdaDropdown {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['optionSelect']);
   }
 }
 
 
-export declare interface DdaDropdown extends Components.DdaDropdown {}
+export declare interface DdaDropdown extends Components.DdaDropdown {
+  /**
+   * Emitted every time the user picks an option, also when it is already selected, so the dropdown works as an action menu. `detail.value` is the option.
+   */
+  optionSelect: EventEmitter<CustomEvent<{ value: string }>>;
+}
 
 
 @ProxyCmp({
@@ -489,11 +507,17 @@ export class DdaPagination {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['pageChange']);
   }
 }
 
 
-export declare interface DdaPagination extends Components.DdaPagination {}
+export declare interface DdaPagination extends Components.DdaPagination {
+  /**
+   * Emitted when the user moves to a different page. `detail.page` is the new page, counted from 1.
+   */
+  pageChange: EventEmitter<CustomEvent<{ page: number }>>;
+}
 
 
 @ProxyCmp({
@@ -649,11 +673,17 @@ export class DdaSelect {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['selectionChange']);
   }
 }
 
 
-export declare interface DdaSelect extends Components.DdaSelect {}
+export declare interface DdaSelect extends Components.DdaSelect {
+  /**
+   * Emitted when the user picks an option other than the selected one, by mouse or keyboard. `detail.value` is the new option.
+   */
+  selectionChange: EventEmitter<CustomEvent<{ value: string }>>;
+}
 
 
 @ProxyCmp({
@@ -700,9 +730,9 @@ export class DdaTabs {
 
 export declare interface DdaTabs extends Components.DdaTabs {
   /**
-   * Fires when the user clicks a tab. `detail` is the tab index, from 0.
+   * Fires when the user clicks a tab. `detail` is the tab index, a number from 0.
    */
-  tabClick: EventEmitter<CustomEvent<void>>;
+  tabClick: EventEmitter<CustomEvent<number>>;
 }
 
 
@@ -794,9 +824,9 @@ export class DdaUiCard {
 
 export declare interface DdaUiCard extends Components.DdaUiCard {
   /**
-   * Declared but never emitted by the current version. Listen for the native `click` event on the link instead.
+   * Emitted when the user clicks the card link. `detail` is the original click `MouseEvent`; call `detail.preventDefault()` to stop the navigation.
    */
-  linkClick: EventEmitter<CustomEvent<void>>;
+  linkClick: EventEmitter<CustomEvent<MouseEvent>>;
 }
 
 

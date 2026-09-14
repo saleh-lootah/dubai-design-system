@@ -8,7 +8,8 @@ import { componentApi } from '../../storybook/component-api';
 
 The `dda-creditcard-field` component renders a labelled text input for a card number. It
 accepts digits only and shows them in groups of four, separated by ` - `. It can show a card
-icon, helper text and an error message.
+icon, helper text and an error message. When user input changes the number, the component updates
+its `value` property and fires `valueChange` with `detail.value`, the new `value`.
 
 ## API
 
@@ -37,6 +38,12 @@ icon, helper text and an error message.
   card_icon="/images/card-icon.svg"
   helper_text="Enter the 16-digit number on the front of your card."
 ></dda-creditcard-field>
+
+<script>
+  document
+    .querySelector('dda-creditcard-field')
+    .addEventListener('valueChange', event => console.log('Card number:', event.detail.value));
+</script>
 ```
 
 **From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
@@ -47,9 +54,7 @@ import '@dubai-design-system/components-js/dist/components/dda-creditcard-field.
 
 const field = document.querySelector('dda-creditcard-field');
 
-// The component has no custom events. The native `input` event of the inner
-// <input> bubbles to the host; `field.value` holds the entered card number.
-field.addEventListener('input', () => console.log(field.value));
+field.addEventListener('valueChange', event => console.log('Card number:', event.detail.value));
 
 // Show an error
 field.validation_type = 'error';
@@ -70,7 +75,7 @@ export function CardNumberField() {
       placeholder="0000 - 0000 - 0000 - 0000"
       card_icon="/images/card-icon.svg"
       helper_text="Enter the 16-digit number on the front of your card."
-      onInput={e => console.log(e.currentTarget.value)}
+      onValueChange={event => console.log('Card number:', event.detail.value)}
     />
   );
 }
@@ -91,7 +96,7 @@ import { DdaCreditcardField } from '@dubai-design-system/components-vue';
     placeholder="0000 - 0000 - 0000 - 0000"
     card_icon="/images/card-icon.svg"
     helper_text="Enter the 16-digit number on the front of your card."
-    @input="e => console.log(e.currentTarget.value)"
+    @valueChange="event => console.log('Card number:', event.detail.value)"
   />
 </template>
 ```
@@ -106,7 +111,7 @@ import { DdaCreditcardField } from '@dubai-design-system/components-vue';
   placeholder="0000 - 0000 - 0000 - 0000"
   card_icon="/images/card-icon.svg"
   helper_text="Enter the 16-digit number on the front of your card."
-  (input)="onCardNumberInput($event)"
+  (valueChange)="onCardNumberChange($event.detail.value)"
 ></dda-creditcard-field>
 ```
 

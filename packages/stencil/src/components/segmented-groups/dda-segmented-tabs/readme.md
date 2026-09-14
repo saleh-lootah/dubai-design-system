@@ -7,16 +7,16 @@
 
 ## Properties
 
-| Property         | Attribute        | Description                                                                                                                                                                  | Type     | Default     |
-| ---------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| `aria_label`     | `aria_label`     | Accessible name for the group (applied as aria-label on the group container).                                                                                                | `string` | `undefined` |
-| `button_name`    | `button_name`    | `name` set on every segment button.                                                                                                                                          | `string` | `undefined` |
-| `component_mode` | `component_mode` | Theme override class on the group, e.g. `light-mode`.                                                                                                                        | `string` | `undefined` |
-| `custom_class`   | `custom_class`   | Extra CSS classes added to the group.                                                                                                                                        | `string` | `undefined` |
-| `icon_labels`    | `icon_labels`    | Accessible names for icon-only segments, as a JSON string array in the same order as `items`, e.g. `'["Align left", "Align center"]'`.                                       | `string` | `undefined` |
-| `items`          | `items`          | Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`). | `string` | `undefined` |
-| `radius_type`    | `radius_type`    | Corner shape of the group: `square` or `rounded`.                                                                                                                            | `string` | `undefined` |
-| `selected_index` | `selected_index` | Index of the segment selected on load, from 0. An out-of-range value selects the first segment.                                                                              | `number` | `0`         |
+| Property         | Attribute        | Description                                                                                                                                                                                                                  | Type     | Default     |
+| ---------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `aria_label`     | `aria_label`     | Accessible name for the group (applied as aria-label on the group container).                                                                                                                                                | `string` | `undefined` |
+| `button_name`    | `button_name`    | `name` set on every segment button.                                                                                                                                                                                          | `string` | `undefined` |
+| `component_mode` | `component_mode` | Theme override class on the group, e.g. `light-mode`.                                                                                                                                                                        | `string` | `undefined` |
+| `custom_class`   | `custom_class`   | Extra CSS classes added to the group.                                                                                                                                                                                        | `string` | `undefined` |
+| `icon_labels`    | `icon_labels`    | Accessible names for icon-only segments, as a JSON string array in the same order as `items`, e.g. `'["Align left", "Align center"]'`.                                                                                       | `string` | `undefined` |
+| `items`          | `items`          | Segments, as a JSON string array, e.g. `'["All", "Pending", "Approved"]'`. A missing or invalid value renders no segments. An item that starts with `fo` renders as a Material Symbols icon name (e.g. `format_align_left`). | `string` | `undefined` |
+| `radius_type`    | `radius_type`    | Corner shape of the group: `square` or `rounded`.                                                                                                                                                                            | `string` | `undefined` |
+| `selected_index` | `selected_index` | Index of the selected segment, from 0. Changing it after load moves the selection. An out-of-range value selects the first segment.                                                                                          | `number` | `0`         |
 
 
 ## Events
