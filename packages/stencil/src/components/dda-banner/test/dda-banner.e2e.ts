@@ -73,6 +73,30 @@ describe('dda-banner', () => {
     ]);
   });
 
+  it('lays slides out in a horizontal, scroll-snapping row', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-banner slides='${SLIDES}'></dda-banner>`);
+
+    const layout = await page.evaluate(() => {
+      const root = document.querySelector('dda-banner').shadowRoot;
+      const slider = getComputedStyle(root.querySelector('.dda-banner-slider'));
+      const [a, b] = Array.from(root.querySelectorAll('.dda-banner-slide')).map((s) => s.getBoundingClientRect());
+      return { display: slider.display, snap: slider.scrollSnapType, sameRow: a.top === b.top && b.left > a.left };
+    });
+
+    expect(layout).toEqual({ display: 'flex', snap: 'x mandatory', sameRow: true });
+  });
+
+  it('does not log an error when the slides attribute is missing', async () => {
+    const page = await newE2EPage();
+    const errors: string[] = [];
+    page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+    await page.setContent('<dda-banner></dda-banner>');
+    await page.waitForChanges();
+
+    expect(errors).toEqual([]);
+  });
+
   // F-026: the component has no autoplay, no navigation controls, and no
   // interaction model of any kind - each slide's `link` field (present in
   // the parsed-slide type) is never rendered as an anchor or button. There
@@ -91,11 +115,8 @@ describe('dda-banner', () => {
     expect(interactiveCount).toBe(0);
   });
 
-  // componentWillLoad calls JSON.parse(this.slides) with no guard (unlike
-  // dda-breadcrumb's equivalent, which checks first). With no slides
-  // attribute the parse throws internally; Stencil's lazy-loader swallows
-  // it (logged as a console error) rather than crashing the page, and the
-  // banner is left permanently empty. Documented as real behaviour.
+  // componentWillLoad guards JSON.parse(this.slides): a missing or invalid
+  // slides attribute renders an empty banner instead of throwing.
   it('renders no slides and does not crash the page when the slides attribute is missing', async () => {
     const page = await newE2EPage();
     await page.setContent('<dda-banner></dda-banner>');

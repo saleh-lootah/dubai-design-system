@@ -1,3 +1,29 @@
 :host {
   display: block;
 }
+
+.dda-banner-slider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.dda-banner-slide {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.dda-banner-slide img {
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dda-banner-slider {
+    scroll-behavior: auto;
+  }
+}

@@ -12,7 +12,12 @@ export class DdaBanner {
   @State() parsedSlides: { image: string; title: string; subtitle: string; link: string }[] = [];
 
   componentWillLoad() {
-    this.parsedSlides = JSON.parse(this.slides);
+    try {
+      const slides = JSON.parse(this.slides ?? '[]');
+      this.parsedSlides = Array.isArray(slides) ? slides : [];
+    } catch {
+      this.parsedSlides = [];
+    }
   }
 
   render() {
