@@ -160,53 +160,72 @@ export namespace Components {
     }
     interface DdaButton {
         /**
+          * Accessible name. Required when the button shows only an icon.
           * @default ''
          */
         "aria_label"?: string;
         /**
+          * Color variant, e.g. `default-primary`, `default-secondary`, `error-primary`, `onsurface-link`.
           * @default 'primary'
          */
         "button_color": string;
+        /**
+          * `id` of the inner `<button>`.
+         */
         "button_id": string;
         /**
+          * `name` of the inner `<button>`, submitted with its form.
           * @default ''
          */
         "button_name"?: string;
         /**
+          * Shape: `default` or `circle`.
           * @default ''
          */
         "button_shape"?: string;
         /**
-          * Function to be called on button click
+          * Click handler, set as a JavaScript property. You can also listen for the native `click` event.
          */
         "clickHandler"?: (event: MouseEvent) => void;
+        /**
+          * Theme override class for the button, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the inner `<button>`.
           * @default ''
          */
         "custom_class"?: string;
         /**
-          * Disable the button
+          * Disables the button.
           * @default false
          */
         "disabled": boolean;
         /**
+          * Material Symbols icon name shown after the label, e.g. `arrow_forward`.
           * @default ''
          */
         "end_icon": string;
+        /**
+          * Gap between icon and label, as a spacing step: 1–6, 8, 10, 12 or 16.
+         */
         "gap"?: number;
         /**
+          * Shape of an icon-only button: `default` or `circle`.
           * @default ''
          */
         "icon_button_shape"?: string;
+        /**
+          * Size: `sm`, `md`, `lg` or `xl`.
+         */
         "size"?: string;
         /**
-          * Icon class for the starting icon
+          * Material Symbols icon name shown before the label, e.g. `arrow_back`.
           * @default ''
          */
         "start_icon": string;
         /**
-          * Type of button, e.g., "button", "submit"
+          * Native button type: `button`, `submit` or `reset`.
           * @default 'button'
          */
         "type": string;
@@ -1391,53 +1410,72 @@ declare namespace LocalJSX {
     }
     interface DdaButton {
         /**
+          * Accessible name. Required when the button shows only an icon.
           * @default ''
          */
         "aria_label"?: string;
         /**
+          * Color variant, e.g. `default-primary`, `default-secondary`, `error-primary`, `onsurface-link`.
           * @default 'primary'
          */
         "button_color"?: string;
+        /**
+          * `id` of the inner `<button>`.
+         */
         "button_id"?: string;
         /**
+          * `name` of the inner `<button>`, submitted with its form.
           * @default ''
          */
         "button_name"?: string;
         /**
+          * Shape: `default` or `circle`.
           * @default ''
          */
         "button_shape"?: string;
         /**
-          * Function to be called on button click
+          * Click handler, set as a JavaScript property. You can also listen for the native `click` event.
          */
         "clickHandler"?: (event: MouseEvent) => void;
+        /**
+          * Theme override class for the button, e.g. `light-mode`.
+         */
         "component_mode"?: string;
         /**
+          * Extra CSS classes added to the inner `<button>`.
           * @default ''
          */
         "custom_class"?: string;
         /**
-          * Disable the button
+          * Disables the button.
           * @default false
          */
         "disabled"?: boolean;
         /**
+          * Material Symbols icon name shown after the label, e.g. `arrow_forward`.
           * @default ''
          */
         "end_icon"?: string;
+        /**
+          * Gap between icon and label, as a spacing step: 1–6, 8, 10, 12 or 16.
+         */
         "gap"?: number;
         /**
+          * Shape of an icon-only button: `default` or `circle`.
           * @default ''
          */
         "icon_button_shape"?: string;
+        /**
+          * Size: `sm`, `md`, `lg` or `xl`.
+         */
         "size"?: string;
         /**
-          * Icon class for the starting icon
+          * Material Symbols icon name shown before the label, e.g. `arrow_back`.
           * @default ''
          */
         "start_icon"?: string;
         /**
-          * Type of button, e.g., "button", "submit"
+          * Native button type: `button`, `submit` or `reset`.
           * @default 'button'
          */
         "type"?: string;
