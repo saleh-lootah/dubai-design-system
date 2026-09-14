@@ -200,6 +200,23 @@ describe('dda-sticky-footer and the home-page quick links', () => {
     expect(layout.cardBottom).toBeLessThanOrEqual(layout.footerTop);
   });
 
+  it('sizes Material icon glyphs in quick-link cards like svg icons', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1920, height: 1080 });
+    await page.setContent(`
+      <div class="quick-links">
+        <a class="link-item" href="#"><i class="material-icons">eco</i><span class="title">Title</span></a>
+      </div>
+    `);
+
+    const icon = await page.evaluate(() => {
+      const style = getComputedStyle(document.querySelector('.link-item i'));
+      return { fontSize: style.fontSize, marginBottom: style.marginBottom };
+    });
+
+    expect(icon).toEqual({ fontSize: '35px', marginBottom: '15px' });
+  });
+
   it('keeps the mobile quick-link offset unchanged', async () => {
     const page = await newE2EPage();
     await page.setViewport({ width: 800, height: 900 });

@@ -68,6 +68,14 @@
   margin-bottom: 15px;
   color: var(--dda-on-surface-variant-40);
 }
+.quick-links .link-item i {
+  display: block;
+  width: fit-content;
+  font-size: 35px;
+  line-height: 1;
+  margin-bottom: 15px;
+  color: var(--dda-on-surface-variant-40);
+}
 .quick-links .link-item .title {
   display: block;
   font-size: var(--dda-fs-title-sm);
@@ -124,6 +132,10 @@
   }
   .quick-links .link-item svg {
     height: 20px;
+    margin-bottom: 5px;
+  }
+  .quick-links .link-item i {
+    font-size: 20px;
     margin-bottom: 5px;
   }
   .quick-links .link-item .title {
