@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
+export { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
 export namespace Components {
     interface DdaAccordion {
         /**
@@ -138,6 +140,10 @@ export namespace Components {
         "slides": string;
     }
     interface DdaBreadcrumb {
+        /**
+          * The items, as an array or a JSON string. The `data-breadcrumbs` attribute is still read when this is not set.
+         */
+        "breadcrumbs"?: string | BreadcrumbItem[];
         "component_mode"?: string;
         /**
           * @default ''
@@ -1360,6 +1366,10 @@ declare namespace LocalJSX {
         "slides"?: string;
     }
     interface DdaBreadcrumb {
+        /**
+          * The items, as an array or a JSON string. The `data-breadcrumbs` attribute is still read when this is not set.
+         */
+        "breadcrumbs"?: string | BreadcrumbItem[];
         "component_mode"?: string;
         /**
           * @default ''
@@ -2202,6 +2212,7 @@ declare namespace LocalJSX {
         "separator": 'chevron_right' | 'pen_size_2';
         "custom_class": string;
         "component_mode": string;
+        "breadcrumbs": string | BreadcrumbItem[];
     }
     interface DdaButtonAttributes {
         "type": string;

@@ -61,3 +61,18 @@ import { DdaBreadcrumb } from '@dubai-design-system/components-vue'
     data-breadcrumbs='[{"text":"Home","icon":"home","url":"/"},{"text":"Library","icon":"menu_book","url":"/library"},{"text":"Data","icon":"storage","url":"/data"}]'
 ></dda-breadcrumb>
 ```
+
+### Setting the items from JavaScript
+
+The items can also come from the `breadcrumbs` property, as an array or a JSON string. Use it
+when a framework or script sets the data. When `breadcrumbs` is set, it takes precedence over
+`data-breadcrumbs`, and the component re-renders when it changes.
+
+```js
+const breadcrumb = document.querySelector('dda-breadcrumb');
+breadcrumb.breadcrumbs = [
+  { text: 'Home', icon: 'home', url: '/' },
+  { text: 'Library', icon: 'menu_book', url: '/library' },
+  { text: 'Data', icon: 'storage' },
+];
+```
