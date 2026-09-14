@@ -124,14 +124,14 @@ export declare interface DdaBanner extends Components.DdaBanner {}
 
 
 @ProxyCmp({
-  inputs: ['component_mode', 'custom_class', 'design', 'separator']
+  inputs: ['breadcrumbs', 'component_mode', 'custom_class', 'design', 'separator']
 })
 @Component({
   selector: 'dda-breadcrumb',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['component_mode', 'custom_class', 'design', 'separator'],
+  inputs: ['breadcrumbs', 'component_mode', 'custom_class', 'design', 'separator'],
 })
 export class DdaBreadcrumb {
   protected el: HTMLDdaBreadcrumbElement;
@@ -702,14 +702,14 @@ export declare interface DdaTextarea extends Components.DdaTextarea {}
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'checked', 'component_mode', 'custom_class', 'group_name', 'input_id', 'size']
+  inputs: ['aria_label', 'checked', 'component_mode', 'custom_class', 'group_name', 'input_id', 'size', 'supporting', 'title_text']
 })
 @Component({
   selector: 'dda-toggle',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'checked', 'component_mode', 'custom_class', 'group_name', 'input_id', 'size'],
+  inputs: ['aria_label', 'checked', 'component_mode', 'custom_class', 'group_name', 'input_id', 'size', 'supporting', 'title_text'],
 })
 export class DdaToggle {
   protected el: HTMLDdaToggleElement;

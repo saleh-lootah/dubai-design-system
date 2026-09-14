@@ -86,7 +86,8 @@ export const DdaBreadcrumb = /*@__PURE__*/ defineContainer<JSX.DdaBreadcrumb>('d
   'design',
   'separator',
   'custom_class',
-  'component_mode'
+  'component_mode',
+  'breadcrumbs'
 ]);
 
 
@@ -538,7 +539,9 @@ export const DdaToggle = /*@__PURE__*/ defineContainer<JSX.DdaToggle>('dda-toggl
   'group_name',
   'input_id',
   'component_mode',
-  'aria_label'
+  'aria_label',
+  'title_text',
+  'supporting'
 ]);
 
 

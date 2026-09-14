@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property         | Attribute        | Description | Type                              | Default           |
-| ---------------- | ---------------- | ----------- | --------------------------------- | ----------------- |
-| `component_mode` | `component_mode` |             | `string`                          | `undefined`       |
-| `custom_class`   | `custom_class`   |             | `string`                          | `''`              |
-| `design`         | `design`         |             | `"icon" \| "icon-text" \| "text"` | `'text'`          |
-| `separator`      | `separator`      |             | `"chevron_right" \| "pen_size_2"` | `'chevron_right'` |
+| Property         | Attribute        | Description                                                                                                   | Type                              | Default           |
+| ---------------- | ---------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------------- |
+| `breadcrumbs`    | `breadcrumbs`    | The items, as an array or a JSON string. The `data-breadcrumbs` attribute is still read when this is not set. | `BreadcrumbItem[] \| string`      | `undefined`       |
+| `component_mode` | `component_mode` |                                                                                                               | `string`                          | `undefined`       |
+| `custom_class`   | `custom_class`   |                                                                                                               | `string`                          | `''`              |
+| `design`         | `design`         |                                                                                                               | `"icon" \| "icon-text" \| "text"` | `'text'`          |
+| `separator`      | `separator`      |                                                                                                               | `"chevron_right" \| "pen_size_2"` | `'chevron_right'` |
 
 
 ----------------------------------------------
