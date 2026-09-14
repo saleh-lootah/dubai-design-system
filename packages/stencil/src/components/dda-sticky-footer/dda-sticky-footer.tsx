@@ -1,4 +1,4 @@
-import { Component, Prop, h, State  } from '@stencil/core';
+import { Component, Element, Prop, h, State } from '@stencil/core';
 
 @Component({
   tag: 'dda-sticky-footer',
@@ -6,6 +6,7 @@ import { Component, Prop, h, State  } from '@stencil/core';
   shadow: false,
 })
 export class DdaStickyFooter {
+  @Element() el: HTMLElement;
   /** Left Section Props */
   @Prop() happinessIconHref: string;
   @Prop() happinessIconSrc: string;
@@ -70,12 +71,26 @@ export class DdaStickyFooter {
     this.handleScroll = this.handleScroll.bind(this);
   }
 
+  private resizeObserver: ResizeObserver;
+
   componentDidLoad() {
     window.addEventListener('scroll', this.handleScroll);
+
+    // Publish the bar's height so page layouts fixed above it (.quick-links-wrap) can clear it.
+    const bar = this.el.querySelector('footer');
+    if (bar && typeof ResizeObserver !== 'undefined') {
+      this.resizeObserver = new ResizeObserver(() => {
+        document.documentElement.style.setProperty('--dda-sticky-footer-height', `${bar.offsetHeight}px`);
+      });
+      this.resizeObserver.observe(bar);
+    }
   }
 
   disconnectedCallback() {
     window.removeEventListener('scroll', this.handleScroll);
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = null;
+    document.documentElement.style.removeProperty('--dda-sticky-footer-height');
   }
 
   handleScroll() {

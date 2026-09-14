@@ -17,7 +17,8 @@
 .quick-links-wrap {
   width: 100%;
   position: absolute;
-  bottom: 45px;
+  /* dda-sticky-footer sets --dda-sticky-footer-height; the cards sit above the fixed bar. */
+  bottom: calc(45px + var(--dda-sticky-footer-height, 0px));
   z-index: 1;
 }
 
@@ -88,6 +89,8 @@
   }
   .quick-links-wrap {
     position: relative;
+    /* In normal flow the cards do not sit over the fixed bar, so keep the original offset. */
+    bottom: 45px;
   }
   .quick-links-wrap .quick-links {
     display: grid;

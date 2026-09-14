@@ -173,3 +173,53 @@ describe('dda-sticky-footer', () => {
     expect(canFocusWhileHidden).toBe(false);
   });
 });
+
+describe('dda-sticky-footer and the home-page quick links', () => {
+  const home = (footer: string) => `
+    <div style="position: relative; height: 100vh;">
+      <div class="quick-links-wrap">
+        <div class="quick-links"><a class="link-item" href="#">Card</a></div>
+      </div>
+    </div>
+    ${footer}
+  `;
+
+  it('keeps the quick-link cards above the sticky footer', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1366, height: 900 });
+    await page.setContent(home('<dda-sticky-footer></dda-sticky-footer>'));
+    await page.waitForChanges();
+
+    const layout = await page.evaluate(() => ({
+      position: getComputedStyle(document.querySelector('.quick-links-wrap')).position,
+      cardBottom: document.querySelector('.link-item').getBoundingClientRect().bottom,
+      footerTop: document.querySelector('dda-sticky-footer footer').getBoundingClientRect().top,
+    }));
+
+    expect(layout.position).toBe('absolute');
+    expect(layout.cardBottom).toBeLessThanOrEqual(layout.footerTop);
+  });
+
+  it('keeps the mobile quick-link offset unchanged', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 800, height: 900 });
+    await page.setContent(home('<dda-sticky-footer></dda-sticky-footer>'));
+    await page.waitForChanges();
+
+    const bottom = await page.evaluate(() => getComputedStyle(document.querySelector('.quick-links-wrap')).bottom);
+    expect(bottom).toBe('45px');
+  });
+
+  it('clears the footer height variable when the sticky footer is removed', async () => {
+    const page = await newE2EPage();
+    await page.setContent(home('<dda-sticky-footer></dda-sticky-footer>'));
+    await page.waitForChanges();
+
+    const read = () => page.evaluate(() => document.documentElement.style.getPropertyValue('--dda-sticky-footer-height'));
+    expect(await read()).not.toBe('');
+
+    await page.evaluate(() => document.querySelector('dda-sticky-footer').remove());
+    await page.waitForChanges();
+    expect(await read()).toBe('');
+  });
+});
