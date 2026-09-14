@@ -4,14 +4,34 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## 5.0.4 (2026-09-14)
+## 5.1.0 (2026-09-14)
 
-A bug-fix release. It fixes issues a consumer reported after upgrading to 5.0.3, and
-layout and API faults found while building a vanilla JS sample site against the published
-package. The two `dda-header` faults were also present in 3.12.x; they are fixed here, not
-newly introduced.
+A minor release. It adds a working header search, and fixes issues a consumer reported after
+upgrading to 5.0.3 plus layout and API faults found while building a vanilla JS sample site
+against the published package. The two `dda-header` navigation faults were also present in
+3.12.x; they are fixed here, not newly introduced.
+
+**Upgrading?** `MIGRATION.md`, which ships next to this file, has a step-by-step guide from
+5.0.x, 4.1.0 and 3.x, with the searches to run and the attributes to change.
+
+### Features
+
+- **dda-header: the search works.** The desktop field is now a `<form role="search">`, so
+  Enter submits. Every non-empty search emits a cancelable `searchSubmit` event with
+  `detail.query`. The new `search_action` prop sends the search to a results page with a
+  plain GET, using `search_input_name` (default `q`) as the parameter, so static sites need no
+  JavaScript; cancel the event to route inside an app. On phone-width screens the search button
+  now opens a search field under the header, with `aria-expanded`, focus moved into the field,
+  and Escape or a close button to dismiss it.
+- **New props for data that was hardcoded or unreachable:** `dda-toggle` `title_text` and
+  `supporting`, `dda-footer` `logo-description`, `dda-breadcrumb` `breadcrumbs`, and
+  `dda-vertical-stepper` `current_step` (details below).
 
 ### Bug Fixes
+
+- **dda-header: the page scrolled behind the open side menu.** While the hamburger menu is
+  open, the page underneath no longer scrolls on touch or wheel input; the menu itself still
+  does. The lock is released when the menu closes by any route and when the header is removed.
 
 - **dda-header: the top menu was invisible at the site root.** When
   `location.pathname` was `/`, the header added the `transparent` class to its own
@@ -75,6 +95,11 @@ newly introduced.
   `title_text` for a visible label, or keep `aria_label` for an accessible name only.
 - **dda-sticky-footer writes `--dda-sticky-footer-height` on `:root`** while it is on the
   page, and removes it when it is removed.
+- **dda-header search no longer renders `id="ddaSearch"`.** Each header gets its own input
+  ids, so two headers on a page no longer clash. Code that used
+  `getElementById('ddaSearch')` should listen for `searchSubmit` instead.
+- **dda-header adds `dda-scroll-lock` to `<html>` while the side menu is open,** which sets
+  `overflow: hidden` on `html` and `body`.
 
 ## 5.0.3 (2026-09-08)
 
@@ -199,7 +224,7 @@ stylesheet produced a 404 for all twelve font URLs and fell back to `sans-serif`
 
 A full accessibility and correctness review of all 34 components. This is a **major**
 release: several fixes change the rendered DOM, remove hardcoded ids, or alter which CSS
-selectors match. **See [MIGRATION.md](../../MIGRATION.md) for what to change in your own code.**
+selectors match. **See `MIGRATION.md`, which ships next to this file, for what to change in your own code.**
 `docs/a11y/consumer-impact.md` has the verified, itemised list with file and line
 citations, and `docs/a11y/findings.md` records the 51 findings behind them.
 
