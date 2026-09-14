@@ -169,7 +169,7 @@ the top of the page.
 - `dda-ui-card` renders its title as `h3`, not `h1`. Set `heading_level` (1–6) to match your
   page outline, and target `.dda-card-title`, not `h1`.
 - `dda-header` logo links go to `/` instead of `#`. Set `first-logo-href` and
-  `second-logo-href`. The ReadSpeaker item shows only when `read-speaker-link` is set.
+  `second-logo-href`, especially if your site is served under a subpath, where `/` leaves it. The ReadSpeaker item shows only when `read-speaker-link` is set.
 - Icon-only buttons now have English default names ("Close", "Remove", "Clear search",
   "Previous page", "Next page", "Menu"). On an Arabic page, set the matching `*_label` props.
 

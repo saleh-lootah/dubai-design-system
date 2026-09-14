@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import type { Page } from 'puppeteer';
 
 // A tall spacer makes the document scrollable so window.scrollTo() actually
 // moves window.scrollY and fires native 'scroll' events for the component's
@@ -293,5 +294,28 @@ describe('dda-sticky-footer landmarks and names', () => {
 
     const alt = await page.evaluate(() => document.querySelector('dda-sticky-footer img[src="grid.svg"]').getAttribute('alt'));
     expect(alt).toBe('Services');
+  });
+});
+
+describe('dda-sticky-footer services link name', () => {
+  // Read the name from Chrome's accessibility tree; the image is decorative when text is set.
+  const servicesLinkName = async (width: number) => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height: 800 });
+    await page.setContent('<dda-sticky-footer services-icon-href="#" services-icon-src="services.svg" services-icon-text="Services"></dda-sticky-footer>');
+    await page.waitForChanges();
+    const puppeteerPage = page as unknown as Page;
+    const link = await puppeteerPage.$('dda-sticky-footer .foot-icon-btn a img[alt=""]');
+    const anchor = await link.evaluateHandle(img => img.closest('a'));
+    const snapshot = await puppeteerPage.accessibility.snapshot({ root: anchor.asElement(), interestingOnly: false });
+    return snapshot?.name;
+  };
+
+  it('names the services link from its text on wide screens', async () => {
+    expect(await servicesLinkName(1366)).toBe('Services');
+  });
+
+  it('keeps the services link named on phones, where the text is visually hidden', async () => {
+    expect(await servicesLinkName(390)).toBe('Services');
   });
 });

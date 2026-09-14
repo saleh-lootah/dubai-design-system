@@ -177,7 +177,8 @@ The Screen Reader item shows only when `read-speaker-link` is set.
 ## Links and labels
 
 - **Logo links.** `first-logo-href` and `second-logo-href` set the link of each logo. Both default
-  to `/`.
+  to `/`, the root of the domain. If your site is served under a subpath (for example
+  `https://example.gov.ae/services/`), set them to your home page, such as `/services/` or `./`.
 - **Menu button.** `menu_button_label` is the accessible name of the hamburger button. Default:
   `Menu`.
 - **Language buttons.** `language_text` is the label of both language buttons (default `العربية`).
