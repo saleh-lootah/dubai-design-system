@@ -76,3 +76,19 @@ describe('dda-phonefield F-018 autocomplete', () => {
     expect(autocomplete).toBe('tel-national');
   });
 });
+
+describe('dda-phonefield layout', () => {
+  it('fits a narrow container', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<div style="width: 274px"><dda-phonefield></dda-phonefield></div>`);
+
+    const overflow = await page.evaluate(() => {
+      const cell = document.querySelector('div').getBoundingClientRect();
+      return Array.from(document.querySelectorAll('dda-phonefield *'))
+        .filter(el => el.getBoundingClientRect().right > cell.right + 0.5)
+        .map(el => el.className || el.localName);
+    });
+
+    expect(overflow).toEqual([]);
+  });
+});

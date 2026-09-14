@@ -62,3 +62,19 @@ describe('dda-number-field F-016 error labelling', () => {
     expect(result).toEqual(['Digits only', 'Amount too high']);
   });
 });
+
+describe('dda-number-field layout', () => {
+  it('fits a narrow container', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<div style="width: 274px"><dda-number-field></dda-number-field></div>`);
+
+    const overflow = await page.evaluate(() => {
+      const cell = document.querySelector('div').getBoundingClientRect();
+      return Array.from(document.querySelectorAll('dda-number-field *'))
+        .filter(el => el.getBoundingClientRect().right > cell.right + 0.5)
+        .map(el => el.className || el.localName);
+    });
+
+    expect(overflow).toEqual([]);
+  });
+});

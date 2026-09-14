@@ -22,6 +22,8 @@
     height: 32px;
     background-color: transparent;
     flex: 1;
+    /* An input's intrinsic width would otherwise stop it shrinking and push the row past its container. */
+    min-width: 0;
     font-size: var(--dda-fs-body-lg);
     font-weight: var(--dda-fw-400);
     padding: 0px;
@@ -90,6 +92,7 @@
 
 .dda-input-dropdown-btn {
     min-width: 110px;
+    flex-shrink: 0;
     position: relative;
     display: inline-block;
     padding: 0;
