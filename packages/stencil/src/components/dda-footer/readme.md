@@ -7,17 +7,18 @@
 
 ## Properties
 
-| Property           | Attribute             | Description | Type     | Default     |
-| ------------------ | --------------------- | ----------- | -------- | ----------- |
-| `copyrightText`    | `copyright-text`      |             | `string` | `undefined` |
-| `description`      | `description`         |             | `string` | `undefined` |
-| `footerSections`   | `footer-sections`     |             | `string` | `undefined` |
-| `footerTitle`      | `footer-title`        |             | `string` | `undefined` |
-| `loginButtonText`  | `login-button-text`   |             | `string` | `undefined` |
-| `logoAlt`          | `logo-alt`            |             | `string` | `undefined` |
-| `logoSrc`          | `logo-src`            |             | `string` | `undefined` |
-| `signUpButtonText` | `sign-up-button-text` |             | `string` | `undefined` |
-| `socialIcons`      | `social-icons`        |             | `string` | `undefined` |
+| Property           | Attribute             | Description                                                                  | Type     | Default     |
+| ------------------ | --------------------- | ---------------------------------------------------------------------------- | -------- | ----------- |
+| `copyrightText`    | `copyright-text`      |                                                                              | `string` | `undefined` |
+| `description`      | `description`         |                                                                              | `string` | `undefined` |
+| `footerSections`   | `footer-sections`     |                                                                              | `string` | `undefined` |
+| `footerTitle`      | `footer-title`        |                                                                              | `string` | `undefined` |
+| `loginButtonText`  | `login-button-text`   |                                                                              | `string` | `undefined` |
+| `logoAlt`          | `logo-alt`            |                                                                              | `string` | `undefined` |
+| `logoDescription`  | `logo-description`    | Short text shown under the footer logo. Nothing is shown when it is not set. | `string` | `undefined` |
+| `logoSrc`          | `logo-src`            |                                                                              | `string` | `undefined` |
+| `signUpButtonText` | `sign-up-button-text` |                                                                              | `string` | `undefined` |
+| `socialIcons`      | `social-icons`        |                                                                              | `string` | `undefined` |
 
 
 ## Dependencies

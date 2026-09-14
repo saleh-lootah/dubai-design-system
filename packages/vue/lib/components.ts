@@ -195,6 +195,7 @@ export const DdaFooter = /*@__PURE__*/ defineContainer<JSX.DdaFooter>('dda-foote
   'logoSrc',
   'logoAlt',
   'copyrightText',
+  'logoDescription',
   'footerSections',
   'socialIcons'
 ]);
@@ -565,6 +566,7 @@ export const DdaUiCard = /*@__PURE__*/ defineContainer<JSX.DdaUiCard>('dda-ui-ca
 
 export const DdaVerticalStepper = /*@__PURE__*/ defineContainer<JSX.DdaVerticalStepper>('dda-vertical-stepper', undefined, [
   'steps',
+  'current_step',
   'current_Step',
   'custom_class',
   'component_mode'

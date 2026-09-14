@@ -278,14 +278,14 @@ export declare interface DdaDropdown extends Components.DdaDropdown {}
 
 
 @ProxyCmp({
-  inputs: ['copyrightText', 'description', 'footerSections', 'footerTitle', 'loginButtonText', 'logoAlt', 'logoSrc', 'signUpButtonText', 'socialIcons']
+  inputs: ['copyrightText', 'description', 'footerSections', 'footerTitle', 'loginButtonText', 'logoAlt', 'logoDescription', 'logoSrc', 'signUpButtonText', 'socialIcons']
 })
 @Component({
   selector: 'dda-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['copyrightText', 'description', 'footerSections', 'footerTitle', 'loginButtonText', 'logoAlt', 'logoSrc', 'signUpButtonText', 'socialIcons'],
+  inputs: ['copyrightText', 'description', 'footerSections', 'footerTitle', 'loginButtonText', 'logoAlt', 'logoDescription', 'logoSrc', 'signUpButtonText', 'socialIcons'],
 })
 export class DdaFooter {
   protected el: HTMLDdaFooterElement;
@@ -772,14 +772,14 @@ export declare interface DdaUiCard extends Components.DdaUiCard {
 
 
 @ProxyCmp({
-  inputs: ['component_mode', 'current_Step', 'custom_class', 'steps']
+  inputs: ['component_mode', 'current_Step', 'current_step', 'custom_class', 'steps']
 })
 @Component({
   selector: 'dda-vertical-stepper',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['component_mode', 'current_Step', 'custom_class', 'steps'],
+  inputs: ['component_mode', 'current_Step', 'current_step', 'custom_class', 'steps'],
 })
 export class DdaVerticalStepper {
   protected el: HTMLDdaVerticalStepperElement;
