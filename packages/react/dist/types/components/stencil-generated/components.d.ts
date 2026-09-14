@@ -1,3 +1,4 @@
+import { type DdaUiCardCustomEvent } from "@dubai-design-system/components-js";
 import { DdaAccordion as DdaAccordionElement } from "@dubai-design-system/components-js/dist/components/dda-accordion.js";
 import { DdaAlert as DdaAlertElement } from "@dubai-design-system/components-js/dist/components/dda-alert.js";
 import { DdaAttachFile as DdaAttachFileElement } from "@dubai-design-system/components-js/dist/components/dda-attach-file.js";
@@ -42,7 +43,11 @@ type DdaAlertEvents = {
 export declare const DdaAlert: StencilReactComponent<DdaAlertElement, DdaAlertEvents>;
 type DdaAttachFileEvents = NonNullable<unknown>;
 export declare const DdaAttachFile: StencilReactComponent<DdaAttachFileElement, DdaAttachFileEvents>;
-type DdaAvatarEvents = NonNullable<unknown>;
+type DdaAvatarEvents = {
+    onOptionSelect: EventName<CustomEvent<{
+        value: string;
+    }>>;
+};
 export declare const DdaAvatar: StencilReactComponent<DdaAvatarElement, DdaAvatarEvents>;
 type DdaBannerEvents = NonNullable<unknown>;
 export declare const DdaBanner: StencilReactComponent<DdaBannerElement, DdaBannerEvents>;
@@ -56,9 +61,17 @@ type DdaChipEvents = NonNullable<unknown>;
 export declare const DdaChip: StencilReactComponent<DdaChipElement, DdaChipEvents>;
 type DdaCreditCardEvents = NonNullable<unknown>;
 export declare const DdaCreditCard: StencilReactComponent<DdaCreditCardElement, DdaCreditCardEvents>;
-type DdaCreditcardFieldEvents = NonNullable<unknown>;
+type DdaCreditcardFieldEvents = {
+    onValueChange: EventName<CustomEvent<{
+        value: string;
+    }>>;
+};
 export declare const DdaCreditcardField: StencilReactComponent<DdaCreditcardFieldElement, DdaCreditcardFieldEvents>;
-type DdaDropdownEvents = NonNullable<unknown>;
+type DdaDropdownEvents = {
+    onOptionSelect: EventName<CustomEvent<{
+        value: string;
+    }>>;
+};
 export declare const DdaDropdown: StencilReactComponent<DdaDropdownElement, DdaDropdownEvents>;
 type DdaFooterEvents = NonNullable<unknown>;
 export declare const DdaFooter: StencilReactComponent<DdaFooterElement, DdaFooterEvents>;
@@ -71,6 +84,9 @@ type DdaHeaderEvents = {
     onBlindContrast: EventName<CustomEvent<void>>;
     onRedContrast: EventName<CustomEvent<void>>;
     onGreenContrast: EventName<CustomEvent<void>>;
+    onSearchSubmit: EventName<CustomEvent<{
+        query: string;
+    }>>;
 };
 export declare const DdaHeader: StencilReactComponent<DdaHeaderElement, DdaHeaderEvents>;
 type DdaHomeBannerEvents = NonNullable<unknown>;
@@ -83,7 +99,11 @@ type DdaLinkButtonEvents = NonNullable<unknown>;
 export declare const DdaLinkButton: StencilReactComponent<DdaLinkButtonElement, DdaLinkButtonEvents>;
 type DdaNumberFieldEvents = NonNullable<unknown>;
 export declare const DdaNumberField: StencilReactComponent<DdaNumberFieldElement, DdaNumberFieldEvents>;
-type DdaPaginationEvents = NonNullable<unknown>;
+type DdaPaginationEvents = {
+    onPageChange: EventName<CustomEvent<{
+        page: number;
+    }>>;
+};
 export declare const DdaPagination: StencilReactComponent<DdaPaginationElement, DdaPaginationEvents>;
 type DdaPhonefieldEvents = NonNullable<unknown>;
 export declare const DdaPhonefield: StencilReactComponent<DdaPhonefieldElement, DdaPhonefieldEvents>;
@@ -99,12 +119,16 @@ type DdaSegmentedTabsEvents = {
     onSegmentChange: EventName<CustomEvent<number>>;
 };
 export declare const DdaSegmentedTabs: StencilReactComponent<DdaSegmentedTabsElement, DdaSegmentedTabsEvents>;
-type DdaSelectEvents = NonNullable<unknown>;
+type DdaSelectEvents = {
+    onSelectionChange: EventName<CustomEvent<{
+        value: string;
+    }>>;
+};
 export declare const DdaSelect: StencilReactComponent<DdaSelectElement, DdaSelectEvents>;
 type DdaStickyFooterEvents = NonNullable<unknown>;
 export declare const DdaStickyFooter: StencilReactComponent<DdaStickyFooterElement, DdaStickyFooterEvents>;
 type DdaTabsEvents = {
-    onTabClick: EventName<CustomEvent<void>>;
+    onTabClick: EventName<CustomEvent<number>>;
 };
 export declare const DdaTabs: StencilReactComponent<DdaTabsElement, DdaTabsEvents>;
 type DdaTextareaEvents = NonNullable<unknown>;
@@ -114,7 +138,7 @@ export declare const DdaToggle: StencilReactComponent<DdaToggleElement, DdaToggl
 type DdaTooltipEvents = NonNullable<unknown>;
 export declare const DdaTooltip: StencilReactComponent<DdaTooltipElement, DdaTooltipEvents>;
 type DdaUiCardEvents = {
-    onLinkClick: EventName<CustomEvent<void>>;
+    onLinkClick: EventName<DdaUiCardCustomEvent<MouseEvent>>;
 };
 export declare const DdaUiCard: StencilReactComponent<DdaUiCardElement, DdaUiCardEvents>;
 type DdaVerticalStepperEvents = NonNullable<unknown>;

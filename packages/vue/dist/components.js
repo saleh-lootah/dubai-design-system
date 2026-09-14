@@ -22,6 +22,8 @@ export const DdaAlert = defineContainer('dda-alert', undefined, [
     'second_button',
     'button_name',
     'clickHandler',
+    'close_button_label',
+    'heading_level',
     'firstClick',
     'secondClick'
 ]);
@@ -56,18 +58,21 @@ export const DdaAvatar = defineContainer('dda-avatar', undefined, [
     'component_mode',
     'aria_label',
     'button_id',
-    'button_name'
+    'button_name',
+    'optionSelect'
 ]);
 export const DdaBanner = defineContainer('dda-banner', undefined, [
     'slides',
     'slider_width',
-    'slider_height'
+    'slider_height',
+    'aria_label'
 ]);
 export const DdaBreadcrumb = defineContainer('dda-breadcrumb', undefined, [
     'design',
     'separator',
     'custom_class',
-    'component_mode'
+    'component_mode',
+    'breadcrumbs'
 ]);
 export const DdaButton = defineContainer('dda-button', undefined, [
     'type',
@@ -104,6 +109,7 @@ export const DdaChip = defineContainer('dda-chip', undefined, [
     'rounded',
     'icon',
     'show_close_icon',
+    'close_button_label',
     'size',
     'custom_class',
     'component_mode',
@@ -135,7 +141,8 @@ export const DdaCreditcardField = defineContainer('dda-creditcard-field', undefi
     'input_id',
     'aria_label',
     'input_name',
-    'autocomplete'
+    'autocomplete',
+    'valueChange'
 ]);
 export const DdaDropdown = defineContainer('dda-dropdown', undefined, [
     'label',
@@ -152,16 +159,20 @@ export const DdaDropdown = defineContainer('dda-dropdown', undefined, [
     'button_id',
     'aria_label',
     'arrow_button_name',
-    'dropdown_button_name'
+    'dropdown_button_name',
+    'toggle_button_label',
+    'optionSelect'
 ]);
 export const DdaFooter = defineContainer('dda-footer', undefined, [
     'footerTitle',
+    'heading_level',
     'description',
     'signUpButtonText',
     'loginButtonText',
     'logoSrc',
     'logoAlt',
     'copyrightText',
+    'logoDescription',
     'footerSections',
     'socialIcons'
 ]);
@@ -169,9 +180,11 @@ export const DdaHeader = defineContainer('dda-header', undefined, [
     'firstLogoSrc',
     'firstLogoWhiteSrc',
     'firstLogoAlt',
+    'firstLogoHref',
     'secondLogoSrc',
     'secondLogoWhiteSrc',
     'secondLogoAlt',
+    'secondLogoHref',
     'loginLink',
     'sideMenuItems',
     'quickLinks',
@@ -180,10 +193,13 @@ export const DdaHeader = defineContainer('dda-header', undefined, [
     'loginIcon',
     'loginText',
     'language_text',
+    'language_lang',
     'hamburger_menu_button_name',
+    'menu_button_label',
     'accessibility_button_name',
     'search_button_name',
     'search_input_name',
+    'search_action',
     'language_button_name',
     'close_menu_button_name',
     'close_accessibility_button_name',
@@ -196,7 +212,8 @@ export const DdaHeader = defineContainer('dda-header', undefined, [
     'normalContrast',
     'blindContrast',
     'redContrast',
-    'greenContrast'
+    'greenContrast',
+    'searchSubmit'
 ]);
 export const DdaHomeBanner = defineContainer('dda-home-banner', undefined, [
     'autoplay',
@@ -264,7 +281,8 @@ export const DdaNumberField = defineContainer('dda-number-field', undefined, [
     'aria_label',
     'input_name',
     'toggle_button_name',
-    'currency_button_name'
+    'currency_button_name',
+    'toggle_button_label'
 ]);
 export const DdaPagination = defineContainer('dda-pagination', undefined, [
     'total_pages',
@@ -283,7 +301,10 @@ export const DdaPagination = defineContainer('dda-pagination', undefined, [
     'button_text_prev_button',
     'button_text_next_button',
     'buttons_pages_prev_button',
-    'buttons_pages_next_button'
+    'buttons_pages_next_button',
+    'previous_button_label',
+    'next_button_label',
+    'pageChange'
 ]);
 export const DdaPhonefield = defineContainer('dda-phonefield', undefined, [
     'label',
@@ -301,6 +322,7 @@ export const DdaPhonefield = defineContainer('dda-phonefield', undefined, [
     'button_aria_label',
     'toggle_button_name',
     'country_select_button_name',
+    'toggle_button_label',
     'phone_input_name',
     'autocomplete'
 ]);
@@ -360,6 +382,7 @@ export const DdaSearchInput = defineContainer('dda-search-input', undefined, [
     'button_aria_label',
     'search_input_name',
     'close_button_name',
+    'clear_button_label',
     'search_button_name'
 ]);
 export const DdaSegmentedTabs = defineContainer('dda-segmented-tabs', undefined, [
@@ -370,6 +393,7 @@ export const DdaSegmentedTabs = defineContainer('dda-segmented-tabs', undefined,
     'button_name',
     'aria_label',
     'selected_index',
+    'icon_labels',
     'segmentChange'
 ]);
 export const DdaSelect = defineContainer('dda-select', undefined, [
@@ -386,7 +410,8 @@ export const DdaSelect = defineContainer('dda-select', undefined, [
     'aria_label',
     'button_id',
     'toggle_button_name',
-    'option_select_button_name'
+    'option_select_button_name',
+    'selectionChange'
 ]);
 export const DdaStickyFooter = defineContainer('dda-sticky-footer', undefined, [
     'happinessIconHref',
@@ -430,6 +455,7 @@ export const DdaStickyFooter = defineContainer('dda-sticky-footer', undefined, [
     'chatIconSrc',
     'chatIconAlt',
     'chatIconTooltip',
+    'aria_label',
     'hideMiddleSection'
 ]);
 export const DdaTabs = defineContainer('dda-tabs', undefined, [
@@ -468,7 +494,9 @@ export const DdaToggle = defineContainer('dda-toggle', undefined, [
     'group_name',
     'input_id',
     'component_mode',
-    'aria_label'
+    'aria_label',
+    'title_text',
+    'supporting'
 ]);
 export const DdaTooltip = defineContainer('dda-tooltip', undefined, [
     'title_text',
@@ -486,10 +514,12 @@ export const DdaUiCard = defineContainer('dda-ui-card', undefined, [
     'link',
     'linktext',
     'linkicon',
+    'heading_level',
     'linkClick'
 ]);
 export const DdaVerticalStepper = defineContainer('dda-vertical-stepper', undefined, [
     'steps',
+    'current_step',
     'current_Step',
     'custom_class',
     'component_mode'

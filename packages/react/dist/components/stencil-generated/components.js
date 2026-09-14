@@ -63,7 +63,7 @@ export const DdaAvatar = createComponent({
     tagName: 'dda-avatar',
     elementClass: DdaAvatarElement,
     react: React,
-    events: {},
+    events: { onOptionSelect: 'optionSelect' },
     defineCustomElement: defineDdaAvatar
 });
 export const DdaBanner = createComponent({
@@ -112,14 +112,14 @@ export const DdaCreditcardField = createComponent({
     tagName: 'dda-creditcard-field',
     elementClass: DdaCreditcardFieldElement,
     react: React,
-    events: {},
+    events: { onValueChange: 'valueChange' },
     defineCustomElement: defineDdaCreditcardField
 });
 export const DdaDropdown = createComponent({
     tagName: 'dda-dropdown',
     elementClass: DdaDropdownElement,
     react: React,
-    events: {},
+    events: { onOptionSelect: 'optionSelect' },
     defineCustomElement: defineDdaDropdown
 });
 export const DdaFooter = createComponent({
@@ -141,7 +141,8 @@ export const DdaHeader = createComponent({
         onNormalContrast: 'normalContrast',
         onBlindContrast: 'blindContrast',
         onRedContrast: 'redContrast',
-        onGreenContrast: 'greenContrast'
+        onGreenContrast: 'greenContrast',
+        onSearchSubmit: 'searchSubmit'
     },
     defineCustomElement: defineDdaHeader
 });
@@ -184,7 +185,7 @@ export const DdaPagination = createComponent({
     tagName: 'dda-pagination',
     elementClass: DdaPaginationElement,
     react: React,
-    events: {},
+    events: { onPageChange: 'pageChange' },
     defineCustomElement: defineDdaPagination
 });
 export const DdaPhonefield = createComponent({
@@ -233,7 +234,7 @@ export const DdaSelect = createComponent({
     tagName: 'dda-select',
     elementClass: DdaSelectElement,
     react: React,
-    events: {},
+    events: { onSelectionChange: 'selectionChange' },
     defineCustomElement: defineDdaSelect
 });
 export const DdaStickyFooter = createComponent({
