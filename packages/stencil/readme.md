@@ -75,6 +75,12 @@ import '@dubai-design-system/components-js/dist/components/dda-header.js';
 
 `dda-button`, `dda-dropdown`, `dda-modal`, `dda-card`, `dda-header`, and more.
 
+## Upgrading
+
+Upgrading from an earlier version? Read `MIGRATION.md` in this package
+(`node_modules/@dubai-design-system/components-js/MIGRATION.md`). It lists what to change when
+you come from 5.0.x, 4.1.0 or 3.x. `CHANGELOG.md` next to it has the full list of changes.
+
 ## License
 
 Copyright (c) 2018-2026 Digital Dubai. All rights reserved. An open-source license is under review and will be announced in a future release.

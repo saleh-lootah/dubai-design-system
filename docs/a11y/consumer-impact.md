@@ -1,6 +1,6 @@
 # Consumer Impact — `chore/codebase-review-harness`
 
-> **Upgrading?** [MIGRATION.md](../../MIGRATION.md) turns this list into concrete
+> **Upgrading?** [MIGRATION.md](../../packages/stencil/MIGRATION.md) turns this list into concrete
 > steps. This document is the evidence; that one is the instructions.
 
 This branch fixed real, confirmed accessibility and correctness defects across 34

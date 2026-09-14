@@ -53,6 +53,13 @@ const App = () => (
 export default App;
 ```
 
+## Upgrading
+
+Upgrading from an earlier version? Install the same version of this package and
+`@dubai-design-system/components-js`, then read
+`node_modules/@dubai-design-system/components-js/MIGRATION.md`. It lists what to change when
+you come from 5.0.x, 4.1.0 or 3.x.
+
 ## License
 
 Copyright (c) 2018-2026 Digital Dubai. All rights reserved. An open-source license is under review and will be announced in a future release.
