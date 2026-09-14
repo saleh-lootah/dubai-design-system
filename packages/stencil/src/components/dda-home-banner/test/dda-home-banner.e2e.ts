@@ -340,3 +340,40 @@ describe('dda-home-banner slide text size', () => {
     expect(title).toBeLessThan(base * 2.25);
   });
 });
+
+describe('dda-home-banner slide controls and the quick-link cards', () => {
+  // The home layout: the banner fills the viewport and the quick-link cards sit over its bottom,
+  // raised by the sticky footer height that dda-sticky-footer publishes.
+  const layout = async (width: number, height: number) => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height });
+    await page.setContent(`
+      <style>:root { --dda-sticky-footer-height: 64px; } .home-intros { position: relative; }</style>
+      <div class="home-intros">
+        <dda-home-banner>
+          <slide><div class="slide-wrap"><div class="slide-content"><h2>One</h2></div></div></slide>
+          <slide><div class="slide-wrap"><div class="slide-content"><h2>Two</h2></div></div></slide>
+        </dda-home-banner>
+        <div class="quick-links-wrap"><div class="quick-links"><a class="link-item" href="#">Card</a></div></div>
+      </div>
+    `);
+    await page.waitForChanges();
+    return page.evaluate(() => ({
+      navBottom: document.querySelector('.slider-nav').getBoundingClientRect().bottom,
+      cardsTop: document.querySelector('.quick-links .link-item').getBoundingClientRect().top,
+    }));
+  };
+
+  for (const [width, height] of [
+    [1920, 1080],
+    [1366, 900],
+    [1280, 720],
+  ]) {
+    it(`keeps the slide controls above the cards at ${width}x${height}`, async () => {
+      const { navBottom, cardsTop } = await layout(width, height);
+
+      // Leave room for the cards' 12px hover lift.
+      expect(navBottom).toBeLessThanOrEqual(cardsTop - 12);
+    });
+  }
+});

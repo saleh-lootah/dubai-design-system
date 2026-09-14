@@ -468,3 +468,31 @@ describe('dda-header accessibility', () => {
     hrefs.forEach(href => expect(href).toBe('/'));
   });
 });
+
+describe('dda-header transparent gradient', () => {
+  it('does not block clicks on content under the gradient', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 844, height: 390 });
+    await page.setContent(`
+      <style>body { margin: 0; }</style>
+      <div class="transparent">
+        <dda-header></dda-header>
+        <button id="cta" style="position: absolute; top: 200px; left: 20px; height: 30px;">Apply</button>
+      </div>
+    `);
+    await page.waitForChanges();
+
+    const hit = await page.evaluate(() => {
+      const cta = document.getElementById('cta').getBoundingClientRect();
+      const gradient = getComputedStyle(document.querySelector('.dda-header'), '::before');
+      return {
+        gradientHeight: parseFloat(gradient.height),
+        topElement: document.elementFromPoint(cta.left + cta.width / 2, cta.top + cta.height / 2)?.id,
+      };
+    });
+
+    // The gradient still reaches over the button, but the click goes to the button.
+    expect(hit.gradientHeight).toBeGreaterThan(200);
+    expect(hit.topElement).toBe('cta');
+  });
+});

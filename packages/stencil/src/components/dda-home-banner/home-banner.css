@@ -105,7 +105,8 @@
   width: 100%;
   text-align: center;
   position: absolute;
-  bottom: 250px;
+  /* The quick-link cards over the banner rise by the sticky footer height, so the controls do too. */
+  bottom: calc(250px + var(--dda-sticky-footer-height, 0px));
   left: 0;
   display: flex;
   justify-content: center;

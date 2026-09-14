@@ -84,6 +84,13 @@ Fixes from an axe-core and accessibility-tree audit of a sample site built on th
   so most laptops showed a 19px hero title instead of the display size (36px at a 16px base).
   The rule now applies only to short landscape screens (600px tall or less), such as a phone on
   its side, where the full-height banner cannot fit the large title.
+- **dda-home-banner: the slide controls were hidden behind the quick-link cards.** The cards
+  rise by the sticky footer height (new in this release), but the previous/next/pause controls
+  and dots stayed at a fixed offset, so on large screens they sat under the white cards: invisible,
+  yet still clickable. The controls now rise by the same `--dda-sticky-footer-height`.
+- **dda-header: the transparent header gradient blocked taps.** Its 250px decorative gradient
+  reaches below the header and caught pointer events, so on short landscape screens the slide
+  call-to-action under it could not be clicked. The gradient now ignores pointer events.
 - **Crashes on missing data.** dda-credit-card no longer throws without `card_number` (it
   shows `****`) and renders the card-type image only when `card_type` is set.
   dda-horizontal-stepper, dda-vertical-stepper and dda-segmented-tabs no longer throw on a
