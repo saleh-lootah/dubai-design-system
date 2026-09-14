@@ -80,6 +80,13 @@ export class DdaHomeBanner {
     this.startAutoplay();
   }
 
+  componentDidLoad() {
+    // Non-<slide> children are ignored, which otherwise looks like a blank banner.
+    if (!this.slides.length) {
+      console.warn('dda-home-banner: no <slide> children found. Each slide must be a <slide> element; other children are not shown.');
+    }
+  }
+
   disconnectedCallback() {
     this.listening = false;
     this.observer?.disconnect();
