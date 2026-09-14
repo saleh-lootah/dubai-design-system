@@ -4,6 +4,78 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## 5.0.4 (2026-09-14)
+
+A bug-fix release. It fixes issues a consumer reported after upgrading to 5.0.3, and
+layout and API faults found while building a vanilla JS sample site against the published
+package. The two `dda-header` faults were also present in 3.12.x; they are fixed here, not
+newly introduced.
+
+### Bug Fixes
+
+- **dda-header: the top menu was invisible at the site root.** When
+  `location.pathname` was `/`, the header added the `transparent` class to its own
+  `<header>`. The link and icon rules matched and turned the menu white, but the background
+  rule needs a `.transparent` *ancestor* and never matched, so the header stayed white. The
+  quick links were white on white on every site's home page.
+- **dda-header: side-menu submenu links did not navigate.** Every link below the first level
+  of `side-menu-items` cancelled its click to toggle a submenu, including links with no
+  submenu. Those links now navigate. Links that open a submenu still toggle it.
+- **dda-banner: slides rendered unstyled.** The component shipped only
+  `:host { display: block }`, so slides stacked as bare images. They now sit in a horizontal
+  row that scrolls and snaps one slide at a time. Smooth scrolling is off under
+  `prefers-reduced-motion`.
+- **dda-banner: a missing or invalid `slides` attribute threw.** It now renders an empty
+  banner and logs no error.
+- **dda-horizontal-stepper: the active line ran past the stepper on the last step.** The
+  connector drawn after the active step has no next step to reach on the last one, so it
+  widened the page. The last step no longer draws it.
+- **dda-vertical-stepper: `current_step` was ignored.** The prop was `current_Step`, whose
+  HTML attribute is `current_-step`, so the `current_step` attribute used in the docs never
+  moved the active step. `current_step` is now a real prop. `current_Step` (and
+  `current_-step`) keep working as a deprecated alias; `current_step` wins when both are set.
+- **dda-number-field, dda-phonefield: the fields overflowed narrow containers.** The grouped
+  `<input>` kept its intrinsic width, so the number field's currency button sat outside the
+  field and the phone field grew past its grid cell. The input now shrinks to the space left.
+  The rule is in the shared `input.css`, so every grouped field benefits.
+- **dda-radiobutton: the circle was invisible without `size`.** It took its dimensions only
+  from `size="sm|md|lg"`. It now defaults to the `md` size (21px).
+- **dda-footer: the text under the logo was hardcoded.** It always read "Design outstanding
+  interfaces with advanced Figma features in a matter of minutes." It now comes from the new
+  `logo-description` attribute (`logoDescription` property).
+- **dda-toggle: the label text was hardcoded.** Every toggle showed "Radio Button Title" and
+  "Supporting Text". The text now comes from the new `title_text` and `supporting` props, the
+  names `dda-checkbox` and `dda-radiobutton` already use.
+- **dda-breadcrumb: the items could only be set with the `data-breadcrumbs` attribute.** It
+  was read once and was not a prop, so frameworks and scripts could not set the items as a
+  property, and later changes did not re-render. The new `breadcrumbs` prop takes an array or
+  a JSON string and re-renders when it changes. `data-breadcrumbs` still works when the prop is
+  not set, and invalid JSON renders no items instead of throwing.
+- **dda-sticky-footer: the fixed bar covered the home-page quick-link cards.**
+  `.quick-links-wrap` sat 45px above the bottom of the banner, less than the bar's height, so
+  at 1366×900 the bar hid the bottom 52px of the cards. The sticky footer now sets
+  `--dda-sticky-footer-height` on `:root`, and `.quick-links-wrap` adds it to its offset. Pages
+  without a sticky footer, and the stacked layout below 992px, keep the 45px offset.
+- **dda.css: Material icons in quick-link cards had no size.** `.quick-links .link-item` sized
+  only `svg` icons. Material Icons `<i>` glyphs now get the same size, spacing and color.
+
+### Behaviour Changes
+
+- **dda-header no longer chooses the transparent style from the URL.** To show the
+  transparent header over a dark hero, set the class on an ancestor, as the static templates
+  do: `<body class="transparent">`. The header now renders both the colored and the white
+  logo, and CSS shows the correct one. The old automatic style never showed a transparent
+  background, so no page that rendered correctly before changes.
+- **dda-home-banner logs a console warning when it finds no `<slide>` children.** Only
+  `<slide>` elements are shown; a banner built from `<div>` or card elements used to render
+  blank without a hint.
+- **dda-footer shows no text under the logo unless `logo-description` is set.** Sites that
+  kept the placeholder sentence lose it; set `logo-description` to show your own text.
+- **dda-toggle shows no label text unless `title_text` or `supporting` is set.** Set
+  `title_text` for a visible label, or keep `aria_label` for an accessible name only.
+- **dda-sticky-footer writes `--dda-sticky-footer-height` on `:root`** while it is on the
+  page, and removes it when it is removed.
+
 ## 5.0.3 (2026-09-08)
 
 An accessibility release for `dda-header`. The search and accessibility controls in the
