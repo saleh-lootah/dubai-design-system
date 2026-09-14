@@ -1,4 +1,5 @@
 import { Component, Prop,  State, h, Host, Event, EventEmitter } from '@stencil/core';
+import { uniqueId } from '../../utils/unique-id';
 
 @Component({
   tag: 'dda-creditcard-field',
@@ -8,7 +9,7 @@ import { Component, Prop,  State, h, Host, Event, EventEmitter } from '@stencil/
 export class DdaCreditCardField {
   /** Placeholder text of the input, e.g. `0000 - 0000 - 0000 - 0000`. */
   @Prop() placeholder: string;
-  /** Label text shown above the input. Linked to the input when `input_id` is set. */
+  /** Label text shown above the input. Linked to the input through `input_id` (or a generated id). */
   @Prop() label: string;
   /** Card number. Shown as groups of four digits separated by ` - `; the component updates it as the user types. Mutable: the component assigns it. */
   @Prop({ mutable: true }) value: string = '';
@@ -22,7 +23,7 @@ export class DdaCreditCardField {
   @Prop() size?: string;
   /** Adds the class `dda-input-<value>`. `disabled` gives only the disabled look; use `disabled` to disable the input. */
   @Prop() input_type?: string;
-  /** Helper text shown below the input. Linked by `aria-describedby` when `input_id` is set. */
+  /** Helper text shown below the input. Linked by `aria-describedby`. */
   @Prop() helper_text: string;
   /** Disables the input and applies the disabled look. */
   @Prop() disabled: boolean = false;
@@ -32,7 +33,7 @@ export class DdaCreditCardField {
   @Prop() restrict_input: boolean = false;
   /** Theme override class for the field, e.g. `light-mode`. */
   @Prop() component_mode?: string;
-  /** `id` of the inner `<input>`. Also used to link the label, helper text and error message. */
+  /** `id` of the inner `<input>`. Also used to link the label, helper text and error message. Optional: an id is generated when it is not set. */
   @Prop() input_id: string;
   /** Accessible name of the input. Use it when there is no visible `label`. */
   @Prop() aria_label?: string;
@@ -47,14 +48,22 @@ export class DdaCreditCardField {
 
   @State() formattedValue: string = '';
 
-  // F-016: ids derived from the consumer-supplied input_id, same pattern as
-  // dda-input/dda-select.
-  private get helperId(): string | undefined {
-    return this.input_id ? `${this.input_id}-helper` : undefined;
+  // Per-instance fallback, so the label, helper and error text stay linked
+  // to the input when the consumer omits input_id.
+  private readonly fallbackId = uniqueId('dda-creditcard-field');
+
+  // F-016: ids derived from the input id (the consumer-supplied input_id,
+  // or the generated fallback), same pattern as dda-input.
+  private get inputId(): string {
+    return this.input_id || this.fallbackId;
   }
 
-  private get errorId(): string | undefined {
-    return this.input_id ? `${this.input_id}-error` : undefined;
+  private get helperId(): string {
+    return `${this.inputId}-helper`;
+  }
+
+  private get errorId(): string {
+    return `${this.inputId}-error`;
   }
 
   private get describedBy(): string | undefined {
@@ -108,16 +117,17 @@ export class DdaCreditCardField {
       this.custom_class ? `${this.custom_class}` : '',
       this.component_mode, 
     ].filter(Boolean).join(' ');
+    const id = this.inputId;
 
     return (
       <Host>
         <div class={inputClass}>
-          {this.label && <label htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
+          {this.label && <label htmlFor={id} class="dda-input-label">{this.label}</label>}
           <div class="dda-input-field-wrapper">
             {this.card_icon && <img src={this.card_icon} alt="Card Icon" class="dda-creditcard-icon" />}
             <input
               aria-label={this.aria_label}
-              id={this.input_id}
+              id={id}
               name={this.input_name}
               type="text"
               inputmode="numeric"

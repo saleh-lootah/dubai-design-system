@@ -1,4 +1,5 @@
 import { Component, Prop, State, h, Host } from '@stencil/core';
+import { uniqueId } from '../../utils/unique-id';
 
 @Component({
   tag: 'dda-number-field',
@@ -8,7 +9,7 @@ import { Component, Prop, State, h, Host } from '@stencil/core';
 export class DdaNumberField {
   /** Placeholder text of the amount input. */
   @Prop() placeholder: string;
-  /** Visible label text, linked to the amount input through `input_id`. */
+  /** Visible label text, linked to the amount input through `input_id` (or a generated id). */
   @Prop() label: string;
   /** Initial value of the amount input. Characters other than digits and `.` are removed as the user types. */
   @Prop() value: string;
@@ -31,7 +32,7 @@ export class DdaNumberField {
   @Prop() custom_class?: string = '';
   /** Theme override class for the field, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
-  /** `id` of the amount input. Also used for the label `for` and the helper and error text ids. */
+  /** `id` of the amount input. Also used for the label `for` and the helper and error text ids. Optional: an id is generated when it is not set. */
   @Prop() input_id: string;
   /** Accessible name of the amount input. Use it when there is no visible label. */
   @Prop() aria_label?: string;
@@ -77,14 +78,22 @@ export class DdaNumberField {
     }
   }
 
-  // F-016: ids derived from the consumer-supplied input_id, same pattern as
-  // dda-input/dda-select.
-  private get helperId(): string | undefined {
-    return this.input_id ? `${this.input_id}-helper` : undefined;
+  // Per-instance fallback, so the label, helper and error text stay linked
+  // to the amount input when the consumer omits input_id.
+  private readonly fallbackId = uniqueId('dda-number-field');
+
+  // F-016: ids derived from the amount input id (the consumer-supplied input_id,
+  // or the generated fallback), same pattern as dda-input.
+  private get inputId(): string {
+    return this.input_id || this.fallbackId;
   }
 
-  private get errorId(): string | undefined {
-    return this.input_id ? `${this.input_id}-error` : undefined;
+  private get helperId(): string {
+    return `${this.inputId}-helper`;
+  }
+
+  private get errorId(): string {
+    return `${this.inputId}-error`;
   }
 
   private get describedBy(): string | undefined {
@@ -106,14 +115,15 @@ export class DdaNumberField {
       this.custom_class ? `${this.custom_class}` : '',
       this.component_mode,
     ].filter(Boolean).join(' ');
+    const id = this.inputId;
 
     return (
       <Host>
         <div class={containerClass}>
-          {this.label && <label htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
+          {this.label && <label htmlFor={id} class="dda-input-label">{this.label}</label>}
           <div class="dda-input-field-group dda-number-field">
             <input
-              id={this.input_id}
+              id={id}
               name={this.input_name}
               aria-label={this.aria_label}
               type="text"

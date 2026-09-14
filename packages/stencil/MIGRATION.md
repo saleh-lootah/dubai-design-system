@@ -170,6 +170,14 @@ the top of the page.
   page outline, and target `.dda-card-title`, not `h1`.
 - `dda-header` logo links go to `/` instead of `#`. Set `first-logo-href` and
   `second-logo-href`, especially if your site is served under a subpath, where `/` leaves it. The ReadSpeaker item shows only when `read-speaker-link` is set.
+- `dda-phonefield` renders `type="tel"`, not `type="number"`, and `autocomplete` defaults to
+  `tel-national`. Code that read `valueAsNumber` or relied on the number spinner must read the
+  string value instead; set `autocomplete="tel"` to keep the old hint.
+- `dda-select` and `dda-dropdown` labels have no `for` attribute any more; the trigger is named
+  with `aria-labelledby`. Clicking the label still opens the list. `dda-range-slider` inputs are
+  wrapped in `<span>`, not `<label>`.
+- `dda-attach-file` always renders its file input (visually hidden). Selectors that assumed
+  the input disappears after a file is chosen must change.
 - Icon-only buttons now have English default names ("Close", "Remove", "Clear search",
   "Previous page", "Next page", "Menu"). On an Arabic page, set the matching `*_label` props.
 

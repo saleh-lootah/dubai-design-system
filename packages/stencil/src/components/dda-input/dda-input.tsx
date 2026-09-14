@@ -1,4 +1,5 @@
 import { Component, Prop, h, Host } from '@stencil/core';
+import { uniqueId } from '../../utils/unique-id';
 
 @Component({
   tag: 'dda-input',
@@ -6,7 +7,7 @@ import { Component, Prop, h, Host } from '@stencil/core';
   shadow: false,
 })
 export class DdaInput {
-  /** Visible label text, linked to the input through `input_id`. */
+  /** Visible label text, linked to the input through `input_id` (or a generated id). */
   @Prop() label: string;
   /** Placeholder text of the inner `<input>`. */
   @Prop() placeholder: string;
@@ -28,7 +29,7 @@ export class DdaInput {
   @Prop() custom_class?: string;
   /** Theme override class for the field, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
-  /** `id` of the inner `<input>`. Also used for the label `for` and the helper and error text ids. */
+  /** `id` of the inner `<input>`. Also used for the label `for` and the helper and error text ids. Optional: an id is generated when it is not set. */
   @Prop() input_id: string;
   /** Accessible name of the inner `<input>`. Use it when there is no visible label. */
   @Prop() aria_label?: string;
@@ -39,16 +40,22 @@ export class DdaInput {
     this.value = event.target.value;
   }
 
-  // F-016: ids are derived from the consumer-supplied input_id, the same
-  // pattern dda-select's listboxId already relies on for uniqueness. If a
-  // consumer omits input_id, no id-based association is emitted at all
-  // (rather than colliding on a shared literal id across instances).
-  private get helperId(): string | undefined {
-    return this.input_id ? `${this.input_id}-helper` : undefined;
+  // Per-instance fallback, so the label, helper and error text stay linked
+  // to the input when the consumer omits input_id.
+  private readonly fallbackId = uniqueId('dda-input');
+
+  // F-016: ids are derived from the input id (the consumer-supplied input_id,
+  // or the generated fallback), so they never collide across instances.
+  private get inputId(): string {
+    return this.input_id || this.fallbackId;
   }
 
-  private get errorId(): string | undefined {
-    return this.input_id ? `${this.input_id}-error` : undefined;
+  private get helperId(): string {
+    return `${this.inputId}-helper`;
+  }
+
+  private get errorId(): string {
+    return `${this.inputId}-error`;
   }
 
   private get describedBy(): string | undefined {
@@ -71,14 +78,15 @@ export class DdaInput {
       this.component_mode,
       this.input_name,
     ].filter(Boolean).join(' ');
+    const id = this.inputId;
     
     return (
       <Host>
         <div class={inputClass}>
-          {this.label && <label htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
+          {this.label && <label htmlFor={id} class="dda-input-label">{this.label}</label>}
           <input
             aria-label={this.aria_label}
-            id={this.input_id}
+            id={id}
             name={this.input_name}
             type={this.type}
             placeholder={this.placeholder}

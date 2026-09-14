@@ -1,5 +1,6 @@
 import { Component, Prop, State, h, Host } from '@stencil/core';
 import { CountriesList } from '../../assets/countries';
+import { uniqueId } from '../../utils/unique-id';
 
 @Component({
   tag: 'dda-phonefield',
@@ -31,11 +32,11 @@ export class DdaPhoneField {
   @Prop() custom_class: string;
   /** Theme override class for the field, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
-  /** `id` of the phone input. Also used for the label `for` and the helper and error text ids. */
+  /** `id` of the phone input. Also used for the label `for` and the helper and error text ids. When it is not set, the component generates a unique id. */
   @Prop() input_id?: string;
   /** Accessible name of the phone input. Use it when there is no visible label. */
   @Prop() aria_label: string;
-  /** `id` set on each country option button in the open list. */
+  /** Prefix of the country option button ids in the open list. Each option gets `<button_id>-<index>`. When it is not set, the prefix comes from the input id. */
   @Prop() button_id?: string;
   /** Accessible name set on each country option button in the open list. */
   @Prop() button_aria_label: string;
@@ -49,17 +50,25 @@ export class DdaPhoneField {
   @Prop() phone_input_name: string;
   // F-018 (WCAG 1.3.5): telephone is exactly the field type autocomplete
   // exists for. Default to the correct token; still overridable.
-  /** `autocomplete` token of the phone input. Defaults to `tel`. */
-  @Prop() autocomplete: string = 'tel';
+  // The country code is chosen separately, so the input holds the national
+  // number only: `tel-national` fits it better than `tel`.
+  /** `autocomplete` token of the phone input. Defaults to `tel-national`, because the country code is chosen separately. */
+  @Prop() autocomplete: string = 'tel-national';
 
-  // F-016: ids derived from the consumer-supplied input_id, same pattern as
-  // dda-input/dda-select.
-  private get helperId(): string | undefined {
-    return this.input_id ? `${this.input_id}-helper` : undefined;
+  // Fallback id so the label is never orphaned when no input_id is passed.
+  private readonly fallbackId = uniqueId('dda-phonefield');
+
+  private get inputId(): string {
+    return this.input_id || this.fallbackId;
   }
 
-  private get errorId(): string | undefined {
-    return this.input_id ? `${this.input_id}-error` : undefined;
+  // F-016: ids derived from the input id, same pattern as dda-input/dda-select.
+  private get helperId(): string {
+    return `${this.inputId}-helper`;
+  }
+
+  private get errorId(): string {
+    return `${this.inputId}-error`;
   }
 
   private get describedBy(): string | undefined {
@@ -102,15 +111,21 @@ export class DdaPhoneField {
   handlephonenumberChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const targetvalue = target.value.replace(/[^0-9.]/g, '');
+    // type="tel" does not block other characters, so write the filtered
+    // value back. Leading zeros are digits and stay.
+    if (target.value !== targetvalue) {
+      target.value = targetvalue;
+    }
     this.phone_number = targetvalue;
     }
 
   render() {
     const inputClass = `${this.component_mode} ${this.size ? `dda-input-size-${this.size}` : ''} ${this.error_message ? `dda-error-message` : ''}  ${this.validation_type ? `dda-validation-${this.validation_type}` : ''}  ${this.is_focused ? 'dda-input-focus' : ''} ${this.phone_number ? 'dda-input-focus-filled' : '' }`;
+    const id = this.inputId;
     return (
       <Host>
         <div class={`dda-input-container ${inputClass} ${this.custom_class} ${this.disabled ? 'dda-input-disabled' : ''}`}>
-          {this.label && <label htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
+          {this.label && <label htmlFor={id} class="dda-input-label">{this.label}</label>}
           <div class={`dda-input-field-group dda-phone-field`}>
             <div class="dda-input-dropdown-btn">
               <button type="button" name={this.toggle_button_name}  class="dda-dropdown-select" aria-label={this.toggle_button_label ? `${this.toggle_button_label}: ${this.country_code}` : undefined} aria-expanded={this.dropdown_open ? 'true' : 'false'} onClick={() => this.toggleDropdown()}>
@@ -118,8 +133,8 @@ export class DdaPhoneField {
               </button>
               {this.dropdown_open && (
                 <div class="dda-input-dropdown-list">
-                  {this.countries.map(country => (
-                    <button id={this.button_id} name={this.country_select_button_name} aria-label={this.button_aria_label} type="button" class="dda-input-dropdown-item" onClick={() => this.selectCountry(country)}>
+                  {this.countries.map((country, index) => (
+                    <button id={`${this.button_id || `${id}-country`}-${index}`} name={this.country_select_button_name} aria-label={this.button_aria_label} type="button" class="dda-input-dropdown-item" onClick={() => this.selectCountry(country)}>
                       <img src={country.flag} alt="" width="20" /> {country.code}
                     </button>
                   ))}
@@ -127,13 +142,13 @@ export class DdaPhoneField {
               )}
             </div>
             <input
-              id={this.input_id}
+              id={id}
               name={this.phone_input_name}
               aria-label={this.aria_label}
-              type="number"
+              type="tel"
               class={`dda-field-group-input`}
               placeholder={this.placeholder}
-              inputmode='numeric'
+              inputmode='tel'
               pattern={"[0-9]*"}
               autocomplete={this.autocomplete}
               value={this.phone_number}

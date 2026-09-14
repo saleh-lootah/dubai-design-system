@@ -133,3 +133,7 @@ import { DdaRangeSlider } from '@dubai-design-system/components-vue';
   component loads does not move the handles.
 - The value labels always end with `%`, so the slider suits percentage ranges best.
 - Set `left_aria_label` and `right_aria_label` so screen reader users can tell the two handles apart.
+  If you do not set them, the handles are named `Minimum` and `Maximum`. Set them in the language
+  of the page.
+- If you do not set `left_input_id` and `right_input_id`, the component generates unique ids for
+  the two range inputs.

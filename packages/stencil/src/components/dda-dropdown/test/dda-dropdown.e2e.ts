@@ -1,4 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
+import type { E2EPage } from '@stencil/core/testing';
+import type { Page } from 'puppeteer';
 
 // Task 9d — F-021: `.dda-dropdown-container.bg-transparent .dda-dropdown-header`
 // (global/input.css) sets `box-shadow: none` unconditionally at higher
@@ -148,5 +150,103 @@ describe('dda-dropdown optionSelect', () => {
     await page.waitForChanges();
 
     expect(spy).not.toHaveReceivedEvent();
+  });
+});
+
+// WCAG 1.3.1/4.1.2 (WAVE "Orphaned form label"): without button_id the label
+// got for="". label[for] also replaced the button text as its name, so the
+// selected option was not announced.
+describe('dda-dropdown label wiring', () => {
+  const OPTIONS = '["Edit","Download","Delete"]';
+
+  const readWiring = () =>
+    Array.from(document.querySelectorAll('dda-dropdown')).map((host) => {
+      const label = host.querySelector('label.dda-input-label');
+      const button = host.querySelector('.dda-dropdown-header');
+      return {
+        labelId: label.id,
+        labelFor: label.getAttribute('for'),
+        buttonId: button.id,
+        labelledBy: button.getAttribute('aria-labelledby'),
+      };
+    });
+
+  // Name of the button from Chrome's accessibility tree.
+  const buttonName = async (page: E2EPage) => {
+    const puppeteerPage = page as unknown as Page;
+    const button = await puppeteerPage.$('dda-dropdown .dda-dropdown-header');
+    const snapshot = await puppeteerPage.accessibility.snapshot({ root: button, interestingOnly: false });
+    return snapshot?.name;
+  };
+
+  it('generates unique, non-empty ids when button_id is not set', async () => {
+    const page = await newE2EPage();
+    await page.setContent(
+      `<dda-dropdown label="Sort" options='${OPTIONS}'></dda-dropdown><dda-dropdown label="Filter" options='${OPTIONS}'></dda-dropdown>`,
+    );
+
+    const wiring = await page.evaluate(readWiring);
+
+    expect(wiring).toHaveLength(2);
+    wiring.forEach((w) => {
+      expect(w.buttonId).toBeTruthy();
+      expect(w.labelId).toBe(`${w.buttonId}-label`);
+      expect(w.labelledBy).toBe(`${w.buttonId}-label ${w.buttonId}`);
+      expect(w.labelFor).toBeNull();
+      expect(`${w.buttonId} ${w.labelId} ${w.labelledBy}`).not.toContain('undefined');
+    });
+    expect(wiring[0].buttonId).not.toBe(wiring[1].buttonId);
+  });
+
+  it('uses button_id when it is set', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-dropdown button_id="sort" label="Sort" options='${OPTIONS}'></dda-dropdown>`);
+
+    const wiring = await page.evaluate(readWiring);
+
+    expect(wiring).toEqual([{ labelId: 'sort-label', labelFor: null, buttonId: 'sort', labelledBy: 'sort-label sort' }]);
+  });
+
+  it('does not add aria-labelledby when there is no visible label', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-dropdown button_id="sort" aria_label="Sort" options='${OPTIONS}'></dda-dropdown>`);
+
+    const attrs = await page.evaluate(() => {
+      const button = document.querySelector('dda-dropdown .dda-dropdown-header');
+      return { labelledBy: button.getAttribute('aria-labelledby'), label: button.getAttribute('aria-label') };
+    });
+
+    expect(attrs).toEqual({ labelledBy: null, label: 'Sort' });
+  });
+
+  it('names the button with the label and the selected option', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-dropdown label="Sort" options='${OPTIONS}'></dda-dropdown>`);
+
+    expect(await buttonName(page)).toBe('Sort Select an option');
+
+    await page.click('dda-dropdown .dda-dropdown-header');
+    await page.waitForChanges();
+    const items = await page.findAll('dda-dropdown .dda-input-dropdown-list .dda-input-dropdown-item');
+    await items[1].click();
+    await page.waitForChanges();
+
+    expect(await buttonName(page)).toBe('Sort Download');
+  });
+
+  it('opens the list and focuses the button when the label is clicked', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-dropdown label="Sort" options='${OPTIONS}'></dda-dropdown>`);
+
+    await page.click('dda-dropdown label.dda-input-label');
+    await page.waitForChanges();
+
+    const result = await page.evaluate(() => ({
+      expanded: document.querySelector('dda-dropdown .dda-dropdown-header').getAttribute('aria-expanded'),
+      focusedCls: (document.activeElement as HTMLElement).className,
+    }));
+
+    expect(result.expanded).toBe('true');
+    expect(result.focusedCls).toContain('dda-dropdown-header');
   });
 });

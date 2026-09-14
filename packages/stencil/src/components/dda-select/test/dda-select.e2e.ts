@@ -1,4 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
+import type { E2EPage } from '@stencil/core/testing';
+import type { Page } from 'puppeteer';
 
 // Task 9d — F-021: dda-select's trigger button carries class
 // `dda-input-field dda-select-header`, so it routes through the same
@@ -472,5 +474,122 @@ describe('dda-select selectionChange', () => {
     await page.waitForChanges();
 
     expect(spy).not.toHaveReceivedEvent();
+  });
+});
+
+// WCAG 1.3.1/4.1.2 (WAVE "Orphaned form label"): without button_id the label
+// got for="" and the list id became "undefined-listbox". label[for] also
+// replaced the trigger text as its name, so the selected value was not announced.
+describe('dda-select label wiring', () => {
+  const readWiring = () =>
+    Array.from(document.querySelectorAll('dda-select')).map((host) => {
+      const label = host.querySelector('label.dda-input-label');
+      const trigger = host.querySelector('.dda-select-header');
+      return {
+        labelId: label.id,
+        labelFor: label.getAttribute('for'),
+        triggerId: trigger.id,
+        labelledBy: trigger.getAttribute('aria-labelledby'),
+      };
+    });
+
+  // Name of the trigger from Chrome's accessibility tree.
+  const triggerName = async (page: E2EPage) => {
+    const puppeteerPage = page as unknown as Page;
+    const trigger = await puppeteerPage.$('dda-select .dda-select-header');
+    const snapshot = await puppeteerPage.accessibility.snapshot({ root: trigger, interestingOnly: false });
+    return snapshot?.name;
+  };
+
+  it('generates unique, non-empty ids when button_id is not set', async () => {
+    const page = await newE2EPage();
+    await page.setContent(
+      `<dda-select label="City" options='${OPTIONS}' helper_text="Pick one"></dda-select><dda-select label="Size" options='${OPTIONS}'></dda-select>`,
+    );
+
+    const wiring = await page.evaluate(readWiring);
+
+    expect(wiring).toHaveLength(2);
+    wiring.forEach((w) => {
+      expect(w.triggerId).toBeTruthy();
+      expect(w.labelId).toBe(`${w.triggerId}-label`);
+      expect(w.labelledBy).toBe(`${w.triggerId}-label ${w.triggerId}`);
+      expect(w.labelFor).toBeNull();
+      expect(`${w.triggerId} ${w.labelId} ${w.labelledBy}`).not.toContain('undefined');
+    });
+    expect(wiring[0].triggerId).not.toBe(wiring[1].triggerId);
+
+    const describedBy = await page.evaluate(() => document.querySelector('dda-select .dda-select-header').getAttribute('aria-describedby'));
+    expect(describedBy).toBe(`${wiring[0].triggerId}-helper`);
+  });
+
+  it('builds the listbox id from the generated id', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select label="City" options='${OPTIONS}'></dda-select>`);
+
+    await page.click('dda-select .dda-select-header');
+    await page.waitForChanges();
+
+    const result = await page.evaluate(() => {
+      const trigger = document.querySelector('dda-select .dda-select-header');
+      const controls = trigger.getAttribute('aria-controls');
+      return { triggerId: trigger.id, controls, listboxRole: document.getElementById(controls)?.getAttribute('role') };
+    });
+
+    expect(result.controls).toBe(`${result.triggerId}-listbox`);
+    expect(result.controls).not.toContain('undefined');
+    expect(result.listboxRole).toBe('listbox');
+  });
+
+  it('uses button_id when it is set', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="size" label="Size" options='${OPTIONS}'></dda-select>`);
+
+    const wiring = await page.evaluate(readWiring);
+
+    expect(wiring).toEqual([{ labelId: 'size-label', labelFor: null, triggerId: 'size', labelledBy: 'size-label size' }]);
+  });
+
+  it('does not add aria-labelledby when there is no visible label', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select button_id="size" aria_label="Size" options='${OPTIONS}'></dda-select>`);
+
+    const attrs = await page.evaluate(() => {
+      const trigger = document.querySelector('dda-select .dda-select-header');
+      return { labelledBy: trigger.getAttribute('aria-labelledby'), label: trigger.getAttribute('aria-label') };
+    });
+
+    expect(attrs).toEqual({ labelledBy: null, label: 'Size' });
+  });
+
+  it('names the trigger with the label and the current text', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select label="Size" options='${OPTIONS}'></dda-select>`);
+
+    expect(await triggerName(page)).toBe('Size Select an option');
+
+    await page.click('dda-select .dda-select-header');
+    await page.waitForChanges();
+    const options = await page.findAll('dda-select [role="option"]');
+    await options[2].click();
+    await page.waitForChanges();
+
+    expect(await triggerName(page)).toBe('Size Large');
+  });
+
+  it('opens the list and focuses the trigger when the label is clicked', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-select label="Size" options='${OPTIONS}'></dda-select>`);
+
+    await page.click('dda-select label.dda-input-label');
+    await page.waitForChanges();
+
+    const result = await page.evaluate(() => ({
+      expanded: document.querySelector('dda-select .dda-select-header').getAttribute('aria-expanded'),
+      focusedCls: (document.activeElement as HTMLElement).className,
+    }));
+
+    expect(result.expanded).toBe('true');
+    expect(result.focusedCls).toContain('dda-select-header');
   });
 });

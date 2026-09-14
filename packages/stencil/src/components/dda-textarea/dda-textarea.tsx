@@ -1,6 +1,7 @@
 import { Component, Prop, h, Host, Element, State } from '@stencil/core';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
+import { uniqueId } from '../../utils/unique-id';
 
 @Component({
   tag: 'dda-textarea',
@@ -10,7 +11,7 @@ import 'quill/dist/quill.snow.css';
 export class DdaTextarea {
   /** Placeholder text of the textarea or the rich text editor. */
   @Prop() placeholder: string;
-  /** Visible label text, linked to the field through `input_id`. */
+  /** Visible label text, linked to the field through `input_id` (or a generated id). */
   @Prop() label: string;
   /** Value of the textarea. Updates as the user types; in rich text mode it holds the editor HTML. */
   @Prop() value: string = '';
@@ -30,7 +31,7 @@ export class DdaTextarea {
   @Prop() max_characters: number;
   /** Theme override class for the field, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
-  /** `id` of the textarea or editor. Also used for the label and the helper and error text ids. */
+  /** `id` of the textarea or editor. Also used for the label and the helper and error text ids. Optional: an id is generated when it is not set. */
   @Prop() input_id: string;
   /** Accessible name of the textarea. Use it when there is no visible label. */
   @Prop() aria_label?: string;
@@ -43,19 +44,27 @@ export class DdaTextarea {
 
   private quill: Quill;
 
-  // F-016: ids derived from the consumer-supplied input_id (same pattern as
-  // dda-input/dda-select). F-015: the rich-editor container also needs a
+  // Per-instance fallback, so the label, helper and error text stay linked
+  // to the field when the consumer omits input_id.
+  private readonly fallbackId = uniqueId('dda-textarea');
+
+  // F-016: ids derived from the field id (the consumer-supplied input_id, or
+  // the generated fallback). F-015: the rich-editor container also needs a
   // stable label id to point aria-labelledby at.
-  private get labelId(): string | undefined {
-    return this.input_id ? `${this.input_id}-label` : undefined;
+  private get inputId(): string {
+    return this.input_id || this.fallbackId;
   }
 
-  private get helperId(): string | undefined {
-    return this.input_id ? `${this.input_id}-helper` : undefined;
+  private get labelId(): string {
+    return `${this.inputId}-label`;
   }
 
-  private get errorId(): string | undefined {
-    return this.input_id ? `${this.input_id}-error` : undefined;
+  private get helperId(): string {
+    return `${this.inputId}-helper`;
+  }
+
+  private get errorId(): string {
+    return `${this.inputId}-error`;
   }
 
   private get describedBy(): string | undefined {
@@ -82,7 +91,8 @@ export class DdaTextarea {
     editorEl.setAttribute('role', 'textbox');
     editorEl.setAttribute('aria-multiline', 'true');
 
-    if (this.labelId) {
+    // The label element (and so its id) only exists when `label` is set.
+    if (this.label) {
       editorEl.setAttribute('aria-labelledby', this.labelId);
     } else {
       editorEl.removeAttribute('aria-labelledby');
@@ -104,7 +114,7 @@ export class DdaTextarea {
   componentDidLoad() {
     if (this.enable_rich_editor) {
       // F-015: was `#editor` — the id is now the consumer-supplied
-      // input_id (possibly undefined), so target the stable class instead.
+      // input_id or a generated one, so target the stable class instead.
       const editor = this.el.querySelector('.dda-richeditor-field') as HTMLElement;
       this.quill = new Quill(editor, {
         modules: {
@@ -161,11 +171,13 @@ export class DdaTextarea {
       this.input_status ? `dda-input-${this.input_status}` : '',
         this.custom_class, this.component_mode, this.textarea_name,
     ].filter(Boolean).join(' ');
+    const id = this.inputId;
 
     return (
       <Host>
         <div class={textareaClass}>
-          {this.label && <label id={this.labelId} htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
+          {/* The rich editor is a <div>, so it is named with aria-labelledby, not the label's for. */}
+          {this.label && <label id={this.labelId} htmlFor={this.enable_rich_editor ? undefined : id} class="dda-input-label">{this.label}</label>}
           {this.enable_rich_editor ? (
             // F-015: previously a bare `<div id="editor">` — the visible
             // label's `for` cannot target a non-labelable <div>, and even
@@ -175,12 +187,12 @@ export class DdaTextarea {
             // land on. The ARIA lives on quill.root (.ql-editor), applied
             // imperatively in syncRichEditorA11y() after mount.
             <div
-              id={this.input_id}
+              id={id}
               class="dda-richeditor-field"
             ></div>
           ) : (
             <textarea
-              id={this.input_id}
+              id={id}
               name={this.textarea_name}
               aria-label={this.aria_label}
               placeholder={this.placeholder}

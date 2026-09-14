@@ -600,8 +600,30 @@
     background-color: var(--dda-surface-94);
 }
 
-.dda-file-choose input {
-    display: none;
+/*
+ * WCAG 2.1.1 / 4.1.2: the native file input was `display: none`, so it was
+ * out of the tab order and the accessibility tree. It is now visually hidden
+ * but focusable; keyboard focus shows the ring on the visible control after
+ * it ("Choose File", or the chosen file's details).
+ */
+.dda-attach-file input[type='file'] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+    opacity: 0;
+}
+
+.dda-attach-file input[type='file']:focus-visible + .dda-file-input .dda-file-choose,
+.dda-attach-file input[type='file']:focus-visible + .dda-file-details {
+    outline: none;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
 
 .dda-file-details {

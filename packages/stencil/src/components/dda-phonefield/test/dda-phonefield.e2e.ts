@@ -52,9 +52,10 @@ describe('dda-phonefield F-016 error labelling', () => {
 });
 
 // F-018: telephone is exactly the field type WCAG 1.3.5 calls out for
-// autocomplete="tel" — no autocomplete prop existed at all.
+// autocomplete — no autocomplete prop existed at all. The country code is
+// chosen separately, so the default token is the national number.
 describe('dda-phonefield F-018 autocomplete', () => {
-  it('defaults the phone input to autocomplete="tel"', async () => {
+  it('defaults the phone input to autocomplete="tel-national"', async () => {
     const page = await newE2EPage();
     await page.setContent('<dda-phonefield input_id="input" button_id="button"></dda-phonefield>');
 
@@ -62,20 +63,20 @@ describe('dda-phonefield F-018 autocomplete', () => {
       () => document.querySelector('dda-phonefield .dda-field-group-input').getAttribute('autocomplete')
     );
 
-    expect(autocomplete).toBe('tel');
+    expect(autocomplete).toBe('tel-national');
   });
 
   it('lets a consumer override autocomplete', async () => {
     const page = await newE2EPage();
     await page.setContent(
-      '<dda-phonefield input_id="input" button_id="button" autocomplete="tel-national"></dda-phonefield>'
+      '<dda-phonefield input_id="input" button_id="button" autocomplete="tel"></dda-phonefield>'
     );
 
     const autocomplete = await page.evaluate(
       () => document.querySelector('dda-phonefield .dda-field-group-input').getAttribute('autocomplete')
     );
 
-    expect(autocomplete).toBe('tel-national');
+    expect(autocomplete).toBe('tel');
   });
 });
 
@@ -178,4 +179,103 @@ describe('dda-phonefield placeholder contrast (WCAG 1.4.3)', () => {
       expect(contrastRatio(colors.placeholder, colors.background)).toBeGreaterThanOrEqual(4.5);
     });
   }
+});
+
+// WCAG 1.3.1/4.1.2 (WAVE "Orphaned form label"): without input_id the label
+// got for="" and the input had no id.
+describe('dda-phonefield label wiring', () => {
+  const readWiring = () =>
+    Array.from(document.querySelectorAll('dda-phonefield')).map((host) => {
+      const label = host.querySelector('label.dda-input-label');
+      const input = host.querySelector('.dda-field-group-input');
+      return { labelFor: label.getAttribute('for'), inputId: input.id };
+    });
+
+  it('links the label to the input with a generated id when input_id is not set', async () => {
+    const page = await newE2EPage();
+    await page.setContent(
+      '<dda-phonefield label="Mobile" helper_text="Help"></dda-phonefield><dda-phonefield label="Home"></dda-phonefield>',
+    );
+
+    const wiring = await page.evaluate(readWiring);
+    const describedBy = await page.evaluate(() =>
+      document.querySelector('dda-phonefield .dda-field-group-input').getAttribute('aria-describedby'),
+    );
+
+    expect(wiring).toHaveLength(2);
+    wiring.forEach((w) => {
+      expect(w.inputId).toBeTruthy();
+      expect(w.inputId).not.toContain('undefined');
+      expect(w.labelFor).toBe(w.inputId);
+    });
+    expect(wiring[0].inputId).not.toBe(wiring[1].inputId);
+    expect(describedBy).toBe(`${wiring[0].inputId}-helper`);
+  });
+
+  it('uses input_id when it is set', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-phonefield input_id="mobile" label="Mobile"></dda-phonefield>');
+
+    const wiring = await page.evaluate(readWiring);
+
+    expect(wiring).toEqual([{ labelFor: 'mobile', inputId: 'mobile' }]);
+  });
+
+  it('gives each country option a unique id without "undefined"', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-phonefield label="Mobile"></dda-phonefield>');
+    await page.click('dda-phonefield .dda-dropdown-select');
+    await page.waitForChanges();
+
+    const ids = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('dda-phonefield .dda-input-dropdown-item')).map((b) => b.id),
+    );
+
+    expect(ids.length).toBeGreaterThan(1);
+    expect(new Set(ids).size).toBe(ids.length);
+    ids.forEach((id) => {
+      expect(id).toBeTruthy();
+      expect(id).not.toContain('undefined');
+    });
+  });
+});
+
+// A type="number" input is a spinbutton: arrow keys change the value and
+// leading zeros are lost.
+describe('dda-phonefield input type', () => {
+  it('renders a tel input with inputmode="tel"', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-phonefield label="Mobile"></dda-phonefield>');
+
+    const attrs = await page.evaluate(() => {
+      const input = document.querySelector('dda-phonefield .dda-field-group-input');
+      return { type: input.getAttribute('type'), inputmode: input.getAttribute('inputmode') };
+    });
+
+    expect(attrs).toEqual({ type: 'tel', inputmode: 'tel' });
+  });
+
+  it('keeps the leading zero when the user types a number', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-phonefield label="Mobile"></dda-phonefield>');
+
+    await page.type('dda-phonefield .dda-field-group-input', '0501234567');
+    await page.waitForChanges();
+
+    const value = await page.evaluate(() => (document.querySelector('dda-phonefield .dda-field-group-input') as HTMLInputElement).value);
+
+    expect(value).toBe('0501234567');
+  });
+
+  it('removes characters that are not digits', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-phonefield label="Mobile"></dda-phonefield>');
+
+    await page.type('dda-phonefield .dda-field-group-input', '05a0');
+    await page.waitForChanges();
+
+    const value = await page.evaluate(() => (document.querySelector('dda-phonefield .dda-field-group-input') as HTMLInputElement).value);
+
+    expect(value).toBe('050');
+  });
 });

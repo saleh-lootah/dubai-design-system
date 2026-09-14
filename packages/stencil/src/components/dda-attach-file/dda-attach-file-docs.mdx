@@ -115,9 +115,14 @@ const onFile = event => console.log(event.target.files?.[0]);
 
 ## Notes
 
-- Keep the file from the `input` event. After a file is chosen, the component removes the
-  file input from the page, so a native form submit does not include the file.
+- The file input stays on the page after a file is chosen, so a native form submit includes the
+  file (set `input_name`). The remove button clears the file input. You can also keep the file
+  from the `input` event.
 - The file icon matches the file extension: `pdf`, `pptx`, `docx`, `xlsx`, `png`, `jpg`,
   `jpeg`, `mp4`, `mkv` and `one`.
-- Set `input_id` so the label, helper text and error message are linked to the file input.
+- `input_id` is optional. The label, helper text and error message are linked to the file input
+  through it. Without `input_id` the component generates a unique id, so these links still work.
+  Set `input_id` when your own code or CSS needs a known id.
+- The file input is visually hidden but stays in the tab order. When it has keyboard focus, the
+  "Choose File" control shows a focus ring. Press Space or Enter to open the file picker.
 - Set `button_aria_label` so the icon-only remove button has an accessible name.

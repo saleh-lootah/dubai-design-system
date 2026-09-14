@@ -135,7 +135,9 @@ Set `has_error` for the error colors and `error_message` for the message.
 
 ## Accessibility
 
-- Always set `input_id`. The label `for`, and the ids of the helper and error text, come from it.
+- `input_id` is optional. The label `for`, and the ids of the helper and error text, come from it.
+  Without `input_id` the component generates a unique id, so the label stays linked to the input.
+  Set `input_id` when your own code or CSS needs a known id.
 - The clear button shows only an icon. Its accessible name comes from `clear_button_label`
   (default `Clear search`). Set it in the language of the page. `button_aria_label` wins when set.
 - `helper_text` and `error_message` are linked to the input with `aria-describedby`.

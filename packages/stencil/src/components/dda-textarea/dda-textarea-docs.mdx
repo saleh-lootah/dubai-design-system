@@ -146,7 +146,9 @@ not used. The editor is not a form field, so copy `value` into your form data yo
 
 ## Accessibility
 
-- Always set `input_id`. The label and the ids of the helper and error text come from it.
+- `input_id` is optional. The label and the ids of the helper and error text come from it.
+  Without `input_id` the component generates a unique id, so the label stays linked to the field.
+  Set `input_id` when your own code or CSS needs a known id.
 - `helper_text` and `error_message` are linked to the field with `aria-describedby`.
   When `error_message` is set, the field also gets `aria-invalid="true"`.
 - In rich text mode the editable area gets `role="textbox"`, `aria-multiline="true"` and is labelled

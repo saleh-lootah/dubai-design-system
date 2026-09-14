@@ -1,4 +1,5 @@
-import { Component, Element, Prop, State, h, Host, Event, EventEmitter } from '@stencil/core';
+import { Component, Element, Prop, State, h, Host, Event, EventEmitter, Listen } from '@stencil/core';
+import { uniqueId } from '../../utils/unique-id';
 
 @Component({
   tag: 'dda-select',
@@ -6,7 +7,7 @@ import { Component, Element, Prop, State, h, Host, Event, EventEmitter } from '@
   shadow: false,
 })
 export class Ddaselect {
-  /** Label shown above the field and linked to the trigger button. */
+  /** Label shown above the field. The trigger button is named by the label and its current text. */
   @Prop() label: string;
   /** Options as a JSON array string, e.g. `'["Dubai","Abu Dhabi","Sharjah"]'`. Invalid JSON shows "No options available". */
   @Prop() options: string;
@@ -31,7 +32,7 @@ export class Ddaselect {
   @Prop() component_mode?: string;
   /** Accessible name of the trigger button and the option list. The list falls back to `label`. */
   @Prop() aria_label?: string;
-  /** `id` of the trigger button. Also used to build the ids of the list, helper text and error message, so keep it unique. */
+  /** `id` of the trigger button. Also used to build the ids of the label, list, helper text and error message, so keep it unique. When it is not set, the component generates a unique id. */
   @Prop() button_id: string;
   /** `name` of the trigger button. */
   @Prop() toggle_button_name: string;
@@ -47,17 +48,29 @@ export class Ddaselect {
   // Consumed by componentDidRender, then cleared.
   private pendingFocusIndex: number | null = null;
 
+  // Fallback id so the label, list and messages are wired when no button_id
+  // is passed (otherwise ids became "undefined-listbox" and the label had for="").
+  private readonly fallbackId = uniqueId('dda-select');
+
+  private get triggerId(): string {
+    return this.button_id || this.fallbackId;
+  }
+
+  private get labelId(): string {
+    return `${this.triggerId}-label`;
+  }
+
   private get listboxId(): string {
-    return `${this.button_id}-listbox`;
+    return `${this.triggerId}-listbox`;
   }
 
-  // F-016: same button_id-derived uniqueness pattern as listboxId above.
-  private get helperId(): string | undefined {
-    return this.button_id ? `${this.button_id}-helper` : undefined;
+  // F-016: same trigger-id-derived uniqueness pattern as listboxId above.
+  private get helperId(): string {
+    return `${this.triggerId}-helper`;
   }
 
-  private get errorId(): string | undefined {
-    return this.button_id ? `${this.button_id}-error` : undefined;
+  private get errorId(): string {
+    return `${this.triggerId}-error`;
   }
 
   private get describedBy(): string | undefined {
@@ -108,6 +121,22 @@ export class Ddaselect {
     if (trigger) {
       trigger.focus();
     }
+  }
+
+  // The label has no `for`: label[for] on a <button> replaces the button text
+  // as its name, so the selected value was not announced. A click on the label
+  // still acts on the trigger, like a native label click did.
+  @Listen('click')
+  onHostClick(event: MouseEvent) {
+    const target = event.target as HTMLElement | null;
+    if (!target || typeof target.closest !== 'function' || !target.closest('label.dda-input-label')) {
+      return;
+    }
+    const trigger = this.el.querySelector<HTMLElement>('.dda-select-header');
+    if (trigger) {
+      trigger.focus();
+    }
+    this.toggleSelect();
   }
 
   selectOption(option: string) {
@@ -188,17 +217,18 @@ export class Ddaselect {
   }
 
   render() {
-
+    const id = this.triggerId;
 
     return (
       <Host>
         <div class={`dda-input-container ${this.custom_class} ${this.component_mode} ${this.disabled ? 'dda-input-disabled' : ''} ${this.is_open ? 'show' : 'hide'} dda-input-size-${this.size} dda-validation-${this.error} `}>
-          {this.label && <label htmlFor={this.button_id} class="dda-input-label">{this.label}</label>}
+          {this.label && <label id={this.labelId} class="dda-input-label">{this.label}</label>}
           <div class="dda-dropdown-container">
             <button
               name={this.toggle_button_name}
               aria-label={this.aria_label}
-              id={this.button_id}
+              aria-labelledby={this.label && !this.aria_label ? `${this.labelId} ${id}` : undefined}
+              id={id}
               type="button"
               class="dda-input-field dda-select-header"
               aria-haspopup="listbox"

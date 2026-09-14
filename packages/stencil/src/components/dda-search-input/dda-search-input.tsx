@@ -1,4 +1,5 @@
 import { Component, Prop, h, Host, Element } from '@stencil/core';
+import { uniqueId } from '../../utils/unique-id';
 
 @Component({
   tag: 'dda-search-input',
@@ -8,7 +9,7 @@ import { Component, Prop, h, Host, Element } from '@stencil/core';
 export class DdaSearchInput {
   /** Placeholder text of the search input. */
   @Prop() placeholder: string = 'Search';
-  /** Visible label text, linked to the search input through `input_id`. */
+  /** Visible label text, linked to the search input through `input_id` (or a generated id). */
   @Prop() label: string;
   /** Size. `small` shows a smaller field; other values show the default size. */
   @Prop() size: string = 'sm';
@@ -32,7 +33,7 @@ export class DdaSearchInput {
   // had a hardcoded id='search', which the visible <label> never targeted
   // (the label pointed at button_id, the clear button's id, instead) and
   // which collided across multiple instances of this component on one page.
-  /** `id` of the search input. Also used for the label `for` and the helper and error text ids. */
+  /** `id` of the search input. Also used for the label `for` and the helper and error text ids. Optional: an id is generated when it is not set. */
   @Prop() input_id?: string;
   /** Accessible name of the search input. Use it when there is no visible label. */
   @Prop() aria_label?: string;
@@ -49,14 +50,22 @@ export class DdaSearchInput {
 
   @Element() el: HTMLElement;
 
-  // F-016: ids derived from the consumer-supplied input_id, same pattern as
-  // dda-input/dda-select.
-  private get helperId(): string | undefined {
-    return this.input_id ? `${this.input_id}-helper` : undefined;
+  // Per-instance fallback, so the label, helper and error text stay linked
+  // to the search input when the consumer omits input_id.
+  private readonly fallbackId = uniqueId('dda-search-input');
+
+  // F-016: ids derived from the search input id (the consumer-supplied
+  // input_id, or the generated fallback), same pattern as dda-input.
+  private get inputId(): string {
+    return this.input_id || this.fallbackId;
   }
 
-  private get errorId(): string | undefined {
-    return this.input_id ? `${this.input_id}-error` : undefined;
+  private get helperId(): string {
+    return `${this.inputId}-helper`;
+  }
+
+  private get errorId(): string {
+    return `${this.inputId}-error`;
   }
 
   private get describedBy(): string | undefined {
@@ -69,7 +78,7 @@ export class DdaSearchInput {
 
   clearInput() {
     // Was `#search` — the search input's id is now the consumer-supplied
-    // input_id (possibly undefined), so target the stable class instead.
+    // input_id or a generated one, so target the stable class instead.
     const input = this.el.querySelector('.dda-search-field') as HTMLInputElement;
     if (input) {
       input.value = '';
@@ -77,16 +86,18 @@ export class DdaSearchInput {
   }
 
   render() {
+    const id = this.inputId;
+
     return (
       <Host>
         <div class={`dda-input-container dda-input-size-${this.size} ${this.component_mode} ${this.custom_class}  ${this.input_status ? `dda-input-${this.input_status}` : ''} ${this.has_error ? 'dda-validation-error' : ''}`}>
-          {this.label && <label htmlFor={this.input_id} class="dda-input-label">{this.label}</label>}
+          {this.label && <label htmlFor={id} class="dda-input-label">{this.label}</label>}
           <div class="dda-search-area dda-search-action">
             <i class="material-icons icon-left" aria-hidden="true">search</i>
             <input
               name={this.search_input_name}
               aria-label={this.aria_label}
-              id={this.input_id}
+              id={id}
               type="text"
               class="dda-input-field dda-search-field"
               placeholder={this.placeholder}

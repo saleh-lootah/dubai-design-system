@@ -51,6 +51,26 @@ Fixes from an axe-core and accessibility-tree audit of a sample site built on th
   `menu_button_label` ("Menu", replacing the text "hamburger menu text"), and dda-segmented-tabs
   `icon_labels` for icon-only segments. Toggles that open a list set `aria-expanded`, and
   dda-pagination marks the current page with `aria-current="page"`.
+- **Form labels are connected without an id prop (1.3.1, 4.1.2).** Found with WAVE. The
+  fields rendered `<label for={input_id}>` and `<input id={input_id}>`, so without the prop the
+  label pointed nowhere. dda-input, dda-textarea, dda-search-input, dda-attach-file,
+  dda-number-field, dda-phonefield, dda-creditcard-field, dda-select, dda-dropdown and
+  dda-range-slider now generate a unique id when `input_id` / `button_id` / the slider ids are
+  not set; the props still win when set.
+- **dda-select and dda-dropdown announce the chosen value.** The label no longer names the
+  trigger through `for`; the trigger uses `aria-labelledby` (label, then its own text), so a
+  screen reader hears "Topic, General question", not only "Topic".
+- **dda-attach-file works with a keyboard and screen reader (2.1.1).** The file input was
+  `display: none`. It is now visually hidden but focusable, the "Choose File" control shows a
+  focus ring, the input is named "Choose file" without a visible label, and the remove button
+  is named "Remove <file name>". The input stays in the page after a file is chosen, so a native
+  form submit includes the file.
+- **dda-phonefield is a telephone input.** It was `type="number"`, announced as a spin button,
+  changed by arrow keys, and dropped leading zeros. It is now `type="tel"` with
+  `autocomplete="tel-national"` by default, and country options have unique ids.
+- **dda-range-slider inputs are named** "Minimum" and "Maximum" by default, and are no longer
+  wrapped in empty `<label>` elements.
+- **dda-textarea in rich text mode** no longer points its label's `for` at the editor `<div>`.
 - **Keyboard focus is visible on dda-checkbox and dda-toggle (2.4.7).**
 - **dda-banner is reachable by keyboard (2.1.1).** The slide row is one focusable, named
   region (`aria_label`, default "Slides") with a focus ring.

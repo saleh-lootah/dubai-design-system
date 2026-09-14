@@ -115,7 +115,7 @@ export namespace Components {
     }
     interface DdaAttachFile {
         /**
-          * Accessible name of the file input.
+          * Accessible name of the file input. Not rendered when empty.
           * @default ''
          */
         "aria_label"?: string;
@@ -146,11 +146,11 @@ export namespace Components {
          */
         "error_message": string;
         /**
-          * Helper text shown below the field. Linked by `aria-describedby` when `input_id` is set.
+          * Helper text shown below the field. Linked by `aria-describedby`.
          */
         "helper_text": string;
         /**
-          * `id` of the file input. Also used to link the label, helper text and error message.
+          * `id` of the file input. Also used to link the label, helper text and error message. Optional: an id is generated when it is not set.
          */
         "input_id": string;
         /**
@@ -162,7 +162,7 @@ export namespace Components {
          */
         "input_type"?: string;
         /**
-          * Label text shown above the field. Linked to the file input when `input_id` is set.
+          * Label text shown above the field. Linked to the file input through `input_id` (or a generated id).
          */
         "label": string;
         /**
@@ -514,11 +514,11 @@ export namespace Components {
          */
         "error_message": string;
         /**
-          * Helper text shown below the input. Linked by `aria-describedby` when `input_id` is set.
+          * Helper text shown below the input. Linked by `aria-describedby`.
          */
         "helper_text": string;
         /**
-          * `id` of the inner `<input>`. Also used to link the label, helper text and error message.
+          * `id` of the inner `<input>`. Also used to link the label, helper text and error message. Optional: an id is generated when it is not set.
          */
         "input_id": string;
         /**
@@ -530,7 +530,7 @@ export namespace Components {
          */
         "input_type"?: string;
         /**
-          * Label text shown above the input. Linked to the input when `input_id` is set.
+          * Label text shown above the input. Linked to the input through `input_id` (or a generated id).
          */
         "label": string;
         /**
@@ -566,7 +566,7 @@ export namespace Components {
          */
         "arrow_button_name"?: string;
         /**
-          * `id` of the dropdown button. The label points to it.
+          * `id` of the dropdown button. The label id is built from it. When it is not set, the component generates a unique id.
          */
         "button_id": string;
         /**
@@ -601,7 +601,7 @@ export namespace Components {
          */
         "icon_mode": boolean;
         /**
-          * Label shown above the dropdown.
+          * Label shown above the dropdown. The dropdown button is named by the label and its current text.
          */
         "label": string;
         /**
@@ -881,7 +881,7 @@ export namespace Components {
          */
         "helper_text": string;
         /**
-          * `id` of the inner `<input>`. Also used for the label `for` and the helper and error text ids.
+          * `id` of the inner `<input>`. Also used for the label `for` and the helper and error text ids. Optional: an id is generated when it is not set.
          */
         "input_id": string;
         /**
@@ -893,7 +893,7 @@ export namespace Components {
          */
         "input_status"?: string;
         /**
-          * Visible label text, linked to the input through `input_id`.
+          * Visible label text, linked to the input through `input_id` (or a generated id).
          */
         "label": string;
         /**
@@ -1017,7 +1017,7 @@ export namespace Components {
          */
         "helper_text": string;
         /**
-          * `id` of the amount input. Also used for the label `for` and the helper and error text ids.
+          * `id` of the amount input. Also used for the label `for` and the helper and error text ids. Optional: an id is generated when it is not set.
          */
         "input_id": string;
         /**
@@ -1029,7 +1029,7 @@ export namespace Components {
          */
         "input_status"?: string;
         /**
-          * Visible label text, linked to the amount input through `input_id`.
+          * Visible label text, linked to the amount input through `input_id` (or a generated id).
          */
         "label": string;
         /**
@@ -1153,8 +1153,8 @@ export namespace Components {
          */
         "aria_label": string;
         /**
-          * `autocomplete` token of the phone input. Defaults to `tel`.
-          * @default 'tel'
+          * `autocomplete` token of the phone input. Defaults to `tel-national`, because the country code is chosen separately.
+          * @default 'tel-national'
          */
         "autocomplete": string;
         /**
@@ -1162,7 +1162,7 @@ export namespace Components {
          */
         "button_aria_label": string;
         /**
-          * `id` set on each country option button in the open list.
+          * Prefix of the country option button ids in the open list. Each option gets `<button_id>-<index>`. When it is not set, the prefix comes from the input id.
          */
         "button_id"?: string;
         /**
@@ -1191,7 +1191,7 @@ export namespace Components {
          */
         "helper_text": string;
         /**
-          * `id` of the phone input. Also used for the label `for` and the helper and error text ids.
+          * `id` of the phone input. Also used for the label `for` and the helper and error text ids. When it is not set, the component generates a unique id.
          */
         "input_id"?: string;
         /**
@@ -1328,11 +1328,11 @@ export namespace Components {
          */
         "initial_min": number;
         /**
-          * Accessible name of the lower (left) range input, e.g. `Minimum amount`.
+          * Accessible name of the lower (left) range input, e.g. `Minimum amount`. When it is empty, the name is `Minimum`.
          */
         "left_aria_label"?: string;
         /**
-          * `id` of the lower (left) range input.
+          * `id` of the lower (left) range input. When it is not set, the component generates a unique id.
          */
         "left_input_id": string;
         /**
@@ -1350,11 +1350,11 @@ export namespace Components {
          */
         "min": number;
         /**
-          * Accessible name of the upper (right) range input, e.g. `Maximum amount`.
+          * Accessible name of the upper (right) range input, e.g. `Maximum amount`. When it is empty, the name is `Maximum`.
          */
         "right_aria_label"?: string;
         /**
-          * `id` of the upper (right) range input.
+          * `id` of the upper (right) range input. When it is not set, the component generates a unique id.
          */
         "right_input_id": string;
         /**
@@ -1420,7 +1420,7 @@ export namespace Components {
          */
         "helper_text": string;
         /**
-          * `id` of the search input. Also used for the label `for` and the helper and error text ids.
+          * `id` of the search input. Also used for the label `for` and the helper and error text ids. Optional: an id is generated when it is not set.
          */
         "input_id"?: string;
         /**
@@ -1428,7 +1428,7 @@ export namespace Components {
          */
         "input_status"?: string;
         /**
-          * Visible label text, linked to the search input through `input_id`.
+          * Visible label text, linked to the search input through `input_id` (or a generated id).
          */
         "label": string;
         /**
@@ -1496,7 +1496,7 @@ export namespace Components {
          */
         "aria_label"?: string;
         /**
-          * `id` of the trigger button. Also used to build the ids of the list, helper text and error message, so keep it unique.
+          * `id` of the trigger button. Also used to build the ids of the label, list, helper text and error message, so keep it unique. When it is not set, the component generates a unique id.
          */
         "button_id": string;
         /**
@@ -1526,7 +1526,7 @@ export namespace Components {
          */
         "helper_text": string;
         /**
-          * Label shown above the field and linked to the trigger button.
+          * Label shown above the field. The trigger button is named by the label and its current text.
          */
         "label": string;
         /**
@@ -1799,7 +1799,7 @@ export namespace Components {
          */
         "helper_text"?: string;
         /**
-          * `id` of the textarea or editor. Also used for the label and the helper and error text ids.
+          * `id` of the textarea or editor. Also used for the label and the helper and error text ids. Optional: an id is generated when it is not set.
          */
         "input_id": string;
         /**
@@ -1807,7 +1807,7 @@ export namespace Components {
          */
         "input_status"?: string;
         /**
-          * Visible label text, linked to the field through `input_id`.
+          * Visible label text, linked to the field through `input_id` (or a generated id).
          */
         "label": string;
         /**
@@ -2484,7 +2484,7 @@ declare namespace LocalJSX {
     }
     interface DdaAttachFile {
         /**
-          * Accessible name of the file input.
+          * Accessible name of the file input. Not rendered when empty.
           * @default ''
          */
         "aria_label"?: string;
@@ -2515,11 +2515,11 @@ declare namespace LocalJSX {
          */
         "error_message"?: string;
         /**
-          * Helper text shown below the field. Linked by `aria-describedby` when `input_id` is set.
+          * Helper text shown below the field. Linked by `aria-describedby`.
          */
         "helper_text"?: string;
         /**
-          * `id` of the file input. Also used to link the label, helper text and error message.
+          * `id` of the file input. Also used to link the label, helper text and error message. Optional: an id is generated when it is not set.
          */
         "input_id"?: string;
         /**
@@ -2531,7 +2531,7 @@ declare namespace LocalJSX {
          */
         "input_type"?: string;
         /**
-          * Label text shown above the field. Linked to the file input when `input_id` is set.
+          * Label text shown above the field. Linked to the file input through `input_id` (or a generated id).
          */
         "label"?: string;
         /**
@@ -2887,11 +2887,11 @@ declare namespace LocalJSX {
          */
         "error_message"?: string;
         /**
-          * Helper text shown below the input. Linked by `aria-describedby` when `input_id` is set.
+          * Helper text shown below the input. Linked by `aria-describedby`.
          */
         "helper_text"?: string;
         /**
-          * `id` of the inner `<input>`. Also used to link the label, helper text and error message.
+          * `id` of the inner `<input>`. Also used to link the label, helper text and error message. Optional: an id is generated when it is not set.
          */
         "input_id"?: string;
         /**
@@ -2903,7 +2903,7 @@ declare namespace LocalJSX {
          */
         "input_type"?: string;
         /**
-          * Label text shown above the input. Linked to the input when `input_id` is set.
+          * Label text shown above the input. Linked to the input through `input_id` (or a generated id).
          */
         "label"?: string;
         /**
@@ -2943,7 +2943,7 @@ declare namespace LocalJSX {
          */
         "arrow_button_name"?: string;
         /**
-          * `id` of the dropdown button. The label points to it.
+          * `id` of the dropdown button. The label id is built from it. When it is not set, the component generates a unique id.
          */
         "button_id"?: string;
         /**
@@ -2978,7 +2978,7 @@ declare namespace LocalJSX {
          */
         "icon_mode"?: boolean;
         /**
-          * Label shown above the dropdown.
+          * Label shown above the dropdown. The dropdown button is named by the label and its current text.
          */
         "label"?: string;
         /**
@@ -3298,7 +3298,7 @@ declare namespace LocalJSX {
          */
         "helper_text"?: string;
         /**
-          * `id` of the inner `<input>`. Also used for the label `for` and the helper and error text ids.
+          * `id` of the inner `<input>`. Also used for the label `for` and the helper and error text ids. Optional: an id is generated when it is not set.
          */
         "input_id"?: string;
         /**
@@ -3310,7 +3310,7 @@ declare namespace LocalJSX {
          */
         "input_status"?: string;
         /**
-          * Visible label text, linked to the input through `input_id`.
+          * Visible label text, linked to the input through `input_id` (or a generated id).
          */
         "label"?: string;
         /**
@@ -3434,7 +3434,7 @@ declare namespace LocalJSX {
          */
         "helper_text"?: string;
         /**
-          * `id` of the amount input. Also used for the label `for` and the helper and error text ids.
+          * `id` of the amount input. Also used for the label `for` and the helper and error text ids. Optional: an id is generated when it is not set.
          */
         "input_id"?: string;
         /**
@@ -3446,7 +3446,7 @@ declare namespace LocalJSX {
          */
         "input_status"?: string;
         /**
-          * Visible label text, linked to the amount input through `input_id`.
+          * Visible label text, linked to the amount input through `input_id` (or a generated id).
          */
         "label"?: string;
         /**
@@ -3574,8 +3574,8 @@ declare namespace LocalJSX {
          */
         "aria_label"?: string;
         /**
-          * `autocomplete` token of the phone input. Defaults to `tel`.
-          * @default 'tel'
+          * `autocomplete` token of the phone input. Defaults to `tel-national`, because the country code is chosen separately.
+          * @default 'tel-national'
          */
         "autocomplete"?: string;
         /**
@@ -3583,7 +3583,7 @@ declare namespace LocalJSX {
          */
         "button_aria_label"?: string;
         /**
-          * `id` set on each country option button in the open list.
+          * Prefix of the country option button ids in the open list. Each option gets `<button_id>-<index>`. When it is not set, the prefix comes from the input id.
          */
         "button_id"?: string;
         /**
@@ -3612,7 +3612,7 @@ declare namespace LocalJSX {
          */
         "helper_text"?: string;
         /**
-          * `id` of the phone input. Also used for the label `for` and the helper and error text ids.
+          * `id` of the phone input. Also used for the label `for` and the helper and error text ids. When it is not set, the component generates a unique id.
          */
         "input_id"?: string;
         /**
@@ -3749,11 +3749,11 @@ declare namespace LocalJSX {
          */
         "initial_min"?: number;
         /**
-          * Accessible name of the lower (left) range input, e.g. `Minimum amount`.
+          * Accessible name of the lower (left) range input, e.g. `Minimum amount`. When it is empty, the name is `Minimum`.
          */
         "left_aria_label"?: string;
         /**
-          * `id` of the lower (left) range input.
+          * `id` of the lower (left) range input. When it is not set, the component generates a unique id.
          */
         "left_input_id"?: string;
         /**
@@ -3771,11 +3771,11 @@ declare namespace LocalJSX {
          */
         "min"?: number;
         /**
-          * Accessible name of the upper (right) range input, e.g. `Maximum amount`.
+          * Accessible name of the upper (right) range input, e.g. `Maximum amount`. When it is empty, the name is `Maximum`.
          */
         "right_aria_label"?: string;
         /**
-          * `id` of the upper (right) range input.
+          * `id` of the upper (right) range input. When it is not set, the component generates a unique id.
          */
         "right_input_id"?: string;
         /**
@@ -3841,7 +3841,7 @@ declare namespace LocalJSX {
          */
         "helper_text"?: string;
         /**
-          * `id` of the search input. Also used for the label `for` and the helper and error text ids.
+          * `id` of the search input. Also used for the label `for` and the helper and error text ids. Optional: an id is generated when it is not set.
          */
         "input_id"?: string;
         /**
@@ -3849,7 +3849,7 @@ declare namespace LocalJSX {
          */
         "input_status"?: string;
         /**
-          * Visible label text, linked to the search input through `input_id`.
+          * Visible label text, linked to the search input through `input_id` (or a generated id).
          */
         "label"?: string;
         /**
@@ -3921,7 +3921,7 @@ declare namespace LocalJSX {
          */
         "aria_label"?: string;
         /**
-          * `id` of the trigger button. Also used to build the ids of the list, helper text and error message, so keep it unique.
+          * `id` of the trigger button. Also used to build the ids of the label, list, helper text and error message, so keep it unique. When it is not set, the component generates a unique id.
          */
         "button_id"?: string;
         /**
@@ -3951,7 +3951,7 @@ declare namespace LocalJSX {
          */
         "helper_text"?: string;
         /**
-          * Label shown above the field and linked to the trigger button.
+          * Label shown above the field. The trigger button is named by the label and its current text.
          */
         "label"?: string;
         /**
@@ -4232,7 +4232,7 @@ declare namespace LocalJSX {
          */
         "helper_text"?: string;
         /**
-          * `id` of the textarea or editor. Also used for the label and the helper and error text ids.
+          * `id` of the textarea or editor. Also used for the label and the helper and error text ids. Optional: an id is generated when it is not set.
          */
         "input_id"?: string;
         /**
@@ -4240,7 +4240,7 @@ declare namespace LocalJSX {
          */
         "input_status"?: string;
         /**
-          * Visible label text, linked to the field through `input_id`.
+          * Visible label text, linked to the field through `input_id` (or a generated id).
          */
         "label"?: string;
         /**

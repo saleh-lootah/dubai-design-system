@@ -127,3 +127,12 @@ border and background. The button then has no visible text, so set `aria_label`.
   options='["View details","Download receipt","Cancel request"]'
 ></dda-dropdown>
 ```
+
+## Accessibility
+
+- The component uses `button_id` for the button id and the label id. If you do not set `button_id`,
+  the component generates a unique id.
+- With a visible `label`, the button gets `aria-labelledby` that points at the label and at the
+  button itself. Screen readers announce the label and the selected option, for example
+  `Sort requests Newest first`. A click on the label opens the list.
+- When `aria_label` is set, it is the button name.

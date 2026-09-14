@@ -7,7 +7,7 @@ import { componentApi } from '../../storybook/component-api';
 # Phone Field
 
 The `dda-phonefield` component renders a phone number input with a country code dropdown. The
-country code starts as `+971` (United Arab Emirates). The number input is a native `type="number"` input.
+country code starts as `+971` (United Arab Emirates). The number input is a native `type="tel"` input.
 
 ## API
 
@@ -107,8 +107,9 @@ function onInput(event) {
 
 ## Behaviour
 
-- The phone input is a native `type="number"` input. The component removes every character that is
-  not a digit or `.` from its value.
+- The phone input is a native `type="tel"` input with `inputmode="tel"`. Screen readers announce it
+  as a text field, arrow keys do not change the value, and a leading zero stays. The component
+  removes every character that is not a digit or `.` from its value.
 - The selected country code is internal state. It is not a prop, it fires no event and it is not
   submitted with the form. Only the phone number (`phone_input_name`) is submitted.
 - The component has no `value` prop. Read the number from the inner `<input>`.
@@ -139,8 +140,12 @@ Set `disabled` to disable the phone input. The country code button is not disabl
 
 ## Accessibility
 
-- Always set `input_id`. The label `for`, and the ids of the helper and error text, come from it.
-- `autocomplete` defaults to `tel`, so browsers can fill in the number.
+- The label `for`, and the ids of the helper and error text, come from `input_id`. If you do not set
+  `input_id`, the component generates a unique id, so the label is always linked to the input. Set
+  `input_id` when your own code or tests must find the input by id.
+- `autocomplete` defaults to `tel-national`, so browsers can fill in the number without the country
+  code. The country code is chosen with the separate button.
+- Each country option gets a unique id: `<button_id>-<index>`, or an id made from the input id.
 - The country code button is named by `toggle_button_label` and the selected code, for example
   `Choose country code: +971`. Set `toggle_button_label` in the language of the page.
 - `helper_text` and `error_message` are linked to the input with `aria-describedby`.

@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import type { Page } from 'puppeteer';
 import { contrastRatio } from '../../../utils/contrast';
 
 // F-022 (WCAG 2.5.8 Target Size, minimum): the repo's own a11y sweep
@@ -120,5 +121,76 @@ describe('dda-range-slider label contrast (F-023)', () => {
     });
 
     expect(contrastRatio(colors.color, colors.background)).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
+// WCAG 1.3.1/4.1.2 (WAVE "Orphaned form label" / "Missing form label"):
+// without left_input_id/right_input_id the inputs had no id, and their empty
+// <label> wrappers pointed nowhere; without the aria label props the inputs
+// had no name. The wrappers are now plain spans and aria-label names the inputs.
+describe('dda-range-slider labels', () => {
+  const readInputs = () =>
+    Array.from(document.querySelectorAll('dda-range-slider')).map((host) =>
+      Array.from(host.querySelectorAll('input.dda-range-slider-input')).map((input) => ({
+        id: input.id,
+        ariaLabel: input.getAttribute('aria-label'),
+      })),
+    );
+
+  it('generates unique ids and default names when no props are set', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-range-slider></dda-range-slider><dda-range-slider></dda-range-slider>');
+
+    const sliders = await page.evaluate(readInputs);
+    const ids = sliders.reduce((all, inputs) => all.concat(inputs.map((input) => input.id)), [] as string[]);
+
+    expect(sliders).toHaveLength(2);
+    sliders.forEach((inputs) => {
+      expect(inputs).toHaveLength(2);
+      inputs.forEach((input) => {
+        expect(input.id).toBeTruthy();
+        expect(input.id).not.toContain('undefined');
+      });
+      expect(inputs.map((input) => input.ariaLabel)).toEqual(['Minimum', 'Maximum']);
+    });
+    expect(new Set(ids).size).toBe(4);
+  });
+
+  it('gives both inputs an accessible name in the accessibility tree without props', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-range-slider></dda-range-slider>');
+
+    const puppeteerPage = page as unknown as Page;
+    const inputs = await puppeteerPage.$$('dda-range-slider input.dda-range-slider-input');
+    const names: string[] = [];
+    for (const input of inputs) {
+      const snapshot = await puppeteerPage.accessibility.snapshot({ root: input, interestingOnly: false });
+      names.push(snapshot?.name);
+    }
+
+    expect(names).toEqual(['Minimum', 'Maximum']);
+  });
+
+  it('uses the id and aria label props when they are set', async () => {
+    const page = await newE2EPage();
+    await page.setContent(slider('left_aria_label="Lowest" right_aria_label="Highest"'));
+
+    const sliders = await page.evaluate(readInputs);
+
+    expect(sliders).toEqual([
+      [
+        { id: 'min', ariaLabel: 'Lowest' },
+        { id: 'max', ariaLabel: 'Highest' },
+      ],
+    ]);
+  });
+});
+
+describe('dda-range-slider wrappers', () => {
+  it('renders no empty label elements around the inputs', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-range-slider></dda-range-slider>');
+
+    expect(await page.evaluate(() => document.querySelectorAll('dda-range-slider label').length)).toBe(0);
   });
 });

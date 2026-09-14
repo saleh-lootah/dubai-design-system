@@ -165,3 +165,74 @@ describe('dda-number-field placeholder contrast (WCAG 1.4.3)', () => {
     });
   }
 });
+
+// WAVE "Orphaned form label" / "Missing form label" (WCAG 1.3.1 / 4.1.2):
+// without input_id the label got for="" and the amount input had no id, so they
+// were not connected. The component now generates a per-instance id.
+describe('dda-number-field label association without input_id', () => {
+  it('links the label to the amount input with a generated id', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-number-field label="Label"></dda-number-field>');
+
+    const result = await page.evaluate(() => {
+      const label = document.querySelector('dda-number-field .dda-input-label') as HTMLLabelElement;
+      const field = document.querySelector('dda-number-field input.dda-field-group-input') as HTMLElement;
+      return { htmlFor: label.htmlFor, id: field.id };
+    });
+
+    expect(result.htmlFor).not.toBe('');
+    expect(result.htmlFor).toBe(result.id);
+  });
+
+  it('links helper text with aria-describedby when input_id is not set', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-number-field label="Label" helper_text="Helper text"></dda-number-field>');
+
+    const texts = await page.evaluate(() => {
+      const field = document.querySelector('dda-number-field input.dda-field-group-input');
+      const ids = (field.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
+      return ids.map((id) => document.getElementById(id)?.textContent?.trim() ?? null);
+    });
+
+    expect(texts.length).toBe(1);
+    expect(texts[0]).toContain('Helper text');
+  });
+
+  it('gives two instances different ids', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`
+      <dda-number-field label="First"></dda-number-field>
+      <dda-number-field label="Second"></dda-number-field>
+    `);
+
+    const result = await page.evaluate(() => {
+      const hosts = Array.from(document.querySelectorAll('dda-number-field'));
+      return hosts.map((host) => {
+        const label = host.querySelector('.dda-input-label') as HTMLLabelElement;
+        const field = host.querySelector('input.dda-field-group-input') as HTMLElement;
+        return { htmlFor: label.htmlFor, id: field.id };
+      });
+    });
+
+    expect(result.length).toBe(2);
+    expect(result[0].id).not.toBe('');
+    expect(result[1].id).not.toBe('');
+    expect(result[0].id).not.toBe(result[1].id);
+    expect(result[0].htmlFor).toBe(result[0].id);
+    expect(result[1].htmlFor).toBe(result[1].id);
+  });
+
+  it('uses input_id when it is set', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-number-field input_id="my-field" label="Label"></dda-number-field>');
+
+    const result = await page.evaluate(() => {
+      const label = document.querySelector('dda-number-field .dda-input-label') as HTMLLabelElement;
+      const field = document.querySelector('dda-number-field input.dda-field-group-input') as HTMLElement;
+      return { htmlFor: label.htmlFor, id: field.id };
+    });
+
+    expect(result.id).toBe('my-field');
+    expect(result.htmlFor).toBe('my-field');
+  });
+});

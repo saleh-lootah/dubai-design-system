@@ -1,4 +1,5 @@
-import { Component, Prop, State, h, Host, Event, EventEmitter } from '@stencil/core';
+import { Component, Prop, State, h, Host, Event, EventEmitter, Listen } from '@stencil/core';
+import { uniqueId } from '../../utils/unique-id';
 
 @Component({
   tag: 'dda-dropdown',
@@ -6,7 +7,7 @@ import { Component, Prop, State, h, Host, Event, EventEmitter } from '@stencil/c
   shadow: false,
 })
 export class DdaDropdown {
-  /** Label shown above the dropdown. */
+  /** Label shown above the dropdown. The dropdown button is named by the label and its current text. */
   @Prop() label: string;
   /** Options as a JSON array string, e.g. `'["Edit","Download","Delete"]'`. Invalid JSON shows "No options available". */
   @Prop() options: string;
@@ -28,7 +29,7 @@ export class DdaDropdown {
   @Prop() custom_class?: string = ''; 
   /** Theme override class for the dropdown, e.g. `light-mode`. */
   @Prop() component_mode?: string; 
-  /** `id` of the dropdown button. The label points to it. */
+  /** `id` of the dropdown button. The label id is built from it. When it is not set, the component generates a unique id. */
   @Prop() button_id: string;
   /** Accessible name of the dropdown button. Set it when `icon_mode` is on. */
   @Prop() aria_label?: string;
@@ -42,6 +43,11 @@ export class DdaDropdown {
   @Event() optionSelect: EventEmitter<{ value: string }>;
   
   @State() isopen: boolean = false;
+
+  // Fallback id so the label is wired when no button_id is passed.
+  private readonly fallbackId = uniqueId('dda-dropdown');
+
+  private buttonEl?: HTMLButtonElement;
 
   private get parsedOptions(): string[] {
     try {
@@ -57,6 +63,19 @@ export class DdaDropdown {
     }
   }
 
+  // The label has no `for`: label[for] on a <button> replaces the button text
+  // as its name, so the selected option was not announced. A click on the
+  // label still acts on the button, like a native label click did.
+  @Listen('click')
+  onHostClick(event: MouseEvent) {
+    const target = event.target as HTMLElement | null;
+    if (!target || typeof target.closest !== 'function' || !target.closest('label.dda-input-label')) {
+      return;
+    }
+    this.buttonEl?.focus();
+    this.toggleDropdown();
+  }
+
   selectOption(option: string) {
     if (!this.disabled) {
       this.selected = option;
@@ -66,6 +85,8 @@ export class DdaDropdown {
   }
 
   render() {  
+    const id = this.button_id || this.fallbackId;
+    const labelId = `${id}-label`;
     const containerClass = [
       'dda-input-container dda-inline-flex',
       this.disabled ? 'dda-input-disabled' : '',
@@ -77,9 +98,9 @@ export class DdaDropdown {
     return (
       <Host>
         <div class={containerClass}>
-          {this.label && <label htmlFor={this.button_id} class="dda-input-label">{this.label}</label>}
+          {this.label && <label id={labelId} class="dda-input-label">{this.label}</label>}
           <div class={`dda-dropdown-container ${this.type}`}>
-            <button id={this.button_id} name={this.arrow_button_name} aria-label={this.aria_label || (this.icon_mode && !this.label ? this.toggle_button_label : undefined)} aria-expanded={this.isopen ? 'true' : 'false'} type="button" class="dda-input-field dda-dropdown-header" onClick={() => this.toggleDropdown()}>
+            <button ref={el => (this.buttonEl = el)} id={id} name={this.arrow_button_name} aria-label={this.aria_label || (this.icon_mode && !this.label ? this.toggle_button_label : undefined)} aria-labelledby={this.label && !this.aria_label ? `${labelId} ${id}` : undefined} aria-expanded={this.isopen ? 'true' : 'false'} type="button" class="dda-input-field dda-dropdown-header" onClick={() => this.toggleDropdown()}>
               <i class={`three-dots material-icons`} aria-hidden="true">{this.isopen ? 'more_vert' : 'more_vert'}</i>
               {!this.icon_mode && <span class="dda-dropdown-text"><span>{this.selected || 'Select an option'}</span> <i class={`material-icons`} aria-hidden="true">{this.isopen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i></span>
               }

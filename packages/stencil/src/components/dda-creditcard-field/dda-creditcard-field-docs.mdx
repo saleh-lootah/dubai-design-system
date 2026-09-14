@@ -123,7 +123,8 @@ import { DdaCreditcardField } from '@dubai-design-system/components-vue';
 
 ## Accessibility
 
-- Set `input_id`. The component uses it to link the label, and to link the helper text and
-  error message to the input through `aria-describedby`.
+- `input_id` is optional. The component uses it to link the label, and to link the helper text and
+  error message to the input through `aria-describedby`. Without `input_id` the component generates
+  a unique id, so these links still work. Set `input_id` when your own code or CSS needs a known id.
 - The input has `inputmode="numeric"` and `autocomplete="cc-number"` by default.
 - Use `aria_label` only when the field has no visible `label`.

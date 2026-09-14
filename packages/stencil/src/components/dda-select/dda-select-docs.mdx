@@ -135,4 +135,12 @@ is linked to the trigger with `aria-describedby`, and the trigger gets `aria-inv
 - **Enter / Space** selects the focused option and returns focus to the trigger.
 - **Escape** closes the list. **Tab** closes the list and moves focus on.
 
-Set a unique `button_id`. The component uses it for the list, helper text and error message ids.
+## Accessibility
+
+- The component uses `button_id` for the trigger id and the label, list, helper text and error
+  message ids. If you do not set `button_id`, the component generates a unique id. Set it when your
+  own code or tests must find the trigger by id, and keep it unique.
+- With a visible `label`, the trigger gets `aria-labelledby` that points at the label and at the
+  trigger itself. Screen readers announce the label and the current value, for example
+  `Emirate Dubai`. A click on the label opens the list.
+- Without a visible `label`, set `aria_label`. When `aria_label` is set, it is the trigger name.
