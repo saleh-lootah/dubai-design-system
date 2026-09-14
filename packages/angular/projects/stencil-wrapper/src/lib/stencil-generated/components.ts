@@ -300,21 +300,21 @@ export declare interface DdaFooter extends Components.DdaFooter {}
 
 
 @ProxyCmp({
-  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'language_button_name', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name']
+  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'language_button_name', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name']
 })
 @Component({
   selector: 'dda-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'language_button_name', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name'],
+  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'language_button_name', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name'],
 })
 export class DdaHeader {
   protected el: HTMLDdaHeaderElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['languageSwitch', 'smTextSize', 'baseTextSize', 'lgTextSize', 'normalContrast', 'blindContrast', 'redContrast', 'greenContrast']);
+    proxyOutputs(this, this.el, ['languageSwitch', 'smTextSize', 'baseTextSize', 'lgTextSize', 'normalContrast', 'blindContrast', 'redContrast', 'greenContrast', 'searchSubmit']);
   }
 }
 
@@ -336,6 +336,11 @@ export declare interface DdaHeader extends Components.DdaHeader {
   redContrast: EventEmitter<CustomEvent<void>>;
 
   greenContrast: EventEmitter<CustomEvent<void>>;
+  /**
+   * Emitted when a non-empty search is submitted. Call `preventDefault()` to stop the
+browser navigating to `search_action`, for example to route inside a single-page app.
+   */
+  searchSubmit: EventEmitter<CustomEvent<{ query: string }>>;
 }
 
 

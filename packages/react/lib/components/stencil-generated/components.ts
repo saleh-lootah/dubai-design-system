@@ -202,7 +202,8 @@ type DdaHeaderEvents = {
     onNormalContrast: EventName<CustomEvent<void>>,
     onBlindContrast: EventName<CustomEvent<void>>,
     onRedContrast: EventName<CustomEvent<void>>,
-    onGreenContrast: EventName<CustomEvent<void>>
+    onGreenContrast: EventName<CustomEvent<void>>,
+    onSearchSubmit: EventName<CustomEvent<{ query: string }>>
 };
 
 export const DdaHeader: StencilReactComponent<DdaHeaderElement, DdaHeaderEvents> = /*@__PURE__*/ createComponent<DdaHeaderElement, DdaHeaderEvents>({
@@ -218,7 +219,8 @@ export const DdaHeader: StencilReactComponent<DdaHeaderElement, DdaHeaderEvents>
         onNormalContrast: 'normalContrast',
         onBlindContrast: 'blindContrast',
         onRedContrast: 'redContrast',
-        onGreenContrast: 'greenContrast'
+        onGreenContrast: 'greenContrast',
+        onSearchSubmit: 'searchSubmit'
     } as DdaHeaderEvents,
     defineCustomElement: defineDdaHeader
 });

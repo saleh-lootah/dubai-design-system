@@ -221,6 +221,7 @@ export const DdaHeader = /*@__PURE__*/ defineContainer<JSX.DdaHeader>('dda-heade
   'accessibility_button_name',
   'search_button_name',
   'search_input_name',
+  'search_action',
   'language_button_name',
   'close_menu_button_name',
   'close_accessibility_button_name',
@@ -233,7 +234,8 @@ export const DdaHeader = /*@__PURE__*/ defineContainer<JSX.DdaHeader>('dda-heade
   'normalContrast',
   'blindContrast',
   'redContrast',
-  'greenContrast'
+  'greenContrast',
+  'searchSubmit'
 ]);
 
 
