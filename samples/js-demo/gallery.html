@@ -113,16 +113,16 @@
       <section class="demo-gallery-item">
         <h2>Form fields</h2>
         <div class="demo-grid">
-          <dda-input label="Text input" placeholder="Placeholder" helper_text="Helper text"></dda-input>
-          <dda-input label="Error input" placeholder="Placeholder" input_status="error" error_message="Error message"></dda-input>
-          <dda-search-input label="Search" placeholder="Search"></dda-search-input>
-          <dda-number-field label="Amount" placeholder="0.00" currencies='["AED","USD","EUR"]' selected_currency="AED"></dda-number-field>
-          <dda-phonefield label="Phone"></dda-phonefield>
-          <dda-creditcard-field label="Card number" placeholder="0000 0000 0000 0000"></dda-creditcard-field>
-          <dda-select label="Select" options='["Option 1","Option 2","Option 3"]'></dda-select>
-          <dda-dropdown label="Dropdown" options='["Option 1","Option 2","Option 3"]'></dda-dropdown>
-          <dda-attach-file label="Attach file" helper_text="PDF, max 5 MB"></dda-attach-file>
-          <dda-textarea label="Textarea" placeholder="Placeholder"></dda-textarea>
+          <dda-input label="Text input" input_id="g-text" placeholder="Placeholder" helper_text="Helper text"></dda-input>
+          <dda-input label="Error input" input_id="g-error" placeholder="Placeholder" input_status="error" error_message="Error message"></dda-input>
+          <dda-search-input label="Search" input_id="g-search" placeholder="Search"></dda-search-input>
+          <dda-number-field label="Amount" input_id="g-amount" placeholder="0.00" currencies='["AED","USD","EUR"]' selected_currency="AED"></dda-number-field>
+          <dda-phonefield label="Phone" input_id="g-phone"></dda-phonefield>
+          <dda-creditcard-field label="Card number" input_id="g-card" placeholder="0000 0000 0000 0000"></dda-creditcard-field>
+          <dda-select label="Select" button_id="g-select" options='["Option 1","Option 2","Option 3"]'></dda-select>
+          <dda-dropdown label="Dropdown" button_id="g-dropdown" options='["Option 1","Option 2","Option 3"]'></dda-dropdown>
+          <dda-attach-file label="Attach file" input_id="g-file" helper_text="PDF, max 5 MB"></dda-attach-file>
+          <dda-textarea label="Textarea" input_id="g-textarea" placeholder="Placeholder"></dda-textarea>
         </div>
       </section>
 
@@ -138,7 +138,7 @@
 
       <section class="demo-gallery-item">
         <h2>Range slider</h2>
-        <dda-range-slider min="0" max="100" initial_min="20" initial_max="80" left_aria_label="Minimum" right_aria_label="Maximum"></dda-range-slider>
+        <dda-range-slider left_input_id="g-range-min" right_input_id="g-range-max" min="0" max="100" initial_min="20" initial_max="80" left_aria_label="Minimum" right_aria_label="Maximum"></dda-range-slider>
       </section>
 
       <section class="demo-gallery-item">
