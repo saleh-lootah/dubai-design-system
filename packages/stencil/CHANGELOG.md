@@ -79,6 +79,11 @@ Fixes from an axe-core and accessibility-tree audit of a sample site built on th
   back to inherited values. They are now defined as aliases of the current tokens (with zero
   specificity, so a site's own values still win), and the heading, body and caption rules no
   longer use `!important`, so component classes keep their own sizes. Present since 5.0.0.
+- **dda-home-banner: the slide title was tiny on laptop screens.** A rule in `dda.css` for
+  landscape screens up to 1600px wide set the slide title to 1.2rem and the subtitle to 1rem,
+  so most laptops showed a 19px hero title instead of the display size (36px at a 16px base).
+  The rule now applies only to short landscape screens (600px tall or less), such as a phone on
+  its side, where the full-height banner cannot fit the large title.
 - **Crashes on missing data.** dda-credit-card no longer throws without `card_number` (it
   shows `****`) and renders the card-type image only when `card_type` is set.
   dda-horizontal-stepper, dda-vertical-stepper and dda-segmented-tabs no longer throw on a

@@ -118,7 +118,10 @@
     }
 } */
 
-@media only screen and (orientation: landscape) and (max-width: 1600px) {
+/* Short landscape screens (a phone or small tablet on its side) cannot fit the display-size
+   slide title in the full-height banner. This was keyed on max-width: 1600px, which also caught
+   ordinary laptop screens and shrank the title there to 1.2rem. */
+@media only screen and (orientation: landscape) and (max-height: 600px) {
   .slide-content h2 {
     font-size: 1.2rem;
   }
@@ -126,6 +129,8 @@
     font-size: 1rem;
     margin-bottom: 5px;
   }
+}
+@media only screen and (orientation: landscape) and (max-width: 1600px) {
   .quick-links .link-item {
     padding: 13px;
     height: 128px;

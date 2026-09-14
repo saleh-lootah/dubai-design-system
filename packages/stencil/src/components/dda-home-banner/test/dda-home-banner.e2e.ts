@@ -308,3 +308,35 @@ describe('dda-home-banner', () => {
     expect(images[0]).not.toBe(images[1]);
   });
 });
+
+describe('dda-home-banner slide text size', () => {
+  const sizes = async (width: number, height: number) => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height });
+    await page.setContent(`
+      <dda-home-banner>
+        <slide><div class="slide-wrap"><div class="slide-content"><h2>Digital services</h2><p>Apply online</p></div></div></slide>
+      </dda-home-banner>
+      <p id="base">Base</p>
+    `);
+    await page.waitForChanges();
+    return page.evaluate(() => {
+      const px = (sel: string) => parseFloat(getComputedStyle(document.querySelector(sel)).fontSize);
+      return { title: px('.slide-content h2'), subtitle: px('.slide-content p'), base: px('#base') };
+    });
+  };
+
+  it('keeps the display-size title on a landscape laptop screen', async () => {
+    const { title, subtitle, base } = await sizes(1366, 900);
+
+    // --dda-fs-display-sm is 2.25em; the old landscape rule forced 1.2rem.
+    expect(title).toBeCloseTo(base * 2.25, 0);
+    expect(subtitle).toBeGreaterThan(base);
+  });
+
+  it('shrinks the title on a short landscape screen, such as a phone on its side', async () => {
+    const { title, base } = await sizes(844, 390);
+
+    expect(title).toBeLessThan(base * 2.25);
+  });
+});
