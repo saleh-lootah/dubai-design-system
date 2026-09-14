@@ -59,6 +59,9 @@ function configureSiteChrome() {
     secondLogoSrc: digitalDubaiLogo,
     secondLogoWhiteSrc: digitalDubaiLogoWhite,
     secondLogoAlt: 'Digital Dubai',
+    // The default is "/", which on GitHub Pages is the domain root, not this site.
+    firstLogoHref: './',
+    secondLogoHref: './',
     // Header search submits a GET to this page, as /search.html?q=<query>.
     search_action: 'search.html',
     quickLinks: JSON.stringify(siteLinks),
@@ -88,6 +91,7 @@ function configureSiteChrome() {
   });
 
   setProps('site-footer', {
+    heading_level: 2,
     logoSrc: placeholder(160, 48, 'Logo'),
     logoAlt: 'Logo placeholder',
     logoDescription: 'Logo description placeholder.',

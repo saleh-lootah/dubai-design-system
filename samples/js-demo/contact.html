@@ -16,9 +16,10 @@
     <script type="module" src="/contact.js"></script>
   </head>
   <body>
+    <a class="demo-skip-link" href="#main">Skip to main content</a>
     <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
 
-    <main class="demo-main">
+    <main id="main" tabindex="-1" class="demo-main">
       <dda-breadcrumb breadcrumbs='[{"text":"Home","url":"./"},{"text":"Contact"}]'></dda-breadcrumb>
 
       <div class="demo-page-intro">
@@ -29,7 +30,7 @@
       <section class="demo-columns demo-columns-top">
         <form id="contact-form" class="demo-form">
           <h2>Send a message</h2>
-          <dda-alert id="contact-sent" hidden variation="success" type="primary" title_text="Message sent" description="Thank you. This is a sample form, so nothing was sent."></dda-alert>
+          <dda-alert id="contact-sent" hidden heading_level="3" variation="success" type="primary" title_text="Message sent" description="Thank you. This is a sample form, so nothing was sent."></dda-alert>
           <dda-input label="Full name" placeholder="Full name" input_id="contact-name" input_name="name"></dda-input>
           <dda-input label="Email" type="email" placeholder="name@example.com" input_id="contact-email" input_name="email"></dda-input>
           <dda-phonefield label="Phone"></dda-phonefield>

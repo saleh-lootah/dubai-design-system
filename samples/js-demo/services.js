@@ -14,7 +14,7 @@ filter.setAttribute('items', JSON.stringify(tabs));
 filter.setAttribute('selected_index', String(startIndex));
 
 const cards = services.map((service) => {
-  const card = serviceCard(service);
+  const card = serviceCard(service, 2);
   card.dataset.category = service.category;
   return card;
 });

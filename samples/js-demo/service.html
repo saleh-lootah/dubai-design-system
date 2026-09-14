@@ -17,9 +17,10 @@
     <script type="module" src="/service.js"></script>
   </head>
   <body>
+    <a class="demo-skip-link" href="#main">Skip to main content</a>
     <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
 
-    <main class="demo-main">
+    <main id="main" tabindex="-1" class="demo-main">
       <dda-breadcrumb id="service-breadcrumb"></dda-breadcrumb>
 
       <div class="demo-page-intro">
@@ -34,7 +35,7 @@
           <div><dt>Category</dt><dd id="service-category"></dd></div>
         </dl>
 
-        <div class="demo-scroll-x">
+        <div class="demo-scroll-x" tabindex="0" role="region" aria-label="Application progress">
           <dda-horizontal-stepper id="service-stepper" current_step="0"
             steps='[{"title":"Step 1","subtitle":"Your details","description":""},{"title":"Step 2","subtitle":"Documents","description":""},{"title":"Step 3","subtitle":"Review and pay","description":""},{"title":"Step 4","subtitle":"Confirmation","description":""}]'></dda-horizontal-stepper>
         </div>
@@ -70,7 +71,7 @@
 
           <section class="demo-step" data-step="3" aria-labelledby="step-3-title" hidden>
             <h2 id="step-3-title" tabindex="-1">Application sent</h2>
-            <dda-alert variation="success" type="primary" title_text="Your application is sent" description="This is a sample service, so nothing was sent."></dda-alert>
+            <dda-alert heading_level="3" variation="success" type="primary" title_text="Your application is sent" description="This is a sample service, so nothing was sent."></dda-alert>
             <p>Your reference number is <strong id="service-reference"></strong>. Keep it to follow your application.</p>
             <div class="demo-row">
               <dda-link-button button_color="default-primary" href="services.html" start_icon="arrow_back">Back to services</dda-link-button>
@@ -86,7 +87,7 @@
         </form>
       </div>
 
-      <dda-alert id="service-missing" hidden variation="error" type="primary" title_text="Service not found" description="Choose a service from the services page."></dda-alert>
+      <dda-alert id="service-missing" hidden heading_level="2" variation="error" type="primary" title_text="Service not found" description="Choose a service from the services page."></dda-alert>
     </main>
 
     <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Footer description placeholder." copyright-text="© 2026 Placeholder. All rights reserved." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>

@@ -68,6 +68,30 @@ html:not(.dda-ready) body::before {
   }
 }
 
+/* Skip link: hidden until it gets keyboard focus, then shown above the fixed header. */
+.demo-skip-link {
+  position: fixed;
+  top: 8px;
+  inset-inline-start: 8px;
+  z-index: 10000;
+  padding: 12px 16px;
+  border-radius: 4px;
+  background: var(--dda-color-primary-40, #00665f);
+  color: #fff;
+  font-weight: 700;
+  transform: translateY(-200%);
+}
+
+.demo-skip-link:focus {
+  transform: none;
+  outline: 3px solid #fff;
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+#main:focus {
+  outline: none;
+}
+
 .demo-main {
   max-width: 1200px;
   margin: 0 auto;
@@ -84,17 +108,17 @@ html:not(.dda-ready) body::before {
   display: none !important;
 }
 
-/* Page headings. dda.css has `h1, .h1, .dda-h1 { font-size: var(--font-h1) !important }` (and
-   the same for h2-h6) with --font-h* undefined, so every heading falls back to the body size.
-   !important is needed to use the package's own --dda-h* type tokens instead. */
-.demo-main h1 {
-  font-size: var(--dda-h4) !important;
+/* Page headings. The package scale (h1 57px, h2 48px) suits display pages; service pages use
+   two steps smaller, from the same --dda-h* type tokens. :not([class]) keeps these rules off
+   component titles (dda-ui-card, dda-alert), which are headings with their own classes and sizes. */
+.demo-main h1:not([class]) {
+  font-size: var(--dda-h4);
   font-weight: 700;
   line-height: 1.2;
 }
 
-.demo-main h2 {
-  font-size: var(--dda-h6) !important;
+.demo-main h2:not([class]) {
+  font-size: var(--dda-h6);
   font-weight: 700;
   line-height: 1.3;
 }

@@ -17,6 +17,7 @@ if (!query) {
 } else if (matches.length === 0) {
   summary.textContent = `No results for "${query}".`;
   const alert = document.createElement('dda-alert');
+  alert.setAttribute('heading_level', '2');
   alert.setAttribute('variation', 'info');
   alert.setAttribute('type', 'primary');
   alert.setAttribute('title_text', 'No matching services');
@@ -24,7 +25,7 @@ if (!query) {
   results.replaceWith(alert);
 } else {
   summary.textContent = `${matches.length} ${matches.length === 1 ? 'result' : 'results'} for "${query}".`;
-  results.append(...matches.map(serviceCard));
+  results.append(...matches.map((service) => serviceCard(service, 2)));
 }
 
 if (query) document.title = `${query} – Search results`;

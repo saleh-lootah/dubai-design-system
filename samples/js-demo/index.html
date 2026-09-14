@@ -17,9 +17,11 @@
   </head>
   <!-- Only the home page uses the transparent header. Other pages keep the white header. -->
   <body class="transparent">
+    <a class="demo-skip-link" href="#main">Skip to main content</a>
     <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
 
-    <div class="home-intros">
+    <div class="home-intros" role="region" aria-labelledby="home-title">
+      <h1 id="home-title" class="visually-hidden">Dubai government services</h1>
       <dda-home-banner aria_label="Highlights">
         <slide>
           <img src="https://picsum.photos/id/1067/1920/1080" alt="City skyline at sunset" />
@@ -82,20 +84,20 @@
       </nav>
     </div>
 
-    <main class="demo-main demo-main-after-banner">
+    <main id="main" tabindex="-1" class="demo-main demo-main-after-banner">
       <dda-breadcrumb></dda-breadcrumb>
 
       <section class="demo-hero">
         <img class="demo-hero-media" src="https://picsum.photos/seed/dda-hero/1280/720" alt="Sample hero photo" />
         <div>
-          <h1>Page title placeholder</h1>
+          <h2>Page title placeholder</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Short intro text goes here.</p>
           <dda-button button_color="default-primary" end_icon="arrow_forward" button_id="hero-cta">Primary action</dda-button>
           <dda-button button_color="default-secondary" button_id="hero-secondary">Secondary action</dda-button>
         </div>
       </section>
 
-      <dda-alert variation="info" type="primary" title_text="Notice placeholder" description="Alert description text goes here."></dda-alert>
+      <dda-alert heading_level="3" variation="info" type="primary" title_text="Notice placeholder" description="Alert description text goes here."></dda-alert>
 
       <section>
         <h2>Services</h2>

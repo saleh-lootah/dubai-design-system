@@ -22,9 +22,13 @@ export const serviceUrl = (service) => `service.html?id=${encodeURIComponent(ser
 
 export const formatFee = (fee) => (fee === 0 ? 'Free' : `AED ${fee.toLocaleString('en')}`);
 
-/** Makes a dda-ui-card that starts the service. setAttribute keeps the values as plain text. */
-export function serviceCard(service) {
+/**
+ * Makes a dda-ui-card that starts the service. setAttribute keeps the values as plain text.
+ * `headingLevel` is the level of the card title, one below the heading the cards sit under.
+ */
+export function serviceCard(service, headingLevel = 3) {
   const card = document.createElement('dda-ui-card');
+  card.setAttribute('heading_level', String(headingLevel));
   card.setAttribute('maintitle', service.title);
   card.setAttribute('subtitle', service.description);
   card.setAttribute('icon', service.icon);

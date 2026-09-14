@@ -16,9 +16,10 @@
     <script type="module" src="/setup.js"></script>
   </head>
   <body>
+    <a class="demo-skip-link" href="#main">Skip to main content</a>
     <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
 
-    <main class="demo-main">
+    <main id="main" tabindex="-1" class="demo-main">
       <div>
         <h1>Component gallery</h1>
         <p>Every component in the package, with placeholder content.</p>
@@ -44,8 +45,8 @@
 
       <section class="demo-gallery-item">
         <h2>Alert</h2>
-        <dda-alert variation="info" type="primary" title_text="Info title" description="Alert description placeholder."></dda-alert>
-        <dda-alert variation="error" type="primary" title_text="Error title" description="Alert description placeholder."></dda-alert>
+        <dda-alert heading_level="3" variation="info" type="primary" title_text="Info title" description="Alert description placeholder."></dda-alert>
+        <dda-alert heading_level="3" variation="error" type="primary" title_text="Error title" description="Alert description placeholder."></dda-alert>
       </section>
 
       <section class="demo-gallery-item">
@@ -143,7 +144,7 @@
       <section class="demo-gallery-item">
         <h2>Steppers</h2>
         <!-- current_step counts from 0, so 1 is the second step. -->
-        <div class="demo-scroll-x">
+        <div class="demo-scroll-x" tabindex="0" role="region" aria-label="Horizontal stepper example">
           <dda-horizontal-stepper current_step="1"
             steps='[{"title":"Step 1","subtitle":"Subtitle","description":"Description placeholder."},{"title":"Step 2","subtitle":"Subtitle","description":"Description placeholder."},{"title":"Step 3","subtitle":"Subtitle","description":"Description placeholder."}]'></dda-horizontal-stepper>
         </div>
