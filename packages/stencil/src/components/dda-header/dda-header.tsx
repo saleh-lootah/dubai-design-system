@@ -223,8 +223,10 @@ export class DdaHeader {
                   href={item.href}
                   class={item.subMenu && item.subMenu.length > 0 ? 'showSub' : ''}
                   onClick={(e) => {
-                    e.preventDefault();
-                    this.toggleSidebarSubMenu(currentIndex);
+                    if (item.subMenu && item.subMenu.length > 0) {
+                      e.preventDefault();
+                      this.toggleSidebarSubMenu(currentIndex);
+                    }
                   }}
                 >
                   {item.label}
