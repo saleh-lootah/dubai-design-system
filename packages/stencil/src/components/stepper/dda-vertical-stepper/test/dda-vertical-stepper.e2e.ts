@@ -32,20 +32,15 @@ describe('dda-vertical-stepper', () => {
     expect(subtitles).toEqual(['Subtitle 1', 'Subtitle 2', 'Subtitle 3']);
   });
 
-  // Real prop-name check, confirmed with a build (resolves O-006/F-034):
-  // the component's `@Prop() current_Step` compiles to the HTML attribute
-  // `current_-step` - NOT `current_step`, which is what the story
-  // (dda-vertical-stepper.stories.tsx) and the component's own doc example
-  // both use. Verified directly: setting `current_step="1"` leaves the
-  // stepper at its default (only step 0 active); only `current_-step="1"`
-  // actually advances it. Documented here as a real defect, not fixed.
-  it('the documented current_step attribute does not move the active step (real attribute is current_-step)', async () => {
+  // O-006/F-034: the prop was only `current_Step`, whose HTML attribute is
+  // `current_-step`, so the documented `current_step` attribute did nothing.
+  // `current_step` is now a real prop; `current_-step` keeps working.
+  it('moves the active step with the documented current_step attribute and the legacy current_-step', async () => {
     const page = await newE2EPage();
-    await page.setContent(`<dda-vertical-stepper steps='${STEPS}' current_step="2"></dda-vertical-stepper>`);
+    await page.setContent(`<dda-vertical-stepper steps='${STEPS}' current_step="1"></dda-vertical-stepper>`);
 
     const activeAfterDocumentedAttr = await page.evaluate(() => Array.from(document.querySelectorAll('dda-vertical-stepper .v-step')).map(e => e.classList.contains('active')));
-    // Stays at the default current_Step of 0 - only the first step is active.
-    expect(activeAfterDocumentedAttr).toEqual([true, false, false]);
+    expect(activeAfterDocumentedAttr).toEqual([true, true, false]);
 
     const page2 = await newE2EPage();
     await page2.setContent(`<dda-vertical-stepper steps='${STEPS}' current_-step="2"></dda-vertical-stepper>`);

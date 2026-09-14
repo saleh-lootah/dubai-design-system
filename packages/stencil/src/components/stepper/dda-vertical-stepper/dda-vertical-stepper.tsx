@@ -7,6 +7,9 @@ import { Component, Prop,  State, h, Host } from '@stencil/core';
 })
 export class DdaVerticalStepper {
   @Prop() steps: string; // JSON string of steps
+  /** Index of the current step, from 0. Steps up to and including it are active. */
+  @Prop() current_step?: number;
+  /** @deprecated Use `current_step`. Its attribute is `current_-step`, so it never worked in HTML. */
   @Prop() current_Step: number = 0;
   @Prop() custom_class?: string = ''; 
   @Prop() component_mode?: string; 
@@ -17,11 +20,12 @@ export class DdaVerticalStepper {
   }
 
   render() {
+    const current = this.current_step ?? this.current_Step;
     return (
       <Host>
         <div class={`${this.custom_class} ${this.component_mode} v-stepper-container`}>
           {this.parsedSteps.map((step, index) => (
-            <div class={`v-step ${index <= this.current_Step ? 'active' : ''}`}>
+            <div class={`v-step ${index <= current ? 'active' : ''}`}>
               <div class="v-step-indicator">
                 <div class="icon">
                   <i class={`material-icons`}>{step.icon}</i>

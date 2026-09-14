@@ -873,9 +873,14 @@ export namespace Components {
     interface DdaVerticalStepper {
         "component_mode"?: string;
         /**
+          * @deprecated Use `current_step`. Its attribute is `current_-step`, so it never worked in HTML.
           * @default 0
          */
         "current_Step": number;
+        /**
+          * Index of the current step, from 0. Steps up to and including it are active.
+         */
+        "current_step"?: number;
         /**
           * @default ''
          */
@@ -2092,9 +2097,14 @@ declare namespace LocalJSX {
     interface DdaVerticalStepper {
         "component_mode"?: string;
         /**
+          * @deprecated Use `current_step`. Its attribute is `current_-step`, so it never worked in HTML.
           * @default 0
          */
         "current_Step"?: number;
+        /**
+          * Index of the current step, from 0. Steps up to and including it are active.
+         */
+        "current_step"?: number;
         /**
           * @default ''
          */
@@ -2577,6 +2587,7 @@ declare namespace LocalJSX {
     }
     interface DdaVerticalStepperAttributes {
         "steps": string;
+        "current_step": number;
         "current_Step": number;
         "custom_class": string;
         "component_mode": string;
