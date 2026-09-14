@@ -27,18 +27,21 @@ describe('dda-header', () => {
 
   describe('side menu', () => {
     const items = JSON.stringify([
-      { label: 'Initiatives', href: '#', subMenu: [
-        { label: 'Leaf', href: '/leaf' },
-        { label: 'Parent', href: '#', subMenu: [{ label: 'Deep leaf', href: '/deep' }] },
-      ] },
+      {
+        label: 'Initiatives',
+        href: '#',
+        subMenu: [
+          { label: 'Leaf', href: '/leaf' },
+          { label: 'Parent', href: '#', subMenu: [{ label: 'Deep leaf', href: '/deep' }] },
+        ],
+      },
     ]);
     const click = (a: HTMLAnchorElement) => {
       const event = new MouseEvent('click', { bubbles: true, cancelable: true });
       a.dispatchEvent(event);
       return event.defaultPrevented;
     };
-    const link = (page, label: string) =>
-      Array.from(page.root.querySelectorAll('.main_side_menu a') as NodeListOf<HTMLAnchorElement>).find((a) => a.textContent.trim() === label);
+    const link = (page, label: string) => Array.from(page.root.querySelectorAll('.main_side_menu a') as NodeListOf<HTMLAnchorElement>).find(a => a.textContent.trim() === label);
 
     it('lets a nested link without a submenu navigate', async () => {
       const page = await render(`<dda-header side-menu-items='${items}'></dda-header>`);

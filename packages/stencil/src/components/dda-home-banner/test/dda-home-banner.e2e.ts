@@ -260,20 +260,20 @@ describe('dda-home-banner', () => {
   it('warns when it contains no <slide> elements', async () => {
     const page = await newE2EPage();
     const warnings: string[] = [];
-    page.on('console', (m) => m.type() === 'warning' && warnings.push(m.text()));
+    page.on('console', m => m.type() === 'warning' && warnings.push(m.text()));
     await page.setContent('<dda-home-banner><div class="card">Card</div></dda-home-banner>');
     await page.waitForChanges();
 
-    expect(warnings.some((w) => w.includes('dda-home-banner') && w.includes('<slide>'))).toBe(true);
+    expect(warnings.some(w => w.includes('dda-home-banner') && w.includes('<slide>'))).toBe(true);
   });
 
   it('does not warn when it contains <slide> elements', async () => {
     const page = await newE2EPage();
     const warnings: string[] = [];
-    page.on('console', (m) => m.type() === 'warning' && warnings.push(m.text()));
+    page.on('console', m => m.type() === 'warning' && warnings.push(m.text()));
     await page.setContent('<dda-home-banner><slide><p>One</p></slide></dda-home-banner>');
     await page.waitForChanges();
 
-    expect(warnings.filter((w) => w.includes('dda-home-banner'))).toEqual([]);
+    expect(warnings.filter(w => w.includes('dda-home-banner'))).toEqual([]);
   });
 });

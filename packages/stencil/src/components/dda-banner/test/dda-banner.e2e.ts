@@ -80,7 +80,7 @@ describe('dda-banner', () => {
     const layout = await page.evaluate(() => {
       const root = document.querySelector('dda-banner').shadowRoot;
       const slider = getComputedStyle(root.querySelector('.dda-banner-slider'));
-      const [a, b] = Array.from(root.querySelectorAll('.dda-banner-slide')).map((s) => s.getBoundingClientRect());
+      const [a, b] = Array.from(root.querySelectorAll('.dda-banner-slide')).map(s => s.getBoundingClientRect());
       return { display: slider.display, snap: slider.scrollSnapType, sameRow: a.top === b.top && b.left > a.left };
     });
 
@@ -90,7 +90,7 @@ describe('dda-banner', () => {
   it('does not log an error when the slides attribute is missing', async () => {
     const page = await newE2EPage();
     const errors: string[] = [];
-    page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+    page.on('console', m => m.type() === 'error' && errors.push(m.text()));
     await page.setContent('<dda-banner></dda-banner>');
     await page.waitForChanges();
 
