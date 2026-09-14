@@ -95,7 +95,10 @@
   transform: translate(0%, -50%);
 }
 
-
+/* Nothing follows the last step, so its line would run past the stepper. */
+.h-step:last-child .h-step-indicator::after {
+  content: none;
+}
 
 .h-step.completed .h-step-title{
   color: var(--dda-color-success-40);

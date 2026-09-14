@@ -82,4 +82,17 @@ describe('dda-horizontal-stepper text contrast (F-023)', () => {
       expect(contrastRatio(colors.description, colors.background)).toBeGreaterThanOrEqual(4.5);
     });
   }
+
+  it('keeps the active line inside the stepper when the last step is active', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 800, height: 600 });
+    await page.setContent(`<dda-horizontal-stepper steps='${STEPS}' current_step="2"></dda-horizontal-stepper>`);
+
+    const overflow = await page.evaluate(() => ({
+      container: document.querySelector('.h-stepper-container').scrollWidth - document.querySelector('.h-stepper-container').clientWidth,
+      page: document.documentElement.scrollWidth - window.innerWidth,
+    }));
+
+    expect(overflow).toEqual({ container: 0, page: 0 });
+  });
 });
