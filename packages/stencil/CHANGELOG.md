@@ -4,7 +4,10 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## Unreleased
+## 5.1.1 (2026-09-18)
+
+A patch release. It fixes the transparent header on scroll, video slides in the home banner, and
+focus hidden under the sticky footer, and adds an `autocomplete` prop to `dda-input`.
 
 ### Features
 

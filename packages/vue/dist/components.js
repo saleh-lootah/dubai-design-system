@@ -246,7 +246,8 @@ export const DdaInput = defineContainer('dda-input', undefined, [
     'component_mode',
     'input_id',
     'aria_label',
-    'input_name'
+    'input_name',
+    'autocomplete'
 ]);
 export const DdaLinkButton = defineContainer('dda-link-button', undefined, [
     'type',
