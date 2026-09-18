@@ -242,6 +242,56 @@ describe('dda-sticky-footer and the home-page quick links', () => {
   });
 });
 
+// WCAG 2.4.11: the fixed bar covers the bottom of the viewport. A control that sits there
+// must not stay hidden under the bar when it gets keyboard focus.
+describe('dda-sticky-footer does not hide focused content', () => {
+  const setup = async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1280, height: 800 });
+    // The button is fully inside the viewport, but in the bottom 40px, under the 64px bar.
+    await page.setContent(`
+      <style>body { margin: 0; }</style>
+      <a id="first" href="#">First</a>
+      <button id="target" style="position: absolute; top: 750px; left: 20px; height: 30px;">Continue</button>
+      <div style="height: 3000px;"></div>
+      <dda-sticky-footer></dda-sticky-footer>
+    `);
+    await page.waitForChanges();
+    await page.waitForFunction(() => document.documentElement.style.getPropertyValue('--dda-sticky-footer-height') !== '');
+    return page;
+  };
+
+  it('keeps a control above the bar when it gets focus with Tab', async () => {
+    const page = await setup();
+    await page.focus('#first');
+    await page.keyboard.press('Tab');
+    await new Promise(resolve => setTimeout(resolve, 400));
+
+    const hit = await page.evaluate(() => {
+      const target = document.getElementById('target');
+      const r = target.getBoundingClientRect();
+      return { focused: document.activeElement === target, onTop: target.contains(document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)) };
+    });
+
+    expect(hit).toEqual({ focused: true, onTop: true });
+  });
+
+  it('reserves the bar height at the end of the page, and releases it when the bar is removed', async () => {
+    const page = await setup();
+    const read = () => page.evaluate(() => ({
+      padding: getComputedStyle(document.body).paddingBottom,
+      bar: `${document.querySelector('dda-sticky-footer .dda-footer').getBoundingClientRect().height}px`,
+    }));
+
+    const withBar = await read();
+    expect(withBar.padding).toBe(withBar.bar);
+
+    await page.evaluate(() => document.querySelector('dda-sticky-footer').remove());
+    await page.waitForChanges();
+    expect(await page.evaluate(() => getComputedStyle(document.body).paddingBottom)).toBe('0px');
+  });
+});
+
 describe('dda-sticky-footer landmarks and names', () => {
   it('renders an aside named "Quick actions", not a second footer landmark', async () => {
     const page = await newE2EPage();

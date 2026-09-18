@@ -11,6 +11,20 @@
     transition: transform 300ms ease-in-out;
 }
 
+/* WCAG 2.4.11: the fixed bar covers the bottom of the viewport. dda-sticky-footer publishes
+   its height as --dda-sticky-footer-height (and removes it when it is removed), so:
+   - scroll-padding-bottom keeps focused and scrolled-to elements above the bar, the same way
+     scroll-padding-top in dda-header.css keeps them below the fixed header;
+   - body padding-bottom lets the end of the page scroll clear of the bar.
+   Without the component the variable is not set and both are 0. */
+:root {
+    scroll-padding-bottom: var(--dda-sticky-footer-height, 0px);
+}
+
+body {
+    padding-bottom: var(--dda-sticky-footer-height, 0px);
+}
+
 /* dda-sticky-footer toggles this class off its own scroll-direction state
    (see dda-sticky-footer.tsx handleScroll) to hide the bar while scrolling
    down and bring it back while scrolling up. Same transition idiom as

@@ -23,6 +23,11 @@ All four published packages (`components-js`, `components-react`, `components-vu
   when you scrolled up in the middle of the page, over the page content. The header now adds a
   `dda-scrolled` class to itself when the page is not at the top, and the transparent rules
   apply only without that class. Below the top, the header uses the standard white style.
+- **dda-sticky-footer: the bar no longer hides focused content (WCAG 2.4.11).** The fixed bar
+  covered the bottom 64px of the viewport, so a control there could get keyboard focus under
+  it. The page now sets `scroll-padding-bottom` and a `body` `padding-bottom` from
+  `--dda-sticky-footer-height`. Focused and scrolled-to elements stay above the bar, and the
+  end of the page scrolls clear of it. Pages without the component are not affected.
 
 ### Behaviour Changes
 
