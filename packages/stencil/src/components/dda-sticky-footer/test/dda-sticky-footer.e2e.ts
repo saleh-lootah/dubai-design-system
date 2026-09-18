@@ -278,10 +278,11 @@ describe('dda-sticky-footer does not hide focused content', () => {
 
   it('reserves the bar height at the end of the page, and releases it when the bar is removed', async () => {
     const page = await setup();
-    const read = () => page.evaluate(() => ({
-      padding: getComputedStyle(document.body).paddingBottom,
-      bar: `${document.querySelector('dda-sticky-footer .dda-footer').getBoundingClientRect().height}px`,
-    }));
+    const read = () =>
+      page.evaluate(() => ({
+        padding: getComputedStyle(document.body).paddingBottom,
+        bar: `${document.querySelector('dda-sticky-footer .dda-footer').getBoundingClientRect().height}px`,
+      }));
 
     const withBar = await read();
     expect(withBar.padding).toBe(withBar.bar);
