@@ -20,72 +20,114 @@
     <a class="demo-skip-link" href="#main">Skip to main content</a>
     <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
 
-    <main id="main" tabindex="-1" class="demo-main">
-      <dda-breadcrumb id="service-breadcrumb"></dda-breadcrumb>
+    <main id="main" tabindex="-1" class="demo-main demo-service">
+      <!-- The flow follows the GOV.UK service patterns: a start page, question pages, check your
+           answers and a confirmation page. Each page has its own URL (service.html?id=<service>&page=<page>),
+           so the browser back button and a reload work. service.js shows one page and hides the others. -->
+      <dda-breadcrumb id="service-breadcrumb" hidden></dda-breadcrumb>
+      <a id="back-link" class="demo-back-link" href="services.html" hidden>Back</a>
 
-      <div class="demo-page-intro">
-        <h1 id="service-title">Service application</h1>
-        <p id="service-description"></p>
-      </div>
-
-      <div id="service-flow" class="demo-flow">
-        <dl class="demo-facts">
-          <div><dt>Fee</dt><dd id="service-fee"></dd></div>
-          <div><dt>Time to complete</dt><dd id="service-time"></dd></div>
-          <div><dt>Category</dt><dd id="service-category"></dd></div>
-        </dl>
-
-        <div class="demo-scroll-x" tabindex="0" role="region" aria-label="Application progress">
-          <dda-horizontal-stepper id="service-stepper" current_step="0"
-            steps='[{"title":"Step 1","subtitle":"Your details","description":""},{"title":"Step 2","subtitle":"Documents","description":""},{"title":"Step 3","subtitle":"Review and pay","description":""},{"title":"Step 4","subtitle":"Confirmation","description":""}]'></dda-horizontal-stepper>
+      <div id="error-summary" class="demo-error-summary" tabindex="-1" aria-labelledby="error-summary-title" hidden>
+        <div role="alert">
+          <h2 id="error-summary-title" class="demo-error-summary-title">There is a problem</h2>
+          <ul id="error-summary-list" class="demo-error-summary-list"></ul>
         </div>
-
-        <form id="service-form" class="demo-form" novalidate>
-          <section class="demo-step" data-step="0" aria-labelledby="step-0-title">
-            <h2 id="step-0-title" tabindex="-1">Your details</h2>
-            <dda-input label="Full name" placeholder="As on your Emirates ID" input_id="applicant-name" input_name="name"></dda-input>
-            <dda-input label="Email" type="email" placeholder="name@example.com" input_id="applicant-email" input_name="email"></dda-input>
-            <dda-phonefield label="Mobile number" input_id="applicant-phone"></dda-phonefield>
-            <dda-input label="Emirates ID number" placeholder="784-0000-0000000-0" input_id="applicant-eid" input_name="eid"></dda-input>
-          </section>
-
-          <section class="demo-step" data-step="1" aria-labelledby="step-1-title" hidden>
-            <h2 id="step-1-title" tabindex="-1">Documents</h2>
-            <p>Upload clear copies. This is a sample: files stay on your device.</p>
-            <dda-attach-file label="Copy of Emirates ID" helper_text="PDF, JPG or PNG, max 5 MB" input_id="doc-eid"></dda-attach-file>
-            <dda-attach-file label="Supporting document (optional)" helper_text="PDF, max 5 MB" input_id="doc-support"></dda-attach-file>
-          </section>
-
-          <section class="demo-step" data-step="2" aria-labelledby="step-2-title" hidden>
-            <h2 id="step-2-title" tabindex="-1">Review and pay</h2>
-            <dl class="demo-summary">
-              <div><dt>Service</dt><dd id="review-service"></dd></div>
-              <div><dt>Name</dt><dd id="review-name"></dd></div>
-              <div><dt>Email</dt><dd id="review-email"></dd></div>
-              <div><dt>Emirates ID</dt><dd id="review-eid"></dd></div>
-              <div><dt>Fee</dt><dd id="review-fee"></dd></div>
-            </dl>
-            <dda-checkbox title_text="I confirm that the information is correct" input_id="review-confirm"></dda-checkbox>
-            <p id="review-confirm-error" class="demo-error" role="alert" hidden>Confirm that the information is correct.</p>
-          </section>
-
-          <section class="demo-step" data-step="3" aria-labelledby="step-3-title" hidden>
-            <h2 id="step-3-title" tabindex="-1">Application sent</h2>
-            <dda-alert heading_level="3" variation="success" type="primary" title_text="Your application is sent" description="This is a sample service, so nothing was sent."></dda-alert>
-            <p>Your reference number is <strong id="service-reference"></strong>. Keep it to follow your application.</p>
-            <div class="demo-row">
-              <dda-link-button button_color="default-primary" href="services.html" start_icon="arrow_back">Back to services</dda-link-button>
-              <dda-link-button button_color="default-secondary" href="./">Go to the home page</dda-link-button>
-            </div>
-          </section>
-
-          <div class="demo-row demo-step-actions">
-            <dda-button id="step-back" button_color="default-secondary" start_icon="arrow_back">Back</dda-button>
-            <dda-button id="step-next" button_color="default-primary" end_icon="arrow_forward" type="submit">Continue</dda-button>
-            <dda-button id="step-pay" button_color="default-primary" end_icon="payments" type="submit" hidden>Pay and send</dda-button>
-          </div>
-        </form>
       </div>
+
+      <!-- Start page -->
+      <section class="demo-page" data-page="start" hidden>
+        <h1 id="service-name"></h1>
+        <p class="demo-service-description"></p>
+        <dl class="demo-facts">
+          <div><dt>Fee</dt><dd class="demo-service-fee"></dd></div>
+          <div><dt>Time to get a decision</dt><dd class="demo-service-time"></dd></div>
+        </dl>
+        <h2>Before you start</h2>
+        <p>You need:</p>
+        <ul class="demo-list">
+          <li>your Emirates ID number</li>
+          <li>a copy of your Emirates ID, as a PDF, JPG or PNG file smaller than 5MB</li>
+        </ul>
+        <p>It takes around 5 minutes to apply.</p>
+        <div class="demo-row">
+          <dda-link-button id="start-now" button_color="default-primary" size="lg" end_icon="arrow_forward">Start now</dda-link-button>
+        </div>
+      </section>
+
+      <form id="service-form" class="demo-form" novalidate hidden>
+        <!-- Question 1 -->
+        <section class="demo-page" data-page="contact" hidden>
+          <div class="demo-heading">
+            <span class="demo-caption">Question 1 of 3</span>
+            <h1>Your contact details</h1>
+          </div>
+          <dda-input label="Full name" helper_text="As shown on your Emirates ID" input_id="applicant-name" input_name="name" autocomplete="name"></dda-input>
+          <dda-input label="Email address" helper_text="We only use this to send you updates about your application" type="email" input_id="applicant-email" input_name="email" autocomplete="email"></dda-input>
+          <dda-phonefield label="Mobile number (optional)" helper_text="For text message updates, like 50 123 4567" placeholder="" input_id="applicant-phone" phone_input_name="phone"></dda-phonefield>
+        </section>
+
+        <!-- Question 2 -->
+        <section class="demo-page" data-page="eid" hidden>
+          <div class="demo-heading">
+            <span class="demo-caption">Question 2 of 3</span>
+            <h1>What is your Emirates ID number?</h1>
+          </div>
+          <dda-input label="Emirates ID number" helper_text="It has 15 digits and starts with 784, like 784-1990-1234567-1" input_id="applicant-eid" input_name="eid" autocomplete="off"></dda-input>
+        </section>
+
+        <!-- Question 3 -->
+        <section class="demo-page" data-page="documents" hidden>
+          <div class="demo-heading">
+            <span class="demo-caption">Question 3 of 3</span>
+            <h1>Upload your documents</h1>
+          </div>
+          <p>This is a sample service: your files stay on your device.</p>
+          <dda-attach-file label="Copy of your Emirates ID" helper_text="PDF, JPG or PNG, smaller than 5MB" input_id="doc-eid" input_name="doc-eid"></dda-attach-file>
+          <dda-attach-file label="Supporting document (optional)" helper_text="PDF, smaller than 5MB" input_id="doc-support" input_name="doc-support"></dda-attach-file>
+        </section>
+
+        <!-- Check your answers -->
+        <section class="demo-page" data-page="check" hidden>
+          <h1>Check your answers before sending your application</h1>
+          <h2>Service</h2>
+          <dl class="demo-summary-list">
+            <div><dt>Service</dt><dd data-answer="service"></dd><dd></dd></div>
+            <div><dt>Fee</dt><dd data-answer="fee"></dd><dd></dd></div>
+          </dl>
+          <h2>Your details</h2>
+          <dl class="demo-summary-list">
+            <div><dt>Full name</dt><dd data-answer="name"></dd><dd><a href="#" data-change="contact">Change<span class="visually-hidden"> full name</span></a></dd></div>
+            <div><dt>Email address</dt><dd data-answer="email"></dd><dd><a href="#" data-change="contact">Change<span class="visually-hidden"> email address</span></a></dd></div>
+            <div><dt>Mobile number</dt><dd data-answer="phone"></dd><dd><a href="#" data-change="contact">Change<span class="visually-hidden"> mobile number</span></a></dd></div>
+            <div><dt>Emirates ID number</dt><dd data-answer="eid"></dd><dd><a href="#" data-change="eid">Change<span class="visually-hidden"> Emirates ID number</span></a></dd></div>
+          </dl>
+          <h2>Documents</h2>
+          <dl class="demo-summary-list">
+            <div><dt>Copy of your Emirates ID</dt><dd data-answer="docEid"></dd><dd><a href="#" data-change="documents">Change<span class="visually-hidden"> copy of your Emirates ID</span></a></dd></div>
+            <div><dt>Supporting document</dt><dd data-answer="docSupport"></dd><dd><a href="#" data-change="documents">Change<span class="visually-hidden"> supporting document</span></a></dd></div>
+          </dl>
+          <h2>Now send your application</h2>
+          <p>By sending this application, you confirm that the details you gave are correct to the best of your knowledge.</p>
+        </section>
+
+        <div class="demo-row">
+          <dda-button id="form-submit" button_color="default-primary" type="submit">Continue</dda-button>
+        </div>
+      </form>
+
+      <!-- Confirmation -->
+      <section class="demo-page" data-page="done" hidden>
+        <div class="demo-panel">
+          <h1 class="demo-panel-title">Application sent</h1>
+          <p class="demo-panel-body">Your reference number<br><strong id="service-reference"></strong></p>
+        </div>
+        <p>This is a sample service, so nothing was sent.</p>
+        <h2>What happens next</h2>
+        <p id="next-steps"></p>
+        <p>Keep your reference number. You need it if you contact us about your application.</p>
+        <p><a class="demo-link" href="contact.html">What did you think of this service?</a> (takes 30 seconds)</p>
+        <p><a class="demo-link" href="services.html">Find another service</a></p>
+      </section>
 
       <dda-alert id="service-missing" hidden heading_level="2" variation="error" type="primary" title_text="Service not found" description="Choose a service from the services page."></dda-alert>
     </main>

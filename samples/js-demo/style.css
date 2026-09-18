@@ -192,8 +192,7 @@ dda-home-banner.home-slider[dir='rtl'] .slide-wrap {
 .demo-form,
 .demo-gallery-item,
 .demo-page-intro,
-.demo-flow,
-.demo-step {
+.demo-page {
   grid-template-columns: minmax(0, 1fr);
 }
 
@@ -246,56 +245,181 @@ dda-home-banner.home-slider[dir='rtl'] .slide-wrap {
   overflow-x: auto;
 }
 
-.demo-flow {
-  display: grid;
+/* Service flow pages (service.html), after the GOV.UK service patterns. */
+.demo-service {
+  max-width: 760px;
   gap: 32px;
 }
 
-.demo-facts,
-.demo-summary {
+.demo-page {
   display: grid;
+  gap: 16px;
+}
+
+.demo-page h2:not([class]) {
+  margin-top: 16px;
+}
+
+.demo-heading {
+  display: grid;
+  gap: 4px;
+}
+
+.demo-caption {
+  color: var(--dda-on-surface-variant-30, #4b5563);
+  font-size: var(--dda-h6);
+}
+
+/* dda.css resets every ul (list-style: none; padding: 0 !important). Lists in text need their bullets. */
+.demo-list {
+  margin: 0;
+  padding-inline-start: 24px !important;
+  list-style: disc;
+  display: grid;
+  gap: 4px;
+}
+
+.demo-link,
+.demo-back-link,
+.demo-summary-list a,
+.demo-error-summary-list a {
+  color: var(--dda-color-primary-40);
+  /* dda.css removes the underline from every link with !important. Links in text keep it. */
+  text-decoration: underline !important;
+  text-underline-offset: 0.15em;
+}
+
+.demo-link:hover,
+.demo-back-link:hover,
+.demo-summary-list a:hover {
+  text-decoration-thickness: 3px !important;
+}
+
+.demo-back-link {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.demo-back-link::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-inline-start: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+[dir='rtl'] .demo-back-link::before {
+  transform: rotate(-45deg);
+}
+
+.demo-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
   gap: 16px;
   margin: 0;
 }
 
-.demo-facts {
-  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
-}
-
-.demo-facts > div,
-.demo-summary > div {
+.demo-facts > div {
   padding: 16px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
 }
 
-.demo-summary > div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.demo-facts dt,
-.demo-summary dt {
+.demo-facts dt {
   color: #4b5563;
 }
 
-.demo-facts dd,
-.demo-summary dd {
+.demo-facts dd {
   margin: 0;
   font-weight: 500;
 }
 
-.demo-step {
+/* Check your answers: key, value and Change link on one row; stacked on a phone. */
+.demo-summary-list {
+  margin: 0;
+}
+
+.demo-summary-list > div {
   display: grid;
-  gap: 16px;
+  grid-template-columns: 30% 1fr auto;
+  gap: 8px 24px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.demo-step h2:focus {
-  outline: none;
+.demo-summary-list dt {
+  font-weight: 700;
 }
 
-.demo-error {
-  color: #b42318;
+.demo-summary-list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .demo-summary-list > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+/* Error summary: shown above the page when a submit finds errors. It gets focus. */
+.demo-error-summary {
+  padding: 16px 20px;
+  border: 4px solid var(--dda-color-error-40, #b42318);
+  border-radius: 4px;
+}
+
+.demo-error-summary:focus {
+  outline: 3px solid var(--dda-color-primary-40);
+  outline-offset: 2px;
+}
+
+.demo-error-summary-title {
+  margin: 0 0 12px;
+  font-size: var(--dda-h6);
+  font-weight: 700;
+}
+
+.demo-error-summary-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.demo-error-summary-list a {
+  color: var(--dda-color-error-40, #b42318);
+  font-weight: 700;
+}
+
+/* Confirmation panel. */
+.demo-panel {
+  padding: 32px 24px;
+  border-radius: 8px;
+  background: var(--dda-color-success-40, #067647);
+  color: #ffffff;
+  text-align: center;
+}
+
+.demo-panel-title {
+  margin: 0 0 16px;
+  font-size: var(--dda-h4);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.demo-panel-body {
+  margin: 0;
+  font-size: var(--dda-h6);
+}
+
+.demo-panel-body strong {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: var(--dda-h5);
 }
