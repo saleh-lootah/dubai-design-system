@@ -496,3 +496,47 @@ describe('dda-header transparent gradient', () => {
     expect(hit.topElement).toBe('cta');
   });
 });
+
+describe('dda-header transparent style on scroll', () => {
+  const setup = async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1280, height: 800 });
+    await page.setContent(`
+      <div class="transparent">
+        <dda-header></dda-header>
+        <div style="height: 3000px;"></div>
+      </div>
+    `);
+    await page.waitForChanges();
+    return page;
+  };
+  const headerBackground = (page: E2EPage) => page.evaluate(() => getComputedStyle(document.querySelector('.dda-header')).backgroundColor);
+  const scrollTo = async (page: E2EPage, y: number) => {
+    await page.evaluate(top => window.scrollTo(0, top), y);
+    await page.waitForFunction(top => window.scrollY === top, {}, y);
+    await page.waitForChanges();
+  };
+
+  it('is transparent at the top of the page', async () => {
+    const page = await setup();
+    expect(await page.find('dda-header')).not.toHaveClass('dda-scrolled');
+    expect(await headerBackground(page)).toBe('rgba(0, 0, 0, 0)');
+  });
+
+  it('uses the standard style below the top, also while scrolling back up', async () => {
+    const page = await setup();
+    await scrollTo(page, 600);
+    // Scroll up a little: the header shows its menu again, but must stay standard.
+    await scrollTo(page, 500);
+    expect(await page.find('dda-header')).toHaveClass('dda-scrolled');
+    expect(await headerBackground(page)).not.toBe('rgba(0, 0, 0, 0)');
+  });
+
+  it('is transparent again back at the top', async () => {
+    const page = await setup();
+    await scrollTo(page, 600);
+    await scrollTo(page, 0);
+    expect(await page.find('dda-header')).not.toHaveClass('dda-scrolled');
+    expect(await headerBackground(page)).toBe('rgba(0, 0, 0, 0)');
+  });
+});

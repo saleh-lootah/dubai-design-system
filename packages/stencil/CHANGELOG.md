@@ -4,6 +4,26 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## Unreleased
+
+### Bug Fixes
+
+- **dda-home-banner: video slides fill the banner.** The slide media rule styled only `<img>`,
+  so a `<video>` in a `<slide>` did not cover the slide. `<video>` now gets the same full-size
+  `object-fit: cover` rule as `<img>`.
+- **dda-header: the transparent style shows only at the top of the page.** On a page with
+  `<body class="transparent">`, the header became transparent again with its black gradient
+  when you scrolled up in the middle of the page, over the page content. The header now adds a
+  `dda-scrolled` class to itself when the page is not at the top, and the transparent rules
+  apply only without that class. Below the top, the header uses the standard white style.
+
+### Behaviour Changes
+
+- **Transparent header selectors are more specific.** The rules that were `.transparent X` are
+  now `.transparent dda-header:not(.dda-scrolled) X`. If you override the transparent header in
+  your own CSS with `.transparent ...` selectors, add `dda-header:not(.dda-scrolled)` to them,
+  or they will no longer win.
+
 ## 5.1.0 (2026-09-14)
 
 A minor release. It adds a working header search, and fixes issues a consumer reported after

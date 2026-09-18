@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Event, EventEmitter, Watch } from '@stencil/core';
+import { Component, Element, h, Prop, State, Event, EventEmitter, Watch } from '@stencil/core';
 
 // Gives each header its own search input ids, so several headers on a page do not clash.
 let headerInstanceCount = 0;
@@ -10,6 +10,8 @@ let headerInstanceCount = 0;
 })
 
 export class DdaHeader {
+  @Element() el: HTMLElement;
+
   /** Image URL of the first (government) logo, on the left of the header and in the side menu. */
   @Prop() firstLogoSrc: string;
   /** Image URL of the white first logo, shown in dark theme and on a transparent header (`<body class="transparent">`). Falls back to `firstLogoSrc`. */
@@ -147,6 +149,7 @@ export class DdaHeader {
   }
 
   componentDidLoad() {
+    this.updateScrolled();
     window.addEventListener('scroll', this.handleScroll);
     document.addEventListener('click', this.handleOutsideClick);
     document.addEventListener('keydown', this.toggleEscapeKey);
@@ -259,7 +262,14 @@ export class DdaHeader {
     }
   };
 
+  // The transparent style (<body class="transparent">) shows only at the top of the page.
+  // Below the top, `dda-scrolled` turns it off in CSS and the header uses the standard style.
+  private updateScrolled() {
+    this.el.classList.toggle('dda-scrolled', window.scrollY > 0);
+  }
+
   handleScroll = () => {
+    this.updateScrolled();
     const scrollTop = window.scrollY;
     const menuContainer = document.querySelector('.dda-menu-container') as HTMLElement;
     const logoContainer = document.querySelector('.dda-header') as HTMLElement;

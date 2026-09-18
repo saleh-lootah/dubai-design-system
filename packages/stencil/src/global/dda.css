@@ -154,7 +154,7 @@
   .dda-head-logo .govt-logo img {
     height: 39px;
   }
-  .transparent .dda-header::before {
+  .transparent dda-header:not(.dda-scrolled) .dda-header::before {
     height: 100%;
   }
 }

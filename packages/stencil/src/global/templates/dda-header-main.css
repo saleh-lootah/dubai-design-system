@@ -18,12 +18,12 @@
     position: relative;
 }
 
-.transparent .dda-header {
+.transparent dda-header:not(.dda-scrolled) .dda-header {
     background: transparent;
     box-shadow: none;
 }
 
-.transparent .dda-header::before {
+.transparent dda-header:not(.dda-scrolled) .dda-header::before {
     content: "";
     width: 100%;
     height: 250px;
@@ -54,13 +54,13 @@
 .entt-logo img {
     height: 44px;
 }
-.transparent .logo-colored{
+.transparent dda-header:not(.dda-scrolled) .logo-colored{
     display: none;
 }
 .logo-white{
     display: none;
 }
-.transparent .logo-white{
+.transparent dda-header:not(.dda-scrolled) .logo-white{
     display: block;
 }
 .dda-header.white .dda-head-logo .logo-white,
@@ -180,9 +180,9 @@
     background-color: var(--dda-color-primary-40);
 }
 
-.transparent .hamburger-menu-btn::before,
-.transparent .hamburger-menu-btn::after,
-.transparent .hamburger-line {
+.transparent dda-header:not(.dda-scrolled) .hamburger-menu-btn::before,
+.transparent dda-header:not(.dda-scrolled) .hamburger-menu-btn::after,
+.transparent dda-header:not(.dda-scrolled) .hamburger-line {
     background-color: var(--dda-neutral-100) !important;
 }
 
@@ -246,7 +246,7 @@
     color: var(--dda-color-primary-40);
 }
 
-.transparent .dda-mega-menu>li>a {
+.transparent dda-header:not(.dda-scrolled) .dda-mega-menu>li>a {
     color: var(--dda-neutral-100);
 }
 
@@ -263,7 +263,7 @@
     transition: all 0.25s ease-in-out;
 }
 
-.transparent .dda-mega-menu>li>a::after {
+.transparent dda-header:not(.dda-scrolled) .dda-mega-menu>li>a::after {
     background-color: var(--dda-neutral-100);
 }
 
@@ -377,8 +377,8 @@
     gap: 10px;
 }
 
-.transparent .dda-toolbar-menu ul li .tool-btn,
-.transparent .dda-toolbar-menu-sidemenu ul li .tool-btn {
+.transparent dda-header:not(.dda-scrolled) .dda-toolbar-menu ul li .tool-btn,
+.transparent dda-header:not(.dda-scrolled) .dda-toolbar-menu-sidemenu ul li .tool-btn {
     background-color: var(--dda-neutral-17);
     color: var(--dda-neutral-100);
 }
@@ -399,10 +399,10 @@
     color: var(--dda-on-surface-variant-30);
 }
 
-.transparent .dda-toolbar-menu ul li .tool-btn i,
-.transparent .dda-toolbar-menu ul li .tool-btn svg,
-.transparent .dda-toolbar-menu-sidemenu ul li .tool-btn i,
-.transparent .dda-toolbar-menu-sidemenu ul li .tool-btn svg {
+.transparent dda-header:not(.dda-scrolled) .dda-toolbar-menu ul li .tool-btn i,
+.transparent dda-header:not(.dda-scrolled) .dda-toolbar-menu ul li .tool-btn svg,
+.transparent dda-header:not(.dda-scrolled) .dda-toolbar-menu-sidemenu ul li .tool-btn i,
+.transparent dda-header:not(.dda-scrolled) .dda-toolbar-menu-sidemenu ul li .tool-btn svg {
     color: var(--dda-neutral-100);
 }
 .dda-search{
@@ -448,10 +448,10 @@
 .dda-search input[type="text"]::placeholder{
     color: var(--dda-on-surface-0);
 }
-.transparent .dda-search input[type="text"]::-ms-input-placeholder {
+.transparent dda-header:not(.dda-scrolled) .dda-search input[type="text"]::-ms-input-placeholder {
     color: var(--dda-neutral-100);
 }
-.transparent .dda-search input[type="text"]::placeholder{
+.transparent dda-header:not(.dda-scrolled) .dda-search input[type="text"]::placeholder{
     color: var(--dda-neutral-100);
 }
 
@@ -745,8 +745,8 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
     fill: var(--dda-on-surface-variant-30);
 }
 
-.transparent .dda-mobile-search button i,
-.transparent .dda-mobile-search button svg {
+.transparent dda-header:not(.dda-scrolled) .dda-mobile-search button i,
+.transparent dda-header:not(.dda-scrolled) .dda-mobile-search button svg {
     color: var(--dda-neutral-100);
 }
 
@@ -757,7 +757,7 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
 
 
 @media screen and (max-width: 767px) {
-    .transparent .dda-header::before {
+    .transparent dda-header:not(.dda-scrolled) .dda-header::before {
         height: 130px;
     }
     .dda-header{
