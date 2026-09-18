@@ -35,6 +35,8 @@ export class DdaInput {
   @Prop() aria_label?: string;
   /** `name` of the inner `<input>`, submitted with its form. */
   @Prop() input_name?: string;
+  /** `autocomplete` token of the inner `<input>`, e.g. `name`, `email` or `tel`. Set it on fields that ask about the user (WCAG 1.3.5). */
+  @Prop() autocomplete?: string;
 
   handleInput(event) {
     this.value = event.target.value;
@@ -89,6 +91,7 @@ export class DdaInput {
             id={id}
             name={this.input_name}
             type={this.type}
+            autocomplete={this.autocomplete}
             placeholder={this.placeholder}
             value={this.value}
             onInput={(event) => this.handleInput(event)}

@@ -301,3 +301,20 @@ describe('dda-input label association without input_id', () => {
     expect(result.htmlFor).toBe('my-field');
   });
 });
+
+// WCAG 1.3.5: fields that collect data about the user must name their purpose.
+describe('dda-input autocomplete', () => {
+  it('passes autocomplete to the inner input', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-input input_id="email" type="email" autocomplete="email"></dda-input>');
+
+    expect(await page.$eval('dda-input input', (input) => input.getAttribute('autocomplete'))).toBe('email');
+  });
+
+  it('sets no autocomplete attribute by default', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-input input_id="name"></dda-input>');
+
+    expect(await page.$eval('dda-input input', (input) => input.hasAttribute('autocomplete'))).toBe(false);
+  });
+});

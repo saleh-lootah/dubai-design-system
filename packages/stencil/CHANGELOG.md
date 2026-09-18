@@ -6,6 +6,13 @@ All four published packages (`components-js`, `components-react`, `components-vu
 
 ## Unreleased
 
+### Features
+
+- **dda-input: new `autocomplete` prop.** It sets the `autocomplete` attribute of the inner
+  `<input>`, so browsers can fill in fields such as `name`, `email` and `tel`. Set it on every
+  field that asks for information about the user (WCAG 1.3.5, Identify Input Purpose). There is no
+  default: without the prop, the input has no `autocomplete` attribute, the same as before.
+
 ### Bug Fixes
 
 - **dda-home-banner: video slides fill the banner.** The slide media rule styled only `<img>`,

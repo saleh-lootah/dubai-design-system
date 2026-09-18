@@ -427,14 +427,14 @@ export declare interface DdaHorizontalStepper extends Components.DdaHorizontalSt
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'component_mode', 'custom_class', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_status', 'label', 'placeholder', 'size', 'type', 'validation_type', 'value']
+  inputs: ['aria_label', 'autocomplete', 'component_mode', 'custom_class', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_status', 'label', 'placeholder', 'size', 'type', 'validation_type', 'value']
 })
 @Component({
   selector: 'dda-input',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'component_mode', 'custom_class', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_status', 'label', 'placeholder', 'size', 'type', 'validation_type', 'value'],
+  inputs: ['aria_label', 'autocomplete', 'component_mode', 'custom_class', 'error_message', 'helper_text', 'input_id', 'input_name', 'input_status', 'label', 'placeholder', 'size', 'type', 'validation_type', 'value'],
 })
 export class DdaInput {
   protected el: HTMLDdaInputElement;

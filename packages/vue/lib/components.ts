@@ -287,7 +287,8 @@ export const DdaInput = /*@__PURE__*/ defineContainer<JSX.DdaInput>('dda-input',
   'component_mode',
   'input_id',
   'aria_label',
-  'input_name'
+  'input_name',
+  'autocomplete'
 ]);
 
 

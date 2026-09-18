@@ -865,6 +865,10 @@ export namespace Components {
          */
         "aria_label"?: string;
         /**
+          * `autocomplete` token of the inner `<input>`, e.g. `name`, `email` or `tel`. Set it on fields that ask about the user (WCAG 1.3.5).
+         */
+        "autocomplete"?: string;
+        /**
           * Theme override class for the field, e.g. `light-mode`.
          */
         "component_mode"?: string;
@@ -3282,6 +3286,10 @@ declare namespace LocalJSX {
          */
         "aria_label"?: string;
         /**
+          * `autocomplete` token of the inner `<input>`, e.g. `name`, `email` or `tel`. Set it on fields that ask about the user (WCAG 1.3.5).
+         */
+        "autocomplete"?: string;
+        /**
           * Theme override class for the field, e.g. `light-mode`.
          */
         "component_mode"?: string;
@@ -4635,6 +4643,7 @@ declare namespace LocalJSX {
         "input_id": string;
         "aria_label": string;
         "input_name": string;
+        "autocomplete": string;
     }
     interface DdaLinkButtonAttributes {
         "type": string;
