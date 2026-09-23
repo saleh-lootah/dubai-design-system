@@ -16,11 +16,12 @@ To use the \`dda-alert\` component, pass the following props:
     variation="info"
     title_text="Alert Title"
     description="This is an informational alert."
-    button_text="Learn more"
+    first_button="Learn more"
+    first_link="#"
+    second_button="Dismiss"
+    second_link="#"
     custom_class=""
     component_mode=""
-    first_link=""
-    second_link=""
     button_name="">
 </dda-alert>
 \`\`\`
@@ -41,9 +42,10 @@ To use the \`dda-alert\` component, pass the following props:
     },
     title_text: { control: 'text', description: 'Title text' },
     description: { control: 'text', description: 'Description' },
-    button_text: { control: 'text', description: 'Button text' },
-    first_link: { control: 'text', description: 'link' },
-    second_link: { control: 'text', description: 'link' },
+    first_button: { control: 'text', description: 'Label of the first action link. The link shows only when this is set.' },
+    first_link: { control: 'text', description: '`href` of the first action link' },
+    second_button: { control: 'text', description: 'Label of the second action link. The link shows only when this is set.' },
+    second_link: { control: 'text', description: '`href` of the second action link' },
     button_name: { control: 'text', description: 'Button name' },
     custom_class: {
       control: { type: 'text' },
@@ -58,13 +60,14 @@ To use the \`dda-alert\` component, pass the following props:
   
 };
 
-const Template = ({ type, variation, title_text, description, button_text, button_name, custom_class, component_mode, first_link, second_link}) => html`
+const Template = ({ type, variation, title_text, description, first_button, second_button, button_name, custom_class, component_mode, first_link, second_link}) => html`
   <dda-alert
     type=${type}
     variation=${variation}
     title_text=${title_text}
     description=${description}
-    button_text=${button_text}
+    first_button=${first_button}
+    second_button=${second_button}
     custom_class=${custom_class}
     component_mode=${component_mode}
     first_link=${first_link}
@@ -80,12 +83,13 @@ AlertInfo.args = {
   variation: 'info',
   title_text: 'Alert Title',
   description: 'This is an informational alert.',
-  button_text: 'Learn more',
+  first_button: 'Learn more',
+  second_button: 'Dismiss',
   button_name: 'button',
   custom_class: '',
   component_mode: '',
-  first_link: '',
-  second_link: '',
+  first_link: '#',
+  second_link: '#',
 };
 
 export const AlertWarning = Template.bind({});
@@ -94,12 +98,13 @@ AlertWarning.args = {
   variation: 'warning',
   title_text: 'Alert Title',
   description: 'This is an informational alert.',
-  button_text: 'Learn more',
+  first_button: 'Learn more',
+  second_button: 'Dismiss',
   button_name: 'button',
   custom_class: '',
   component_mode: '',
-  first_link: '',
-  second_link: '',
+  first_link: '#',
+  second_link: '#',
 };
 
 export const AlertError = Template.bind({});
@@ -108,12 +113,13 @@ AlertError.args = {
   variation: 'error',
   title_text: 'Alert Title',
   description: 'This is an informational alert.',
-  button_text: 'Learn more',
+  first_button: 'Learn more',
+  second_button: 'Dismiss',
   button_name: 'button',
   custom_class: '',
   component_mode: '',
-  first_link: '',
-  second_link: '',
+  first_link: '#',
+  second_link: '#',
 };
 
 export const AlertSuccess = Template.bind({});
@@ -122,10 +128,11 @@ AlertSuccess.args = {
   variation: 'success',
   title_text: 'Alert Title',
   description: 'This is an informational alert.',
-  button_text: 'Learn more',
+  first_button: 'Learn more',
+  second_button: 'Dismiss',
   button_name: 'button',
   custom_class: '',
   component_mode: '',
-  first_link: '',
-  second_link: '',
+  first_link: '#',
+  second_link: '#',
 };
