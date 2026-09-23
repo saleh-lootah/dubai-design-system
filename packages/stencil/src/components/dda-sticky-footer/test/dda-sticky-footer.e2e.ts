@@ -218,14 +218,33 @@ describe('dda-sticky-footer and the home-page quick links', () => {
     expect(icon).toEqual({ fontSize: '35px', marginBottom: '15px' });
   });
 
-  it('keeps the mobile quick-link offset unchanged', async () => {
+  it('keeps the quick-link cards on the banner and above the sticky footer on small screens', async () => {
     const page = await newE2EPage();
     await page.setViewport({ width: 800, height: 900 });
     await page.setContent(home('<dda-sticky-footer></dda-sticky-footer>'));
     await page.waitForChanges();
 
-    const bottom = await page.evaluate(() => getComputedStyle(document.querySelector('.quick-links-wrap')).bottom);
-    expect(bottom).toBe('45px');
+    const layout = await page.evaluate(() => ({
+      position: getComputedStyle(document.querySelector('.quick-links-wrap')).position,
+      cardBottom: document.querySelector('.link-item').getBoundingClientRect().bottom,
+      footerTop: document.querySelector('dda-sticky-footer aside').getBoundingClientRect().top,
+    }));
+
+    expect(layout.position).toBe('absolute');
+    expect(layout.cardBottom).toBeLessThanOrEqual(layout.footerTop);
+  });
+
+  it('keeps the quick-link cards under the banner on short landscape screens', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 800, height: 500 });
+    await page.setContent(home('<dda-sticky-footer></dda-sticky-footer>'));
+    await page.waitForChanges();
+
+    const wrap = await page.evaluate(() => {
+      const style = getComputedStyle(document.querySelector('.quick-links-wrap'));
+      return { position: style.position, bottom: style.bottom };
+    });
+    expect(wrap).toEqual({ position: 'relative', bottom: '45px' });
   });
 
   it('clears the footer height variable when the sticky footer is removed', async () => {

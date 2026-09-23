@@ -14,24 +14,97 @@
   padding: 50px 20px 70px 20px;
 }
 
+/* Small screens: the cards sit on the banner this far above the sticky footer bar, at this height.
+   dda-home-banner's .slider-nav reads the same two values to stay 16px above the cards. */
+:root {
+  --dda-quick-links-gap-sm: 12px;
+  --dda-quick-links-card-height-sm: 112px;
+}
+
 .quick-links-wrap {
   width: 100%;
   position: absolute;
-  /* dda-sticky-footer sets --dda-sticky-footer-height; the cards sit above the fixed bar. */
-  bottom: calc(45px + var(--dda-sticky-footer-height, 0px));
+  /* dda-sticky-footer sets --dda-sticky-footer-height; the cards sit above the fixed bar.
+     The row's bottom padding (below) is part of the 69px. The banner's .slider-nav sits 205px
+     above this offset (274px in home-banner.css); change both together. */
+  bottom: calc(69px - var(--dda-quick-links-pad-bottom) + var(--dda-sticky-footer-height, 0px));
   z-index: 1;
 }
 
+/* The width of the fade on each edge that has more cards to scroll to. */
+@property --dda-quick-links-fade-start {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --dda-quick-links-fade-end {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+/* One row of cards. When the cards do not fit, the row scrolls sideways. A card cut at the edge,
+   a fade on each edge with more cards, and a thin scrollbar show that the row scrolls. */
+.quick-links-wrap,
+.quick-links {
+  /* Room inside the row for the hover lift (12px above) and the pointer (9px below);
+     a scrolling box clips anything outside it. */
+  --dda-quick-links-pad-top: 12px;
+  --dda-quick-links-pad-bottom: 12px;
+  --dda-quick-links-fade: 32px;
+}
 .quick-links {
   width: 90vw;
   margin: 0 auto;
   display: flex;
   gap: 8px;
-  padding: 0 20px;
+  padding: var(--dda-quick-links-pad-top) 20px var(--dda-quick-links-pad-bottom);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  /* A card that snaps or takes focus stops clear of the fade. */
+  scroll-padding-inline: calc(var(--dda-quick-links-fade) + 4px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.7) transparent;
+}
+
+/* Fades show only where the row can scroll, and follow the scroll position. Browsers without
+   scroll-driven animations show no fade; the cut card and the scrollbar still show. */
+@supports (animation-timeline: scroll()) {
+  .quick-links {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--dda-quick-links-fade-start), #000 calc(100% - var(--dda-quick-links-fade-end)), transparent);
+    mask-image: linear-gradient(to right, transparent, #000 var(--dda-quick-links-fade-start), #000 calc(100% - var(--dda-quick-links-fade-end)), transparent);
+    animation: dda-quick-links-fade linear both;
+    animation-timeline: scroll(self inline);
+  }
+  /* In RTL the row starts on the right. */
+  [dir='rtl'] .quick-links {
+    -webkit-mask-image: linear-gradient(to left, transparent, #000 var(--dda-quick-links-fade-start), #000 calc(100% - var(--dda-quick-links-fade-end)), transparent);
+    mask-image: linear-gradient(to left, transparent, #000 var(--dda-quick-links-fade-start), #000 calc(100% - var(--dda-quick-links-fade-end)), transparent);
+  }
+}
+@keyframes dda-quick-links-fade {
+  0% {
+    --dda-quick-links-fade-start: 0px;
+    --dda-quick-links-fade-end: var(--dda-quick-links-fade);
+  }
+  10%,
+  90% {
+    --dda-quick-links-fade-start: var(--dda-quick-links-fade);
+    --dda-quick-links-fade-end: var(--dda-quick-links-fade);
+  }
+  100% {
+    --dda-quick-links-fade-start: var(--dda-quick-links-fade);
+    --dda-quick-links-fade-end: 0px;
+  }
 }
 
 .quick-links .link-item {
-  width: 100%;
+  /* Cards share the row when they fit and are never narrower than 220px. */
+  flex: 1 0 220px;
+  min-width: 0;
+  scroll-snap-align: start;
   height: 170px;
   display: block;
   background: var(--dda-surface-100);
@@ -100,11 +173,16 @@
     /* In normal flow the cards do not sit over the fixed bar, so keep the original offset. */
     bottom: 45px;
   }
+  /* Below the banner, on the page background: the row spans the screen, and each card is
+     narrower than the row so the next card shows at the edge. */
   .quick-links-wrap .quick-links {
-    display: grid;
-    padding: 20px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 20px var(--dda-quick-links-pad-bottom);
+    scrollbar-color: var(--dda-on-surface-variant-40) transparent;
   }
   .quick-links .link-item {
+    flex: 0 0 min(75%, 300px);
     height: auto;
     margin: 0px;
     border: solid 1px #ddd;
@@ -175,4 +253,42 @@
 
 .container-xxl {
   max-width: 90vw !important;
+}
+
+/* 992px and below, on screens taller than 600px: the cards sit on the banner, above the sticky
+   footer bar, as on desktop. They are compact so they cover less of the slide, and the slide
+   controls move above them (home-banner.css). On short landscape screens the banner cannot hold
+   the text, the controls and the cards, so the cards stay under it (the rules above). */
+@media screen and (max-width: 992px) and (min-height: 601px) {
+  .quick-links-wrap {
+    position: absolute;
+    /* The row's bottom padding is part of the gap above the bar. */
+    bottom: calc(var(--dda-quick-links-gap-sm) - var(--dda-quick-links-pad-bottom) + var(--dda-sticky-footer-height, 0px));
+  }
+  .quick-links-wrap .quick-links {
+    padding-top: var(--dda-quick-links-pad-top);
+    scrollbar-color: rgba(255, 255, 255, 0.7) transparent;
+  }
+  .quick-links .link-item {
+    height: var(--dda-quick-links-card-height-sm);
+    padding: 16px;
+    border: 0;
+  }
+  .quick-links .link-item i {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .quick-links .link-item svg {
+    height: 24px;
+    margin-bottom: 8px;
+  }
+  .quick-links .link-item .title {
+    font-size: var(--dda-fs-body-lg);
+  }
+  .quick-links .link-item .subtitle {
+    font-size: var(--dda-fs-body-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

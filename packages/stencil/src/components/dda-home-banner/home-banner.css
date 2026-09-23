@@ -106,8 +106,9 @@
   width: 100%;
   text-align: center;
   position: absolute;
-  /* The quick-link cards over the banner rise by the sticky footer height, so the controls do too. */
-  bottom: calc(250px + var(--dda-sticky-footer-height, 0px));
+  /* The quick-link cards over the banner rise by the sticky footer height, so the controls do too.
+     274px keeps the controls above the cards, which sit at 69px (.quick-links-wrap in dda.css). */
+  bottom: calc(274px + var(--dda-sticky-footer-height, 0px));
   left: 0;
   display: flex;
   justify-content: center;
@@ -207,6 +208,15 @@
   .slider-nav {
     bottom: 100px;
   }
+}
+/* On taller small screens the quick-link cards sit on the banner (dda.css), so the controls sit
+   16px above them. The two custom properties are the cards' gap above the bar and their height. */
+@media screen and (max-width:992px) and (min-height:601px) {
+  .slider-nav {
+    bottom: calc(var(--dda-sticky-footer-height, 0px) + var(--dda-quick-links-gap-sm, 12px) + var(--dda-quick-links-card-height-sm, 112px) + 16px);
+  }
+}
+@media screen and (max-width:992px) {
   /* Below 992px the text runs the full width, so the scrim must too. */
   .home-slider .slide-wrap,
   [dir='rtl'] .home-slider .slide-wrap,
