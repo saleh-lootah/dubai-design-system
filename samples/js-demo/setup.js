@@ -6,6 +6,7 @@ import governmentLogo from './assets/logos/government-of-dubai.svg';
 import governmentLogoWhite from './assets/logos/government-of-dubai-white.svg';
 import digitalDubaiLogo from './assets/logos/digital-logo.svg';
 import digitalDubaiLogoWhite from './assets/logos/digital-logo-white.svg';
+import { setupPopups, HAPPINESS_HREF, PLATFORM_04_HREF } from './popups.js';
 
 // One lazy loader per self-defining component (Vite cannot bundle the package's lazy loader).
 // Each component module also defines the components it uses inside, like dda-tooltip in dda-header.
@@ -69,10 +70,14 @@ function configureSiteChrome() {
   });
 
   setProps('site-sticky-footer', {
+    // Happiness and 04 open sample popups (popups.js) instead of going to a page.
     ...icon('happinessIcon', 'Happiness'),
+    happinessIconHref: HAPPINESS_HREF,
     ...icon('accessibilityIcon', 'Accessibility'),
-    ...icon('servicesIcon', 'Services'),
-    servicesIconText: 'Services',
+    ...icon('servicesIcon', '04 platform'),
+    servicesIconHref: PLATFORM_04_HREF,
+    servicesIconSrc: placeholder(48, 48, '04'),
+    servicesIconText: '04 platform',
     ...icon('firstLogo', 'Logo 1'),
     ...icon('secondLogo', 'Logo 2'),
     ...icon('thirdLogo', 'Logo 3'),
@@ -116,6 +121,7 @@ async function start() {
   document.body.setAttribute('aria-busy', 'true');
   try {
     configureSiteChrome();
+    setupPopups();
     await loadComponents();
     await Promise.race([
       Promise.all([

@@ -423,3 +423,70 @@ dda-home-banner.home-slider[dir='rtl'] .slide-wrap {
   margin-top: 4px;
   font-size: var(--dda-h5);
 }
+
+/* Sample popups for the sticky footer's Happiness and 04 links (popups.js). */
+.sample-popup {
+  width: min(480px, calc(100vw - 32px));
+  padding: 32px 24px 24px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--dda-surface-100, #fff);
+  color: var(--dda-on-surface-0, #000);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+}
+
+.sample-popup::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.sample-popup h2 {
+  margin: 0 0 8px;
+  font-size: 24px;
+}
+
+.sample-popup p {
+  margin: 0 0 16px;
+}
+
+.sample-popup-close {
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 12px;
+  display: inline-flex;
+  padding: 4px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sample-popup-close:focus-visible {
+  outline: 2px solid var(--dda-color-primary-40, #00665f);
+  outline-offset: 2px;
+}
+
+.sample-popup-faces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sample-popup form {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+
+.sample-popup textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid var(--dda-surface-variant-50, #6f7978);
+  border-radius: 8px;
+  font: inherit;
+}
+
+.sample-popup-status:empty {
+  display: none;
+}
