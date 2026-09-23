@@ -3,6 +3,18 @@ export default {
   tags: ['autodocs'],
   component: 'dda-header',
   argTypes: {
+    loginText: {
+      control: {type: 'text'},
+      description: 'Label of the Login link in the desktop toolbar and the side menu (default Login)',
+    },
+    loginIcon: {
+      control: {type: 'text'},
+      description: 'Material Symbols icon name of the Login link (default sentiment_satisfied)',
+    },
+    hide_login: {
+      control: {type: 'boolean'},
+      description: 'Removes the Login link from the desktop toolbar and the side menu',
+    },
     hamburger_menu_button_name: {
       control: {type: 'text'},
       description: 'Name for the hamburger menu button',
@@ -91,6 +103,9 @@ const Template = args => `
       second-logo-white-src="${args.secondLogoWhiteSrc}"
       second-logo-alt="${args.secondLogoAlt}"
       login-link="${args.loginLink}"
+      login-text="${args.loginText}"
+      login-icon="${args.loginIcon}"
+      ${args.hide_login ? 'hide_login' : ''}
       language_text="${args.language_text}"
       hamburger_menu_button_name="${args.hamburger_menu_button_name}"
       accessibility_button_name="${args.accessibility_button_name}"
@@ -129,6 +144,9 @@ Default.args = {
   secondLogoWhiteSrc: "https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg",
   secondLogoAlt: "Dubai-Digital-Authority",
   loginLink: "/login",
+  loginText: "Login",
+  loginIcon: "sentiment_satisfied",
+  hide_login: false,
   language_text: "العربية",
   hamburger_menu_button_name:"hamburger_menu_button_name",
   accessibility_button_name:"accessibility_button_name",
@@ -195,4 +213,11 @@ Default.args = {
     { label: 'Newsroom', href: '#', subMenu: [] },
     { label: 'Contact Us', href: '#', subMenu: [] },
   ],
+};
+
+// A site without sign-in: hide_login removes the Login link from the toolbar and the side menu.
+export const WithoutLogin = Template.bind({});
+WithoutLogin.args = {
+  ...Default.args,
+  hide_login: true,
 };

@@ -175,6 +175,95 @@ these in order:
 
 </div>
 
+## Service cards on the banner
+
+To show a row of service cards over the bottom of the banner, add the `.quick-links` markup from
+`dda.css` after `dda-home-banner`. Put both in one parent with `position: relative`; the cards are
+placed against that parent.
+
+```html
+<div class="home-intros" style="position: relative;">
+  <dda-home-banner aria_label="Highlights">
+    <!-- <slide> elements -->
+  </dda-home-banner>
+
+  <nav class="quick-links-wrap" aria-label="Popular services">
+    <div class="quick-links">
+      <a class="link-item" href="/services/traffic-fines">
+        <i class="material-icons material-symbols-outlined" aria-hidden="true">directions_car</i>
+        <span class="title">Pay traffic fines</span>
+        <span class="subtitle">Pay online in a few minutes.</span>
+      </a>
+      <a class="link-item" href="/services/emirates-id">
+        <i class="material-icons material-symbols-outlined" aria-hidden="true">badge</i>
+        <span class="title">Renew Emirates ID</span>
+        <span class="subtitle">Renew before it expires.</span>
+      </a>
+      <!-- more .link-item cards -->
+    </div>
+  </nav>
+</div>
+```
+
+### Layout
+
+- **One row at every width.** A card is never narrower than 220px. When the cards fit, they share
+  the row. When they do not fit, the row scrolls sideways and each card snaps into place.
+- **The row shows that it scrolls.** A card is cut at the edge of the row, each edge that has more
+  cards fades, and a thin scrollbar shows. The fade follows the scroll position and mirrors under
+  `dir="rtl"`. Browsers without scroll-driven animations show no fade; the cut card and the
+  scrollbar still show.
+- **Desktop.** The cards sit over the bottom of the banner, and the slide controls sit above them.
+- **992px and below, on screens taller than 600px.** The cards stay on the banner, 12px above the
+  sticky footer bar. They are 112px tall, with a 24px icon and one line of description. Each card
+  is 75% of the row (at most 300px), so the next card shows at the edge. The slide controls move to
+  16px above the cards, so the arrows and dots stay clear of them.
+- **Short landscape screens (600px tall or less).** The banner cannot hold the slide text, the
+  controls and the cards, so the cards sit under the banner.
+- **Sticky footer.** When `dda-sticky-footer` is on the page, it sets
+  `--dda-sticky-footer-height`, and the cards and the controls rise by that height. Do not add
+  your own offset.
+
+### Positions
+
+Distances are from the bottom of the banner, above the sticky footer bar.
+
+<table>
+  <thead>
+    <tr><th>Screen</th><th>Cards</th><th>Slide controls</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Wider than 992px</td><td>Card bottom 69px up, 170px tall (128px on landscape screens up to 1600px)</td><td>274px up</td></tr>
+    <tr><td>992px and below, taller than 600px</td><td>12px above the bar, 112px tall</td><td>16px above the top of the cards</td></tr>
+    <tr><td>992px and below, 600px tall or less</td><td>Under the banner, in the page flow</td><td>100px up</td></tr>
+  </tbody>
+</table>
+
+### Custom properties
+
+Set these on `:root` to move the small-screen cards and the slide controls together.
+
+<table>
+  <thead>
+    <tr><th>Property</th><th>Default</th><th>Controls</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>--dda-quick-links-gap-sm</code></td><td><code>12px</code></td><td>Space between the cards and the sticky footer bar</td></tr>
+    <tr><td><code>--dda-quick-links-card-height-sm</code></td><td><code>112px</code></td><td>Height of each card</td></tr>
+  </tbody>
+</table>
+
+Do not set `display`, `width` or `height` on `.quick-links` and `.link-item`, or `bottom` on
+`.quick-links-wrap` and `.slider-nav`. These rules replace the scrolling row and can put the
+cards over the slide controls.
+
+### Accessibility of the cards
+
+- Put the cards in a `<nav>` with an `aria-label`, so screen reader users can find the group.
+- Each card is a link, so Tab moves through the cards and the browser scrolls each focused card
+  into view. The slide controls come first in the tab order, before the cards.
+- Keep the icon `aria-hidden="true"`; the title names the link.
+
 ## Accessibility
 
 - The host exposes `role="region"` with `aria-roledescription="carousel"` and an

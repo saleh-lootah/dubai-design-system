@@ -14,6 +14,14 @@ export default {
     hideMiddleSection: {
       control: { type: 'boolean' },
       description: 'Hides the middle section of the footer',
+    },
+    locationButtonIcon: {
+      control: { type: 'text' },
+      description: 'Material Symbols icon of the location link, shown when the location image is empty',
+    },
+    newsButtonIcon: {
+      control: { type: 'text' },
+      description: 'Material Symbols icon of the news link, shown when the news image is empty',
     }
   },
   component: 'dda-sticky-footer',
@@ -124,7 +132,7 @@ Default.args = {
   newsButtonHref: '#',
   newsButtonText: 'News',
   newsButtonSrc: news_pin,
-  newsButtonIcon: 'news_on',
+  newsButtonIcon: 'newspaper',
 
   aiIconHref: '#',
   aiIconSrc: digital_ai,
@@ -137,4 +145,14 @@ Default.args = {
   chatIconTooltip: 'Online Chat',
 
   hideMiddleSection: false,
+};
+
+// The location and news links show a Material Symbols icon when their image is not set.
+export const MaterialIcons = Template.bind({});
+MaterialIcons.args = {
+  ...Default.args,
+  locationButtonSrc: '',
+  locationButtonIcon: 'location_on',
+  newsButtonSrc: '',
+  newsButtonIcon: 'newspaper',
 };
