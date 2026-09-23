@@ -322,14 +322,14 @@ export declare interface DdaFooter extends Components.DdaFooter {}
 
 
 @ProxyCmp({
-  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'language_button_name', 'language_lang', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'menu_button_label', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name']
+  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'hide_login', 'language_button_name', 'language_lang', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'menu_button_label', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name']
 })
 @Component({
   selector: 'dda-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'language_button_name', 'language_lang', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'menu_button_label', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name'],
+  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'hide_login', 'language_button_name', 'language_lang', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'menu_button_label', 'quickLinks', 'readSpeakerLink', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoWhiteSrc', 'sideMenuItems', 'toggle_accessibility_button_name'],
 })
 export class DdaHeader {
   protected el: HTMLDdaHeaderElement;

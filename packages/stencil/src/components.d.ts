@@ -714,6 +714,11 @@ export namespace Components {
          */
         "hamburger_menu_button_name": string;
         /**
+          * Hides the Login link in the desktop toolbar and the side menu.
+          * @default false
+         */
+        "hide_login": boolean;
+        /**
           * `name` attribute of the language button in the side menu.
          */
         "language_button_name": string;
@@ -727,7 +732,7 @@ export namespace Components {
          */
         "language_text": string;
         /**
-          * Material Symbols icon name of the Login link in the side menu. Default: `sentiment_satisfied`.
+          * Material Symbols icon name of the Login link in the desktop toolbar and the side menu. Default: `sentiment_satisfied`.
          */
         "loginIcon": string;
         /**
@@ -735,7 +740,7 @@ export namespace Components {
          */
         "loginLink": string;
         /**
-          * Label of the Login link in the side menu. Default: `Login`.
+          * Label of the Login link in the desktop toolbar and the side menu. Default: `Login`.
          */
         "loginText": string;
         /**
@@ -1649,7 +1654,7 @@ export namespace Components {
          */
         "locationButtonHref": string;
         /**
-          * Not used: the current markup does not render it.
+          * Material Symbols icon name of the location link, shown when `locationLogoSrc` is not set.
          */
         "locationButtonIcon": string;
         /**
@@ -1657,7 +1662,7 @@ export namespace Components {
          */
         "locationButtonText": string;
         /**
-          * Image URL of the location icon.
+          * Image URL of the location icon. Takes precedence over `locationButtonIcon`.
          */
         "locationLogoSrc": string;
         /**
@@ -1665,11 +1670,11 @@ export namespace Components {
          */
         "newsButtonHref": string;
         /**
-          * Not used: the current markup does not render it.
+          * Material Symbols icon name of the news link, shown when `newsButtonSrc` is not set.
          */
         "newsButtonIcon": string;
         /**
-          * Image URL of the news icon.
+          * Image URL of the news icon. Takes precedence over `newsButtonIcon`.
          */
         "newsButtonSrc": string;
         /**
@@ -3099,6 +3104,11 @@ declare namespace LocalJSX {
          */
         "hamburger_menu_button_name"?: string;
         /**
+          * Hides the Login link in the desktop toolbar and the side menu.
+          * @default false
+         */
+        "hide_login"?: boolean;
+        /**
           * `name` attribute of the language button in the side menu.
          */
         "language_button_name"?: string;
@@ -3112,7 +3122,7 @@ declare namespace LocalJSX {
          */
         "language_text"?: string;
         /**
-          * Material Symbols icon name of the Login link in the side menu. Default: `sentiment_satisfied`.
+          * Material Symbols icon name of the Login link in the desktop toolbar and the side menu. Default: `sentiment_satisfied`.
          */
         "loginIcon"?: string;
         /**
@@ -3120,7 +3130,7 @@ declare namespace LocalJSX {
          */
         "loginLink"?: string;
         /**
-          * Label of the Login link in the side menu. Default: `Login`.
+          * Label of the Login link in the desktop toolbar and the side menu. Default: `Login`.
          */
         "loginText"?: string;
         /**
@@ -4082,7 +4092,7 @@ declare namespace LocalJSX {
          */
         "locationButtonHref"?: string;
         /**
-          * Not used: the current markup does not render it.
+          * Material Symbols icon name of the location link, shown when `locationLogoSrc` is not set.
          */
         "locationButtonIcon"?: string;
         /**
@@ -4090,7 +4100,7 @@ declare namespace LocalJSX {
          */
         "locationButtonText"?: string;
         /**
-          * Image URL of the location icon.
+          * Image URL of the location icon. Takes precedence over `locationButtonIcon`.
          */
         "locationLogoSrc"?: string;
         /**
@@ -4098,11 +4108,11 @@ declare namespace LocalJSX {
          */
         "newsButtonHref"?: string;
         /**
-          * Not used: the current markup does not render it.
+          * Material Symbols icon name of the news link, shown when `newsButtonSrc` is not set.
          */
         "newsButtonIcon"?: string;
         /**
-          * Image URL of the news icon.
+          * Image URL of the news icon. Takes precedence over `newsButtonIcon`.
          */
         "newsButtonSrc"?: string;
         /**
@@ -4597,6 +4607,7 @@ declare namespace LocalJSX {
         "searchText": string;
         "loginIcon": string;
         "loginText": string;
+        "hide_login": boolean;
         "language_text": string;
         "language_lang": string;
         "hamburger_menu_button_name": string;

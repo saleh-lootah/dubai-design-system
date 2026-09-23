@@ -227,6 +227,7 @@ export const DdaHeader = /*@__PURE__*/ defineContainer<JSX.DdaHeader>('dda-heade
   'searchText',
   'loginIcon',
   'loginText',
+  'hide_login',
   'language_text',
   'language_lang',
   'hamburger_menu_button_name',
