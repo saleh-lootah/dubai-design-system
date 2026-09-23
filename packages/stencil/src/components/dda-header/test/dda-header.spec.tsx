@@ -58,4 +58,31 @@ describe('dda-header', () => {
       expect(link(page, 'Deep leaf').closest('.main_sub_menu')).toHaveClass('showSubMenu');
     });
   });
+
+  describe('login link', () => {
+    const desktopLogin = page => page.root.querySelector('.dda-toolbar-menu dda-link-button');
+    const sideLogin = page => page.root.querySelector('.dda-toolbar-menu-sidemenu dda-link-button');
+
+    it('uses login-text and login-icon in the desktop toolbar', async () => {
+      const page = await render(`<dda-header login-text="Sign in" login-icon="person"></dda-header>`);
+
+      expect(desktopLogin(page).textContent.trim()).toBe('Sign in');
+      expect(desktopLogin(page).getAttribute('start_icon')).toBe('person');
+      expect(desktopLogin(page).closest('dda-tooltip').getAttribute('title_text')).toBe('Sign in');
+    });
+
+    it('keeps the Login default when login-text is not set', async () => {
+      const page = await render(`<dda-header></dda-header>`);
+
+      expect(desktopLogin(page).textContent.trim()).toBe('Login');
+      expect(sideLogin(page).textContent.trim()).toBe('Login');
+    });
+
+    it('hides the login link in the toolbar and the side menu with hide_login', async () => {
+      const page = await render(`<dda-header hide_login></dda-header>`);
+
+      expect(desktopLogin(page)).toBeNull();
+      expect(sideLogin(page)).toBeNull();
+    });
+  });
 });

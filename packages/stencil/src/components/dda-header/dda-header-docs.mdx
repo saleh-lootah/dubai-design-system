@@ -184,6 +184,10 @@ The Screen Reader item shows only when `read-speaker-link` is set.
 - **Language buttons.** `language_text` is the label of both language buttons (default `العربية`).
   `language_lang` sets their `lang` attribute (default `ar`), so screen readers read the label in
   that language. When the label is English, set `language_lang="en"`.
+- **Login link.** `login-text` and `login-icon` set the label and the Material Symbols icon of the
+  Login link in the desktop toolbar and the side menu (defaults `Login` and
+  `sentiment_satisfied`). `login-link` sets its URL. To remove the link from both places, set
+  `hide_login`. An empty `login-text` does not hide the link; it shows the default label.
 
 ## Search
 

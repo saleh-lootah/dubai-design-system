@@ -38,10 +38,12 @@ export class DdaHeader {
   @Prop() readSpeakerLink: string;
   /** Placeholder and accessible label of the search input. Default: `Search`. */
   @Prop() searchText: string;
-  /** Material Symbols icon name of the Login link in the side menu. Default: `sentiment_satisfied`. */
+  /** Material Symbols icon name of the Login link in the desktop toolbar and the side menu. Default: `sentiment_satisfied`. */
   @Prop() loginIcon: string;
-  /** Label of the Login link in the side menu. Default: `Login`. */
+  /** Label of the Login link in the desktop toolbar and the side menu. Default: `Login`. */
   @Prop() loginText: string;
+  /** Hides the Login link in the desktop toolbar and the side menu. */
+  @Prop() hide_login: boolean = false;
   /** Label of the language buttons in the desktop toolbar and the side menu. Default: `العربية`. */
   @Prop() language_text: string;
   /** `lang` attribute of the language buttons, the language of `language_text`. Default: `ar`. */
@@ -451,6 +453,7 @@ export class DdaHeader {
                             <li>
                                 <button name={this.language_button_name} class="tool-btn" type="button" lang={this.language_lang} onClick={this.languagehandler}>{this.language_text || 'العربية'}</button>
                             </li>
+                            {!this.hide_login && (
                             <li>
                               <dda-link-button
                                 button_color="onsurface-secondary"
@@ -462,6 +465,7 @@ export class DdaHeader {
                                 {this.loginText || "Login"}
                               </dda-link-button>
                             </li>
+                            )}
                         </ul>
                     </div>
                 </div>
@@ -783,20 +787,22 @@ export class DdaHeader {
                     </dda-button>
                   </dda-tooltip>
                 </li>
+                {!this.hide_login && (
                 <li>
-                  <dda-tooltip title_text="Login" position="top">
+                  <dda-tooltip title_text={this.loginText || "Login"} position="top">
                     <dda-link-button
                       button_color="onsurface-secondary"
-                      start_icon="sentiment_satisfied"
+                      start_icon={this.loginIcon || "sentiment_satisfied"}
                       custom_class="tool-btn"
                       href={this.loginLink}
                       button_shape="circle"
                       size="sm"
                     >
-                      Login
+                      {this.loginText || "Login"}
                     </dda-link-button>
                   </dda-tooltip>
                 </li>
+                )}
               </ul>
             </div>
           </div>
