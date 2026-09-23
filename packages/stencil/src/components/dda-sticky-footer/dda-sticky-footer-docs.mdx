@@ -8,7 +8,8 @@ import { componentApi } from '../../storybook/component-api';
 
 The `dda-sticky-footer` component renders a bar fixed to the bottom of the page with three groups of
 icon links: happiness, accessibility and services on the left; up to three logos in the middle;
-location, news, AI assistant and chat on the right. Each icon is an image link with a tooltip. The
+location, news, AI assistant and chat on the right. Each icon is an image link with a tooltip
+(location and news can use a Material Symbols icon instead). The
 bar hides while the user scrolls down and shows again when they scroll up.
 
 ## API
@@ -158,3 +159,7 @@ import { DdaStickyFooter } from '@dubai-design-system/components-vue';
   default: `Quick actions`.
 - **Services text.** When `services-icon-text` is set, the text names the link and the icon image
   gets `alt=""`. Set `services-icon-alt` for an icon without text.
+- **Location and news icons.** Each link shows an image (`location-logo-src`,
+  `news-button-src`) or a Material Symbols icon (`location-button-icon`, `news-button-icon`). The
+  image wins when both are set. With an icon, `location-button-text` and `news-button-text` name
+  the link as visually hidden text and remain the tooltip text.

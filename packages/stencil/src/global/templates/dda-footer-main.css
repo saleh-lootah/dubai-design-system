@@ -73,6 +73,10 @@ body {
 .foot-icon-btn a img {
     height: 32px;
 }
+
+.foot-icon-btn a i {
+    font-size: 32px;
+}
 .dda-footer-item ul li.foot-menu{
     padding: 0 5px;
 }
@@ -148,6 +152,10 @@ body {
 
     .foot-icon-btn a img {
         height: 24px;
+    }
+
+    .foot-icon-btn a i {
+        font-size: 24px;
     }
 }
 

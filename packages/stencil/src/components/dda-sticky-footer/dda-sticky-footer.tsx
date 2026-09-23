@@ -68,20 +68,20 @@ export class DdaStickyFooter {
   // Right section
   /** Link URL of the location icon (right section). */
   @Prop() locationButtonHref: string;
-  /** Image URL of the location icon. */
+  /** Image URL of the location icon. Takes precedence over `locationButtonIcon`. */
   @Prop() locationLogoSrc: string;
   /** Tooltip text and alternative text of the location icon. */
   @Prop() locationButtonText: string;
-  /** Not used: the current markup does not render it. */
+  /** Material Symbols icon name of the location link, shown when `locationLogoSrc` is not set. */
   @Prop() locationButtonIcon: string;
 
   /** Link URL of the news icon (right section). */
   @Prop() newsButtonHref: string;
-  /** Image URL of the news icon. */
+  /** Image URL of the news icon. Takes precedence over `newsButtonIcon`. */
   @Prop() newsButtonSrc: string;
   /** Tooltip text and alternative text of the news icon. */
   @Prop() newsButtonText: string;
-  /** Not used: the current markup does not render it. */
+  /** Material Symbols icon name of the news link, shown when `newsButtonSrc` is not set. */
   @Prop() newsButtonIcon: string;
 
   /** Link URL of the AI assistant icon (right section). */
@@ -136,6 +136,18 @@ export class DdaStickyFooter {
     this.resizeObserver?.disconnect();
     this.resizeObserver = null;
     document.documentElement.style.removeProperty('--dda-sticky-footer-height');
+  }
+
+  // An image wins when both are set, so pages that set both keep their current look.
+  // A Material icon is decorative; the visually hidden text names the link.
+  private renderLinkGraphic(src: string, icon: string, text: string) {
+    if (src || !icon) {
+      return <img src={src} alt={text} />;
+    }
+    return [
+      <i class="material-icons material-symbols-outlined" aria-hidden="true">{icon}</i>,
+      <span class="visually-hidden">{text}</span>,
+    ];
   }
 
   handleScroll() {
@@ -240,14 +252,14 @@ export class DdaStickyFooter {
               <li class="foot-icon-btn">
                 <dda-tooltip title_text={this.locationButtonText} description="" position="top">
                   <a href={this.locationButtonHref}>
-                    <img src={this.locationLogoSrc} alt={this.locationButtonText} />
+                    {this.renderLinkGraphic(this.locationLogoSrc, this.locationButtonIcon, this.locationButtonText)}
                   </a>
                 </dda-tooltip>
               </li>
               <li class="foot-icon-btn">
                 <dda-tooltip title_text={this.newsButtonText} description="" position="top">
                   <a href={this.newsButtonHref}>
-                    <img src={this.newsButtonSrc} alt={this.newsButtonText} />
+                    {this.renderLinkGraphic(this.newsButtonSrc, this.newsButtonIcon, this.newsButtonText)}
                   </a>
                 </dda-tooltip>
               </li>
