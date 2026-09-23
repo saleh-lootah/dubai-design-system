@@ -4,6 +4,54 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## 5.2.0 (2026-09-23)
+
+A minor release. The home-page service cards become one scrolling row that stays on the banner at
+every screen width, `dda-header` gets a `hide_login` prop and uses `login-text` and `login-icon` on
+desktop, and `dda-sticky-footer` can show Material icons for the location and news links. Read
+"From 5.1.x to 5.2.0" in MIGRATION.md before you upgrade.
+
+### Features
+
+- **dda-header: new `hide_login` prop.** It removes the Login link from the desktop toolbar and
+  the side menu. Before, the link always showed. An empty `login-text` still shows the default
+  label; use `hide_login` to remove the link.
+- **dda-sticky-footer: `location-button-icon` and `news-button-icon` show a Material Symbols
+  icon.** The two props existed but did nothing. When a link has an icon and no image
+  (`location-logo-src`, `news-button-src`), it shows the icon, and `location-button-text` /
+  `news-button-text` name the link as visually hidden text. When both are set, the image shows,
+  the same as before.
+
+### Bug Fixes
+
+- **dda-header: the desktop Login link uses `login-text` and `login-icon`.** The desktop toolbar
+  always showed "Login" with the `sentiment_satisfied` icon and ignored both props; only the side
+  menu used them. The tooltip also uses `login-text` now.
+
+### Behaviour Changes
+
+- **Home page service cards (`.quick-links`) scroll sideways when they do not fit.** Before, on
+  wide screens the cards got narrower without limit, and at 992px and below they stacked in one
+  tall column. Now they stay in one row at every width, no card is narrower than 220px, and the
+  row scrolls horizontally with scroll snap. On screens of 992px and below the row spans the
+  screen and each card is 75% of the row (at most 300px), so the next card shows at the edge. A
+  fade on each edge that has more cards (in browsers with scroll-driven animations) and a thin
+  scrollbar also show that the row scrolls. The markup does not change. If your CSS sets
+  `display: grid` on `.quick-links` or a width on `.link-item`, check the home page after you
+  update.
+- **Home page service cards stay on the banner on small screens.** At 992px and below, on
+  screens taller than 600px, the cards sat under the full-height banner, below the first screen
+  and under the sticky footer buttons. They now sit on the banner, 12px above the sticky footer
+  bar, as on desktop, and are compact (112px tall, 24px icon, one line of description).
+  `dda-home-banner`'s slide controls move to 16px above the cards, so the arrows and dots stay
+  clear of them. Both read `--dda-quick-links-gap-sm` (12px) and
+  `--dda-quick-links-card-height-sm` (112px); set these on `:root` to move the cards and the
+  controls together. On short landscape screens (600px tall or less) the cards stay under the
+  banner.
+- **Home page service cards sit 24px higher on the banner.** Above 992px, `.quick-links-wrap`
+  is 24px further from the bottom of the banner, and `dda-home-banner`'s slide controls moved up
+  by the same 24px, so they stay above the cards.
+
 ## 5.1.1 (2026-09-18)
 
 A patch release. It fixes the transparent header on scroll, video slides in the home banner, and

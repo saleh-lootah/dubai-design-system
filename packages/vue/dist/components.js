@@ -192,6 +192,7 @@ export const DdaHeader = defineContainer('dda-header', undefined, [
     'searchText',
     'loginIcon',
     'loginText',
+    'hide_login',
     'language_text',
     'language_lang',
     'hamburger_menu_button_name',

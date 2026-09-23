@@ -1,7 +1,7 @@
-# Upgrading to 5.1
+# Upgrading to 5.2
 
 This guide takes you from any earlier release of the Dubai Design System packages to
-**5.1.0**. It ships inside `@dubai-design-system/components-js` as `MIGRATION.md`, next to
+**5.2.0**. It ships inside `@dubai-design-system/components-js` as `MIGRATION.md`, next to
 `CHANGELOG.md`.
 
 All four packages share one version and must be upgraded together:
@@ -22,9 +22,10 @@ Then read the sections for your version, in this order:
 
 | You are on | Read |
 | --- | --- |
-| **5.0.x** (5.0.0 – 5.0.3) | [Every upgrade](#2-every-upgrade-checklist) → [5.0.x to 5.1.0](#3-from-50x-to-510) |
-| **4.1.0** | [Every upgrade](#2-every-upgrade-checklist) → [From 4.1.0](#5-from-410) → [From 3.x](#6-from-3x-to-50) → [5.0.x to 5.1.0](#3-from-50x-to-510) |
-| **3.x** (3.12.16 or earlier) | [Every upgrade](#2-every-upgrade-checklist) → [From 3.x](#6-from-3x-to-50) → [Notes from 5.0.1](#4-notes-from-501-fonts-and-the-stylesheet) → [5.0.x to 5.1.0](#3-from-50x-to-510) |
+| **5.1.x** (5.1.0 – 5.1.1) | [Every upgrade](#2-every-upgrade-checklist) → [5.1.x to 5.2.0](#3-from-51x-to-520) |
+| **5.0.x** (5.0.0 – 5.0.3) | [Every upgrade](#2-every-upgrade-checklist) → [5.0.x to 5.1.0](#4-from-50x-to-510) → [5.1.x to 5.2.0](#3-from-51x-to-520) |
+| **4.1.0** | [Every upgrade](#2-every-upgrade-checklist) → [From 4.1.0](#6-from-410) → [From 3.x](#7-from-3x-to-50) → [5.0.x to 5.1.0](#4-from-50x-to-510) → [5.1.x to 5.2.0](#3-from-51x-to-520) |
+| **3.x** (3.12.16 or earlier) | [Every upgrade](#2-every-upgrade-checklist) → [From 3.x](#7-from-3x-to-50) → [Notes from 5.0.1](#5-notes-from-501-fonts-and-the-stylesheet) → [5.0.x to 5.1.0](#4-from-50x-to-510) → [5.1.x to 5.2.0](#3-from-51x-to-520) |
 
 Most pages need only a few attribute changes. The changes that can break something
 **silently**, with no error in the console, are marked **Silent**. Search for those first.
@@ -38,14 +39,14 @@ Do these whatever version you start from.
 - [ ] **Install the same exact version of every DDA package.**
 
   ```bash
-  npm install @dubai-design-system/components-js@5.1.0
+  npm install @dubai-design-system/components-js@5.2.0
   # and, if you use a wrapper:
-  npm install @dubai-design-system/components-react@5.1.0   # or -vue / -angular
+  npm install @dubai-design-system/components-react@5.2.0   # or -vue / -angular
   ```
 
 - [ ] **Load `dda.css`.** It carries the global styles and the Dubai typeface. From npm:
   `import '@dubai-design-system/components-js/dist/dda/dda.css';`. From the CDN, see
-  [CDN users](#7-cdn-users).
+  [CDN users](#8-cdn-users).
 - [ ] **Load the icon fonts.** `dda.css` ships no icon font. Without these links, icons render
   as words such as `chevron_right`.
 
@@ -74,7 +75,66 @@ Do these whatever version you start from.
 
 ---
 
-## 3. From 5.0.x to 5.1.0
+## 3. From 5.1.x to 5.2.0
+
+This section also covers 5.1.1. If you start from 5.1.1, the 5.1.1 notes are already done.
+
+### Triage: run these first
+
+```bash
+# your own layout rules for the home-page service cards and the banner controls
+grep -rn "quick-links\|link-item\|slider-nav" src/
+
+# your own overrides of the transparent header (changed in 5.1.1)
+grep -rn "\.transparent " src/
+
+# a Login label you set for the side menu only
+grep -rn "login-text\|loginText" src/
+```
+
+### Changes that need action
+
+**The home-page service cards (`.quick-links`) have a new layout.** **Silent.**
+The cards stay in one row at every width. A card is never narrower than 220px, and when the
+cards do not fit, the row scrolls sideways. On screens 992px wide or less and taller than 600px,
+the cards sit on the banner, 12px above the sticky footer bar, at a compact 112px height.
+`dda-home-banner` moves its slide controls to 16px above the cards. On desktop the cards and the
+controls are 24px higher than in 5.1.
+
+- Remove your own `display: grid`, widths or heights on `.quick-links` and `.link-item`, and your
+  own `bottom` offsets on `.quick-links-wrap` and `.slider-nav`.
+- To move the small-screen cards and controls together, set `--dda-quick-links-gap-sm` (default
+  `12px`) and `--dda-quick-links-card-height-sm` (default `112px`) on `:root`.
+- Check the home page on a desktop screen, on a phone (390 × 844) and on a phone on its side.
+
+**Transparent header overrides need the new selector (5.1.1).** **Silent.**
+The transparent header rules changed from `.transparent X` to
+`.transparent dda-header:not(.dda-scrolled) X`. An override that starts with `.transparent`
+alone no longer wins. Add `dda-header:not(.dda-scrolled)` to it. Put the `transparent` class on
+`<body>` or on another ancestor of `<dda-header>`, not on `<dda-header>` itself.
+
+### Changes to check, no code change expected
+
+- **The desktop Login link uses `login-text` and `login-icon`.** Before, the desktop toolbar
+  always showed "Login" with the `sentiment_satisfied` icon, and only the side menu used the
+  props. If you set them, the desktop link now shows your label and icon too.
+- **An empty `login-text` does not hide the Login link.** It shows the default label. Use
+  `hide_login` to remove the link.
+- **`dda-sticky-footer` location and news links with an image look the same.** The new icon
+  props take effect only when the image prop is not set.
+
+### New, optional
+
+| Component | Addition | Use it to |
+| --- | --- | --- |
+| `dda-header` | `hide_login` | Remove the Login link from the toolbar and the side menu |
+| `dda-sticky-footer` | `location-button-icon`, `news-button-icon` (now used) | Show a Material Symbols icon instead of an image |
+| `dda-input` | `autocomplete` (5.1.1) | Let browsers fill in fields such as `name` and `email` |
+| `dda.css` | `--dda-quick-links-gap-sm`, `--dda-quick-links-card-height-sm` | Move the small-screen cards and banner controls |
+
+---
+
+## 4. From 5.0.x to 5.1.0
 
 ### Triage: run these first
 
@@ -234,7 +294,7 @@ the top of the page.
 
 ---
 
-## 4. Notes from 5.0.1: fonts and the stylesheet
+## 5. Notes from 5.0.1: fonts and the stylesheet
 
 Read this if you start from 5.0.0 or earlier.
 
@@ -247,7 +307,7 @@ Read this if you start from 5.0.0 or earlier.
 
 ---
 
-## 5. From 4.1.0
+## 6. From 4.1.0
 
 `4.1.0` was published in February 2025 and was never tagged `latest`; most sites never used it.
 It is a separate build and is not documented component by component. Known differences:
@@ -256,12 +316,13 @@ It is a separate build and is not documented component by component. Known diffe
 - It publishes no `dist/dda/dda.css`. Add it (see the checklist).
 - Its `dda-header` is an older implementation. Re-check the header on desktop and on a phone.
 
-Treat a 4.1.0 site like a 3.x site: follow [From 3.x](#6-from-3x-to-50), then
-[5.0.x to 5.1.0](#3-from-50x-to-510), and check every page visually.
+Treat a 4.1.0 site like a 3.x site: follow [From 3.x](#7-from-3x-to-50), then
+[5.0.x to 5.1.0](#4-from-50x-to-510) and [5.1.x to 5.2.0](#3-from-51x-to-520), and check every
+page visually.
 
 ---
 
-## 6. From 3.x to 5.0
+## 7. From 3.x to 5.0
 
 **Why there is no 4.x to upgrade through:** `4.1.0` already existed on npm, so the next major
 skipped to 5 to keep `^4` ranges from resolving to that older build.
@@ -397,7 +458,7 @@ a future major release, with notice.
 
 ---
 
-## 7. CDN users
+## 8. CDN users
 
 jsDelivr syncs from npm automatically. Always use an **exact version**: replace `X.X.X` with
 the version you are upgrading to.
