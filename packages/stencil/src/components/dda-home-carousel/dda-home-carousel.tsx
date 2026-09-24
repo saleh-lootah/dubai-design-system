@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- h is the Stencil JSX pragma; this repo's eslint config does not recognize it as used (same false positive on every other component file).
 import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 import { parseJsonProp } from '../../utils/parse-json-prop';
 
@@ -44,8 +45,9 @@ export class DdaHomeCarousel {
       <nav class="dda-home-carousel" aria-label={this.aria_label}>
         <ul class={listClass} style={{ '--dda-home-carousel-per-view': String(perView) }}>
           {items.map((item, index) => (
-            <li class="dda-home-carousel-item" key={item.banner_card_id || index} onClick={() => this.cardClick.emit(item)}>
+            <li class="dda-home-carousel-item" key={item.banner_card_id || index}>
               <dda-banner-card
+                onClick={() => this.cardClick.emit(item)}
                 banner_card_href={item.banner_card_href}
                 banner_card_url={item.banner_card_url}
                 banner_card_id={item.banner_card_id}

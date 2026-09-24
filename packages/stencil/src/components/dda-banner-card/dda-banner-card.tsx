@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- h is the Stencil JSX pragma; this repo's eslint config does not recognize it as used (same false positive on every other component file).
 import { Component, Prop, h } from '@stencil/core';
 
 @Component({
