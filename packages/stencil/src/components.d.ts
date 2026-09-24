@@ -1696,9 +1696,17 @@ export namespace Components {
          */
         "accessibilityIconHref": string;
         /**
+          * `id` of the accessibility (04) link.
+         */
+        "accessibilityIconId": string;
+        /**
           * Image URL of the accessibility icon.
          */
         "accessibilityIconSrc": string;
+        /**
+          * Accessibility (04) image for `color-theme="dark"`.
+         */
+        "accessibilityIconSrcDark": string;
         /**
           * Tooltip text of the accessibility icon.
          */
@@ -1712,9 +1720,17 @@ export namespace Components {
          */
         "aiIconHref": string;
         /**
+          * `id` of the AI assistant link.
+         */
+        "aiIconId": string;
+        /**
           * Image URL of the AI assistant icon.
          */
         "aiIconSrc": string;
+        /**
+          * AI assistant image for `color-theme="dark"`.
+         */
+        "aiIconSrcDark": string;
         /**
           * Tooltip text of the AI assistant icon.
          */
@@ -1733,13 +1749,26 @@ export namespace Components {
          */
         "chatIconHref": string;
         /**
+          * `id` of the chat link.
+         */
+        "chatIconId": string;
+        /**
           * Image URL of the chat icon.
          */
         "chatIconSrc": string;
         /**
+          * Chat image for `color-theme="dark"`.
+         */
+        "chatIconSrcDark": string;
+        /**
           * Tooltip text of the chat icon.
          */
         "chatIconTooltip": string;
+        /**
+          * `dark` uses the `*-src-dark` images; an image without a dark version keeps its light image. Default: `light`.
+          * @default 'light'
+         */
+        "colorTheme": 'light' | 'dark';
         /**
           * Alternative text for the first logo.
          */
@@ -1765,15 +1794,24 @@ export namespace Components {
          */
         "happinessIconHref": string;
         /**
+          * `id` of the happiness link.
+         */
+        "happinessIconId": string;
+        /**
           * Image URL of the happiness icon.
          */
         "happinessIconSrc": string;
+        /**
+          * Happiness image for `color-theme="dark"`.
+         */
+        "happinessIconSrcDark": string;
         /**
           * Tooltip text of the happiness icon.
          */
         "happinessIconTooltip": string;
         /**
-          * Hides the middle logo section. The section shows only when this is explicitly `false`.
+          * Hides the middle logo section. Default: `false` (the logos show when at least one is set).
+          * @default false
          */
         "hideMiddleSection": boolean;
         /**
@@ -1833,9 +1871,17 @@ export namespace Components {
          */
         "servicesIconHref": string;
         /**
+          * `id` of the services link.
+         */
+        "servicesIconId": string;
+        /**
           * Image URL of the services icon.
          */
         "servicesIconSrc": string;
+        /**
+          * Services image for `color-theme="dark"`.
+         */
+        "servicesIconSrcDark": string;
         /**
           * Text shown next to the services icon. Nothing is shown when it is not set.
          */
@@ -4271,9 +4317,17 @@ declare namespace LocalJSX {
          */
         "accessibilityIconHref"?: string;
         /**
+          * `id` of the accessibility (04) link.
+         */
+        "accessibilityIconId"?: string;
+        /**
           * Image URL of the accessibility icon.
          */
         "accessibilityIconSrc"?: string;
+        /**
+          * Accessibility (04) image for `color-theme="dark"`.
+         */
+        "accessibilityIconSrcDark"?: string;
         /**
           * Tooltip text of the accessibility icon.
          */
@@ -4287,9 +4341,17 @@ declare namespace LocalJSX {
          */
         "aiIconHref"?: string;
         /**
+          * `id` of the AI assistant link.
+         */
+        "aiIconId"?: string;
+        /**
           * Image URL of the AI assistant icon.
          */
         "aiIconSrc"?: string;
+        /**
+          * AI assistant image for `color-theme="dark"`.
+         */
+        "aiIconSrcDark"?: string;
         /**
           * Tooltip text of the AI assistant icon.
          */
@@ -4308,13 +4370,26 @@ declare namespace LocalJSX {
          */
         "chatIconHref"?: string;
         /**
+          * `id` of the chat link.
+         */
+        "chatIconId"?: string;
+        /**
           * Image URL of the chat icon.
          */
         "chatIconSrc"?: string;
         /**
+          * Chat image for `color-theme="dark"`.
+         */
+        "chatIconSrcDark"?: string;
+        /**
           * Tooltip text of the chat icon.
          */
         "chatIconTooltip"?: string;
+        /**
+          * `dark` uses the `*-src-dark` images; an image without a dark version keeps its light image. Default: `light`.
+          * @default 'light'
+         */
+        "colorTheme"?: 'light' | 'dark';
         /**
           * Alternative text for the first logo.
          */
@@ -4340,15 +4415,24 @@ declare namespace LocalJSX {
          */
         "happinessIconHref"?: string;
         /**
+          * `id` of the happiness link.
+         */
+        "happinessIconId"?: string;
+        /**
           * Image URL of the happiness icon.
          */
         "happinessIconSrc"?: string;
+        /**
+          * Happiness image for `color-theme="dark"`.
+         */
+        "happinessIconSrcDark"?: string;
         /**
           * Tooltip text of the happiness icon.
          */
         "happinessIconTooltip"?: string;
         /**
-          * Hides the middle logo section. The section shows only when this is explicitly `false`.
+          * Hides the middle logo section. Default: `false` (the logos show when at least one is set).
+          * @default false
          */
         "hideMiddleSection"?: boolean;
         /**
@@ -4408,9 +4492,17 @@ declare namespace LocalJSX {
          */
         "servicesIconHref"?: string;
         /**
+          * `id` of the services link.
+         */
+        "servicesIconId"?: string;
+        /**
           * Image URL of the services icon.
          */
         "servicesIconSrc"?: string;
+        /**
+          * Services image for `color-theme="dark"`.
+         */
+        "servicesIconSrcDark"?: string;
         /**
           * Text shown next to the services icon. Nothing is shown when it is not set.
          */
@@ -5118,15 +5210,21 @@ declare namespace LocalJSX {
         "happinessIconSrc": string;
         "happinessIconAlt": string;
         "happinessIconTooltip": string;
+        "happinessIconId": string;
+        "happinessIconSrcDark": string;
         "accessibilityIconHref": string;
         "accessibilityIconSrc": string;
         "accessibilityIconAlt": string;
         "accessibilityIconTooltip": string;
+        "accessibilityIconId": string;
+        "accessibilityIconSrcDark": string;
         "servicesIconHref": string;
         "servicesIconSrc": string;
         "servicesIconAlt": string;
         "servicesIconTooltip": string;
         "servicesIconText": string;
+        "servicesIconId": string;
+        "servicesIconSrcDark": string;
         "firstLogoHref": string;
         "firstLogoSrc": string;
         "firstLogoAlt": string;
@@ -5151,10 +5249,15 @@ declare namespace LocalJSX {
         "aiIconSrc": string;
         "aiIconAlt": string;
         "aiIconTooltip": string;
+        "aiIconId": string;
+        "aiIconSrcDark": string;
         "chatIconHref": string;
         "chatIconSrc": string;
         "chatIconAlt": string;
         "chatIconTooltip": string;
+        "chatIconId": string;
+        "chatIconSrcDark": string;
+        "colorTheme": 'light' | 'dark';
         "aria_label": string;
         "hideMiddleSection": boolean;
     }

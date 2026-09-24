@@ -136,7 +136,9 @@ describe('dda-sticky-footer', () => {
     const page = await newE2EPage();
     // A real href is required — an <a> with no href is never in the default
     // focus order at all, which would make this test pass for the wrong reason.
-    await page.setContent(content('happiness-icon-href="#happy"'));
+    // Task 6 (3.x item rules): the happiness item now renders only when its image is
+    // set, so an icon src is required here too, or there would be no <a> at all.
+    await page.setContent(content('happiness-icon-href="#happy" happiness-icon-src="h.svg"'));
 
     const footer = await page.find('dda-sticky-footer .dda-footer');
 

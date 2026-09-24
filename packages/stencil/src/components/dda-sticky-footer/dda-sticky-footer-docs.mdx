@@ -45,7 +45,6 @@ bar hides while the user scrolls down and shows again when they scroll up.
   services-icon-alt="Services"
   services-icon-tooltip="Services"
   services-icon-text="Services"
-  hide-middle-section="false"
   first-logo-href="/"
   first-logo-src="/img/entity-logo.svg"
   first-logo-alt="Dubai Digital Authority"
@@ -147,10 +146,15 @@ import { DdaStickyFooter } from '@dubai-design-system/components-vue';
 
 ## Behaviour
 
-- **Middle section.** The logos show only when `hide-middle-section` is set to `false`. If you do
-  not set it, the middle section is hidden.
-- **Every icon renders.** The component always renders all icon slots. Set the `src`, `alt` and
-  tooltip of each icon you use; an icon without a `src` shows as an empty link.
+- **Middle section.** The logos show when at least one of `first-logo-src`, `second-logo-src` or
+  `third-logo-src` is set. Set `hide-middle-section` to hide them anyway.
+- **Items render only when set.** Each icon renders only when its image (or, for services, its
+  text) is set. An icon with no image and no text does not render.
+- **Dark images.** Set `color-theme="dark"` to use each `*-icon-src-dark` image instead of its
+  `*-icon-src` image. An icon with no dark image keeps its light image.
+- **Links to open a script's popup.** Set `happiness-icon-id`, `accessibility-icon-id`,
+  `services-icon-id`, `ai-icon-id` or `chat-icon-id` to give a link a fixed `id`, for a page script
+  that opens a popup from that link.
 - **Hide on scroll.** While the page scrolls down the bar hides and becomes `inert`; scrolling up
   shows it again.
 - **Page layout.** The component sets the CSS variable `--dda-sticky-footer-height` on `<html>` to

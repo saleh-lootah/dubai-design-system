@@ -16,6 +16,10 @@ export class DdaStickyFooter {
   @Prop() happinessIconAlt: string;
   /** Tooltip text of the happiness icon. */
   @Prop() happinessIconTooltip: string;
+  /** `id` of the happiness link. */
+  @Prop() happinessIconId: string;
+  /** Happiness image for `color-theme="dark"`. */
+  @Prop() happinessIconSrcDark: string;
 
   /** Link URL of the accessibility icon, the second icon in the left section. */
   @Prop() accessibilityIconHref: string;
@@ -25,6 +29,10 @@ export class DdaStickyFooter {
   @Prop() accessibilityIconAlt: string;
   /** Tooltip text of the accessibility icon. */
   @Prop() accessibilityIconTooltip: string;
+  /** `id` of the accessibility (04) link. */
+  @Prop() accessibilityIconId: string;
+  /** Accessibility (04) image for `color-theme="dark"`. */
+  @Prop() accessibilityIconSrcDark: string;
 
   /** Link URL of the services icon (left section). */
   @Prop() servicesIconHref: string;
@@ -36,6 +44,10 @@ export class DdaStickyFooter {
   @Prop() servicesIconTooltip: string;
   /** Text shown next to the services icon. Nothing is shown when it is not set. */
   @Prop() servicesIconText: string;
+  /** `id` of the services link. */
+  @Prop() servicesIconId: string;
+  /** Services image for `color-theme="dark"`. */
+  @Prop() servicesIconSrcDark: string;
 
   // Middle section
   /** Link URL of the first logo (middle section). */
@@ -92,6 +104,10 @@ export class DdaStickyFooter {
   @Prop() aiIconAlt: string;
   /** Tooltip text of the AI assistant icon. */
   @Prop() aiIconTooltip: string;
+  /** `id` of the AI assistant link. */
+  @Prop() aiIconId: string;
+  /** AI assistant image for `color-theme="dark"`. */
+  @Prop() aiIconSrcDark: string;
 
   /** Link URL of the chat icon (right section). */
   @Prop() chatIconHref: string;
@@ -101,7 +117,13 @@ export class DdaStickyFooter {
   @Prop() chatIconAlt: string;
   /** Tooltip text of the chat icon. */
   @Prop() chatIconTooltip: string;
+  /** `id` of the chat link. */
+  @Prop() chatIconId: string;
+  /** Chat image for `color-theme="dark"`. */
+  @Prop() chatIconSrcDark: string;
 
+  /** `dark` uses the `*-src-dark` images; an image without a dark version keeps its light image. Default: `light`. */
+  @Prop() colorTheme: 'light' | 'dark' = 'light';
 
   /** Accessible name of the bar's `<aside>` landmark. Default: `Quick actions`. */
   @Prop() aria_label: string = 'Quick actions';
@@ -109,8 +131,8 @@ export class DdaStickyFooter {
   @State() isHidden: boolean = false;
   private lastScrollY: number = 0;
 
-  /** Hides the middle logo section. The section shows only when this is explicitly `false`. */
-  @Prop() hideMiddleSection: boolean;
+  /** Hides the middle logo section. Default: `false` (the logos show when at least one is set). */
+  @Prop() hideMiddleSection: boolean = false;
 
   componentWillLoad() {
     this.handleScroll = this.handleScroll.bind(this);
@@ -145,9 +167,17 @@ export class DdaStickyFooter {
       return <img src={src} alt={text} />;
     }
     return [
-      <i class="material-icons material-symbols-outlined" aria-hidden="true">{icon}</i>,
+      <i class="material-icons material-symbols-outlined" aria-hidden="true">
+        {icon}
+      </i>,
       <span class="visually-hidden">{text}</span>,
     ];
+  }
+
+  // 3.x: any colorTheme other than "light" is dark. 3.x gave an empty image when the dark one
+  // was missing; this falls back to the light image instead.
+  private img(light?: string, dark?: string): string | undefined {
+    return this.colorTheme !== 'light' && dark ? dark : light;
   }
 
   handleScroll() {
@@ -156,127 +186,104 @@ export class DdaStickyFooter {
     this.lastScrollY = currentScrollY;
   }
 
-
   render() {
+    const middleLogos = [
+      { href: this.firstLogoHref, src: this.firstLogoSrc, alt: this.firstLogoAlt, tooltip: this.firstLogoTooltip },
+      { href: this.secondLogoHref, src: this.secondLogoSrc, alt: this.secondLogoAlt, tooltip: this.secondLogoTooltip },
+      { href: this.thirdLogoHref, src: this.thirdLogoSrc, alt: this.thirdLogoAlt, tooltip: this.thirdLogoTooltip },
+    ].filter(logo => logo.src);
+
     return (
       // An <aside>, not a <footer>: the page footer (dda-footer) is the only contentinfo landmark.
-      <aside
-        class={{ 'dda-footer': true, 'hidden': this.isHidden }}
-        aria-label={this.aria_label}
-        aria-hidden={this.isHidden ? 'true' : 'false'}
-        inert={this.isHidden}
-      >
+      <aside class={{ 'dda-footer': true, hidden: this.isHidden }} aria-label={this.aria_label} aria-hidden={this.isHidden ? 'true' : 'false'} inert={this.isHidden}>
         <div class="footer-content">
           {/* Left Section */}
           <div class="dda-footer-item dda-footer-left">
             <ul>
-              <li class="foot-icon-btn">
-                <dda-tooltip title_text={this.happinessIconTooltip} description="" position="top">
-                  <a href={this.happinessIconHref}>
-                    <img src={this.happinessIconSrc} alt={this.happinessIconAlt} />
-                  </a>
-                </dda-tooltip>
-              </li>
-              <li class="foot-icon-btn">
-                <dda-tooltip title_text={this.accessibilityIconTooltip} description="" position="top">
-                  <a href={this.accessibilityIconHref}>
-                    <img src={this.accessibilityIconSrc} alt={this.accessibilityIconAlt} />
-                  </a>
-                </dda-tooltip>
-              </li>
-              <li class="foot-icon-btn">
-                <dda-tooltip title_text={this.servicesIconTooltip} description="" position="top">
-                  <a href={this.servicesIconHref}>
-                    {/* With visible text the image is decorative; the text names the link. */}
-                    <img src={this.servicesIconSrc} alt={this.servicesIconText ? '' : this.servicesIconAlt} />
-                    {this.servicesIconText && <span>{this.servicesIconText}</span>}
-                  </a>
-                </dda-tooltip>
-              </li>
+              {this.happinessIconSrc && (
+                <li class="foot-icon-btn">
+                  <dda-tooltip title_text={this.happinessIconTooltip} description="" position="top">
+                    <a href={this.happinessIconHref} id={this.happinessIconId}>
+                      <img src={this.img(this.happinessIconSrc, this.happinessIconSrcDark)} alt={this.happinessIconAlt} />
+                    </a>
+                  </dda-tooltip>
+                </li>
+              )}
+              {this.accessibilityIconSrc && (
+                <li class="foot-icon-btn">
+                  <dda-tooltip title_text={this.accessibilityIconTooltip} description="" position="top">
+                    <a href={this.accessibilityIconHref} id={this.accessibilityIconId}>
+                      <img src={this.img(this.accessibilityIconSrc, this.accessibilityIconSrcDark)} alt={this.accessibilityIconAlt} />
+                    </a>
+                  </dda-tooltip>
+                </li>
+              )}
+              {(this.servicesIconSrc || this.servicesIconText) && (
+                <li class="foot-icon-btn">
+                  <dda-tooltip title_text={this.servicesIconTooltip} description="" position="top">
+                    <a href={this.servicesIconHref} id={this.servicesIconId}>
+                      {/* With visible text the image is decorative; the text names the link. */}
+                      <img src={this.img(this.servicesIconSrc, this.servicesIconSrcDark)} alt={this.servicesIconText ? '' : this.servicesIconAlt} />
+                      {this.servicesIconText && <span>{this.servicesIconText}</span>}
+                    </a>
+                  </dda-tooltip>
+                </li>
+              )}
             </ul>
           </div>
 
           {/* Middle Section */}
-          {this.hideMiddleSection == false && (
+          {!this.hideMiddleSection && middleLogos.length > 0 && (
             <div class="dda-footer-item dda-footer-middle">
-            <ul class="foot-logo">
-              <li>
-                <dda-tooltip title_text={this.firstLogoTooltip} description="" position="top">
-                  <a href={this.firstLogoHref}>
-                    <img src={this.firstLogoSrc} alt={this.firstLogoAlt} />
-                  </a>
-                </dda-tooltip>
-              </li>
-              <li>
-                <dda-tooltip title_text={this.secondLogoTooltip} description="" position="top">
-                  <a href={this.secondLogoHref}>
-                    <img src={this.secondLogoSrc} alt={this.secondLogoAlt} />
-                  </a>
-                </dda-tooltip>
-              </li>
-              <li>
-                <dda-tooltip title_text={this.thirdLogoTooltip} description="" position="top">
-                  <a href={this.thirdLogoHref}>
-                    <img src={this.thirdLogoSrc} alt={this.thirdLogoAlt} />
-                  </a>
-                </dda-tooltip>
-              </li>
-            </ul>
-          </div>
+              <ul class="foot-logo">
+                {middleLogos.map(logo => (
+                  <li>
+                    <dda-tooltip title_text={logo.tooltip} description="" position="top">
+                      <a href={logo.href}>
+                        <img src={logo.src} alt={logo.alt} />
+                      </a>
+                    </dda-tooltip>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
 
           {/* Right Section */}
           <div class="dda-footer-item dda-footer-right">
             <ul>
-              {/* <li class="foot-menu">
-              
-              <dda-link-button
-                  button_color="onsurface-link"
-                  start_icon={this.newsButtonIcon}
-                  href={this.newsButtonHref}
-                  size="sm"
-                >
-                  {this.locationButtonText}
-                </dda-link-button>
-              </li>
-              <li class="foot-menu">
-                <dda-link-button
-                  button_color="onsurface-link"
-                  start_icon={this.newsButtonIcon}
-                  href={this.newsButtonHref}
-                  size="sm"
-                >
-                  {this.newsButtonText}
-                </dda-link-button>
-              </li> */}
-              <li class="foot-icon-btn">
-                <dda-tooltip title_text={this.locationButtonText} description="" position="top">
-                  <a href={this.locationButtonHref}>
-                    {this.renderLinkGraphic(this.locationLogoSrc, this.locationButtonIcon, this.locationButtonText)}
-                  </a>
-                </dda-tooltip>
-              </li>
-              <li class="foot-icon-btn">
-                <dda-tooltip title_text={this.newsButtonText} description="" position="top">
-                  <a href={this.newsButtonHref}>
-                    {this.renderLinkGraphic(this.newsButtonSrc, this.newsButtonIcon, this.newsButtonText)}
-                  </a>
-                </dda-tooltip>
-              </li>
-              <li class="foot-icon-btn">
-                <dda-tooltip title_text={this.aiIconTooltip} description="" position="top">
-                  <a href={this.aiIconHref}>
-                    <img src={this.aiIconSrc} alt={this.aiIconAlt} />
-                  </a>
-                </dda-tooltip>
-              </li>
-              <li class="foot-icon-btn">
-                <dda-tooltip title_text={this.chatIconTooltip} description="" position="top">
-                  <a href={this.chatIconHref}>
-                    <img src={this.chatIconSrc} alt={this.chatIconAlt} />
-                  </a>
-                </dda-tooltip>
-              </li>
+              {(this.locationLogoSrc || this.locationButtonIcon) && (
+                <li class="foot-icon-btn">
+                  <dda-tooltip title_text={this.locationButtonText} description="" position="top">
+                    <a href={this.locationButtonHref}>{this.renderLinkGraphic(this.locationLogoSrc, this.locationButtonIcon, this.locationButtonText)}</a>
+                  </dda-tooltip>
+                </li>
+              )}
+              {(this.newsButtonSrc || this.newsButtonIcon) && (
+                <li class="foot-icon-btn">
+                  <dda-tooltip title_text={this.newsButtonText} description="" position="top">
+                    <a href={this.newsButtonHref}>{this.renderLinkGraphic(this.newsButtonSrc, this.newsButtonIcon, this.newsButtonText)}</a>
+                  </dda-tooltip>
+                </li>
+              )}
+              {this.aiIconSrc && (
+                <li class="foot-icon-btn">
+                  <dda-tooltip title_text={this.aiIconTooltip} description="" position="top">
+                    <a href={this.aiIconHref} id={this.aiIconId}>
+                      <img src={this.img(this.aiIconSrc, this.aiIconSrcDark)} alt={this.aiIconAlt} />
+                    </a>
+                  </dda-tooltip>
+                </li>
+              )}
+              {this.chatIconSrc && (
+                <li class="foot-icon-btn">
+                  <dda-tooltip title_text={this.chatIconTooltip} description="" position="top">
+                    <a href={this.chatIconHref} id={this.chatIconId}>
+                      <img src={this.img(this.chatIconSrc, this.chatIconSrcDark)} alt={this.chatIconAlt} />
+                    </a>
+                  </dda-tooltip>
+                </li>
+              )}
             </ul>
           </div>
         </div>
