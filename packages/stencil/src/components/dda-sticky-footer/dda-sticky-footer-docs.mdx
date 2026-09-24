@@ -155,6 +155,14 @@ import { DdaStickyFooter } from '@dubai-design-system/components-vue';
 - **`right-link` list (3.x).** A JSON array (or array property) of
   `{ RightLinkTooltip, href, title, itemId, IconFamily, IconName, LinkText }`. When set, it
   replaces the location and news links with text links: a Material icon plus visible text.
+- **The "more" button (3.x).** Set `more-icon` (a Material icon name; `more-icon-family` sets its
+  `class`, default `material-icons`) to collect the right-section links behind a button at 992px
+  and below. `more_button_label` names the button (default, and fallback for an empty value:
+  `More`).
+- **dubai.ae link.** Set `dubaiae-icon-src` (desktop wordmark) and `dubaiae-icon-small-src`
+  (icon at 992px and below); the link shows only when both are set. `dubaiae-icon-href`,
+  `dubaiae-icon-id`, `dubaiae-icon-alt` and `dubaiae-icon-tooltip` set its URL, `id`, alternative
+  text and tooltip; `dubaiae-icon-src-dark` is its `color-theme="dark"` image.
 - **Items render only when set.** Each icon renders only when its image (or, for services, its
   text) is set. An icon with no image and no text does not render.
 - **Dark images.** Set `color-theme="dark"` to use each `*-icon-src-dark` image instead of its

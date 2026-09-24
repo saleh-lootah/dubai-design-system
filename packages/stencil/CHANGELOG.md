@@ -4,6 +4,46 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## Unreleased
+
+### Features
+
+- **3.x attributes work again.** Versions 3.5 to 3.12.10 had attributes that 3.12.11 to 5.2.0
+  did not have. The ones below are back, under their 3.x names. A page that uses only 5.x
+  attributes looks the same as in 5.2.0. "From 3.5 – 3.12.10 to 5.3.0" in MIGRATION.md lists them.
+- **dda-header: every text can be set.** The accessibility panel, the tooltips, the search
+  placeholder and the side-menu titles take attributes, so a page can show them in its own
+  language. An empty attribute removes that text. An empty `login-text` or `language_text` removes
+  the Login link or the language button, as in 3.x.
+- **dda-header: the 3.x menu shape.** `quick-links` also accepts the 3.x shape (`type`,
+  `headerMenuLabel`, `url`, `children`). `dda_default_submenu` items open a dropdown list with a
+  second-level fly-out.
+- **dda-header: other menu, 3.x mobile search link, events.** New: `other-menu-items`,
+  `side-other-menu-title`, `hide-other-menu`, `mobile-menu-search-url`, and the
+  `accessibilitymenufunctionality` and `searchfunctionality` events.
+- **dda-sticky-footer: lists, dubai.ae and the more button.** `middle-link` takes any number of
+  logos. `right-link` takes text links with Material icons. `more-icon` adds a button that collects
+  the right links on phones. New: `dubaiae-icon-*`, `color-theme`, `*-icon-id`, `*-icon-src-dark`.
+- **dda-home-carousel and dda-banner-card are back.** The cards are links and use the same
+  scrolling row as the home-page quick links.
+
+### Bug Fixes
+
+- **dda-header: the side-menu ReadSpeaker link has its own id.** Both the desktop and the
+  side-menu ReadSpeaker links rendered `id="readspeaker_button1"`, a duplicate id. The side-menu
+  copy is now `readspeaker_button1Mobile`.
+- **dda-header: the `L` access key is only on the desktop ReadSpeaker link.** The side-menu copy
+  had it too, so pressing `Alt+Shift+L` (or the browser's access-key combination) could activate
+  the hidden side-menu link instead of the visible one.
+
+### Behaviour Changes
+
+- **dda-sticky-footer: the middle logos show by default.** Before, they showed only with
+  `hide-middle-section="false"`. Now they show when at least one logo is set. Use
+  `hide-middle-section` to hide them.
+- **dda-sticky-footer: an item without an image is not rendered.** Before, every item rendered,
+  and an item without an image was an empty link.
+
 ## 5.2.0 (2026-09-23)
 
 A minor release. The home-page service cards become one scrolling row that stays on the banner at

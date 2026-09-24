@@ -1,0 +1,137 @@
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
+
+<Meta title="Components/Home Carousel/Documentation" />
+
+# Home Carousel
+
+The `dda-home-carousel` component renders a row of cards over the home-page banner, for example
+links to popular services. Pass the cards as a JSON array; each card with `banner_card_href` is a
+link and navigates, and a card without one is a button.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<div class="home-intros" style="position: relative;">
+  <!-- dda-home-banner, or another full-height banner -->
+
+  <div class="dda-home-quick-links-wrap">
+    <div class="dda-home-quick-links">
+      <dda-home-carousel
+        items_in_view="5"
+        aria_label="Quick links"
+        bannercardlist='[
+          {"banner_card_href":"/services/traffic-fines","image_src":"/img/icn-car.svg","banner_card_title":"Pay traffic fines","banner_card_description":"Pay online in a few minutes"},
+          {"banner_card_href":"/services/emirates-id","image_src":"/img/icn-id.svg","banner_card_title":"Renew Emirates ID","banner_card_description":"Renew before it expires"}
+        ]'
+      ></dda-home-carousel>
+    </div>
+  </div>
+</div>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-home-carousel.js';
+
+const carousel = document.querySelector('dda-home-carousel');
+carousel.bannercardlist = JSON.stringify([
+  { banner_card_href: '/services/traffic-fines', image_src: '/img/icn-car.svg', banner_card_title: 'Pay traffic fines', banner_card_description: 'Pay online in a few minutes' },
+]);
+carousel.addEventListener('cardClick', event => console.log('card', event.detail));
+```
+
+### React
+
+```jsx
+import { DdaHomeCarousel } from '@dubai-design-system/components-react';
+
+const cards = [
+  { banner_card_href: '/services/traffic-fines', image_src: '/img/icn-car.svg', banner_card_title: 'Pay traffic fines', banner_card_description: 'Pay online in a few minutes' },
+  { banner_card_href: '/services/emirates-id', image_src: '/img/icn-id.svg', banner_card_title: 'Renew Emirates ID', banner_card_description: 'Renew before it expires' },
+];
+
+export function QuickLinks() {
+  return (
+    <div className="dda-home-quick-links-wrap">
+      <div className="dda-home-quick-links">
+        <DdaHomeCarousel items_in_view={5} aria_label="Quick links" bannercardlist={JSON.stringify(cards)} onCardClick={event => console.log('card', event.detail)} />
+      </div>
+    </div>
+  );
+}
+```
+
+### Vue
+
+```html
+<script setup>
+import { DdaHomeCarousel } from '@dubai-design-system/components-vue';
+
+const cards = JSON.stringify([
+  { banner_card_href: '/services/traffic-fines', image_src: '/img/icn-car.svg', banner_card_title: 'Pay traffic fines', banner_card_description: 'Pay online in a few minutes' },
+]);
+</script>
+
+<template>
+  <div class="dda-home-quick-links-wrap">
+    <div class="dda-home-quick-links">
+      <DdaHomeCarousel items_in_view="5" aria_label="Quick links" :bannercardlist="cards" @cardClick="event => console.log('card', event.detail)" />
+    </div>
+  </div>
+</template>
+```
+
+### Angular
+
+```html
+<div class="dda-home-quick-links-wrap">
+  <div class="dda-home-quick-links">
+    <dda-home-carousel items_in_view="5" aria_label="Quick links" [bannercardlist]="cardsJson" (cardClick)="onCardClick($event.detail)"></dda-home-carousel>
+  </div>
+</div>
+```
+
+In the component class, set `cardsJson` to `JSON.stringify(...)` of the card array.
+
+## Layout
+
+- **The row is the same one as the home-page quick links.** `dda-home-carousel` renders a
+  `<ul class="quick-links">`; a card is never narrower than 220px, and the row scrolls sideways
+  when the cards do not fit. It shows a cut card and an edge fade when there are more cards, the
+  same indicators as a plain-HTML `.quick-links` row.
+- **`items_in_view`** sets how many cards share the row on wide screens (default `5`), but it only
+  takes effect while each card can stay 220px or wider. On a narrow screen the row falls back to
+  220px cards and scrolls, no matter what `items_in_view` says.
+- **No autoplay and no mouse-driven scrolling.** The row does not move on its own, and dragging
+  with the mouse does not scroll it. It scrolls with the mouse wheel, the scrollbar, touch and the
+  keyboard.
+- **Put the carousel over a banner.** Place `.dda-home-quick-links-wrap` (or `.quick-links-wrap`)
+  in the same `position: relative` parent as the banner, as with the home-page quick links.
+
+## Accessibility
+
+- The cards sit in a `<nav>` landmark named by `aria_label` (default: `Quick links`).
+- A card with `banner_card_href` (or the 3.x `banner_card_url`) renders as a link and navigates
+  when activated; a card without one renders as a `<button>`.
+- Each card's icon is decorative (`aria-hidden`); the card's title is its accessible name.
+- Tab moves through the cards in order, and the browser scrolls each focused card into view.

@@ -1,11 +1,11 @@
-import digital_logo from "../../../public_images/digital-logo.svg"
-import digital_ai from "../../../public_images/DubaiAI.svg"
-import accessibility_icon from "../../../public_images/icn-complaints.svg"
-import happy_icon from "../../../public_images/icn-happy.svg"
-import chat_icn from "../../../public_images/icn-chat_bubble_outline.svg"
-import grid_view from "../../../public_images/icn-grid-view.svg"
-import location_pin from "../../../public_images/icn-location-pin.svg"
-import news_pin from "../../../public_images/icn-news.svg"
+import digital_logo from '../../../public_images/digital-logo.svg';
+import digital_ai from '../../../public_images/DubaiAI.svg';
+import accessibility_icon from '../../../public_images/icn-complaints.svg';
+import happy_icon from '../../../public_images/icn-happy.svg';
+import chat_icn from '../../../public_images/icn-chat_bubble_outline.svg';
+import grid_view from '../../../public_images/icn-grid-view.svg';
+import location_pin from '../../../public_images/icn-location-pin.svg';
+import news_pin from '../../../public_images/icn-news.svg';
 
 export default {
   title: 'Components/Sticky Footer',
@@ -22,7 +22,7 @@ export default {
     newsButtonIcon: {
       control: { type: 'text' },
       description: 'Material Symbols icon of the news link, shown when the news image is empty',
-    }
+    },
   },
   component: 'dda-sticky-footer',
   parameters: {
@@ -156,3 +156,15 @@ MaterialIcons.args = {
   newsButtonSrc: '',
   newsButtonIcon: 'newspaper',
 };
+
+// 3.x lists: any number of middle logos, right links with icons and text, and the "more" button
+// that collects the right links on phones. `Template` returns a string, so the extra attributes
+// are added to that string.
+const listAttributes = `more-icon="more_horiz" more-icon-family="material-icons"
+  middle-link='${JSON.stringify([1, 2, 3, 4].map(n => ({ LogoTooltip: `Logo ${n}`, href: '#', src: digital_logo, alt: `Logo ${n}` })))}'
+  right-link='${JSON.stringify([
+    { RightLinkTooltip: 'Newsroom', href: '#', LinkText: 'Newsroom', IconFamily: 'material-icons', IconName: 'feed' },
+    { RightLinkTooltip: 'Contact us', href: '#', LinkText: 'Contact us', IconFamily: 'material-icons', IconName: 'call' },
+  ])}'`;
+export const Lists3x = args => Template(args).replace('<dda-sticky-footer', `<dda-sticky-footer ${listAttributes}`);
+Lists3x.args = { ...Default.args, locationButtonSrc: '', newsButtonSrc: '' };

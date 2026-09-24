@@ -159,6 +159,36 @@ a `subMenu` opens a mega menu titled `menuLabel`; each entry shows a Material Sy
 `side-menu-items` builds the side menu that the hamburger button opens. A `subMenu` opens a nested
 list; `headerLabel` of its first item is the list title. Sub-menus can nest to any depth.
 
+## Menu shapes
+
+`quick-links` accepts two shapes for its items. The header tells them apart by their fields, so
+one array cannot mix both shapes.
+
+**5.x shape:** `{ label, href, menuLabel, subMenu }`. An item with `subMenu` opens a mega menu
+titled `menuLabel`; each `subMenu` entry is `{ title, description, icon, href }` and shows no icon
+when `icon` is not set.
+
+```json
+[{ "label": "Services", "menuLabel": "Services", "href": "#", "subMenu": [
+  { "title": "Renew a trade licence", "description": "Renew your licence online", "icon": "badge", "href": "/services/licence" }
+] }]
+```
+
+**3.x shape:** `{ type, headerMenuLabel, url, children }`. A `dda_default_submenu` item with
+`children` opens a dropdown list; a nested `children` array on one of those items opens a
+second-level fly-out. A `dda_main_megamenu` item opens a mega menu instead, with each column as a
+`children` entry and its links in `items`. A mega-menu item without `quickLinksIcon` shows
+`sentiment_satisfied`, matching 3.x; the 5.x shape has no such fallback.
+
+```json
+[{ "type": "dda_default_submenu", "headerMenuLabel": "About us", "url": "#", "children": [
+  { "headerMenuLabel": "Our strategy", "url": "#" },
+  { "headerMenuLabel": "Policies", "url": "#", "children": [
+    { "headerMenuLabel": "Quality policy", "url": "#" }
+  ] }
+] }]
+```
+
 ## Accessibility panel
 
 The panel has no built-in effect on the page. It emits events, and your code applies the change:
@@ -188,6 +218,51 @@ The Screen Reader item shows only when `read-speaker-link` is set.
   Login link in the desktop toolbar and the side menu (defaults `Login` and
   `sentiment_satisfied`). `login-link` sets its URL. To remove the link from both places, set
   `hide_login`. An empty `login-text` does not hide the link; it shows the default label.
+
+## Text and language
+
+Every text in the accessibility panel, the tooltips, the search placeholder and the side-menu
+titles takes an attribute, so a page can show its own language.
+
+- An absent attribute shows the English default.
+- An empty attribute (`""`) removes that text.
+- **Tooltips are the exception.** A tooltip must have text, so an empty tooltip attribute falls
+  back to its default: `accessibility_tooltip`, `search_tooltip`, `language_tooltip`,
+  `login_tooltip` and `menu_button_label` (the hamburger button's tooltip) all keep their default
+  text when set to `""`. `menu_button_label` also names the hamburger button visually; an empty
+  value clears the visible label but the tooltip still shows `Menu`.
+- `login-text=""` and `language_text=""` remove the Login link and the language button, as 3.x did.
+
+<table>
+  <thead><tr><th>Prop</th><th>Default</th><th>Where it shows</th></tr></thead>
+  <tbody>
+    <tr><td><code>contrast_title</code></td><td>Contrast</td><td>Accessibility panel, contrast column heading</td></tr>
+    <tr><td><code>contrast_description</code></td><td>Select your preferred contrast setting</td><td>Accessibility panel, contrast column</td></tr>
+    <tr><td><code>contrast_normal_text</code> (3.x: <code>contrast_noraml_text</code>)</td><td>Normal</td><td>Accessibility panel, Normal option</td></tr>
+    <tr><td><code>contrast_color_blind_text</code></td><td>Colours Blind</td><td>Accessibility panel, Colours Blind option</td></tr>
+    <tr><td><code>contrast_red_weakness_text</code></td><td>Red Weakness</td><td>Accessibility panel, Red Weakness option</td></tr>
+    <tr><td><code>contrast_green_weakness_text</code></td><td>Green Weakness</td><td>Accessibility panel, Green Weakness option</td></tr>
+    <tr><td><code>screen_reader_title</code></td><td>Screen Reader</td><td>Accessibility panel, screen reader column heading</td></tr>
+    <tr><td><code>screen_reader_description</code></td><td>Listen to the content of the page by clicking play or listen</td><td>Accessibility panel, screen reader column</td></tr>
+    <tr><td><code>screen_reader_link_label</code></td><td>Listen to this page using ReadSpeaker</td><td>ReadSpeaker play link, accessible name</td></tr>
+    <tr><td><code>text_size_title</code></td><td>Text Size</td><td>Accessibility panel, text size column heading</td></tr>
+    <tr><td><code>text_size_description</code></td><td>Use the buttons below to increase or decrease the text size</td><td>Accessibility panel, text size column</td></tr>
+    <tr><td><code>accessibility_tooltip</code></td><td>Accessibility</td><td>Desktop accessibility button, tooltip</td></tr>
+    <tr><td><code>accessibility_button_text</code></td><td>Accessibility</td><td>Accessibility buttons, visually hidden name (desktop and side menu)</td></tr>
+    <tr><td><code>search_tooltip</code></td><td>Search</td><td>Desktop search, tooltip</td></tr>
+    <tr><td><code>search_input_placeholder</code></td><td>Search (or <code>searchText</code>, if set)</td><td>Search inputs, placeholder (desktop and mobile)</td></tr>
+    <tr><td><code>language_tooltip</code></td><td>Language</td><td>Desktop language button, tooltip</td></tr>
+    <tr><td><code>login_tooltip</code></td><td>The Login label</td><td>Desktop Login link, tooltip</td></tr>
+    <tr><td><code>menu_button_label</code></td><td>Menu</td><td>Hamburger button, visible label and tooltip</td></tr>
+    <tr><td><code>side-main-menu-title</code></td><td>Quick Links</td><td>Side menu, heading above the main list</td></tr>
+    <tr><td><code>side-other-menu-title</code></td><td>(none)</td><td>Side menu, heading above the "other" list; shows only when there are other links</td></tr>
+  </tbody>
+</table>
+
+Not every visible text is a prop. Five English labels have no attribute: the mega-menu, side-menu
+and desktop-accessibility close buttons all read "Close Sidebar", the mobile accessibility panel's
+close button reads "Close Accessibility", and the mobile search panel's close button reads "Close
+search".
 
 ## Search
 

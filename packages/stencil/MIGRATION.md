@@ -1,7 +1,7 @@
-# Upgrading to 5.2
+# Upgrading to 5.3
 
 This guide takes you from any earlier release of the Dubai Design System packages to
-**5.2.0**. It ships inside `@dubai-design-system/components-js` as `MIGRATION.md`, next to
+**5.3.0**. It ships inside `@dubai-design-system/components-js` as `MIGRATION.md`, next to
 `CHANGELOG.md`.
 
 All four packages share one version and must be upgraded together:
@@ -22,10 +22,11 @@ Then read the sections for your version, in this order:
 
 | You are on | Read |
 | --- | --- |
-| **5.1.x** (5.1.0 – 5.1.1) | [Every upgrade](#2-every-upgrade-checklist) → [5.1.x to 5.2.0](#3-from-51x-to-520) |
-| **5.0.x** (5.0.0 – 5.0.3) | [Every upgrade](#2-every-upgrade-checklist) → [5.0.x to 5.1.0](#4-from-50x-to-510) → [5.1.x to 5.2.0](#3-from-51x-to-520) |
-| **4.1.0** | [Every upgrade](#2-every-upgrade-checklist) → [From 4.1.0](#6-from-410) → [From 3.x](#7-from-3x-to-50) → [5.0.x to 5.1.0](#4-from-50x-to-510) → [5.1.x to 5.2.0](#3-from-51x-to-520) |
-| **3.x** (3.12.16 or earlier) | [Every upgrade](#2-every-upgrade-checklist) → [From 3.x](#7-from-3x-to-50) → [Notes from 5.0.1](#5-notes-from-501-fonts-and-the-stylesheet) → [5.0.x to 5.1.0](#4-from-50x-to-510) → [5.1.x to 5.2.0](#3-from-51x-to-520) |
+| **5.1.x** (5.1.0 – 5.1.1) | [Every upgrade](#2-every-upgrade-checklist) → [5.1.x to 5.2.0](#4-from-51x-to-520) |
+| **5.0.x** (5.0.0 – 5.0.3) | [Every upgrade](#2-every-upgrade-checklist) → [5.0.x to 5.1.0](#5-from-50x-to-510) → [5.1.x to 5.2.0](#4-from-51x-to-520) |
+| **4.1.0** | [Every upgrade](#2-every-upgrade-checklist) → [From 4.1.0](#7-from-410) → [From 3.x](#8-from-3x-to-50) → [5.0.x to 5.1.0](#5-from-50x-to-510) → [5.1.x to 5.2.0](#4-from-51x-to-520) |
+| **3.5 – 3.12.10** (for example 3.11.3) | [Every upgrade](#2-every-upgrade-checklist) → [From 3.5 – 3.12.10](#3-from-35--31210-to-530) |
+| **3.x** (3.12.16 or earlier) | [Every upgrade](#2-every-upgrade-checklist) → [From 3.x](#8-from-3x-to-50) → [Notes from 5.0.1](#6-notes-from-501-fonts-and-the-stylesheet) → [5.0.x to 5.1.0](#5-from-50x-to-510) → [5.1.x to 5.2.0](#4-from-51x-to-520) |
 
 Most pages need only a few attribute changes. The changes that can break something
 **silently**, with no error in the console, are marked **Silent**. Search for those first.
@@ -39,14 +40,14 @@ Do these whatever version you start from.
 - [ ] **Install the same exact version of every DDA package.**
 
   ```bash
-  npm install @dubai-design-system/components-js@5.2.0
+  npm install @dubai-design-system/components-js@5.3.0
   # and, if you use a wrapper:
-  npm install @dubai-design-system/components-react@5.2.0   # or -vue / -angular
+  npm install @dubai-design-system/components-react@5.3.0   # or -vue / -angular
   ```
 
 - [ ] **Load `dda.css`.** It carries the global styles and the Dubai typeface. From npm:
   `import '@dubai-design-system/components-js/dist/dda/dda.css';`. From the CDN, see
-  [CDN users](#8-cdn-users).
+  [CDN users](#9-cdn-users).
 - [ ] **Load the icon fonts.** `dda.css` ships no icon font. Without these links, icons render
   as words such as `chevron_right`.
 
@@ -75,7 +76,70 @@ Do these whatever version you start from.
 
 ---
 
-## 3. From 5.1.x to 5.2.0
+## 3. From 3.5 – 3.12.10 to 5.3.0
+
+Versions 3.5 to 3.12.10 had attributes and two components that 3.12.11 to 5.2.0 did not have.
+5.3.0 brings back the ones below under the same names, so most 3.x markup works without change.
+Read this section first, then the sections for 5.x.
+
+### Works again without change
+
+- **`dda-header`:** all accessibility-panel texts (`contrast_title`, `contrast_description`,
+  `contrast_noraml_text`, `contrast_color_blind_text`, `contrast_red_weakness_text`,
+  `contrast_green_weakness_text`, `screen_reader_title`, `screen_reader_description`,
+  `text_size_title`, `text_size_description`), `read_speaker_link`, `selected_contrast`,
+  `selected_text_size`, `accessibility_tooltip`, `accessibility_button_text`,
+  `accessibility_button_id`, `accessibility_button_icon_family`, `accessibility_button_icon_name`,
+  `search_tooltip`, `search_input_placeholder`, `language_tooltip`, `login_tooltip`,
+  `use-predesigned-accessibility-menu`, `side-main-menu-title`, `side-other-menu-title`,
+  `other-menu-items`, `hide-other-menu`, `mobile-menu-search-id`, `mobile-menu-search-url`, and
+  the 3.x `quick-links` shape (`type`, `headerMenuLabel`, `url`, `children`).
+- **`dda-header` events:** `accessibilitymenufunctionality` and `searchfunctionality`.
+- **`dda-sticky-footer`:** `middle-link`, `right-link`, `more-icon`, `more-icon-family`,
+  `dubaiae-icon-*`, `color-theme`, every `*-icon-id` and every `*-icon-src-dark`.
+- **Components:** `dda-home-carousel` and `dda-banner-card`.
+
+### Changes that need action
+
+**The handler attributes never ran, and they do not run now.** **Silent.**
+Attributes such as `normalcontrast="() => …"`, `searchfunctionality="onSearch(this)"` and
+`languageswitch="…"` have no effect, in 3.x and in 5.x. The header sends events. Listen for them:
+
+```js
+const header = document.querySelector('dda-header');
+header.addEventListener('normalContrast', () => { /* … */ });
+header.addEventListener('searchfunctionality', event => onSearch(event.detail));
+header.addEventListener('accessibilitymenufunctionality', () => { /* … */ });
+```
+
+| Attribute in your markup | Event to listen for |
+| --- | --- |
+| `languageswitch` | `languageSwitch` |
+| `smtextsize`, `basetextsize`, `lgtextsize` | `smTextSize`, `baseTextSize`, `lgTextSize` |
+| `normalcontrast`, `blindcontrast`, `redcontrast`, `greencontrast` | `normalContrast`, `blindContrast`, `redContrast`, `greenContrast` |
+| `searchfunctionality` | `searchfunctionality` (the query, on submit) or `searchSubmit` (on submit; it can cancel the navigation) |
+| `accessibilitymenufunctionality` | `accessibilitymenufunctionality` |
+
+**`dda-home-carousel` cards are links.** In 3.x the cards were buttons, and `banner_card_href`
+had no effect. Now a card with `banner_card_href` is a link and it opens the page. If your own
+script opened the page on `cardClick`, remove that code, or the page opens two times.
+
+**The carousel does not scroll when the mouse moves.** The row scrolls with the mouse wheel, the
+scrollbar, touch and the keyboard. It shows a cut card and an edge fade when there are more cards.
+
+### Not brought back
+
+- `dda-header`: `use-login-popup`, `login-popup-links`, `use-navigator` and its `navigatorClick`
+  event, `show-quick-links-icon`, `first-logo-target`, `rel`, `header_default_submenu`,
+  `header_submenu_type`. The last four had no effect in 3.12.10.
+- Components: `dda-centered-image-card`, `dda-custom-card`, `dda-event-card`, `dda-header-menu`
+  (its menus are now part of `dda-header`), `dda-image-card`, `dda-information-card`,
+  `dda-pricing-card`, `dda-scroll-icon`, `dda-slider`, `dda-split-button`,
+  `dda-team-member-card`, `dda-teamsection-card`.
+
+---
+
+## 4. From 5.1.x to 5.2.0
 
 This section also covers 5.1.1. If you start from 5.1.1, the 5.1.1 notes are already done.
 
@@ -134,7 +198,7 @@ alone no longer wins. Add `dda-header:not(.dda-scrolled)` to it. Put the `transp
 
 ---
 
-## 4. From 5.0.x to 5.1.0
+## 5. From 5.0.x to 5.1.0
 
 ### Triage: run these first
 
@@ -294,7 +358,7 @@ the top of the page.
 
 ---
 
-## 5. Notes from 5.0.1: fonts and the stylesheet
+## 6. Notes from 5.0.1: fonts and the stylesheet
 
 Read this if you start from 5.0.0 or earlier.
 
@@ -307,7 +371,7 @@ Read this if you start from 5.0.0 or earlier.
 
 ---
 
-## 6. From 4.1.0
+## 7. From 4.1.0
 
 `4.1.0` was published in February 2025 and was never tagged `latest`; most sites never used it.
 It is a separate build and is not documented component by component. Known differences:
@@ -316,13 +380,13 @@ It is a separate build and is not documented component by component. Known diffe
 - It publishes no `dist/dda/dda.css`. Add it (see the checklist).
 - Its `dda-header` is an older implementation. Re-check the header on desktop and on a phone.
 
-Treat a 4.1.0 site like a 3.x site: follow [From 3.x](#7-from-3x-to-50), then
-[5.0.x to 5.1.0](#4-from-50x-to-510) and [5.1.x to 5.2.0](#3-from-51x-to-520), and check every
+Treat a 4.1.0 site like a 3.x site: follow [From 3.x](#8-from-3x-to-50), then
+[5.0.x to 5.1.0](#5-from-50x-to-510) and [5.1.x to 5.2.0](#4-from-51x-to-520), and check every
 page visually.
 
 ---
 
-## 7. From 3.x to 5.0
+## 8. From 3.x to 5.0
 
 **Why there is no 4.x to upgrade through:** `4.1.0` already existed on npm, so the next major
 skipped to 5 to keep `^4` ranges from resolving to that older build.
@@ -458,7 +522,7 @@ a future major release, with notice.
 
 ---
 
-## 8. CDN users
+## 9. CDN users
 
 jsDelivr syncs from npm automatically. Always use an **exact version**: replace `X.X.X` with
 the version you are upgrading to.
