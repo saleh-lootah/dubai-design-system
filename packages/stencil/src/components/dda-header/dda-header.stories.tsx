@@ -360,8 +360,9 @@ WithoutLogin.args = {
   hide_login: true,
 };
 
-// A page built on the 3.x attributes, in Arabic: every text in the accessibility panel, the
-// toolbar and the side menu comes from an attribute.
+// A page built on the 3.x attributes, in Arabic: every settable text in the accessibility panel,
+// the toolbar and the side menu comes from an attribute. A few close-button labels (for example
+// "Close Sidebar") have no attribute and stay fixed English text.
 export const Arabic3x = () => `
   <div dir="rtl" lang="ar">
     <dda-header

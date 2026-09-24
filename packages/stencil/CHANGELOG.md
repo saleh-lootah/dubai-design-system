@@ -11,10 +11,11 @@ All four published packages (`components-js`, `components-react`, `components-vu
 - **3.x attributes work again.** Versions 3.5 to 3.12.10 had attributes that 3.12.11 to 5.2.0
   did not have. The ones below are back, under their 3.x names. A page that uses only 5.x
   attributes looks the same as in 5.2.0. "From 3.5 – 3.12.10 to 5.3.0" in MIGRATION.md lists them.
-- **dda-header: every text can be set.** The accessibility panel, the tooltips, the search
-  placeholder and the side-menu titles take attributes, so a page can show them in its own
-  language. An empty attribute removes that text. An empty `login-text` or `language_text` removes
-  the Login link or the language button, as in 3.x.
+- **dda-header: the panel, toolbar and side-menu texts can be set.** The accessibility panel, the
+  tooltips, the search placeholder and the side-menu titles take attributes, so a page can show
+  them in its own language. An empty attribute removes that text. An empty `login-text` or
+  `language_text` removes the Login link or the language button, as in 3.x. A few close-button
+  labels (for example "Close Sidebar") stay fixed English text; they have no attribute.
 - **dda-header: the 3.x menu shape.** `quick-links` also accepts the 3.x shape (`type`,
   `headerMenuLabel`, `url`, `children`). `dda_default_submenu` items open a dropdown list with a
   second-level fly-out.
