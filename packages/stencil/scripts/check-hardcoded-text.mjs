@@ -5,7 +5,7 @@ import ts from 'typescript';
 
 // Every text a user sees or hears must come from a prop, so a page can show it in its own
 // language. This counts the text that is still written into component render code.
-const TEXT_ATTRIBUTES = new Set(['aria-label', 'title', 'placeholder', 'title_text', 'alt', 'label', 'aria-description']);
+const TEXT_ATTRIBUTES = new Set(['aria-label', 'title', 'placeholder', 'title_text', 'alt', 'label', 'aria-description', 'aria_label']);
 const ICON_CLASS = /material-(icons|symbols)/;
 
 function attribute(opening, name) {

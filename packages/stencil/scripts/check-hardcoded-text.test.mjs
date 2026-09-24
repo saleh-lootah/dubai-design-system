@@ -17,6 +17,14 @@ test('finds literal text attributes', () => {
   assert.deepEqual(found.map(f => f.text).sort(), ['Close', 'Close it', 'Menu']);
 });
 
+test('finds a literal aria_label prop passed to a dda-* component', () => {
+  const found = findHardcodedText(tsx('<dda-radiobutton aria_label="radio-button" title_text={this.label}></dda-radiobutton>'), 'x.tsx');
+  assert.deepEqual(
+    found.map(f => [f.kind, f.text]),
+    [['attribute', 'radio-button']],
+  );
+});
+
 test('ignores icon ligatures, prop values and whitespace', () => {
   const src = tsx(`<div>
     <i class="material-icons" aria-hidden="true">close</i>

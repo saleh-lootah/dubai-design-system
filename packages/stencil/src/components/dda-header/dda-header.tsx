@@ -508,7 +508,6 @@ export class DdaHeader {
                     input_id={`${option.id}${suffix}`}
                     custom_class=""
                     component_mode=""
-                    aria_label="radio-button"
                     onClick={option.handler}
                   ></dda-radiobutton>
                 ) : null,

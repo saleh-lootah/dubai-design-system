@@ -1,5 +1,6 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { DdaHeader } from '../dda-header';
+import { DdaRadiobutton } from '../../dda-radiobutton/dda-radiobutton';
 
 // Spec pages load at "/", the path that used to force the transparent style.
 const render = (html: string) => newSpecPage({ components: [DdaHeader], html });
@@ -149,6 +150,16 @@ describe('dda-header', () => {
       expect(radios.map(r => r.hasAttribute('checked'))).toEqual([false, false, true, false]);
       const sizes = Array.from(page.root.querySelectorAll('.dda-accessibility-wrap .dda-text-size-buttons dda-button')) as HTMLElement[];
       expect(sizes.map(b => b.getAttribute('button_color'))).toEqual(['default-secondary', 'default-primary', 'default-secondary']);
+    });
+
+    it('names each contrast radio by its visible label, not by a fixed aria-label', async () => {
+      const page = await newSpecPage({ components: [DdaHeader, DdaRadiobutton], html: `<dda-header contrast_noraml_text="عادي"></dda-header>` });
+      const inputs = Array.from(page.root.querySelectorAll('.dda-accessibility-wrap input[type="radio"]')) as HTMLInputElement[];
+      expect(inputs).toHaveLength(4);
+      // An aria-label on the input would override the label. The <label for> must be the name source.
+      expect(inputs.map(i => i.getAttribute('aria-label'))).toEqual([null, null, null, null]);
+      const names = inputs.map(i => page.root.querySelector(`label[for="${i.id}"]`).textContent.trim());
+      expect(names).toEqual(['عادي', 'Colours Blind', 'Red Weakness', 'Green Weakness']);
     });
 
     it('updates the selected contrast when the user picks one', async () => {
