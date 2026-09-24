@@ -307,4 +307,20 @@ describe('dda-header', () => {
       expect(page.root.querySelector('.dda-mobile-search-panel')).toBeNull();
     });
   });
+  describe('top menu', () => {
+    it('points each top-level toggle at the panel it opens with aria-controls', async () => {
+      const links = JSON.stringify([
+        { label: 'Home', href: '/', subMenu: [] },
+        { label: 'Services', href: '#', subMenu: [{ title: 'Licence', description: 'Renew', icon: 'badge', href: '/licence' }] },
+        { type: 'dda_default_submenu', headerMenuLabel: 'About', url: '#', children: [{ headerMenuLabel: 'Strategy', url: '/strategy', children: [] }] },
+      ]);
+      const page = await render(`<dda-header quick-links='${links}'></dda-header>`);
+      const toggles = Array.from(page.root.querySelectorAll('.dda-mega-menu > li > a')) as HTMLElement[];
+      expect(toggles[0].getAttribute('aria-controls')).toBeNull();
+      const mega = page.root.querySelector('#' + toggles[1].getAttribute('aria-controls'));
+      expect(mega).toHaveClass('megamenu-content');
+      const dropdown = page.root.querySelector('#' + toggles[2].getAttribute('aria-controls'));
+      expect(dropdown).toHaveClass('dda-default-submenu');
+    });
+  });
 });

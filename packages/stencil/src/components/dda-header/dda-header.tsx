@@ -175,6 +175,8 @@ export class DdaHeader {
   @State() openMenus: { [index: string]: boolean } = {};
   @State() activeMenuIndex: number | null = null;
   @State() activeSubIndex: number | null = null;
+  /** Offset (px) from the top of the open dropdown to the opener of its third-level panel. */
+  @State() activeSubTop = 0;
 
   toggleSidebarSubMenu(index: string) {
     if (index === '') {
@@ -595,7 +597,10 @@ export class DdaHeader {
   }
 
   private renderDropdown(item: NavItem, index: number) {
-    const id = `${this.searchId}-submenu-${index}`;
+    const id = this.menuPanelId(index);
+    // The third-level panels are siblings of the <ul>, not children of its <li> items. The <ul>
+    // scrolls (max-height), and a scroll container clips an absolutely positioned child on both
+    // axes, so a fly-out inside it cannot show. The open panel is aligned with its opener.
     return (
       <div id={id} class={{ 'dda-default-submenu': true, 'is-visible': this.activeMenuIndex === index }}>
         <ul>
@@ -615,38 +620,55 @@ export class DdaHeader {
                   onClick={(event: MouseEvent) => {
                     if (!hasSub) return;
                     event.preventDefault();
+                    const opener = event.currentTarget as HTMLElement;
+                    const panel = opener.closest('.dda-default-submenu');
+                    if (panel) this.activeSubTop = opener.getBoundingClientRect().top - panel.getBoundingClientRect().top;
                     this.activeSubIndex = isOpen ? null : subIndex;
                   }}
                 >
                   {child.label}
                 </a>
-                {hasSub && (
-                  <div id={subId} class={{ 'dda-default-subsubmenu': true, 'is-visible': isOpen }}>
-                    <div class="dda-default-subsubmenu-content">
-                      <span class="dda-submenu-title">{child.submenuTitle || child.label}</span>
-                      <ul>
-                        {child.children.map((leaf, leafIndex) => (
-                          <li key={leafIndex}>
-                            <a id={leaf.id} href={leaf.href} aria-current={leaf.active ? 'page' : undefined}>
-                              {leaf.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                )}
               </li>
             );
           })}
         </ul>
+        {item.children.map((child, subIndex) => {
+          if (child.kind !== 'dropdown') return null;
+          const isOpen = this.activeSubIndex === subIndex;
+          return (
+            <div
+              key={`sub-${subIndex}`}
+              id={`${id}-${subIndex}`}
+              class={{ 'dda-default-subsubmenu': true, 'is-visible': isOpen }}
+              style={isOpen ? { top: `${this.activeSubTop}px` } : undefined}
+            >
+              <div class="dda-default-subsubmenu-content">
+                <span class="dda-submenu-title">{child.submenuTitle || child.label}</span>
+                <ul>
+                  {child.children.map((leaf, leafIndex) => (
+                    <li key={leafIndex}>
+                      <a id={leaf.id} href={leaf.href} aria-current={leaf.active ? 'page' : undefined}>
+                        {leaf.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          );
+        })}
       </div>
     );
   }
 
+  /** The id of the dropdown or mega panel that top-level item `index` opens. */
+  private menuPanelId(index: number) {
+    return `${this.searchId}-submenu-${index}`;
+  }
+
   private renderMega(item: NavItem, index: number) {
     return (
-      <div class={`megamenu-content ${this.activeMenuIndex === index ? 'showSubMenu' : ''}`} style={{ display: this.activeMenuIndex === index ? 'block' : 'none' }}>
+      <div id={this.menuPanelId(index)} class={`megamenu-content ${this.activeMenuIndex === index ? 'showSubMenu' : ''}`} style={{ display: this.activeMenuIndex === index ? 'block' : 'none' }}>
         <div class="megamenu-item dda-container">
           <div class="dda-row">
             {item.columns.map((column, columnIndex) => (
@@ -819,6 +841,7 @@ export class DdaHeader {
                           onClick={hasSub ? (e: MouseEvent) => this.toggleSubMenu(index, e) : undefined}
                           class={{ showSub: hasSub, icon_arrow: hasSub && isOpen, active: link.active }}
                           aria-expanded={hasSub ? String(isOpen) : undefined}
+                          aria-controls={hasSub ? this.menuPanelId(index) : undefined}
                           aria-current={link.active && !hasSub ? 'page' : undefined}
                         >
                           {link.label}

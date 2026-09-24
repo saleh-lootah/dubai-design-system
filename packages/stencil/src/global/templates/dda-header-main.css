@@ -1059,9 +1059,11 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
 .dda-mega-menu > li {
   position: relative;
 }
+/* The <ul> scrolls; the third-level panel is its sibling, so the scroll does not clip it.
+   The fixed width puts the panel (inset-inline-start: 100%) against the edge of the <ul>. */
 .dda-default-submenu {
   display: none;
-  min-width: 350px;
+  width: 350px;
   position: absolute;
   top: 100%;
   inset-inline-start: 0;

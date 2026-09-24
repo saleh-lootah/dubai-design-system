@@ -55,6 +55,24 @@ describe('DoF 3.x markup on 5.3.0', () => {
     expect(items).toBe(12);
   });
 
+  it('shows a third-level menu that the user can see and click (RTL)', async () => {
+    const page = await newE2EPage();
+    await loadDof(page);
+    // Menu 4 (open data): its 4th item (the finance library) has a third level with 4 links.
+    await (await page.find('dda-header .dda-mega-menu > li:nth-child(4) > a')).click();
+    await page.waitForChanges();
+    await (await page.find('dda-header .dda-default-submenu.is-visible a.has-submenu')).click();
+    await page.waitForChanges();
+    const leaves = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('dda-header .dda-default-subsubmenu.is-visible li a')).map(a => {
+        const r = a.getBoundingClientRect();
+        const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+        return !!hit && (hit === a || a.contains(hit));
+      }),
+    );
+    expect(leaves).toEqual([true, true, true, true]);
+  });
+
   it('shows the three DoF logos and the two text links with icons', async () => {
     const page = await newE2EPage();
     await loadDof(page);

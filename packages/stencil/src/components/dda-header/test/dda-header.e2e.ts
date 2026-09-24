@@ -541,6 +541,17 @@ describe('dda-header transparent style on scroll', () => {
   });
 });
 
+// For each link in the open third-level panel: is the link the top element at its own center?
+async function leafVisibility(page: E2EPage) {
+  return page.evaluate(() =>
+    Array.from(document.querySelectorAll('.dda-default-subsubmenu.is-visible li a')).map(a => {
+      const r = a.getBoundingClientRect();
+      const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      return { label: a.textContent.trim(), visible: !!hit && (hit === a || a.contains(hit)) };
+    }),
+  );
+}
+
 describe('dda-header 3.x dropdown menus', () => {
   const links = JSON.stringify([
     { type: 'dda_default_submenu', headerMenuLabel: 'Home', url: '/', children: [] },
@@ -572,6 +583,8 @@ describe('dda-header 3.x dropdown menus', () => {
     await page.waitForChanges();
     expect(await about.getAttribute('aria-expanded')).toBe('true');
     const menu = await page.find('.dda-default-submenu');
+    expect(await about.getAttribute('aria-controls')).toBe(menu.id);
+    expect(menu.id).not.toBe('');
     expect((await menu.getComputedStyle()).display).toBe('block');
     const items = await page.$$eval('.dda-default-submenu > ul > li > a', els => els.map(e => e.textContent.trim()));
     expect(items).toEqual(['Strategy', 'Policies']);
@@ -590,6 +603,16 @@ describe('dda-header 3.x dropdown menus', () => {
         return sub.left >= parent.right - 1 ? 'right' : sub.right <= parent.left + 1 ? 'left' : 'overlap';
       });
       expect(side).toBe(dir === 'ltr' ? 'right' : 'left');
+      // Real visibility: the top element at the center of each third-level link must be that link.
+      // A scroll container around the fly-out clips it, and then elementFromPoint returns <html>.
+      expect(await leafVisibility(page)).toEqual([{ label: 'Quality', visible: true }]);
+      // The panel starts level with the link that opened it.
+      const gap = await page.evaluate(() => {
+        const opener = document.querySelector('.dda-default-submenu a.has-submenu').getBoundingClientRect();
+        const sub = document.querySelector('.dda-default-subsubmenu').getBoundingClientRect();
+        return Math.abs(sub.top - opener.top);
+      });
+      expect(gap).toBeLessThan(1);
     }
   });
 
