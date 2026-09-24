@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DDA Demo Site</title>
+    <title>Dubai government services</title>
     <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
     <link rel="stylesheet" href="/style.css">
     <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
@@ -13,7 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
-    <script type="module" src="/setup.js"></script>
+    <!-- home.js adds the life-moment route and the topics, then loads setup.js, so setup.js loads their components too. -->
+    <script type="module" src="/home.js"></script>
   </head>
   <!-- Only the home page uses the transparent header. Other pages keep the white header. -->
   <body class="transparent">
@@ -28,116 +29,106 @@
           <video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
           <div class="slide-wrap">
             <div class="slide-content">
-              <h2>Banner title placeholder 1</h2>
-              <p>Banner subtitle placeholder.</p>
-              <dda-button button_color="default-primary" size="lg">Call to action</dda-button>
+              <h2>Government services in one place</h2>
+              <p>Pay, renew and apply online, in English or Arabic.</p>
+              <dda-link-button button_color="default-primary" size="lg" href="services.html">Browse services</dda-link-button>
             </div>
           </div>
         </slide>
         <slide>
-          <img src="https://picsum.photos/seed/dda-banner-2/1920/1080" alt="Sample photo 2" />
+          <img src="https://picsum.photos/seed/dda-banner-2/1920/1080" alt="" />
           <div class="slide-wrap">
             <div class="slide-content">
-              <h2>Banner title placeholder 2</h2>
-              <p>Banner subtitle placeholder.</p>
+              <h2>Renew your Emirates ID online</h2>
+              <p>It takes 5 working days. We send you a message when the card is ready.</p>
+              <dda-link-button button_color="default-primary" size="lg" href="service.html?id=emirates-id">Renew Emirates ID</dda-link-button>
             </div>
           </div>
         </slide>
         <slide>
-          <img src="https://picsum.photos/seed/dda-banner-3/1920/1080" alt="Sample photo 3" />
+          <img src="https://picsum.photos/seed/dda-banner-3/1920/1080" alt="" />
           <div class="slide-wrap">
             <div class="slide-content">
-              <h2>Banner title placeholder 3</h2>
-              <p>Banner subtitle placeholder.</p>
+              <h2>Start a business in Dubai</h2>
+              <p>Register a company and get your trade licence without a visit.</p>
+              <dda-link-button button_color="default-primary" size="lg" href="services.html?category=Business">See business services</dda-link-button>
             </div>
           </div>
         </slide>
       </dda-home-banner>
 
+      <!-- home.js adds the fee and time of each service from services-data.js. -->
       <nav class="quick-links-wrap" aria-label="Popular services">
         <div class="quick-links">
-          <a class="link-item" href="service.html?id=traffic-fines">
+          <a class="link-item" href="service.html?id=traffic-fines" data-service="traffic-fines">
             <i class="material-icons material-symbols-outlined" aria-hidden="true">directions_car</i>
             <span class="title">Pay traffic fines</span>
-            <span class="subtitle">Sample service description.</span>
+            <span class="subtitle"></span>
           </a>
-          <a class="link-item" href="service.html?id=emirates-id">
+          <a class="link-item" href="service.html?id=emirates-id" data-service="emirates-id">
             <i class="material-icons material-symbols-outlined" aria-hidden="true">badge</i>
             <span class="title">Renew Emirates ID</span>
-            <span class="subtitle">Sample service description.</span>
+            <span class="subtitle"></span>
           </a>
-          <a class="link-item" href="service.html?id=utility-bills">
+          <a class="link-item" href="service.html?id=utility-bills" data-service="utility-bills">
             <i class="material-icons material-symbols-outlined" aria-hidden="true">receipt_long</i>
             <span class="title">Pay utility bills</span>
-            <span class="subtitle">Sample service description.</span>
+            <span class="subtitle"></span>
           </a>
-          <a class="link-item" href="service.html?id=trade-licence">
+          <a class="link-item" href="service.html?id=trade-licence" data-service="trade-licence">
             <i class="material-icons material-symbols-outlined" aria-hidden="true">storefront</i>
             <span class="title">Renew trade licence</span>
-            <span class="subtitle">Sample service description.</span>
+            <span class="subtitle"></span>
           </a>
-          <a class="link-item" href="service.html?id=visa">
+          <a class="link-item" href="service.html?id=visa" data-service="visa">
             <i class="material-icons material-symbols-outlined" aria-hidden="true">flight</i>
             <span class="title">Apply for a visa</span>
-            <span class="subtitle">Sample service description.</span>
+            <span class="subtitle"></span>
           </a>
         </div>
       </nav>
     </div>
 
-    <main id="main" tabindex="-1" class="demo-main demo-main-after-banner">
-      <dda-breadcrumb></dda-breadcrumb>
+    <main id="main" tabindex="-1" class="demo-main demo-main-after-banner home-main">
+      <dda-alert heading_level="2" variation="info" type="primary" title_text="Planned maintenance" description="Online payments are not available on Saturday 27 September, from 00:00 to 04:00."></dda-alert>
 
-      <section class="demo-hero">
-        <img class="demo-hero-media" src="https://picsum.photos/seed/dda-hero/1280/720" alt="Sample hero photo" />
+      <!-- The life-moment route. home.js draws the stops for the selected moment. -->
+      <section class="home-moments" aria-labelledby="moments-title">
+        <div class="home-moments-head">
+          <h2 id="moments-title">What is happening in your life?</h2>
+          <p>Some changes need more than one service. Select one to see the services you need, in order.</p>
+        </div>
+        <div class="demo-filter">
+          <dda-segmented-tabs id="moments-filter" radius_type="square" aria_label="Life moments"></dda-segmented-tabs>
+        </div>
+        <div class="home-route-wrap">
+          <p id="moment-intro" class="home-route-intro"></p>
+          <ol id="moment-route" class="home-route"></ol>
+          <p id="moment-total" class="home-route-total" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="home-topics" aria-labelledby="topics-title">
+        <div class="home-section-head">
+          <h2 id="topics-title">Services by topic</h2>
+          <a class="demo-link" href="services.html">See all services</a>
+        </div>
+        <!-- home.js adds one column per category, from services-data.js. -->
+        <div id="topic-list" class="home-topic-list"></div>
+      </section>
+
+      <section class="home-faq" aria-labelledby="faq-title">
+        <div class="home-faq-intro">
+          <h2 id="faq-title">Questions about online services</h2>
+          <p>Cannot find your answer? <a class="demo-link" href="contact.html">Contact us</a> and we reply in 2 working days.</p>
+        </div>
         <div>
-          <h2>Page title placeholder</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Short intro text goes here.</p>
-          <dda-button button_color="default-primary" end_icon="arrow_forward" button_id="hero-cta">Primary action</dda-button>
-          <dda-button button_color="default-secondary" button_id="hero-secondary">Secondary action</dda-button>
+          <dda-accordion accordion_icon="help" header_text="Do I need an account?" body_description="No, not to pay fines or bills. To apply for or renew a document, log in first, so we can send you updates about your application."></dda-accordion>
+          <dda-accordion accordion_icon="help" header_text="How do I pay?" body_description="Pay by debit or credit card at the end of the service. We send the receipt to your email address."></dda-accordion>
+          <dda-accordion accordion_icon="help" header_text="How do I know the status of my application?" body_description="We send an email and a text message at each step. The message tells you what to do next, if you must do something."></dda-accordion>
+          <dda-accordion accordion_icon="help" header_text="Can I use this site in Arabic?" body_description="Yes. Select العربية at the top of any page. Your application stays the same in both languages."></dda-accordion>
         </div>
       </section>
-
-      <dda-alert heading_level="3" variation="info" type="primary" title_text="Notice placeholder" description="Alert description text goes here."></dda-alert>
-
-      <section>
-        <h2>Services</h2>
-        <div class="demo-grid">
-          <dda-ui-card maintitle="Transport" subtitle="Fines, vehicle registration and parking." icon="directions_car" linktext="Browse" link="services.html?category=Transport"></dda-ui-card>
-          <dda-ui-card maintitle="Business" subtitle="Trade licences and new companies." icon="storefront" linktext="Browse" link="services.html?category=Business"></dda-ui-card>
-          <dda-ui-card maintitle="Health" subtitle="Appointments and health cards." icon="medical_services" linktext="Browse" link="services.html?category=Health"></dda-ui-card>
-        </div>
-        <div class="demo-row">
-          <dda-link-button button_color="default-secondary" href="services.html" end_icon="arrow_forward">Browse all services</dda-link-button>
-        </div>
-      </section>
-
-      <section>
-        <h2>Tabs</h2>
-        <dda-tabs type="text" tab_texts='["Overview", "Details", "Documents"]'></dda-tabs>
-      </section>
-
-      <section class="demo-columns">
-        <form class="demo-form" onsubmit="return false">
-          <h2>Contact form</h2>
-          <dda-input label="Full name" placeholder="Placeholder name" input_id="name"></dda-input>
-          <dda-input label="Email" type="email" placeholder="name@example.com" input_id="email"></dda-input>
-          <dda-select label="Topic" button_id="topic" options='["Option 1","Option 2","Option 3"]'></dda-select>
-          <dda-textarea label="Message" placeholder="Message placeholder" input_id="message"></dda-textarea>
-          <dda-checkbox title_text="I agree to the terms" input_id="terms"></dda-checkbox>
-          <dda-toggle input_id="newsletter" title_text="Subscribe to the newsletter" aria_label="Newsletter"></dda-toggle>
-          <dda-button button_color="default-primary" button_id="submit">Submit</dda-button>
-        </form>
-
-        <div>
-          <h2>FAQ</h2>
-          <dda-accordion header_text="Question placeholder 1" body_description="Answer placeholder text."></dda-accordion>
-          <dda-accordion header_text="Question placeholder 2" body_description="Answer placeholder text."></dda-accordion>
-          <dda-accordion header_text="Question placeholder 3" body_description="Answer placeholder text."></dda-accordion>
-        </div>
-      </section>
-
-      <dda-pagination></dda-pagination>
     </main>
 
     <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Footer description placeholder." copyright-text="© 2026 Placeholder. All rights reserved." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>

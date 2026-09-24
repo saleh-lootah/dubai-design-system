@@ -490,3 +490,272 @@ dda-home-banner.home-slider[dir='rtl'] .slide-wrap {
 .sample-popup-status:empty {
   display: none;
 }
+
+/* Home page (index.html, home.js). */
+.home-main {
+  gap: 64px;
+}
+
+.home-main h2:not([class]) {
+  margin: 0;
+  font-size: var(--dda-h5);
+  line-height: 1.2;
+}
+
+.home-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-bottom: 24px;
+}
+
+/* Life moments: a full-width tinted band. The border-image paints the band to the screen edges
+   without making the page wider than the screen. */
+.home-moments {
+  --band: color-mix(in srgb, var(--dda-color-primary-40) 9%, var(--dda-surface-100, #fff));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 56px 64px;
+  background: var(--band);
+  border-image: linear-gradient(var(--band), var(--band)) fill 0 / 0 / 0 100vw;
+}
+
+.home-moments-head {
+  display: grid;
+  gap: 8px;
+  max-width: 40em;
+}
+
+.home-moments-head h2:not([class]) {
+  font-size: var(--dda-h4);
+  line-height: 1.1;
+}
+
+.home-moments-head p,
+.home-route-intro {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.home-route-wrap {
+  display: grid;
+  gap: 32px;
+}
+
+/* The route: stops on a line, like a metro map. Horizontal on a wide screen, vertical on a phone.
+   Each stop draws the line segment to the next stop (::after) under its station ring (::before). */
+.home-route {
+  --ring: 22px;
+  --line: 6px;
+  --route-gap: 24px;
+  display: grid;
+  gap: var(--route-gap);
+  margin: 0;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.home-stop {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  align-content: start;
+  padding-inline-start: calc(var(--ring) + 16px);
+  min-height: 56px;
+}
+
+.home-stop::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 2px;
+  inset-inline-start: 0;
+  box-sizing: border-box;
+  width: var(--ring);
+  height: var(--ring);
+  border: 5px solid var(--dda-color-primary-40);
+  border-radius: 50%;
+  background: var(--dda-surface-100, #fff);
+}
+
+/* The last stop is where the route ends: a filled ring. */
+.home-stop:last-child::before {
+  background: var(--dda-color-primary-40);
+  box-shadow: 0 0 0 4px var(--band);
+}
+
+.home-stop:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: calc(2px + var(--ring) / 2);
+  inset-inline-start: calc(var(--ring) / 2 - var(--line) / 2);
+  width: var(--line);
+  height: calc(100% + var(--route-gap));
+  background: linear-gradient(var(--dda-color-primary-40), var(--dda-color-primary-40)) no-repeat top / 100% 100%;
+}
+
+.home-route.is-drawn .home-stop:not(:last-child)::after {
+  animation: route-draw-down 220ms calc(var(--stop) * 120ms) ease-out both;
+}
+
+.home-stop-link {
+  color: var(--dda-on-surface-10, #191c1c);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.home-stop-link:hover {
+  color: var(--dda-color-primary-40);
+  text-decoration: underline !important;
+  text-underline-offset: 0.15em;
+}
+
+/* The whole stop is the link's target area. */
+.home-stop-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.home-stop-link:focus-visible {
+  outline: none;
+}
+
+.home-stop:has(.home-stop-link:focus-visible) {
+  outline: 3px solid var(--dda-color-primary-40);
+  outline-offset: 6px;
+  border-radius: 4px;
+}
+
+.home-stop-facts {
+  color: var(--dda-on-surface-variant-30, #4b5563);
+}
+
+.home-route-total {
+  margin: 0;
+  max-width: 40em;
+  padding-top: 16px;
+  border-top: 1px solid color-mix(in srgb, var(--dda-color-primary-40) 30%, transparent);
+  font-weight: 500;
+}
+
+@media (min-width: 900px) {
+  .home-route {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+  }
+
+  .home-stop {
+    padding-inline-start: 0;
+    padding-top: calc(var(--ring) + 16px);
+    padding-inline-end: 16px;
+  }
+
+  .home-stop::before {
+    top: 0;
+  }
+
+  .home-stop:not(:last-child)::after {
+    top: calc(var(--ring) / 2 - var(--line) / 2);
+    inset-inline-start: calc(var(--ring) / 2);
+    width: calc(100% + var(--route-gap));
+    height: var(--line);
+    background-position: left;
+  }
+
+  [dir='rtl'] .home-stop:not(:last-child)::after {
+    background-position: right;
+  }
+
+  .home-route.is-drawn .home-stop:not(:last-child)::after {
+    animation-name: route-draw-across;
+  }
+}
+
+/* The line fills from the stop before it: a paint animation of the background size. */
+@keyframes route-draw-down {
+  from {
+    background-size: 100% 0;
+  }
+}
+
+@keyframes route-draw-across {
+  from {
+    background-size: 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-route.is-drawn .home-stop:not(:last-child)::after {
+    animation: none;
+  }
+}
+
+/* Topic index: one column per category. The top rule marks where each category starts. */
+.home-topic-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 32px 24px;
+}
+
+.home-topic {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 4px solid var(--dda-color-primary-40);
+}
+
+.home-topic-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.home-topic-title a {
+  color: var(--dda-on-surface-10, #191c1c);
+}
+
+.home-topic-services {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.home-topic-services a {
+  color: var(--dda-color-primary-40);
+}
+
+.home-topic-title a:hover,
+.home-topic-services a:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 0.15em;
+}
+
+.home-faq {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px 48px;
+}
+
+.home-faq-intro {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.home-faq-intro p {
+  margin: 0;
+}
+
+@media (min-width: 900px) {
+  .home-faq {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
+}
