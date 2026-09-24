@@ -46,6 +46,5 @@ the element, and rendered its inner markup.
 - **`components-angular` requires >= 3.12.13** — 3.12.12 and earlier shipped
   broken package entry points and cannot be imported at all.
 
-These samples pin exact published versions — `angular/` pins `3.12.13`, the
-others pin `3.12.12`. After releasing a new version, bump the pins and
-re-run.
+These samples pin exact published versions. All of them, and `js-demo/`, pin
+`5.3.0`. After you release a new version, bump the pins and run the samples again.
