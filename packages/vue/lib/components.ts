@@ -86,6 +86,21 @@ export const DdaBanner = /*@__PURE__*/ defineContainer<JSX.DdaBanner>('dda-banne
 ]);
 
 
+export const DdaBannerCard = /*@__PURE__*/ defineContainer<JSX.DdaBannerCard>('dda-banner-card', undefined, [
+  'banner_card_href',
+  'banner_card_url',
+  'banner_card_id',
+  'image_src',
+  'image_alt',
+  'banner_card_title',
+  'banner_card_description',
+  'banner_card_value',
+  'banner_card_name',
+  'custom_class',
+  'component_mode'
+]);
+
+
 export const DdaBreadcrumb = /*@__PURE__*/ defineContainer<JSX.DdaBreadcrumb>('dda-breadcrumb', undefined, [
   'design',
   'separator',
@@ -296,6 +311,16 @@ export const DdaHomeBanner = /*@__PURE__*/ defineContainer<JSX.DdaHomeBanner>('d
   'play_button_label',
   'slide_button_label',
   'slide_status_label'
+]);
+
+
+export const DdaHomeCarousel = /*@__PURE__*/ defineContainer<JSX.DdaHomeCarousel>('dda-home-carousel', undefined, [
+  'bannercardlist',
+  'items_in_view',
+  'aria_label',
+  'custom_class',
+  'component_mode',
+  'cardClick'
 ]);
 
 

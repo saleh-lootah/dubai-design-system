@@ -63,4 +63,18 @@ describe('DoF 3.x markup on 5.3.0', () => {
     const icons = await page.$$eval('dda-sticky-footer .dda-footer-right .foot-icon-btn i', els => els.map(e => e.textContent.trim()));
     expect(icons.slice(0, 2)).toEqual(['feed', 'call']);
   });
+
+  it('shows the four DoF cards as links on the banner', async () => {
+    const page = await newE2EPage();
+    await loadDof(page);
+    const hrefs = await page.$$eval('dda-home-carousel a.dda-banner-card', els => els.map(e => e.getAttribute('href')));
+    expect(hrefs).toEqual([
+      '/ar-sa/profile/Pages/AboutUs.aspx',
+      '/ar-sa/profile/Pages/open_data.aspx',
+      '/ar-sa/pnp/Pages/PPP-Unit-Information.aspx',
+      '/ar-sa/services/maliyoun/Pages/Maliyoun.aspx',
+    ]);
+    const position = await page.$eval('.dda-home-quick-links-wrap', e => getComputedStyle(e).position);
+    expect(position).toBe('absolute');
+  });
 });

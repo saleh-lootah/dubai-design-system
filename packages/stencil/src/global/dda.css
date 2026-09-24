@@ -21,7 +21,7 @@
   --dda-quick-links-card-height-sm: 112px;
 }
 
-.quick-links-wrap {
+:is(.quick-links-wrap, .dda-home-quick-links-wrap) {
   width: 100%;
   position: absolute;
   /* dda-sticky-footer sets --dda-sticky-footer-height; the cards sit above the fixed bar.
@@ -45,7 +45,7 @@
 
 /* One row of cards. When the cards do not fit, the row scrolls sideways. A card cut at the edge,
    a fade on each edge with more cards, and a thin scrollbar show that the row scrolls. */
-.quick-links-wrap,
+:is(.quick-links-wrap, .dda-home-quick-links-wrap),
 .quick-links {
   /* Room inside the row for the hover lift (12px above) and the pointer (9px below);
      a scrolling box clips anything outside it. */
@@ -168,14 +168,14 @@
   .slide-content p {
     width: 100%;
   }
-  .quick-links-wrap {
+  :is(.quick-links-wrap, .dda-home-quick-links-wrap) {
     position: relative;
     /* In normal flow the cards do not sit over the fixed bar, so keep the original offset. */
     bottom: 45px;
   }
   /* Below the banner, on the page background: the row spans the screen, and each card is
      narrower than the row so the next card shows at the edge. */
-  .quick-links-wrap .quick-links {
+  :is(.quick-links-wrap, .dda-home-quick-links-wrap) .quick-links {
     width: 100%;
     box-sizing: border-box;
     padding: 20px 20px var(--dda-quick-links-pad-bottom);
@@ -260,12 +260,12 @@
    controls move above them (home-banner.css). On short landscape screens the banner cannot hold
    the text, the controls and the cards, so the cards stay under it (the rules above). */
 @media screen and (max-width: 992px) and (min-height: 601px) {
-  .quick-links-wrap {
+  :is(.quick-links-wrap, .dda-home-quick-links-wrap) {
     position: absolute;
     /* The row's bottom padding is part of the gap above the bar. */
     bottom: calc(var(--dda-quick-links-gap-sm) - var(--dda-quick-links-pad-bottom) + var(--dda-sticky-footer-height, 0px));
   }
-  .quick-links-wrap .quick-links {
+  :is(.quick-links-wrap, .dda-home-quick-links-wrap) .quick-links {
     padding-top: var(--dda-quick-links-pad-top);
     scrollbar-color: rgba(255, 255, 255, 0.7) transparent;
   }
@@ -290,5 +290,58 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+/* dda-home-carousel: its list is a .quick-links row; each <li> holds one dda-banner-card. */
+ul.quick-links {
+  margin-block: 0;
+  list-style: none;
+}
+.quick-links > .dda-home-carousel-item {
+  flex: 0 0 max(220px, calc((100% - (var(--dda-home-carousel-per-view, 5) - 1) * 8px) / var(--dda-home-carousel-per-view, 5)));
+  display: flex;
+  scroll-snap-align: start;
+  list-style: none;
+}
+.dda-home-carousel-item dda-banner-card {
+  display: flex;
+  width: 100%;
+}
+.dda-home-carousel-item .link-item {
+  width: 100%;
+  flex: 1 1 auto;
+}
+/* A card without a URL is a <button>: remove the browser button look. */
+button.link-item {
+  border: 0;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.quick-links .link-item img {
+  display: block;
+  height: 35px;
+  width: auto;
+  margin-bottom: 15px;
+}
+.quick-links .link-item:focus-visible {
+  outline: 2px solid var(--dda-color-primary-40);
+  outline-offset: 2px;
+  margin-top: -12px;
+}
+@media screen and (max-width: 992px) and (min-height: 601px) {
+  .quick-links > .dda-home-carousel-item {
+    flex: 0 0 min(75%, 300px);
+  }
+  .quick-links .link-item img {
+    height: 24px;
+    margin-bottom: 8px;
+  }
+}
+@media only screen and (orientation: landscape) and (max-width: 1600px) {
+  .quick-links .link-item img {
+    height: 20px;
+    margin-bottom: 5px;
   }
 }

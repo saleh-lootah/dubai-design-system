@@ -6,8 +6,10 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
+import { BannerCardItem } from "./components/dda-home-carousel/dda-home-carousel";
 import { MiddleLinkItem, RightLinkItem } from "./components/dda-sticky-footer/dda-sticky-footer";
 export { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
+export { BannerCardItem } from "./components/dda-home-carousel/dda-home-carousel";
 export { MiddleLinkItem, RightLinkItem } from "./components/dda-sticky-footer/dda-sticky-footer";
 export namespace Components {
     interface DdaAccordion {
@@ -265,6 +267,53 @@ export namespace Components {
           * Slide images. JSON array of `{ image, title }`; `image` is the image URL and `title` its alternative text. Read once, when the component loads.
          */
         "slides": string;
+    }
+    interface DdaBannerCard {
+        /**
+          * Text under the title. An empty value shows nothing.
+         */
+        "banner_card_description": string;
+        /**
+          * Link URL. With a URL the card is a link; without one it is a button.
+         */
+        "banner_card_href": string;
+        /**
+          * `id` of the link or button.
+         */
+        "banner_card_id": string;
+        /**
+          * `name` of the button (cards without a URL).
+         */
+        "banner_card_name": string;
+        /**
+          * Title of the card; it is the accessible name.
+         */
+        "banner_card_title": string;
+        /**
+          * 3.x name of `banner_card_href`. `banner_card_href` wins when both are set.
+         */
+        "banner_card_url": string;
+        /**
+          * `value` of the button (cards without a URL).
+         */
+        "banner_card_value": string;
+        /**
+          * Theme override class, e.g. `light-mode`.
+         */
+        "component_mode": string;
+        /**
+          * Extra CSS classes.
+          * @default ''
+         */
+        "custom_class": string;
+        /**
+          * Kept for 3.x markup. The icon is decorative, so this text is not read.
+         */
+        "image_alt": string;
+        /**
+          * Icon image URL. The icon is decorative: the title names the card.
+         */
+        "image_src": string;
     }
     interface DdaBreadcrumb {
         /**
@@ -973,6 +1022,31 @@ export namespace Components {
           * @default 'Slide {current} of {total}'
          */
         "slide_status_label": string;
+    }
+    interface DdaHomeCarousel {
+        /**
+          * Accessible name of the card list. Default: `Quick links`.
+          * @default 'Quick links'
+         */
+        "aria_label": string;
+        /**
+          * The cards. JSON array, or array property, of `{ banner_card_href, banner_card_title, banner_card_description, image_src, image_alt, banner_card_id, banner_card_value, banner_card_name, custom_class, component_mode }`.
+         */
+        "bannercardlist": string | BannerCardItem[];
+        /**
+          * Theme override class, e.g. `light-mode`.
+         */
+        "component_mode": string;
+        /**
+          * Extra CSS classes on the list.
+          * @default ''
+         */
+        "custom_class": string;
+        /**
+          * Cards shown at once on wide screens. A card is never narrower than 220px. Default: `5`.
+          * @default 5
+         */
+        "items_in_view": number;
     }
     interface DdaHorizontalStepper {
         /**
@@ -2220,6 +2294,10 @@ export interface DdaHeaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDdaHeaderElement;
 }
+export interface DdaHomeCarouselCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDdaHomeCarouselElement;
+}
 export interface DdaPaginationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDdaPaginationElement;
@@ -2293,6 +2371,12 @@ declare global {
     var HTMLDdaBannerElement: {
         prototype: HTMLDdaBannerElement;
         new (): HTMLDdaBannerElement;
+    };
+    interface HTMLDdaBannerCardElement extends Components.DdaBannerCard, HTMLStencilElement {
+    }
+    var HTMLDdaBannerCardElement: {
+        prototype: HTMLDdaBannerCardElement;
+        new (): HTMLDdaBannerCardElement;
     };
     interface HTMLDdaBreadcrumbElement extends Components.DdaBreadcrumb, HTMLStencilElement {
     }
@@ -2396,6 +2480,23 @@ declare global {
     var HTMLDdaHomeBannerElement: {
         prototype: HTMLDdaHomeBannerElement;
         new (): HTMLDdaHomeBannerElement;
+    };
+    interface HTMLDdaHomeCarouselElementEventMap {
+        "cardClick": BannerCardItem;
+    }
+    interface HTMLDdaHomeCarouselElement extends Components.DdaHomeCarousel, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDdaHomeCarouselElementEventMap>(type: K, listener: (this: HTMLDdaHomeCarouselElement, ev: DdaHomeCarouselCustomEvent<HTMLDdaHomeCarouselElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDdaHomeCarouselElementEventMap>(type: K, listener: (this: HTMLDdaHomeCarouselElement, ev: DdaHomeCarouselCustomEvent<HTMLDdaHomeCarouselElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLDdaHomeCarouselElement: {
+        prototype: HTMLDdaHomeCarouselElement;
+        new (): HTMLDdaHomeCarouselElement;
     };
     interface HTMLDdaHorizontalStepperElement extends Components.DdaHorizontalStepper, HTMLStencilElement {
     }
@@ -2572,6 +2673,7 @@ declare global {
         "dda-attach-file": HTMLDdaAttachFileElement;
         "dda-avatar": HTMLDdaAvatarElement;
         "dda-banner": HTMLDdaBannerElement;
+        "dda-banner-card": HTMLDdaBannerCardElement;
         "dda-breadcrumb": HTMLDdaBreadcrumbElement;
         "dda-button": HTMLDdaButtonElement;
         "dda-checkbox": HTMLDdaCheckboxElement;
@@ -2582,6 +2684,7 @@ declare global {
         "dda-footer": HTMLDdaFooterElement;
         "dda-header": HTMLDdaHeaderElement;
         "dda-home-banner": HTMLDdaHomeBannerElement;
+        "dda-home-carousel": HTMLDdaHomeCarouselElement;
         "dda-horizontal-stepper": HTMLDdaHorizontalStepperElement;
         "dda-input": HTMLDdaInputElement;
         "dda-link-button": HTMLDdaLinkButtonElement;
@@ -2871,6 +2974,53 @@ declare namespace LocalJSX {
           * Slide images. JSON array of `{ image, title }`; `image` is the image URL and `title` its alternative text. Read once, when the component loads.
          */
         "slides"?: string;
+    }
+    interface DdaBannerCard {
+        /**
+          * Text under the title. An empty value shows nothing.
+         */
+        "banner_card_description"?: string;
+        /**
+          * Link URL. With a URL the card is a link; without one it is a button.
+         */
+        "banner_card_href"?: string;
+        /**
+          * `id` of the link or button.
+         */
+        "banner_card_id"?: string;
+        /**
+          * `name` of the button (cards without a URL).
+         */
+        "banner_card_name"?: string;
+        /**
+          * Title of the card; it is the accessible name.
+         */
+        "banner_card_title"?: string;
+        /**
+          * 3.x name of `banner_card_href`. `banner_card_href` wins when both are set.
+         */
+        "banner_card_url"?: string;
+        /**
+          * `value` of the button (cards without a URL).
+         */
+        "banner_card_value"?: string;
+        /**
+          * Theme override class, e.g. `light-mode`.
+         */
+        "component_mode"?: string;
+        /**
+          * Extra CSS classes.
+          * @default ''
+         */
+        "custom_class"?: string;
+        /**
+          * Kept for 3.x markup. The icon is decorative, so this text is not read.
+         */
+        "image_alt"?: string;
+        /**
+          * Icon image URL. The icon is decorative: the title names the card.
+         */
+        "image_src"?: string;
     }
     interface DdaBreadcrumb {
         /**
@@ -3631,6 +3781,35 @@ declare namespace LocalJSX {
           * @default 'Slide {current} of {total}'
          */
         "slide_status_label"?: string;
+    }
+    interface DdaHomeCarousel {
+        /**
+          * Accessible name of the card list. Default: `Quick links`.
+          * @default 'Quick links'
+         */
+        "aria_label"?: string;
+        /**
+          * The cards. JSON array, or array property, of `{ banner_card_href, banner_card_title, banner_card_description, image_src, image_alt, banner_card_id, banner_card_value, banner_card_name, custom_class, component_mode }`.
+         */
+        "bannercardlist"?: string | BannerCardItem[];
+        /**
+          * Theme override class, e.g. `light-mode`.
+         */
+        "component_mode"?: string;
+        /**
+          * Extra CSS classes on the list.
+          * @default ''
+         */
+        "custom_class"?: string;
+        /**
+          * Cards shown at once on wide screens. A card is never narrower than 220px. Default: `5`.
+          * @default 5
+         */
+        "items_in_view"?: number;
+        /**
+          * Emitted when a card is clicked, with its item. A link card still navigates.
+         */
+        "onCardClick"?: (event: DdaHomeCarouselCustomEvent<BannerCardItem>) => void;
     }
     interface DdaHorizontalStepper {
         /**
@@ -4942,6 +5121,19 @@ declare namespace LocalJSX {
         "slider_height": string;
         "aria_label": string;
     }
+    interface DdaBannerCardAttributes {
+        "banner_card_href": string;
+        "banner_card_url": string;
+        "banner_card_id": string;
+        "image_src": string;
+        "image_alt": string;
+        "banner_card_title": string;
+        "banner_card_description": string;
+        "banner_card_value": string;
+        "banner_card_name": string;
+        "custom_class": string;
+        "component_mode": string;
+    }
     interface DdaBreadcrumbAttributes {
         "design": 'text' | 'icon-text' | 'icon';
         "separator": 'chevron_right' | 'pen_size_2';
@@ -5119,6 +5311,13 @@ declare namespace LocalJSX {
         "play_button_label": string;
         "slide_button_label": string;
         "slide_status_label": string;
+    }
+    interface DdaHomeCarouselAttributes {
+        "bannercardlist": string | BannerCardItem[];
+        "items_in_view": number;
+        "aria_label": string;
+        "custom_class": string;
+        "component_mode": string;
     }
     interface DdaHorizontalStepperAttributes {
         "steps": string;
@@ -5444,6 +5643,7 @@ declare namespace LocalJSX {
         "dda-attach-file": Omit<DdaAttachFile, keyof DdaAttachFileAttributes> & { [K in keyof DdaAttachFile & keyof DdaAttachFileAttributes]?: DdaAttachFile[K] } & { [K in keyof DdaAttachFile & keyof DdaAttachFileAttributes as `attr:${K}`]?: DdaAttachFileAttributes[K] } & { [K in keyof DdaAttachFile & keyof DdaAttachFileAttributes as `prop:${K}`]?: DdaAttachFile[K] };
         "dda-avatar": Omit<DdaAvatar, keyof DdaAvatarAttributes> & { [K in keyof DdaAvatar & keyof DdaAvatarAttributes]?: DdaAvatar[K] } & { [K in keyof DdaAvatar & keyof DdaAvatarAttributes as `attr:${K}`]?: DdaAvatarAttributes[K] } & { [K in keyof DdaAvatar & keyof DdaAvatarAttributes as `prop:${K}`]?: DdaAvatar[K] };
         "dda-banner": Omit<DdaBanner, keyof DdaBannerAttributes> & { [K in keyof DdaBanner & keyof DdaBannerAttributes]?: DdaBanner[K] } & { [K in keyof DdaBanner & keyof DdaBannerAttributes as `attr:${K}`]?: DdaBannerAttributes[K] } & { [K in keyof DdaBanner & keyof DdaBannerAttributes as `prop:${K}`]?: DdaBanner[K] };
+        "dda-banner-card": Omit<DdaBannerCard, keyof DdaBannerCardAttributes> & { [K in keyof DdaBannerCard & keyof DdaBannerCardAttributes]?: DdaBannerCard[K] } & { [K in keyof DdaBannerCard & keyof DdaBannerCardAttributes as `attr:${K}`]?: DdaBannerCardAttributes[K] } & { [K in keyof DdaBannerCard & keyof DdaBannerCardAttributes as `prop:${K}`]?: DdaBannerCard[K] };
         "dda-breadcrumb": Omit<DdaBreadcrumb, keyof DdaBreadcrumbAttributes> & { [K in keyof DdaBreadcrumb & keyof DdaBreadcrumbAttributes]?: DdaBreadcrumb[K] } & { [K in keyof DdaBreadcrumb & keyof DdaBreadcrumbAttributes as `attr:${K}`]?: DdaBreadcrumbAttributes[K] } & { [K in keyof DdaBreadcrumb & keyof DdaBreadcrumbAttributes as `prop:${K}`]?: DdaBreadcrumb[K] };
         "dda-button": Omit<DdaButton, keyof DdaButtonAttributes> & { [K in keyof DdaButton & keyof DdaButtonAttributes]?: DdaButton[K] } & { [K in keyof DdaButton & keyof DdaButtonAttributes as `attr:${K}`]?: DdaButtonAttributes[K] } & { [K in keyof DdaButton & keyof DdaButtonAttributes as `prop:${K}`]?: DdaButton[K] };
         "dda-checkbox": Omit<DdaCheckbox, keyof DdaCheckboxAttributes> & { [K in keyof DdaCheckbox & keyof DdaCheckboxAttributes]?: DdaCheckbox[K] } & { [K in keyof DdaCheckbox & keyof DdaCheckboxAttributes as `attr:${K}`]?: DdaCheckboxAttributes[K] } & { [K in keyof DdaCheckbox & keyof DdaCheckboxAttributes as `prop:${K}`]?: DdaCheckbox[K] };
@@ -5454,6 +5654,7 @@ declare namespace LocalJSX {
         "dda-footer": Omit<DdaFooter, keyof DdaFooterAttributes> & { [K in keyof DdaFooter & keyof DdaFooterAttributes]?: DdaFooter[K] } & { [K in keyof DdaFooter & keyof DdaFooterAttributes as `attr:${K}`]?: DdaFooterAttributes[K] } & { [K in keyof DdaFooter & keyof DdaFooterAttributes as `prop:${K}`]?: DdaFooter[K] };
         "dda-header": Omit<DdaHeader, keyof DdaHeaderAttributes> & { [K in keyof DdaHeader & keyof DdaHeaderAttributes]?: DdaHeader[K] } & { [K in keyof DdaHeader & keyof DdaHeaderAttributes as `attr:${K}`]?: DdaHeaderAttributes[K] } & { [K in keyof DdaHeader & keyof DdaHeaderAttributes as `prop:${K}`]?: DdaHeader[K] };
         "dda-home-banner": Omit<DdaHomeBanner, keyof DdaHomeBannerAttributes> & { [K in keyof DdaHomeBanner & keyof DdaHomeBannerAttributes]?: DdaHomeBanner[K] } & { [K in keyof DdaHomeBanner & keyof DdaHomeBannerAttributes as `attr:${K}`]?: DdaHomeBannerAttributes[K] } & { [K in keyof DdaHomeBanner & keyof DdaHomeBannerAttributes as `prop:${K}`]?: DdaHomeBanner[K] };
+        "dda-home-carousel": Omit<DdaHomeCarousel, keyof DdaHomeCarouselAttributes> & { [K in keyof DdaHomeCarousel & keyof DdaHomeCarouselAttributes]?: DdaHomeCarousel[K] } & { [K in keyof DdaHomeCarousel & keyof DdaHomeCarouselAttributes as `attr:${K}`]?: DdaHomeCarouselAttributes[K] } & { [K in keyof DdaHomeCarousel & keyof DdaHomeCarouselAttributes as `prop:${K}`]?: DdaHomeCarousel[K] };
         "dda-horizontal-stepper": Omit<DdaHorizontalStepper, keyof DdaHorizontalStepperAttributes> & { [K in keyof DdaHorizontalStepper & keyof DdaHorizontalStepperAttributes]?: DdaHorizontalStepper[K] } & { [K in keyof DdaHorizontalStepper & keyof DdaHorizontalStepperAttributes as `attr:${K}`]?: DdaHorizontalStepperAttributes[K] } & { [K in keyof DdaHorizontalStepper & keyof DdaHorizontalStepperAttributes as `prop:${K}`]?: DdaHorizontalStepper[K] };
         "dda-input": Omit<DdaInput, keyof DdaInputAttributes> & { [K in keyof DdaInput & keyof DdaInputAttributes]?: DdaInput[K] } & { [K in keyof DdaInput & keyof DdaInputAttributes as `attr:${K}`]?: DdaInputAttributes[K] } & { [K in keyof DdaInput & keyof DdaInputAttributes as `prop:${K}`]?: DdaInput[K] };
         "dda-link-button": Omit<DdaLinkButton, keyof DdaLinkButtonAttributes> & { [K in keyof DdaLinkButton & keyof DdaLinkButtonAttributes]?: DdaLinkButton[K] } & { [K in keyof DdaLinkButton & keyof DdaLinkButtonAttributes as `attr:${K}`]?: DdaLinkButtonAttributes[K] } & { [K in keyof DdaLinkButton & keyof DdaLinkButtonAttributes as `prop:${K}`]?: DdaLinkButton[K] };
@@ -5484,6 +5685,7 @@ declare module "@stencil/core" {
             "dda-attach-file": LocalJSX.IntrinsicElements["dda-attach-file"] & JSXBase.HTMLAttributes<HTMLDdaAttachFileElement>;
             "dda-avatar": LocalJSX.IntrinsicElements["dda-avatar"] & JSXBase.HTMLAttributes<HTMLDdaAvatarElement>;
             "dda-banner": LocalJSX.IntrinsicElements["dda-banner"] & JSXBase.HTMLAttributes<HTMLDdaBannerElement>;
+            "dda-banner-card": LocalJSX.IntrinsicElements["dda-banner-card"] & JSXBase.HTMLAttributes<HTMLDdaBannerCardElement>;
             "dda-breadcrumb": LocalJSX.IntrinsicElements["dda-breadcrumb"] & JSXBase.HTMLAttributes<HTMLDdaBreadcrumbElement>;
             "dda-button": LocalJSX.IntrinsicElements["dda-button"] & JSXBase.HTMLAttributes<HTMLDdaButtonElement>;
             "dda-checkbox": LocalJSX.IntrinsicElements["dda-checkbox"] & JSXBase.HTMLAttributes<HTMLDdaCheckboxElement>;
@@ -5494,6 +5696,7 @@ declare module "@stencil/core" {
             "dda-footer": LocalJSX.IntrinsicElements["dda-footer"] & JSXBase.HTMLAttributes<HTMLDdaFooterElement>;
             "dda-header": LocalJSX.IntrinsicElements["dda-header"] & JSXBase.HTMLAttributes<HTMLDdaHeaderElement>;
             "dda-home-banner": LocalJSX.IntrinsicElements["dda-home-banner"] & JSXBase.HTMLAttributes<HTMLDdaHomeBannerElement>;
+            "dda-home-carousel": LocalJSX.IntrinsicElements["dda-home-carousel"] & JSXBase.HTMLAttributes<HTMLDdaHomeCarouselElement>;
             "dda-horizontal-stepper": LocalJSX.IntrinsicElements["dda-horizontal-stepper"] & JSXBase.HTMLAttributes<HTMLDdaHorizontalStepperElement>;
             "dda-input": LocalJSX.IntrinsicElements["dda-input"] & JSXBase.HTMLAttributes<HTMLDdaInputElement>;
             "dda-link-button": LocalJSX.IntrinsicElements["dda-link-button"] & JSXBase.HTMLAttributes<HTMLDdaLinkButtonElement>;

@@ -134,6 +134,28 @@ export declare interface DdaBanner extends Components.DdaBanner {}
 
 
 @ProxyCmp({
+  inputs: ['banner_card_description', 'banner_card_href', 'banner_card_id', 'banner_card_name', 'banner_card_title', 'banner_card_url', 'banner_card_value', 'component_mode', 'custom_class', 'image_alt', 'image_src']
+})
+@Component({
+  selector: 'dda-banner-card',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['banner_card_description', 'banner_card_href', 'banner_card_id', 'banner_card_name', 'banner_card_title', 'banner_card_url', 'banner_card_value', 'component_mode', 'custom_class', 'image_alt', 'image_src'],
+})
+export class DdaBannerCard {
+  protected el: HTMLDdaBannerCardElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface DdaBannerCard extends Components.DdaBannerCard {}
+
+
+@ProxyCmp({
   inputs: ['breadcrumbs', 'component_mode', 'custom_class', 'design', 'separator']
 })
 @Component({
@@ -410,6 +432,36 @@ export class DdaHomeBanner {
 
 
 export declare interface DdaHomeBanner extends Components.DdaHomeBanner {}
+
+
+@ProxyCmp({
+  inputs: ['aria_label', 'bannercardlist', 'component_mode', 'custom_class', 'items_in_view']
+})
+@Component({
+  selector: 'dda-home-carousel',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['aria_label', 'bannercardlist', 'component_mode', 'custom_class', 'items_in_view'],
+})
+export class DdaHomeCarousel {
+  protected el: HTMLDdaHomeCarouselElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['cardClick']);
+  }
+}
+
+
+import type { BannerCardItem as IDdaHomeCarouselBannerCardItem } from '@dubai-design-system/components-js';
+
+export declare interface DdaHomeCarousel extends Components.DdaHomeCarousel {
+  /**
+   * Emitted when a card is clicked, with its item. A link card still navigates.
+   */
+  cardClick: EventEmitter<CustomEvent<IDdaHomeCarouselBannerCardItem>>;
+}
 
 
 @ProxyCmp({

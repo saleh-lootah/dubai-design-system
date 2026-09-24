@@ -7,11 +7,12 @@
 
 /* eslint-disable */
 
-import { type DdaUiCardCustomEvent } from "@dubai-design-system/components-js";
+import { type BannerCardItem, type DdaHomeCarouselCustomEvent, type DdaUiCardCustomEvent } from "@dubai-design-system/components-js";
 import { DdaAccordion as DdaAccordionElement, defineCustomElement as defineDdaAccordion } from "@dubai-design-system/components-js/dist/components/dda-accordion.js";
 import { DdaAlert as DdaAlertElement, defineCustomElement as defineDdaAlert } from "@dubai-design-system/components-js/dist/components/dda-alert.js";
 import { DdaAttachFile as DdaAttachFileElement, defineCustomElement as defineDdaAttachFile } from "@dubai-design-system/components-js/dist/components/dda-attach-file.js";
 import { DdaAvatar as DdaAvatarElement, defineCustomElement as defineDdaAvatar } from "@dubai-design-system/components-js/dist/components/dda-avatar.js";
+import { DdaBannerCard as DdaBannerCardElement, defineCustomElement as defineDdaBannerCard } from "@dubai-design-system/components-js/dist/components/dda-banner-card.js";
 import { DdaBanner as DdaBannerElement, defineCustomElement as defineDdaBanner } from "@dubai-design-system/components-js/dist/components/dda-banner.js";
 import { DdaBreadcrumb as DdaBreadcrumbElement, defineCustomElement as defineDdaBreadcrumb } from "@dubai-design-system/components-js/dist/components/dda-breadcrumb.js";
 import { DdaButton as DdaButtonElement, defineCustomElement as defineDdaButton } from "@dubai-design-system/components-js/dist/components/dda-button.js";
@@ -23,6 +24,7 @@ import { DdaDropdown as DdaDropdownElement, defineCustomElement as defineDdaDrop
 import { DdaFooter as DdaFooterElement, defineCustomElement as defineDdaFooter } from "@dubai-design-system/components-js/dist/components/dda-footer.js";
 import { DdaHeader as DdaHeaderElement, defineCustomElement as defineDdaHeader } from "@dubai-design-system/components-js/dist/components/dda-header.js";
 import { DdaHomeBanner as DdaHomeBannerElement, defineCustomElement as defineDdaHomeBanner } from "@dubai-design-system/components-js/dist/components/dda-home-banner.js";
+import { DdaHomeCarousel as DdaHomeCarouselElement, defineCustomElement as defineDdaHomeCarousel } from "@dubai-design-system/components-js/dist/components/dda-home-carousel.js";
 import { DdaHorizontalStepper as DdaHorizontalStepperElement, defineCustomElement as defineDdaHorizontalStepper } from "@dubai-design-system/components-js/dist/components/dda-horizontal-stepper.js";
 import { DdaInput as DdaInputElement, defineCustomElement as defineDdaInput } from "@dubai-design-system/components-js/dist/components/dda-input.js";
 import { DdaLinkButton as DdaLinkButtonElement, defineCustomElement as defineDdaLinkButton } from "@dubai-design-system/components-js/dist/components/dda-link-button.js";
@@ -105,6 +107,17 @@ export const DdaBanner: StencilReactComponent<DdaBannerElement, DdaBannerEvents>
     react: React,
     events: {} as DdaBannerEvents,
     defineCustomElement: defineDdaBanner
+});
+
+type DdaBannerCardEvents = NonNullable<unknown>;
+
+export const DdaBannerCard: StencilReactComponent<DdaBannerCardElement, DdaBannerCardEvents> = /*@__PURE__*/ createComponent<DdaBannerCardElement, DdaBannerCardEvents>({
+    tagName: 'dda-banner-card',
+    elementClass: DdaBannerCardElement,
+    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    react: React,
+    events: {} as DdaBannerCardEvents,
+    defineCustomElement: defineDdaBannerCard
 });
 
 type DdaBreadcrumbEvents = NonNullable<unknown>;
@@ -239,6 +252,17 @@ export const DdaHomeBanner: StencilReactComponent<DdaHomeBannerElement, DdaHomeB
     react: React,
     events: {} as DdaHomeBannerEvents,
     defineCustomElement: defineDdaHomeBanner
+});
+
+type DdaHomeCarouselEvents = { onCardClick: EventName<DdaHomeCarouselCustomEvent<BannerCardItem>> };
+
+export const DdaHomeCarousel: StencilReactComponent<DdaHomeCarouselElement, DdaHomeCarouselEvents> = /*@__PURE__*/ createComponent<DdaHomeCarouselElement, DdaHomeCarouselEvents>({
+    tagName: 'dda-home-carousel',
+    elementClass: DdaHomeCarouselElement,
+    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    react: React,
+    events: { onCardClick: 'cardClick' } as DdaHomeCarouselEvents,
+    defineCustomElement: defineDdaHomeCarousel
 });
 
 type DdaHorizontalStepperEvents = NonNullable<unknown>;
