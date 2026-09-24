@@ -1,6 +1,8 @@
 import { Component, Element, Prop, h, State } from '@stencil/core';
 import { parseJsonProp } from '../../utils/parse-json-prop';
 
+let stickyFooterCount = 0;
+
 export interface MiddleLinkItem {
   LogoTooltip?: string;
   href?: string;
@@ -148,6 +150,27 @@ export class DdaStickyFooter {
   /** Right-side text links as a list (3.x). JSON array, or array property, of `{ RightLinkTooltip, href, title, itemId, IconFamily, IconName, LinkText }`. When set, it replaces the location and news links. */
   @Prop() rightLink: string | RightLinkItem[];
 
+  /** Link URL of the dubai.ae link (right section). */
+  @Prop() dubaiaeIconHref: string;
+  /** `id` of the dubai.ae link. */
+  @Prop() dubaiaeIconId: string;
+  /** dubai.ae wordmark image, shown on desktop. The link shows only when this and `dubaiaeIconSmallSrc` are set. */
+  @Prop() dubaiaeIconSrc: string;
+  /** dubai.ae wordmark for `color-theme="dark"`. */
+  @Prop() dubaiaeIconSrcDark: string;
+  /** dubai.ae small icon, shown at 992px and below. */
+  @Prop() dubaiaeIconSmallSrc: string;
+  /** Alternative text of both dubai.ae images. */
+  @Prop() dubaiaeIconAlt: string;
+  /** Tooltip text of the dubai.ae link. */
+  @Prop() dubaiaeIconTooltip: string;
+  /** Material icon name of the "more" button. When set, the right links collapse behind this button at 992px and below. */
+  @Prop() moreIcon: string;
+  /** `class` of the "more" button icon. Default: `material-icons`. */
+  @Prop() moreIconFamily: string;
+  /** Accessible name of the "more" button. Default: `More`. */
+  @Prop() more_button_label: string = 'More';
+
   /** `dark` uses the `*-src-dark` images; an image without a dark version keeps its light image. Default: `light`. */
   @Prop() colorTheme: 'light' | 'dark' = 'light';
 
@@ -156,6 +179,13 @@ export class DdaStickyFooter {
 
   @State() isHidden: boolean = false;
   private lastScrollY: number = 0;
+
+  @State() rightOpen: boolean = false;
+  private readonly rightListId = `dda-sticky-footer-right-${++stickyFooterCount}`;
+
+  @State() isMobile: boolean = false;
+  private mobileQuery: MediaQueryList;
+  private onMobileChange = (event: MediaQueryListEvent) => (this.isMobile = event.matches);
 
   /** Hides the middle logo section. Default: `false` (the logos show when at least one is set). */
   @Prop() hideMiddleSection: boolean = false;
@@ -177,6 +207,12 @@ export class DdaStickyFooter {
       });
       this.resizeObserver.observe(bar);
     }
+
+    if (typeof window.matchMedia === 'function') {
+      this.mobileQuery = window.matchMedia('(max-width: 992px)');
+      this.isMobile = this.mobileQuery.matches;
+      this.mobileQuery.addEventListener('change', this.onMobileChange);
+    }
   }
 
   disconnectedCallback() {
@@ -184,6 +220,7 @@ export class DdaStickyFooter {
     this.resizeObserver?.disconnect();
     this.resizeObserver = null;
     document.documentElement.style.removeProperty('--dda-sticky-footer-height');
+    this.mobileQuery?.removeEventListener('change', this.onMobileChange);
   }
 
   // An image wins when both are set, so pages that set both keep their current look.
@@ -227,7 +264,12 @@ export class DdaStickyFooter {
 
     return (
       // An <aside>, not a <footer>: the page footer (dda-footer) is the only contentinfo landmark.
-      <aside class={{ 'dda-footer': true, hidden: this.isHidden }} aria-label={this.aria_label} aria-hidden={this.isHidden ? 'true' : 'false'} inert={this.isHidden}>
+      <aside
+        class={{ 'dda-footer': true, hidden: this.isHidden, 'has-more-button': !!this.moreIcon }}
+        aria-label={this.aria_label}
+        aria-hidden={this.isHidden ? 'true' : 'false'}
+        inert={this.isHidden}
+      >
         <div class="footer-content">
           {/* Left Section */}
           <div class="dda-footer-item dda-footer-left">
@@ -283,7 +325,7 @@ export class DdaStickyFooter {
 
           {/* Right Section */}
           <div class="dda-footer-item dda-footer-right">
-            <ul>
+            <ul id={this.rightListId} class={{ 'foot-right_links': true, 'show-dda-icon': this.rightOpen }} inert={!!this.moreIcon && !this.rightOpen && this.isMobile}>
               {rightItems.length > 0
                 ? rightItems.map(item => (
                     <li class="foot-icon-btn">
@@ -315,6 +357,16 @@ export class DdaStickyFooter {
                       </li>
                     ),
                   ]}
+              {this.dubaiaeIconSrc && this.dubaiaeIconSmallSrc && (
+                <li class="foot-icon-btn">
+                  <dda-tooltip title_text={this.dubaiaeIconTooltip} description="" position="top">
+                    <a href={this.dubaiaeIconHref} id={this.dubaiaeIconId}>
+                      <img class="dubaiae-text-icon" src={this.img(this.dubaiaeIconSrc, this.dubaiaeIconSrcDark)} alt={this.dubaiaeIconAlt} />
+                      <img class="dubaiae-small-icon" src={this.dubaiaeIconSmallSrc} alt={this.dubaiaeIconAlt} />
+                    </a>
+                  </dda-tooltip>
+                </li>
+              )}
               {this.aiIconSrc && (
                 <li class="foot-icon-btn">
                   <dda-tooltip title_text={this.aiIconTooltip} description="" position="top">
@@ -334,6 +386,20 @@ export class DdaStickyFooter {
                 </li>
               )}
             </ul>
+            {this.moreIcon && (
+              <button
+                type="button"
+                class="show-right-icon"
+                aria-label={this.more_button_label}
+                aria-expanded={this.rightOpen ? 'true' : 'false'}
+                aria-controls={this.rightListId}
+                onClick={() => (this.rightOpen = !this.rightOpen)}
+              >
+                <i class={this.moreIconFamily || 'material-icons'} aria-hidden="true">
+                  {this.moreIcon}
+                </i>
+              </button>
+            )}
           </div>
         </div>
       </aside>

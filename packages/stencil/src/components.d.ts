@@ -1772,6 +1772,34 @@ export namespace Components {
          */
         "colorTheme": 'light' | 'dark';
         /**
+          * Alternative text of both dubai.ae images.
+         */
+        "dubaiaeIconAlt": string;
+        /**
+          * Link URL of the dubai.ae link (right section).
+         */
+        "dubaiaeIconHref": string;
+        /**
+          * `id` of the dubai.ae link.
+         */
+        "dubaiaeIconId": string;
+        /**
+          * dubai.ae small icon, shown at 992px and below.
+         */
+        "dubaiaeIconSmallSrc": string;
+        /**
+          * dubai.ae wordmark image, shown on desktop. The link shows only when this and `dubaiaeIconSmallSrc` are set.
+         */
+        "dubaiaeIconSrc": string;
+        /**
+          * dubai.ae wordmark for `color-theme="dark"`.
+         */
+        "dubaiaeIconSrcDark": string;
+        /**
+          * Tooltip text of the dubai.ae link.
+         */
+        "dubaiaeIconTooltip": string;
+        /**
           * Alternative text for the first logo.
          */
         "firstLogoAlt": string;
@@ -1836,6 +1864,19 @@ export namespace Components {
           * Middle logos as a list (3.x). JSON array, or array property, of `{ LogoTooltip, href, src, srcDark, alt }`. When set, it replaces the first, second and third logo props.
          */
         "middleLink": string | MiddleLinkItem[];
+        /**
+          * Material icon name of the "more" button. When set, the right links collapse behind this button at 992px and below.
+         */
+        "moreIcon": string;
+        /**
+          * `class` of the "more" button icon. Default: `material-icons`.
+         */
+        "moreIconFamily": string;
+        /**
+          * Accessible name of the "more" button. Default: `More`.
+          * @default 'More'
+         */
+        "more_button_label": string;
         /**
           * Link URL of the news icon (right section).
          */
@@ -4401,6 +4442,34 @@ declare namespace LocalJSX {
          */
         "colorTheme"?: 'light' | 'dark';
         /**
+          * Alternative text of both dubai.ae images.
+         */
+        "dubaiaeIconAlt"?: string;
+        /**
+          * Link URL of the dubai.ae link (right section).
+         */
+        "dubaiaeIconHref"?: string;
+        /**
+          * `id` of the dubai.ae link.
+         */
+        "dubaiaeIconId"?: string;
+        /**
+          * dubai.ae small icon, shown at 992px and below.
+         */
+        "dubaiaeIconSmallSrc"?: string;
+        /**
+          * dubai.ae wordmark image, shown on desktop. The link shows only when this and `dubaiaeIconSmallSrc` are set.
+         */
+        "dubaiaeIconSrc"?: string;
+        /**
+          * dubai.ae wordmark for `color-theme="dark"`.
+         */
+        "dubaiaeIconSrcDark"?: string;
+        /**
+          * Tooltip text of the dubai.ae link.
+         */
+        "dubaiaeIconTooltip"?: string;
+        /**
           * Alternative text for the first logo.
          */
         "firstLogoAlt"?: string;
@@ -4465,6 +4534,19 @@ declare namespace LocalJSX {
           * Middle logos as a list (3.x). JSON array, or array property, of `{ LogoTooltip, href, src, srcDark, alt }`. When set, it replaces the first, second and third logo props.
          */
         "middleLink"?: string | MiddleLinkItem[];
+        /**
+          * Material icon name of the "more" button. When set, the right links collapse behind this button at 992px and below.
+         */
+        "moreIcon"?: string;
+        /**
+          * `class` of the "more" button icon. Default: `material-icons`.
+         */
+        "moreIconFamily"?: string;
+        /**
+          * Accessible name of the "more" button. Default: `More`.
+          * @default 'More'
+         */
+        "more_button_label"?: string;
         /**
           * Link URL of the news icon (right section).
          */
@@ -5277,6 +5359,16 @@ declare namespace LocalJSX {
         "chatIconId": string;
         "chatIconSrcDark": string;
         "rightLink": string | RightLinkItem[];
+        "dubaiaeIconHref": string;
+        "dubaiaeIconId": string;
+        "dubaiaeIconSrc": string;
+        "dubaiaeIconSrcDark": string;
+        "dubaiaeIconSmallSrc": string;
+        "dubaiaeIconAlt": string;
+        "dubaiaeIconTooltip": string;
+        "moreIcon": string;
+        "moreIconFamily": string;
+        "more_button_label": string;
         "colorTheme": 'light' | 'dark';
         "aria_label": string;
         "hideMiddleSection": boolean;

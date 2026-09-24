@@ -166,3 +166,74 @@ body {
         display: none;
     }
 }
+
+/* dubai.ae: a wordmark on desktop, a small icon at 992px and below. */
+.dda-footer .dubaiae-text-icon {
+    height: 18px;
+}
+.dda-footer .dubaiae-small-icon {
+    height: 24px;
+    display: none;
+}
+/* The "more" button exists only with more-icon; it is shown at 992px and below. */
+.dda-footer-right {
+    position: relative;
+}
+.dda-footer-right button.show-right-icon {
+    display: none;
+}
+@media (max-width: 992px) {
+    .dda-footer .dubaiae-text-icon {
+        display: none;
+    }
+    .dda-footer .dubaiae-small-icon {
+        display: block;
+    }
+    .dda-footer-right button.show-right-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background: #ffffff;
+        border: 0;
+        border-radius: 50px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        color: var(--dda-on-surface-variant-30);
+        cursor: pointer;
+    }
+    .dda-footer-right button.show-right-icon i {
+        font-size: 34px;
+    }
+    .dda-footer-right button.show-right-icon:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
+    }
+    .dda-footer.has-more-button .dda-footer-right .foot-right_links {
+        position: absolute;
+        bottom: 59px;
+        inset-inline-end: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        height: 0;
+        overflow: hidden;
+    }
+    .dda-footer.has-more-button .dda-footer-right .foot-right_links.show-dda-icon {
+        height: auto;
+        overflow: visible;
+    }
+    .dda-footer.has-more-button .foot-right_links li {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    .dda-footer.has-more-button .foot-right_links.show-dda-icon li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@media (max-width: 992px) and (prefers-reduced-motion: no-preference) {
+    .dda-footer.has-more-button .foot-right_links li {
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+}

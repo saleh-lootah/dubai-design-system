@@ -122,4 +122,37 @@ describe('dda-sticky-footer', () => {
       warn.mockRestore();
     });
   });
+
+  describe('dubai.ae and the more button', () => {
+    it('renders dubai.ae with a desktop wordmark and a small icon', async () => {
+      const page = await render(
+        `<dda-sticky-footer dubaiae-icon-href="https://dubai.ae" dubaiae-icon-id="dae" dubaiae-icon-src="wm.svg" dubaiae-icon-small-src="sm.svg" dubaiae-icon-alt="dubai.ae" dubaiae-icon-tooltip="dubai.ae"></dda-sticky-footer>`,
+      );
+      const link = page.root.querySelector('#dae') as HTMLAnchorElement;
+      expect(link.getAttribute('href')).toBe('https://dubai.ae');
+      expect(link.querySelector('img.dubaiae-text-icon').getAttribute('src')).toBe('wm.svg');
+      expect(link.querySelector('img.dubaiae-small-icon').getAttribute('src')).toBe('sm.svg');
+      expect(Array.from(link.querySelectorAll('img')).map((i: HTMLImageElement) => i.getAttribute('alt'))).toEqual(['dubai.ae', 'dubai.ae']);
+    });
+
+    it('renders no dubai.ae link without both images', async () => {
+      const page = await render(`<dda-sticky-footer dubaiae-icon-src="wm.svg"></dda-sticky-footer>`);
+      expect(page.root.querySelector('.dubaiae-text-icon')).toBeNull();
+    });
+
+    it('renders the more button only when more-icon is set, with a name and state', async () => {
+      const none = await render(`<dda-sticky-footer></dda-sticky-footer>`);
+      expect(none.root.querySelector('button.show-right-icon')).toBeNull();
+      const page = await render(`<dda-sticky-footer ai-icon-src="ai.svg" more-icon="more_horiz" more-icon-family="material-icons" more_button_label="المزيد"></dda-sticky-footer>`);
+      const button = page.root.querySelector('button.show-right-icon') as HTMLButtonElement;
+      const list = page.root.querySelector('.dda-footer-right ul');
+      expect(button.getAttribute('aria-label')).toBe('المزيد');
+      expect(button.getAttribute('aria-expanded')).toBe('false');
+      expect(button.getAttribute('aria-controls')).toBe(list.getAttribute('id'));
+      button.click();
+      await page.waitForChanges();
+      expect(button.getAttribute('aria-expanded')).toBe('true');
+      expect(list).toHaveClass('show-dda-icon');
+    });
+  });
 });

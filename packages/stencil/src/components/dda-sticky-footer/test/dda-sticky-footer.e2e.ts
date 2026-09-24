@@ -391,3 +391,39 @@ describe('dda-sticky-footer services link name', () => {
     expect(await servicesLinkName(390)).toBe('Services');
   });
 });
+
+describe('dda-sticky-footer more button', () => {
+  const footer = `<dda-sticky-footer ai-icon-src="ai.svg" chat-icon-src="c.svg" more-icon="more_horiz" more-icon-family="material-icons"></dda-sticky-footer>`;
+
+  it('keeps the right links visible and hides the button on desktop', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1440, height: 900 });
+    await page.setContent(footer);
+    await page.waitForChanges();
+    expect((await (await page.find('button.show-right-icon')).getComputedStyle()).display).toBe('none');
+    expect((await (await page.find('.dda-footer-right ul')).getComputedStyle()).height).not.toBe('0px');
+    expect(await (await page.find('.dda-footer-right ul')).getAttribute('inert')).toBeNull();
+  });
+
+  for (const dir of ['ltr', 'rtl'] as const) {
+    it(`collapses the right links behind the button on phones (${dir})`, async () => {
+      const page = await newE2EPage();
+      await page.setViewport({ width: 390, height: 844 });
+      await page.setContent(`<div dir="${dir}">${footer}</div>`);
+      await page.waitForChanges();
+      const list = await page.find('.dda-footer-right ul');
+      expect((await list.getComputedStyle()).height).toBe('0px');
+      expect(await list.getAttribute('inert')).not.toBeNull();
+      await (await page.find('button.show-right-icon')).click();
+      await page.waitForChanges();
+      expect((await list.getComputedStyle()).height).not.toBe('0px');
+      expect(await list.getAttribute('inert')).toBeNull();
+      const aligned = await page.evaluate(d => {
+        const b = document.querySelector('button.show-right-icon').getBoundingClientRect();
+        const l = document.querySelector('.dda-footer-right ul').getBoundingClientRect();
+        return d === 'ltr' ? Math.abs(l.right - b.right) < 2 : Math.abs(l.left - b.left) < 2;
+      }, dir);
+      expect(aligned).toBe(true);
+    });
+  }
+});
