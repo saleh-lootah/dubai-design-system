@@ -1873,7 +1873,7 @@ export namespace Components {
          */
         "moreIconFamily": string;
         /**
-          * Accessible name of the "more" button. Default: `More`.
+          * Accessible name of the "more" button. Default, and fallback for an empty value: `More`.
           * @default 'More'
          */
         "more_button_label": string;
@@ -4543,7 +4543,7 @@ declare namespace LocalJSX {
          */
         "moreIconFamily"?: string;
         /**
-          * Accessible name of the "more" button. Default: `More`.
+          * Accessible name of the "more" button. Default, and fallback for an empty value: `More`.
           * @default 'More'
          */
         "more_button_label"?: string;

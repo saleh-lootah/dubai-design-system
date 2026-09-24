@@ -168,7 +168,7 @@ export class DdaStickyFooter {
   @Prop() moreIcon: string;
   /** `class` of the "more" button icon. Default: `material-icons`. */
   @Prop() moreIconFamily: string;
-  /** Accessible name of the "more" button. Default: `More`. */
+  /** Accessible name of the "more" button. Default, and fallback for an empty value: `More`. */
   @Prop() more_button_label: string = 'More';
 
   /** `dark` uses the `*-src-dark` images; an image without a dark version keeps its light image. Default: `light`. */
@@ -390,7 +390,7 @@ export class DdaStickyFooter {
               <button
                 type="button"
                 class="show-right-icon"
-                aria-label={this.more_button_label}
+                aria-label={this.more_button_label || 'More'}
                 aria-expanded={this.rightOpen ? 'true' : 'false'}
                 aria-controls={this.rightListId}
                 onClick={() => (this.rightOpen = !this.rightOpen)}

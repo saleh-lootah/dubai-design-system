@@ -154,5 +154,11 @@ describe('dda-sticky-footer', () => {
       expect(button.getAttribute('aria-expanded')).toBe('true');
       expect(list).toHaveClass('show-dda-icon');
     });
+
+    it('names the more button "More" when more_button_label is empty', async () => {
+      const page = await render(`<dda-sticky-footer more-icon="more_horiz" more_button_label=""></dda-sticky-footer>`);
+      const button = page.root.querySelector('button.show-right-icon') as HTMLButtonElement;
+      expect(button.getAttribute('aria-label')).toBe('More');
+    });
   });
 });
