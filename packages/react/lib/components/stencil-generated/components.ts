@@ -196,6 +196,8 @@ export const DdaFooter: StencilReactComponent<DdaFooterElement, DdaFooterEvents>
 });
 
 type DdaHeaderEvents = {
+    onAccessibilitymenufunctionality: EventName<CustomEvent<void>>,
+    onSearchfunctionality: EventName<CustomEvent<string>>,
     onLanguageSwitch: EventName<CustomEvent<void>>,
     onSmTextSize: EventName<CustomEvent<void>>,
     onBaseTextSize: EventName<CustomEvent<void>>,
@@ -213,6 +215,8 @@ export const DdaHeader: StencilReactComponent<DdaHeaderElement, DdaHeaderEvents>
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {
+        onAccessibilitymenufunctionality: 'accessibilitymenufunctionality',
+        onSearchfunctionality: 'searchfunctionality',
         onLanguageSwitch: 'languageSwitch',
         onSmTextSize: 'smTextSize',
         onBaseTextSize: 'baseTextSize',

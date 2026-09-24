@@ -70,14 +70,38 @@ export class DdaHeader {
   @Prop() searchText: string;
   /** Material Symbols icon name of the Login link in the desktop toolbar and the side menu. Default: `sentiment_satisfied`. */
   @Prop() loginIcon: string;
-  /** Label of the Login link in the desktop toolbar and the side menu. Default: `Login`. */
+  /** Label of the Login link in the desktop toolbar and the side menu. Default: `Login`. An empty value removes the Login link. */
   @Prop() loginText: string;
   /** Hides the Login link in the desktop toolbar and the side menu. */
   @Prop() hide_login: boolean = false;
-  /** Label of the language buttons in the desktop toolbar and the side menu. Default: `العربية`. */
+  /** Label of the language buttons in the desktop toolbar and the side menu. Default: `العربية`. An empty value removes the language buttons. */
   @Prop() language_text: string;
   /** `lang` attribute of the language buttons, the language of `language_text`. Default: `ar`. */
   @Prop() language_lang: string = 'ar';
+  /** Tooltip of the desktop accessibility button. Default: `Accessibility`. */
+  @Prop() accessibility_tooltip: string;
+  /** Accessible name (visually hidden text) of both accessibility buttons. Default: `Accessibility`. */
+  @Prop() accessibility_button_text: string;
+  /** `id` of the desktop accessibility button. The side-menu button gets this id plus `-sidemenu`. */
+  @Prop() accessibility_button_id: string;
+  /** `class` of the accessibility button icon. Default: `material-icons  material-symbols-outlined`. */
+  @Prop() accessibility_button_icon_family: string;
+  /** Material icon name of the accessibility buttons. Default: `accessibility`. */
+  @Prop() accessibility_button_icon_name: string;
+  /** Tooltip of the desktop search. Default: `Search`. */
+  @Prop() search_tooltip: string;
+  /** Placeholder of the search inputs. Default: the `searchText` value, else `Search`. */
+  @Prop() search_input_placeholder: string;
+  /** Tooltip of the desktop language button. Default: `Language`. */
+  @Prop() language_tooltip: string;
+  /** Tooltip of the desktop Login link. Default: the Login label. */
+  @Prop() login_tooltip: string;
+  /** When `false`, the header renders no accessibility panel; the buttons only emit `accessibilitymenufunctionality`, so the page can open its own panel. Default: `true`. */
+  @Prop() usePredesignedAccessibilityMenu: boolean = true;
+  /** Emitted on every click of an accessibility button (3.x name). */
+  @Event({ eventName: 'accessibilitymenufunctionality' }) accessibilityMenuToggle: EventEmitter<void>;
+  /** Emitted with the query when a non-empty search is submitted (3.x name). Pages that open a results page from this event keep working. `searchSubmit` is the 5.x event, and it can cancel the navigation. */
+  @Event({ eventName: 'searchfunctionality' }) searchInput: EventEmitter<string>;
   /** Emitted when the user clicks the language button. */
   @Event() languageSwitch: EventEmitter<void>;
   /** Emitted when the user clicks the `A-` (smaller text) button in the accessibility panel. */
@@ -216,6 +240,7 @@ export class DdaHeader {
       input.focus();
       return;
     }
+    this.searchInput.emit(query);
     const searchEvent = this.searchSubmit.emit({ query });
     // Without a results URL there is nowhere to go; a cancelled event means the app routes itself.
     if (searchEvent.defaultPrevented || !this.search_action) {
@@ -249,7 +274,7 @@ export class DdaHeader {
         name={this.search_input_name || 'q'}
         type="text"
         id={id}
-        placeholder={this.searchText || 'Search'}
+        placeholder={this.text(this.search_input_placeholder, this.searchText || 'Search')}
         enterkeyhint="search"
         autocomplete="off"
         ref={ref}
@@ -338,7 +363,10 @@ export class DdaHeader {
     this.activeMenuIndex = this.activeMenuIndex === index ? null : index;
   };
   private toggleAccessibilty = () => {
-    this.isAccessibiltyOpen = !this.isAccessibiltyOpen;
+    if (this.usePredesignedAccessibilityMenu) {
+      this.isAccessibiltyOpen = !this.isAccessibiltyOpen;
+    }
+    this.accessibilityMenuToggle.emit();
   };
 
   private languagehandler = () => {
@@ -507,6 +535,45 @@ export class DdaHeader {
     );
   }
 
+  // A tooltip must have text, so an empty tooltip attribute falls back to the default.
+  private tooltip(value: string | undefined, fallback: string): string {
+    return value ? value : fallback;
+  }
+
+  private get loginLabel(): string {
+    return this.text(this.loginText, 'Login');
+  }
+
+  // 3.x hid Login when login-text was empty; hide_login is the 5.x switch.
+  private get showLogin(): boolean {
+    return !this.hide_login && this.loginLabel !== '';
+  }
+
+  private get languageLabel(): string {
+    return this.text(this.language_text, 'العربية');
+  }
+
+  private renderAccessibilityButton(variant: 'desktop' | 'mobile') {
+    const id = this.accessibility_button_id ? (variant === 'desktop' ? this.accessibility_button_id : `${this.accessibility_button_id}-sidemenu`) : undefined;
+    const iconClass = this.accessibility_button_icon_family || 'material-icons  material-symbols-outlined';
+    const buttonClass = variant === 'desktop' ? 'tool-btn dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle accessibility-btn' : 'tool-btn accessibility-btn';
+    return (
+      <button
+        id={id}
+        name={variant === 'desktop' ? this.toggle_accessibility_button_name : this.accessibility_button_name}
+        class={buttonClass}
+        type="button"
+        aria-expanded={this.usePredesignedAccessibilityMenu ? (this.isAccessibiltyOpen ? 'true' : 'false') : undefined}
+        onClick={this.toggleAccessibilty}
+      >
+        <i class={iconClass} aria-hidden="true">
+          {this.accessibility_button_icon_name || 'accessibility'}
+        </i>
+        <span class="visually-hidden">{this.text(this.accessibility_button_text, 'Accessibility')}</span>
+      </button>
+    );
+  }
+
   render() {
     const sideMenuItems = this.parseJsonArray(this.sideMenuItems);
     const quickLinks = this.parseJsonArray(this.quickLinks);
@@ -537,7 +604,7 @@ export class DdaHeader {
 
               {/* Hamburger Menu */}
               <div class="hamburger-menu" onClick={this.toggleMenu}>
-                <dda-tooltip title_text="Menu" position="top" class="d-block">
+                <dda-tooltip title_text={this.menu_button_label} position="top" class="d-block">
                   <button type="button" class="hamburger-menu-btn" name={this.hamburger_menu_button_name}>
                     <span class="hamburger-line"></span>
                     <span class="hamburger-menu-text">{this.menu_button_label}</span>
@@ -581,27 +648,27 @@ export class DdaHeader {
                     </div>
                     <div class="dda-toolbar-menu-sidemenu">
                         <ul>
-                            <li>
-                                <button name={this.accessibility_button_name} class="tool-btn accessibility-btn" type="button" aria-expanded={this.isAccessibiltyOpen ? 'true' : 'false'} onClick={this.toggleAccessibilty}>
-                                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">accessibility</i>
-                                  <span class="visually-hidden">Accessibility</span>
+                            <li>{this.renderAccessibilityButton('mobile')}</li>
+                            {this.languageLabel && (
+                              <li>
+                                <button name={this.language_button_name} class="tool-btn" type="button" lang={this.language_lang} onClick={this.languagehandler}>
+                                  {this.languageLabel}
                                 </button>
-                            </li>
-                            <li>
-                                <button name={this.language_button_name} class="tool-btn" type="button" lang={this.language_lang} onClick={this.languagehandler}>{this.language_text || 'العربية'}</button>
-                            </li>
-                            {!this.hide_login && (
-                            <li>
-                              <dda-link-button
-                                button_color="onsurface-secondary"
-                                start_icon={this.loginIcon || "sentiment_satisfied"}
-                                custom_class="tool-btn"
-                                href={this.loginLink}
-                                button_shape="circle"
-                                size="sm">
-                                {this.loginText || "Login"}
-                              </dda-link-button>
-                            </li>
+                              </li>
+                            )}
+                            {this.showLogin && (
+                              <li>
+                                <dda-link-button
+                                  button_color="onsurface-secondary"
+                                  start_icon={this.loginIcon || 'sentiment_satisfied'}
+                                  custom_class="tool-btn"
+                                  href={this.loginLink}
+                                  button_shape="circle"
+                                  size="sm"
+                                >
+                                  {this.loginLabel}
+                                </dda-link-button>
+                              </li>
                             )}
                         </ul>
                     </div>
@@ -612,13 +679,15 @@ export class DdaHeader {
                 </button>
 
 
-                <div class="dda-accessibility hide-accessibility mobile-accessibility" style={{ display: this.isAccessibiltyOpen ? 'block' : 'none' }}>
-                  {this.renderAccessibilityColumns('mobile')}
+                {this.usePredesignedAccessibilityMenu && (
+                  <div class="dda-accessibility hide-accessibility mobile-accessibility" style={{ display: this.isAccessibiltyOpen ? 'block' : 'none' }}>
+                    {this.renderAccessibilityColumns('mobile')}
 
-                <button name={this.close_accessibility_button_name} class="close-btn close_accessibility" aria-label="Close Accessibility" onClick={this.toggleAccessibilty}>
-                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
-                </button>
-                </div>
+                    <button name={this.close_accessibility_button_name} class="close-btn close_accessibility" aria-label="Close Accessibility" onClick={this.toggleAccessibilty}>
+                      <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Mega Menu */}
@@ -710,7 +779,7 @@ export class DdaHeader {
             <div class="dda-toolbar-menu">
               <ul>
                 <li>
-                  <dda-tooltip title_text="Search" description="" position="top">
+                  <dda-tooltip title_text={this.tooltip(this.search_tooltip, 'Search')} description="" position="top">
                     <form
                       class="dda-search dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle tool-btn"
                       role="search"
@@ -724,45 +793,46 @@ export class DdaHeader {
                 </li>
 
                 <li>
-                  <dda-tooltip title_text="Accessibility" position="top">
-                    <button name={this.toggle_accessibility_button_name} class="tool-btn dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle accessibility-btn" type="button" aria-expanded={this.isAccessibiltyOpen ? 'true' : 'false'} onClick={this.toggleAccessibilty}>
-                      <i class="material-icons  material-symbols-outlined" aria-hidden="true">accessibility</i>
-                      <span class="visually-hidden">Accessibility</span>
-                    </button>
+                  <dda-tooltip title_text={this.tooltip(this.accessibility_tooltip, 'Accessibility')} position="top">
+                    {this.renderAccessibilityButton('desktop')}
                   </dda-tooltip>
-                  <div class="dda-accessibility-wrap">
-                    <div class="dda-accessibility hide-accessibility" style={{ display: this.isAccessibiltyOpen ? 'block' : 'none' }}>
-                      {this.renderAccessibilityColumns('desktop')}
+                  {this.usePredesignedAccessibilityMenu && (
+                    <div class="dda-accessibility-wrap">
+                      <div class="dda-accessibility hide-accessibility" style={{ display: this.isAccessibiltyOpen ? 'block' : 'none' }}>
+                        {this.renderAccessibilityColumns('desktop')}
 
-                      <button name={this.close_accessibility_button_name} class="close-btn close_accessibility" aria-label="Close Sidebar" onClick={this.toggleAccessibilty}>
-                        <i class="materinal-icons  material-symbols-outlined" aria-hidden="true">close</i>
-                        {/* <i class="fa-solid fa-close"></i> */}
-                      </button>
+                        <button name={this.close_accessibility_button_name} class="close-btn close_accessibility" aria-label="Close Sidebar" onClick={this.toggleAccessibilty}>
+                          <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
+                          {/* <i class="fa-solid fa-close"></i> */}
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </li>
-                <li>
-                  <dda-tooltip title_text="Language" position="top">
-                    <dda-button button_color="onsurface-secondary" custom_class="tool-btn" button_shape="circle" size="sm" lang={this.language_lang} onClick={this.languagehandler}>
-                      {this.language_text || 'العربية'}
-                    </dda-button>
-                  </dda-tooltip>
-                </li>
-                {!this.hide_login && (
-                <li>
-                  <dda-tooltip title_text={this.loginText || "Login"} position="top">
-                    <dda-link-button
-                      button_color="onsurface-secondary"
-                      start_icon={this.loginIcon || "sentiment_satisfied"}
-                      custom_class="tool-btn"
-                      href={this.loginLink}
-                      button_shape="circle"
-                      size="sm"
-                    >
-                      {this.loginText || "Login"}
-                    </dda-link-button>
-                  </dda-tooltip>
-                </li>
+                {this.languageLabel && (
+                  <li>
+                    <dda-tooltip title_text={this.tooltip(this.language_tooltip, 'Language')} position="top">
+                      <dda-button button_color="onsurface-secondary" custom_class="tool-btn" button_shape="circle" size="sm" lang={this.language_lang} onClick={this.languagehandler}>
+                        {this.languageLabel}
+                      </dda-button>
+                    </dda-tooltip>
+                  </li>
+                )}
+                {this.showLogin && (
+                  <li>
+                    <dda-tooltip title_text={this.tooltip(this.login_tooltip, this.loginLabel)} position="top">
+                      <dda-link-button
+                        button_color="onsurface-secondary"
+                        start_icon={this.loginIcon || 'sentiment_satisfied'}
+                        custom_class="tool-btn"
+                        href={this.loginLink}
+                        button_shape="circle"
+                        size="sm"
+                      >
+                        {this.loginLabel}
+                      </dda-link-button>
+                    </dda-tooltip>
+                  </li>
                 )}
               </ul>
             </div>

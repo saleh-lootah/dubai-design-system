@@ -677,9 +677,29 @@ export namespace Components {
     }
     interface DdaHeader {
         /**
+          * `class` of the accessibility button icon. Default: `material-icons  material-symbols-outlined`.
+         */
+        "accessibility_button_icon_family": string;
+        /**
+          * Material icon name of the accessibility buttons. Default: `accessibility`.
+         */
+        "accessibility_button_icon_name": string;
+        /**
+          * `id` of the desktop accessibility button. The side-menu button gets this id plus `-sidemenu`.
+         */
+        "accessibility_button_id": string;
+        /**
           * `name` attribute of the accessibility button in the side menu.
          */
         "accessibility_button_name": string;
+        /**
+          * Accessible name (visually hidden text) of both accessibility buttons. Default: `Accessibility`.
+         */
+        "accessibility_button_text": string;
+        /**
+          * Tooltip of the desktop accessibility button. Default: `Accessibility`.
+         */
+        "accessibility_tooltip": string;
         /**
           * `name` attribute of the buttons that close the accessibility panel.
          */
@@ -756,9 +776,13 @@ export namespace Components {
          */
         "language_lang": string;
         /**
-          * Label of the language buttons in the desktop toolbar and the side menu. Default: `العربية`.
+          * Label of the language buttons in the desktop toolbar and the side menu. Default: `العربية`. An empty value removes the language buttons.
          */
         "language_text": string;
+        /**
+          * Tooltip of the desktop language button. Default: `Language`.
+         */
+        "language_tooltip": string;
         /**
           * Material Symbols icon name of the Login link in the desktop toolbar and the side menu. Default: `sentiment_satisfied`.
          */
@@ -768,9 +792,13 @@ export namespace Components {
          */
         "loginLink": string;
         /**
-          * Label of the Login link in the desktop toolbar and the side menu. Default: `Login`.
+          * Label of the Login link in the desktop toolbar and the side menu. Default: `Login`. An empty value removes the Login link.
          */
         "loginText": string;
+        /**
+          * Tooltip of the desktop Login link. Default: the Login label.
+         */
+        "login_tooltip": string;
         /**
           * Accessible name of the hamburger menu button (visually hidden text). Default: `Menu`.
           * @default 'Menu'
@@ -817,6 +845,14 @@ export namespace Components {
          */
         "search_input_name": string;
         /**
+          * Placeholder of the search inputs. Default: the `searchText` value, else `Search`.
+         */
+        "search_input_placeholder": string;
+        /**
+          * Tooltip of the desktop search. Default: `Search`.
+         */
+        "search_tooltip": string;
+        /**
           * Alternative text for the second logo.
          */
         "secondLogoAlt": string;
@@ -858,6 +894,11 @@ export namespace Components {
           * `name` attribute of the accessibility button in the desktop toolbar.
          */
         "toggle_accessibility_button_name": string;
+        /**
+          * When `false`, the header renders no accessibility panel; the buttons only emit `accessibilitymenufunctionality`, so the page can open its own panel. Default: `true`.
+          * @default true
+         */
+        "usePredesignedAccessibilityMenu": boolean;
     }
     interface DdaHomeBanner {
         /**
@@ -2202,6 +2243,8 @@ declare global {
         new (): HTMLDdaFooterElement;
     };
     interface HTMLDdaHeaderElementEventMap {
+        "accessibilitymenufunctionality": void;
+        "searchfunctionality": string;
         "languageSwitch": void;
         "smTextSize": void;
         "baseTextSize": void;
@@ -3128,9 +3171,29 @@ declare namespace LocalJSX {
     }
     interface DdaHeader {
         /**
+          * `class` of the accessibility button icon. Default: `material-icons  material-symbols-outlined`.
+         */
+        "accessibility_button_icon_family"?: string;
+        /**
+          * Material icon name of the accessibility buttons. Default: `accessibility`.
+         */
+        "accessibility_button_icon_name"?: string;
+        /**
+          * `id` of the desktop accessibility button. The side-menu button gets this id plus `-sidemenu`.
+         */
+        "accessibility_button_id"?: string;
+        /**
           * `name` attribute of the accessibility button in the side menu.
          */
         "accessibility_button_name"?: string;
+        /**
+          * Accessible name (visually hidden text) of both accessibility buttons. Default: `Accessibility`.
+         */
+        "accessibility_button_text"?: string;
+        /**
+          * Tooltip of the desktop accessibility button. Default: `Accessibility`.
+         */
+        "accessibility_tooltip"?: string;
         /**
           * `name` attribute of the buttons that close the accessibility panel.
          */
@@ -3207,9 +3270,13 @@ declare namespace LocalJSX {
          */
         "language_lang"?: string;
         /**
-          * Label of the language buttons in the desktop toolbar and the side menu. Default: `العربية`.
+          * Label of the language buttons in the desktop toolbar and the side menu. Default: `العربية`. An empty value removes the language buttons.
          */
         "language_text"?: string;
+        /**
+          * Tooltip of the desktop language button. Default: `Language`.
+         */
+        "language_tooltip"?: string;
         /**
           * Material Symbols icon name of the Login link in the desktop toolbar and the side menu. Default: `sentiment_satisfied`.
          */
@@ -3219,14 +3286,22 @@ declare namespace LocalJSX {
          */
         "loginLink"?: string;
         /**
-          * Label of the Login link in the desktop toolbar and the side menu. Default: `Login`.
+          * Label of the Login link in the desktop toolbar and the side menu. Default: `Login`. An empty value removes the Login link.
          */
         "loginText"?: string;
+        /**
+          * Tooltip of the desktop Login link. Default: the Login label.
+         */
+        "login_tooltip"?: string;
         /**
           * Accessible name of the hamburger menu button (visually hidden text). Default: `Menu`.
           * @default 'Menu'
          */
         "menu_button_label"?: string;
+        /**
+          * Emitted on every click of an accessibility button (3.x name).
+         */
+        "onAccessibilitymenufunctionality"?: (event: DdaHeaderCustomEvent<void>) => void;
         /**
           * Emitted when the user clicks the `A` (default text size) button in the accessibility panel.
          */
@@ -3259,6 +3334,10 @@ declare namespace LocalJSX {
           * Emitted when a non-empty search is submitted. Call `preventDefault()` to stop the browser navigating to `search_action`, for example to route inside a single-page app.
          */
         "onSearchSubmit"?: (event: DdaHeaderCustomEvent<{ query: string }>) => void;
+        /**
+          * Emitted with the query when a non-empty search is submitted (3.x name). Pages that open a results page from this event keep working. `searchSubmit` is the 5.x event, and it can cancel the navigation.
+         */
+        "onSearchfunctionality"?: (event: DdaHeaderCustomEvent<string>) => void;
         /**
           * Emitted when the user clicks the `A-` (smaller text) button in the accessibility panel.
          */
@@ -3304,6 +3383,14 @@ declare namespace LocalJSX {
          */
         "search_input_name"?: string;
         /**
+          * Placeholder of the search inputs. Default: the `searchText` value, else `Search`.
+         */
+        "search_input_placeholder"?: string;
+        /**
+          * Tooltip of the desktop search. Default: `Search`.
+         */
+        "search_tooltip"?: string;
+        /**
           * Alternative text for the second logo.
          */
         "secondLogoAlt"?: string;
@@ -3345,6 +3432,11 @@ declare namespace LocalJSX {
           * `name` attribute of the accessibility button in the desktop toolbar.
          */
         "toggle_accessibility_button_name"?: string;
+        /**
+          * When `false`, the header renders no accessibility panel; the buttons only emit `accessibilitymenufunctionality`, so the page can open its own panel. Default: `true`.
+          * @default true
+         */
+        "usePredesignedAccessibilityMenu"?: boolean;
     }
     interface DdaHomeBanner {
         /**
@@ -4747,6 +4839,16 @@ declare namespace LocalJSX {
         "hide_login": boolean;
         "language_text": string;
         "language_lang": string;
+        "accessibility_tooltip": string;
+        "accessibility_button_text": string;
+        "accessibility_button_id": string;
+        "accessibility_button_icon_family": string;
+        "accessibility_button_icon_name": string;
+        "search_tooltip": string;
+        "search_input_placeholder": string;
+        "language_tooltip": string;
+        "login_tooltip": string;
+        "usePredesignedAccessibilityMenu": boolean;
         "hamburger_menu_button_name": string;
         "menu_button_label": string;
         "accessibility_button_name": string;

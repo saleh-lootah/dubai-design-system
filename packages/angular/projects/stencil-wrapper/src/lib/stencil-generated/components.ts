@@ -322,26 +322,34 @@ export declare interface DdaFooter extends Components.DdaFooter {}
 
 
 @ProxyCmp({
-  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'contrast_color_blind_text', 'contrast_description', 'contrast_green_weakness_text', 'contrast_noraml_text', 'contrast_normal_text', 'contrast_red_weakness_text', 'contrast_title', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'hide_login', 'language_button_name', 'language_lang', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'menu_button_label', 'quickLinks', 'readSpeakerLink', 'read_speaker_link', 'screen_reader_description', 'screen_reader_link_label', 'screen_reader_title', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoWhiteSrc', 'selected_contrast', 'selected_text_size', 'sideMenuItems', 'text_size_description', 'text_size_title', 'toggle_accessibility_button_name']
+  inputs: ['accessibility_button_icon_family', 'accessibility_button_icon_name', 'accessibility_button_id', 'accessibility_button_name', 'accessibility_button_text', 'accessibility_tooltip', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'contrast_color_blind_text', 'contrast_description', 'contrast_green_weakness_text', 'contrast_noraml_text', 'contrast_normal_text', 'contrast_red_weakness_text', 'contrast_title', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'hide_login', 'language_button_name', 'language_lang', 'language_text', 'language_tooltip', 'loginIcon', 'loginLink', 'loginText', 'login_tooltip', 'menu_button_label', 'quickLinks', 'readSpeakerLink', 'read_speaker_link', 'screen_reader_description', 'screen_reader_link_label', 'screen_reader_title', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'search_input_placeholder', 'search_tooltip', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoWhiteSrc', 'selected_contrast', 'selected_text_size', 'sideMenuItems', 'text_size_description', 'text_size_title', 'toggle_accessibility_button_name', 'usePredesignedAccessibilityMenu']
 })
 @Component({
   selector: 'dda-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['accessibility_button_name', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'contrast_color_blind_text', 'contrast_description', 'contrast_green_weakness_text', 'contrast_noraml_text', 'contrast_normal_text', 'contrast_red_weakness_text', 'contrast_title', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'hide_login', 'language_button_name', 'language_lang', 'language_text', 'loginIcon', 'loginLink', 'loginText', 'menu_button_label', 'quickLinks', 'readSpeakerLink', 'read_speaker_link', 'screen_reader_description', 'screen_reader_link_label', 'screen_reader_title', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoWhiteSrc', 'selected_contrast', 'selected_text_size', 'sideMenuItems', 'text_size_description', 'text_size_title', 'toggle_accessibility_button_name'],
+  inputs: ['accessibility_button_icon_family', 'accessibility_button_icon_name', 'accessibility_button_id', 'accessibility_button_name', 'accessibility_button_text', 'accessibility_tooltip', 'close_accessibility_button_name', 'close_menu_button_name', 'close_sidebar_button_name', 'contrast_color_blind_text', 'contrast_description', 'contrast_green_weakness_text', 'contrast_noraml_text', 'contrast_normal_text', 'contrast_red_weakness_text', 'contrast_title', 'firstLogoAlt', 'firstLogoHref', 'firstLogoSrc', 'firstLogoWhiteSrc', 'hamburger_menu_button_name', 'hide_login', 'language_button_name', 'language_lang', 'language_text', 'language_tooltip', 'loginIcon', 'loginLink', 'loginText', 'login_tooltip', 'menu_button_label', 'quickLinks', 'readSpeakerLink', 'read_speaker_link', 'screen_reader_description', 'screen_reader_link_label', 'screen_reader_title', 'searchText', 'search_action', 'search_button_name', 'search_input_name', 'search_input_placeholder', 'search_tooltip', 'secondLogoAlt', 'secondLogoHref', 'secondLogoSrc', 'secondLogoWhiteSrc', 'selected_contrast', 'selected_text_size', 'sideMenuItems', 'text_size_description', 'text_size_title', 'toggle_accessibility_button_name', 'usePredesignedAccessibilityMenu'],
 })
 export class DdaHeader {
   protected el: HTMLDdaHeaderElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['languageSwitch', 'smTextSize', 'baseTextSize', 'lgTextSize', 'normalContrast', 'blindContrast', 'redContrast', 'greenContrast', 'searchSubmit']);
+    proxyOutputs(this, this.el, ['accessibilitymenufunctionality', 'searchfunctionality', 'languageSwitch', 'smTextSize', 'baseTextSize', 'lgTextSize', 'normalContrast', 'blindContrast', 'redContrast', 'greenContrast', 'searchSubmit']);
   }
 }
 
 
 export declare interface DdaHeader extends Components.DdaHeader {
+  /**
+   * Emitted on every click of an accessibility button (3.x name).
+   */
+  accessibilitymenufunctionality: EventEmitter<CustomEvent<void>>;
+  /**
+   * Emitted with the query when a non-empty search is submitted (3.x name). Pages that open a results page from this event keep working. `searchSubmit` is the 5.x event, and it can cancel the navigation.
+   */
+  searchfunctionality: EventEmitter<CustomEvent<string>>;
   /**
    * Emitted when the user clicks the language button.
    */

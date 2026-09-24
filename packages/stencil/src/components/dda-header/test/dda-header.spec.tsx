@@ -159,4 +159,91 @@ describe('dda-header', () => {
       expect(page.root.selected_contrast).toBe('colorblind');
     });
   });
+
+  describe('toolbar texts and 3.x toolbar behavior', () => {
+    const tooltip = (page, sel: string) => page.root.querySelector(sel).closest('dda-tooltip').getAttribute('title_text');
+
+    it('keeps the 5.2 toolbar texts when no prop is set', async () => {
+      const page = await render(`<dda-header></dda-header>`);
+      expect(tooltip(page, '.dda-toolbar-menu .accessibility-btn')).toBe('Accessibility');
+      expect(page.root.querySelector('.dda-toolbar-menu .accessibility-btn .visually-hidden').textContent).toBe('Accessibility');
+      expect(page.root.querySelector('.dda-toolbar-menu .accessibility-btn i').textContent.trim()).toBe('accessibility');
+      expect(tooltip(page, '.dda-toolbar-menu form.dda-search')).toBe('Search');
+      expect(page.root.querySelector('.dda-toolbar-menu input').getAttribute('placeholder')).toBe('Search');
+      expect(tooltip(page, '.dda-toolbar-menu dda-button[lang]')).toBe('Language');
+      expect(tooltip(page, '.dda-toolbar-menu dda-link-button')).toBe('Login');
+      expect(tooltip(page, '.hamburger-menu-btn')).toBe('Menu');
+    });
+
+    it('uses the 3.x toolbar attributes', async () => {
+      const page = await render(`<dda-header
+        accessibility_tooltip="إمكانية الوصول" accessibility_button_text="إمكانية الوصول إلى الموقع"
+        accessibility_button_id="a11y" accessibility_button_icon_family="material-icons"
+        accessibility_button_icon_name="accessible_forward"
+        search_tooltip="بحث" search_input_placeholder="يبحث" language_tooltip="تغيير اللغة"
+        login-text="دخول" login_tooltip="تسجيل الدخول" menu_button_label="القائمة"></dda-header>`);
+      const desktop = page.root.querySelector('.dda-toolbar-menu .accessibility-btn');
+      expect(tooltip(page, '.dda-toolbar-menu .accessibility-btn')).toBe('إمكانية الوصول');
+      expect(desktop.getAttribute('id')).toBe('a11y');
+      expect(desktop.querySelector('.visually-hidden').textContent).toBe('إمكانية الوصول إلى الموقع');
+      expect(desktop.querySelector('i').getAttribute('class')).toBe('material-icons');
+      expect(desktop.querySelector('i').textContent.trim()).toBe('accessible_forward');
+      expect(page.root.querySelector('.dda-toolbar-menu-sidemenu .accessibility-btn').getAttribute('id')).toBe('a11y-sidemenu');
+      expect(tooltip(page, '.dda-toolbar-menu form.dda-search')).toBe('بحث');
+      expect(page.root.querySelector('.dda-toolbar-menu input').getAttribute('placeholder')).toBe('يبحث');
+      expect(tooltip(page, '.dda-toolbar-menu dda-button[lang]')).toBe('تغيير اللغة');
+      expect(tooltip(page, '.dda-toolbar-menu dda-link-button')).toBe('تسجيل الدخول');
+      expect(tooltip(page, '.hamburger-menu-btn')).toBe('القائمة');
+    });
+
+    it('falls back to the default when a tooltip attribute is empty', async () => {
+      const page = await render(`<dda-header search_tooltip=""></dda-header>`);
+      expect(tooltip(page, '.dda-toolbar-menu form.dda-search')).toBe('Search');
+    });
+
+    it('removes Login and the language button when their text is empty, as 3.x did', async () => {
+      const page = await render(`<dda-header login-text="" language_text=""></dda-header>`);
+      expect(page.root.querySelector('dda-link-button')).toBeNull();
+      expect(page.root.querySelector('.dda-toolbar-menu dda-button[lang]')).toBeNull();
+      expect(page.root.querySelector('.dda-toolbar-menu-sidemenu button[lang]')).toBeNull();
+    });
+
+    it('does not render the panels when use-predesigned-accessibility-menu is false', async () => {
+      const page = await render(`<dda-header use-predesigned-accessibility-menu="false"></dda-header>`);
+      expect(page.root.querySelector('.dda-accessibility')).toBeNull();
+      expect(page.root.querySelectorAll('.accessibility-btn')).toHaveLength(2);
+    });
+
+    it('emits accessibilitymenufunctionality on each accessibility button click', async () => {
+      const page = await render(`<dda-header></dda-header>`);
+      const spy = jest.fn();
+      page.root.addEventListener('accessibilitymenufunctionality', spy);
+      (page.root.querySelector('.dda-toolbar-menu .accessibility-btn') as HTMLElement).click();
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    // DoF's handler is `gotoSearchPage(event.detail)`: it opens the results page on every
+    // searchfunctionality event. So the event fires on submit only, never while the user types.
+    it('emits searchfunctionality with the query on submit, not while the user types', async () => {
+      const page = await render(`<dda-header></dda-header>`);
+      const spy = jest.fn();
+      page.root.addEventListener('searchfunctionality', (e: CustomEvent) => spy(e.detail));
+      const form = page.root.querySelector('.dda-toolbar-menu form') as HTMLFormElement;
+      const input = form.querySelector('input') as HTMLInputElement;
+      input.value = 'budget';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      expect(spy).not.toHaveBeenCalled();
+      form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      expect(spy).toHaveBeenCalledWith('budget');
+    });
+
+    it('does not emit searchfunctionality for an empty query', async () => {
+      const page = await render(`<dda-header></dda-header>`);
+      const spy = jest.fn();
+      page.root.addEventListener('searchfunctionality', spy);
+      const form = page.root.querySelector('.dda-toolbar-menu form') as HTMLFormElement;
+      form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      expect(spy).not.toHaveBeenCalled();
+    });
+  });
 });

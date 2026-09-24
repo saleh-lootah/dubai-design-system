@@ -32,4 +32,14 @@ describe('DoF 3.x markup on 5.3.0', () => {
     const radios = await page.$$eval('dda-header .dda-accessibility-wrap dda-radiobutton .radio-title', els => els.map(e => e.textContent.trim()));
     expect(radios).toEqual(['الألوان العادية', 'عمى الألوان', 'ضعف أحمر', 'الضعف الأخضر']);
   });
+
+  it('shows the Arabic toolbar and no Login link', async () => {
+    const page = await newE2EPage();
+    await loadDof(page);
+    expect(await page.find('dda-header dda-link-button')).toBeNull();
+    const placeholder = await page.$eval('dda-header .dda-toolbar-menu input', e => e.getAttribute('placeholder'));
+    expect(placeholder).toBe('يبحث');
+    const icon = await page.$eval('dda-header .dda-toolbar-menu .accessibility-btn i', e => e.textContent.trim());
+    expect(icon).toBe('accessible_forward');
+  });
 });
