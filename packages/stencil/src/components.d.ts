@@ -762,6 +762,11 @@ export namespace Components {
          */
         "hamburger_menu_button_name": string;
         /**
+          * Hides the "other" side-menu links and their title. Default: `false`.
+          * @default false
+         */
+        "hideOtherMenu": boolean;
+        /**
           * Hides the Login link in the desktop toolbar and the side menu.
           * @default false
          */
@@ -804,6 +809,18 @@ export namespace Components {
           * @default 'Menu'
          */
         "menu_button_label": string;
+        /**
+          * `id` of the mobile search control.
+         */
+        "mobileMenuSearchId": string;
+        /**
+          * 3.x mobile search: when set, the mobile search is a plain link to this URL (with `mobileMenuSearchId` as its id) and the header's own search panel is not rendered.
+         */
+        "mobileMenuSearchUrl": string;
+        /**
+          * Second list in the side menu. JSON array (or array property) of `{ label, href, active }`; `active: "true"` marks the current page.
+         */
+        "otherMenuItems": string | Array<{ label: string; href: string; active?: string }>;
         /**
           * Main navigation links. JSON array of `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu.
          */
@@ -879,9 +896,17 @@ export namespace Components {
          */
         "selected_text_size": 'small' | 'normal' | 'large';
         /**
+          * Title above the side-menu links. Default: `Quick Links`. An empty value removes it.
+         */
+        "sideMainMenuTitle": string;
+        /**
           * Side menu items. JSON array of `{ label, href, subMenu }`; each `subMenu` item is `{ headerLabel, label, href, subMenu }` and can nest.
          */
         "sideMenuItems": string;
+        /**
+          * Title above the "other" side-menu links. It shows only when there are other links.
+         */
+        "sideOtherMenuTitle": string;
         /**
           * Text in the text size column. Default: `Use the buttons below to increase or decrease the text size`.
          */
@@ -3256,6 +3281,11 @@ declare namespace LocalJSX {
          */
         "hamburger_menu_button_name"?: string;
         /**
+          * Hides the "other" side-menu links and their title. Default: `false`.
+          * @default false
+         */
+        "hideOtherMenu"?: boolean;
+        /**
           * Hides the Login link in the desktop toolbar and the side menu.
           * @default false
          */
@@ -3298,6 +3328,14 @@ declare namespace LocalJSX {
           * @default 'Menu'
          */
         "menu_button_label"?: string;
+        /**
+          * `id` of the mobile search control.
+         */
+        "mobileMenuSearchId"?: string;
+        /**
+          * 3.x mobile search: when set, the mobile search is a plain link to this URL (with `mobileMenuSearchId` as its id) and the header's own search panel is not rendered.
+         */
+        "mobileMenuSearchUrl"?: string;
         /**
           * Emitted on every click of an accessibility button (3.x name).
          */
@@ -3342,6 +3380,10 @@ declare namespace LocalJSX {
           * Emitted when the user clicks the `A-` (smaller text) button in the accessibility panel.
          */
         "onSmTextSize"?: (event: DdaHeaderCustomEvent<void>) => void;
+        /**
+          * Second list in the side menu. JSON array (or array property) of `{ label, href, active }`; `active: "true"` marks the current page.
+         */
+        "otherMenuItems"?: string | Array<{ label: string; href: string; active?: string }>;
         /**
           * Main navigation links. JSON array of `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu.
          */
@@ -3417,9 +3459,17 @@ declare namespace LocalJSX {
          */
         "selected_text_size"?: 'small' | 'normal' | 'large';
         /**
+          * Title above the side-menu links. Default: `Quick Links`. An empty value removes it.
+         */
+        "sideMainMenuTitle"?: string;
+        /**
           * Side menu items. JSON array of `{ label, href, subMenu }`; each `subMenu` item is `{ headerLabel, label, href, subMenu }` and can nest.
          */
         "sideMenuItems"?: string;
+        /**
+          * Title above the "other" side-menu links. It shows only when there are other links.
+         */
+        "sideOtherMenuTitle"?: string;
         /**
           * Text in the text size column. Default: `Use the buttons below to increase or decrease the text size`.
          */
@@ -4816,6 +4866,12 @@ declare namespace LocalJSX {
         "secondLogoHref": string;
         "loginLink": string;
         "sideMenuItems": string;
+        "sideMainMenuTitle": string;
+        "sideOtherMenuTitle": string;
+        "otherMenuItems": string | Array<{ label: string; href: string; active?: string }>;
+        "hideOtherMenu": boolean;
+        "mobileMenuSearchId": string;
+        "mobileMenuSearchUrl": string;
         "quickLinks": string;
         "readSpeakerLink": string;
         "read_speaker_link": string;

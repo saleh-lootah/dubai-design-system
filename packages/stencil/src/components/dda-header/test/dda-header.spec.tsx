@@ -251,4 +251,60 @@ describe('dda-header', () => {
       expect(spy).not.toHaveBeenCalled();
     });
   });
+
+  describe('side menu titles, other menu and 3.x mobile search', () => {
+    it('keeps the 5.2 side-menu title and has no other menu by default', async () => {
+      const page = await render(`<dda-header></dda-header>`);
+      expect(page.root.querySelector('.dda-side-nav-title').textContent).toBe('Quick Links');
+      expect(page.root.querySelectorAll('ul.main_side_menu')).toHaveLength(1);
+      expect(page.root.querySelector('.dda-mobile-search button')).not.toBeNull();
+    });
+
+    it('renders the main title, the other title and the other menu', async () => {
+      const items = JSON.stringify([
+        { label: 'Careers', href: '/careers', active: 'true' },
+        { label: 'FAQ', href: '/faq' },
+      ]);
+      const page = await render(`<dda-header side-main-menu-title="قائمة الموقع" side-other-menu-title="روابط أخرى" other-menu-items='${items}'></dda-header>`);
+      const titles = Array.from(page.root.querySelectorAll('.dda-side-nav-title')).map((t: HTMLElement) => t.textContent);
+      expect(titles).toEqual(['قائمة الموقع', 'روابط أخرى']);
+      const other = page.root.querySelectorAll('ul.main_side_menu')[1];
+      const links = Array.from(other.querySelectorAll('a')) as HTMLAnchorElement[];
+      expect(links.map(a => a.textContent)).toEqual(['Careers', 'FAQ']);
+      expect(links[0]).toHaveClass('active');
+      expect(links[0].getAttribute('aria-current')).toBe('page');
+    });
+
+    it('accepts other menu items set as an array property', async () => {
+      const page = await render(`<dda-header></dda-header>`);
+      page.root.otherMenuItems = [{ label: 'FAQ', href: '/faq' }];
+      await page.waitForChanges();
+      expect(page.root.querySelectorAll('ul.main_side_menu')[1].querySelector('a').textContent).toBe('FAQ');
+    });
+
+    it('hides the other menu with hide-other-menu', async () => {
+      const items = JSON.stringify([{ label: 'FAQ', href: '/faq' }]);
+      const page = await render(`<dda-header side-other-menu-title="Other" other-menu-items='${items}' hide-other-menu="true"></dda-header>`);
+      expect(page.root.querySelectorAll('ul.main_side_menu')).toHaveLength(1);
+      expect(page.root.querySelectorAll('.dda-side-nav-title')).toHaveLength(1);
+    });
+
+    it('ignores invalid other-menu JSON', async () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+      const page = await render(`<dda-header other-menu-items='[{'></dda-header>`);
+      expect(page.root.querySelectorAll('ul.main_side_menu')).toHaveLength(1);
+      expect(warn).toHaveBeenCalledTimes(1);
+      warn.mockRestore();
+    });
+
+    it('renders the 3.x mobile search link when mobile-menu-search-url is set', async () => {
+      const page = await render(`<dda-header mobile-menu-search-id="mobileSearch" mobile-menu-search-url="/search"></dda-header>`);
+      const link = page.root.querySelector('.dda-mobile-search a') as HTMLAnchorElement;
+      expect(link.getAttribute('id')).toBe('mobileSearch');
+      expect(link.getAttribute('href')).toBe('/search');
+      expect(link.querySelector('.visually-hidden').textContent).toBe('Search');
+      expect(page.root.querySelector('.dda-mobile-search button')).toBeNull();
+      expect(page.root.querySelector('.dda-mobile-search-panel')).toBeNull();
+    });
+  });
 });

@@ -1,4 +1,5 @@
 import { Component, Element, h, Prop, State, Event, EventEmitter, Watch } from '@stencil/core';
+import { parseJsonProp } from '../../utils/parse-json-prop';
 
 // Gives each header its own search input ids, so several headers on a page do not clash.
 let headerInstanceCount = 0;
@@ -32,6 +33,18 @@ export class DdaHeader {
   @Prop() loginLink: string;
   /** Side menu items. JSON array of `{ label, href, subMenu }`; each `subMenu` item is `{ headerLabel, label, href, subMenu }` and can nest. */
   @Prop() sideMenuItems: string;
+  /** Title above the side-menu links. Default: `Quick Links`. An empty value removes it. */
+  @Prop() sideMainMenuTitle: string;
+  /** Title above the "other" side-menu links. It shows only when there are other links. */
+  @Prop() sideOtherMenuTitle: string;
+  /** Second list in the side menu. JSON array (or array property) of `{ label, href, active }`; `active: "true"` marks the current page. */
+  @Prop() otherMenuItems: string | Array<{ label: string; href: string; active?: string }>;
+  /** Hides the "other" side-menu links and their title. Default: `false`. */
+  @Prop() hideOtherMenu: boolean = false;
+  /** `id` of the mobile search control. */
+  @Prop() mobileMenuSearchId: string;
+  /** 3.x mobile search: when set, the mobile search is a plain link to this URL (with `mobileMenuSearchId` as its id) and the header's own search panel is not rendered. */
+  @Prop() mobileMenuSearchUrl: string;
   /** Main navigation links. JSON array of `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu. */
   @Prop() quickLinks: string;
   /** URL of the ReadSpeaker "listen" link in the accessibility panel. */
@@ -577,6 +590,7 @@ export class DdaHeader {
   render() {
     const sideMenuItems = this.parseJsonArray(this.sideMenuItems);
     const quickLinks = this.parseJsonArray(this.quickLinks);
+    const otherMenuItems = parseJsonProp<{ label: string; href: string; active?: string }>(this.otherMenuItems, 'other-menu-items');
     const setActiveMenuIndex = (index: number | null) => {
       this.activeMenuIndex = index;
     };
@@ -615,7 +629,7 @@ export class DdaHeader {
               {/* Side Menu */}
               <div class="dda-sidemenu" style={{ display: this.isMenuOpen ? 'block' : '', insetInlineStart: this.isMenuOpen ? '0px' : '' }}>
                 <div class="dda-sidemenu-content">
-                  <p class="dda-side-nav-title">Quick Links</p>
+                  {this.text(this.sideMainMenuTitle, 'Quick Links') && <p class="dda-side-nav-title">{this.text(this.sideMainMenuTitle, 'Quick Links')}</p>}
                   <ul class="main_side_menu">
                     {sideMenuItems.map((menu, index) => {
                       const currentIndex = `menu-${index}`;
@@ -638,6 +652,18 @@ export class DdaHeader {
                       );
                     })}
                   </ul>
+                  {!this.hideOtherMenu && otherMenuItems.length > 0 && [
+                    this.sideOtherMenuTitle && <p class="dda-side-nav-title">{this.sideOtherMenuTitle}</p>,
+                    <ul class="main_side_menu">
+                      {otherMenuItems.map((item, index) => (
+                        <li key={`other-${index}`}>
+                          <a href={item.href} class={item.active === 'true' ? 'active' : ''} aria-current={item.active === 'true' ? 'page' : undefined}>
+                            {item.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>,
+                  ]}
                 </div>
 
                 <div class="dda-sidemenu-bottom">
@@ -753,7 +779,16 @@ export class DdaHeader {
               </a>
             </div>
             <div class="dda-mobile-search">
+              {this.mobileMenuSearchUrl ? (
+                <a id={this.mobileMenuSearchId} href={this.mobileMenuSearchUrl} class="tool-btn">
+                  <span class="visually-hidden">{this.searchText || 'Search'}</span>
+                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">
+                    search
+                  </i>
+                </a>
+              ) : (
                 <button
+                  id={this.mobileMenuSearchId}
                   name={this.search_button_name}
                   class="tool-btn"
                   type="button"
@@ -762,18 +797,25 @@ export class DdaHeader {
                   onClick={this.isSearchOpen ? this.closeMobileSearch : this.openMobileSearch}
                   ref={el => (this.mobileSearchButton = el)}
                 >
-                  <span class="visually-hidden">Search</span>
-                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">search</i>
+                  <span class="visually-hidden">{this.searchText || 'Search'}</span>
+                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">
+                    search
+                  </i>
                 </button>
+              )}
             </div>
-            <div id={`${this.searchId}-mobile-panel`} class="dda-mobile-search-panel" hidden={!this.isSearchOpen}>
-              <form class="dda-mobile-search-form" role="search" method="get" action={this.search_action} onSubmit={this.handleSearchSubmit}>
-                {this.renderSearchInput(`${this.searchId}-mobile`, el => (this.mobileSearchInput = el))}
-                <button type="button" class="dda-mobile-search-close" aria-label="Close search" onClick={this.closeMobileSearch}>
-                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
-                </button>
-              </form>
-            </div>
+            {!this.mobileMenuSearchUrl && (
+              <div id={`${this.searchId}-mobile-panel`} class="dda-mobile-search-panel" hidden={!this.isSearchOpen}>
+                <form class="dda-mobile-search-form" role="search" method="get" action={this.search_action} onSubmit={this.handleSearchSubmit}>
+                  {this.renderSearchInput(`${this.searchId}-mobile`, el => (this.mobileSearchInput = el))}
+                  <button type="button" class="dda-mobile-search-close" aria-label="Close search" onClick={this.closeMobileSearch}>
+                    <i class="material-icons  material-symbols-outlined" aria-hidden="true">
+                      close
+                    </i>
+                  </button>
+                </form>
+              </div>
+            )}
 
             {/* Toolbar Menu */}
             <div class="dda-toolbar-menu">
