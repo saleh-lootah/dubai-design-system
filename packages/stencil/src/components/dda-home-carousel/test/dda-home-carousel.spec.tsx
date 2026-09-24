@@ -44,6 +44,14 @@ describe('dda-home-carousel', () => {
     warn.mockRestore();
   });
 
+  it('skips null, number and string entries with one warning', async () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const page = await render(`<dda-home-carousel bannercardlist='[null,5,"x",{"banner_card_href":"/about","banner_card_title":"About"}]'></dda-home-carousel>`);
+    expect(page.root.querySelectorAll('li.dda-home-carousel-item')).toHaveLength(1);
+    expect(warn).toHaveBeenCalledTimes(1);
+    warn.mockRestore();
+  });
+
   it('emits cardClick with the item and lets the link navigate', async () => {
     const page = await render(`<dda-home-carousel bannercardlist='${list}'></dda-home-carousel>`);
     const spy = jest.fn();

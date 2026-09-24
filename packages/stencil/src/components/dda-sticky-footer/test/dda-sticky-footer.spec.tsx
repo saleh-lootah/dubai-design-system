@@ -123,6 +123,17 @@ describe('dda-sticky-footer', () => {
     });
   });
 
+  describe('bad list entries', () => {
+    it('skips null, number and string entries in middle-link and right-link', async () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+      const good = JSON.stringify({ title: 'News', href: '/news', icon: 'feed' });
+      const page = await render(`<dda-sticky-footer middle-link='[null,"x",5]' right-link='[null,${good},"x"]'></dda-sticky-footer>`);
+      expect(page.root.querySelectorAll('.dda-footer-right li').length).toBeGreaterThan(0);
+      expect(warn).toHaveBeenCalledTimes(2);
+      warn.mockRestore();
+    });
+  });
+
   describe('dubai.ae and the more button', () => {
     it('renders dubai.ae with a desktop wordmark and a small icon', async () => {
       const page = await render(

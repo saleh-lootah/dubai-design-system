@@ -31,4 +31,22 @@ describe('parseJsonProp', () => {
     expect(parseJsonProp('{"a":1}', 'right-link')).toEqual([]);
     expect(warn).toHaveBeenCalledTimes(1);
   });
+  it('drops array entries that are not plain objects, with one warning that names the prop', () => {
+    expect(parseJsonProp('[{"a":1},null,5,"x",[1],true]', 'middle-link')).toEqual([{ a: 1 }]);
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn.mock.calls[0][0]).toContain('middle-link');
+  });
+
+  it('drops bad entries from an array property too', () => {
+    expect(parseJsonProp([null, { a: 1 }, 'x'], 'bannercardlist')).toEqual([{ a: 1 }]);
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn.mock.calls[0][0]).toContain('bannercardlist');
+  });
+
+  it('warns and returns [] for a value that is neither a string nor an array', () => {
+    expect(parseJsonProp(42, 'right-link')).toEqual([]);
+    expect(parseJsonProp({ a: 1 }, 'right-link')).toEqual([]);
+    expect(warn).toHaveBeenCalledTimes(2);
+    expect(warn.mock.calls[0][0]).toContain('right-link');
+  });
 });
