@@ -3,6 +3,7 @@ import { DdaAccordion as DdaAccordionElement, defineCustomElement as defineDdaAc
 import { DdaAlert as DdaAlertElement, defineCustomElement as defineDdaAlert } from "@dubai-design-system/components-js/dist/components/dda-alert.js";
 import { DdaAttachFile as DdaAttachFileElement, defineCustomElement as defineDdaAttachFile } from "@dubai-design-system/components-js/dist/components/dda-attach-file.js";
 import { DdaAvatar as DdaAvatarElement, defineCustomElement as defineDdaAvatar } from "@dubai-design-system/components-js/dist/components/dda-avatar.js";
+import { DdaBannerCard as DdaBannerCardElement, defineCustomElement as defineDdaBannerCard } from "@dubai-design-system/components-js/dist/components/dda-banner-card.js";
 import { DdaBanner as DdaBannerElement, defineCustomElement as defineDdaBanner } from "@dubai-design-system/components-js/dist/components/dda-banner.js";
 import { DdaBreadcrumb as DdaBreadcrumbElement, defineCustomElement as defineDdaBreadcrumb } from "@dubai-design-system/components-js/dist/components/dda-breadcrumb.js";
 import { DdaButton as DdaButtonElement, defineCustomElement as defineDdaButton } from "@dubai-design-system/components-js/dist/components/dda-button.js";
@@ -14,6 +15,7 @@ import { DdaDropdown as DdaDropdownElement, defineCustomElement as defineDdaDrop
 import { DdaFooter as DdaFooterElement, defineCustomElement as defineDdaFooter } from "@dubai-design-system/components-js/dist/components/dda-footer.js";
 import { DdaHeader as DdaHeaderElement, defineCustomElement as defineDdaHeader } from "@dubai-design-system/components-js/dist/components/dda-header.js";
 import { DdaHomeBanner as DdaHomeBannerElement, defineCustomElement as defineDdaHomeBanner } from "@dubai-design-system/components-js/dist/components/dda-home-banner.js";
+import { DdaHomeCarousel as DdaHomeCarouselElement, defineCustomElement as defineDdaHomeCarousel } from "@dubai-design-system/components-js/dist/components/dda-home-carousel.js";
 import { DdaHorizontalStepper as DdaHorizontalStepperElement, defineCustomElement as defineDdaHorizontalStepper } from "@dubai-design-system/components-js/dist/components/dda-horizontal-stepper.js";
 import { DdaInput as DdaInputElement, defineCustomElement as defineDdaInput } from "@dubai-design-system/components-js/dist/components/dda-input.js";
 import { DdaLinkButton as DdaLinkButtonElement, defineCustomElement as defineDdaLinkButton } from "@dubai-design-system/components-js/dist/components/dda-link-button.js";
@@ -72,6 +74,13 @@ export const DdaBanner = createComponent({
     react: React,
     events: {},
     defineCustomElement: defineDdaBanner
+});
+export const DdaBannerCard = createComponent({
+    tagName: 'dda-banner-card',
+    elementClass: DdaBannerCardElement,
+    react: React,
+    events: {},
+    defineCustomElement: defineDdaBannerCard
 });
 export const DdaBreadcrumb = createComponent({
     tagName: 'dda-breadcrumb',
@@ -134,6 +143,8 @@ export const DdaHeader = createComponent({
     elementClass: DdaHeaderElement,
     react: React,
     events: {
+        onAccessibilitymenufunctionality: 'accessibilitymenufunctionality',
+        onSearchfunctionality: 'searchfunctionality',
         onLanguageSwitch: 'languageSwitch',
         onSmTextSize: 'smTextSize',
         onBaseTextSize: 'baseTextSize',
@@ -152,6 +163,13 @@ export const DdaHomeBanner = createComponent({
     react: React,
     events: {},
     defineCustomElement: defineDdaHomeBanner
+});
+export const DdaHomeCarousel = createComponent({
+    tagName: 'dda-home-carousel',
+    elementClass: DdaHomeCarouselElement,
+    react: React,
+    events: { onCardClick: 'cardClick' },
+    defineCustomElement: defineDdaHomeCarousel
 });
 export const DdaHorizontalStepper = createComponent({
     tagName: 'dda-horizontal-stepper',

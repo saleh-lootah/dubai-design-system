@@ -1,8 +1,9 @@
-import { type DdaUiCardCustomEvent } from "@dubai-design-system/components-js";
+import { type BannerCardItem, type DdaHomeCarouselCustomEvent, type DdaUiCardCustomEvent } from "@dubai-design-system/components-js";
 import { DdaAccordion as DdaAccordionElement } from "@dubai-design-system/components-js/dist/components/dda-accordion.js";
 import { DdaAlert as DdaAlertElement } from "@dubai-design-system/components-js/dist/components/dda-alert.js";
 import { DdaAttachFile as DdaAttachFileElement } from "@dubai-design-system/components-js/dist/components/dda-attach-file.js";
 import { DdaAvatar as DdaAvatarElement } from "@dubai-design-system/components-js/dist/components/dda-avatar.js";
+import { DdaBannerCard as DdaBannerCardElement } from "@dubai-design-system/components-js/dist/components/dda-banner-card.js";
 import { DdaBanner as DdaBannerElement } from "@dubai-design-system/components-js/dist/components/dda-banner.js";
 import { DdaBreadcrumb as DdaBreadcrumbElement } from "@dubai-design-system/components-js/dist/components/dda-breadcrumb.js";
 import { DdaButton as DdaButtonElement } from "@dubai-design-system/components-js/dist/components/dda-button.js";
@@ -14,6 +15,7 @@ import { DdaDropdown as DdaDropdownElement } from "@dubai-design-system/componen
 import { DdaFooter as DdaFooterElement } from "@dubai-design-system/components-js/dist/components/dda-footer.js";
 import { DdaHeader as DdaHeaderElement } from "@dubai-design-system/components-js/dist/components/dda-header.js";
 import { DdaHomeBanner as DdaHomeBannerElement } from "@dubai-design-system/components-js/dist/components/dda-home-banner.js";
+import { DdaHomeCarousel as DdaHomeCarouselElement } from "@dubai-design-system/components-js/dist/components/dda-home-carousel.js";
 import { DdaHorizontalStepper as DdaHorizontalStepperElement } from "@dubai-design-system/components-js/dist/components/dda-horizontal-stepper.js";
 import { DdaInput as DdaInputElement } from "@dubai-design-system/components-js/dist/components/dda-input.js";
 import { DdaLinkButton as DdaLinkButtonElement } from "@dubai-design-system/components-js/dist/components/dda-link-button.js";
@@ -51,6 +53,8 @@ type DdaAvatarEvents = {
 export declare const DdaAvatar: StencilReactComponent<DdaAvatarElement, DdaAvatarEvents>;
 type DdaBannerEvents = NonNullable<unknown>;
 export declare const DdaBanner: StencilReactComponent<DdaBannerElement, DdaBannerEvents>;
+type DdaBannerCardEvents = NonNullable<unknown>;
+export declare const DdaBannerCard: StencilReactComponent<DdaBannerCardElement, DdaBannerCardEvents>;
 type DdaBreadcrumbEvents = NonNullable<unknown>;
 export declare const DdaBreadcrumb: StencilReactComponent<DdaBreadcrumbElement, DdaBreadcrumbEvents>;
 type DdaButtonEvents = NonNullable<unknown>;
@@ -76,6 +80,8 @@ export declare const DdaDropdown: StencilReactComponent<DdaDropdownElement, DdaD
 type DdaFooterEvents = NonNullable<unknown>;
 export declare const DdaFooter: StencilReactComponent<DdaFooterElement, DdaFooterEvents>;
 type DdaHeaderEvents = {
+    onAccessibilitymenufunctionality: EventName<CustomEvent<void>>;
+    onSearchfunctionality: EventName<CustomEvent<string>>;
     onLanguageSwitch: EventName<CustomEvent<void>>;
     onSmTextSize: EventName<CustomEvent<void>>;
     onBaseTextSize: EventName<CustomEvent<void>>;
@@ -91,6 +97,10 @@ type DdaHeaderEvents = {
 export declare const DdaHeader: StencilReactComponent<DdaHeaderElement, DdaHeaderEvents>;
 type DdaHomeBannerEvents = NonNullable<unknown>;
 export declare const DdaHomeBanner: StencilReactComponent<DdaHomeBannerElement, DdaHomeBannerEvents>;
+type DdaHomeCarouselEvents = {
+    onCardClick: EventName<DdaHomeCarouselCustomEvent<BannerCardItem>>;
+};
+export declare const DdaHomeCarousel: StencilReactComponent<DdaHomeCarouselElement, DdaHomeCarouselEvents>;
 type DdaHorizontalStepperEvents = NonNullable<unknown>;
 export declare const DdaHorizontalStepper: StencilReactComponent<DdaHorizontalStepperElement, DdaHorizontalStepperEvents>;
 type DdaInputEvents = NonNullable<unknown>;

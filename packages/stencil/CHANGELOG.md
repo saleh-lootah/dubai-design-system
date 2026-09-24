@@ -4,7 +4,11 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## Unreleased
+## 5.3.0 (2026-09-24)
+
+A minor release. It brings back the 3.x attributes and components that sites built on 3.5 –
+3.12.10 use, so they can upgrade to 5.x. Most dda-header text can now be set. Read
+"From 3.5 – 3.12.10 to 5.3.0" in MIGRATION.md.
 
 ### Features
 
@@ -36,6 +40,12 @@ All four published packages (`components-js`, `components-react`, `components-vu
 - **dda-header: the `L` access key is only on the desktop ReadSpeaker link.** The side-menu copy
   had it too, so pressing `Alt+Shift+L` (or the browser's access-key combination) could activate
   the hidden side-menu link instead of the visible one.
+- **dda-segmented-tabs: the Dubai font, one-line labels, a scrollbar and a focus ring.** The
+  segments are buttons, so the browser showed them in its own font, not Dubai. A long label could
+  break onto two lines and go outside the segment's fixed height, and a group wider than its
+  container made the page wider. The segments had no visible focus ring. The segments now use the
+  page font and keep each label on one line, the group scrolls inside its container instead of
+  widening it, and a focus ring shows inside the selected segment.
 
 ### Behaviour Changes
 
