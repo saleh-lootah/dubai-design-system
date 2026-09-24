@@ -165,8 +165,11 @@ import { DdaStickyFooter } from '@dubai-design-system/components-vue';
   text and tooltip; `dubaiae-icon-src-dark` is its `color-theme="dark"` image.
 - **Items render only when set.** Each icon renders only when its image (or, for services, its
   text) is set. An icon with no image and no text does not render.
-- **Dark images.** Set `color-theme="dark"` to use each `*-icon-src-dark` image instead of its
-  `*-icon-src` image. An icon with no dark image keeps its light image.
+- **Dark images.** Set `color-theme="dark"` to use the dark images. These images have a dark
+  version: happiness (`happiness-icon-src-dark`), accessibility (`accessibility-icon-src-dark`),
+  services (`services-icon-src-dark`), AI (`ai-icon-src-dark`), chat (`chat-icon-src-dark`), the
+  dubai.ae wordmark (`dubaiae-icon-src-dark`) and each `middle-link` item (`srcDark`). An image
+  with no dark version keeps its light image. The other images have no dark version.
 - **Links to open a script's popup.** Set `happiness-icon-id`, `accessibility-icon-id`,
   `services-icon-id`, `ai-icon-id` or `chat-icon-id` to give a link a fixed `id`, for a page script
   that opens a popup from that link.

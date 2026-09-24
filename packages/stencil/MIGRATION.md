@@ -22,11 +22,12 @@ Then read the sections for your version, in this order:
 
 | You are on | Read |
 | --- | --- |
-| **5.1.x** (5.1.0 – 5.1.1) | [Every upgrade](#2-every-upgrade-checklist) → [5.1.x to 5.2.0](#4-from-51x-to-520) |
-| **5.0.x** (5.0.0 – 5.0.3) | [Every upgrade](#2-every-upgrade-checklist) → [5.0.x to 5.1.0](#5-from-50x-to-510) → [5.1.x to 5.2.0](#4-from-51x-to-520) |
-| **4.1.0** | [Every upgrade](#2-every-upgrade-checklist) → [From 4.1.0](#7-from-410) → [From 3.x](#8-from-3x-to-50) → [5.0.x to 5.1.0](#5-from-50x-to-510) → [5.1.x to 5.2.0](#4-from-51x-to-520) |
-| **3.5 – 3.12.10** (for example 3.11.3) | [Every upgrade](#2-every-upgrade-checklist) → [From 3.5 – 3.12.10](#3-from-35--31210-to-530) |
-| **3.x** (3.12.16 or earlier) | [Every upgrade](#2-every-upgrade-checklist) → [From 3.x](#8-from-3x-to-50) → [Notes from 5.0.1](#6-notes-from-501-fonts-and-the-stylesheet) → [5.0.x to 5.1.0](#5-from-50x-to-510) → [5.1.x to 5.2.0](#4-from-51x-to-520) |
+| **5.2.x** (5.2.0) | [Every upgrade](#2-every-upgrade-checklist) → [5.2.x to 5.3.0](#3-from-52x-to-530) |
+| **5.1.x** (5.1.0 – 5.1.1) | [Every upgrade](#2-every-upgrade-checklist) → [5.1.x to 5.2.0](#5-from-51x-to-520) → [5.2.x to 5.3.0](#3-from-52x-to-530) |
+| **5.0.x** (5.0.0 – 5.0.3) | [Every upgrade](#2-every-upgrade-checklist) → [5.0.x to 5.1.0](#6-from-50x-to-510) → [5.1.x to 5.2.0](#5-from-51x-to-520) → [5.2.x to 5.3.0](#3-from-52x-to-530) |
+| **4.1.0** | [Every upgrade](#2-every-upgrade-checklist) → [From 4.1.0](#8-from-410) → [From 3.x](#9-from-3x-to-50) → [Notes from 5.0.1](#7-notes-from-501-fonts-and-the-stylesheet) → [5.0.x to 5.1.0](#6-from-50x-to-510) → [5.1.x to 5.2.0](#5-from-51x-to-520) → [5.2.x to 5.3.0](#3-from-52x-to-530) |
+| **3.5 – 3.12.10** (for example 3.11.3) | [Every upgrade](#2-every-upgrade-checklist) → [From 3.5 – 3.12.10](#4-from-35--31210-to-530) → [From 3.x](#9-from-3x-to-50) → [Notes from 5.0.1](#7-notes-from-501-fonts-and-the-stylesheet) → [5.0.x to 5.1.0](#6-from-50x-to-510) → [5.1.x to 5.2.0](#5-from-51x-to-520) → [5.2.x to 5.3.0](#3-from-52x-to-530) |
+| **3.x** (3.12.16 or earlier) | [Every upgrade](#2-every-upgrade-checklist) → [From 3.x](#9-from-3x-to-50) → [Notes from 5.0.1](#7-notes-from-501-fonts-and-the-stylesheet) → [5.0.x to 5.1.0](#6-from-50x-to-510) → [5.1.x to 5.2.0](#5-from-51x-to-520) → [5.2.x to 5.3.0](#3-from-52x-to-530) |
 
 Most pages need only a few attribute changes. The changes that can break something
 **silently**, with no error in the console, are marked **Silent**. Search for those first.
@@ -47,7 +48,7 @@ Do these whatever version you start from.
 
 - [ ] **Load `dda.css`.** It carries the global styles and the Dubai typeface. From npm:
   `import '@dubai-design-system/components-js/dist/dda/dda.css';`. From the CDN, see
-  [CDN users](#9-cdn-users).
+  [CDN users](#10-cdn-users).
 - [ ] **Load the icon fonts.** `dda.css` ships no icon font. Without these links, icons render
   as words such as `chevron_right`.
 
@@ -76,11 +77,49 @@ Do these whatever version you start from.
 
 ---
 
-## 3. From 3.5 – 3.12.10 to 5.3.0
+## 3. From 5.2.x to 5.3.0
+
+5.3.0 adds attributes and does not remove any. A page that uses only 5.x attributes can still
+change in the places below. Examine each one.
+
+### Triage: run these first
+
+```bash
+# empty login-text or language_text attributes
+grep -rnE "(login-text|loginText|language_text)=(\"\"|'')" src/
+# your own focus styles for the home-page service cards
+grep -rn 'link-item:focus' src/
+```
+
+### Changes to check
+
+- **An empty `login-text` removes the Login link.** **Silent.** In 5.2.0, an empty `login-text`
+  showed the default label "Login". Now it removes the Login link from the toolbar and the side
+  menu. To show "Login", remove the attribute or set it to `Login`.
+- **An empty `language_text` removes the language button.** **Silent.** In 5.2.0, an empty
+  `language_text` showed "العربية". Now it removes the language button. To show "العربية",
+  remove the attribute.
+- **The `dda-sticky-footer` middle logos show by default.** In 5.2.0, they showed only with
+  `hide-middle-section="false"`. Now they show when at least one logo is set. To hide them, set
+  `hide-middle-section`.
+- **A `quick-links` item without `href` links to `#`.** In 5.2.0, a top-level item or a mega-menu
+  link without `href` had no `href` attribute. Now it has `href="#"`. Give each item a real
+  `href`.
+- **The home-page service cards show a focus style.** A `.quick-links .link-item` card now moves
+  up and shows an outline when it gets keyboard focus (`:focus-visible`). This applies to the
+  plain-HTML cards from 5.2.0 too. If your CSS styles this focus state, make sure the two styles
+  agree. Use the keyboard to examine the cards.
+
+---
+
+## 4. From 3.5 – 3.12.10 to 5.3.0
 
 Versions 3.5 to 3.12.10 had attributes and two components that 3.12.11 to 5.2.0 did not have.
 5.3.0 brings back the ones below under the same names, so most 3.x markup works without change.
-Read this section first, then the sections for 5.x.
+Read this section first. Then read these sections, in this order:
+[From 3.x to 5.0](#9-from-3x-to-50), [Notes from 5.0.1](#7-notes-from-501-fonts-and-the-stylesheet),
+[5.0.x to 5.1.0](#6-from-50x-to-510), [5.1.x to 5.2.0](#5-from-51x-to-520) and
+[5.2.x to 5.3.0](#3-from-52x-to-530).
 
 ### Works again without change
 
@@ -124,6 +163,21 @@ header.addEventListener('accessibilitymenufunctionality', () => { /* … */ });
 had no effect. Now a card with `banner_card_href` is a link and it opens the page. If your own
 script opened the page on `cardClick`, remove that code, or the page opens two times.
 
+**Set the new accessible names on a site that is not in English.** 3.x had no attribute for these
+names, so your 3.x markup does not set them. They are English by default, and screen readers
+read them on an Arabic page too. Set them in the language of the page:
+
+| Component | Attribute | Default |
+| --- | --- | --- |
+| `dda-home-carousel` | `aria_label` | `Quick links` |
+| `dda-sticky-footer` | `aria_label` | `Quick actions` |
+| `dda-sticky-footer` | `more_button_label` | `More` |
+| `dda-header` | `screen_reader_link_label` | `Listen to this page using ReadSpeaker` |
+| `dda-header` | `menu_button_label` | `Menu` |
+
+You cannot change five `dda-header` close-button names yet: "Close Sidebar" (three buttons),
+"Close Accessibility" and "Close search". They stay in English.
+
 **The carousel does not scroll when the mouse moves.** The row scrolls with the mouse wheel, the
 scrollbar, touch and the keyboard. It shows a cut card and an edge fade when there are more cards.
 
@@ -139,7 +193,7 @@ scrollbar, touch and the keyboard. It shows a cut card and an edge fade when the
 
 ---
 
-## 4. From 5.1.x to 5.2.0
+## 5. From 5.1.x to 5.2.0
 
 This section also covers 5.1.1. If you start from 5.1.1, the 5.1.1 notes are already done.
 
@@ -183,7 +237,8 @@ alone no longer wins. Add `dda-header:not(.dda-scrolled)` to it. Put the `transp
   always showed "Login" with the `sentiment_satisfied` icon, and only the side menu used the
   props. If you set them, the desktop link now shows your label and icon too.
 - **An empty `login-text` does not hide the Login link.** It shows the default label. Use
-  `hide_login` to remove the link.
+  `hide_login` to remove the link. (Changed in 5.3.0: see
+  [From 5.2.x to 5.3.0](#3-from-52x-to-530).)
 - **`dda-sticky-footer` location and news links with an image look the same.** The new icon
   props take effect only when the image prop is not set.
 
@@ -198,7 +253,7 @@ alone no longer wins. Add `dda-header:not(.dda-scrolled)` to it. Put the `transp
 
 ---
 
-## 5. From 5.0.x to 5.1.0
+## 6. From 5.0.x to 5.1.0
 
 ### Triage: run these first
 
@@ -358,7 +413,7 @@ the top of the page.
 
 ---
 
-## 6. Notes from 5.0.1: fonts and the stylesheet
+## 7. Notes from 5.0.1: fonts and the stylesheet
 
 Read this if you start from 5.0.0 or earlier.
 
@@ -371,7 +426,7 @@ Read this if you start from 5.0.0 or earlier.
 
 ---
 
-## 7. From 4.1.0
+## 8. From 4.1.0
 
 `4.1.0` was published in February 2025 and was never tagged `latest`; most sites never used it.
 It is a separate build and is not documented component by component. Known differences:
@@ -380,13 +435,14 @@ It is a separate build and is not documented component by component. Known diffe
 - It publishes no `dist/dda/dda.css`. Add it (see the checklist).
 - Its `dda-header` is an older implementation. Re-check the header on desktop and on a phone.
 
-Treat a 4.1.0 site like a 3.x site: follow [From 3.x](#8-from-3x-to-50), then
-[5.0.x to 5.1.0](#5-from-50x-to-510) and [5.1.x to 5.2.0](#4-from-51x-to-520), and check every
+Treat a 4.1.0 site like a 3.x site: follow [From 3.x](#9-from-3x-to-50), then
+[Notes from 5.0.1](#7-notes-from-501-fonts-and-the-stylesheet), [5.0.x to 5.1.0](#6-from-50x-to-510),
+[5.1.x to 5.2.0](#5-from-51x-to-520) and [5.2.x to 5.3.0](#3-from-52x-to-530), and check every
 page visually.
 
 ---
 
-## 8. From 3.x to 5.0
+## 9. From 3.x to 5.0
 
 **Why there is no 4.x to upgrade through:** `4.1.0` already existed on npm, so the next major
 skipped to 5 to keep `^4` ranges from resolving to that older build.
@@ -522,7 +578,7 @@ a future major release, with notice.
 
 ---
 
-## 9. CDN users
+## 10. CDN users
 
 jsDelivr syncs from npm automatically. Always use an **exact version**: replace `X.X.X` with
 the version you are upgrading to.

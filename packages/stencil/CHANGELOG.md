@@ -13,8 +13,9 @@ A minor release. It brings back the 3.x attributes and components that sites bui
 ### Features
 
 - **3.x attributes work again.** Versions 3.5 to 3.12.10 had attributes that 3.12.11 to 5.2.0
-  did not have. The ones below are back, under their 3.x names. A page that uses only 5.x
-  attributes looks the same as in 5.2.0. "From 3.5 – 3.12.10 to 5.3.0" in MIGRATION.md lists them.
+  did not have. The ones below are back, under their 3.x names. "From 3.5 – 3.12.10 to 5.3.0"
+  in MIGRATION.md lists them. A page that uses only 5.x attributes can change in a small number of
+  places. "Behaviour Changes" below lists them.
 - **dda-header: the panel, toolbar and side-menu texts can be set.** The accessibility panel, the
   tooltips, the search placeholder and the side-menu titles take attributes, so a page can show
   them in its own language. An empty attribute removes that text. An empty `login-text` or
@@ -22,7 +23,8 @@ A minor release. It brings back the 3.x attributes and components that sites bui
   labels (for example "Close Sidebar") stay fixed English text; they have no attribute.
 - **dda-header: the 3.x menu shape.** `quick-links` also accepts the 3.x shape (`type`,
   `headerMenuLabel`, `url`, `children`). `dda_default_submenu` items open a dropdown list with a
-  second-level fly-out.
+  second-level fly-out. In TypeScript, `quickLinks` has the type `string | QuickLinkItem[]`, so a
+  React, Vue or Angular page can set an array.
 - **dda-header: other menu, 3.x mobile search link, events.** New: `other-menu-items`,
   `side-other-menu-title`, `hide-other-menu`, `mobile-menu-search-url`, and the
   `accessibilitymenufunctionality` and `searchfunctionality` events.
@@ -49,6 +51,21 @@ A minor release. It brings back the 3.x attributes and components that sites bui
 
 ### Behaviour Changes
 
+These changes also apply to a page that uses only 5.x attributes. "From 5.2.x to 5.3.0" in
+MIGRATION.md tells you what to check.
+
+- **dda-header: an empty `login-text` removes the Login link.** In 5.2.0, an empty `login-text`
+  showed the default label "Login". Now it removes the Login link from the toolbar and the side
+  menu, as in 3.x. Remove the attribute to show "Login".
+- **dda-header: an empty `language_text` removes the language button.** In 5.2.0, an empty
+  `language_text` showed "العربية". Now it removes the language button, as in 3.x. Remove the
+  attribute to show "العربية".
+- **dda-header: a `quick-links` item without `href` links to `#`.** In 5.2.0, a 5.x item or a
+  mega-menu link without `href` rendered an `<a>` with no `href`. Now the link has `href="#"`.
+- **Home-page service cards show a focus style.** A `.quick-links .link-item` card now moves up
+  and shows an outline when it gets keyboard focus (`:focus-visible`). This also applies to the
+  plain-HTML cards of 5.2.0. If your own CSS styles this focus state, check that the two styles
+  agree.
 - **dda-sticky-footer: the middle logos show by default.** Before, they showed only with
   `hide-middle-section="false"`. Now they show when at least one logo is set. Use
   `hide-middle-section` to hide them.
