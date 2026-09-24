@@ -1,42 +1,51 @@
 .dda-segmented-group {
   display: inline-flex;
+  /* A group wider than its container scrolls inside itself, not the page. The scroll box
+     also clips the segments to the rounded corners. */
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
   border: solid 1px var(--dda-surface-90);
   border-radius: 8px;
-  overflow: hidden;
 }
-.light-mode.dda-segmented-group{
+.light-mode.dda-segmented-group {
   border: solid 1px var(--dda-neutral-90);
 }
 .dda-segmented-item {
   display: flex;
-  height: 40px;
+  /* Labels stay on one line; the group scrolls instead of the segments shrinking. */
+  flex: none;
+  white-space: nowrap;
+  min-height: 40px;
   padding: 5px 16px;
   border: transparent;
   border-inline-start: solid 1px var(--dda-surface-90);
   background-color: var(--dda-surface-100);
+  /* Browsers give a button the system font; take the page font (Dubai) instead. */
+  font-family: inherit;
   font-size: 16px;
   color: var(--dda-on-surface-variant-30);
   cursor: pointer;
   align-items: center;
 }
-.light-mode .dda-segmented-item{
+.light-mode .dda-segmented-item {
   background-color: var(--dda-neutral-100);
   color: var(--dda-neutral-variant-30);
   border-inline-start: solid 1px var(--dda-neutral-90);
 }
-.dda-segmented-group .dda-segmented-item:first-child{
+.dda-segmented-group .dda-segmented-item:first-child {
   border: transparent;
 }
-.dda-segmented-group.square{
+.dda-segmented-group.square {
   border-radius: 8px;
 }
-.dda-segmented-group.rounded{
+.dda-segmented-group.rounded {
   border-radius: 40px;
 }
 .dda-segmented-item:hover {
   color: var(--dda-color-primary-40);
 }
-.light-mode .dda-segmented-item:hover{
+.light-mode .dda-segmented-item:hover {
   color: var(--dda-primary-40);
 }
 .dda-segmented-item.active {
@@ -49,4 +58,15 @@
 }
 .dda-segmented-item i {
   font-size: 18px;
+}
+/* The ring is drawn inside the segment, because the group's scroll box clips anything
+   outside it. The inner light band keeps the ring visible on the selected (filled) segment. */
+.dda-segmented-item:focus-visible {
+  outline: 3px solid var(--dda-on-surface-0);
+  outline-offset: -3px;
+  box-shadow: inset 0 0 0 5px var(--dda-surface-100);
+}
+.light-mode .dda-segmented-item:focus-visible {
+  outline-color: var(--dda-neutral-0);
+  box-shadow: inset 0 0 0 5px var(--dda-neutral-100);
 }

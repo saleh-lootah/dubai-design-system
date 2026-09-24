@@ -262,3 +262,61 @@ describe('dda-segmented-tabs non-string items', () => {
     expect(errors).toEqual([]);
   });
 });
+
+// The segments are <button>s, and browsers do not pass the page font to buttons, so the
+// segments showed in the system font. Long labels also broke onto two lines inside a fixed
+// 40px height and went outside it, and a group wider than its container pushed the page wide.
+describe('dda-segmented-tabs layout', () => {
+  const LONG_ITEMS = '["Moving to Dubai","Starting a business","Housing and utilities","Identity and visas"]';
+
+  it('uses the Dubai font, not the browser font for buttons', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-segmented-tabs items='${ITEMS}'></dda-segmented-tabs>`);
+
+    const fonts = await page.$$eval('dda-segmented-tabs button', (els: Element[]) => els.map(el => getComputedStyle(el).fontFamily));
+    for (const font of fonts) expect(font).toMatch(/^"?Dubai"?,/);
+  });
+
+  it('keeps each label on one line inside its segment, in a narrow container', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<div style="width: 240px"><dda-segmented-tabs items='${LONG_ITEMS}'></dda-segmented-tabs></div>`);
+
+    const segments = await page.$$eval('dda-segmented-tabs button', (els: Element[]) =>
+      els.map(el => {
+        const s = getComputedStyle(el);
+        return { whiteSpace: s.whiteSpace, overflows: el.scrollHeight > el.clientHeight || el.scrollWidth > el.clientWidth };
+      }),
+    );
+    for (const segment of segments) expect(segment).toEqual({ whiteSpace: 'nowrap', overflows: false });
+  });
+
+  it('scrolls inside its container instead of making the container wider', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<div id="box" style="width: 240px"><dda-segmented-tabs items='${LONG_ITEMS}'></dda-segmented-tabs></div>`);
+
+    const size = await page.evaluate(() => {
+      const group = document.querySelector('dda-segmented-tabs .dda-segmented-group') as HTMLElement;
+      return { box: document.getElementById('box').scrollWidth, width: group.clientWidth, content: group.scrollWidth, overflowX: getComputedStyle(group).overflowX };
+    });
+    expect(size.box).toBe(240);
+    expect(size.width).toBeLessThanOrEqual(240);
+    expect(size.content).toBeGreaterThan(size.width);
+    expect(size.overflowX).toBe('auto');
+  });
+
+  it('draws the keyboard focus ring inside the segment, where the group cannot clip it', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-segmented-tabs items='${ITEMS}'></dda-segmented-tabs>`);
+
+    await page.keyboard.press('Tab');
+    const ring = await page.evaluate(() => {
+      const el = document.activeElement as HTMLElement;
+      const s = getComputedStyle(el);
+      return { tag: el.tagName, style: s.outlineStyle, width: parseFloat(s.outlineWidth), offset: parseFloat(s.outlineOffset) };
+    });
+    expect(ring.tag).toBe('BUTTON');
+    expect(ring.style).toBe('solid');
+    expect(ring.width).toBeGreaterThanOrEqual(2);
+    expect(ring.offset).toBeLessThanOrEqual(-ring.width);
+  });
+});
