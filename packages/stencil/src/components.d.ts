@@ -693,6 +693,34 @@ export namespace Components {
          */
         "close_sidebar_button_name": string;
         /**
+          * Label of the colour-blind contrast option. Default: `Colours Blind`.
+         */
+        "contrast_color_blind_text": string;
+        /**
+          * Text above the contrast options. Default: `Select your preferred contrast setting`.
+         */
+        "contrast_description": string;
+        /**
+          * Label of the green-weakness contrast option. Default: `Green Weakness`.
+         */
+        "contrast_green_weakness_text": string;
+        /**
+          * 3.x spelling of `contrast_normal_text`. `contrast_normal_text` wins when both are set.
+         */
+        "contrast_noraml_text": string;
+        /**
+          * Label of the normal contrast option. Default: `Normal`.
+         */
+        "contrast_normal_text": string;
+        /**
+          * Label of the red-weakness contrast option. Default: `Red Weakness`.
+         */
+        "contrast_red_weakness_text": string;
+        /**
+          * Heading of the contrast column in the accessibility panel. Default: `Contrast`. An empty value removes the heading.
+         */
+        "contrast_title": string;
+        /**
           * Alternative text for the first logo.
          */
         "firstLogoAlt": string;
@@ -757,6 +785,22 @@ export namespace Components {
          */
         "readSpeakerLink": string;
         /**
+          * 3.x name of `readSpeakerLink`, as an attribute: `read_speaker_link`. `readSpeakerLink` wins when both are set.
+         */
+        "read_speaker_link": string;
+        /**
+          * Text in the screen reader column. Default: `Listen to the content of the page by clicking play or listen`.
+         */
+        "screen_reader_description": string;
+        /**
+          * Accessible name of the ReadSpeaker play link. Default: `Listen to this page using ReadSpeaker`.
+         */
+        "screen_reader_link_label": string;
+        /**
+          * Heading of the screen reader column. Default: `Screen Reader`.
+         */
+        "screen_reader_title": string;
+        /**
           * Placeholder and accessible label of the search input. Default: `Search`.
          */
         "searchText": string;
@@ -790,9 +834,26 @@ export namespace Components {
          */
         "secondLogoWhiteSrc": string;
         /**
+          * The contrast option shown as selected. The header updates it when the user picks an option. Default: `normal`.
+          * @default 'normal'
+         */
+        "selected_contrast": 'normal' | 'colorblind' | 'redweakness' | 'greenweakness';
+        /**
+          * The text size button shown as selected (`default-primary`). The header updates it on each click. Default: none.
+         */
+        "selected_text_size": 'small' | 'normal' | 'large';
+        /**
           * Side menu items. JSON array of `{ label, href, subMenu }`; each `subMenu` item is `{ headerLabel, label, href, subMenu }` and can nest.
          */
         "sideMenuItems": string;
+        /**
+          * Text in the text size column. Default: `Use the buttons below to increase or decrease the text size`.
+         */
+        "text_size_description": string;
+        /**
+          * Heading of the text size column. Default: `Text Size`.
+         */
+        "text_size_title": string;
         /**
           * `name` attribute of the accessibility button in the desktop toolbar.
          */
@@ -3083,6 +3144,34 @@ declare namespace LocalJSX {
          */
         "close_sidebar_button_name"?: string;
         /**
+          * Label of the colour-blind contrast option. Default: `Colours Blind`.
+         */
+        "contrast_color_blind_text"?: string;
+        /**
+          * Text above the contrast options. Default: `Select your preferred contrast setting`.
+         */
+        "contrast_description"?: string;
+        /**
+          * Label of the green-weakness contrast option. Default: `Green Weakness`.
+         */
+        "contrast_green_weakness_text"?: string;
+        /**
+          * 3.x spelling of `contrast_normal_text`. `contrast_normal_text` wins when both are set.
+         */
+        "contrast_noraml_text"?: string;
+        /**
+          * Label of the normal contrast option. Default: `Normal`.
+         */
+        "contrast_normal_text"?: string;
+        /**
+          * Label of the red-weakness contrast option. Default: `Red Weakness`.
+         */
+        "contrast_red_weakness_text"?: string;
+        /**
+          * Heading of the contrast column in the accessibility panel. Default: `Contrast`. An empty value removes the heading.
+         */
+        "contrast_title"?: string;
+        /**
           * Alternative text for the first logo.
          */
         "firstLogoAlt"?: string;
@@ -3183,6 +3272,22 @@ declare namespace LocalJSX {
          */
         "readSpeakerLink"?: string;
         /**
+          * 3.x name of `readSpeakerLink`, as an attribute: `read_speaker_link`. `readSpeakerLink` wins when both are set.
+         */
+        "read_speaker_link"?: string;
+        /**
+          * Text in the screen reader column. Default: `Listen to the content of the page by clicking play or listen`.
+         */
+        "screen_reader_description"?: string;
+        /**
+          * Accessible name of the ReadSpeaker play link. Default: `Listen to this page using ReadSpeaker`.
+         */
+        "screen_reader_link_label"?: string;
+        /**
+          * Heading of the screen reader column. Default: `Screen Reader`.
+         */
+        "screen_reader_title"?: string;
+        /**
           * Placeholder and accessible label of the search input. Default: `Search`.
          */
         "searchText"?: string;
@@ -3216,9 +3321,26 @@ declare namespace LocalJSX {
          */
         "secondLogoWhiteSrc"?: string;
         /**
+          * The contrast option shown as selected. The header updates it when the user picks an option. Default: `normal`.
+          * @default 'normal'
+         */
+        "selected_contrast"?: 'normal' | 'colorblind' | 'redweakness' | 'greenweakness';
+        /**
+          * The text size button shown as selected (`default-primary`). The header updates it on each click. Default: none.
+         */
+        "selected_text_size"?: 'small' | 'normal' | 'large';
+        /**
           * Side menu items. JSON array of `{ label, href, subMenu }`; each `subMenu` item is `{ headerLabel, label, href, subMenu }` and can nest.
          */
         "sideMenuItems"?: string;
+        /**
+          * Text in the text size column. Default: `Use the buttons below to increase or decrease the text size`.
+         */
+        "text_size_description"?: string;
+        /**
+          * Heading of the text size column. Default: `Text Size`.
+         */
+        "text_size_title"?: string;
         /**
           * `name` attribute of the accessibility button in the desktop toolbar.
          */
@@ -4604,6 +4726,21 @@ declare namespace LocalJSX {
         "sideMenuItems": string;
         "quickLinks": string;
         "readSpeakerLink": string;
+        "read_speaker_link": string;
+        "contrast_title": string;
+        "contrast_description": string;
+        "contrast_normal_text": string;
+        "contrast_noraml_text": string;
+        "contrast_color_blind_text": string;
+        "contrast_red_weakness_text": string;
+        "contrast_green_weakness_text": string;
+        "screen_reader_title": string;
+        "screen_reader_description": string;
+        "screen_reader_link_label": string;
+        "text_size_title": string;
+        "text_size_description": string;
+        "selected_contrast": 'normal' | 'colorblind' | 'redweakness' | 'greenweakness';
+        "selected_text_size": 'small' | 'normal' | 'large';
         "searchText": string;
         "loginIcon": string;
         "loginText": string;

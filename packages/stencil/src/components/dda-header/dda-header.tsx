@@ -36,6 +36,36 @@ export class DdaHeader {
   @Prop() quickLinks: string;
   /** URL of the ReadSpeaker "listen" link in the accessibility panel. */
   @Prop() readSpeakerLink: string;
+  /** 3.x name of `readSpeakerLink`, as an attribute: `read_speaker_link`. `readSpeakerLink` wins when both are set. */
+  @Prop() read_speaker_link: string;
+  /** Heading of the contrast column in the accessibility panel. Default: `Contrast`. An empty value removes the heading. */
+  @Prop() contrast_title: string;
+  /** Text above the contrast options. Default: `Select your preferred contrast setting`. */
+  @Prop() contrast_description: string;
+  /** Label of the normal contrast option. Default: `Normal`. */
+  @Prop() contrast_normal_text: string;
+  /** 3.x spelling of `contrast_normal_text`. `contrast_normal_text` wins when both are set. */
+  @Prop() contrast_noraml_text: string;
+  /** Label of the colour-blind contrast option. Default: `Colours Blind`. */
+  @Prop() contrast_color_blind_text: string;
+  /** Label of the red-weakness contrast option. Default: `Red Weakness`. */
+  @Prop() contrast_red_weakness_text: string;
+  /** Label of the green-weakness contrast option. Default: `Green Weakness`. */
+  @Prop() contrast_green_weakness_text: string;
+  /** Heading of the screen reader column. Default: `Screen Reader`. */
+  @Prop() screen_reader_title: string;
+  /** Text in the screen reader column. Default: `Listen to the content of the page by clicking play or listen`. */
+  @Prop() screen_reader_description: string;
+  /** Accessible name of the ReadSpeaker play link. Default: `Listen to this page using ReadSpeaker`. */
+  @Prop() screen_reader_link_label: string;
+  /** Heading of the text size column. Default: `Text Size`. */
+  @Prop() text_size_title: string;
+  /** Text in the text size column. Default: `Use the buttons below to increase or decrease the text size`. */
+  @Prop() text_size_description: string;
+  /** The contrast option shown as selected. The header updates it when the user picks an option. Default: `normal`. */
+  @Prop({ mutable: true }) selected_contrast: 'normal' | 'colorblind' | 'redweakness' | 'greenweakness' = 'normal';
+  /** The text size button shown as selected (`default-primary`). The header updates it on each click. Default: none. */
+  @Prop({ mutable: true }) selected_text_size: 'small' | 'normal' | 'large';
   /** Placeholder and accessible label of the search input. Default: `Search`. */
   @Prop() searchText: string;
   /** Material Symbols icon name of the Login link in the desktop toolbar and the side menu. Default: `sentiment_satisfied`. */
@@ -314,25 +344,37 @@ export class DdaHeader {
   private languagehandler = () => {
     this.languageSwitch.emit();
   };
+  // Text-prop rule: an absent attribute uses the English default; an empty one means "show nothing".
+  private text(value: string | undefined, fallback: string): string {
+    return value === undefined || value === null ? fallback : value;
+  }
+
   private smTexthandler = () => {
+    this.selected_text_size = 'small';
     this.smTextSize.emit();
   };
   private baseTexthandler = () => {
+    this.selected_text_size = 'normal';
     this.baseTextSize.emit();
   };
   private lgTexthandler = () => {
+    this.selected_text_size = 'large';
     this.lgTextSize.emit();
   };
   private normalContrasthandler = () => {
+    this.selected_contrast = 'normal';
     this.normalContrast.emit();
   };
   private blindContrasthandler = () => {
+    this.selected_contrast = 'colorblind';
     this.blindContrast.emit();
   };
   private redContrasthandler = () => {
+    this.selected_contrast = 'redweakness';
     this.redContrast.emit();
   };
   private greenContrasthandler = () => {
+    this.selected_contrast = 'greenweakness';
     this.greenContrast.emit();
   };
 
@@ -369,6 +411,101 @@ export class DdaHeader {
       </div>
     );
   };
+
+  // The three columns of the accessibility panel. The desktop panel and the side-menu panel show
+  // the same content; only the radio group and ids differ, so both panels stay independent forms.
+  private renderAccessibilityColumns(variant: 'desktop' | 'mobile') {
+    const suffix = variant === 'mobile' ? 'Mobile' : '';
+    const group = variant === 'mobile' ? 'themeselectionmobile' : 'themeselection';
+    const contrastTitle = this.text(this.contrast_title, 'Contrast');
+    const contrastDescription = this.text(this.contrast_description, 'Select your preferred contrast setting');
+    const readSpeakerLink = this.readSpeakerLink || this.read_speaker_link;
+    const screenReaderTitle = this.text(this.screen_reader_title, 'Screen Reader');
+    const screenReaderDescription = this.text(this.screen_reader_description, 'Listen to the content of the page by clicking play or listen');
+    const textSizeTitle = this.text(this.text_size_title, 'Text Size');
+    const textSizeDescription = this.text(this.text_size_description, 'Use the buttons below to increase or decrease the text size');
+    const options = [
+      { value: 'normal', label: this.text(this.contrast_normal_text ?? this.contrast_noraml_text, 'Normal'), id: 'Normal', handler: this.normalContrasthandler },
+      { value: 'colorblind', label: this.text(this.contrast_color_blind_text, 'Colours Blind'), id: 'ColoursBlind', handler: this.blindContrasthandler },
+      { value: 'redweakness', label: this.text(this.contrast_red_weakness_text, 'Red Weakness'), id: 'RedWeakness', handler: this.redContrasthandler },
+      { value: 'greenweakness', label: this.text(this.contrast_green_weakness_text, 'Green Weakness'), id: 'GreenWeakness', handler: this.greenContrasthandler },
+    ];
+    const sizes = [
+      { value: 'normal', label: 'A', handler: this.baseTexthandler },
+      { value: 'large', label: 'A+', handler: this.lgTexthandler },
+      { value: 'small', label: 'A-', handler: this.smTexthandler },
+    ];
+    return (
+      <div class="dda-row">
+        <div class="dda-col-md-4 dda-accessibility-item">
+          {contrastTitle && <h2 class="dda-fs-body-lg dda-fw-700 mb-1">{contrastTitle}</h2>}
+          <form>
+            <fieldset class="dda-theme-list">
+              {contrastDescription && (
+                <legend>
+                  <p class="mb-3">{contrastDescription}</p>
+                </legend>
+              )}
+              {options.map(option =>
+                option.label ? (
+                  <dda-radiobutton
+                    title_text={option.label}
+                    checked={this.selected_contrast === option.value}
+                    size="sm"
+                    variants="normal"
+                    supporting=""
+                    group_name={group}
+                    input_id={`${option.id}${suffix}`}
+                    custom_class=""
+                    component_mode=""
+                    aria_label="radio-button"
+                    onClick={option.handler}
+                  ></dda-radiobutton>
+                ) : null,
+              )}
+            </fieldset>
+          </form>
+        </div>
+        {/* Without a ReadSpeaker URL the link has no target, so the item is not shown. */}
+        {readSpeakerLink && (
+          <div class="dda-col-md-4 dda-accessibility-item">
+            {screenReaderTitle && <h2 class="dda-fs-body-lg dda-fw-700 mb-1">{screenReaderTitle}</h2>}
+            {screenReaderDescription && <p class="mb-3">{screenReaderDescription}</p>}
+            <div class="rs_skip rsbtn rs_preserve" id={`readspeaker_button1${suffix}`}>
+              <a
+                href={readSpeakerLink}
+                rel="nofollow"
+                class="rsbtn_play circle readspeaker"
+                accessKey={variant === 'desktop' ? 'L' : undefined}
+                aria-label={this.text(this.screen_reader_link_label, 'Listen to this page using ReadSpeaker')}
+              >
+                <i class="material-icons  material-symbols-outlined" aria-hidden="true">
+                  volume_up
+                </i>
+              </a>
+            </div>
+          </div>
+        )}
+        <div class="dda-col-md-4 dda-accessibility-item">
+          {textSizeTitle && <h2 class="dda-fs-body-lg dda-fw-700 mb-1">{textSizeTitle}</h2>}
+          {textSizeDescription && <p class="mb-3">{textSizeDescription}</p>}
+          <div class="d-flex dda-gap-4 dda-text-size-buttons">
+            {sizes.map(size => (
+              <dda-button
+                button_color={this.selected_text_size === size.value ? 'default-primary' : 'default-secondary'}
+                icon_button_shape="circle"
+                custom_class=""
+                size="lg"
+                onClick={size.handler}
+              >
+                {size.label}
+              </dda-button>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   render() {
     const sideMenuItems = this.parseJsonArray(this.sideMenuItems);
@@ -476,95 +613,7 @@ export class DdaHeader {
 
 
                 <div class="dda-accessibility hide-accessibility mobile-accessibility" style={{ display: this.isAccessibiltyOpen ? 'block' : 'none' }}>
-                  <div class="dda-row">
-                    <div class="dda-col-md-4 dda-accessibility-item">
-                      <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Contrast</h2>
-                      <form>
-                        <fieldset class="dda-theme-list">
-                          <legend><p class="mb-3">Select your preferred contrast setting </p></legend>
-                          <dda-radiobutton
-                                title_text="Normal"
-                                checked={true}
-                                size="sm"
-                                variants="normal"
-                                supporting=""
-                                group_name="themeselectionmobile"
-                                input_id="NormalMobile"
-                                custom_class=""
-                                component_mode=""
-                                aria_label="radio-button"
-                                onClick={this.normalContrasthandler}
-                              ></dda-radiobutton>
-                              <dda-radiobutton
-                                title_text="Colours Blind"
-                                checked={false}
-                                size="sm"
-                                variants="normal"
-                                supporting=""
-                                group_name="themeselectionmobile"
-                                input_id="ColoursBlindMobile"
-                                custom_class=""
-                                component_mode=""
-                                aria_label="radio-button"
-                                onClick={this.blindContrasthandler}
-                              ></dda-radiobutton>
-                              <dda-radiobutton
-                                title_text="Red Weakness"
-                                checked={false}
-                                size="sm"
-                                variants="normal"
-                                supporting=""
-                                group_name="themeselectionmobile"
-                                input_id="RedWeaknessMobile"
-                                custom_class=""
-                                component_mode=""
-                                aria_label="radio-button"
-                                onClick={this.redContrasthandler}
-                              ></dda-radiobutton>
-                              <dda-radiobutton
-                                title_text="Green Weakness"
-                                checked={false}
-                                size="sm"
-                                variants="normal"
-                                supporting=""
-                                group_name="themeselectionmobile"
-                                input_id="GreenWeaknessMobile"
-                                custom_class=""
-                                component_mode=""
-                                aria_label="radio-button"
-                                onClick={this.greenContrasthandler}
-                              ></dda-radiobutton>
-                        </fieldset>
-                      </form>
-                    </div>
-                    {/* Without a ReadSpeaker URL the link has no target, so the item is not shown. */}
-                    {this.readSpeakerLink && (
-                    <div class="dda-col-md-4 dda-accessibility-item">
-                      <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Screen Reader</h2>
-                      <p class="mb-3">Listen to the content of the page by clicking play or listen</p>
-                      <div class="rs_skip rsbtn rs_preserve" id="readspeaker_button1">
-                        <a href={this.readSpeakerLink} rel="nofollow" class="rsbtn_play circle readspeaker" accessKey="L" aria-label="Listen to this page using ReadSpeaker">
-                          <i class="material-icons  material-symbols-outlined" aria-hidden="true">volume_up</i>
-                        </a>
-                      </div>
-                    </div>
-                    )}
-                    <div class="dda-col-md-4 dda-accessibility-item">
-                      <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Text Size</h2>
-                      <p class="mb-3">Use the buttons below to increase or decrease the text size</p>
-                      <div class="d-flex dda-gap-4">
-                        <dda-button button_color="default-secondary" icon_button_shape="circle" custom_class="" size="lg" onClick={this.baseTexthandler}>
-                          A
-                        </dda-button>
-                        <dda-button button_color="default-secondary" icon_button_shape="circle" custom_class="" size="lg" onClick={this.lgTexthandler}>
-                          A+
-                        </dda-button>
-                        <dda-button button_color="default-secondary" icon_button_shape="circle" custom_class="" size="lg" onClick={this.smTexthandler}>
-                          A-
-                        </dda-button>
-                      </div>
-                    </div>
-                  </div>
+                  {this.renderAccessibilityColumns('mobile')}
 
                 <button name={this.close_accessibility_button_name} class="close-btn close_accessibility" aria-label="Close Accessibility" onClick={this.toggleAccessibilty}>
                   <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
@@ -683,95 +732,7 @@ export class DdaHeader {
                   </dda-tooltip>
                   <div class="dda-accessibility-wrap">
                     <div class="dda-accessibility hide-accessibility" style={{ display: this.isAccessibiltyOpen ? 'block' : 'none' }}>
-                      <div class="dda-row">
-                        <div class="dda-col-md-4 dda-accessibility-item">
-                          <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Contrast</h2>
-                          <form>
-                            <fieldset class="dda-theme-list">
-                              <legend><p class="mb-3">Select your preferred contrast setting </p></legend>
-                              <dda-radiobutton
-                                title_text="Normal"
-                                checked={true}
-                                size="sm"
-                                variants="normal"
-                                supporting=""
-                                group_name="themeselection"
-                                input_id="Normal"
-                                custom_class=""
-                                component_mode=""
-                                aria_label="radio-button"
-                                onClick={this.normalContrasthandler}
-                              ></dda-radiobutton>
-                              <dda-radiobutton
-                                title_text="Colours Blind"
-                                checked={false}
-                                size="sm"
-                                variants="normal"
-                                supporting=""
-                                group_name="themeselection"
-                                input_id="ColoursBlind"
-                                custom_class=""
-                                component_mode=""
-                                aria_label="radio-button"
-                                onClick={this.blindContrasthandler}
-                              ></dda-radiobutton>
-                              <dda-radiobutton
-                                title_text="Red Weakness"
-                                checked={false}
-                                size="sm"
-                                variants="normal"
-                                supporting=""
-                                group_name="themeselection"
-                                input_id="RedWeakness"
-                                custom_class=""
-                                component_mode=""
-                                aria_label="radio-button"
-                                onClick={this.redContrasthandler}
-                              ></dda-radiobutton>
-                              <dda-radiobutton
-                                title_text="Green Weakness"
-                                checked={false}
-                                size="sm"
-                                variants="normal"
-                                supporting=""
-                                group_name="themeselection"
-                                input_id="GreenWeakness"
-                                custom_class=""
-                                component_mode=""
-                                aria_label="radio-button"
-                                onClick={this.greenContrasthandler}
-                              ></dda-radiobutton>
-                            </fieldset>
-                          </form>
-                        </div>
-                        {/* Without a ReadSpeaker URL the link has no target, so the item is not shown. */}
-                        {this.readSpeakerLink && (
-                        <div class="dda-col-md-4 dda-accessibility-item">
-                          <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Screen Reader</h2>
-                          <p class="mb-3">Listen to the content of the page by clicking play or listen</p>
-                          <div class="rs_skip rsbtn rs_preserve" id="readspeaker_button1">
-                            <a href={this.readSpeakerLink} rel="nofollow" class="rsbtn_play circle readspeaker" accessKey="L" aria-label="Listen to this page using ReadSpeaker">
-                              <i class="material-icons  material-symbols-outlined" aria-hidden="true">volume_up</i>
-                            </a>
-                          </div>
-                        </div>
-                        )}
-                        <div class="dda-col-md-4 dda-accessibility-item">
-                          <h2 class="dda-fs-body-lg dda-fw-700 mb-1">Text Size</h2>
-                          <p class="mb-3">Use the buttons below to increase or decrease the text size</p>
-                          <div class="d-flex dda-gap-4">
-                            <dda-button button_color="default-secondary" icon_button_shape="circle" custom_class="" size="lg" onClick={this.baseTexthandler}>
-                              A
-                            </dda-button>
-                            <dda-button button_color="default-secondary" icon_button_shape="circle" custom_class="" size="lg" onClick={this.lgTexthandler}>
-                              A+
-                            </dda-button>
-                            <dda-button button_color="default-secondary" icon_button_shape="circle" custom_class="" size="lg" onClick={this.smTexthandler}>
-                              A-
-                            </dda-button>
-                          </div>
-                        </div>
-                      </div>
+                      {this.renderAccessibilityColumns('desktop')}
 
                       <button name={this.close_accessibility_button_name} class="close-btn close_accessibility" aria-label="Close Sidebar" onClick={this.toggleAccessibilty}>
                         <i class="materinal-icons  material-symbols-outlined" aria-hidden="true">close</i>

@@ -19,4 +19,17 @@ describe('DoF 3.x markup on 5.3.0', () => {
     expect(await page.find('dda-header')).toHaveClass('hydrated');
     expect(await page.find('dda-sticky-footer')).toHaveClass('hydrated');
   });
+
+  it('shows the accessibility panel in Arabic, with the screen reader column', async () => {
+    const page = await newE2EPage();
+    await loadDof(page);
+    const headings = await page.$$eval('dda-header .dda-accessibility-wrap h2', els => els.map(e => e.textContent.trim()));
+    expect(headings).toEqual(['تباين الألوان', 'قارئ الشاشة', 'حجم النص']);
+    // getAttribute('title_text') is not usable here: dda-header creates these dda-radiobutton
+    // elements from an already-hydrated bundle, so Stencil sets title_text as a JS property, not
+    // a reflected attribute (confirmed independent of this task's change). The rendered label is
+    // the observable, user-facing behavior the DoF site depends on, so assert on that instead.
+    const radios = await page.$$eval('dda-header .dda-accessibility-wrap dda-radiobutton .radio-title', els => els.map(e => e.textContent.trim()));
+    expect(radios).toEqual(['الألوان العادية', 'عمى الألوان', 'ضعف أحمر', 'الضعف الأخضر']);
+  });
 });
