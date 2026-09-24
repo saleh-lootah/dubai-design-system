@@ -54,4 +54,13 @@ describe('DoF 3.x markup on 5.3.0', () => {
     const items = await page.$$eval('dda-header .dda-default-submenu.is-visible > ul > li', els => els.length);
     expect(items).toBe(12);
   });
+
+  it('shows the three DoF logos and the two text links with icons', async () => {
+    const page = await newE2EPage();
+    await loadDof(page);
+    const logos = await page.$$eval('dda-sticky-footer .dda-footer-middle img', els => els.map(e => e.getAttribute('src')));
+    expect(logos).toEqual(['/Style%20Library/img/digital-logo.svg', '/Style%20Library/img/dfsf-logo.svg', '/Style%20Library/img/dmpf-logo.svg']);
+    const icons = await page.$$eval('dda-sticky-footer .dda-footer-right .foot-icon-btn i', els => els.map(e => e.textContent.trim()));
+    expect(icons.slice(0, 2)).toEqual(['feed', 'call']);
+  });
 });

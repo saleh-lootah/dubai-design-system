@@ -543,6 +543,7 @@ export const DdaStickyFooter = /*@__PURE__*/ defineContainer<JSX.DdaStickyFooter
   'thirdLogoSrc',
   'thirdLogoAlt',
   'thirdLogoTooltip',
+  'middleLink',
   'locationButtonHref',
   'locationLogoSrc',
   'locationButtonText',
@@ -563,6 +564,7 @@ export const DdaStickyFooter = /*@__PURE__*/ defineContainer<JSX.DdaStickyFooter
   'chatIconTooltip',
   'chatIconId',
   'chatIconSrcDark',
+  'rightLink',
   'colorTheme',
   'aria_label',
   'hideMiddleSection'

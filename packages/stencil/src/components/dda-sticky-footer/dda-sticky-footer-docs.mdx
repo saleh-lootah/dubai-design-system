@@ -147,7 +147,14 @@ import { DdaStickyFooter } from '@dubai-design-system/components-vue';
 ## Behaviour
 
 - **Middle section.** The logos show when at least one of `first-logo-src`, `second-logo-src` or
-  `third-logo-src` is set. Set `hide-middle-section` to hide them anyway.
+  `third-logo-src` is set, or when `middle-link` is set. Set `hide-middle-section` to hide them
+  anyway.
+- **`middle-link` list (3.x).** A JSON array (or array property) of
+  `{ LogoTooltip, href, src, srcDark, alt }`. When set, it replaces `first-logo-*`,
+  `second-logo-*` and `third-logo-*`, and shows any number of logos.
+- **`right-link` list (3.x).** A JSON array (or array property) of
+  `{ RightLinkTooltip, href, title, itemId, IconFamily, IconName, LinkText }`. When set, it
+  replaces the location and news links with text links: a Material icon plus visible text.
 - **Items render only when set.** Each icon renders only when its image (or, for services, its
   text) is set. An icon with no image and no text does not render.
 - **Dark images.** Set `color-theme="dark"` to use each `*-icon-src-dark` image instead of its

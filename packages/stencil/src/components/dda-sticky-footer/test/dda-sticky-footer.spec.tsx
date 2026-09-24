@@ -73,4 +73,53 @@ describe('dda-sticky-footer', () => {
       expect(srcs).toContain('ai.svg');
     });
   });
+
+  describe('3.x JSON lists', () => {
+    const middle = JSON.stringify([
+      { LogoTooltip: 'One', href: '/1', src: '1.svg', alt: 'One logo' },
+      { LogoTooltip: 'Two', href: '/2', src: '2.svg', srcDark: '2d.svg', alt: 'Two logo' },
+      { LogoTooltip: 'Three', href: '/3', src: '3.svg', alt: 'Three logo' },
+      { LogoTooltip: 'Four', href: '/4', src: '4.svg', alt: 'Four logo' },
+    ]);
+    const right = JSON.stringify([
+      { RightLinkTooltip: 'News', href: '/news', LinkText: 'Newsroom', IconFamily: 'material-icons', IconName: 'feed', itemId: 'news-link' },
+      { RightLinkTooltip: 'Contact', href: '/contact', LinkText: 'Contact us', IconFamily: 'material-icons', IconName: 'call' },
+    ]);
+
+    it('renders any number of middle logos, replacing the fixed logo props', async () => {
+      const page = await render(`<dda-sticky-footer first-logo-src="fixed.svg" middle-link='${middle}'></dda-sticky-footer>`);
+      const imgs = Array.from(page.root.querySelectorAll('.dda-footer-middle img')) as HTMLImageElement[];
+      expect(imgs.map(i => i.getAttribute('src'))).toEqual(['1.svg', '2.svg', '3.svg', '4.svg']);
+      expect(imgs[0].getAttribute('alt')).toBe('One logo');
+    });
+
+    it('renders right links with a Material icon and text, replacing location and news', async () => {
+      const page = await render(`<dda-sticky-footer location-logo-src="loc.svg" right-link='${right}'></dda-sticky-footer>`);
+      const links = Array.from(page.root.querySelectorAll('.dda-footer-right a')) as HTMLAnchorElement[];
+      expect(links).toHaveLength(2);
+      expect(links[0].getAttribute('id')).toBe('news-link');
+      expect(links[0].querySelector('i').textContent).toBe('feed');
+      expect(links[0].querySelector('i').getAttribute('aria-hidden')).toBe('true');
+      expect(links[0].querySelector('span').textContent).toBe('Newsroom');
+      expect(links[0].getAttribute('aria-label')).toBeNull();
+      expect(page.root.querySelector('img[src="loc.svg"]')).toBeNull();
+    });
+
+    it('accepts both lists as array properties', async () => {
+      const page = await render(`<dda-sticky-footer></dda-sticky-footer>`);
+      page.root.middleLink = JSON.parse(middle);
+      page.root.rightLink = JSON.parse(right);
+      await page.waitForChanges();
+      expect(page.root.querySelectorAll('.dda-footer-middle li')).toHaveLength(4);
+      expect(page.root.querySelectorAll('.dda-footer-right li')).toHaveLength(2);
+    });
+
+    it('ignores invalid JSON and keeps the fixed props', async () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+      const page = await render(`<dda-sticky-footer first-logo-src="fixed.svg" middle-link='[{'></dda-sticky-footer>`);
+      expect(page.root.querySelector('.dda-footer-middle img').getAttribute('src')).toBe('fixed.svg');
+      expect(warn).toHaveBeenCalledTimes(1);
+      warn.mockRestore();
+    });
+  });
 });

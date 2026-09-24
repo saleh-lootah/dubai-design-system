@@ -1,4 +1,24 @@
 import { Component, Element, Prop, h, State } from '@stencil/core';
+import { parseJsonProp } from '../../utils/parse-json-prop';
+
+export interface MiddleLinkItem {
+  LogoTooltip?: string;
+  href?: string;
+  src?: string;
+  srcDark?: string;
+  alt?: string;
+}
+
+export interface RightLinkItem {
+  RightLinkTooltip?: string;
+  href?: string;
+  title?: string;
+  itemId?: string;
+  IconFamily?: string;
+  IconName?: string;
+  LinkText?: string;
+  ariaLabel?: string;
+}
 
 @Component({
   tag: 'dda-sticky-footer',
@@ -77,6 +97,9 @@ export class DdaStickyFooter {
   /** Tooltip text of the third logo. */
   @Prop() thirdLogoTooltip: string;
 
+  /** Middle logos as a list (3.x). JSON array, or array property, of `{ LogoTooltip, href, src, srcDark, alt }`. When set, it replaces the first, second and third logo props. */
+  @Prop() middleLink: string | MiddleLinkItem[];
+
   // Right section
   /** Link URL of the location icon (right section). */
   @Prop() locationButtonHref: string;
@@ -121,6 +144,9 @@ export class DdaStickyFooter {
   @Prop() chatIconId: string;
   /** Chat image for `color-theme="dark"`. */
   @Prop() chatIconSrcDark: string;
+
+  /** Right-side text links as a list (3.x). JSON array, or array property, of `{ RightLinkTooltip, href, title, itemId, IconFamily, IconName, LinkText }`. When set, it replaces the location and news links. */
+  @Prop() rightLink: string | RightLinkItem[];
 
   /** `dark` uses the `*-src-dark` images; an image without a dark version keeps its light image. Default: `light`. */
   @Prop() colorTheme: 'light' | 'dark' = 'light';
@@ -187,11 +213,17 @@ export class DdaStickyFooter {
   }
 
   render() {
-    const middleLogos = [
-      { href: this.firstLogoHref, src: this.firstLogoSrc, alt: this.firstLogoAlt, tooltip: this.firstLogoTooltip },
-      { href: this.secondLogoHref, src: this.secondLogoSrc, alt: this.secondLogoAlt, tooltip: this.secondLogoTooltip },
-      { href: this.thirdLogoHref, src: this.thirdLogoSrc, alt: this.thirdLogoAlt, tooltip: this.thirdLogoTooltip },
-    ].filter(logo => logo.src);
+    const middleItems = parseJsonProp<MiddleLinkItem>(this.middleLink, 'middle-link');
+    const middleLogos = (
+      middleItems.length > 0
+        ? middleItems.map(item => ({ href: item.href, src: this.img(item.src, item.srcDark), alt: item.alt, tooltip: item.LogoTooltip }))
+        : [
+            { href: this.firstLogoHref, src: this.firstLogoSrc, alt: this.firstLogoAlt, tooltip: this.firstLogoTooltip },
+            { href: this.secondLogoHref, src: this.secondLogoSrc, alt: this.secondLogoAlt, tooltip: this.secondLogoTooltip },
+            { href: this.thirdLogoHref, src: this.thirdLogoSrc, alt: this.thirdLogoAlt, tooltip: this.thirdLogoTooltip },
+          ]
+    ).filter(logo => logo.src);
+    const rightItems = parseJsonProp<RightLinkItem>(this.rightLink, 'right-link');
 
     return (
       // An <aside>, not a <footer>: the page footer (dda-footer) is the only contentinfo landmark.
@@ -252,20 +284,37 @@ export class DdaStickyFooter {
           {/* Right Section */}
           <div class="dda-footer-item dda-footer-right">
             <ul>
-              {(this.locationLogoSrc || this.locationButtonIcon) && (
-                <li class="foot-icon-btn">
-                  <dda-tooltip title_text={this.locationButtonText} description="" position="top">
-                    <a href={this.locationButtonHref}>{this.renderLinkGraphic(this.locationLogoSrc, this.locationButtonIcon, this.locationButtonText)}</a>
-                  </dda-tooltip>
-                </li>
-              )}
-              {(this.newsButtonSrc || this.newsButtonIcon) && (
-                <li class="foot-icon-btn">
-                  <dda-tooltip title_text={this.newsButtonText} description="" position="top">
-                    <a href={this.newsButtonHref}>{this.renderLinkGraphic(this.newsButtonSrc, this.newsButtonIcon, this.newsButtonText)}</a>
-                  </dda-tooltip>
-                </li>
-              )}
+              {rightItems.length > 0
+                ? rightItems.map(item => (
+                    <li class="foot-icon-btn">
+                      <dda-tooltip title_text={item.RightLinkTooltip || item.LinkText} description="" position="top">
+                        <a href={item.href} id={item.itemId} title={item.title}>
+                          {item.IconName && (
+                            <i class={item.IconFamily || 'material-icons'} aria-hidden="true">
+                              {item.IconName}
+                            </i>
+                          )}
+                          <span>{item.LinkText}</span>
+                        </a>
+                      </dda-tooltip>
+                    </li>
+                  ))
+                : [
+                    (this.locationLogoSrc || this.locationButtonIcon) && (
+                      <li class="foot-icon-btn">
+                        <dda-tooltip title_text={this.locationButtonText} description="" position="top">
+                          <a href={this.locationButtonHref}>{this.renderLinkGraphic(this.locationLogoSrc, this.locationButtonIcon, this.locationButtonText)}</a>
+                        </dda-tooltip>
+                      </li>
+                    ),
+                    (this.newsButtonSrc || this.newsButtonIcon) && (
+                      <li class="foot-icon-btn">
+                        <dda-tooltip title_text={this.newsButtonText} description="" position="top">
+                          <a href={this.newsButtonHref}>{this.renderLinkGraphic(this.newsButtonSrc, this.newsButtonIcon, this.newsButtonText)}</a>
+                        </dda-tooltip>
+                      </li>
+                    ),
+                  ]}
               {this.aiIconSrc && (
                 <li class="foot-icon-btn">
                   <dda-tooltip title_text={this.aiIconTooltip} description="" position="top">

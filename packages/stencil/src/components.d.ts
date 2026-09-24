@@ -6,7 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
+import { MiddleLinkItem, RightLinkItem } from "./components/dda-sticky-footer/dda-sticky-footer";
 export { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
+export { MiddleLinkItem, RightLinkItem } from "./components/dda-sticky-footer/dda-sticky-footer";
 export namespace Components {
     interface DdaAccordion {
         /**
@@ -1831,6 +1833,10 @@ export namespace Components {
          */
         "locationLogoSrc": string;
         /**
+          * Middle logos as a list (3.x). JSON array, or array property, of `{ LogoTooltip, href, src, srcDark, alt }`. When set, it replaces the first, second and third logo props.
+         */
+        "middleLink": string | MiddleLinkItem[];
+        /**
           * Link URL of the news icon (right section).
          */
         "newsButtonHref": string;
@@ -1846,6 +1852,10 @@ export namespace Components {
           * Tooltip text and alternative text of the news icon.
          */
         "newsButtonText": string;
+        /**
+          * Right-side text links as a list (3.x). JSON array, or array property, of `{ RightLinkTooltip, href, title, itemId, IconFamily, IconName, LinkText }`. When set, it replaces the location and news links.
+         */
+        "rightLink": string | RightLinkItem[];
         /**
           * Alternative text for the second logo.
          */
@@ -4452,6 +4462,10 @@ declare namespace LocalJSX {
          */
         "locationLogoSrc"?: string;
         /**
+          * Middle logos as a list (3.x). JSON array, or array property, of `{ LogoTooltip, href, src, srcDark, alt }`. When set, it replaces the first, second and third logo props.
+         */
+        "middleLink"?: string | MiddleLinkItem[];
+        /**
           * Link URL of the news icon (right section).
          */
         "newsButtonHref"?: string;
@@ -4467,6 +4481,10 @@ declare namespace LocalJSX {
           * Tooltip text and alternative text of the news icon.
          */
         "newsButtonText"?: string;
+        /**
+          * Right-side text links as a list (3.x). JSON array, or array property, of `{ RightLinkTooltip, href, title, itemId, IconFamily, IconName, LinkText }`. When set, it replaces the location and news links.
+         */
+        "rightLink"?: string | RightLinkItem[];
         /**
           * Alternative text for the second logo.
          */
@@ -5237,6 +5255,7 @@ declare namespace LocalJSX {
         "thirdLogoSrc": string;
         "thirdLogoAlt": string;
         "thirdLogoTooltip": string;
+        "middleLink": string | MiddleLinkItem[];
         "locationButtonHref": string;
         "locationLogoSrc": string;
         "locationButtonText": string;
@@ -5257,6 +5276,7 @@ declare namespace LocalJSX {
         "chatIconTooltip": string;
         "chatIconId": string;
         "chatIconSrcDark": string;
+        "rightLink": string | RightLinkItem[];
         "colorTheme": 'light' | 'dark';
         "aria_label": string;
         "hideMiddleSection": boolean;
