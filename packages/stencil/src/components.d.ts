@@ -6,9 +6,11 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
+import { QuickLinkItem } from "./components/dda-header/dda-header";
 import { BannerCardItem } from "./components/dda-home-carousel/dda-home-carousel";
 import { MiddleLinkItem, RightLinkItem } from "./components/dda-sticky-footer/dda-sticky-footer";
 export { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
+export { QuickLinkItem } from "./components/dda-header/dda-header";
 export { BannerCardItem } from "./components/dda-home-carousel/dda-home-carousel";
 export { MiddleLinkItem, RightLinkItem } from "./components/dda-sticky-footer/dda-sticky-footer";
 export namespace Components {
@@ -873,9 +875,9 @@ export namespace Components {
          */
         "otherMenuItems": string | Array<{ label: string; href: string; active?: string }>;
         /**
-          * Main navigation links. JSON array of `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu.
+          * Main navigation links: a JSON array (HTML attribute) or an array (JavaScript property). 5.x items are `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu. 3.x items (`{ type, headerMenuLabel, url, children, ... }`) also work.
          */
-        "quickLinks": string;
+        "quickLinks": string | QuickLinkItem[];
         /**
           * URL of the ReadSpeaker "listen" link in the accessibility panel.
          */
@@ -3632,9 +3634,9 @@ declare namespace LocalJSX {
          */
         "otherMenuItems"?: string | Array<{ label: string; href: string; active?: string }>;
         /**
-          * Main navigation links. JSON array of `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu.
+          * Main navigation links: a JSON array (HTML attribute) or an array (JavaScript property). 5.x items are `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu. 3.x items (`{ type, headerMenuLabel, url, children, ... }`) also work.
          */
-        "quickLinks"?: string;
+        "quickLinks"?: string | QuickLinkItem[];
         /**
           * URL of the ReadSpeaker "listen" link in the accessibility panel.
          */
@@ -5256,7 +5258,7 @@ declare namespace LocalJSX {
         "hideOtherMenu": boolean;
         "mobileMenuSearchId": string;
         "mobileMenuSearchUrl": string;
-        "quickLinks": string;
+        "quickLinks": string | QuickLinkItem[];
         "readSpeakerLink": string;
         "read_speaker_link": string;
         "contrast_title": string;

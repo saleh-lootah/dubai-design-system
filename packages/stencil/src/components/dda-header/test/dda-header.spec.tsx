@@ -319,6 +319,20 @@ describe('dda-header', () => {
     });
   });
   describe('top menu', () => {
+    it('accepts quickLinks set as an array property, in the 5.x and the 3.x shape', async () => {
+      const page = await render(`<dda-header></dda-header>`);
+      // Typed as the framework wrappers see it: quickLinks must accept an array, not only a string.
+      const header = page.root as HTMLDdaHeaderElement;
+      header.quickLinks = [
+        { label: 'Home', href: '/' },
+        { label: 'Services', href: '#', menuLabel: 'Services', subMenu: [{ title: 'Licence', description: 'Renew', icon: 'badge', href: '/licence' }] },
+        { type: 'dda_default_submenu', headerMenuLabel: 'About', url: '#', children: [{ headerMenuLabel: 'Strategy', url: '/strategy', children: [] }] },
+      ];
+      await page.waitForChanges();
+      const labels = Array.from(page.root.querySelectorAll('.dda-mega-menu > li > a')).map((a: HTMLElement) => a.textContent.trim());
+      expect(labels).toEqual(['Home', 'Services', 'About']);
+    });
+
     it('points each top-level toggle at the panel it opens with aria-controls', async () => {
       const links = JSON.stringify([
         { label: 'Home', href: '/', subMenu: [] },

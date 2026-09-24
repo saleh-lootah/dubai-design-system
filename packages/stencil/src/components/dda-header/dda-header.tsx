@@ -2,6 +2,30 @@ import { Component, Element, h, Prop, State, Event, EventEmitter, Watch } from '
 import { parseJsonProp } from '../../utils/parse-json-prop';
 import { normalizeQuickLinks, NavItem } from './nav-model';
 
+/** A `quickLinks` item. Every field is optional; the header accepts two shapes.
+ *  5.x: `{ label, href, menuLabel, subMenu }`, with `subMenu` items `{ title, description, icon, href }`.
+ *  3.x: `{ type, headerMenuLabel, url, active, headerMenuId, defaultSubMenuTitle, children }`; a
+ *  `dda_main_megamenu` item has column children `{ title, items }`. */
+export interface QuickLinkItem {
+  // 5.x shape
+  label?: string;
+  href?: string;
+  menuLabel?: string;
+  subMenu?: Array<{ title?: string; description?: string; icon?: string; href?: string }>;
+  // 3.x shape
+  type?: string;
+  headerMenuLabel?: string;
+  url?: string;
+  active?: boolean | string;
+  headerMenuId?: string;
+  defaultSubMenuTitle?: string;
+  children?: QuickLinkItem[];
+  quickLinksIcon?: string;
+  description?: string;
+  title?: string;
+  items?: QuickLinkItem[];
+}
+
 // Gives each header its own search input ids, so several headers on a page do not clash.
 let headerInstanceCount = 0;
 
@@ -46,8 +70,8 @@ export class DdaHeader {
   @Prop() mobileMenuSearchId: string;
   /** 3.x mobile search: when set, the mobile search is a plain link to this URL (with `mobileMenuSearchId` as its id) and the header's own search panel is not rendered. */
   @Prop() mobileMenuSearchUrl: string;
-  /** Main navigation links. JSON array of `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu. */
-  @Prop() quickLinks: string;
+  /** Main navigation links: a JSON array (HTML attribute) or an array (JavaScript property). 5.x items are `{ label, href, menuLabel, subMenu }`; `subMenu` items are `{ title, description, icon, href }` and open a mega menu. 3.x items (`{ type, headerMenuLabel, url, children, ... }`) also work. */
+  @Prop() quickLinks: string | QuickLinkItem[];
   /** URL of the ReadSpeaker "listen" link in the accessibility panel. */
   @Prop() readSpeakerLink: string;
   /** 3.x name of `readSpeakerLink`, as an attribute: `read_speaker_link`. `readSpeakerLink` wins when both are set. */
