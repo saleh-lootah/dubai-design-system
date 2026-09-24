@@ -325,14 +325,14 @@ export class DdaHeader {
 
   handleOutsideMegaMenuClick = (event: MouseEvent) => {
     if (this.activeMenuIndex !== null) {
-      // A click inside the open mega menu or the open 3.x dropdown submenu is not an "outside"
-      // click: the dropdown's second- and third-level links do not carry the .showSub class that
-      // the top-level toggle uses, so without this they would be (wrongly) treated as outside.
-      const openMenu = document.querySelector('.megamenu-content') || document.querySelector('.dda-default-submenu.is-visible');
-      const isClickInsideMegaMenu = openMenu && openMenu.contains(event.target as Node);
-      const isClickOnToggleLink = (event.target as Element).closest('.showSub');
+      // A click anywhere inside the top-level menu is not an "outside" click: the mega-menu
+      // content and the 3.x dropdown's second/third levels both render inside their <li>, which
+      // is inside .dda-mega-menu, so this covers every open level without naming a specific one
+      // (naming ".megamenu-content" alone, for example, always matches when any mega item exists,
+      // open or not, and would never let the 3.x dropdown branch be reached).
+      const isClickInsideMenu = (event.target as Element).closest('.dda-mega-menu');
 
-      if (!isClickInsideMegaMenu && !isClickOnToggleLink) {
+      if (!isClickInsideMenu) {
         this.activeMenuIndex = null;
         this.activeSubIndex = null;
       }
@@ -657,9 +657,7 @@ export class DdaHeader {
                     <li key={linkIndex}>
                       <a class="megamenu-link" href={link.href}>
                         <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default">
-                          <i class="material-icons material-symbols-outlined" aria-hidden="true">
-                            {link.icon || 'sentiment_satisfied'}
-                          </i>
+                          <i class="material-icons material-symbols-outlined" aria-hidden="true">{link.icon}</i>
                         </span>
                         <span class="text-wrap">
                           <span class="title-text dda-fs-body-lg dda-fw-700">{link.label}</span>

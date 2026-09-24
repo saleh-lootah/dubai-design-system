@@ -64,4 +64,23 @@ describe('normalizeQuickLinks', () => {
     expect(normalizeQuickLinks(undefined)).toEqual([]);
     warn.mockRestore();
   });
+
+  it('skips a non-object item in the array instead of throwing', () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const items = normalizeQuickLinks([{ headerMenuLabel: 'Home', children: [] }, null, 5]);
+    expect(items).toHaveLength(1);
+    expect(items[0]).toMatchObject({ label: 'Home' });
+    expect(warn).toHaveBeenCalled();
+    warn.mockRestore();
+  });
+
+  it('defaults the icon to sentiment_satisfied for a 3.x mega link, but not for a 5.x subMenu link', () => {
+    const [mega] = normalizeQuickLinks([
+      { type: 'dda_main_megamenu', headerMenuLabel: 'Services', url: '#', children: [{ title: 'Pay', items: [{ headerMenuLabel: 'Fines', url: '/fines' }] }] },
+    ]);
+    expect(mega.columns[0].links[0].icon).toBe('sentiment_satisfied');
+
+    const [modern] = normalizeQuickLinks([{ label: 'Services', href: '#', menuLabel: 'All services', subMenu: [{ title: 'Pay fines', href: '/fines' }] }]);
+    expect(modern.columns[0].links[0].icon).toBeUndefined();
+  });
 });

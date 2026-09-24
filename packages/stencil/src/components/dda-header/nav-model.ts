@@ -31,8 +31,21 @@ type RawEntry = Record<string, unknown>;
 
 const clean = (value: unknown): string => (typeof value === 'string' ? value.trim() : '');
 const optional = (value: unknown): string | undefined => clean(value) || undefined;
-const asArray = (value: unknown): RawEntry[] => (Array.isArray(value) ? (value as RawEntry[]) : []);
-const isLegacy = (raw: RawEntry): boolean => Boolean(raw) && (raw.headerMenuLabel !== undefined || raw.type !== undefined);
+const isPlainObject = (value: unknown): value is RawEntry => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+
+// An array field (children, mega-menu columns/items, 5.x subMenu) may contain a bad entry (null, a
+// number, ...) even when the field itself is a valid array. Each bad entry is skipped, with one
+// warning, rather than reaching a raw.<prop> access on a non-object and throwing.
+const asArray = (value: unknown): RawEntry[] => {
+  if (!Array.isArray(value)) return [];
+  return value.filter(item => {
+    if (isPlainObject(item)) return true;
+    console.warn('quick-links: an item is not an object; it is ignored.');
+    return false;
+  });
+};
+
+const isLegacy = (raw: RawEntry): boolean => raw.headerMenuLabel !== undefined || raw.type !== undefined;
 
 function legacyItem(raw: RawEntry): NavItem {
   const children = asArray(raw.children);
@@ -59,7 +72,10 @@ function legacyItem(raw: RawEntry): NavItem {
           label: clean(link.headerMenuLabel),
           href: clean(link.url) || '#',
           description: optional(link.description),
-          icon: optional(link.quickLinksIcon),
+          // 3.x always showed an icon in the mega menu, defaulting to 'sentiment_satisfied' when
+          // none was set; the 5.x subMenu shape never had a default, so this fallback stays scoped
+          // to the 3.x mapping (see modernItem below, which leaves icon undefined).
+          icon: optional(link.quickLinksIcon) ?? 'sentiment_satisfied',
           active: false,
         })),
       })),
@@ -85,5 +101,5 @@ function modernItem(raw: RawEntry): NavItem {
 }
 
 export function normalizeQuickLinks(value: unknown): NavItem[] {
-  return parseJsonProp<RawEntry>(value, 'quick-links').map(raw => (isLegacy(raw) ? legacyItem(raw) : modernItem(raw)));
+  return asArray(parseJsonProp<unknown>(value, 'quick-links')).map(raw => (isLegacy(raw) ? legacyItem(raw) : modernItem(raw)));
 }

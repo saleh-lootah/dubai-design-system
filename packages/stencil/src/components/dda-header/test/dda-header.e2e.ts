@@ -601,4 +601,37 @@ describe('dda-header 3.x dropdown menus', () => {
     await page.waitForChanges();
     expect((await (await page.find('.dda-default-submenu')).getComputedStyle()).display).toBe('none');
   });
+
+  // Regression: renderMega renders a .megamenu-content element for every mega item, open or not,
+  // so an outside-click check that looks for ".megamenu-content" first always finds one whenever a
+  // mega item exists anywhere in quick-links, and never falls through to check the 3.x dropdown at
+  // all. With that bug, clicking the dropdown's own second-level link is wrongly treated as a click
+  // outside every menu and closes the dropdown before the fly-out can show.
+  it('keeps an open 3.x dropdown open (including a second-level click) when a mega menu item also exists', async () => {
+    const mixedLinks = JSON.stringify([
+      {
+        type: 'dda_default_submenu',
+        headerMenuLabel: 'About',
+        url: '#',
+        children: [{ type: 'dda_default_submenu', headerMenuLabel: 'Policies', url: '#', children: [{ headerMenuLabel: 'Quality', url: '/quality', children: [] }] }],
+      },
+      { type: 'dda_main_megamenu', headerMenuLabel: 'Services', url: '#', children: [{ title: 'Pay', items: [{ headerMenuLabel: 'Fines', url: '/fines' }] }] },
+    ]);
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1440, height: 900 });
+    await page.setContent(`<dda-header quick-links='${mixedLinks}'></dda-header>`);
+    await page.waitForChanges();
+
+    await (await page.find('.dda-mega-menu > li:nth-child(1) > a')).click();
+    await page.waitForChanges();
+    await (await page.find('.dda-default-submenu a.has-submenu')).click();
+    await page.waitForChanges();
+    expect((await (await page.find('.dda-default-submenu')).getComputedStyle()).display).toBe('block');
+    expect((await (await page.find('.dda-default-subsubmenu')).getComputedStyle()).display).toBe('block');
+
+    // A real outside click, far below the header, still closes it.
+    await page.mouse.click(700, 850);
+    await page.waitForChanges();
+    expect((await (await page.find('.dda-default-submenu')).getComputedStyle()).display).toBe('none');
+  });
 });
