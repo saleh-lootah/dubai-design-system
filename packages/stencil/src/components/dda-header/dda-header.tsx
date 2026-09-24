@@ -1,5 +1,6 @@
 import { Component, Element, h, Prop, State, Event, EventEmitter, Watch } from '@stencil/core';
 import { parseJsonProp } from '../../utils/parse-json-prop';
+import { normalizeQuickLinks, NavItem } from './nav-model';
 
 // Gives each header its own search input ids, so several headers on a page do not clash.
 let headerInstanceCount = 0;
@@ -173,6 +174,7 @@ export class DdaHeader {
 
   @State() openMenus: { [index: string]: boolean } = {};
   @State() activeMenuIndex: number | null = null;
+  @State() activeSubIndex: number | null = null;
 
   toggleSidebarSubMenu(index: string) {
     if (index === '') {
@@ -214,6 +216,7 @@ export class DdaHeader {
       this.isSubMenuOpen = false;
       this.isSideSubMenuOpen = false;
       this.activeMenuIndex = null;
+      this.activeSubIndex = null;
     }
   }
 
@@ -322,12 +325,16 @@ export class DdaHeader {
 
   handleOutsideMegaMenuClick = (event: MouseEvent) => {
     if (this.activeMenuIndex !== null) {
-      const megaMenu = document.querySelector('.megamenu-content');
-      const isClickInsideMegaMenu = megaMenu && megaMenu.contains(event.target as Node);
+      // A click inside the open mega menu or the open 3.x dropdown submenu is not an "outside"
+      // click: the dropdown's second- and third-level links do not carry the .showSub class that
+      // the top-level toggle uses, so without this they would be (wrongly) treated as outside.
+      const openMenu = document.querySelector('.megamenu-content') || document.querySelector('.dda-default-submenu.is-visible');
+      const isClickInsideMegaMenu = openMenu && openMenu.contains(event.target as Node);
       const isClickOnToggleLink = (event.target as Element).closest('.showSub');
-  
+
       if (!isClickInsideMegaMenu && !isClickOnToggleLink) {
         this.activeMenuIndex = null;
+        this.activeSubIndex = null;
       }
     }
   };
@@ -371,9 +378,9 @@ export class DdaHeader {
     this.isMenuOpen = !this.isMenuOpen;
   };
   private toggleSubMenu = (index: number, event?: MouseEvent) => {
-    // this.isSubMenuOpen = !this.isSubMenuOpen;
     if (event) event.preventDefault();
     this.activeMenuIndex = this.activeMenuIndex === index ? null : index;
+    this.activeSubIndex = null;
   };
   private toggleAccessibilty = () => {
     if (this.usePredesignedAccessibilityMenu) {
@@ -587,13 +594,98 @@ export class DdaHeader {
     );
   }
 
+  private renderDropdown(item: NavItem, index: number) {
+    const id = `${this.searchId}-submenu-${index}`;
+    return (
+      <div id={id} class={{ 'dda-default-submenu': true, 'is-visible': this.activeMenuIndex === index }}>
+        <ul>
+          {item.children.map((child, subIndex) => {
+            const hasSub = child.kind === 'dropdown';
+            const subId = `${id}-${subIndex}`;
+            const isOpen = this.activeSubIndex === subIndex;
+            return (
+              <li key={subIndex}>
+                <a
+                  id={child.id}
+                  href={hasSub ? '#' : child.href}
+                  class={{ 'has-submenu': hasSub, active: isOpen || child.active }}
+                  aria-expanded={hasSub ? String(isOpen) : undefined}
+                  aria-controls={hasSub ? subId : undefined}
+                  aria-current={child.active && !hasSub ? 'page' : undefined}
+                  onClick={(event: MouseEvent) => {
+                    if (!hasSub) return;
+                    event.preventDefault();
+                    this.activeSubIndex = isOpen ? null : subIndex;
+                  }}
+                >
+                  {child.label}
+                </a>
+                {hasSub && (
+                  <div id={subId} class={{ 'dda-default-subsubmenu': true, 'is-visible': isOpen }}>
+                    <div class="dda-default-subsubmenu-content">
+                      <span class="dda-submenu-title">{child.submenuTitle || child.label}</span>
+                      <ul>
+                        {child.children.map((leaf, leafIndex) => (
+                          <li key={leafIndex}>
+                            <a id={leaf.id} href={leaf.href} aria-current={leaf.active ? 'page' : undefined}>
+                              {leaf.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+
+  private renderMega(item: NavItem, index: number) {
+    return (
+      <div class={`megamenu-content ${this.activeMenuIndex === index ? 'showSubMenu' : ''}`} style={{ display: this.activeMenuIndex === index ? 'block' : 'none' }}>
+        <div class="megamenu-item dda-container">
+          <div class="dda-row">
+            {item.columns.map((column, columnIndex) => (
+              <div class="dda-col-md-3" key={columnIndex}>
+                {column.title && <h3 class="mega-menu-title">{column.title}</h3>}
+                <ul>
+                  {column.links.map((link, linkIndex) => (
+                    <li key={linkIndex}>
+                      <a class="megamenu-link" href={link.href}>
+                        <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default">
+                          <i class="material-icons material-symbols-outlined" aria-hidden="true">
+                            {link.icon || 'sentiment_satisfied'}
+                          </i>
+                        </span>
+                        <span class="text-wrap">
+                          <span class="title-text dda-fs-body-lg dda-fw-700">{link.label}</span>
+                          {link.description && <span class="dda-fs-tagline-lg dda-fw-400">{link.description}</span>}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <button name="close-mega-menu" class="close-btn close_mega-menu" aria-label="Close Sidebar" onClick={() => (this.activeMenuIndex = null)}>
+            <i class="material-icons material-symbols-outlined" aria-hidden="true">
+              close
+            </i>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const sideMenuItems = this.parseJsonArray(this.sideMenuItems);
-    const quickLinks = this.parseJsonArray(this.quickLinks);
+    const quickLinks = normalizeQuickLinks(this.quickLinks);
     const otherMenuItems = parseJsonProp<{ label: string; href: string; active?: string }>(this.otherMenuItems, 'other-menu-items');
-    const setActiveMenuIndex = (index: number | null) => {
-      this.activeMenuIndex = index;
-    };
 
     // The transparent style is opt-in at page level (<body class="transparent">);
     // CSS shows the white or colored logo to match.
@@ -719,55 +811,25 @@ export class DdaHeader {
               {/* Mega Menu */}
               <div>
                 <ul class="dda-mega-menu">
-                  {quickLinks.map((link, index) => (
-                  <li key={index}>
-                    <a 
-                      href={link.subMenu && link.subMenu.length > 0 ? '#' : link.href} 
-                      onClick={link.subMenu && link.subMenu.length > 0 ? (e) => this.toggleSubMenu(index, e) : undefined}
-                      class={link.subMenu && link.subMenu.length > 0 ? `showSub ${this.activeMenuIndex === index ? 'icon_arrow' : ''}` : ''}
-                    >
-                      {link.label}
-                    </a>
-                    {/* Conditionally render submenu */}
-                    {link.subMenu && link.subMenu.length > 0 && (
-                      <div 
-                        class={`megamenu-content ${this.activeMenuIndex === index ? 'showSubMenu' : ''}`} 
-                        style={{ display: this.activeMenuIndex === index ? 'block' : 'none' }}
-                      >
-                        <div class="megamenu-item dda-container">
-                          <div class="dda-row">
-                            <div class="dda-col-md-3">
-                              <h3 class="mega-menu-title">{link.menuLabel}</h3>
-                              <ul>
-                                {link.subMenu.map((subItem, subIndex) => (
-                                  <li key={subIndex}>
-                                    <a class="megamenu-link" href={subItem.href}>
-                                      <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default">
-                                        <i class="material-icons material-symbols-outlined" aria-hidden="true">{subItem.icon}</i>
-                                      </span>
-                                      <span class="text-wrap">
-                                        <span class="title-text dda-fs-body-lg dda-fw-700">{subItem.title}</span>
-                                        <span class="dda-fs-tagline-lg dda-fw-400">{subItem.description}</span>
-                                      </span>
-                                    </a>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
-                          <button 
-                            name="close-mega-menu" 
-                            class="close-btn close_mega-menu" 
-                            aria-label="Close Sidebar" 
-                            onClick={() => setActiveMenuIndex(null)}
-                          >
-                            <i class="material-icons material-symbols-outlined" aria-hidden="true">close</i>
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </li>
-                  ))}
+                  {quickLinks.map((link, index) => {
+                    const hasSub = link.kind !== 'link';
+                    const isOpen = this.activeMenuIndex === index;
+                    return (
+                      <li key={index}>
+                        <a
+                          href={hasSub ? '#' : link.href}
+                          onClick={hasSub ? (e: MouseEvent) => this.toggleSubMenu(index, e) : undefined}
+                          class={{ showSub: hasSub, icon_arrow: hasSub && isOpen, active: link.active }}
+                          aria-expanded={hasSub ? String(isOpen) : undefined}
+                          aria-current={link.active && !hasSub ? 'page' : undefined}
+                        >
+                          {link.label}
+                        </a>
+                        {link.kind === 'dropdown' && this.renderDropdown(link, index)}
+                        {link.kind === 'mega' && this.renderMega(link, index)}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>

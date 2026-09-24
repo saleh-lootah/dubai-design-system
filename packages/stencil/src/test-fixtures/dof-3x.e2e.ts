@@ -42,4 +42,16 @@ describe('DoF 3.x markup on 5.3.0', () => {
     const icon = await page.$eval('dda-header .dda-toolbar-menu .accessibility-btn i', e => e.textContent.trim());
     expect(icon).toBe('accessible_forward');
   });
+
+  it('shows the 3.x top menu with labels and dropdowns', async () => {
+    const page = await newE2EPage();
+    await loadDof(page);
+    const labels = await page.$$eval('dda-header .dda-mega-menu > li > a', els => els.map(e => e.textContent.trim()));
+    expect(labels).toHaveLength(7);
+    expect(labels.every(label => label.length > 0)).toBe(true);
+    await (await page.find('dda-header .dda-mega-menu > li:nth-child(2) > a')).click();
+    await page.waitForChanges();
+    const items = await page.$$eval('dda-header .dda-default-submenu.is-visible > ul > li', els => els.length);
+    expect(items).toBe(12);
+  });
 });

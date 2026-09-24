@@ -1054,3 +1054,99 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
         display: none;
     }
 }
+
+/* 3.x dropdown submenus (quick-links items with "type": "dda_default_submenu"). */
+.dda-mega-menu > li {
+  position: relative;
+}
+.dda-default-submenu {
+  display: none;
+  min-width: 350px;
+  position: absolute;
+  top: 100%;
+  inset-inline-start: 0;
+  padding-top: 5px;
+  z-index: 5;
+}
+.dda-default-submenu.is-visible {
+  display: block;
+}
+.dda-default-submenu > ul {
+  width: 100%;
+  max-width: 350px;
+  max-height: 325px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+  background-color: var(--dda-surface-100);
+  border-radius: 5px;
+  box-shadow: 0 6px 7px 0 rgba(0, 0, 0, 0.13);
+}
+.dda-default-submenu li {
+  list-style: none;
+  position: relative;
+  margin-bottom: 1px;
+}
+.dda-default-submenu a {
+  position: relative;
+  display: block;
+  padding: 10px 7px;
+  padding-inline-end: 24px;
+  border-radius: 8px;
+  font-size: var(--dda-fs-body-lg);
+  font-weight: var(--dda-fw-400);
+  color: var(--dda-on-surface-0);
+}
+.dda-default-submenu li:hover > a,
+.dda-default-submenu a.active {
+  background-color: var(--dda-on-primary-98);
+  color: var(--dda-on-primary-variant-40);
+}
+.dda-default-submenu a:focus-visible {
+  outline: 2px solid var(--dda-color-primary-40);
+  outline-offset: 0;
+}
+.dda-default-submenu a.has-submenu::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: solid 1px var(--dda-color-primary-40);
+  border-bottom: solid 1px var(--dda-color-primary-40);
+  position: absolute;
+  top: 50%;
+  inset-inline-end: 9px;
+  margin-top: -4.5px;
+  transform: rotate(-45deg);
+}
+[dir='rtl'] .dda-default-submenu a.has-submenu::after {
+  transform: rotate(135deg);
+}
+.dda-default-subsubmenu {
+  display: none;
+  width: 300px;
+  position: absolute;
+  top: 0;
+  inset-inline-start: 100%;
+  padding-inline-start: 15px;
+}
+.dda-default-subsubmenu.is-visible {
+  display: block;
+}
+.dda-default-subsubmenu-content {
+  padding: 10px;
+  background-color: var(--dda-surface-100);
+  border-radius: 5px;
+  box-shadow: 0 6px 7px 0 rgba(0, 0, 0, 0.13);
+}
+.dda-default-subsubmenu-content ul {
+  margin: 0;
+  padding: 0;
+}
+.dda-submenu-title {
+  display: block;
+  padding: 5px 8px 10px;
+  margin-bottom: 5px;
+  border-bottom: solid 1px var(--dda-surface-variant-80);
+  font-weight: var(--dda-fw-700);
+}

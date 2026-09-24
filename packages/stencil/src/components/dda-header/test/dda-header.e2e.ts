@@ -540,3 +540,65 @@ describe('dda-header transparent style on scroll', () => {
     expect(await headerBackground(page)).toBe('rgba(0, 0, 0, 0)');
   });
 });
+
+describe('dda-header 3.x dropdown menus', () => {
+  const links = JSON.stringify([
+    { type: 'dda_default_submenu', headerMenuLabel: 'Home', url: '/', children: [] },
+    {
+      type: 'dda_default_submenu',
+      headerMenuLabel: 'About',
+      url: '#',
+      children: [
+        { type: 'dda_default_submenu', headerMenuLabel: 'Strategy', url: '/strategy', children: [] },
+        { type: 'dda_default_submenu', headerMenuLabel: 'Policies', url: '#', children: [{ headerMenuLabel: 'Quality', url: '/quality', children: [] }] },
+      ],
+    },
+  ]);
+  const open = async (dir: 'ltr' | 'rtl') => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1440, height: 900 });
+    await page.setContent(`<div dir="${dir}"><dda-header quick-links='${links}'></dda-header></div>`);
+    await page.waitForChanges();
+    return page;
+  };
+
+  it('shows the labels and opens the dropdown on click', async () => {
+    const page = await open('ltr');
+    const labels = await page.$$eval('.dda-mega-menu > li > a', els => els.map(e => e.textContent.trim()));
+    expect(labels).toEqual(['Home', 'About']);
+    const about = await page.find('.dda-mega-menu > li:nth-child(2) > a');
+    expect(await about.getAttribute('aria-expanded')).toBe('false');
+    await about.click();
+    await page.waitForChanges();
+    expect(await about.getAttribute('aria-expanded')).toBe('true');
+    const menu = await page.find('.dda-default-submenu');
+    expect((await menu.getComputedStyle()).display).toBe('block');
+    const items = await page.$$eval('.dda-default-submenu > ul > li > a', els => els.map(e => e.textContent.trim()));
+    expect(items).toEqual(['Strategy', 'Policies']);
+  });
+
+  it('opens the third level toward the inline end, mirrored in RTL', async () => {
+    for (const dir of ['ltr', 'rtl'] as const) {
+      const page = await open(dir);
+      await (await page.find('.dda-mega-menu > li:nth-child(2) > a')).click();
+      await page.waitForChanges();
+      await (await page.find('.dda-default-submenu a.has-submenu')).click();
+      await page.waitForChanges();
+      const side = await page.evaluate(() => {
+        const parent = document.querySelector('.dda-default-submenu > ul').getBoundingClientRect();
+        const sub = document.querySelector('.dda-default-subsubmenu').getBoundingClientRect();
+        return sub.left >= parent.right - 1 ? 'right' : sub.right <= parent.left + 1 ? 'left' : 'overlap';
+      });
+      expect(side).toBe(dir === 'ltr' ? 'right' : 'left');
+    }
+  });
+
+  it('closes the dropdown on Escape', async () => {
+    const page = await open('ltr');
+    await (await page.find('.dda-mega-menu > li:nth-child(2) > a')).click();
+    await page.waitForChanges();
+    await page.keyboard.press('Escape');
+    await page.waitForChanges();
+    expect((await (await page.find('.dda-default-submenu')).getComputedStyle()).display).toBe('none');
+  });
+});
