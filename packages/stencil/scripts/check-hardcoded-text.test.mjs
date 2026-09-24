@@ -29,3 +29,21 @@ test('ignores icon ligatures, prop values and whitespace', () => {
 test('ignores non-text attributes', () => {
   assert.deepEqual(findHardcodedText(tsx('<a class="btn" href="/x" rel="nofollow"></a>'), 'x.tsx'), []);
 });
+
+test('treats any <i> element as an icon ligature, whatever its class', () => {
+  const found = findHardcodedText(tsx('<i class={`${this.icon} x`}>sentiment_satisfied</i>'), 'x.tsx');
+  assert.deepEqual(found, []);
+});
+
+test('ignores icon ligatures whose class is a braced string literal', () => {
+  const found = findHardcodedText(tsx("<span class={'material-icons'}>close</span>"), 'x.tsx');
+  assert.deepEqual(found, []);
+});
+
+test('counts text on a non-<i> element with a dynamic, non-icon class', () => {
+  const found = findHardcodedText(tsx('<span class={this.cls}>Hello</span>'), 'x.tsx');
+  assert.deepEqual(
+    found.map(f => [f.kind, f.text]),
+    [['text', 'Hello']],
+  );
+});

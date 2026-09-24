@@ -10,12 +10,21 @@ const ICON_CLASS = /material-(icons|symbols)/;
 
 function attribute(opening, name) {
   const attr = opening.attributes.properties.find(p => ts.isJsxAttribute(p) && p.name.getText() === name);
-  return attr && attr.initializer && ts.isStringLiteral(attr.initializer) ? attr.initializer.text : undefined;
+  if (!attr || !attr.initializer) return undefined;
+  let init = attr.initializer;
+  if (ts.isJsxExpression(init) && init.expression) init = init.expression;
+  if (ts.isStringLiteral(init) || ts.isNoSubstitutionTemplateLiteral(init)) return init.text;
+  return undefined;
 }
 
 function isIconElement(node) {
   const opening = ts.isJsxElement(node) ? node.openingElement : undefined;
-  return !!opening && ICON_CLASS.test(attribute(opening, 'class') || '');
+  if (!opening) return false;
+  // This codebase's icon convention is always `<i class="material-icons …">` (see CLAUDE.md),
+  // so any <i> is an icon ligature regardless of how its class is written (dynamic, templated,
+  // etc.) — the class check below only catches icons that happen to sit on some other tag.
+  if (opening.tagName.getText() === 'i') return true;
+  return ICON_CLASS.test(attribute(opening, 'class') || '');
 }
 
 export function findHardcodedText(source, fileName) {
