@@ -604,7 +604,7 @@ export class DdaHeader {
 
               {/* Hamburger Menu */}
               <div class="hamburger-menu" onClick={this.toggleMenu}>
-                <dda-tooltip title_text={this.menu_button_label} position="top" class="d-block">
+                <dda-tooltip title_text={this.tooltip(this.menu_button_label, 'Menu')} position="top" class="d-block">
                   <button type="button" class="hamburger-menu-btn" name={this.hamburger_menu_button_name}>
                     <span class="hamburger-line"></span>
                     <span class="hamburger-menu-text">{this.menu_button_label}</span>

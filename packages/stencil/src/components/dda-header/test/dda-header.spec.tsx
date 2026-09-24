@@ -201,6 +201,11 @@ describe('dda-header', () => {
       expect(tooltip(page, '.dda-toolbar-menu form.dda-search')).toBe('Search');
     });
 
+    it('falls back to the default hamburger tooltip when menu_button_label is empty', async () => {
+      const page = await render(`<dda-header menu_button_label=""></dda-header>`);
+      expect(tooltip(page, '.hamburger-menu-btn')).toBe('Menu');
+    });
+
     it('removes Login and the language button when their text is empty, as 3.x did', async () => {
       const page = await render(`<dda-header login-text="" language_text=""></dda-header>`);
       expect(page.root.querySelector('dda-link-button')).toBeNull();
