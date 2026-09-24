@@ -200,6 +200,29 @@ jobs:
 
           ratchet "API ghost attributes" "$GHOSTS" "$API_GHOST_ATTRIBUTES_BASELINE"
 
+      # Not ratcheted: this is a correctness test of the checker script
+      # itself, not a fault count from the component sources. It must pass
+      # outright.
+      - name: Test the hardcoded-text checker itself
+        working-directory: packages/stencil
+        run: npm run check:text:test
+
+      - name: Hardcoded text
+        working-directory: packages/stencil
+        run: |
+          source "$GITHUB_WORKSPACE/.github/scripts/ratchet.sh"
+          source "$GITHUB_WORKSPACE/.github/quality-baseline.env"
+
+          OUT=$(npm run check:text 2>&1 || true)
+          echo "$OUT"
+
+          COUNT=$(echo "$OUT" | grep -oE 'FAIL: [0-9]+ hardcoded strings' | grep -oE '[0-9]+' || true)
+          if [ -z "$COUNT" ] && echo "$OUT" | grep -q 'OK: no hardcoded strings'; then
+            COUNT=0
+          fi
+
+          ratchet "Hardcoded text" "$COUNT" "$HARDCODED_TEXT_BASELINE"
+
   accessibility:
     runs-on: ubuntu-latest
     # Without this a hung `npm ci` sits until the 6-hour Actions ceiling.
