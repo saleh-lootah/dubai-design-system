@@ -1,6 +1,12 @@
 import { Component, Element, Prop, State, h, Host, Event, EventEmitter, Listen } from '@stencil/core';
 import { uniqueId } from '../../utils/unique-id';
 
+/** One option. 5.x string options are read as `{ id: text, text }`. */
+export interface SelectOption {
+  id: string | number;
+  text: string;
+}
+
 @Component({
   tag: 'dda-select',
   styleUrls: ['../../global/input.css', '../../global/global.css',],
@@ -9,10 +15,9 @@ import { uniqueId } from '../../utils/unique-id';
 export class Ddaselect {
   /** Label shown above the field. The trigger button is named by the label and its current text. */
   @Prop() label: string;
-  /** Options as a JSON array string, e.g. `'["Dubai","Abu Dhabi","Sharjah"]'`. Invalid JSON shows "No options available". */
-  @Prop() options: string;
-    // @Prop() options: { title: string }[];
-  /** The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option. Mutable: the component assigns it. */
+  /** Options: a JSON array, or an array property, of strings (`["Dubai","Sharjah"]`) or 3.x `{ id, text }` objects (`[{"id":1,"text":"Dubai"}]`). Other entries are ignored. Invalid JSON shows "No options available". */
+  @Prop() options: string | Array<string | SelectOption>;
+  /** The selected option: its id, or its text. For string options the id is the text. Updated to the picked option's id (as a string) when the user picks one. Mutable: the component assigns it. */
   @Prop({ mutable: true }) selected: string;
   /** Disables the select: the list does not open and options cannot be picked. */
   @Prop() disabled: boolean = false;
@@ -38,8 +43,20 @@ export class Ddaselect {
   @Prop() toggle_button_name: string;
   /** `name` of each option button in the list. */
   @Prop() option_select_button_name: string;
-  /** Emitted when the user picks an option other than the selected one, by mouse or keyboard. `detail.value` is the new option. */
-  @Event() selectionChange: EventEmitter<{ value: string }>;
+  /** Text in the trigger when nothing is selected. Default: `Select an option`. */
+  @Prop() placeholder: string;
+  /** `name` sent in `selectBlurred`. Falls back to `button_id`. */
+  @Prop() input_name: string;
+  /** 3.x name of `aria_label`. `aria_label` wins when both are set. */
+  @Prop() main_aria_label: string;
+  /** 3.x name of `error` (the validation state class). `error` wins when both are set. */
+  @Prop() validation_type: string;
+  /** Emitted when the user picks an option other than the selected one, by mouse or keyboard. `detail.value` is the new `selected` value (the option id as a string); `detail.id` and `detail.text` are the option. */
+  @Event() selectionChange: EventEmitter<{ value: string; id: string | number; text: string }>;
+  /** 3.x event: emitted with the picked option (`{ id, text }`) each time the user picks one. */
+  @Event() selectChanged: EventEmitter<SelectOption>;
+  /** 3.x event: emitted when the trigger loses focus, with `{ name, value }` — `input_name` (or `button_id`) and the selected text. */
+  @Event() selectBlurred: EventEmitter<{ name: string; value: string }>;
 
   @Element() el: HTMLElement;
 
@@ -81,12 +98,42 @@ export class Ddaselect {
     return ids.length ? ids.join(' ') : undefined;
   }
 
-  private get parsedOptions(): string[] {
-    try {
-      return JSON.parse(this.options);
-    } catch {
-      return [];
+  private get parsedOptions(): SelectOption[] {
+    let raw: unknown = this.options;
+    if (typeof raw === 'string') {
+      try {
+        raw = JSON.parse(raw);
+      } catch {
+        return [];
+      }
     }
+    if (!Array.isArray(raw)) return [];
+    return raw
+      .map(entry => {
+        if (typeof entry === 'string') return { id: entry, text: entry };
+        if (entry && typeof entry === 'object' && typeof (entry as SelectOption).text === 'string') {
+          const option = entry as SelectOption;
+          return { id: option.id ?? option.text, text: option.text };
+        }
+        return null;
+      })
+      .filter((option): option is SelectOption => option !== null);
+  }
+
+  // 3.x matched `selected` against the id (as a string) or the text. An id match wins over a
+  // text match, so two options with the same text but different ids stay apart.
+  private findSelected(options: SelectOption[]): SelectOption | undefined {
+    if (this.selected === undefined || this.selected === null) return undefined;
+    const value = String(this.selected);
+    return options.find(option => String(option.id) === value) ?? options.find(option => option.text === value);
+  }
+
+  private get selectedOption(): SelectOption | undefined {
+    return this.findSelected(this.parsedOptions);
+  }
+
+  private get triggerLabel(): string | undefined {
+    return this.aria_label || this.main_aria_label || undefined;
   }
 
   private focusOption(index: number) {
@@ -105,8 +152,9 @@ export class Ddaselect {
 
   private initialOptionIndex(): number {
     const options = this.parsedOptions;
-    const selectedIndex = options.indexOf(this.selected);
-    return selectedIndex >= 0 ? selectedIndex : 0;
+    const selected = this.findSelected(options);
+    const index = selected ? options.indexOf(selected) : -1;
+    return index >= 0 ? index : 0;
   }
 
   toggleSelect() {
@@ -139,16 +187,22 @@ export class Ddaselect {
     this.toggleSelect();
   }
 
-  selectOption(option: string) {
+  selectOption(option: SelectOption) {
     if (!this.disabled) {
-      const changed = this.selected !== option;
-      this.selected = option;
+      const value = String(option.id);
+      const changed = this.selected !== value;
+      this.selected = value;
       this.closeAndReturnFocus();
+      this.selectChanged.emit({ id: option.id, text: option.text });
       if (changed) {
-        this.selectionChange.emit({ value: option });
+        this.selectionChange.emit({ value, id: option.id, text: option.text });
       }
     }
   }
+
+  private onTriggerBlur = () => {
+    this.selectBlurred.emit({ name: this.input_name || this.button_id, value: this.selectedOption?.text || '' });
+  };
 
   private onTriggerKeyDown = (event: KeyboardEvent) => {
     if (this.disabled) {
@@ -170,7 +224,7 @@ export class Ddaselect {
     }
   };
 
-  private onOptionKeyDown = (event: KeyboardEvent, option: string) => {
+  private onOptionKeyDown = (event: KeyboardEvent, option: SelectOption) => {
     const currentIndex = this.currentFocusedOptionIndex();
     switch (event.key) {
       case 'ArrowDown':
@@ -218,16 +272,19 @@ export class Ddaselect {
 
   render() {
     const id = this.triggerId;
+    const options = this.parsedOptions;
+    const current = this.findSelected(options);
+    const validation = this.error || this.validation_type;
 
     return (
       <Host>
-        <div class={`dda-input-container ${this.custom_class} ${this.component_mode} ${this.disabled ? 'dda-input-disabled' : ''} ${this.is_open ? 'show' : 'hide'} dda-input-size-${this.size} dda-validation-${this.error} `}>
+        <div class={`dda-input-container ${this.custom_class} ${this.component_mode} ${this.disabled ? 'dda-input-disabled' : ''} ${this.is_open ? 'show' : 'hide'} dda-input-size-${this.size} dda-validation-${validation} `}>
           {this.label && <label id={this.labelId} class="dda-input-label">{this.label}</label>}
           <div class="dda-dropdown-container">
             <button
               name={this.toggle_button_name}
-              aria-label={this.aria_label}
-              aria-labelledby={this.label && !this.aria_label ? `${this.labelId} ${id}` : undefined}
+              aria-label={this.triggerLabel}
+              aria-labelledby={this.label && !this.triggerLabel ? `${this.labelId} ${id}` : undefined}
               id={id}
               type="button"
               class="dda-input-field dda-select-header"
@@ -238,25 +295,30 @@ export class Ddaselect {
               aria-invalid={this.error_message ? 'true' : undefined}
               onClick={() => {this.toggleSelect()}}
               onKeyDown={this.onTriggerKeyDown}
+              onBlur={this.onTriggerBlur}
             >
-              {this.selected || 'Select an option'}
+              {current ? current.text : (this.placeholder ?? 'Select an option')}
               <i class={`material-icons`} aria-hidden="true">{this.is_open ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
             </button>
             {this.is_open && (
-              <div id={this.listboxId} role="listbox" aria-label={this.aria_label || this.label} class="dda-input-dropdown-list dda-select-list">
-                {this.parsedOptions.length > 0 ? (
-                  this.parsedOptions.map((option, index) => (
-                    <button name={this.option_select_button_name} type="button"
-                      role="option"
-                      aria-selected={this.selected === option ? 'true' : 'false'}
-                      tabIndex={index === this.initialOptionIndex() ? 0 : -1}
-                      class={`dda-input-dropdown-item ${this.selected === option ? 'selected' : ''}`}
-                      onClick={() => this.selectOption(option)}
-                      onKeyDown={(event) => this.onOptionKeyDown(event, option)}
-                    >
-                      {option}
-                    </button>
-                  ))
+              <div id={this.listboxId} role="listbox" aria-label={this.triggerLabel || this.label} class="dda-input-dropdown-list dda-select-list">
+                {options.length > 0 ? (
+                  options.map((option, index) => {
+                    const isCurrent = current !== undefined && String(current.id) === String(option.id);
+                    return (
+                      <button name={this.option_select_button_name} type="button"
+                        role="option"
+                        aria-selected={isCurrent ? 'true' : 'false'}
+                        tabIndex={index === this.initialOptionIndex() ? 0 : -1}
+                        class={`dda-input-dropdown-item ${isCurrent ? 'selected' : ''}`}
+                        onClick={() => this.selectOption(option)}
+                        onKeyDown={(event) => this.onOptionKeyDown(event, option)}
+                        key={String(option.id)}
+                      >
+                        {option.text}
+                      </button>
+                    );
+                  })
                 ) : (
                   <div class="dda-input-dropdown-item">No options available</div>
                 )}

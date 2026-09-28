@@ -8,10 +8,12 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
 import { QuickLinkItem } from "./components/dda-header/dda-header";
 import { BannerCardItem } from "./components/dda-home-carousel/dda-home-carousel";
+import { SelectOption } from "./components/dda-select/dda-select";
 import { MiddleLinkItem, RightLinkItem } from "./components/dda-sticky-footer/dda-sticky-footer";
 export { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
 export { QuickLinkItem } from "./components/dda-header/dda-header";
 export { BannerCardItem } from "./components/dda-home-carousel/dda-home-carousel";
+export { SelectOption } from "./components/dda-select/dda-select";
 export { MiddleLinkItem, RightLinkItem } from "./components/dda-sticky-footer/dda-sticky-footer";
 export namespace Components {
     interface DdaAccordion {
@@ -1761,19 +1763,31 @@ export namespace Components {
          */
         "helper_text": string;
         /**
+          * `name` sent in `selectBlurred`. Falls back to `button_id`.
+         */
+        "input_name": string;
+        /**
           * Label shown above the field. The trigger button is named by the label and its current text.
          */
         "label": string;
+        /**
+          * 3.x name of `aria_label`. `aria_label` wins when both are set.
+         */
+        "main_aria_label": string;
         /**
           * `name` of each option button in the list.
          */
         "option_select_button_name": string;
         /**
-          * Options as a JSON array string, e.g. `'["Dubai","Abu Dhabi","Sharjah"]'`. Invalid JSON shows "No options available".
+          * Options: a JSON array, or an array property, of strings (`["Dubai","Sharjah"]`) or 3.x `{ id, text }` objects (`[{"id":1,"text":"Dubai"}]`). Other entries are ignored. Invalid JSON shows "No options available".
          */
-        "options": string;
+        "options": string | Array<string | SelectOption>;
         /**
-          * The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option. Mutable: the component assigns it.
+          * Text in the trigger when nothing is selected. Default: `Select an option`.
+         */
+        "placeholder": string;
+        /**
+          * The selected option: its id, or its text. For string options the id is the text. Updated to the picked option's id (as a string) when the user picks one. Mutable: the component assigns it.
          */
         "selected": string;
         /**
@@ -1784,6 +1798,10 @@ export namespace Components {
           * `name` of the trigger button.
          */
         "toggle_button_name": string;
+        /**
+          * 3.x name of `error` (the validation state class). `error` wins when both are set.
+         */
+        "validation_type": string;
     }
     interface DdaStickyFooter {
         /**
@@ -2616,7 +2634,9 @@ declare global {
         new (): HTMLDdaSegmentedTabsElement;
     };
     interface HTMLDdaSelectElementEventMap {
-        "selectionChange": { value: string };
+        "selectionChange": { value: string; id: string | number; text: string };
+        "selectChanged": SelectOption;
+        "selectBlurred": { name: string; value: string };
     }
     interface HTMLDdaSelectElement extends Components.DdaSelect, HTMLStencilElement {
         addEventListener<K extends keyof HTMLDdaSelectElementEventMap>(type: K, listener: (this: HTMLDdaSelectElement, ev: DdaSelectCustomEvent<HTMLDdaSelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -4560,23 +4580,43 @@ declare namespace LocalJSX {
          */
         "helper_text"?: string;
         /**
+          * `name` sent in `selectBlurred`. Falls back to `button_id`.
+         */
+        "input_name"?: string;
+        /**
           * Label shown above the field. The trigger button is named by the label and its current text.
          */
         "label"?: string;
         /**
-          * Emitted when the user picks an option other than the selected one, by mouse or keyboard. `detail.value` is the new option.
+          * 3.x name of `aria_label`. `aria_label` wins when both are set.
          */
-        "onSelectionChange"?: (event: DdaSelectCustomEvent<{ value: string }>) => void;
+        "main_aria_label"?: string;
+        /**
+          * 3.x event: emitted when the trigger loses focus, with `{ name, value }` — `input_name` (or `button_id`) and the selected text.
+         */
+        "onSelectBlurred"?: (event: DdaSelectCustomEvent<{ name: string; value: string }>) => void;
+        /**
+          * 3.x event: emitted with the picked option (`{ id, text }`) each time the user picks one.
+         */
+        "onSelectChanged"?: (event: DdaSelectCustomEvent<SelectOption>) => void;
+        /**
+          * Emitted when the user picks an option other than the selected one, by mouse or keyboard. `detail.value` is the new `selected` value (the option id as a string); `detail.id` and `detail.text` are the option.
+         */
+        "onSelectionChange"?: (event: DdaSelectCustomEvent<{ value: string; id: string | number; text: string }>) => void;
         /**
           * `name` of each option button in the list.
          */
         "option_select_button_name"?: string;
         /**
-          * Options as a JSON array string, e.g. `'["Dubai","Abu Dhabi","Sharjah"]'`. Invalid JSON shows "No options available".
+          * Options: a JSON array, or an array property, of strings (`["Dubai","Sharjah"]`) or 3.x `{ id, text }` objects (`[{"id":1,"text":"Dubai"}]`). Other entries are ignored. Invalid JSON shows "No options available".
          */
-        "options"?: string;
+        "options"?: string | Array<string | SelectOption>;
         /**
-          * The selected option. Must match an entry in `options`. The trigger shows "Select an option" when it is empty. Updated when the user picks an option. Mutable: the component assigns it.
+          * Text in the trigger when nothing is selected. Default: `Select an option`.
+         */
+        "placeholder"?: string;
+        /**
+          * The selected option: its id, or its text. For string options the id is the text. Updated to the picked option's id (as a string) when the user picks one. Mutable: the component assigns it.
          */
         "selected"?: string;
         /**
@@ -4587,6 +4627,10 @@ declare namespace LocalJSX {
           * `name` of the trigger button.
          */
         "toggle_button_name"?: string;
+        /**
+          * 3.x name of `error` (the validation state class). `error` wins when both are set.
+         */
+        "validation_type"?: string;
     }
     interface DdaStickyFooter {
         /**
@@ -5547,7 +5591,7 @@ declare namespace LocalJSX {
     }
     interface DdaSelectAttributes {
         "label": string;
-        "options": string;
+        "options": string | Array<string | SelectOption>;
         "selected": string;
         "disabled": boolean;
         "error": string;
@@ -5560,6 +5604,10 @@ declare namespace LocalJSX {
         "button_id": string;
         "toggle_button_name": string;
         "option_select_button_name": string;
+        "placeholder": string;
+        "input_name": string;
+        "main_aria_label": string;
+        "validation_type": string;
     }
     interface DdaStickyFooterAttributes {
         "happinessIconHref": string;

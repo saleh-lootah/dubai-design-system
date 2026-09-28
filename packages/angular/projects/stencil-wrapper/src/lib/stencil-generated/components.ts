@@ -741,30 +741,40 @@ export declare interface DdaSegmentedTabs extends Components.DdaSegmentedTabs {
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'button_id', 'component_mode', 'custom_class', 'disabled', 'error', 'error_message', 'helper_text', 'label', 'option_select_button_name', 'options', 'selected', 'size', 'toggle_button_name']
+  inputs: ['aria_label', 'button_id', 'component_mode', 'custom_class', 'disabled', 'error', 'error_message', 'helper_text', 'input_name', 'label', 'main_aria_label', 'option_select_button_name', 'options', 'placeholder', 'selected', 'size', 'toggle_button_name', 'validation_type']
 })
 @Component({
   selector: 'dda-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'button_id', 'component_mode', 'custom_class', 'disabled', 'error', 'error_message', 'helper_text', 'label', 'option_select_button_name', 'options', 'selected', 'size', 'toggle_button_name'],
+  inputs: ['aria_label', 'button_id', 'component_mode', 'custom_class', 'disabled', 'error', 'error_message', 'helper_text', 'input_name', 'label', 'main_aria_label', 'option_select_button_name', 'options', 'placeholder', 'selected', 'size', 'toggle_button_name', 'validation_type'],
 })
 export class DdaSelect {
   protected el: HTMLDdaSelectElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['selectionChange']);
+    proxyOutputs(this, this.el, ['selectionChange', 'selectChanged', 'selectBlurred']);
   }
 }
 
 
+import type { SelectOption as IDdaSelectSelectOption } from '@dubai-design-system/components-js';
+
 export declare interface DdaSelect extends Components.DdaSelect {
   /**
-   * Emitted when the user picks an option other than the selected one, by mouse or keyboard. `detail.value` is the new option.
+   * Emitted when the user picks an option other than the selected one, by mouse or keyboard. `detail.value` is the new `selected` value (the option id as a string); `detail.id` and `detail.text` are the option.
    */
-  selectionChange: EventEmitter<CustomEvent<{ value: string }>>;
+  selectionChange: EventEmitter<CustomEvent<{ value: string; id: string | number; text: string }>>;
+  /**
+   * 3.x event: emitted with the picked option (`{ id, text }`) each time the user picks one.
+   */
+  selectChanged: EventEmitter<CustomEvent<IDdaSelectSelectOption>>;
+  /**
+   * 3.x event: emitted when the trigger loses focus, with `{ name, value }` — `input_name` (or `button_id`) and the selected text.
+   */
+  selectBlurred: EventEmitter<CustomEvent<{ name: string; value: string }>>;
 }
 
 

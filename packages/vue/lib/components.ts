@@ -540,7 +540,13 @@ export const DdaSelect = /*@__PURE__*/ defineContainer<JSX.DdaSelect>('dda-selec
   'button_id',
   'toggle_button_name',
   'option_select_button_name',
-  'selectionChange'
+  'placeholder',
+  'input_name',
+  'main_aria_label',
+  'validation_type',
+  'selectionChange',
+  'selectChanged',
+  'selectBlurred'
 ]);
 
 

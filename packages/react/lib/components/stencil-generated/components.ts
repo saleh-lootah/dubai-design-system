@@ -7,7 +7,7 @@
 
 /* eslint-disable */
 
-import { type BannerCardItem, type DdaHomeCarouselCustomEvent, type DdaUiCardCustomEvent } from "@dubai-design-system/components-js";
+import { type BannerCardItem, type DdaHomeCarouselCustomEvent, type DdaSelectCustomEvent, type DdaUiCardCustomEvent, type SelectOption } from "@dubai-design-system/components-js";
 import { DdaAccordion as DdaAccordionElement, defineCustomElement as defineDdaAccordion } from "@dubai-design-system/components-js/dist/components/dda-accordion.js";
 import { DdaAlert as DdaAlertElement, defineCustomElement as defineDdaAlert } from "@dubai-design-system/components-js/dist/components/dda-alert.js";
 import { DdaAttachFile as DdaAttachFileElement, defineCustomElement as defineDdaAttachFile } from "@dubai-design-system/components-js/dist/components/dda-attach-file.js";
@@ -398,14 +398,22 @@ export const DdaSegmentedTabs: StencilReactComponent<DdaSegmentedTabsElement, Dd
     defineCustomElement: defineDdaSegmentedTabs
 });
 
-type DdaSelectEvents = { onSelectionChange: EventName<CustomEvent<{ value: string }>> };
+type DdaSelectEvents = {
+    onSelectionChange: EventName<CustomEvent<{ value: string; id: string | number; text: string }>>,
+    onSelectChanged: EventName<DdaSelectCustomEvent<SelectOption>>,
+    onSelectBlurred: EventName<CustomEvent<{ name: string; value: string }>>
+};
 
 export const DdaSelect: StencilReactComponent<DdaSelectElement, DdaSelectEvents> = /*@__PURE__*/ createComponent<DdaSelectElement, DdaSelectEvents>({
     tagName: 'dda-select',
     elementClass: DdaSelectElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
-    events: { onSelectionChange: 'selectionChange' } as DdaSelectEvents,
+    events: {
+        onSelectionChange: 'selectionChange',
+        onSelectChanged: 'selectChanged',
+        onSelectBlurred: 'selectBlurred'
+    } as DdaSelectEvents,
     defineCustomElement: defineDdaSelect
 });
 
