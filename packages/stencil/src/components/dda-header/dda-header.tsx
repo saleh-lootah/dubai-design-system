@@ -253,6 +253,11 @@ export class DdaHeader {
     document.addEventListener('keydown', this.toggleEscapeKey);
     document.addEventListener('click', this.handleOutsideAccessibilityClick);
     document.addEventListener('click', this.handleOutsideMegaMenuClick)
+    window.addEventListener('resize', this.alignMegaPanel);
+  }
+
+  componentDidRender() {
+    this.alignMegaPanel();
   }
 
   disconnectedCallback() {
@@ -261,8 +266,30 @@ export class DdaHeader {
     document.removeEventListener('keydown', this.toggleEscapeKey);
     document.removeEventListener('click', this.handleOutsideAccessibilityClick);
     document.removeEventListener('click', this.handleOutsideMegaMenuClick);
+    window.removeEventListener('resize', this.alignMegaPanel);
     this.lockPageScroll(false);
   }
+
+  // Places an open mega menu panel. It starts under its link (CSS). When it does not fit there, it
+  // flips so that its far edge meets the far edge of the link, and it opens back toward the start of
+  // the nav. Only when it still does not fit is it clamped, 16px inside the screen. All positions are
+  // measured from the inline start, so the same code works in RTL.
+  private alignMegaPanel = () => {
+    const panel = this.el.querySelector<HTMLElement>('.megamenu-content.showSubMenu');
+    const link = panel?.parentElement;
+    if (!panel || !link) return;
+    panel.style.removeProperty('--dda-mega-shift');
+    const gutter = 16;
+    const viewport = document.documentElement.clientWidth;
+    const rtl = getComputedStyle(panel).direction === 'rtl';
+    const fromStart = (rect: DOMRect) => (rtl ? { start: viewport - rect.right, end: viewport - rect.left } : { start: rect.left, end: rect.right });
+    const linkEdges = fromStart(link.getBoundingClientRect());
+    const width = panel.getBoundingClientRect().width;
+    const lastStart = viewport - gutter - width;
+    if (linkEdges.start <= lastStart) return;
+    const start = Math.max(gutter, linkEdges.end - width);
+    panel.style.setProperty('--dda-mega-shift', `${start - linkEdges.start}px`);
+  };
 
   // While the side menu is open, the page underneath must not scroll; the menu itself still does.
   @Watch('isMenuOpen')

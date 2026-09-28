@@ -273,22 +273,42 @@
     width: calc(100% - 32px);
 }
 
+/* The mega menu opens under its own link, like the 3.x dropdown (.dda-default-submenu), and is as
+   wide as its columns. When it does not fit there, dda-header sets --dda-mega-shift to flip it back
+   toward the start of the nav, or to clamp it inside the screen (alignMegaPanel). */
 .megamenu-content{
     display: none;
-    width: 100%;
-    padding: 0 15px;
-    position: fixed;
-    top: 150px;
-    left: 0;
+    width: max-content;
+    max-width: calc(100vw - 32px);
+    padding-top: 5px;
+    position: absolute;
+    top: 100%;
+    inset-inline-start: var(--dda-mega-shift, 0px);
+    z-index: 1;
 }
 .megamenu-item{
     min-height: 350px;
     background: var(--dda-surface-100);
     border-radius: 8px;
-    margin: 0 auto;
+    margin: 0;
     padding: 42px 15px;
     box-shadow: 0px 10px 15px -3px rgba(16, 24, 40, 0.1);
     position: relative;
+}
+/* .megamenu-item also has .dda-container; the panel is not a page-wide container. Its height comes
+   from its links, and the end padding keeps the close button clear of the column titles. */
+.megamenu-content .megamenu-item.dda-container{
+    width: auto;
+    max-width: none;
+    min-height: 0;
+    padding-block: 32px 16px;
+    padding-inline-end: 64px;
+}
+/* Fixed-width columns: percentage columns (.dda-col-md-3) have no width to take in a max-content panel. */
+.megamenu-content .dda-row > [class*='dda-col-']{
+    flex: 0 0 300px;
+    width: 300px;
+    max-width: 300px;
 }
 .megamenu-item .mega-menu-title{
     height: 24px;

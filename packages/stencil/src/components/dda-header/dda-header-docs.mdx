@@ -156,6 +156,10 @@ the menu arrays.
 a `subMenu` opens a mega menu titled `menuLabel`; each entry shows a Material Symbols `icon`, a
 `title` and a `description`.
 
+A mega menu opens under its own link (under its right edge in RTL) and is as wide as its columns.
+When it does not fit there, it flips: its far edge lines up with the far edge of the link. When it
+still does not fit, it stays 16px inside the screen.
+
 `side-menu-items` builds the side menu that the hamburger button opens. A `subMenu` opens a nested
 list; `headerLabel` of its first item is the list title. Sub-menus can nest to any depth.
 

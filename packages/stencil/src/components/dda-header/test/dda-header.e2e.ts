@@ -687,3 +687,73 @@ describe('dda-header search text on the transparent header', () => {
     expect(color).not.toBe('rgb(255, 255, 255)');
   });
 });
+
+describe('dda-header mega menu position', () => {
+  const column = (title: string) => ({ title, items: [{ headerMenuLabel: `${title} link`, url: '#', description: 'Description' }] });
+  const mega = (label: string, columns: number) => ({
+    type: 'dda_main_megamenu',
+    headerMenuLabel: label,
+    url: '#',
+    children: Array.from({ length: columns }, (_, i) => column(`${label} ${i + 1}`)),
+  });
+  const links = JSON.stringify([
+    { label: 'Home', href: '#' },
+    mega('Services', 2),
+    { label: 'About', href: '#' },
+    { label: 'Contact', href: '#' },
+    mega('Wide', 4),
+    { label: 'Media', href: '#' },
+    { label: 'News', href: '#' },
+    { label: 'Help', href: '#' },
+    mega('Tail', 2),
+  ]);
+  const open = async (width: number, index: number, dir = 'ltr') => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height: 900 });
+    await page.setContent(`<dda-header quick-links='${links}'></dda-header>`);
+    await page.evaluate(d => document.documentElement.setAttribute('dir', d), dir);
+    await page.waitForChanges();
+    await (await page.find(`.dda-mega-menu > li:nth-child(${index}) > a`)).click();
+    await page.waitForChanges();
+    return page.evaluate(i => {
+      const li = document.querySelector(`.dda-mega-menu > li:nth-child(${i})`).getBoundingClientRect();
+      const panel = document.querySelector('.megamenu-content.showSubMenu .megamenu-item').getBoundingClientRect();
+      return {
+        li: { left: li.left, right: li.right, bottom: li.bottom },
+        panel: { left: panel.left, right: panel.right, top: panel.top },
+        viewport: document.documentElement.clientWidth,
+      };
+    }, index);
+  };
+
+  it('starts the panel under its link on a wide screen, not in the centre', async () => {
+    const { li, panel } = await open(1920, 2);
+    expect(Math.abs(panel.left - li.left)).toBeLessThanOrEqual(1);
+    expect(panel.top).toBeGreaterThanOrEqual(li.bottom - 1);
+    expect(panel.top).toBeLessThanOrEqual(li.bottom + 12);
+  });
+
+  it('keeps a wide panel inside the screen when its link is near the edge', async () => {
+    const { panel, viewport } = await open(1280, 5);
+    expect(panel.right).toBeLessThanOrEqual(viewport - 16 + 1);
+    expect(panel.left).toBeGreaterThanOrEqual(16 - 1);
+  });
+
+  it('flips a panel that does not fit after its link, so it ends at the far edge of the link', async () => {
+    const { li, panel, viewport } = await open(1100, 9);
+    expect(panel.left).toBeLessThan(li.left);
+    expect(Math.abs(panel.right - li.right)).toBeLessThanOrEqual(1);
+    expect(panel.right).toBeLessThanOrEqual(viewport - 16 + 1);
+  });
+
+  it('flips toward the right in RTL', async () => {
+    const { li, panel } = await open(1100, 9, 'rtl');
+    expect(panel.right).toBeGreaterThan(li.right);
+    expect(Math.abs(panel.left - li.left)).toBeLessThanOrEqual(1);
+  });
+
+  it('starts the panel under the right edge of its link in RTL', async () => {
+    const { li, panel } = await open(1920, 2, 'rtl');
+    expect(Math.abs(panel.right - li.right)).toBeLessThanOrEqual(1);
+  });
+});

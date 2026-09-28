@@ -4,6 +4,12 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## Unreleased
+
+### Behaviour Changes
+
+- **dda-header: the mega menu opens under its own link.** Earlier releases showed the mega menu as a full-width panel, centred on wide screens, at a fixed distance from the top. The panel now starts under the link that opens it (under its right edge in RTL), and it is as wide as its columns. When the panel does not fit there, it flips: its far edge lines up with the far edge of the link, and it opens back toward the start of the nav. When it still does not fit, it stays 16px inside the screen.
+
 ## 5.3.1 (2026-09-28)
 
 A patch release. It fixes the search text on the transparent header and brings back the banner scroll icon, `dda-scroll-icon`, and `dda-select` options with ids, as in 3.x.
