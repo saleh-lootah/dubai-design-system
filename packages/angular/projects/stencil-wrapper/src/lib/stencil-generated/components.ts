@@ -768,7 +768,9 @@ export declare interface DdaSelect extends Components.DdaSelect {
    */
   selectionChange: EventEmitter<CustomEvent<{ value: string; id: string | number; text: string }>>;
   /**
-   * 3.x event: emitted with the picked option (`{ id, text }`) each time the user picks one.
+   * 3.x event: emitted each time the user picks one, even if it is already selected. For a string
+option this is `{ id, text }`; for an object option this is the original option object, extra
+fields included, as 3.x did.
    */
   selectChanged: EventEmitter<CustomEvent<IDdaSelectSelectOption>>;
   /**

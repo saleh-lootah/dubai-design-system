@@ -7,6 +7,13 @@ export interface SelectOption {
   text: string;
 }
 
+/** Internal: a parsed option plus, for an object option, the original entry (`source`), so
+ * `selectChanged` can emit it with its extra fields, as 3.x did. Never sent on `selectionChange`,
+ * and not part of the public `SelectOption` type. */
+interface ParsedOption extends SelectOption {
+  source?: SelectOption;
+}
+
 @Component({
   tag: 'dda-select',
   styleUrls: ['../../global/input.css', '../../global/global.css',],
@@ -47,13 +54,15 @@ export class Ddaselect {
   @Prop() placeholder: string;
   /** `name` sent in `selectBlurred`. Falls back to `button_id`. */
   @Prop() input_name: string;
-  /** 3.x name of `aria_label`. `aria_label` wins when both are set. */
+  /** 3.x name of `aria_label`, used as the trigger's aria-label only when `label` is not set. `aria_label` wins when both are set; when `label` is set, `main_aria_label` is ignored and the trigger keeps its `aria-labelledby`. */
   @Prop() main_aria_label: string;
   /** 3.x name of `error` (the validation state class). `error` wins when both are set. */
   @Prop() validation_type: string;
   /** Emitted when the user picks an option other than the selected one, by mouse or keyboard. `detail.value` is the new `selected` value (the option id as a string); `detail.id` and `detail.text` are the option. */
   @Event() selectionChange: EventEmitter<{ value: string; id: string | number; text: string }>;
-  /** 3.x event: emitted with the picked option (`{ id, text }`) each time the user picks one. */
+  /** 3.x event: emitted each time the user picks one, even if it is already selected. For a string
+   * option this is `{ id, text }`; for an object option this is the original option object, extra
+   * fields included, as 3.x did. */
   @Event() selectChanged: EventEmitter<SelectOption>;
   /** 3.x event: emitted when the trigger loses focus, with `{ name, value }` — `input_name` (or `button_id`) and the selected text. */
   @Event() selectBlurred: EventEmitter<{ name: string; value: string }>;
@@ -98,7 +107,7 @@ export class Ddaselect {
     return ids.length ? ids.join(' ') : undefined;
   }
 
-  private get parsedOptions(): SelectOption[] {
+  private get parsedOptions(): ParsedOption[] {
     let raw: unknown = this.options;
     if (typeof raw === 'string') {
       try {
@@ -109,31 +118,37 @@ export class Ddaselect {
     }
     if (!Array.isArray(raw)) return [];
     return raw
-      .map(entry => {
+      .map((entry): ParsedOption | null => {
         if (typeof entry === 'string') return { id: entry, text: entry };
         if (entry && typeof entry === 'object' && typeof (entry as SelectOption).text === 'string') {
           const option = entry as SelectOption;
-          return { id: option.id ?? option.text, text: option.text };
+          // Keep the original entry as `source` so selectChanged can emit it with any extra
+          // fields (e.g. `code`) the page passed in, as 3.x did.
+          return { id: option.id ?? option.text, text: option.text, source: option };
         }
         return null;
       })
-      .filter((option): option is SelectOption => option !== null);
+      .filter((option): option is ParsedOption => option !== null);
   }
 
   // 3.x matched `selected` against the id (as a string) or the text. An id match wins over a
   // text match, so two options with the same text but different ids stay apart.
-  private findSelected(options: SelectOption[]): SelectOption | undefined {
+  private findSelected(options: ParsedOption[]): ParsedOption | undefined {
     if (this.selected === undefined || this.selected === null) return undefined;
     const value = String(this.selected);
     return options.find(option => String(option.id) === value) ?? options.find(option => option.text === value);
   }
 
-  private get selectedOption(): SelectOption | undefined {
+  private get selectedOption(): ParsedOption | undefined {
     return this.findSelected(this.parsedOptions);
   }
 
   private get triggerLabel(): string | undefined {
-    return this.aria_label || this.main_aria_label || undefined;
+    if (this.aria_label) return this.aria_label;
+    // main_aria_label sets aria-label, which replaces aria-labelledby. Only use it when there is
+    // no label to keep aria-labelledby for; otherwise the label and the selected value would stop
+    // being announced.
+    return this.label ? undefined : this.main_aria_label || undefined;
   }
 
   private focusOption(index: number) {
@@ -187,21 +202,34 @@ export class Ddaselect {
     this.toggleSelect();
   }
 
-  selectOption(option: SelectOption) {
+  selectOption(option: ParsedOption) {
     if (!this.disabled) {
       const value = String(option.id);
-      const changed = this.selected !== value;
+      // Compare against the currently *matched* option's id, not the raw `selected` prop: when
+      // `selected` holds text or a differently-typed id (e.g. a number), comparing it to
+      // `value` directly reported a change that had not happened.
+      const currentSelected = this.findSelected(this.parsedOptions);
+      const changed = String(currentSelected?.id) !== value;
       this.selected = value;
       this.closeAndReturnFocus();
-      this.selectChanged.emit({ id: option.id, text: option.text });
+      this.selectChanged.emit(option.source ?? { id: option.id, text: option.text });
       if (changed) {
         this.selectionChange.emit({ value, id: option.id, text: option.text });
       }
     }
   }
 
-  private onTriggerBlur = () => {
-    this.selectBlurred.emit({ name: this.input_name || this.button_id, value: this.selectedOption?.text || '' });
+  private onTriggerBlur = (event: FocusEvent) => {
+    // A keyboard ArrowDown/Up on the trigger opens the list and moves focus into it — that is
+    // not the user leaving the field, so skip the event when focus lands back inside this.el.
+    const related = event.relatedTarget as Node | null;
+    if (related && this.el.contains(related)) {
+      return;
+    }
+    this.selectBlurred.emit({
+      name: this.input_name || this.button_id || this.triggerId,
+      value: this.selectedOption?.text || '',
+    });
   };
 
   private onTriggerKeyDown = (event: KeyboardEvent) => {
@@ -274,6 +302,8 @@ export class Ddaselect {
     const id = this.triggerId;
     const options = this.parsedOptions;
     const current = this.findSelected(options);
+    // Computed once here (not per option below) to keep the list render O(n) instead of O(n^2).
+    const activeIndex = current ? options.indexOf(current) : 0;
     const validation = this.error || this.validation_type;
 
     return (
@@ -309,11 +339,11 @@ export class Ddaselect {
                       <button name={this.option_select_button_name} type="button"
                         role="option"
                         aria-selected={isCurrent ? 'true' : 'false'}
-                        tabIndex={index === this.initialOptionIndex() ? 0 : -1}
+                        tabIndex={index === activeIndex ? 0 : -1}
                         class={`dda-input-dropdown-item ${isCurrent ? 'selected' : ''}`}
                         onClick={() => this.selectOption(option)}
                         onKeyDown={(event) => this.onOptionKeyDown(event, option)}
-                        key={String(option.id)}
+                        key={`${index}-${option.id}`}
                       >
                         {option.text}
                       </button>

@@ -351,6 +351,19 @@ describe('dda-select listbox pattern (F-014)', () => {
     expect(focusedCls).toContain('dda-select-header');
   });
 
+  it('ArrowDown from the trigger focuses the option matching a numeric-id selected', async () => {
+    const page = await newE2EPage();
+    const list = '[{"id":1,"text":"Small"},{"id":2,"text":"Medium"},{"id":3,"text":"Large"}]';
+    await page.setContent(`<dda-select button_id="size" options='${list}' selected="2"></dda-select>`);
+
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('ArrowDown');
+    await page.waitForChanges();
+
+    const focusedText = await page.evaluate(() => (document.activeElement ? document.activeElement.textContent.trim() : null));
+    expect(focusedText).toBe('Medium');
+  });
+
   it('mouse click on an option still selects and closes (baseline unaffected)', async () => {
     const page = await newE2EPage();
     await page.setContent(`<dda-select button_id="size" options='${OPTIONS}'></dda-select>`);

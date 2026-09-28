@@ -112,3 +112,113 @@ describe('dda-select options', () => {
     expect(options(page).map(o => o.textContent.trim())).toEqual(['Dubai']);
   });
 });
+
+describe('dda-select main_aria_label', () => {
+  it('ignores main_aria_label when a label is set, and keeps aria-labelledby', async () => {
+    const page = await render(`<dda-select label="Emirate" main_aria_label="X" selected="Dubai" options='["Dubai","Sharjah"]'></dda-select>`);
+    const trigger = page.root.querySelector('.dda-select-header');
+    expect(trigger.getAttribute('aria-label')).toBeNull();
+    expect(trigger.getAttribute('aria-labelledby')).toBe(`${trigger.id}-label ${trigger.id}`);
+  });
+
+  it('uses main_aria_label as aria-label when there is no label', async () => {
+    const page = await render(`<dda-select main_aria_label="X" options='["Dubai"]'></dda-select>`);
+    const trigger = page.root.querySelector('.dda-select-header');
+    expect(trigger.getAttribute('aria-label')).toBe('X');
+    expect(trigger.getAttribute('aria-labelledby')).toBeNull();
+  });
+});
+
+describe('dda-select selectChanged source', () => {
+  it('emits the original object, extra fields included, for object options', async () => {
+    const list = JSON.stringify([{ id: 1, text: 'Dubai', code: 'DXB' }]);
+    const page = await render(`<dda-select options='${list}'></dda-select>`);
+    const changed = jest.fn();
+    page.root.addEventListener('selectChanged', (e: CustomEvent) => changed(e.detail));
+    await open(page);
+    options(page)[0].click();
+    await page.waitForChanges();
+    expect(changed).toHaveBeenCalledWith({ id: 1, text: 'Dubai', code: 'DXB' });
+  });
+
+  it('does not leak the source object into selectionChange', async () => {
+    const list = JSON.stringify([{ id: 1, text: 'Dubai', code: 'DXB' }]);
+    const page = await render(`<dda-select options='${list}'></dda-select>`);
+    const selection = jest.fn();
+    page.root.addEventListener('selectionChange', (e: CustomEvent) => selection(e.detail));
+    await open(page);
+    options(page)[0].click();
+    await page.waitForChanges();
+    expect(selection).toHaveBeenCalledWith({ value: '1', id: 1, text: 'Dubai' });
+  });
+
+  it('still emits { id, text } on selectChanged for string options', async () => {
+    const page = await render(`<dda-select options='["Dubai"]'></dda-select>`);
+    const changed = jest.fn();
+    page.root.addEventListener('selectChanged', (e: CustomEvent) => changed(e.detail));
+    await open(page);
+    options(page)[0].click();
+    await page.waitForChanges();
+    expect(changed).toHaveBeenCalledWith({ id: 'Dubai', text: 'Dubai' });
+  });
+});
+
+describe('dda-select selectionChange, matched against the resolved selection', () => {
+  it('does not emit re-picking the same option when selected holds text', async () => {
+    const list = JSON.stringify([{ id: 1, text: 'Dubai' }]);
+    const page = await render(`<dda-select options='${list}' selected="Dubai"></dda-select>`);
+    const spy = jest.fn();
+    page.root.addEventListener('selectionChange', (e: CustomEvent) => spy(e.detail));
+    await open(page);
+    options(page)[0].click();
+    await page.waitForChanges();
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('does not emit re-picking the same option when selected is set as a number property', async () => {
+    const list = JSON.stringify([{ id: 7, text: 'Sharjah' }]);
+    const page = await render(`<dda-select options='${list}'></dda-select>`);
+    page.root.selected = 7 as unknown as string;
+    await page.waitForChanges();
+    const spy = jest.fn();
+    page.root.addEventListener('selectionChange', (e: CustomEvent) => spy(e.detail));
+    await open(page);
+    options(page)[0].click();
+    await page.waitForChanges();
+    expect(spy).not.toHaveBeenCalled();
+  });
+});
+
+describe('dda-select selectBlurred', () => {
+  it('does not fire when focus moves to an option inside the component', async () => {
+    const page = await render(`<dda-select options='["Dubai"]'></dda-select>`);
+    const spy = jest.fn();
+    page.root.addEventListener('selectBlurred', (e: CustomEvent) => spy(e.detail));
+    await open(page);
+    const option = options(page)[0];
+    page.root.querySelector('.dda-select-header').dispatchEvent(new FocusEvent('blur', { relatedTarget: option } as FocusEventInit));
+    await page.waitForChanges();
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('fires when focus leaves the component entirely', async () => {
+    const page = await render(`<dda-select options='["Dubai"]' selected="Dubai"></dda-select>`);
+    const spy = jest.fn();
+    page.root.addEventListener('selectBlurred', (e: CustomEvent) => spy(e.detail));
+    const outside = page.doc.createElement('div');
+    const trigger = page.root.querySelector('.dda-select-header');
+    trigger.dispatchEvent(new FocusEvent('blur', { relatedTarget: outside } as FocusEventInit));
+    await page.waitForChanges();
+    expect(spy).toHaveBeenCalledWith({ name: trigger.id, value: 'Dubai' });
+  });
+
+  it('names the event after the generated trigger id when input_name and button_id are unset', async () => {
+    const page = await render(`<dda-select options='["Dubai"]' selected="Dubai"></dda-select>`);
+    const spy = jest.fn();
+    page.root.addEventListener('selectBlurred', (e: CustomEvent) => spy(e.detail));
+    const trigger = page.root.querySelector('.dda-select-header');
+    trigger.dispatchEvent(new Event('blur'));
+    await page.waitForChanges();
+    expect(spy).toHaveBeenCalledWith({ name: trigger.id, value: 'Dubai' });
+  });
+});

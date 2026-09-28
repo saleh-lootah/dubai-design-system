@@ -71,7 +71,7 @@ export default {
     },
     main_aria_label: {
       control: { type: 'text' },
-      description: '3.x name of aria_label',
+      description: '3.x name of aria_label; used only when there is no label',
     },
     validation_type: {
       control: { type: 'text' },

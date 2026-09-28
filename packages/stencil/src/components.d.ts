@@ -1776,7 +1776,7 @@ export namespace Components {
          */
         "label": string;
         /**
-          * 3.x name of `aria_label`. `aria_label` wins when both are set.
+          * 3.x name of `aria_label`, used as the trigger's aria-label only when `label` is not set. `aria_label` wins when both are set; when `label` is set, `main_aria_label` is ignored and the trigger keeps its `aria-labelledby`.
          */
         "main_aria_label": string;
         /**
@@ -4598,7 +4598,7 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
-          * 3.x name of `aria_label`. `aria_label` wins when both are set.
+          * 3.x name of `aria_label`, used as the trigger's aria-label only when `label` is not set. `aria_label` wins when both are set; when `label` is set, `main_aria_label` is ignored and the trigger keeps its `aria-labelledby`.
          */
         "main_aria_label"?: string;
         /**
@@ -4606,7 +4606,7 @@ declare namespace LocalJSX {
          */
         "onSelectBlurred"?: (event: DdaSelectCustomEvent<{ name: string; value: string }>) => void;
         /**
-          * 3.x event: emitted with the picked option (`{ id, text }`) each time the user picks one.
+          * 3.x event: emitted each time the user picks one, even if it is already selected. For a string option this is `{ id, text }`; for an object option this is the original option object, extra fields included, as 3.x did.
          */
         "onSelectChanged"?: (event: DdaSelectCustomEvent<SelectOption>) => void;
         /**
