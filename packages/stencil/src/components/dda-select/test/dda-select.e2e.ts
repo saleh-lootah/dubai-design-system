@@ -409,7 +409,7 @@ describe('dda-select selectionChange', () => {
     await page.waitForChanges();
 
     expect(spy).toHaveReceivedEventTimes(1);
-    expect(spy).toHaveReceivedEventDetail({ value: 'Medium' });
+    expect(spy).toHaveReceivedEventDetail({ value: 'Medium', id: 'Medium', text: 'Medium' });
     const el = await page.find('dda-select');
     expect(await el.getProperty('selected')).toBe('Medium');
   });
@@ -428,7 +428,7 @@ describe('dda-select selectionChange', () => {
     await page.waitForChanges();
 
     expect(spy).toHaveReceivedEventTimes(1);
-    expect(spy).toHaveReceivedEventDetail({ value: 'Large' });
+    expect(spy).toHaveReceivedEventDetail({ value: 'Large', id: 'Large', text: 'Large' });
   });
 
   it('emits the picked option on Space', async () => {
@@ -443,7 +443,7 @@ describe('dda-select selectionChange', () => {
     await page.waitForChanges();
 
     expect(spy).toHaveReceivedEventTimes(1);
-    expect(spy).toHaveReceivedEventDetail({ value: 'Small' });
+    expect(spy).toHaveReceivedEventDetail({ value: 'Small', id: 'Small', text: 'Small' });
   });
 
   it('does not emit when the user closes the list with Escape', async () => {
