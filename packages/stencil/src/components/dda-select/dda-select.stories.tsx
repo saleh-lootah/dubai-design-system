@@ -4,7 +4,7 @@ export default {
   argTypes: {
     size: {
       control: { type: 'select' },
-      options: ['default','small'],
+      options: ['default', 'small'],
       description: 'Size of the select',
     },
     label: {
@@ -25,7 +25,7 @@ export default {
     },
     error: {
       control: { type: 'select' },
-      options: ['normal','error'],
+      options: ['normal', 'error'],
       description: 'Error state of the select',
     },
     error_message: {
@@ -53,13 +53,29 @@ export default {
       control: { type: 'text' },
       description: 'Aria label for the select element',
     },
-    toggle_button_name:  {
+    toggle_button_name: {
       control: { type: 'text' },
       description: 'Name for the toggle button',
     },
     option_select_button_name: {
       control: { type: 'text' },
       description: 'Name for the option select button',
+    },
+    placeholder: {
+      control: { type: 'text' },
+      description: 'Text in the trigger when nothing is selected',
+    },
+    input_name: {
+      control: { type: 'text' },
+      description: '3.x: name sent in the selectBlurred event',
+    },
+    main_aria_label: {
+      control: { type: 'text' },
+      description: '3.x name of aria_label',
+    },
+    validation_type: {
+      control: { type: 'text' },
+      description: '3.x name of the error/validation state',
     },
   },
   parameters: {
@@ -85,19 +101,40 @@ export default {
     option_select_button_name="option_select_button_name"
 ></dda-select>
   \`\`\`
+
+  \`options\` also takes 3.x \`{ id, text }\` objects, and \`selected\` then takes the id:
+
+  \`\`\`html
+<dda-select
+    label="Emirate"
+    placeholder="Select an emirate"
+    selected="2"
+    options='[{"id":1,"text":"Dubai"},{"id":2,"text":"Abu Dhabi"},{"id":3,"text":"Sharjah"}]'
+></dda-select>
+
+    <script>
+      const select = document.querySelector('dda-select');
+      select.addEventListener('selectChanged', e => {
+        console.log('selectChanged:', e.detail);
+      });
+      select.addEventListener('selectionChange', e => {
+        console.log('selectionChange:', e.detail);
+      });
+    </script>
+  \`\`\`
   `,
       },
     },
   },
 };
 
-const Template = (args) => {
+const Template = args => {
   const attributes = Object.entries(args)
     .filter(([key, value]) => value !== undefined && key !== 'text' && key !== 'options')
     .map(([key, value]) => `${key}="${value}"`)
     .join(' ');
 
-  const optionsAttribute = `options='${JSON.stringify(args.options)}'`;
+  const optionsAttribute = `options='${typeof args.options === 'string' ? args.options : JSON.stringify(args.options)}'`;
 
   return `<dda-select ${attributes} ${optionsAttribute}></dda-select>`;
 };
@@ -115,8 +152,8 @@ Default.args = {
   component_mode: '',
   button_id: 'button',
   aria_label: 'select',
-  toggle_button_name: "toggle_button_name",
-  option_select_button_name: "option_select_button_name",
+  toggle_button_name: 'toggle_button_name',
+  option_select_button_name: 'option_select_button_name',
 };
 
 export const Small = Template.bind({});
@@ -132,8 +169,8 @@ Small.args = {
   component_mode: '',
   button_id: 'button',
   aria_label: 'select',
-  toggle_button_name: "toggle_button_name",
-  option_select_button_name: "option_select_button_name",
+  toggle_button_name: 'toggle_button_name',
+  option_select_button_name: 'option_select_button_name',
 };
 
 export const WithError = Template.bind({});
@@ -149,8 +186,8 @@ WithError.args = {
   component_mode: '',
   button_id: 'button',
   aria_label: 'select',
-  toggle_button_name: "toggle_button_name",
-  option_select_button_name: "option_select_button_name",
+  toggle_button_name: 'toggle_button_name',
+  option_select_button_name: 'option_select_button_name',
 };
 
 export const Disabled = Template.bind({});
@@ -165,8 +202,28 @@ Disabled.args = {
   component_mode: '',
   button_id: 'button',
   aria_label: 'select',
-  toggle_button_name: "toggle_button_name",
-  option_select_button_name: "option_select_button_name",
+  toggle_button_name: 'toggle_button_name',
+  option_select_button_name: 'option_select_button_name',
 };
 
-
+export const IdAndText = Template.bind({});
+IdAndText.args = {
+  label: 'Emirate',
+  options: JSON.stringify([
+    { id: 1, text: 'Dubai' },
+    { id: 2, text: 'Abu Dhabi' },
+    { id: 3, text: 'Sharjah' },
+  ]),
+  selected: '2',
+  placeholder: 'Select an emirate',
+  disabled: false,
+  helper_text: '',
+  error_message: '',
+  size: 'default',
+  custom_class: '',
+  component_mode: '',
+  button_id: 'button',
+  aria_label: 'select',
+  toggle_button_name: 'toggle_button_name',
+  option_select_button_name: 'option_select_button_name',
+};

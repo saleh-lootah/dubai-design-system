@@ -137,6 +137,9 @@ Read this section first. Then read these sections, in this order:
 - **`dda-sticky-footer`:** `middle-link`, `right-link`, `more-icon`, `more-icon-family`,
   `dubaiae-icon-*`, `color-theme`, every `*-icon-id` and every `*-icon-src-dark`.
 - **Components:** `dda-home-carousel` and `dda-banner-card`.
+- **`dda-select`** (from 5.3.1): 3.x `{ id, text }` options, `placeholder`, `input_name`,
+  `main_aria_label`, `validation_type`, and the `selectChanged` and `selectBlurred` events.
+- **`dda-scroll-icon` and the home banner's scroll icon** (from 5.3.1).
 
 ### Changes that need action
 
@@ -181,6 +184,12 @@ You cannot change five `dda-header` close-button names yet: "Close Sidebar" (thr
 **The carousel does not scroll when the mouse moves.** The row scrolls with the mouse wheel, the
 scrollbar, touch and the keyboard. It shows a cut card and an edge fade when there are more cards.
 
+**Remove your own 3.x workarounds for the transparent header.** **Silent.**
+Some sites added rules that inverted the header colours, for example
+`body.transparent .dda-mega-menu > li > a { mix-blend-mode: difference; filter: invert(1) brightness(2); }`
+or `body.transparent .dda-search i { color: black; filter: invert(1) brightness(2); }`.
+5.x already shows white text and icons on the transparent header. With these rules, the text and icons turn dark again. Remove every such `filter` and `mix-blend-mode` rule.
+
 ### Not brought back
 
 - `dda-header`: `use-login-popup`, `login-popup-links`, `use-navigator` and its `navigatorClick`
@@ -188,7 +197,7 @@ scrollbar, touch and the keyboard. It shows a cut card and an edge fade when the
   `header_submenu_type`. The last four had no effect in 3.12.10.
 - Components: `dda-centered-image-card`, `dda-custom-card`, `dda-event-card`, `dda-header-menu`
   (its menus are now part of `dda-header`), `dda-image-card`, `dda-information-card`,
-  `dda-pricing-card`, `dda-scroll-icon`, `dda-slider`, `dda-split-button`,
+  `dda-pricing-card`, `dda-slider`, `dda-split-button`,
   `dda-team-member-card`, `dda-teamsection-card`.
 
 ---

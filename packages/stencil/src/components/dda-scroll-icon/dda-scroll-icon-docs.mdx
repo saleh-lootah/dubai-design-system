@@ -1,0 +1,74 @@
+import { Meta, Markdown } from '@storybook/blocks';
+import readme from './readme.md';
+import { componentApi } from '../../storybook/component-api';
+
+<Meta title="Components/Scroll Icon/Documentation" />
+
+# Scroll Icon
+
+A decorative mouse icon that shows the page can scroll. It is hidden from assistive technology.
+The dot moves only when the user has not asked for reduced motion.
+
+## API
+
+<Markdown>{componentApi(readme)}</Markdown>
+
+## Usage
+
+### Vanilla JS
+
+**From the CDN.** Replace `X.X.X` with the exact package version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/dist/dda/dda.css" />
+<script type="module">
+  import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dubai-design-system/components-js@X.X.X/loader/index.es2017.js';
+  defineCustomElements();
+</script>
+
+<dda-scroll-icon scroll_icon_size="sm" scroll_icon_color="white"></dda-scroll-icon>
+```
+
+**From npm with a bundler (Vite, Rollup).** Import the component file; it defines the element.
+
+```js
+import '@dubai-design-system/components-js/dist/dda/dda.css';
+import '@dubai-design-system/components-js/dist/components/dda-scroll-icon.js';
+```
+
+```html
+<dda-scroll-icon scroll_icon_size="lg" scroll_icon_color="black"></dda-scroll-icon>
+```
+
+### React
+
+```jsx
+import { DdaScrollIcon } from '@dubai-design-system/components-react';
+
+export function ScrollHint() {
+  return <DdaScrollIcon scroll_icon_size="sm" scroll_icon_color="white" />;
+}
+```
+
+### Vue
+
+```html
+<script setup>
+import { DdaScrollIcon } from '@dubai-design-system/components-vue';
+</script>
+
+<template>
+  <DdaScrollIcon scroll_icon_size="sm" scroll_icon_color="white" />
+</template>
+```
+
+### Angular
+
+```html
+<dda-scroll-icon scroll_icon_size="sm" scroll_icon_color="white"></dda-scroll-icon>
+```
+
+## Where it is used
+
+`dda-home-banner` shows this icon by default, at the end of its slide controls. Set
+`show_scroll_icon="false"` on `dda-home-banner` to remove it.

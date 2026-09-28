@@ -4,6 +4,22 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## Unreleased
+
+### Bug Fixes
+
+- **dda-header: typed search text is white on the transparent header.** 5.3.0 made only the placeholder white, so typed text was black on the dark banner. The typed text and the caret are now white at the top of the page, and dark again when the header turns white on scroll.
+
+### Features
+
+- **dda-home-banner: the scroll icon is back.** The slide controls end with a decorative scroll icon, as in 3.x. It is hidden from assistive technology and at 992px and below. Set `show_scroll_icon="false"` to remove it.
+- **dda-scroll-icon is back.** `scroll_icon_size` (`sm`, `lg`) and `scroll_icon_color` (`white`, `black`) work as in 3.x. The dot does not move when the user asks for reduced motion.
+- **dda-select: options with ids.** `options` also takes 3.x `{ id, text }` objects, and `selected` takes the id. `placeholder`, `input_name`, `main_aria_label` and `validation_type` work as in 3.x, and the 3.x events `selectChanged` and `selectBlurred` are back. `selectionChange` now also sends `id` and `text`. String options work as before.
+
+### Behaviour Changes
+
+- **dda-select: `selectionChange`'s `detail` has two new keys.** `detail` is now `{ value, id, text }`; `value` is unchanged. Code that deep-compares the whole `detail` object, rather than reading `detail.value`, sees the new `id` and `text` keys.
+
 ## 5.3.0 (2026-09-24)
 
 A minor release. It brings back the 3.x attributes and components that sites built on 3.5 –

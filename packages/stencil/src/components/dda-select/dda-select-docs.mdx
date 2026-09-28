@@ -113,6 +113,40 @@ const options = JSON.stringify(['Dubai', 'Abu Dhabi', 'Sharjah']);
 ></dda-select>
 ```
 
+## Options with ids
+
+`options` also takes 3.x `{ id, text }` objects. `selected` then takes the option's id, not its
+text. A number id can be given as a string, for example `selected="7"` for `{ "id": 7, "text":
+"Dubai" }`. An id match wins over a text match, so two options with the same text but different
+ids stay apart. String options still work as before; for a string option the id is the text
+itself.
+
+```html
+<dda-select
+  button_id="emirate"
+  label="Emirate"
+  placeholder="Select an emirate"
+  selected="2"
+  options='[{"id":1,"text":"Dubai"},{"id":2,"text":"Abu Dhabi"},{"id":3,"text":"Sharjah"}]'
+></dda-select>
+```
+
+### Events
+
+<table>
+  <thead>
+    <tr><th>Event</th><th>detail</th><th>Fires</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>selectionChange</code></td><td><code>{ value, id, text }</code></td><td>The user picks an option other than the selected one</td></tr>
+    <tr><td><code>selectChanged</code></td><td><code>{ id, text }</code></td><td>The user picks an option, every time, even if it is already selected</td></tr>
+    <tr><td><code>selectBlurred</code></td><td><code>{ name, value }</code></td><td>The trigger loses focus</td></tr>
+  </tbody>
+</table>
+
+`selectionChange`'s `value` is the picked option's id, as a string, unchanged from earlier
+releases. `id` and `text` are new on `selectionChange`'s `detail`.
+
 ## Errors
 
 Set `error="error"` to show the error styling and `error_message` to show the message. The message
