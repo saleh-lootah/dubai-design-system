@@ -34,6 +34,7 @@ import { DdaPhonefield as DdaPhonefieldElement, defineCustomElement as defineDda
 import { DdaProgressbar as DdaProgressbarElement, defineCustomElement as defineDdaProgressbar } from "@dubai-design-system/components-js/dist/components/dda-progressbar.js";
 import { DdaRadiobutton as DdaRadiobuttonElement, defineCustomElement as defineDdaRadiobutton } from "@dubai-design-system/components-js/dist/components/dda-radiobutton.js";
 import { DdaRangeSlider as DdaRangeSliderElement, defineCustomElement as defineDdaRangeSlider } from "@dubai-design-system/components-js/dist/components/dda-range-slider.js";
+import { DdaScrollIcon as DdaScrollIconElement, defineCustomElement as defineDdaScrollIcon } from "@dubai-design-system/components-js/dist/components/dda-scroll-icon.js";
 import { DdaSearchInput as DdaSearchInputElement, defineCustomElement as defineDdaSearchInput } from "@dubai-design-system/components-js/dist/components/dda-search-input.js";
 import { DdaSegmentedTabs as DdaSegmentedTabsElement, defineCustomElement as defineDdaSegmentedTabs } from "@dubai-design-system/components-js/dist/components/dda-segmented-tabs.js";
 import { DdaSelect as DdaSelectElement, defineCustomElement as defineDdaSelect } from "@dubai-design-system/components-js/dist/components/dda-select.js";
@@ -362,6 +363,17 @@ export const DdaRangeSlider: StencilReactComponent<DdaRangeSliderElement, DdaRan
     react: React,
     events: {} as DdaRangeSliderEvents,
     defineCustomElement: defineDdaRangeSlider
+});
+
+type DdaScrollIconEvents = NonNullable<unknown>;
+
+export const DdaScrollIcon: StencilReactComponent<DdaScrollIconElement, DdaScrollIconEvents> = /*@__PURE__*/ createComponent<DdaScrollIconElement, DdaScrollIconEvents>({
+    tagName: 'dda-scroll-icon',
+    elementClass: DdaScrollIconElement,
+    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    react: React,
+    events: {} as DdaScrollIconEvents,
+    defineCustomElement: defineDdaScrollIcon
 });
 
 type DdaSearchInputEvents = NonNullable<unknown>;

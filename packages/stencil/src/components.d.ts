@@ -1589,6 +1589,27 @@ export namespace Components {
          */
         "tooltip_position"?: string;
     }
+    interface DdaScrollIcon {
+        /**
+          * Theme override class, e.g. `light-mode`.
+         */
+        "component_mode": string;
+        /**
+          * Extra CSS classes on the icon.
+          * @default ''
+         */
+        "custom_class": string;
+        /**
+          * Colour: `white` or `black`. Default: `white`.
+          * @default 'white'
+         */
+        "scroll_icon_color": 'white' | 'black';
+        /**
+          * Size: `sm` (16.5 × 24px) or `lg` (40 × 60px). Default: `sm`.
+          * @default 'sm'
+         */
+        "scroll_icon_size": 'sm' | 'lg';
+    }
     interface DdaSearchInput {
         /**
           * Accessible name of the search input. Use it when there is no visible label.
@@ -2565,6 +2586,12 @@ declare global {
         prototype: HTMLDdaRangeSliderElement;
         new (): HTMLDdaRangeSliderElement;
     };
+    interface HTMLDdaScrollIconElement extends Components.DdaScrollIcon, HTMLStencilElement {
+    }
+    var HTMLDdaScrollIconElement: {
+        prototype: HTMLDdaScrollIconElement;
+        new (): HTMLDdaScrollIconElement;
+    };
     interface HTMLDdaSearchInputElement extends Components.DdaSearchInput, HTMLStencilElement {
     }
     var HTMLDdaSearchInputElement: {
@@ -2696,6 +2723,7 @@ declare global {
         "dda-progressbar": HTMLDdaProgressbarElement;
         "dda-radiobutton": HTMLDdaRadiobuttonElement;
         "dda-range-slider": HTMLDdaRangeSliderElement;
+        "dda-scroll-icon": HTMLDdaScrollIconElement;
         "dda-search-input": HTMLDdaSearchInputElement;
         "dda-segmented-tabs": HTMLDdaSegmentedTabsElement;
         "dda-select": HTMLDdaSelectElement;
@@ -4356,6 +4384,27 @@ declare namespace LocalJSX {
          */
         "tooltip_position"?: string;
     }
+    interface DdaScrollIcon {
+        /**
+          * Theme override class, e.g. `light-mode`.
+         */
+        "component_mode"?: string;
+        /**
+          * Extra CSS classes on the icon.
+          * @default ''
+         */
+        "custom_class"?: string;
+        /**
+          * Colour: `white` or `black`. Default: `white`.
+          * @default 'white'
+         */
+        "scroll_icon_color"?: 'white' | 'black';
+        /**
+          * Size: `sm` (16.5 × 24px) or `lg` (40 × 60px). Default: `sm`.
+          * @default 'sm'
+         */
+        "scroll_icon_size"?: 'sm' | 'lg';
+    }
     interface DdaSearchInput {
         /**
           * Accessible name of the search input. Use it when there is no visible label.
@@ -5460,6 +5509,12 @@ declare namespace LocalJSX {
         "left_input_name": string;
         "right_input_name": string;
     }
+    interface DdaScrollIconAttributes {
+        "scroll_icon_size": 'sm' | 'lg';
+        "scroll_icon_color": 'white' | 'black';
+        "custom_class": string;
+        "component_mode": string;
+    }
     interface DdaSearchInputAttributes {
         "placeholder": string;
         "label": string;
@@ -5666,6 +5721,7 @@ declare namespace LocalJSX {
         "dda-progressbar": Omit<DdaProgressbar, keyof DdaProgressbarAttributes> & { [K in keyof DdaProgressbar & keyof DdaProgressbarAttributes]?: DdaProgressbar[K] } & { [K in keyof DdaProgressbar & keyof DdaProgressbarAttributes as `attr:${K}`]?: DdaProgressbarAttributes[K] } & { [K in keyof DdaProgressbar & keyof DdaProgressbarAttributes as `prop:${K}`]?: DdaProgressbar[K] };
         "dda-radiobutton": Omit<DdaRadiobutton, keyof DdaRadiobuttonAttributes> & { [K in keyof DdaRadiobutton & keyof DdaRadiobuttonAttributes]?: DdaRadiobutton[K] } & { [K in keyof DdaRadiobutton & keyof DdaRadiobuttonAttributes as `attr:${K}`]?: DdaRadiobuttonAttributes[K] } & { [K in keyof DdaRadiobutton & keyof DdaRadiobuttonAttributes as `prop:${K}`]?: DdaRadiobutton[K] };
         "dda-range-slider": Omit<DdaRangeSlider, keyof DdaRangeSliderAttributes> & { [K in keyof DdaRangeSlider & keyof DdaRangeSliderAttributes]?: DdaRangeSlider[K] } & { [K in keyof DdaRangeSlider & keyof DdaRangeSliderAttributes as `attr:${K}`]?: DdaRangeSliderAttributes[K] } & { [K in keyof DdaRangeSlider & keyof DdaRangeSliderAttributes as `prop:${K}`]?: DdaRangeSlider[K] };
+        "dda-scroll-icon": Omit<DdaScrollIcon, keyof DdaScrollIconAttributes> & { [K in keyof DdaScrollIcon & keyof DdaScrollIconAttributes]?: DdaScrollIcon[K] } & { [K in keyof DdaScrollIcon & keyof DdaScrollIconAttributes as `attr:${K}`]?: DdaScrollIconAttributes[K] } & { [K in keyof DdaScrollIcon & keyof DdaScrollIconAttributes as `prop:${K}`]?: DdaScrollIcon[K] };
         "dda-search-input": Omit<DdaSearchInput, keyof DdaSearchInputAttributes> & { [K in keyof DdaSearchInput & keyof DdaSearchInputAttributes]?: DdaSearchInput[K] } & { [K in keyof DdaSearchInput & keyof DdaSearchInputAttributes as `attr:${K}`]?: DdaSearchInputAttributes[K] } & { [K in keyof DdaSearchInput & keyof DdaSearchInputAttributes as `prop:${K}`]?: DdaSearchInput[K] };
         "dda-segmented-tabs": Omit<DdaSegmentedTabs, keyof DdaSegmentedTabsAttributes> & { [K in keyof DdaSegmentedTabs & keyof DdaSegmentedTabsAttributes]?: DdaSegmentedTabs[K] } & { [K in keyof DdaSegmentedTabs & keyof DdaSegmentedTabsAttributes as `attr:${K}`]?: DdaSegmentedTabsAttributes[K] } & { [K in keyof DdaSegmentedTabs & keyof DdaSegmentedTabsAttributes as `prop:${K}`]?: DdaSegmentedTabs[K] };
         "dda-select": Omit<DdaSelect, keyof DdaSelectAttributes> & { [K in keyof DdaSelect & keyof DdaSelectAttributes]?: DdaSelect[K] } & { [K in keyof DdaSelect & keyof DdaSelectAttributes as `attr:${K}`]?: DdaSelectAttributes[K] } & { [K in keyof DdaSelect & keyof DdaSelectAttributes as `prop:${K}`]?: DdaSelect[K] };
@@ -5708,6 +5764,7 @@ declare module "@stencil/core" {
             "dda-progressbar": LocalJSX.IntrinsicElements["dda-progressbar"] & JSXBase.HTMLAttributes<HTMLDdaProgressbarElement>;
             "dda-radiobutton": LocalJSX.IntrinsicElements["dda-radiobutton"] & JSXBase.HTMLAttributes<HTMLDdaRadiobuttonElement>;
             "dda-range-slider": LocalJSX.IntrinsicElements["dda-range-slider"] & JSXBase.HTMLAttributes<HTMLDdaRangeSliderElement>;
+            "dda-scroll-icon": LocalJSX.IntrinsicElements["dda-scroll-icon"] & JSXBase.HTMLAttributes<HTMLDdaScrollIconElement>;
             "dda-search-input": LocalJSX.IntrinsicElements["dda-search-input"] & JSXBase.HTMLAttributes<HTMLDdaSearchInputElement>;
             "dda-segmented-tabs": LocalJSX.IntrinsicElements["dda-segmented-tabs"] & JSXBase.HTMLAttributes<HTMLDdaSegmentedTabsElement>;
             "dda-select": LocalJSX.IntrinsicElements["dda-select"] & JSXBase.HTMLAttributes<HTMLDdaSelectElement>;

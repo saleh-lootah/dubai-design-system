@@ -482,6 +482,14 @@ export const DdaRangeSlider = /*@__PURE__*/ defineContainer<JSX.DdaRangeSlider>(
 ]);
 
 
+export const DdaScrollIcon = /*@__PURE__*/ defineContainer<JSX.DdaScrollIcon>('dda-scroll-icon', undefined, [
+  'scroll_icon_size',
+  'scroll_icon_color',
+  'custom_class',
+  'component_mode'
+]);
+
+
 export const DdaSearchInput = /*@__PURE__*/ defineContainer<JSX.DdaSearchInput>('dda-search-input', undefined, [
   'placeholder',
   'label',

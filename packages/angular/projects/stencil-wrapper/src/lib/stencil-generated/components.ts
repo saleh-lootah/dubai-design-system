@@ -669,6 +669,28 @@ export declare interface DdaRangeSlider extends Components.DdaRangeSlider {}
 
 
 @ProxyCmp({
+  inputs: ['component_mode', 'custom_class', 'scroll_icon_color', 'scroll_icon_size']
+})
+@Component({
+  selector: 'dda-scroll-icon',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['component_mode', 'custom_class', 'scroll_icon_color', 'scroll_icon_size'],
+})
+export class DdaScrollIcon {
+  protected el: HTMLDdaScrollIconElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface DdaScrollIcon extends Components.DdaScrollIcon {}
+
+
+@ProxyCmp({
   inputs: ['aria_label', 'button_aria_label', 'button_id', 'clear_button_label', 'close_button_name', 'component_mode', 'custom_class', 'error_message', 'has_error', 'helper_text', 'input_id', 'input_status', 'label', 'placeholder', 'search_button_name', 'search_input_name', 'show_button', 'size']
 })
 @Component({

@@ -28,6 +28,7 @@ export const DIRECTIVES = [
   d.DdaProgressbar,
   d.DdaRadiobutton,
   d.DdaRangeSlider,
+  d.DdaScrollIcon,
   d.DdaSearchInput,
   d.DdaSegmentedTabs,
   d.DdaSelect,
