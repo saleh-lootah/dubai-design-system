@@ -413,14 +413,14 @@ browser navigating to `search_action`, for example to route inside a single-page
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'autoplay', 'interval', 'next_button_label', 'pause_button_label', 'play_button_label', 'previous_button_label', 'show_scroll_icon', 'slide_button_label', 'slide_status_label']
+  inputs: ['aria_label', 'autoplay', 'interval', 'next_button_label', 'pause_button_label', 'play_button_label', 'previous_button_label', 'show_scroll_icon', 'show_scroll_icon_mobile', 'slide_button_label', 'slide_status_label']
 })
 @Component({
   selector: 'dda-home-banner',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'autoplay', 'interval', 'next_button_label', 'pause_button_label', 'play_button_label', 'previous_button_label', 'show_scroll_icon', 'slide_button_label', 'slide_status_label'],
+  inputs: ['aria_label', 'autoplay', 'interval', 'next_button_label', 'pause_button_label', 'play_button_label', 'previous_button_label', 'show_scroll_icon', 'show_scroll_icon_mobile', 'slide_button_label', 'slide_status_label'],
 })
 export class DdaHomeBanner {
   protected el: HTMLDdaHomeBannerElement;

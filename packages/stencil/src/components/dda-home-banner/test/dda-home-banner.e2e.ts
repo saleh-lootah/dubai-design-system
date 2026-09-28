@@ -410,6 +410,14 @@ describe('dda-home-banner scroll icon', () => {
     expect((await icon(390)).display).toBe('none');
   });
 
+  it('shows the icon at 992px and below with show_scroll_icon_mobile', async () => {
+    expect((await icon(390, 'show_scroll_icon_mobile')).display).toBe('flex');
+  });
+
+  it('keeps the icon on desktop with show_scroll_icon_mobile', async () => {
+    expect((await icon(1440, 'show_scroll_icon_mobile')).display).toBe('flex');
+  });
+
   it('renders no icon with show_scroll_icon="false"', async () => {
     expect(await icon(1440, 'show_scroll_icon="false"')).toBeNull();
   });

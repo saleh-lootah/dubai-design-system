@@ -272,7 +272,8 @@ export const DdaHomeBanner = defineContainer('dda-home-banner', undefined, [
     'play_button_label',
     'slide_button_label',
     'slide_status_label',
-    'show_scroll_icon'
+    'show_scroll_icon',
+    'show_scroll_icon_mobile'
 ]);
 export const DdaHomeCarousel = defineContainer('dda-home-carousel', undefined, [
     'bannercardlist',

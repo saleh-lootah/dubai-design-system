@@ -19,7 +19,7 @@ A patch release. It fixes the search text on the transparent header and brings b
 
 ### Features
 
-- **dda-home-banner: the scroll icon is back.** The slide controls end with a decorative scroll icon, as in 3.x. It is hidden from assistive technology and at 992px and below. Set `show_scroll_icon="false"` to remove it.
+- **dda-home-banner: the scroll icon is back.** The slide controls end with a decorative scroll icon, as in 3.x. It is hidden from assistive technology and at 992px and below. Add `show_scroll_icon_mobile` to show it at 992px and below too. Set `show_scroll_icon="false"` to remove it.
 - **dda-scroll-icon is back.** `scroll_icon_size` (`sm`, `lg`) and `scroll_icon_color` (`white`, `black`) work as in 3.x. The dot does not move when the user asks for reduced motion.
 - **dda-select: options with ids.** `options` also takes 3.x `{ id, text }` objects, and `selected` takes the id or the text. `placeholder`, `input_name` and `validation_type` work as in 3.x, `main_aria_label` is back (see Bug Fixes for its scope), and the 3.x events `selectChanged` and `selectBlurred` are back. `selectionChange` now also sends `id` and `text`. String options work as before.
 

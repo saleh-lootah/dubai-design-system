@@ -215,7 +215,7 @@
   .slider-nav {
     bottom: 100px;
   }
-  .slider-nav .dda-mouse-scroll {
+  .slider-nav .dda-mouse-scroll:not(.dda-mouse-scroll-mobile) {
     display: none;
   }
 }

@@ -1017,10 +1017,15 @@ export namespace Components {
          */
         "previous_button_label": string;
         /**
-          * Shows the decorative scroll icon at the end of the slide controls (hidden at 992px and below). Default: `true`.
+          * Shows the decorative scroll icon at the end of the slide controls (hidden at 992px and below unless `show_scroll_icon_mobile` is set). Default: `true`.
           * @default true
          */
         "show_scroll_icon": boolean;
+        /**
+          * Also shows the scroll icon at 992px and below. Default: `false`.
+          * @default false
+         */
+        "show_scroll_icon_mobile": boolean;
         /**
           * Prefix for each slide dot's accessible name, e.g. "Go to slide 2".
           * @default 'Go to slide'
@@ -3827,10 +3832,15 @@ declare namespace LocalJSX {
          */
         "previous_button_label"?: string;
         /**
-          * Shows the decorative scroll icon at the end of the slide controls (hidden at 992px and below). Default: `true`.
+          * Shows the decorative scroll icon at the end of the slide controls (hidden at 992px and below unless `show_scroll_icon_mobile` is set). Default: `true`.
           * @default true
          */
         "show_scroll_icon"?: boolean;
+        /**
+          * Also shows the scroll icon at 992px and below. Default: `false`.
+          * @default false
+         */
+        "show_scroll_icon_mobile"?: boolean;
         /**
           * Prefix for each slide dot's accessible name, e.g. "Go to slide 2".
           * @default 'Go to slide'
@@ -5417,6 +5427,7 @@ declare namespace LocalJSX {
         "slide_button_label": string;
         "slide_status_label": string;
         "show_scroll_icon": boolean;
+        "show_scroll_icon_mobile": boolean;
     }
     interface DdaHomeCarouselAttributes {
         "bannercardlist": string | BannerCardItem[];

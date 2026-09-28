@@ -26,6 +26,8 @@ export default {
     pause_button_label: { control: 'text', description: 'Accessible name for the pause button' },
     play_button_label: { control: 'text', description: 'Accessible name for the play button' },
     slide_button_label: { control: 'text', description: 'Prefix for each dot’s accessible name' },
+    show_scroll_icon: { control: 'boolean', description: 'Show the decorative scroll icon after the slide controls' },
+    show_scroll_icon_mobile: { control: 'boolean', description: 'Also show the scroll icon at 992px and below' },
   },
   parameters: {
     docs: {
@@ -67,6 +69,8 @@ const Template = args => `
     pause_button_label="${args.pause_button_label}"
     play_button_label="${args.play_button_label}"
     slide_button_label="${args.slide_button_label}"
+    show_scroll_icon="${args.show_scroll_icon}"
+    show_scroll_icon_mobile="${args.show_scroll_icon_mobile}"
   >
     ${slide(IMG_1, 'Aerial view of Dubai at sunset', 'Digitalizing Life In Dubai', 'Pioneering and accelerating the pace of digital transformation in the city')}
     ${slide(IMG_2, 'Dubai skyline at dusk', 'Explore More', 'Find the services you need')}
@@ -82,6 +86,8 @@ const defaultArgs = {
   pause_button_label: 'Pause slideshow',
   play_button_label: 'Play slideshow',
   slide_button_label: 'Go to slide',
+  show_scroll_icon: true,
+  show_scroll_icon_mobile: false,
 };
 
 export const Default = Template.bind({});

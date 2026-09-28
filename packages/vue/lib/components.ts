@@ -311,7 +311,8 @@ export const DdaHomeBanner = /*@__PURE__*/ defineContainer<JSX.DdaHomeBanner>('d
   'play_button_label',
   'slide_button_label',
   'slide_status_label',
-  'show_scroll_icon'
+  'show_scroll_icon',
+  'show_scroll_icon_mobile'
 ]);
 
 
