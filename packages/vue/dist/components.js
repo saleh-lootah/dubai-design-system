@@ -271,7 +271,8 @@ export const DdaHomeBanner = defineContainer('dda-home-banner', undefined, [
     'pause_button_label',
     'play_button_label',
     'slide_button_label',
-    'slide_status_label'
+    'slide_status_label',
+    'show_scroll_icon'
 ]);
 export const DdaHomeCarousel = defineContainer('dda-home-carousel', undefined, [
     'bannercardlist',
@@ -421,6 +422,12 @@ export const DdaRangeSlider = defineContainer('dda-range-slider', undefined, [
     'left_input_name',
     'right_input_name'
 ]);
+export const DdaScrollIcon = defineContainer('dda-scroll-icon', undefined, [
+    'scroll_icon_size',
+    'scroll_icon_color',
+    'custom_class',
+    'component_mode'
+]);
 export const DdaSearchInput = defineContainer('dda-search-input', undefined, [
     'placeholder',
     'label',
@@ -467,7 +474,13 @@ export const DdaSelect = defineContainer('dda-select', undefined, [
     'button_id',
     'toggle_button_name',
     'option_select_button_name',
-    'selectionChange'
+    'placeholder',
+    'input_name',
+    'main_aria_label',
+    'validation_type',
+    'selectionChange',
+    'selectChanged',
+    'selectBlurred'
 ]);
 export const DdaStickyFooter = defineContainer('dda-sticky-footer', undefined, [
     'happinessIconHref',

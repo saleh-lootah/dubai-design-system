@@ -25,6 +25,7 @@ import { DdaPhonefield as DdaPhonefieldElement, defineCustomElement as defineDda
 import { DdaProgressbar as DdaProgressbarElement, defineCustomElement as defineDdaProgressbar } from "@dubai-design-system/components-js/dist/components/dda-progressbar.js";
 import { DdaRadiobutton as DdaRadiobuttonElement, defineCustomElement as defineDdaRadiobutton } from "@dubai-design-system/components-js/dist/components/dda-radiobutton.js";
 import { DdaRangeSlider as DdaRangeSliderElement, defineCustomElement as defineDdaRangeSlider } from "@dubai-design-system/components-js/dist/components/dda-range-slider.js";
+import { DdaScrollIcon as DdaScrollIconElement, defineCustomElement as defineDdaScrollIcon } from "@dubai-design-system/components-js/dist/components/dda-scroll-icon.js";
 import { DdaSearchInput as DdaSearchInputElement, defineCustomElement as defineDdaSearchInput } from "@dubai-design-system/components-js/dist/components/dda-search-input.js";
 import { DdaSegmentedTabs as DdaSegmentedTabsElement, defineCustomElement as defineDdaSegmentedTabs } from "@dubai-design-system/components-js/dist/components/dda-segmented-tabs.js";
 import { DdaSelect as DdaSelectElement, defineCustomElement as defineDdaSelect } from "@dubai-design-system/components-js/dist/components/dda-select.js";
@@ -234,6 +235,13 @@ export const DdaRangeSlider = createComponent({
     events: {},
     defineCustomElement: defineDdaRangeSlider
 });
+export const DdaScrollIcon = createComponent({
+    tagName: 'dda-scroll-icon',
+    elementClass: DdaScrollIconElement,
+    react: React,
+    events: {},
+    defineCustomElement: defineDdaScrollIcon
+});
 export const DdaSearchInput = createComponent({
     tagName: 'dda-search-input',
     elementClass: DdaSearchInputElement,
@@ -252,7 +260,11 @@ export const DdaSelect = createComponent({
     tagName: 'dda-select',
     elementClass: DdaSelectElement,
     react: React,
-    events: { onSelectionChange: 'selectionChange' },
+    events: {
+        onSelectionChange: 'selectionChange',
+        onSelectChanged: 'selectChanged',
+        onSelectBlurred: 'selectBlurred'
+    },
     defineCustomElement: defineDdaSelect
 });
 export const DdaStickyFooter = createComponent({

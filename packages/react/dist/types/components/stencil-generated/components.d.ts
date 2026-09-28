@@ -1,4 +1,4 @@
-import { type BannerCardItem, type DdaHomeCarouselCustomEvent, type DdaUiCardCustomEvent } from "@dubai-design-system/components-js";
+import { type BannerCardItem, type DdaHomeCarouselCustomEvent, type DdaSelectCustomEvent, type DdaUiCardCustomEvent, type SelectOption } from "@dubai-design-system/components-js";
 import { DdaAccordion as DdaAccordionElement } from "@dubai-design-system/components-js/dist/components/dda-accordion.js";
 import { DdaAlert as DdaAlertElement } from "@dubai-design-system/components-js/dist/components/dda-alert.js";
 import { DdaAttachFile as DdaAttachFileElement } from "@dubai-design-system/components-js/dist/components/dda-attach-file.js";
@@ -25,6 +25,7 @@ import { DdaPhonefield as DdaPhonefieldElement } from "@dubai-design-system/comp
 import { DdaProgressbar as DdaProgressbarElement } from "@dubai-design-system/components-js/dist/components/dda-progressbar.js";
 import { DdaRadiobutton as DdaRadiobuttonElement } from "@dubai-design-system/components-js/dist/components/dda-radiobutton.js";
 import { DdaRangeSlider as DdaRangeSliderElement } from "@dubai-design-system/components-js/dist/components/dda-range-slider.js";
+import { DdaScrollIcon as DdaScrollIconElement } from "@dubai-design-system/components-js/dist/components/dda-scroll-icon.js";
 import { DdaSearchInput as DdaSearchInputElement } from "@dubai-design-system/components-js/dist/components/dda-search-input.js";
 import { DdaSegmentedTabs as DdaSegmentedTabsElement } from "@dubai-design-system/components-js/dist/components/dda-segmented-tabs.js";
 import { DdaSelect as DdaSelectElement } from "@dubai-design-system/components-js/dist/components/dda-select.js";
@@ -123,6 +124,8 @@ type DdaRadiobuttonEvents = NonNullable<unknown>;
 export declare const DdaRadiobutton: StencilReactComponent<DdaRadiobuttonElement, DdaRadiobuttonEvents>;
 type DdaRangeSliderEvents = NonNullable<unknown>;
 export declare const DdaRangeSlider: StencilReactComponent<DdaRangeSliderElement, DdaRangeSliderEvents>;
+type DdaScrollIconEvents = NonNullable<unknown>;
+export declare const DdaScrollIcon: StencilReactComponent<DdaScrollIconElement, DdaScrollIconEvents>;
 type DdaSearchInputEvents = NonNullable<unknown>;
 export declare const DdaSearchInput: StencilReactComponent<DdaSearchInputElement, DdaSearchInputEvents>;
 type DdaSegmentedTabsEvents = {
@@ -131,6 +134,13 @@ type DdaSegmentedTabsEvents = {
 export declare const DdaSegmentedTabs: StencilReactComponent<DdaSegmentedTabsElement, DdaSegmentedTabsEvents>;
 type DdaSelectEvents = {
     onSelectionChange: EventName<CustomEvent<{
+        value: string;
+        id: string | number;
+        text: string;
+    }>>;
+    onSelectChanged: EventName<DdaSelectCustomEvent<SelectOption>>;
+    onSelectBlurred: EventName<CustomEvent<{
+        name: string;
         value: string;
     }>>;
 };

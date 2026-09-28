@@ -4,7 +4,9 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## Unreleased
+## 5.3.1 (2026-09-28)
+
+A patch release. It fixes the search text on the transparent header and brings back the banner scroll icon, `dda-scroll-icon`, and `dda-select` options with ids, as in 3.x.
 
 ### Bug Fixes
 
