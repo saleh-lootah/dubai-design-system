@@ -448,6 +448,11 @@
 .dda-search input[type="text"]::placeholder{
     color: var(--dda-on-surface-0);
 }
+/* On the transparent header the typed text and the caret are white, like the placeholder. */
+.transparent dda-header:not(.dda-scrolled) .dda-search input[type="text"] {
+    color: var(--dda-neutral-100);
+    caret-color: var(--dda-neutral-100);
+}
 .transparent dda-header:not(.dda-scrolled) .dda-search input[type="text"]::-ms-input-placeholder {
     color: var(--dda-neutral-100);
 }

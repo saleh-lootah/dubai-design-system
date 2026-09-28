@@ -658,3 +658,32 @@ describe('dda-header 3.x dropdown menus', () => {
     expect((await (await page.find('.dda-default-submenu')).getComputedStyle()).display).toBe('none');
   });
 });
+
+describe('dda-header search text on the transparent header', () => {
+  const load = async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1440, height: 900 });
+    await page.setContent(`<div class="transparent"><dda-header></dda-header><div style="height: 3000px;"></div></div>`);
+    await page.waitForChanges();
+    return page;
+  };
+  const inputStyle = page =>
+    page.$eval('dda-header .dda-toolbar-menu .dda-search input', (e: HTMLInputElement) => {
+      const cs = getComputedStyle(e);
+      return { color: cs.color, caret: cs.caretColor };
+    });
+
+  it('shows typed text and the caret in white at the top of the page', async () => {
+    const page = await load();
+    expect(await inputStyle(page)).toEqual({ color: 'rgb(255, 255, 255)', caret: 'rgb(255, 255, 255)' });
+  });
+
+  it('shows dark text again once the header turns white on scroll', async () => {
+    const page = await load();
+    await page.evaluate(() => window.scrollTo(0, 400));
+    await page.waitForChanges();
+    await page.waitForFunction(() => document.querySelector('dda-header').classList.contains('dda-scrolled'));
+    const { color } = await inputStyle(page);
+    expect(color).not.toBe('rgb(255, 255, 255)');
+  });
+});
