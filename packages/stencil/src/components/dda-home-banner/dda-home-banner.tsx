@@ -37,6 +37,9 @@ export class DdaHomeBanner {
   /** Template for the screen-reader slide announcement. `{current}` and `{total}` are substituted. */
   @Prop() slide_status_label: string = 'Slide {current} of {total}';
 
+  /** Shows the decorative scroll icon at the end of the slide controls (hidden at 992px and below). Default: `true`. */
+  @Prop() show_scroll_icon: boolean = true;
+
   @State() currentSlide: number = 0;
   @State() slides: HTMLElement[] = [];
   @State() isPaused: boolean = false;
@@ -264,6 +267,11 @@ export class DdaHomeBanner {
             <button class="next" type="button" aria-label={this.next_button_label} onClick={() => this.nextSlide()}>
               <i class="material-icons" aria-hidden="true">chevron_right</i>
             </button>
+            {this.show_scroll_icon && (
+              <div class="dda-mouse-scroll" aria-hidden="true">
+                <dda-scroll-icon scroll_icon_size="sm" scroll_icon_color="white"></dda-scroll-icon>
+              </div>
+            )}
           </div>
           {/* Announce manual slide changes. Silent while rotating, so autoplay does not chatter. */}
           <div class="visually-hidden" role="status" aria-live={this.isRotating ? 'off' : 'polite'}>

@@ -377,3 +377,40 @@ describe('dda-home-banner slide controls and the quick-link cards', () => {
     });
   }
 });
+
+describe('dda-home-banner scroll icon', () => {
+  const banner = (extra = '') => `
+    <dda-home-banner ${extra}>
+      <slide><div class="slide-wrap"><div class="slide-content"><h2>One</h2></div></div></slide>
+      <slide><div class="slide-wrap"><div class="slide-content"><h2>Two</h2></div></div></slide>
+    </dda-home-banner>`;
+  const icon = async (width: number, extra = '') => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height: 900 });
+    await page.setContent(banner(extra));
+    await page.waitForChanges();
+    return page.evaluate(() => {
+      const wrap = document.querySelector('.slider-nav .dda-mouse-scroll');
+      if (!wrap) return null;
+      const next = document.querySelector('.slider-nav .next');
+      return {
+        display: getComputedStyle(wrap).display,
+        hidden: wrap.getAttribute('aria-hidden'),
+        afterNext: !!(next.compareDocumentPosition(wrap) & Node.DOCUMENT_POSITION_FOLLOWING),
+        hasIcon: !!wrap.querySelector('dda-scroll-icon .dda-scroll-icon-scroll'),
+      };
+    });
+  };
+
+  it('shows the icon after the next button on desktop, hidden from assistive technology', async () => {
+    expect(await icon(1440)).toEqual({ display: 'flex', hidden: 'true', afterNext: true, hasIcon: true });
+  });
+
+  it('hides the icon at 992px and below', async () => {
+    expect((await icon(390)).display).toBe('none');
+  });
+
+  it('renders no icon with show_scroll_icon="false"', async () => {
+    expect(await icon(1440, 'show_scroll_icon="false"')).toBeNull();
+  });
+});

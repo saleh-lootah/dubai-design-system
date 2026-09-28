@@ -160,6 +160,13 @@
   height: 25px;
   overflow: hidden;
 }
+
+.slider-nav .dda-mouse-scroll {
+  display: flex;
+  align-items: center;
+  margin-inline-start: 8px;
+}
+
 .slider-nav ul {
   display: flex;
   align-items: center;
@@ -207,6 +214,9 @@
 @media screen and (max-width:992px) {
   .slider-nav {
     bottom: 100px;
+  }
+  .slider-nav .dda-mouse-scroll {
+    display: none;
   }
 }
 /* On taller small screens the quick-link cards sit on the banner (dda.css), so the controls sit
