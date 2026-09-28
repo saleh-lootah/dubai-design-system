@@ -4,7 +4,9 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## Unreleased
+## 5.3.2 (2026-09-28)
+
+A patch release. The `dda-header` mega menu opens under its own link instead of in the centre of wide screens.
 
 ### Behaviour Changes
 
