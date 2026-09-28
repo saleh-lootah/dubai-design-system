@@ -110,6 +110,16 @@ function configureSiteChrome() {
   });
 }
 
+// The fixed "sample site" notice can wrap to more lines on a narrow screen. style.css moves the
+// header and the page down by its height, so keep --demo-notice-height equal to that height.
+function trackSampleNoticeHeight() {
+  const notice = document.querySelector('.demo-sample-notice');
+  if (!notice) return;
+  const update = () => document.documentElement.style.setProperty('--demo-notice-height', `${notice.offsetHeight}px`);
+  new ResizeObserver(update).observe(notice);
+  update();
+}
+
 // style.css hides the page behind a spinner until <html> has the dda-ready class.
 // Showing it only after every component renders means nothing pops in or jumps.
 function showPage() {
@@ -120,6 +130,7 @@ function showPage() {
 async function start() {
   document.body.setAttribute('aria-busy', 'true');
   try {
+    trackSampleNoticeHeight();
     configureSiteChrome();
     setupPopups();
     await loadComponents();

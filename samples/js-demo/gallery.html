@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DDA Component Gallery</title>
+    <!-- A sample, not an official site: keep it out of search results. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>DDA Component Gallery (sample site)</title>
     <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
     <link rel="stylesheet" href="/style.css">
     <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
@@ -17,6 +19,8 @@
   </head>
   <body>
     <a class="demo-skip-link" href="#main">Skip to main content</a>
+    <!-- Every page says it is a sample, so nobody takes it for an official government website. -->
+    <p class="demo-sample-notice" role="note"><strong>Sample site.</strong> Not an official Government of Dubai website. The content is placeholder, and forms send nothing.</p>
     <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
 
     <main id="main" tabindex="-1" class="demo-main">
@@ -120,6 +124,8 @@
           <dda-phonefield label="Phone" input_id="g-phone"></dda-phonefield>
           <dda-creditcard-field label="Card number" input_id="g-card" placeholder="0000 0000 0000 0000"></dda-creditcard-field>
           <dda-select label="Select" button_id="g-select" options='["Option 1","Option 2","Option 3"]'></dda-select>
+          <dda-select label="Select with ids" button_id="g-select-ids" placeholder="Choose an emirate" selected="2"
+            options='[{"id":1,"text":"Abu Dhabi"},{"id":2,"text":"Dubai"},{"id":3,"text":"Sharjah"}]'></dda-select>
           <dda-dropdown label="Dropdown" button_id="g-dropdown" options='["Option 1","Option 2","Option 3"]'></dda-dropdown>
           <dda-attach-file label="Attach file" input_id="g-file" helper_text="PDF, max 5 MB"></dda-attach-file>
           <dda-textarea label="Textarea" input_id="g-textarea" placeholder="Placeholder"></dda-textarea>
@@ -165,7 +171,20 @@
 
       <section class="demo-gallery-item">
         <h2>Home banner</h2>
-        <p>The home banner fills the full screen. See it at the top of the <a href="./">home page</a>.</p>
+        <p>The home banner fills the full screen. See it at the top of the <a href="./">home page</a>. The scroll icon shows next to the slide controls.</p>
+      </section>
+
+      <section class="demo-gallery-item">
+        <h2>Scroll icon</h2>
+        <p>A decorative mouse icon. The dot does not move when the user turns off motion.</p>
+        <div class="demo-row demo-dark-panel">
+          <dda-scroll-icon scroll_icon_size="sm" scroll_icon_color="white"></dda-scroll-icon>
+          <dda-scroll-icon scroll_icon_size="lg" scroll_icon_color="white"></dda-scroll-icon>
+        </div>
+        <div class="demo-row">
+          <dda-scroll-icon scroll_icon_size="sm" scroll_icon_color="black"></dda-scroll-icon>
+          <dda-scroll-icon scroll_icon_size="lg" scroll_icon_color="black"></dda-scroll-icon>
+        </div>
       </section>
 
       <section class="demo-gallery-item">
@@ -174,7 +193,7 @@
       </section>
     </main>
 
-    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Footer description placeholder." copyright-text="© 2026 Placeholder. All rights reserved." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
+    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Sample site for the Dubai Design System. Not an official government website." copyright-text="Sample content only. Not an official government website." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
 
     <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
   </body>

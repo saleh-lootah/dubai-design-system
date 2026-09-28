@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dubai government services</title>
+    <!-- A sample, not an official site: keep it out of search results. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Dubai government services (sample site)</title>
     <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
     <link rel="stylesheet" href="/style.css">
     <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
@@ -19,11 +21,13 @@
   <!-- Only the home page uses the transparent header. Other pages keep the white header. -->
   <body class="transparent">
     <a class="demo-skip-link" href="#main">Skip to main content</a>
+    <!-- Every page says it is a sample, so nobody takes it for an official government website. -->
+    <p class="demo-sample-notice" role="note"><strong>Sample site.</strong> Not an official Government of Dubai website. The content is placeholder, and forms send nothing.</p>
     <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
 
     <div class="home-intros" role="region" aria-labelledby="home-title">
       <h1 id="home-title" class="visually-hidden">Dubai government services</h1>
-      <dda-home-banner aria_label="Highlights">
+      <dda-home-banner aria_label="Highlights" show_scroll_icon_mobile>
         <slide>
           <!-- Placeholder video (CC0, from MDN). Decorative: the slide text carries the message. -->
           <video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
@@ -131,7 +135,7 @@
       </section>
     </main>
 
-    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Footer description placeholder." copyright-text="© 2026 Placeholder. All rights reserved." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
+    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Sample site for the Dubai Design System. Not an official government website." copyright-text="Sample content only. Not an official government website." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
 
     <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
   </body>

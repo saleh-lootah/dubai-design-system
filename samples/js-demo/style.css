@@ -88,6 +88,41 @@ html:not(.dda-ready) body::before {
   box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.8);
 }
 
+/* The "sample site" notice. It stays fixed at the top of every page, and the header and the page
+   move down by its height (--demo-notice-height, measured by setup.js), so it covers nothing. */
+.demo-sample-notice {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 10001;
+  margin: 0;
+  padding: 6px 16px;
+  background: #fff4ce;
+  color: #3d2f00;
+  border-bottom: 1px solid #e0c46c;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+body {
+  padding-top: var(--demo-notice-height, 34px);
+}
+
+dda-header header.dda-header {
+  top: var(--demo-notice-height, 34px);
+}
+
+dda-header .dda-sidemenu {
+  top: var(--demo-notice-height, 34px);
+  height: calc(100% - var(--demo-notice-height, 34px));
+}
+
+/* More room between the hero text and its call-to-action button. */
+.home-intros .slide-content dda-link-button {
+  display: inline-block;
+  margin-top: 32px;
+}
+
 #main:focus {
   outline: none;
 }
@@ -222,6 +257,13 @@ dda-home-banner.home-slider[dir='rtl'] .slide-wrap {
   gap: 16px;
   padding-bottom: 32px;
   border-bottom: 1px solid #e5e7eb;
+}
+
+/* A dark box for components made for dark backgrounds (the white scroll icon). */
+.demo-dark-panel {
+  padding: 24px;
+  border-radius: 8px;
+  background: #1f2937;
 }
 
 .demo-row {

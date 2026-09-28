@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search results</title>
+    <!-- A sample, not an official site: keep it out of search results. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Search results (sample site)</title>
     <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
     <link rel="stylesheet" href="/style.css">
     <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
@@ -18,6 +20,8 @@
   </head>
   <body>
     <a class="demo-skip-link" href="#main">Skip to main content</a>
+    <!-- Every page says it is a sample, so nobody takes it for an official government website. -->
+    <p class="demo-sample-notice" role="note"><strong>Sample site.</strong> Not an official Government of Dubai website. The content is placeholder, and forms send nothing.</p>
     <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
 
     <main id="main" tabindex="-1" class="demo-main">
@@ -29,7 +33,7 @@
       <div id="search-results" class="demo-grid"></div>
     </main>
 
-    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Footer description placeholder." copyright-text="© 2026 Placeholder. All rights reserved." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
+    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Sample site for the Dubai Design System. Not an official government website." copyright-text="Sample content only. Not an official government website." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
 
     <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
   </body>
