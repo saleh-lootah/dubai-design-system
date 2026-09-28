@@ -112,6 +112,11 @@ dda-header header.dda-header {
   top: var(--demo-notice-height, 34px);
 }
 
+/* The mega menu panel is fixed at top: 150px (dda-header-main.css), so it moves down too. */
+dda-header .megamenu-content {
+  top: calc(150px + var(--demo-notice-height, 34px));
+}
+
 dda-header .dda-sidemenu {
   top: var(--demo-notice-height, 34px);
   height: calc(100% - var(--demo-notice-height, 34px));

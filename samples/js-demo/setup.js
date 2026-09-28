@@ -21,12 +21,98 @@ const placeholder = (width, height, text) => `https://placehold.co/${width}x${he
 
 // Header and footer take their menus as JSON strings.
 const link = (label, href = '#') => ({ label, href, subMenu: [] });
-const siteLinks = [
+const service = (id) => `service.html?id=${id}`;
+const category = (name) => `services.html?category=${encodeURIComponent(name)}`;
+
+// The header menu shows each submenu type that dda-header supports:
+//   Home     - a plain link.
+//   Services - a 3.x mega menu (type "dda_main_megamenu"): several columns with titles.
+//   About    - a 3.x dropdown (type "dda_default_submenu"): a list, and "Components" opens a third level.
+//   Contact  - a 5.x mega menu (label, menuLabel, subMenu): one column of links with icons and descriptions.
+//   Gallery  - a plain link.
+const legacyLink = (label, url, extra = {}) => ({ headerMenuLabel: label, url, ...extra });
+const megaLink = (label, url, icon, description) => ({ headerMenuLabel: label, url, quickLinksIcon: icon, description });
+const headerLinks = [
   link('Home', './'),
-  link('Services', 'services.html'),
-  link('About', 'about.html'),
-  link('Contact', 'contact.html'),
+  {
+    type: 'dda_main_megamenu',
+    headerMenuLabel: 'Services',
+    url: 'services.html',
+    children: [
+      {
+        title: 'By topic',
+        items: [
+          megaLink('Transport', category('Transport'), 'directions_car', 'Fines, registration and parking.'),
+          megaLink('Identity and visas', category('Identity and visas'), 'badge', 'Emirates ID and visas.'),
+          megaLink('Business', category('Business'), 'business_center', 'Licences and companies.'),
+        ],
+      },
+      {
+        title: 'Home and health',
+        items: [
+          megaLink('Housing and utilities', category('Housing and utilities'), 'home', 'Bills, tenancy and housing.'),
+          megaLink('Health', category('Health'), 'medical_services', 'Appointments and health cards.'),
+        ],
+      },
+      {
+        title: 'Popular',
+        items: [
+          megaLink('Pay traffic fines', service('traffic-fines'), 'receipt_long', 'Free, done at once.'),
+          megaLink('Renew Emirates ID', service('emirates-id'), 'badge', 'AED 370, 5 working days.'),
+        ],
+      },
+    ],
+  },
+  {
+    type: 'dda_default_submenu',
+    headerMenuLabel: 'About',
+    url: 'about.html',
+    defaultSubMenuTitle: 'About this sample',
+    children: [
+      legacyLink('About us', 'about.html'),
+      legacyLink('Services', 'services.html'),
+      {
+        type: 'dda_default_submenu',
+        headerMenuLabel: 'Components',
+        url: 'gallery.html',
+        defaultSubMenuTitle: 'Components',
+        children: [legacyLink('Component gallery', 'gallery.html'), legacyLink('Search results', 'search.html?q=visa')],
+      },
+    ],
+  },
+  {
+    label: 'Contact',
+    href: 'contact.html',
+    menuLabel: 'Contact us',
+    subMenu: [
+      { title: 'Send a message', description: 'Use the contact form.', icon: 'mail', href: 'contact.html' },
+      { title: 'Call us', description: 'Sunday to Thursday, 8:00 to 16:00.', icon: 'call', href: 'contact.html' },
+      { title: 'Visit us', description: 'Opening hours and address.', icon: 'location_on', href: 'contact.html' },
+    ],
+  },
   link('Gallery', 'gallery.html'),
+];
+
+// The side menu nests: each subMenu item can have its own subMenu, with a headerLabel title.
+const sideItem = (label, href, subMenu = []) => ({ label, href, subMenu });
+const sideMenuLinks = [
+  sideItem('Home', './'),
+  sideItem('Services', 'services.html', [
+    { headerLabel: 'Services', ...sideItem('All services', 'services.html') },
+    sideItem('Transport', category('Transport'), [
+      { headerLabel: 'Transport', ...sideItem('Pay traffic fines', service('traffic-fines')) },
+      sideItem('Renew vehicle registration', service('vehicle-registration')),
+      sideItem('Apply for a parking permit', service('parking-permit')),
+    ]),
+    sideItem('Business', category('Business'), [
+      { headerLabel: 'Business', ...sideItem('Renew trade licence', service('trade-licence')) },
+      sideItem('Register a new company', service('new-company')),
+    ]),
+    sideItem('Health', category('Health')),
+  ]),
+  sideItem('About', 'about.html'),
+  sideItem('Contact', 'contact.html'),
+  sideItem('Gallery', 'gallery.html'),
 ];
 
 // Each sticky footer item is an image link with a tooltip.
@@ -65,8 +151,8 @@ function configureSiteChrome() {
     secondLogoHref: './',
     // Header search submits a GET to this page, as /search.html?q=<query>.
     search_action: 'search.html',
-    quickLinks: JSON.stringify(siteLinks),
-    sideMenuItems: JSON.stringify(siteLinks),
+    quickLinks: JSON.stringify(headerLinks),
+    sideMenuItems: JSON.stringify(sideMenuLinks),
   });
 
   setProps('site-sticky-footer', {
