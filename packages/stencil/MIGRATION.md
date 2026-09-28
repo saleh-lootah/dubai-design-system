@@ -138,7 +138,7 @@ Read this section first. Then read these sections, in this order:
   `dubaiae-icon-*`, `color-theme`, every `*-icon-id` and every `*-icon-src-dark`.
 - **Components:** `dda-home-carousel` and `dda-banner-card`.
 - **`dda-select`** (from 5.3.1): 3.x `{ id, text }` options, `placeholder`, `input_name`,
-  `main_aria_label`, `validation_type`, and the `selectChanged` and `selectBlurred` events.
+  `validation_type`, and the `selectChanged` and `selectBlurred` events.
 - **`dda-scroll-icon` and the home banner's scroll icon** (from 5.3.1).
 
 ### Changes that need action
@@ -161,6 +161,12 @@ header.addEventListener('accessibilitymenufunctionality', () => { /* … */ });
 | `normalcontrast`, `blindcontrast`, `redcontrast`, `greencontrast` | `normalContrast`, `blindContrast`, `redContrast`, `greenContrast` |
 | `searchfunctionality` | `searchfunctionality` (the query, on submit) or `searchSubmit` (on submit; it can cancel the navigation) |
 | `accessibilitymenufunctionality` | `accessibilitymenufunctionality` |
+
+**`dda-select`'s `main_aria_label` now has an effect, but only without a `label`.** 3.x declared
+`main_aria_label` but never used it. From 5.3.1, `dda-select` uses it as the trigger's
+`aria-label`, and only when there is no `label`. With a `label`, the trigger keeps
+`aria-labelledby` and `main_aria_label` is ignored, so the label and the selected value stay
+announced.
 
 **`dda-home-carousel` cards are links.** In 3.x the cards were buttons, and `banner_card_href`
 had no effect. Now a card with `banner_card_href` is a link and it opens the page. If your own

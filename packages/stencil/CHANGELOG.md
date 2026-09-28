@@ -11,16 +11,22 @@ A patch release. It fixes the search text on the transparent header and brings b
 ### Bug Fixes
 
 - **dda-header: typed search text is white on the transparent header.** 5.3.0 made only the placeholder white, so typed text was black on the dark banner. The typed text and the caret are now white at the top of the page, and dark again when the header turns white on scroll.
+- **dda-select: `main_aria_label` hid the label and the selected value.** `main_aria_label` set the trigger's `aria-label`, which replaces `aria-labelledby`, so screen readers announced only `main_aria_label`'s text, not the label or the current selection. `main_aria_label` now applies only when there is no `label`. With a `label`, the trigger keeps `aria-labelledby` and `main_aria_label` is ignored.
+- **dda-select: `selectChanged` dropped extra fields on object options.** For an `{ id, text }` option with extra fields (for example `{ id: 1, text: "Dubai", code: "DXB" }`), `selectChanged` now sends the full object, as 3.x did. String options are unaffected.
+- **dda-select: a false `selectionChange` when `selected` holds text or a differently-typed id.** Re-picking the already-selected option could still fire `selectionChange` when `selected` was matched by text, or set as a number where the option id is a string. It no longer fires in these cases.
+- **dda-select: `selectBlurred` fired when a keyboard open moved focus into the list.** Opening the list with Arrow Down/Up moves focus from the trigger into the list, which is not the user leaving the field. `selectBlurred` no longer fires for it.
+- **dda-select: `selectBlurred`'s `name` could be `undefined`.** It now falls back to the trigger's own id when neither `input_name` nor `button_id` is set.
 
 ### Features
 
 - **dda-home-banner: the scroll icon is back.** The slide controls end with a decorative scroll icon, as in 3.x. It is hidden from assistive technology and at 992px and below. Set `show_scroll_icon="false"` to remove it.
 - **dda-scroll-icon is back.** `scroll_icon_size` (`sm`, `lg`) and `scroll_icon_color` (`white`, `black`) work as in 3.x. The dot does not move when the user asks for reduced motion.
-- **dda-select: options with ids.** `options` also takes 3.x `{ id, text }` objects, and `selected` takes the id. `placeholder`, `input_name`, `main_aria_label` and `validation_type` work as in 3.x, and the 3.x events `selectChanged` and `selectBlurred` are back. `selectionChange` now also sends `id` and `text`. String options work as before.
+- **dda-select: options with ids.** `options` also takes 3.x `{ id, text }` objects, and `selected` takes the id or the text. `placeholder`, `input_name` and `validation_type` work as in 3.x, `main_aria_label` is back (see Bug Fixes for its scope), and the 3.x events `selectChanged` and `selectBlurred` are back. `selectionChange` now also sends `id` and `text`. String options work as before.
 
 ### Behaviour Changes
 
 - **dda-select: `selectionChange`'s `detail` has two new keys.** `detail` is now `{ value, id, text }`; `value` is unchanged. Code that deep-compares the whole `detail` object, rather than reading `detail.value`, sees the new `id` and `text` keys.
+- **dda-select: a `selected` value that matches no option shows the placeholder.** Earlier releases showed the raw `selected` text instead.
 
 ## 5.3.0 (2026-09-24)
 

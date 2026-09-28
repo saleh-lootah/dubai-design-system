@@ -115,10 +115,10 @@ const options = JSON.stringify(['Dubai', 'Abu Dhabi', 'Sharjah']);
 
 ## Options with ids
 
-`options` also takes 3.x `{ id, text }` objects. `selected` then takes the option's id, not its
-text. A number id can be given as a string, for example `selected="7"` for `{ "id": 7, "text":
-"Dubai" }`. An id match wins over a text match, so two options with the same text but different
-ids stay apart. String options still work as before; for a string option the id is the text
+`options` also takes 3.x `{ id, text }` objects. `selected` then takes the option's id or its
+text; an id match wins over a text match, so two options with the same text but different ids
+stay apart. A number id can be given as a string, for example `selected="7"` for `{ "id": 7,
+"text": "Dubai" }`. String options still work as before; for a string option the id is the text
 itself.
 
 ```html
@@ -139,13 +139,18 @@ itself.
   </thead>
   <tbody>
     <tr><td><code>selectionChange</code></td><td><code>{ value, id, text }</code></td><td>The user picks an option other than the selected one</td></tr>
-    <tr><td><code>selectChanged</code></td><td><code>{ id, text }</code></td><td>The user picks an option, every time, even if it is already selected</td></tr>
-    <tr><td><code>selectBlurred</code></td><td><code>{ name, value }</code></td><td>The trigger loses focus</td></tr>
+    <tr><td><code>selectChanged</code></td><td><code>{ id, text }</code>, or the full option object for an object option</td><td>The user picks an option, every time, even if it is already selected</td></tr>
+    <tr><td><code>selectBlurred</code></td><td><code>{ name, value }</code></td><td>The trigger loses focus for good, not when a keyboard open moves focus into the list</td></tr>
   </tbody>
 </table>
 
-`selectionChange`'s `value` is the picked option's id, as a string, unchanged from earlier
-releases. `id` and `text` are new on `selectionChange`'s `detail`.
+`selectionChange`'s `value` is the picked option's id, as a string. For string options this is
+unchanged from earlier releases; for object options it is the id, as a string. `id` and `text`
+are new on `selectionChange`'s `detail`.
+
+`selectChanged`'s `detail` is `{ id, text }` for a string option. For an object option it is the
+original object, extra fields included (for example `{ id: 1, text: "Dubai", code: "DXB" }`), as
+3.x sent it.
 
 ## Errors
 
@@ -178,3 +183,6 @@ is linked to the trigger with `aria-describedby`, and the trigger gets `aria-inv
   trigger itself. Screen readers announce the label and the current value, for example
   `Emirate Dubai`. A click on the label opens the list.
 - Without a visible `label`, set `aria_label`. When `aria_label` is set, it is the trigger name.
+- `main_aria_label` is the 3.x name of `aria_label`. It only applies when there is no `label`. With
+  a `label`, the trigger keeps `aria-labelledby` and `main_aria_label` is ignored, so the label and
+  the selected value stay announced.
