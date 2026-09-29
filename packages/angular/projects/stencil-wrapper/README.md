@@ -28,17 +28,9 @@ This command will compile your project, and the build artifacts will be placed i
 
 ### Publishing the Library
 
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/stencil-wrapper
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
+Do not publish this package by hand. The repository's Release workflow
+(`.github/workflows/release.yml`) publishes it with the other three packages when a version
+tag is pushed. CONTRIBUTING.md at the repository root lists the release steps.
 
 ## Running unit tests
 

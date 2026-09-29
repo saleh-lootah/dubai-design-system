@@ -7,8 +7,12 @@ name: Release
 # npm Trusted Publishing: npm accepts a short-lived OIDC credential from this workflow,
 # so there is no npm token in the repository and no OTP. Each package on npmjs.com must
 # list this repository, this workflow file (release.yml) and the environment "npm" as its
-# trusted publisher. npm adds a provenance statement to every version this workflow
-# publishes.
+# trusted publisher.
+#
+# No provenance (--provenance=false): with Trusted Publishing, npm turns provenance on by
+# default, and provenance requires package.json "repository.url" and shows a link to this
+# repository on npmjs.com. The packages deliberately do not link to their source repository
+# (see check:repolinks), and Trusted Publishing works without provenance.
 #
 # The "npm" environment requires a maintainer's approval, so nothing is published until a
 # person approves the run in the Actions UI. That approval replaces the OTP.
@@ -30,7 +34,7 @@ jobs:
       contents: read
       actions: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -91,9 +95,9 @@ jobs:
       # The build does not run a browser; skip puppeteer's ~150MB Chromium download.
       PUPPETEER_SKIP_DOWNLOAD: 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.14.0'
           registry-url: 'https://registry.npmjs.org'
@@ -145,5 +149,5 @@ jobs:
               echo "$name@$VERSION is already on npm; skipped."
               continue
             fi
-            (cd "packages/$p" && npm publish --ignore-scripts --access public)
+            (cd "packages/$p" && npm publish --ignore-scripts --access public --provenance=false)
           done

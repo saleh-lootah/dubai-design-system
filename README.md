@@ -66,11 +66,11 @@ To get started with the project, follow these setup steps using `npm` and relate
    </div>
    <p className="text">Lerna helps manage multi-package repositories. This command runs the build process for all packages in the repo.</p>
 
-9. **Publish using Lerna**:
+9. **Publish a release**:
    <div className="code-block">
-     <code>npx lerna publish</code>
+     <code>git tag vX.Y.Z && git push origin vX.Y.Z</code>
    </div>
-   <p className="text">Publish all updated packages in the repository using Lerna, with a forced publish to ensure updates are deployed.</p>
+   <p className="text">A version tag on master starts the Release workflow. After a maintainer approves it, the workflow publishes the four packages to npm. Do not publish from your own machine. CONTRIBUTING.md lists the release steps.</p>
 <!-- 
 10. **Release**:
    <div className="code-block">

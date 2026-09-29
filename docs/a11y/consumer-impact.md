@@ -7,7 +7,7 @@ This branch fixed real, confirmed accessibility and correctness defects across 3
 components (see `docs/a11y/findings.md`). Several of those fixes change what an existing
 consumer's page renders, or what selectors/ids/labels their own CSS and JavaScript can
 rely on. None of that is wrong to have fixed — every item below traces to a real defect —
-but a maintainer running `npx lerna publish` needs to know this is not a patch release.
+but a maintainer who tags a release needs to know this is not a patch release.
 
 Every item below was verified directly against `git diff 9342a9c..HEAD` (the full branch
 diff), not copied from a prior list on trust; sources are cited by file and line.

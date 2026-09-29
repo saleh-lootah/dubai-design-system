@@ -11,8 +11,8 @@ every rendered-DOM, id, and selector change this branch made to existing compone
 (`dda-footer`, `dda-sticky-footer`, `dda-search-input`, `dda-textarea`, `dda-avatar`,
 `dda-accordion`, `dda-chip`, `dda-home-banner`, and others) and states the semver bump
 those changes require. Most of the fixes in this review are correctness/accessibility
-repairs, not new features — but several of them are not backward-compatible, and
-`npx lerna publish` has no way to know that on its own.
+repairs, not new features — but several of them are not backward-compatible, and the
+release workflow has no way to know that on its own: choose the version yourself.
 
 ## Before you open a pull request
 
@@ -330,8 +330,17 @@ The workflow stops before it publishes when:
 It publishes `components-js` first, then react, vue and angular, and skips a version that is
 already on npm, so you can re-run a failed release.
 
-**npm setup (once, by a package owner).** Publishing uses npm Trusted Publishing, so the
-repository has no npm token. On npmjs.com, for each of the four packages, open
-*Settings → Trusted publishing* and add GitHub Actions with repository
-`saleh-lootah/dubai-design-system`, workflow `release.yml` and environment `npm`. In the
-repository settings, create the environment `npm` with a required reviewer.
+**npm setup (done once, by a package owner).** Publishing uses npm Trusted Publishing, so the
+repository has no npm token and nobody types an OTP. On npmjs.com, each of the four packages
+lists a trusted publisher (package *Settings* → *Trusted Publisher* → GitHub Actions):
+organization `saleh-lootah`, repository `dubai-design-system`, workflow `release.yml`,
+environment `npm`. In the repository settings, the environment `npm` has a required reviewer
+and allows only tags that match `v*.*.*`. If you rename the workflow file or the environment,
+update all four packages on npmjs.com, or the publish fails with a 404.
+
+The workflow publishes with `--provenance=false`. With Trusted Publishing npm turns
+provenance on by default, and provenance requires a `repository.url` in each package.json.
+The packages deliberately do not link to their repository (`npm run check:repolinks`).
+
+If a publish finishes but `npm view` does not show the version yet, wait: the registry can
+take more than 10 minutes. Do not publish the same version again.
