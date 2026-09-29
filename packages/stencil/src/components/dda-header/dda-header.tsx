@@ -291,6 +291,13 @@ export class DdaHeader {
     panel.style.setProperty('--dda-mega-shift', `${start - linkEdges.start}px`);
   };
 
+  // The language buttons carry lang={language_lang}; their writing direction must match it, or HTML
+  // checkers flag lang="ar" inside an LTR page. Right-to-left: Arabic, Hebrew, Persian, Urdu.
+  private get languageDir(): 'rtl' | 'ltr' {
+    const primary = (this.language_lang || '').toLowerCase().split('-')[0];
+    return ['ar', 'he', 'fa', 'ur'].includes(primary) ? 'rtl' : 'ltr';
+  }
+
   // While the side menu is open, the page underneath must not scroll; the menu itself still does.
   @Watch('isMenuOpen')
   onMenuOpenChange(isOpen: boolean) {
@@ -846,7 +853,7 @@ export class DdaHeader {
                             <li>{this.renderAccessibilityButton('mobile')}</li>
                             {this.languageLabel && (
                               <li>
-                                <button name={this.language_button_name} class="tool-btn" type="button" lang={this.language_lang} onClick={this.languagehandler}>
+                                <button name={this.language_button_name} class="tool-btn" type="button" lang={this.language_lang} dir={this.languageDir} onClick={this.languagehandler}>
                                   {this.languageLabel}
                                 </button>
                               </li>
@@ -996,7 +1003,7 @@ export class DdaHeader {
                 {this.languageLabel && (
                   <li>
                     <dda-tooltip title_text={this.tooltip(this.language_tooltip, 'Language')} position="top">
-                      <dda-button button_color="onsurface-secondary" custom_class="tool-btn" button_shape="circle" size="sm" lang={this.language_lang} onClick={this.languagehandler}>
+                      <dda-button button_color="onsurface-secondary" custom_class="tool-btn" button_shape="circle" size="sm" lang={this.language_lang} dir={this.languageDir} onClick={this.languagehandler}>
                         {this.languageLabel}
                       </dda-button>
                     </dda-tooltip>

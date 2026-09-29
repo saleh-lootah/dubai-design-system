@@ -408,6 +408,31 @@ describe('dda-header accessibility', () => {
     expect(langs).toEqual({ desktop: 'ar', desktopInner: 'ar', side: 'ar' });
   });
 
+  // An HTML checker flags lang="ar" without dir="rtl": the writing direction must match the language.
+  const languageDirs = (page: E2EPage) =>
+    page.evaluate(
+      (languageButton: string) => ({
+        desktop: document.querySelector(languageButton).getAttribute('dir'),
+        side: document.querySelector('.dda-toolbar-menu-sidemenu li:nth-child(2) button').getAttribute('dir'),
+      }),
+      LANGUAGE_BUTTON,
+    );
+
+  it('sets dir="rtl" on both language buttons when language_lang is Arabic', async () => {
+    const page = await setup('language_text="العربية"');
+    expect(await languageDirs(page)).toEqual({ desktop: 'rtl', side: 'rtl' });
+  });
+
+  it('sets dir="ltr" on both language buttons when language_lang is English', async () => {
+    const page = await setup('language_text="English" language_lang="en"');
+    expect(await languageDirs(page)).toEqual({ desktop: 'ltr', side: 'ltr' });
+  });
+
+  it('sets dir="rtl" for a regional Arabic tag such as ar-AE', async () => {
+    const page = await setup('language_text="العربية" language_lang="ar-AE"');
+    expect(await languageDirs(page)).toEqual({ desktop: 'rtl', side: 'rtl' });
+  });
+
   it('uses language_text and language_lang in the side menu language button', async () => {
     const page = await setup('language_text="English" language_lang="en"');
 

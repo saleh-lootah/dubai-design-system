@@ -16,6 +16,7 @@ A patch release. Every Material icon that the components render is now hidden fr
 - **dda-header: a logo without an image rendered an empty link.** The link had no name and its image had no `alt`. A logo whose `first-logo-src` or `second-logo-src` is not set now renders nothing. The mobile second logo now falls back to `second-logo-src` when `second-logo-white-src` is not set, as the desktop logo does.
 - **dda-textarea: the rich editor's toolbar dropdowns had no names.** Screen readers announced five unnamed buttons. They are now named (see `toolbar_labels` below).
 - **dda-select: a site's `.hide` rule could hide the whole select.** The select container had the bare class `hide` when closed and `show` when open. Many site stylesheets define these (Bootstrap 3: `.hide { display: none !important }`). The open state is now `dda-select-open`, and a closed select has no state class. The container also no longer gets `dda-validation-undefined` when no validation type is set.
+- **dda-header: the language buttons had `lang="ar"` but no `dir`.** HTML checkers report a writing direction that does not match the language. The buttons now get `dir="rtl"` for Arabic, Hebrew, Persian and Urdu (including tags such as `ar-AE`), and `dir="ltr"` for other languages.
 - **dda-phonefield, dda-number-field: no focus ring in the error and disabled states.** Only the colour changed on focus. The input now shows the same focus ring as the other fields.
 
 ### Behaviour Changes
@@ -24,6 +25,7 @@ A patch release. Every Material icon that the components render is now hidden fr
 
 ### Features
 
+- **dda-home-banner: `<div class="dda-slide">` slides.** `<slide>` is not an HTML element, so HTML checkers reject it. Write each slide as `<div class="dda-slide">` instead. `<slide>` still works.
 - **dda-textarea: `toolbar_labels`.** Names the rich editor's toolbar dropdowns in the page language, as a JSON object with the keys `header`, `color`, `background`, `font` and `align`. Keys that are not set keep their English names.
 - **dda-avatar: `verified_label`.** The verified badge icon is hidden from screen readers, and the badge is read as `verified_label` instead (default `Verified`). Set it in the page language.
 

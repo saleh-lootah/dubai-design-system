@@ -42,7 +42,8 @@
   border-radius: 8px;
 }
 
-.home-slider slide {
+.home-slider slide,
+.home-slider .dda-slide {
   position: relative;
   width: 100vw;
   height: 100vh;

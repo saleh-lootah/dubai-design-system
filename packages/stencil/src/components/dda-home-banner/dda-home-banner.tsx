@@ -87,9 +87,9 @@ export class DdaHomeBanner {
   }
 
   componentDidLoad() {
-    // Non-<slide> children are ignored, which otherwise looks like a blank banner.
+    // Other children are ignored, which otherwise looks like a blank banner.
     if (!this.slides.length) {
-      console.warn('dda-home-banner: no <slide> children found. Each slide must be a <slide> element; other children are not shown.');
+      console.warn('dda-home-banner: no slides found. Each slide must be a <div class="dda-slide"> (or a <slide>) element; other children are not shown.');
     }
   }
 
@@ -202,7 +202,8 @@ export class DdaHomeBanner {
   }
 
   updateSlides() {
-    const slides = Array.from(this.el.querySelectorAll('slide')) as HTMLElement[];
+    // <div class="dda-slide"> is the valid-HTML form; <slide> still works for existing pages.
+    const slides = Array.from(this.el.querySelectorAll('slide, .dda-slide')) as HTMLElement[];
 
     // The observer watches this.el, which also contains the nav this component renders,
     // so every re-render re-triggers it. Bail unless the slide list actually changed,

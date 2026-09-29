@@ -7,7 +7,7 @@ import { componentApi } from '../../storybook/component-api';
 # Home Banner
 
 The `dda-home-banner` component is a full-viewport image or video carousel for landing pages. You
-supply each slide as a `<slide>` element; the component adds previous and next buttons, slide
+supply each slide as a `<div class="dda-slide">` element; the component adds previous and next buttons, slide
 dots and, with `autoplay`, a pause button.
 
 ## API
@@ -30,7 +30,7 @@ dots and, with `autoplay`, a pause button.
 </script>
 
 <dda-home-banner autoplay="true" interval="5000" aria_label="Highlights">
-  <slide>
+  <div class="dda-slide">
     <img src="/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
     <div class="slide-wrap">
       <div class="slide-content">
@@ -38,7 +38,7 @@ dots and, with `autoplay`, a pause button.
         <p>Pioneering and accelerating the pace of digital transformation in the city</p>
       </div>
     </div>
-  </slide>
+  </div>
 </dda-home-banner>
 ```
 
@@ -64,7 +64,7 @@ import { DdaHomeBanner } from '@dubai-design-system/components-react';
 export function HomeBanner() {
   return (
     <DdaHomeBanner autoplay={true} interval={5000} aria_label="Highlights">
-      <slide>
+      <div class="dda-slide">
         <img src="/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
         <div className="slide-wrap">
           <div className="slide-content">
@@ -72,7 +72,7 @@ export function HomeBanner() {
             <p>Pioneering and accelerating the pace of digital transformation in the city</p>
           </div>
         </div>
-      </slide>
+      </div>
     </DdaHomeBanner>
   );
 }
@@ -87,7 +87,7 @@ import { DdaHomeBanner } from '@dubai-design-system/components-vue';
 
 <template>
   <DdaHomeBanner :autoplay="true" :interval="5000" aria_label="Highlights">
-    <slide>
+    <div class="dda-slide">
       <img src="/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
       <div class="slide-wrap">
         <div class="slide-content">
@@ -95,7 +95,7 @@ import { DdaHomeBanner } from '@dubai-design-system/components-vue';
           <p>Pioneering and accelerating the pace of digital transformation in the city</p>
         </div>
       </div>
-    </slide>
+    </div>
   </DdaHomeBanner>
 </template>
 ```
@@ -104,7 +104,7 @@ import { DdaHomeBanner } from '@dubai-design-system/components-vue';
 
 ```html
 <dda-home-banner [autoplay]="true" [interval]="5000" aria_label="Highlights">
-  <slide>
+  <div class="dda-slide">
     <img src="assets/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
     <div class="slide-wrap">
       <div class="slide-content">
@@ -112,22 +112,23 @@ import { DdaHomeBanner } from '@dubai-design-system/components-vue';
         <p>Pioneering and accelerating the pace of digital transformation in the city</p>
       </div>
     </div>
-  </slide>
+  </div>
 </dda-home-banner>
 ```
 
 ## Slide structure
 
 The banner is **slotted** — you supply the slides as markup. Each slide **must be a
-`<slide>` element**; the component collects them with `querySelectorAll('slide')` and
-anything else is ignored (you would get a banner with no slides and no dots).
+`<div class="dda-slide">`**; anything else is ignored (you would get a banner with no slides and
+no dots). Earlier releases used a `<slide>` element. It still works, but HTML checkers reject it,
+because `slide` is not an HTML element.
 
-Inside each `<slide>`, use `.slide-wrap` for the full-height flex wrapper and
+Inside each slide, use `.slide-wrap` for the full-height flex wrapper and
 `.slide-content` for the constrained content column:
 
 ```html
 <dda-home-banner autoplay="true" interval="5000">
-  <slide>
+  <div class="dda-slide">
     <img src="assets/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
     <div class="slide-wrap">
       <div class="slide-content">
@@ -136,9 +137,9 @@ Inside each `<slide>`, use `.slide-wrap` for the full-height flex wrapper and
         <dda-button button_color="default-primary" size="lg">Call to action</dda-button>
       </div>
     </div>
-  </slide>
+  </div>
 
-  <slide>
+  <div class="dda-slide">
     <video src="assets/video/skyline.mp4" autoplay muted loop playsinline></video>
     <div class="slide-wrap">
       <div class="slide-content">
@@ -146,7 +147,7 @@ Inside each `<slide>`, use `.slide-wrap` for the full-height flex wrapper and
         <p>Find the services you need</p>
       </div>
     </div>
-  </slide>
+  </div>
 </dda-home-banner>
 ```
 
@@ -175,7 +176,7 @@ these in order:
 1. **You are on a release older than the fix.** Earlier versions required you to write
    `class="home-slider"` on the element yourself. The component now applies it. Upgrade,
    or add that class as a stopgap.
-2. The slides are not `<slide>` elements.
+2. The slides are not `<div class="dda-slide">` (or `<slide>`) elements.
 3. The component has not upgraded — check that `defineCustomElements()` ran and that the
    loader script URL resolves.
 
@@ -190,7 +191,7 @@ placed against that parent.
 ```html
 <div class="home-intros" style="position: relative;">
   <dda-home-banner aria_label="Highlights">
-    <!-- <slide> elements -->
+    <!-- <div class="dda-slide"> elements -->
   </dda-home-banner>
 
   <nav class="quick-links-wrap" aria-label="Popular services">

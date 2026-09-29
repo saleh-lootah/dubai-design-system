@@ -3,7 +3,7 @@ const IMG_2 = 'https://images.pexels.com/photos/1470405/pexels-photo-1470405.jpe
 const IMG_3 = 'https://images.pexels.com/photos/162031/dubai-tower-arab-emirates-162031.jpeg';
 
 const slide = (src, alt, title, subtitle) => `
-  <slide>
+  <div class="dda-slide">
     <img src="${src}" alt="${alt}" />
     <div class="slide-wrap">
       <div class="slide-content">
@@ -12,7 +12,7 @@ const slide = (src, alt, title, subtitle) => `
         <dda-button button_color="default-primary" size="lg">Call to action</dda-button>
       </div>
     </div>
-  </slide>`;
+  </div>`;
 
 export default {
   title: 'Components/Home Banner',
@@ -33,12 +33,12 @@ export default {
     docs: {
       description: {
         component: `
-The banner is **slotted** — each slide must be a \`<slide>\` element. The component
-collects slides with \`querySelectorAll('slide')\`, so \`<div>\` children are ignored.
+The banner is **slotted** — each slide must be a \`<div class="dda-slide">\`. Other children
+are ignored. The older \`<slide>\` element still works, but HTML checkers reject it.
 
 \`\`\`html
 <dda-home-banner autoplay="true" interval="5000">
-  <slide>
+  <div class="dda-slide">
     <img src="assets/img/home-banner.jpg" alt="Aerial view of Dubai at sunset" />
     <div class="slide-wrap">
       <div class="slide-content">
@@ -46,7 +46,7 @@ collects slides with \`querySelectorAll('slide')\`, so \`<div>\` children are ig
         <p>Pioneering and accelerating the pace of digital transformation in the city</p>
       </div>
     </div>
-  </slide>
+  </div>
 </dda-home-banner>
 \`\`\`
 

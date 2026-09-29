@@ -422,3 +422,32 @@ describe('dda-home-banner scroll icon', () => {
     expect(await icon(1440, 'show_scroll_icon="false"')).toBeNull();
   });
 });
+
+// <slide> is not a valid HTML element (no hyphen, not standard), so HTML checkers reject it.
+// <div class="dda-slide"> is valid; <slide> keeps working for existing pages.
+describe('dda-home-banner slide markup', () => {
+  const content = (tag: string) => [1, 2, 3].map(n => (tag === 'div' ? `<div class="dda-slide"><h2>Slide ${n}</h2></div>` : `<slide><h2>Slide ${n}</h2></slide>`)).join('');
+  const state = async (tag: string) => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1280, height: 800 });
+    await page.setContent(`<dda-home-banner>${content(tag)}</dda-home-banner>`);
+    await page.waitForChanges();
+    return page.evaluate(() => {
+      const slides = Array.from(document.querySelectorAll('dda-home-banner .dda-slide, dda-home-banner slide'));
+      return {
+        dots: document.querySelectorAll('.slider-nav .dots').length,
+        roles: slides.map(s => s.getAttribute('aria-roledescription')),
+        hidden: slides.map(s => s.getAttribute('aria-hidden')),
+        height: Math.round(slides[0].getBoundingClientRect().height),
+      };
+    });
+  };
+
+  it('accepts <div class="dda-slide"> slides', async () => {
+    expect(await state('div')).toEqual({ dots: 3, roles: ['slide', 'slide', 'slide'], hidden: ['false', 'true', 'true'], height: 800 });
+  });
+
+  it('still accepts <slide> slides', async () => {
+    expect(await state('slide')).toEqual({ dots: 3, roles: ['slide', 'slide', 'slide'], hidden: ['false', 'true', 'true'], height: 800 });
+  });
+});

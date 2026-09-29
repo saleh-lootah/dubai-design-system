@@ -397,8 +397,8 @@ the top of the page.
   which widened the page.
 - **`dda-banner`** lays out its slides as a horizontal row that scrolls and snaps, instead of
   stacked images. A missing `slides` attribute no longer throws.
-- **`dda-home-banner`** logs a console warning when it has no `<slide>` children. Only
-  `<slide>` elements are shown.
+- **`dda-home-banner`** logs a console warning when it has no slides. Only
+  `<div class="dda-slide">` elements (from 5.3.3) and `<slide>` elements are shown.
 - **Material icons in `.quick-links .link-item`** get the same size as SVG icons.
 - **Placeholder text is darker** (4.5:1 contrast or better), **links inside paragraphs and table
   cells are underlined**, and **home-banner slides have a dark scrim behind the text.** If you
@@ -560,7 +560,7 @@ now an `<li>` in between.
 - **`dda-header` sets `scroll-padding-top` on `:root`** (170px; 100px below 767px), so keyboard
   focus cannot land behind the fixed header. Every anchor jump and `scrollIntoView()` on the
   page is offset. Remove any manual compensation or you will double-offset.
-- **`dda-home-banner` writes `inert` and `aria-hidden` onto your `<slide>` elements.** Slides
+- **`dda-home-banner` writes `inert` and `aria-hidden` onto your slide elements.** Slides
   that are not showing cannot be focused or clicked. It also became a working carousel, with
   autoplay, previous/next/pause controls and a live region.
 - **`dda-segmented-tabs` selects its first segment on load.** In 3.x it had no interactivity.
