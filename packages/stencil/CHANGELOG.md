@@ -15,7 +15,12 @@ A patch release. Every Material icon that the components render is now hidden fr
 - **dda-tabs: the active tab failed contrast in the dark theme.** Its teal text was on a light background (1.97:1). The background now turns dark in the dark theme (5.72:1). `.light-mode` tabs keep their light background.
 - **dda-header: a logo without an image rendered an empty link.** The link had no name and its image had no `alt`. A logo whose `first-logo-src` or `second-logo-src` is not set now renders nothing. The mobile second logo now falls back to `second-logo-src` when `second-logo-white-src` is not set, as the desktop logo does.
 - **dda-textarea: the rich editor's toolbar dropdowns had no names.** Screen readers announced five unnamed buttons. They are now named (see `toolbar_labels` below).
+- **dda-select: a site's `.hide` rule could hide the whole select.** The select container had the bare class `hide` when closed and `show` when open. Many site stylesheets define these (Bootstrap 3: `.hide { display: none !important }`). The open state is now `dda-select-open`, and a closed select has no state class. The container also no longer gets `dda-validation-undefined` when no validation type is set.
 - **dda-phonefield, dda-number-field: no focus ring in the error and disabled states.** Only the colour changed on focus. The input now shows the same focus ring as the other fields.
+
+### Behaviour Changes
+
+- **dda-select: the container's `show` and `hide` classes are gone.** If your CSS used `.dda-input-container.show` to style an open select, use `.dda-input-container.dda-select-open`.
 
 ### Features
 

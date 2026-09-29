@@ -222,3 +222,32 @@ describe('dda-select selectBlurred', () => {
     expect(spy).toHaveBeenCalledWith({ name: trigger.id, value: 'Dubai' });
   });
 });
+
+// Bare "show"/"hide" collide with site frameworks: Bootstrap 3 has .hide { display: none !important },
+// so a closed select vanished on a consumer page. Our own CSS never used them.
+describe('dda-select container classes', () => {
+  const container = page => page.root.querySelector('.dda-input-container') as HTMLElement;
+
+  it('adds no generic show/hide class and no "undefined" class when closed', async () => {
+    const page = await render(`<dda-select label="Category" options='["A","B"]'></dda-select>`);
+
+    const classes = container(page).className.split(/\s+/).filter(Boolean);
+    expect(classes).not.toContain('hide');
+    expect(classes).not.toContain('show');
+    expect(classes.filter(c => c.includes('undefined'))).toEqual([]);
+  });
+
+  it('marks the open state with dda-select-open', async () => {
+    const page = await render(`<dda-select label="Category" options='["A","B"]'></dda-select>`);
+
+    await open(page);
+    expect(container(page).classList.contains('dda-select-open')).toBe(true);
+    expect(container(page).classList.contains('show')).toBe(false);
+  });
+
+  it('keeps dda-validation-<type> when a validation type is set', async () => {
+    const page = await render(`<dda-select validation_type="error" options='["A"]'></dda-select>`);
+
+    expect(container(page).classList.contains('dda-validation-error')).toBe(true);
+  });
+});

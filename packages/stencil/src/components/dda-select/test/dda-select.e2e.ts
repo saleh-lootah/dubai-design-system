@@ -98,19 +98,17 @@ describe('dda-select F-016 error labelling', () => {
 
   it('points aria-describedby at an existing error element with the error text and sets aria-invalid=true', async () => {
     const page = await newE2EPage();
-    await page.setContent(
-      '<dda-select button_id="button" options=\'["Option 1"]\' error_message="Pick one"></dda-select>'
-    );
+    await page.setContent('<dda-select button_id="button" options=\'["Option 1"]\' error_message="Pick one"></dda-select>');
 
     const result = await page.evaluate(() => {
       const trigger = document.querySelector('dda-select .dda-select-header');
       const ids = (trigger.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
-      const texts = ids.map((id) => document.getElementById(id));
+      const texts = ids.map(id => document.getElementById(id));
       return {
         invalid: trigger.getAttribute('aria-invalid'),
         ids,
-        allExist: texts.every((t) => !!t),
-        containsError: texts.some((t) => t?.textContent?.includes('Pick one')),
+        allExist: texts.every(t => !!t),
+        containsError: texts.some(t => t?.textContent?.includes('Pick one')),
       };
     });
 
@@ -237,7 +235,7 @@ describe('dda-select listbox pattern (F-014)', () => {
     // box-shadow ring the focused option has.
     const hoveredOnlyBoxShadow = await page.evaluate(() => {
       const items = Array.from(document.querySelectorAll('.dda-input-dropdown-item')) as HTMLElement[];
-      const nonFocused = items.find((el) => el !== document.activeElement);
+      const nonFocused = items.find(el => el !== document.activeElement);
       return nonFocused ? getComputedStyle(nonFocused).boxShadow : null;
     });
     expect(hoveredOnlyBoxShadow).toBe('none');
@@ -389,12 +387,10 @@ describe('dda-select decorative icons', () => {
     const page = await newE2EPage();
     await page.setContent(`<dda-select button_id="select" label="City" options='["Dubai","Sharjah"]'></dda-select>`);
 
-    const icons = await page.evaluate(() =>
-      Array.from(document.querySelectorAll('dda-select i.material-icons')).map((i) => i.getAttribute('aria-hidden')),
-    );
+    const icons = await page.evaluate(() => Array.from(document.querySelectorAll('dda-select i.material-icons')).map(i => i.getAttribute('aria-hidden')));
 
     expect(icons.length).toBeGreaterThan(0);
-    icons.forEach((hidden) => expect(hidden).toBe('true'));
+    icons.forEach(hidden => expect(hidden).toBe('true'));
   });
 
   it('keeps the icon ligature out of the trigger name when the list is open', async () => {
@@ -495,7 +491,7 @@ describe('dda-select selectionChange', () => {
 // replaced the trigger text as its name, so the selected value was not announced.
 describe('dda-select label wiring', () => {
   const readWiring = () =>
-    Array.from(document.querySelectorAll('dda-select')).map((host) => {
+    Array.from(document.querySelectorAll('dda-select')).map(host => {
       const label = host.querySelector('label.dda-input-label');
       const trigger = host.querySelector('.dda-select-header');
       return {
@@ -516,14 +512,12 @@ describe('dda-select label wiring', () => {
 
   it('generates unique, non-empty ids when button_id is not set', async () => {
     const page = await newE2EPage();
-    await page.setContent(
-      `<dda-select label="City" options='${OPTIONS}' helper_text="Pick one"></dda-select><dda-select label="Size" options='${OPTIONS}'></dda-select>`,
-    );
+    await page.setContent(`<dda-select label="City" options='${OPTIONS}' helper_text="Pick one"></dda-select><dda-select label="Size" options='${OPTIONS}'></dda-select>`);
 
     const wiring = await page.evaluate(readWiring);
 
     expect(wiring).toHaveLength(2);
-    wiring.forEach((w) => {
+    wiring.forEach(w => {
       expect(w.triggerId).toBeTruthy();
       expect(w.labelId).toBe(`${w.triggerId}-label`);
       expect(w.labelledBy).toBe(`${w.triggerId}-label ${w.triggerId}`);
@@ -604,5 +598,24 @@ describe('dda-select label wiring', () => {
 
     expect(result.expanded).toBe('true');
     expect(result.focusedCls).toContain('dda-select-header');
+  });
+});
+
+// A consumer page with site utility classes (Bootstrap 3: .hide { display: none !important }).
+describe('dda-select on a page with generic utility classes', () => {
+  it('stays visible, closed and open', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`
+      <style>.hide { display: none !important; } .show { display: none !important; }</style>
+      <dda-select label="Category" selected="Select" disabled="false" custom_class="w-100" button_id="category_select" aria_label="Category"
+        options='[{"id":"","text":"Select"},{"id":"Maliyoun","text":"Maliyoun"},{"id":"Military Pension","text":"Military Pension"}]'></dda-select>`);
+    await page.waitForChanges();
+    const visible = () => page.$eval('dda-select .dda-input-container', el => getComputedStyle(el).display !== 'none');
+
+    expect(await visible()).toBe(true);
+    await (await page.find('#category_select')).click();
+    await page.waitForChanges();
+    expect(await visible()).toBe(true);
+    expect(await page.$$eval('[role="option"]', els => els.length)).toBe(3);
   });
 });

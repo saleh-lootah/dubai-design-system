@@ -308,7 +308,19 @@ export class Ddaselect {
 
     return (
       <Host>
-        <div class={`dda-input-container ${this.custom_class} ${this.component_mode} ${this.disabled ? 'dda-input-disabled' : ''} ${this.is_open ? 'show' : 'hide'} dda-input-size-${this.size} dda-validation-${validation} `}>
+        {/* The open state is dda-select-open, not a bare "show"/"hide": site frameworks style those
+            (Bootstrap 3: .hide { display: none !important }) and hid the whole select. */}
+        <div
+          class={{
+            'dda-input-container': true,
+            [this.custom_class]: !!this.custom_class,
+            [this.component_mode]: !!this.component_mode,
+            'dda-input-disabled': this.disabled,
+            'dda-select-open': this.is_open,
+            [`dda-input-size-${this.size}`]: !!this.size,
+            [`dda-validation-${validation}`]: !!validation,
+          }}
+        >
           {this.label && <label id={this.labelId} class="dda-input-label">{this.label}</label>}
           <div class="dda-dropdown-container">
             <button
