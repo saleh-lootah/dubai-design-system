@@ -304,3 +304,34 @@ A reviewer should confirm each of these; every line traces to a section above.
 - [ ] `npm run lint` / `format:check` / `check:api` were run; if a count went down, the
       corresponding baseline in `.github/quality-baseline.env` was lowered in this PR. If
       a count went up, that's a regression to fix, not a baseline to raise.
+
+## Releasing
+
+`.github/workflows/release.yml` publishes the four packages to npm. Nobody publishes from a
+laptop.
+
+1. On `master`, bump all four `package.json` versions to the new version, and set the
+   `@dubai-design-system/components-js` dependency of react, vue and angular to `^` that
+   version. Run `npm install --package-lock-only`. Date the new section in
+   `packages/stencil/CHANGELOG.md`. Build (see below) and commit the regenerated files.
+2. Push, and let CI finish green.
+3. Tag that commit and push the tag: `git tag v5.3.3 && git push origin v5.3.3`.
+4. In the Actions tab, approve the `npm` environment for the Release run.
+
+The workflow stops before it publishes when:
+
+- the tag does not match all four versions, or a wrapper does not depend on `^` that version;
+- the tagged commit is not on `master`, or CI did not pass on it (it waits up to 40 minutes
+  for a CI run that is still going);
+- `dist/dda/dda.css` has no Dubai `@font-face` rules (`npx stencil build` and
+  `stencil test` leave them out; only `npm run build` adds them);
+- the build changes a tracked file, which means a generated file was not committed.
+
+It publishes `components-js` first, then react, vue and angular, and skips a version that is
+already on npm, so you can re-run a failed release.
+
+**npm setup (once, by a package owner).** Publishing uses npm Trusted Publishing, so the
+repository has no npm token. On npmjs.com, for each of the four packages, open
+*Settings → Trusted publishing* and add GitHub Actions with repository
+`saleh-lootah/dubai-design-system`, workflow `release.yml` and environment `npm`. In the
+repository settings, create the environment `npm` with a required reviewer.
