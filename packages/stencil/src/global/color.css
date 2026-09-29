@@ -560,6 +560,7 @@
   --dda-neutral-variant-99: #F4FEFD;
   --dda-neutral-variant-100: #FFFFFF;
 
+  --dda-surface-variant-94: var(--dda-neutral-variant-94);
   --dda-surface-variant-90: var(--dda-neutral-variant-90);
   --dda-surface-variant-87: var(--dda-neutral-variant-87);
   --dda-surface-variant-80: var(--dda-neutral-variant-80);
@@ -574,6 +575,8 @@
 
 :root[data-theme='dark'] {
 
+  /* Behind --dda-color-primary-40 text (the active tab): #21BEBA on #293232 is 5.72:1. */
+  --dda-surface-variant-94: var(--dda-neutral-variant-20);
   --dda-surface-variant-90: var(--dda-neutral-variant-30);
   --dda-surface-variant-87: var(--dda-neutral-variant-25);
   --dda-surface-variant-80: var(--dda-neutral-variant-22);

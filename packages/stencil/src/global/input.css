@@ -708,7 +708,12 @@
  * report for the computed ratios.
  */
 .dda-validation-error .dda-input-field:focus-visible,
-.dda-input-disabled .dda-input-field:focus-visible {
+.dda-input-disabled .dda-input-field:focus-visible,
+/* The phone and number fields put their input inside a bordered group. In the error and disabled
+   states the group drops its focus shadow, so the input itself takes the ring (WCAG 2.4.7). */
+.dda-validation-error .dda-field-group-input:focus-visible,
+.dda-input-disabled .dda-field-group-input:focus-visible,
+.dda-phone-field-group.error .dda-field-group-input:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }

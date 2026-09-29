@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { contrastRatio } from '../../../utils/contrast';
 
 // F-010: dda-tabs implemented no WAI tabs pattern on any axis — no
 // role="tablist"/"tab", aria-selected reflected only a CSS class, no
@@ -120,5 +121,35 @@ describe('dda-tabs', () => {
 
     const hidden = await page.$$eval('dda-tabs i.material-icons', (els: Element[]) => els.map(el => el.getAttribute('aria-hidden')));
     expect(hidden).toEqual(['true', 'true', 'true']);
+  });
+});
+
+// The active tab's text is --dda-color-primary-40, which is a light teal in the dark theme, so its
+// background must switch too (--dda-surface-variant-94). WCAG 1.4.3: 4.5:1 for 16px text.
+describe('dda-tabs active tab contrast', () => {
+  const ratio = async (theme: string, extraClass = '') => {
+    const page = await newE2EPage();
+    await page.setContent(`<dda-tabs tab_texts='${TEXTS}' hover_style="dda-tab-default" component_mode="${extraClass}"></dda-tabs>`);
+    await page.evaluate(t => document.documentElement.setAttribute('data-theme', t), theme);
+    await page.waitForChanges();
+    // Let the 0.25s colour transition finish.
+    await page.evaluate(() => Promise.all(document.getAnimations().map(a => a.finished)));
+    const { fg, bg } = await page.$eval('.dda-tab-item.active', el => ({
+      fg: getComputedStyle(el.querySelector('span')).color,
+      bg: getComputedStyle(el).backgroundColor,
+    }));
+    return contrastRatio(fg, bg);
+  };
+
+  it('meets 4.5:1 in the light theme', async () => {
+    expect(await ratio('light')).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('meets 4.5:1 in the dark theme', async () => {
+    expect(await ratio('dark')).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('meets 4.5:1 for light-mode tabs in the dark theme', async () => {
+    expect(await ratio('dark', 'light-mode')).toBeGreaterThanOrEqual(4.5);
   });
 });

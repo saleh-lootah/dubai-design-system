@@ -449,7 +449,7 @@ describe('dda-header accessibility', () => {
   });
 
   it('links the logos to first-logo-href and second-logo-href', async () => {
-    const page = await setup('first-logo-href="/gov" second-logo-href="/entity"');
+    const page = await setup('first-logo-src="gov.svg" second-logo-src="entity.svg" first-logo-href="/gov" second-logo-href="/entity"');
 
     const hrefs = await page.evaluate(() => ({
       first: Array.from(document.querySelectorAll('dda-header a.govt-logo')).map(a => a.getAttribute('href')),
@@ -461,11 +461,24 @@ describe('dda-header accessibility', () => {
   });
 
   it('links the logos to / by default', async () => {
-    const page = await setup();
+    const page = await setup('first-logo-src="gov.svg" second-logo-src="entity.svg"');
 
     const hrefs = await page.evaluate(() => Array.from(document.querySelectorAll('dda-header a.govt-logo, dda-header a.entt-logo')).map(a => a.getAttribute('href')));
     expect(hrefs.length).toBe(4);
     hrefs.forEach(href => expect(href).toBe('/'));
+  });
+
+  // A logo link with no image has no content, so it has no accessible name (axe link-name), and
+  // its <img> has no alt (axe image-alt). Nothing is rendered for a logo that is not set.
+  it('renders no logo link for a logo without an image', async () => {
+    const page = await setup('second-logo-src="entity.svg" second-logo-alt="Entity"');
+
+    const links = await page.evaluate(() => ({
+      first: document.querySelectorAll('dda-header a.govt-logo').length,
+      second: document.querySelectorAll('dda-header a.entt-logo').length,
+      emptyImages: document.querySelectorAll('dda-header img:not([src])').length,
+    }));
+    expect(links).toEqual({ first: 0, second: 2, emptyImages: 0 });
   });
 });
 

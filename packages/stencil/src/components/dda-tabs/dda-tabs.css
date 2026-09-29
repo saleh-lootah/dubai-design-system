@@ -33,12 +33,13 @@
 
 .dda-tab-default .dda-tab-item.active,
 .dda-tab-default .dda-tab-item:hover {
-  background: var(--dda-neutral-variant-94);
+  background: var(--dda-surface-variant-94);
   color: var(--dda-color-primary-40);
 }
 
 .light-mode.dda-tab-default .dda-tab-item.active,
 .light-mode.dda-tab-default .dda-tab-item:hover {
+  background: var(--dda-neutral-variant-94);
   color: var(--dda-primary-40);
 }
 

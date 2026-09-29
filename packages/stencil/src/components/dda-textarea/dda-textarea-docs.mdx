@@ -144,6 +144,14 @@ const html = editor.value;
 In rich text mode `max_characters` does not limit the input, and `textarea_name` and `aria_label` are
 not used. The editor is not a form field, so copy `value` into your form data yourself.
 
+Screen readers name the toolbar's five dropdowns "Heading", "Text colour", "Highlight colour",
+"Font" and "Alignment". Set `toolbar_labels` to name them in the page language. A key that is not
+set keeps its English name:
+
+```html
+<dda-textarea enable_rich_editor="true" toolbar_labels='{"header":"العنوان","color":"لون النص","background":"لون التمييز","font":"الخط","align":"المحاذاة"}'></dda-textarea>
+```
+
 ## Accessibility
 
 - `input_id` is optional. The label and the ids of the helper and error text come from it.

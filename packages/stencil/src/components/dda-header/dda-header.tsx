@@ -763,14 +763,19 @@ export class DdaHeader {
       <header class="dda-header">
           {/* Logo Section */}
           <div class="dda-head-logo">
-            <a href={this.firstLogoHref} class="govt-logo">
-              <img class="logo-colored" src={this.firstLogoSrc} alt={this.firstLogoAlt} />
-              <img class="logo-white" src={this.firstLogoWhiteSrc || this.firstLogoSrc} alt={this.firstLogoAlt} />
-            </a>
-            <a href={this.secondLogoHref} class="entt-logo">
-              <img class="logo-colored" src={this.secondLogoSrc} alt={this.secondLogoAlt} />
-              <img class="logo-white" src={this.secondLogoWhiteSrc || this.secondLogoSrc} alt={this.secondLogoAlt} />
-            </a>
+            {/* A logo without an image renders nothing: an empty link has no accessible name. */}
+            {this.firstLogoSrc && (
+              <a href={this.firstLogoHref} class="govt-logo">
+                <img class="logo-colored" src={this.firstLogoSrc} alt={this.firstLogoAlt} />
+                <img class="logo-white" src={this.firstLogoWhiteSrc || this.firstLogoSrc} alt={this.firstLogoAlt} />
+              </a>
+            )}
+            {this.secondLogoSrc && (
+              <a href={this.secondLogoHref} class="entt-logo">
+                <img class="logo-colored" src={this.secondLogoSrc} alt={this.secondLogoAlt} />
+                <img class="logo-white" src={this.secondLogoWhiteSrc || this.secondLogoSrc} alt={this.secondLogoAlt} />
+              </a>
+            )}
           </div>
 
           {/* Main Navigation Section */}
@@ -830,9 +835,11 @@ export class DdaHeader {
 
                 <div class="dda-sidemenu-bottom">
                     <div class="dda-sidemenu-gov-logo">
-                        <a href={this.firstLogoHref} class="govt-logo mb-2">
-                          <img class="" src={this.firstLogoSrc} alt={this.firstLogoAlt} />
-                        </a>
+                        {this.firstLogoSrc && (
+                          <a href={this.firstLogoHref} class="govt-logo mb-2">
+                            <img class="" src={this.firstLogoSrc} alt={this.firstLogoAlt} />
+                          </a>
+                        )}
                     </div>
                     <div class="dda-toolbar-menu-sidemenu">
                         <ul>
@@ -906,10 +913,12 @@ export class DdaHeader {
             </div>
 
             <div class="dda-mobile-entt-logo">
-              <a href={this.secondLogoHref} class="entt-logo">
-                <img class="logo-colored" src={this.secondLogoSrc} alt={this.secondLogoAlt} />
-                <img class="logo-white" src={this.secondLogoWhiteSrc} alt={this.secondLogoAlt} />
-              </a>
+              {this.secondLogoSrc && (
+                <a href={this.secondLogoHref} class="entt-logo">
+                  <img class="logo-colored" src={this.secondLogoSrc} alt={this.secondLogoAlt} />
+                  <img class="logo-white" src={this.secondLogoWhiteSrc || this.secondLogoSrc} alt={this.secondLogoAlt} />
+                </a>
+              )}
             </div>
             <div class="dda-mobile-search">
               {this.mobileMenuSearchUrl ? (

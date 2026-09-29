@@ -322,3 +322,22 @@ describe('dda-textarea rich editor label', () => {
     expect(wiring.labelledBy).toBe(wiring.labelId);
   });
 });
+
+// Quill's dropdowns render a <span role="button"> with no text; every one needs a name.
+describe('dda-textarea rich editor toolbar names', () => {
+  const pickerNames = async (attrs = '') => {
+    const page = await newE2EPage();
+    await page.setContent(`<meta charset="utf-8"><dda-textarea input_id="notes" enable_rich_editor="true" ${attrs}></dda-textarea>`);
+    await page.waitForChanges();
+    return page.$$eval('.ql-toolbar .ql-picker-label', els => els.map(e => e.getAttribute('aria-label')));
+  };
+
+  it('names every toolbar dropdown in English by default', async () => {
+    expect(await pickerNames()).toEqual(['Heading', 'Text colour', 'Highlight colour', 'Font', 'Alignment']);
+  });
+
+  it('takes the names from toolbar_labels, keeping English for keys it does not set', async () => {
+    const labels = JSON.stringify({ header: 'العنوان', align: 'المحاذاة' });
+    expect(await pickerNames(`toolbar_labels='${labels}'`)).toEqual(['العنوان', 'Text colour', 'Highlight colour', 'Font', 'المحاذاة']);
+  });
+});

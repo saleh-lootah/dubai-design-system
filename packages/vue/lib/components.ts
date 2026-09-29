@@ -648,6 +648,7 @@ export const DdaTextarea = /*@__PURE__*/ defineContainer<JSX.DdaTextarea>('dda-t
   'helper_text',
   'custom_class',
   'enable_rich_editor',
+  'toolbar_labels',
   'max_characters',
   'component_mode',
   'input_id',

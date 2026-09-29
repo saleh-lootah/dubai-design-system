@@ -10,11 +10,13 @@ import { QuickLinkItem } from "./components/dda-header/dda-header";
 import { BannerCardItem } from "./components/dda-home-carousel/dda-home-carousel";
 import { SelectOption } from "./components/dda-select/dda-select";
 import { MiddleLinkItem, RightLinkItem } from "./components/dda-sticky-footer/dda-sticky-footer";
+import { RichEditorPicker } from "./components/dda-textarea/dda-textarea";
 export { BreadcrumbItem } from "./components/dda-breadcrumb/dda-breadcrumb";
 export { QuickLinkItem } from "./components/dda-header/dda-header";
 export { BannerCardItem } from "./components/dda-home-carousel/dda-home-carousel";
 export { SelectOption } from "./components/dda-select/dda-select";
 export { MiddleLinkItem, RightLinkItem } from "./components/dda-sticky-footer/dda-sticky-footer";
+export { RichEditorPicker } from "./components/dda-textarea/dda-textarea";
 export namespace Components {
     interface DdaAccordion {
         /**
@@ -2185,6 +2187,10 @@ export namespace Components {
           * `name` of the textarea, submitted with its form.
          */
         "textarea_name": string;
+        /**
+          * Accessible names of the rich editor's toolbar dropdowns, as a JSON object or an object. Keys: `header`, `color`, `background`, `font`, `align`. A key that is not set keeps its English default.
+         */
+        "toolbar_labels"?: string | Partial<Record<RichEditorPicker, string>>;
         /**
           * Validation style. `error` shows the error colors.
          */
@@ -5034,6 +5040,10 @@ declare namespace LocalJSX {
          */
         "textarea_name"?: string;
         /**
+          * Accessible names of the rich editor's toolbar dropdowns, as a JSON object or an object. Keys: `header`, `color`, `background`, `font`, `align`. A key that is not set keeps its English default.
+         */
+        "toolbar_labels"?: string | Partial<Record<RichEditorPicker, string>>;
+        /**
           * Validation style. `error` shows the error colors.
          */
         "validation_type"?: string;
@@ -5732,6 +5742,7 @@ declare namespace LocalJSX {
         "helper_text": string;
         "custom_class": string;
         "enable_rich_editor": boolean;
+        "toolbar_labels": string | Partial<Record<RichEditorPicker, string>>;
         "max_characters": number;
         "component_mode": string;
         "input_id": string;

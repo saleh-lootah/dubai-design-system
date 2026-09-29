@@ -3,6 +3,17 @@ import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import { uniqueId } from '../../utils/unique-id';
 
+export type RichEditorPicker = 'header' | 'color' | 'background' | 'font' | 'align';
+
+// English names of the rich editor's toolbar dropdowns; toolbar_labels overrides them.
+const DEFAULT_PICKER_LABELS: Record<RichEditorPicker, string> = {
+  header: 'Heading',
+  color: 'Text colour',
+  background: 'Highlight colour',
+  font: 'Font',
+  align: 'Alignment',
+};
+
 @Component({
   tag: 'dda-textarea',
   styleUrls: ['../../global/global.css', '../../global/input.css'],
@@ -27,6 +38,8 @@ export class DdaTextarea {
   @Prop() custom_class?: string;
   /** Replaces the textarea with a Quill rich text editor and toolbar. */
   @Prop() enable_rich_editor?: boolean;
+  /** Accessible names of the rich editor's toolbar dropdowns, as a JSON object or an object. Keys: `header`, `color`, `background`, `font`, `align`. A key that is not set keeps its English default. */
+  @Prop() toolbar_labels?: string | Partial<Record<RichEditorPicker, string>>;
   /** Maximum number of characters (`maxlength` of the textarea), shown in the character count. */
   @Prop() max_characters: number;
   /** Theme override class for the field, e.g. `light-mode`. */
@@ -111,6 +124,26 @@ export class DdaTextarea {
     }
   }
 
+  // Quill names its toolbar buttons but not its dropdowns ("pickers"): each picker's label is a
+  // <span role="button"> with no text, so screen readers announce an unnamed button (axe
+  // aria-command-name). Name each one from toolbar_labels, falling back to English.
+  private labelToolbarPickers() {
+    let custom: Partial<Record<RichEditorPicker, string>> = {};
+    if (typeof this.toolbar_labels === 'string') {
+      try {
+        custom = JSON.parse(this.toolbar_labels);
+      } catch {
+        custom = {};
+      }
+    } else if (this.toolbar_labels) {
+      custom = this.toolbar_labels;
+    }
+    for (const picker of Object.keys(DEFAULT_PICKER_LABELS) as RichEditorPicker[]) {
+      const label = this.el.querySelector(`.ql-toolbar .ql-picker.ql-${picker} .ql-picker-label`);
+      label?.setAttribute('aria-label', custom[picker] || DEFAULT_PICKER_LABELS[picker]);
+    }
+  }
+
   componentDidLoad() {
     if (this.enable_rich_editor) {
       // F-015: was `#editor` — the id is now the consumer-supplied
@@ -148,12 +181,14 @@ export class DdaTextarea {
       });
 
       this.syncRichEditorA11y();
+      this.labelToolbarPickers();
     }
   }
 
   componentDidUpdate() {
     if (this.enable_rich_editor) {
       this.syncRichEditorA11y();
+      this.labelToolbarPickers();
     }
   }
 

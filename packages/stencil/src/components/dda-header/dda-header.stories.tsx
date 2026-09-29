@@ -366,6 +366,11 @@ WithoutLogin.args = {
 export const Arabic3x = () => `
   <div dir="rtl" lang="ar">
     <dda-header
+      first-logo-src="https://www.dof.gov.ae/Style Library/img/gov-logo.svg"
+      first-logo-white-src="https://www.dof.gov.ae/Style Library/img/gov-logo-white.svg"
+      first-logo-alt="حكومة دبي"
+      second-logo-src="https://www.digitaldubai.ae/ResourcePackages/Theme/assets/dist/images/logo.svg"
+      second-logo-alt="دبي الرقمية"
       contrast_title="تباين الألوان" contrast_description="حدد إعداد تباين الألوان المفضل لديك"
       contrast_noraml_text="الألوان العادية" contrast_color_blind_text="عمى الألوان"
       contrast_red_weakness_text="ضعف أحمر" contrast_green_weakness_text="الضعف الأخضر"

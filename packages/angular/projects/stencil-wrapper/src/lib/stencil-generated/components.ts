@@ -831,14 +831,14 @@ export declare interface DdaTabs extends Components.DdaTabs {
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'component_mode', 'custom_class', 'enable_rich_editor', 'error_message', 'helper_text', 'input_id', 'input_status', 'label', 'max_characters', 'placeholder', 'textarea_name', 'validation_type', 'value']
+  inputs: ['aria_label', 'component_mode', 'custom_class', 'enable_rich_editor', 'error_message', 'helper_text', 'input_id', 'input_status', 'label', 'max_characters', 'placeholder', 'textarea_name', 'toolbar_labels', 'validation_type', 'value']
 })
 @Component({
   selector: 'dda-textarea',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'component_mode', 'custom_class', 'enable_rich_editor', 'error_message', 'helper_text', 'input_id', 'input_status', 'label', 'max_characters', 'placeholder', 'textarea_name', 'validation_type', 'value'],
+  inputs: ['aria_label', 'component_mode', 'custom_class', 'enable_rich_editor', 'error_message', 'helper_text', 'input_id', 'input_status', 'label', 'max_characters', 'placeholder', 'textarea_name', 'toolbar_labels', 'validation_type', 'value'],
 })
 export class DdaTextarea {
   protected el: HTMLDdaTextareaElement;

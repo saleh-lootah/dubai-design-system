@@ -6,15 +6,20 @@ All four published packages (`components-js`, `components-react`, `components-vu
 
 ## 5.3.3 (2026-09-29)
 
-A patch release. Every Material icon that the components render is now hidden from screen readers.
+A patch release. Every Material icon that the components render is now hidden from screen readers, and the automated WCAG 2.2 AA check of every story passes in both themes.
 
 ### Bug Fixes
 
 - **Icons in `dda-breadcrumb`, `dda-vertical-stepper` and `dda-avatar` were read aloud.** Screen readers read their ligature names, for example "chevron_right" or "sentiment_satisfied". These icons now have `aria-hidden="true"`, as in the other components.
 - **dda-breadcrumb: icon-only links had no name.** With `design="icon"`, each crumb now contains its `text` as hidden text, which screen readers read as its name.
+- **dda-tabs: the active tab failed contrast in the dark theme.** Its teal text was on a light background (1.97:1). The background now turns dark in the dark theme (5.72:1). `.light-mode` tabs keep their light background.
+- **dda-header: a logo without an image rendered an empty link.** The link had no name and its image had no `alt`. A logo whose `first-logo-src` or `second-logo-src` is not set now renders nothing. The mobile second logo now falls back to `second-logo-src` when `second-logo-white-src` is not set, as the desktop logo does.
+- **dda-textarea: the rich editor's toolbar dropdowns had no names.** Screen readers announced five unnamed buttons. They are now named (see `toolbar_labels` below).
+- **dda-phonefield, dda-number-field: no focus ring in the error and disabled states.** Only the colour changed on focus. The input now shows the same focus ring as the other fields.
 
 ### Features
 
+- **dda-textarea: `toolbar_labels`.** Names the rich editor's toolbar dropdowns in the page language, as a JSON object with the keys `header`, `color`, `background`, `font` and `align`. Keys that are not set keep their English names.
 - **dda-avatar: `verified_label`.** The verified badge icon is hidden from screen readers, and the badge is read as `verified_label` instead (default `Verified`). Set it in the page language.
 
 ## 5.3.2 (2026-09-28)
