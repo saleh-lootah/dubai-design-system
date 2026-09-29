@@ -30,6 +30,21 @@ const config: TestRunnerConfig = {
 
     for (const theme of THEMES) {
       await page.evaluate(t => document.documentElement.setAttribute('data-theme', t), theme);
+      // A theme switch starts CSS colour transitions. axe must measure the colours the theme sets,
+      // not a colour halfway through a fade, so wait for the running transitions to end. Other
+      // animations (a carousel, the scroll icon) can run or restart for ever, so they are not
+      // awaited, and the wait stops after 2s in any case.
+      await page.evaluate(() =>
+        Promise.race([
+          Promise.all(
+            document
+              .getAnimations()
+              .filter(animation => animation instanceof CSSTransition && animation.playState === 'running')
+              .map(animation => animation.finished.catch(() => undefined)),
+          ),
+          new Promise(resolve => setTimeout(resolve, 2000)),
+        ]),
+      );
 
       try {
         await checkA11y(page, '#storybook-root', {

@@ -271,13 +271,11 @@ jobs:
         working-directory: packages/stencil
         run: npm run build-storybook
 
-      # Three stories are documented, known-flaky (their pass/fail can change
-      # between runs of identical code — see .github/quality-baseline.env and
-      # docs/a11y/baseline-2026-08-20.md). Their outcome is reported every
-      # run but excluded from the ratcheted count, so a real regression
-      # anywhere else still fails the job. If a listed story starts failing
-      # for a reproducible reason, fix it and remove it from the list rather
-      # than leaving it exempt indefinitely.
+      # A11Y_KNOWN_FLAKY_STORIES (.github/quality-baseline.env) lists stories whose
+      # pass/fail can change between runs of identical code. Their outcome is
+      # reported every run but excluded from the ratcheted count, so a real
+      # regression anywhere else still fails the job. The list is empty now; add
+      # a story only with evidence that it is flaky, and remove it once fixed.
       - name: axe and WCAG 2.2 sweep
         working-directory: packages/stencil
         run: |
@@ -288,7 +286,9 @@ jobs:
           npm run test:a11y:ci 2>&1 | tee /tmp/a11y-sweep.log
           set -e
 
-          TESTS_LINE=$(grep -E "Tests:[[:space:]]+[0-9]+ failed" /tmp/a11y-sweep.log || true)
+          # Jest prints "Tests: N failed, M passed, T total", or only "Tests: M passed, T total"
+          # when nothing fails; both are a completed sweep.
+          TESTS_LINE=$(grep -E "Tests:[[:space:]]+[0-9]+ (failed|passed)" /tmp/a11y-sweep.log | tail -1 || true)
           if [ -z "$TESTS_LINE" ]; then
             echo "No Jest summary line found in the sweep output above."
             echo "This is an infrastructure failure (the sweep did not complete), not a fault-count result — treat it as a broken run, not a regression."
@@ -296,7 +296,8 @@ jobs:
           fi
           echo "Summary line: $TESTS_LINE"
 
-          TOTAL_FAILED=$(echo "$TESTS_LINE" | grep -oE '[0-9]+ failed' | grep -oE '[0-9]+')
+          TOTAL_FAILED=$(echo "$TESTS_LINE" | grep -oE '[0-9]+ failed' | grep -oE '[0-9]+' || true)
+          TOTAL_FAILED=${TOTAL_FAILED:-0}
           FAILING_STORIES=$(grep -oE '[a-z0-9-]+ failed accessibility checks' /tmp/a11y-sweep.log | awk '{print $1}' | sort -u)
 
           echo ""
