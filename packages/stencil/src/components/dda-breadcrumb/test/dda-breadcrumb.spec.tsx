@@ -50,11 +50,14 @@ describe('dda-breadcrumb', () => {
     expect(icons.filter(icon => icon.getAttribute('aria-hidden') !== 'true')).toEqual([]);
   });
 
-  it('names each icon-only link with its crumb text', async () => {
+  // The last crumb has no url, so its <a> has no href and no link role; aria-label is not allowed
+  // there (axe aria-prohibited-attr). Hidden text names every crumb, with or without a url.
+  it('names each icon-only crumb with hidden text, not aria-label', async () => {
     const page = await render(`<dda-breadcrumb design="icon" breadcrumbs='${JSON.stringify(CRUMBS)}'></dda-breadcrumb>`);
 
-    const labels = Array.from(page.root.querySelectorAll('.dda-breadcrumb-item a')).map(a => a.getAttribute('aria-label'));
-    expect(labels).toEqual(['Home', 'Services', 'Apply']);
+    const links = Array.from(page.root.querySelectorAll('.dda-breadcrumb-item a'));
+    expect(links.map(a => a.querySelector('.visually-hidden')?.textContent)).toEqual(['Home', 'Services', 'Apply']);
+    expect(links.map(a => a.getAttribute('aria-label'))).toEqual([null, null, null]);
   });
 
   it('adds no aria-label when the link shows its text', async () => {

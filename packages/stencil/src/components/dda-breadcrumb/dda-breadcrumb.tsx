@@ -45,10 +45,12 @@ export class DdaBreadcrumb {
             <ol class="dda-breadcrumb">
               {breadcrumbs.map((crumb, index) => (
                 <li class={`dda-breadcrumb-item ${index === breadcrumbs.length - 1 ? 'active' : ''}`}>
-                  {/* An icon-only link has no visible text, so the crumb text names it. */}
-                  <a href={crumb.url} aria-label={this.design === 'icon' ? crumb.text : undefined}>
+                  <a href={crumb.url}>
                     {this.design !== 'text' && <i class={`material-icons`} aria-hidden="true">{crumb.icon}</i>}
                     {this.design !== 'icon' && <span>{crumb.text}</span>}
+                    {/* An icon-only crumb has no visible text, so hidden text names it. Not aria-label: a
+                        crumb without a url has no href, so its <a> has no role that allows aria-label. */}
+                    {this.design === 'icon' && <span class="visually-hidden">{crumb.text}</span>}
                   </a>
                   {index < breadcrumbs.length - 1 && (
                     <i class={`material-icons material-symbols-outlined`} aria-hidden="true">{this.separator}</i>

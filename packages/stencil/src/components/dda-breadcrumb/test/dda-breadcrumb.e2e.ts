@@ -73,8 +73,15 @@ describe('dda-breadcrumb', () => {
     const page = await newE2EPage();
     await page.setContent(`<dda-breadcrumb data-breadcrumbs='${CRUMBS}' design="icon"></dda-breadcrumb>`);
 
-    const spans = await page.findAll('dda-breadcrumb li.dda-breadcrumb-item a span');
+    const spans = await page.findAll('dda-breadcrumb li.dda-breadcrumb-item a span:not(.visually-hidden)');
     expect(spans).toHaveLength(0);
+
+    // Screen readers still get each crumb's text, in a 1px clipped box.
+    const hidden = await page.$$eval('dda-breadcrumb li.dda-breadcrumb-item a .visually-hidden', els =>
+      els.map(e => ({ text: e.textContent, width: e.getBoundingClientRect().width })),
+    );
+    expect(hidden.map(h => h.text)).toHaveLength(3);
+    expect(hidden.every(h => h.width <= 1)).toBe(true);
 
     const icons = await page.findAll('dda-breadcrumb li.dda-breadcrumb-item a i.material-icons');
     expect(icons).toHaveLength(3);

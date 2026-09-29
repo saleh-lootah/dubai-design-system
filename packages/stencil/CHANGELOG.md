@@ -11,7 +11,7 @@ A patch release. Every Material icon that the components render is now hidden fr
 ### Bug Fixes
 
 - **Icons in `dda-breadcrumb`, `dda-vertical-stepper` and `dda-avatar` were read aloud.** Screen readers read their ligature names, for example "chevron_right" or "sentiment_satisfied". These icons now have `aria-hidden="true"`, as in the other components.
-- **dda-breadcrumb: icon-only links had no name.** With `design="icon"`, each link now takes its crumb `text` as its accessible name.
+- **dda-breadcrumb: icon-only links had no name.** With `design="icon"`, each crumb now contains its `text` as hidden text, which screen readers read as its name.
 
 ### Features
 
