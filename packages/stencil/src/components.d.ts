@@ -252,6 +252,11 @@ export namespace Components {
           * @default 'photo'
          */
         "type": 'photo' | 'icon' | 'text';
+        /**
+          * Screen-reader text of the badge when `design` is `verified`. Default: `Verified`.
+          * @default 'Verified'
+         */
+        "verified_label": string;
     }
     interface DdaBanner {
         /**
@@ -3015,6 +3020,11 @@ declare namespace LocalJSX {
           * @default 'photo'
          */
         "type"?: 'photo' | 'icon' | 'text';
+        /**
+          * Screen-reader text of the badge when `design` is `verified`. Default: `Verified`.
+          * @default 'Verified'
+         */
+        "verified_label"?: string;
     }
     interface DdaBanner {
         /**
@@ -5221,6 +5231,7 @@ declare namespace LocalJSX {
         "src": string;
         "icon": string;
         "text": string;
+        "verified_label": string;
         "notification_number": number;
         "custom_class": string;
         "selected": string;

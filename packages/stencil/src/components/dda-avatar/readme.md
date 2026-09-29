@@ -24,6 +24,7 @@
 | `src`                 | `src`                 | Image URL shown when `type` is `photo`.                                                                                                               | `string`                                                           | `''`               |
 | `text`                | `text`                | Initials shown when `type` is `text`.                                                                                                                 | `string`                                                           | `'AB'`             |
 | `type`                | `type`                | Content: `photo` shows the `src` image, `icon` shows a smiley icon, `text` shows `text` as initials.                                                  | `"icon" \| "photo" \| "text"`                                      | `'photo'`          |
+| `verified_label`      | `verified_label`      | Screen-reader text of the badge when `design` is `verified`. Default: `Verified`.                                                                     | `string`                                                           | `'Verified'`       |
 
 
 ## Events

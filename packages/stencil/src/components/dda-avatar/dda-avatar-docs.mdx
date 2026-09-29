@@ -7,7 +7,8 @@ import { componentApi } from '../../storybook/component-api';
 # Avatar
 
 The `dda-avatar` component shows a user as a photo, an icon or initials, in six sizes and two shapes.
-It can show a status, verified or notification badge. When you set `options`, the avatar becomes a
+It can show a status, verified or notification badge. Screen readers read the verified badge as
+`verified_label` (default "Verified"); set it in the page language, for example `verified_label="موثق"`. When you set `options`, the avatar becomes a
 button that opens a dropdown list. When the user picks an option, the avatar updates its `selected`
 property and fires `optionSelect` with `detail.value`, the option.
 

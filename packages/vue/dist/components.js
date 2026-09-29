@@ -51,6 +51,7 @@ export const DdaAvatar = defineContainer('dda-avatar', undefined, [
     'src',
     'icon',
     'text',
+    'verified_label',
     'notification_number',
     'custom_class',
     'selected',

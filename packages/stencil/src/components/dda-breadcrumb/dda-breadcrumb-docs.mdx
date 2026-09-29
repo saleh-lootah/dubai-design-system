@@ -7,7 +7,9 @@ import { componentApi } from '../../storybook/component-api';
 # Breadcrumb
 
 The `dda-breadcrumb` component renders a trail of links inside a `<nav aria-label="breadcrumb">`.
-Each item can show a label, an icon, or both. The last item is styled as the current page.
+Each item can show a label, an icon, or both. The last item is styled as the current page. Icons are
+hidden from screen readers. With `design="icon"`, each link takes its crumb `text` as its accessible
+name, so always set `text`.
 
 ## API
 

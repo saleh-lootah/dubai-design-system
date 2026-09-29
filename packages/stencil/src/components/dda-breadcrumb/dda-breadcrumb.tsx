@@ -45,12 +45,13 @@ export class DdaBreadcrumb {
             <ol class="dda-breadcrumb">
               {breadcrumbs.map((crumb, index) => (
                 <li class={`dda-breadcrumb-item ${index === breadcrumbs.length - 1 ? 'active' : ''}`}>
-                  <a href={crumb.url}>
-                    {this.design !== 'text' && <i class={`material-icons`}>{crumb.icon}</i>}
+                  {/* An icon-only link has no visible text, so the crumb text names it. */}
+                  <a href={crumb.url} aria-label={this.design === 'icon' ? crumb.text : undefined}>
+                    {this.design !== 'text' && <i class={`material-icons`} aria-hidden="true">{crumb.icon}</i>}
                     {this.design !== 'icon' && <span>{crumb.text}</span>}
                   </a>
                   {index < breadcrumbs.length - 1 && (
-                    <i class={`material-icons material-symbols-outlined`}>{this.separator}</i>
+                    <i class={`material-icons material-symbols-outlined`} aria-hidden="true">{this.separator}</i>
                   )}
                 </li>
               ))}

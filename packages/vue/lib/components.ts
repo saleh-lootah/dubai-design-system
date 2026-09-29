@@ -66,6 +66,7 @@ export const DdaAvatar = /*@__PURE__*/ defineContainer<JSX.DdaAvatar>('dda-avata
   'src',
   'icon',
   'text',
+  'verified_label',
   'notification_number',
   'custom_class',
   'selected',

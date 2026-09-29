@@ -32,6 +32,7 @@ export default {
     icon: { control: 'text', description: 'Material Icons icon class for the avatar' },
     text: { control: 'text', description: 'Text inside the avatar' },
     notification_number: { control: 'number', description: 'Number of notifications' },
+    verified_label: { control: 'text', description: 'Screen-reader text of the verified badge' },
     custom_class: {
       control: { type: 'text' },
       description: 'Custom class for the avatar component',
@@ -85,7 +86,7 @@ To use the \`dda-avatar\` component, pass the following props:
   },
 };
 
-const Template = ({ type, size, design, rounded, src, icon, text, notification_number, custom_class, options, component_mode, button_id, aria_label, button_name }) => html`
+const Template = ({ type, size, design, rounded, src, icon, text, notification_number, verified_label, custom_class, options, component_mode, button_id, aria_label, button_name }) => html`
   <dda-avatar
     type=${type}
     size=${size}
@@ -96,6 +97,7 @@ const Template = ({ type, size, design, rounded, src, icon, text, notification_n
     text=${text}
     options=${JSON.stringify(options)}
     notification_number=${notification_number}
+    verified_label=${verified_label || 'Verified'}
     custom_class=${custom_class}
     component_mode=${component_mode}
     aria_label=${aria_label}

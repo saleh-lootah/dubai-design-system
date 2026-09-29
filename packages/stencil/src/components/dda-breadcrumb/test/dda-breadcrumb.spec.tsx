@@ -41,4 +41,26 @@ describe('dda-breadcrumb', () => {
 
     expect(texts(page.root)).toEqual([]);
   });
+
+  it('hides the crumb icons and the separators from assistive technology', async () => {
+    const page = await render(`<dda-breadcrumb design="icon-text" breadcrumbs='${JSON.stringify(CRUMBS)}'></dda-breadcrumb>`);
+
+    const icons = Array.from(page.root.querySelectorAll('i'));
+    expect(icons).toHaveLength(5);
+    expect(icons.filter(icon => icon.getAttribute('aria-hidden') !== 'true')).toEqual([]);
+  });
+
+  it('names each icon-only link with its crumb text', async () => {
+    const page = await render(`<dda-breadcrumb design="icon" breadcrumbs='${JSON.stringify(CRUMBS)}'></dda-breadcrumb>`);
+
+    const labels = Array.from(page.root.querySelectorAll('.dda-breadcrumb-item a')).map(a => a.getAttribute('aria-label'));
+    expect(labels).toEqual(['Home', 'Services', 'Apply']);
+  });
+
+  it('adds no aria-label when the link shows its text', async () => {
+    const page = await render(`<dda-breadcrumb design="icon-text" breadcrumbs='${JSON.stringify(CRUMBS)}'></dda-breadcrumb>`);
+
+    const labels = Array.from(page.root.querySelectorAll('.dda-breadcrumb-item a')).map(a => a.getAttribute('aria-label'));
+    expect(labels).toEqual([null, null, null]);
+  });
 });

@@ -20,6 +20,8 @@ export class DdaAvatar {
   @Prop() icon: string = 'material-icons';
   /** Initials shown when `type` is `text`. */
   @Prop() text: string = 'AB';
+  /** Screen-reader text of the badge when `design` is `verified`. Default: `Verified`. */
+  @Prop() verified_label: string = 'Verified';
   /** Count shown in the badge when `design` is `notification`. Hidden at sizes `xs` and `sm`. */
   @Prop() notification_number: number = 0;
   /** Extra CSS classes added to the avatar container. */
@@ -62,7 +64,7 @@ export class DdaAvatar {
     const hasOptions = this.parsedOptions.length > 0;
     const avatarContent = [
       this.type === 'photo' && <img src={this.src} alt="Avatar" />,
-      this.type === 'icon' && <i class={`${this.icon} dda-smile`}>sentiment_satisfied</i>,
+      this.type === 'icon' && <i class={`${this.icon} dda-smile`} aria-hidden="true">sentiment_satisfied</i>,
       this.type === 'text' && <span class='avatar-main-text'>{this.text}</span>,
     ];
     return (
@@ -104,7 +106,7 @@ export class DdaAvatar {
           </div>
         )}
         {this.design === 'status' && <div class="status-circle"></div>}
-        {this.design === 'verified' && <div class="verified-icon"><span class="material-icons  material-symbols-outlined">verified</span></div>}
+        {this.design === 'verified' && <div class="verified-icon"><span class="material-icons  material-symbols-outlined" aria-hidden="true">verified</span><span class="visually-hidden">{this.verified_label}</span></div>}
         {this.design === 'notification' && <div class="notification-circle">{this.notification_number}</div>}
       </div>
     );

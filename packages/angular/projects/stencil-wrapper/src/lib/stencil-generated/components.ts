@@ -84,14 +84,14 @@ export declare interface DdaAttachFile extends Components.DdaAttachFile {}
 
 
 @ProxyCmp({
-  inputs: ['aria_label', 'button_id', 'button_name', 'component_mode', 'custom_class', 'design', 'icon', 'notification_number', 'options', 'rounded', 'selected', 'size', 'src', 'text', 'type']
+  inputs: ['aria_label', 'button_id', 'button_name', 'component_mode', 'custom_class', 'design', 'icon', 'notification_number', 'options', 'rounded', 'selected', 'size', 'src', 'text', 'type', 'verified_label']
 })
 @Component({
   selector: 'dda-avatar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['aria_label', 'button_id', 'button_name', 'component_mode', 'custom_class', 'design', 'icon', 'notification_number', 'options', 'rounded', 'selected', 'size', 'src', 'text', 'type'],
+  inputs: ['aria_label', 'button_id', 'button_name', 'component_mode', 'custom_class', 'design', 'icon', 'notification_number', 'options', 'rounded', 'selected', 'size', 'src', 'text', 'type', 'verified_label'],
 })
 export class DdaAvatar {
   protected el: HTMLDdaAvatarElement;

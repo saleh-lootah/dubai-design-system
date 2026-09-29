@@ -26,4 +26,12 @@ describe('dda-vertical-stepper', () => {
 
     expect(activeSteps(page.root)).toEqual([true, true, true]);
   });
+
+  it('hides the step icons and the arrows from assistive technology', async () => {
+    const page = await newSpecPage({ components: [DdaVerticalStepper], html: `<dda-vertical-stepper steps='${STEPS}'></dda-vertical-stepper>` });
+
+    const icons = Array.from(page.root.querySelectorAll('i'));
+    expect(icons).toHaveLength(6);
+    expect(icons.filter(icon => icon.getAttribute('aria-hidden') !== 'true')).toEqual([]);
+  });
 });
