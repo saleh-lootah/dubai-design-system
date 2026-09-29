@@ -4,6 +4,19 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## 5.3.3 (2026-09-29)
+
+A patch release. Every Material icon that the components render is now hidden from screen readers.
+
+### Bug Fixes
+
+- **Icons in `dda-breadcrumb`, `dda-vertical-stepper` and `dda-avatar` were read aloud.** Screen readers read their ligature names, for example "chevron_right" or "sentiment_satisfied". These icons now have `aria-hidden="true"`, as in the other components.
+- **dda-breadcrumb: icon-only links had no name.** With `design="icon"`, each link now takes its crumb `text` as its accessible name.
+
+### Features
+
+- **dda-avatar: `verified_label`.** The verified badge icon is hidden from screen readers, and the badge is read as `verified_label` instead (default `Verified`). Set it in the page language.
+
 ## 5.3.2 (2026-09-28)
 
 A patch release. The `dda-header` mega menu opens under its own link instead of in the centre of wide screens.
