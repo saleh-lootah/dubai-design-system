@@ -4,7 +4,9 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## Unreleased
+## 5.3.4 (2026-10-01)
+
+A patch release. The 3.x type tokens (`--font-h1`, `--line-height-h1` and the others) have their 3.x values again.
 
 ### Bug Fixes
 
