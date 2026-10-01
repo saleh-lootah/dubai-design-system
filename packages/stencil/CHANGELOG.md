@@ -4,6 +4,12 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## Unreleased
+
+### Bug Fixes
+
+- **The 3.x type tokens had 5.x values.** `--font-display`, `--font-h1` to `--font-h6`, `--font-body`, `--font-caption`, `--font-small` and the `--line-height-*` tokens were mapped to the larger, fixed 5.x heading sizes, so the 3.x classes that use them (`.h1` to `.h6`, `.display`, `.small` and others) grew: `.h1` was 57px instead of 48px on desktop. They now have the 3.x values again, with the 3.x breakpoints (600px, 1024px, 1440px). `--gap-lg` is 16px again, as in 3.x. A site that sets these variables itself is not affected. The heading elements and the `.dda-h*` classes do not change.
+
 ## 5.3.3 (2026-09-29)
 
 A patch release. Every Material icon that the components render is now hidden from screen readers, and the automated WCAG 2.2 AA check of every story passes in both themes.

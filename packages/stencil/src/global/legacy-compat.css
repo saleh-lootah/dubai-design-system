@@ -12,41 +12,101 @@
    Loaded FIRST in dda-bundle.css so current tokens and rules override anything here.
    Deprecate deliberately in a future major, with notice — not by silent omission. */
 
-/* The legacy rules below use an older token set (--font-*, --line-height-*, --font-weight-*,
-   --gap-*) that nothing defined, so every rule using them was invalid: headings, .dda-h*,
-   captions and the Light/Regular/Medium/Bold weights all fell back to body text. These aliases
-   map them to the current tokens. :where() keeps specificity at zero, so a site that defines
-   any of these variables itself still wins. */
+/* The legacy rules below use the 3.x type tokens (--font-*, --line-height-*, --font-weight-*,
+   --gap-*). 3.x (3.11.3 to 3.12.10) defined them on :root with a responsive scale: mobile, then
+   from 600px, 1024px and 1440px. These are the same values, so .h1, .display, .small and the other
+   3.x classes keep their 3.x size. :where() keeps specificity at zero, so a site that defines any
+   of these variables itself still wins. The heading elements and .dda-h* use --dda-h* instead. */
 :where(:root) {
-  --font-display: var(--dda-fs-display-lg);
-  --font-h1: var(--dda-h1);
-  --font-h2: var(--dda-h2);
-  --font-h3: var(--dda-h3);
-  --font-h4: var(--dda-h4);
-  --font-h5: var(--dda-h5);
-  --font-h6: var(--dda-h6);
-  --font-body: var(--dda-body);
-  --font-caption: var(--dda-caption);
-  --font-small: var(--dda-fs-body-sm);
-
-  --line-height-display: 1.2;
-  --line-height-h1: 1.2;
-  --line-height-h2: 1.2;
-  --line-height-h3: 1.2;
-  --line-height-h4: 1.3;
-  --line-height-h5: 1.3;
-  --line-height-h6: 1.3;
-  --line-height-body: 1.5;
-  --line-height-caption: 1.4;
-  --line-height-small: 1.4;
-
   --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
 
+  --font-display: 3rem;
+  --font-h1: 2rem;
+  --font-h2: 1.625rem;
+  --font-h3: 1.375rem;
+  --font-h4: 1.25rem;
+  --font-h5: 1.125rem;
+  --font-h6: 1rem;
+  --font-body: 0.875rem;
+  --font-caption: 0.875rem;
+  --font-small: 0.75rem;
+
+  --line-height-display: 3.5rem;
+  --line-height-h1: 3rem;
+  --line-height-h2: 2.5rem;
+  --line-height-h3: 2.25rem;
+  --line-height-h4: 2rem;
+  --line-height-h5: 1.75rem;
+  --line-height-h6: 1.5rem;
+  --line-height-body: 1.25rem;
+  --line-height-caption: 1.25rem;
+  --line-height-small: 1rem;
+
   --gap-xs: 0.25rem;
-  --gap-lg: 1.5rem;
+  --gap-lg: 1rem;
+}
+
+@media (min-width: 600px) {
+  :where(:root) {
+    --font-display: 3.75rem;
+    --font-h1: 2.5rem;
+    --font-h2: 2rem;
+    --font-h3: 1.75rem;
+    --font-h4: 1.5rem;
+    --font-h5: 1.25rem;
+    --font-h6: 1.125rem;
+    --font-body: 1rem;
+
+    --line-height-display: 4.25rem;
+    --line-height-h6: 1.75rem;
+    --line-height-body: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :where(:root) {
+    --font-display: 4.25rem;
+    --font-h1: 3rem;
+    --font-h2: 2.5rem;
+    --font-h3: 2rem;
+    --font-h4: 1.75rem;
+    --font-h5: 1.5rem;
+    --font-h6: 1.25rem;
+
+    --line-height-display: 5rem;
+    --line-height-h1: 3.5rem;
+    --line-height-h2: 3rem;
+    --line-height-h3: 2.5rem;
+    --line-height-h5: 2rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  :where(:root) {
+    --font-display: 4.75rem;
+    --font-h1: 3.375rem;
+    --font-h2: 2.8125rem;
+    --font-h3: 2.3125rem;
+    --font-h4: 2rem;
+    --font-h5: 1.625rem;
+    --font-h6: 1.375rem;
+    --font-body: 1.125rem;
+    --font-caption: 1rem;
+    --font-small: 0.875rem;
+
+    --line-height-display: 5.5rem;
+    --line-height-h1: 4rem;
+    --line-height-h2: 3.5rem;
+    --line-height-h3: 2.75rem;
+    --line-height-h4: 2.25rem;
+    --line-height-h6: 1.75rem;
+    --line-height-body: 1.75rem;
+    --line-height-caption: 1.5rem;
+    --line-height-small: 1.25rem;
+  }
 }
 
 .display {
