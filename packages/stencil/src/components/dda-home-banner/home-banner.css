@@ -1,4 +1,5 @@
 .home-slider {
+  --dda-banner-nav-bottom: calc(240px + var(--dda-sticky-footer-height, 0px));
   position: relative;
   max-width: 100%;
   overflow: hidden;
@@ -108,8 +109,9 @@
   text-align: center;
   position: absolute;
   /* The quick-link cards over the banner rise by the sticky footer height, so the controls do too.
-     274px keeps the controls above the cards, which sit at 69px (.quick-links-wrap in dda.css). */
-  bottom: calc(274px + var(--dda-sticky-footer-height, 0px));
+     240px keeps the controls 16px above the cards, which sit at 69px (.quick-links-wrap in
+     dda.css), as on small screens. --dda-banner-nav-bottom is also the slide text's lower limit. */
+  bottom: var(--dda-banner-nav-bottom);
   left: 0;
   display: flex;
   justify-content: center;
@@ -136,6 +138,15 @@
   font-size: 25px;
   transition: all 0.2s linear;
 }
+/* chevron_left/chevron_right do not mirror by themselves. In RTL the row reverses, so previous is
+   on the right and must point right, as in 3.x. */
+[dir='rtl'] .slider-nav .prev i,
+[dir='rtl'] .slider-nav .next i,
+.home-slider[dir='rtl'] .slider-nav .prev i,
+.home-slider[dir='rtl'] .slider-nav .next i {
+  transform: scaleX(-1);
+}
+
 .slider-nav .prev:hover,
 .slider-nav .next:hover,
 .slider-nav .pause:hover {
@@ -211,6 +222,26 @@
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
 
+
+/* Desktop: centre the slide text in the space between the fixed header (about 160px) and the
+   controls, not in the full banner height. On a laptop screen (768px tall and less) the centred
+   text otherwise ran into the controls. */
+/* Above 1600px the quick-link cards are taller (dda.css makes them compact only up to 1600px), so
+   the controls sit higher to stay 16px above them. */
+@media screen and (min-width:1601px) {
+  .home-slider {
+    --dda-banner-nav-bottom: calc(282px + var(--dda-sticky-footer-height, 0px));
+  }
+}
+
+@media screen and (min-width:993px) {
+  .home-slider .slide-wrap {
+    box-sizing: border-box;
+    padding-top: 160px;
+    /* The controls' offset, their 30px height and 24px of space. */
+    padding-bottom: calc(var(--dda-banner-nav-bottom) + 30px + 24px);
+  }
+}
 
 @media screen and (max-width:992px) {
   .slider-nav {

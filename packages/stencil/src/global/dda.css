@@ -25,8 +25,8 @@
   width: 100%;
   position: absolute;
   /* dda-sticky-footer sets --dda-sticky-footer-height; the cards sit above the fixed bar.
-     The row's bottom padding (below) is part of the 69px. The banner's .slider-nav sits 205px
-     above this offset (274px in home-banner.css); change both together. */
+     The row's bottom padding (below) is part of the 69px. The banner's .slider-nav sits 171px
+     above this offset (240px in home-banner.css); change both together. */
   bottom: calc(69px - var(--dda-quick-links-pad-bottom) + var(--dda-sticky-footer-height, 0px));
   z-index: 1;
 }

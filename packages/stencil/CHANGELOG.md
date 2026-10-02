@@ -4,6 +4,14 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## Unreleased
+
+### Bug Fixes
+
+- **dda-home-banner: on laptop screens the slide text ran into the slide controls.** The text was centred in the full banner height, and the controls sit at a fixed distance above the bottom, so on screens 900px tall or less (1280×720, 1366×768, 1536×864) the text reached the controls. Above 992px wide, the text is now centred in the space between the header and the controls.
+- **dda-home-banner: the slide controls sit 16px above the quick-link cards at every width.** They were about 50px above the cards on most laptops and 8px above them on wide screens.
+- **dda-home-banner: in RTL the arrows pointed inward.** The controls row reverses in RTL, so the previous button is on the right, but its icon still pointed left. The arrow icons now mirror in RTL, as in 3.x, and point outward.
+
 ## 5.3.4 (2026-10-01)
 
 A patch release. The 3.x type tokens (`--font-h1`, `--line-height-h1` and the others) have their 3.x values again.

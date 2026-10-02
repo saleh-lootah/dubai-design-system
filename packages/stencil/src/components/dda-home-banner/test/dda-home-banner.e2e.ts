@@ -451,3 +451,72 @@ describe('dda-home-banner slide markup', () => {
     expect(await state('slide')).toEqual({ dots: 3, roles: ['slide', 'slide', 'slide'], hidden: ['false', 'true', 'true'], height: 800 });
   });
 });
+
+// On laptop screens (768px tall and less) the slide text was centred in the full banner height, so
+// it ran into the slide controls, which sit at a fixed distance above the bottom.
+describe('dda-home-banner slide text and controls', () => {
+  const gap = async (width: number, height: number, dir = 'ltr') => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height });
+    // A page with dda-sticky-footer has this set; it raises the controls above the fixed bar.
+    await page.setContent(`<style>:root { --dda-sticky-footer-height: 64px; }</style><div dir="${dir}"><dda-home-banner>
+      <div class="dda-slide"><div class="slide-wrap"><div class="slide-content">
+        <h2>Government services in one place</h2><p>Pay, renew and apply online.</p><a class="dda-btn" href="#">Browse services</a>
+      </div></div></div>
+      <div class="dda-slide"><div class="slide-wrap"><div class="slide-content"><h2>Two</h2></div></div></div>
+    </dda-home-banner></div>`);
+    await page.waitForChanges();
+    return page.evaluate(() => {
+      const text = document.querySelector('.dda-slide .slide-content').getBoundingClientRect();
+      const nav = document.querySelector('.slider-nav').getBoundingClientRect();
+      return { textToNav: Math.round(nav.top - text.bottom), textTop: Math.round(text.top) };
+    });
+  };
+
+  for (const [w, h] of [
+    [1280, 720],
+    [1366, 768],
+    [1536, 864],
+    [1920, 1080],
+  ]) {
+    it(`keeps the slide text at least 16px above the controls at ${w}x${h}`, async () => {
+      const { textToNav, textTop } = await gap(w, h);
+      expect(textToNav).toBeGreaterThanOrEqual(16);
+      // ...and below the fixed header area.
+      expect(textTop).toBeGreaterThanOrEqual(150);
+    });
+  }
+});
+
+// 3.x mirrored the arrow icons in RTL. In 5.x the row reversed but the icons did not, so the
+// arrows pointed inward: "> o o <".
+describe('dda-home-banner arrows in RTL', () => {
+  const arrows = async (dir: string) => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1366, height: 768 });
+    await page.setContent(`<div dir="${dir}"><dda-home-banner><div class="dda-slide"><h2>One</h2></div><div class="dda-slide"><h2>Two</h2></div></dda-home-banner></div>`);
+    await page.waitForChanges();
+    return page.evaluate(() =>
+      ['.prev', '.next'].map(sel => {
+        const button = document.querySelector(`.slider-nav ${sel}`);
+        // The arrow points right when its icon is chevron_right and not mirrored, or chevron_left and mirrored.
+        const icon = button.querySelector('i');
+        const mirrored = new DOMMatrix(getComputedStyle(icon).transform).a < 0;
+        const pointsRight = (icon.textContent.trim() === 'chevron_right') !== mirrored;
+        return { x: Math.round(button.getBoundingClientRect().x), pointsRight };
+      }),
+    );
+  };
+
+  it('points the arrows outward in LTR: previous on the left points left', async () => {
+    const [prev, next] = await arrows('ltr');
+    expect(prev.x).toBeLessThan(next.x);
+    expect([prev.pointsRight, next.pointsRight]).toEqual([false, true]);
+  });
+
+  it('points the arrows outward in RTL: previous on the right points right', async () => {
+    const [prev, next] = await arrows('rtl');
+    expect(prev.x).toBeGreaterThan(next.x);
+    expect([prev.pointsRight, next.pointsRight]).toEqual([true, false]);
+  });
+});
