@@ -104,19 +104,61 @@
     padding: 8px 12px;
 }
 
+/*
+ * Focused field: teal border and a pale halo. The phone field keeps this look
+ * while it holds a number, and the halo is 1.16:1 on white and 1.31:1 on
+ * #191C1C, so neither is the focus indicator. The ring below is.
+ */
 .dda-input-focus-filled .dda-phone-field,
 .dda-input-focus .dda-input-field-group,
 .dda-input-field:focus {
-    outline: none;
     border-color: var(--dda-color-primary-40);
     box-shadow: 0px 0px 0px 3px var(--dda-primary-variant-95);
 }
 .light-mode.dda-input-focus-filled .dda-phone-field,
 .light-mode.dda-input-focus .dda-input-field-group,
 .light-mode .dda-input-field:focus {
-    outline: none;
     border-color: var(--dda-primary-40);
     box-shadow: 0px 0px 0px 3px var(--dda-primary-95);
+}
+
+/*
+ * WCAG 2.4.7 / 1.4.11 focus ring for every field: dda-input, dda-textarea,
+ * dda-select's and dda-dropdown's trigger, dda-search-input,
+ * dda-creditcard-field (.dda-input-field), and the dda-phonefield and
+ * dda-number-field groups (.dda-input-focus, set while the inner input has
+ * focus). It used to be `outline: none` plus the halo above, so the only cue
+ * was the 1px border turning teal.
+ *
+ * A real outline, not a box-shadow: Windows forced-colors mode drops
+ * box-shadow and paints every border one colour, but draws the outline in a
+ * system colour, so the ring still shows there. The halo fills the 2px gap
+ * between border and ring. Ring contrast (WCAG ratio):
+ *   light, #006A67: 6.45:1 on the page (#FFFFFF), 5.54:1 on the halo
+ *     (#D0F5F4), 4.99:1 on the resting border (#E0E3E2), and at least 4.99:1
+ *     on every light surface step (surface-96 to surface-90).
+ *   dark, #21BEBA: 7.47:1 on the page (#191C1C), 5.72:1 on the halo
+ *     (#003735), 5.39:1 on the resting border (#323535), and at least 5.02:1
+ *     on every dark surface step.
+ *   .light-mode, #006A67: as light. On a dark-theme page (#191C1C) the ring
+ *     is 2.66:1 against the page, but the halo inside it is 14.74:1, so the
+ *     two read as one band.
+ * Error and disabled fields take the white+dark ring instead (end of file).
+ */
+.dda-input-focus .dda-input-field-group,
+.dda-input-field:focus-visible {
+    outline: 2px solid var(--dda-color-primary-40);
+    outline-offset: 2px;
+}
+.light-mode.dda-input-focus .dda-input-field-group,
+.light-mode .dda-input-field:focus-visible {
+    outline-color: var(--dda-primary-40);
+}
+/* A pointer click on a <button> field (the select and dropdown triggers) is
+   not :focus-visible: it gets the teal border only, and no site-wide
+   `button:focus` outline either. */
+.dda-input-field:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .dda-input-dropdown-btn {
@@ -622,7 +664,9 @@
 
 .dda-attach-file input[type='file']:focus-visible + .dda-file-input .dda-file-choose,
 .dda-attach-file input[type='file']:focus-visible + .dda-file-details {
-    outline: none;
+    /* Transparent, not none: forced-colors mode drops the box-shadow but paints this outline. */
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
 
@@ -706,6 +750,14 @@
  * rich editor's white background, and the dropdown's transparent-over-
  * surface-100 background) in both `data-theme` values; see the task 9d
  * report for the computed ratios.
+ *
+ * Forced colors (5.3.5): every ring here used to pair the box-shadow with
+ * `outline: none`. Windows forced-colors mode drops box-shadow, so these
+ * fields showed no focus at all there. Each now carries a 2px transparent
+ * outline instead: invisible normally, painted in a system colour when
+ * colours are forced. On a white page the white ring is 1.00:1 and the dark
+ * ring (#595959) 7.00:1; on #191C1C the white ring is 17.15:1 and the dark
+ * ring 1.16:1 - one of the two always clears 3:1, as before.
  */
 .dda-validation-error .dda-input-field:focus-visible,
 .dda-input-disabled .dda-input-field:focus-visible,
@@ -714,22 +766,33 @@
 .dda-validation-error .dda-field-group-input:focus-visible,
 .dda-input-disabled .dda-field-group-input:focus-visible,
 .dda-phone-field-group.error .dda-field-group-input:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
 
-.dda-dropdown-container.bg-transparent .dda-dropdown-header:focus-visible {
+/* ...and the group around that input drops its teal ring, so the field shows one ring, not two. */
+.dda-validation-error.dda-input-focus .dda-input-field-group,
+.dda-input-disabled.dda-input-focus .dda-input-field-group {
     outline: none;
+}
+
+.dda-dropdown-container.bg-transparent .dda-dropdown-header:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
 
 .dda-richeditor-field .ql-editor:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
 
+/* The option list scrolls, which clips anything drawn outside an option, so this outline sits inside. */
 .dda-input-dropdown-item:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(0, 0, 0, 0.65);
 }
 
