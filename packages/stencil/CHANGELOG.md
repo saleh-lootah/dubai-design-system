@@ -4,7 +4,9 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## Unreleased
+## 5.3.5 (2026-10-07)
+
+A patch release. Keyboard focus on every form field now shows as a clear outline, also in Windows high contrast mode. On laptop screens the `dda-home-banner` slide text no longer runs into the slide controls, and in RTL its arrows point outward.
 
 ### Bug Fixes
 

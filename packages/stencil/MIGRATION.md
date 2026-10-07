@@ -4,6 +4,10 @@ This guide takes you from any earlier release of the Dubai Design System package
 **5.3.0**. It ships inside `@dubai-design-system/components-js` as `MIGRATION.md`, next to
 `CHANGELOG.md`.
 
+Install the latest 5.3 patch, **5.3.5**, not 5.3.0. The patch releases 5.3.1 to 5.3.5 fix bugs
+and need no code change. `CHANGELOG.md` lists each fix, and the checklist below names the one
+that can meet your own CSS.
+
 All four packages share one version and must be upgraded together:
 `@dubai-design-system/components-js`, `components-react`, `components-vue` and
 `components-angular`.
@@ -41,9 +45,9 @@ Do these whatever version you start from.
 - [ ] **Install the same exact version of every DDA package.**
 
   ```bash
-  npm install @dubai-design-system/components-js@5.3.0
+  npm install @dubai-design-system/components-js@5.3.5
   # and, if you use a wrapper:
-  npm install @dubai-design-system/components-react@5.3.0   # or -vue / -angular
+  npm install @dubai-design-system/components-react@5.3.5   # or -vue / -angular
   ```
 
 - [ ] **Load `dda.css`.** It carries the global styles and the Dubai typeface. From npm:
@@ -69,6 +73,13 @@ Do these whatever version you start from.
 
   The CDN loader and the React wrapper are not affected.
 
+- [ ] **If your CSS styles the focus state of the form fields,** check it with the keyboard.
+  From 5.3.5, a form field that gets keyboard focus (`:focus-visible`) shows a 2px teal outline
+  2px outside it, in `dda-input`, `dda-textarea`, `dda-select`, `dda-dropdown`,
+  `dda-search-input`, `dda-creditcard-field`, `dda-phonefield` and `dda-number-field`. Before
+  5.3.5 these fields removed the outline. If you add your own outline or ring to
+  `.dda-input-field` or `.dda-input-field-group`, a field can now show two. Find these rules
+  with `grep -rnE "dda-input-field(-group)?[^{]*:focus" src/`.
 - [ ] **If you self-host `dda.css`,** copy `dist/assets/fonts/` next to it and keep the
   relative path `../assets/fonts/dubai/`, or the Dubai typeface does not load.
 - [ ] **Clear any cached copy of the old package** (CDN edge cache, service worker, build
