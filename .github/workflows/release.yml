@@ -103,8 +103,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: npm
 
-      # Install with the npm that ships with Node 22.14 (npm 10), as CI does. npm 11's
-      # `npm ci` rejects this lockfile: it lacks the optional @swc/core platform packages.
+      # Install with the npm that ships with Node 22.14 (npm 10), as CI does.
       - name: Install
         run: npm ci --foreground-scripts
 
