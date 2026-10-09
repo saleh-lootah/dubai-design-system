@@ -68,7 +68,7 @@ export class DdaHomeBanner {
     this.el.addEventListener('focusin', this.onFocusIn);
     this.el.addEventListener('focusout', this.onFocusOut);
     // Focusing an offscreen slide makes the browser scroll the overflow:hidden
-    // host; that scrollLeft would stack with the `left` offset and skew the track.
+    // host; that scrollLeft would stack with the track's offset and skew it.
     this.el.addEventListener('scroll', this.resetScroll);
 
     if (typeof window !== 'undefined' && window.matchMedia) {
@@ -240,7 +240,9 @@ export class DdaHomeBanner {
     return (
       <Host class="home-slider" role="region" aria-roledescription="carousel" aria-label={this.aria_label}>
         <div class="dda-slider-container">
-          <div class="dda-slides" style={{ width: total * 100 + 'vw', left: this.currentSlide * -100 + '%' }}>
+          {/* inset-inline-start, not left: in RTL the slides run from the right edge, so the track
+              must move from that edge too, or the first slide is offscreen and Next goes backwards. */}
+          <div class="dda-slides" style={{ width: total * 100 + 'vw', 'inset-inline-start': this.currentSlide * -100 + '%' }}>
             <slot></slot>
           </div>
           <div class={'slider-nav'}>
