@@ -520,3 +520,37 @@ describe('dda-home-banner arrows in RTL', () => {
     expect([prev.pointsRight, next.pointsRight]).toEqual([true, false]);
   });
 });
+
+// The track was moved with `left`, but in RTL the slides run from the right edge, so the banner
+// opened on the last slide while the dots and the announcement said "Slide 1 of 3", and Next
+// went backwards.
+describe('dda-home-banner slide on screen', () => {
+  for (const dir of ['ltr', 'rtl']) {
+    it(`shows the current slide in ${dir.toUpperCase()}`, async () => {
+      const page = await newE2EPage();
+      await page.setViewport({ width: 1280, height: 800 });
+      await page.setContent(`<div dir="${dir}">${banner()}</div>`);
+      await page.waitForChanges();
+
+      // The slide whose left edge is at the left of the viewport: the one on screen.
+      const onScreen = () =>
+        page.evaluate(() => {
+          const index = Array.from(document.querySelectorAll('dda-home-banner slide')).findIndex(s => Math.abs(s.getBoundingClientRect().left) < 2);
+          return { slide: index + 1, status: document.querySelector('dda-home-banner [role="status"]').textContent };
+        });
+      // Wait out the 0.7s slide transition.
+      const settle = () => new Promise(resolve => setTimeout(resolve, 900));
+
+      expect(await onScreen()).toEqual({ slide: 1, status: 'Slide 1 of 3' });
+
+      await page.click('dda-home-banner .next');
+      await settle();
+      expect(await onScreen()).toEqual({ slide: 2, status: 'Slide 2 of 3' });
+
+      await page.click('dda-home-banner .prev');
+      await page.click('dda-home-banner .prev');
+      await settle();
+      expect(await onScreen()).toEqual({ slide: 3, status: 'Slide 3 of 3' });
+    });
+  }
+});
