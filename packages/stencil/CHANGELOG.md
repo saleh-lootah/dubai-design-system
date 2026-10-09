@@ -4,6 +4,14 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## 5.3.6 (2026-10-09)
+
+A patch release. In RTL, `dda-home-banner` now shows the slide its dots and announcement name, and its previous and next buttons move the right way.
+
+### Bug Fixes
+
+- **dda-home-banner: in RTL the banner showed the wrong slide.** The slides run from the right edge in RTL, but the slide track was still moved from the left. The banner opened on the last slide while its dots and the "Slide 1 of 3" announcement named the first, and the next and previous buttons moved the opposite way. The track now moves from the start edge of the page direction, so RTL works like LTR. LTR does not change.
+
 ## 5.3.5 (2026-10-07)
 
 A patch release. Keyboard focus on every form field now shows as a clear outline, also in Windows high contrast mode. On laptop screens the `dda-home-banner` slide text no longer runs into the slide controls, and in RTL its arrows point outward.

@@ -4,7 +4,7 @@ This guide takes you from any earlier release of the Dubai Design System package
 **5.3.0**. It ships inside `@dubai-design-system/components-js` as `MIGRATION.md`, next to
 `CHANGELOG.md`.
 
-Install the latest 5.3 patch, **5.3.5**, not 5.3.0. The patch releases 5.3.1 to 5.3.5 fix bugs
+Install the latest 5.3 patch, **5.3.6**, not 5.3.0. The patch releases 5.3.1 to 5.3.6 fix bugs
 and need no code change. `CHANGELOG.md` lists each fix, and the checklist below names the one
 that can meet your own CSS.
 
@@ -45,9 +45,9 @@ Do these whatever version you start from.
 - [ ] **Install the same exact version of every DDA package.**
 
   ```bash
-  npm install @dubai-design-system/components-js@5.3.5
+  npm install @dubai-design-system/components-js@5.3.6
   # and, if you use a wrapper:
-  npm install @dubai-design-system/components-react@5.3.5   # or -vue / -angular
+  npm install @dubai-design-system/components-react@5.3.6   # or -vue / -angular
   ```
 
 - [ ] **Load `dda.css`.** It carries the global styles and the Dubai typeface. From npm:
