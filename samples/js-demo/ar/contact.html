@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- A sample, not an official site: keep it out of search results. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link vite-ignore rel="alternate" hreflang="en" href="../contact.html">
+    <link vite-ignore rel="alternate" hreflang="ar" href="contact.html">
+    <link vite-ignore rel="alternate" hreflang="x-default" href="../contact.html">
+    <title>اتصل بنا (موقع تجريبي)</title>
+    <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiMedium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <script type="module" src="/contact.js"></script>
+  </head>
+  <body>
+    <a class="demo-skip-link" href="#main">انتقل إلى المحتوى الرئيسي</a>
+    <!-- Every page says it is a sample, so nobody takes it for an official government website. -->
+    <p class="demo-sample-notice" role="note"><strong>موقع تجريبي.</strong> ليس موقعاً رسمياً لحكومة دبي. المحتوى تجريبي، والنماذج لا ترسل أي بيانات.</p>
+    <dda-header id="site-header" language_text="English" language_lang="en" login-link="#"></dda-header>
+
+    <main id="main" tabindex="-1" class="demo-main">
+      <dda-breadcrumb breadcrumbs='[{"text":"الرئيسية","url":"./"},{"text":"اتصل بنا"}]'></dda-breadcrumb>
+
+      <div class="demo-page-intro">
+        <h1>اتصل بنا</h1>
+        <p>أرسل إلينا رسالة، أو استخدم التفاصيل أدناه. هذه صفحة تجريبية، ولا يُرسل منها أي شيء.</p>
+      </div>
+
+      <section class="demo-columns demo-columns-top">
+        <form id="contact-form" class="demo-form">
+          <h2>أرسل رسالة</h2>
+          <dda-alert id="contact-sent" hidden heading_level="3" variation="success" type="primary" title_text="أُرسلت الرسالة" description="شكراً لك. هذا نموذج تجريبي، لذلك لم يُرسل شيء."></dda-alert>
+          <dda-input label="الاسم الكامل" placeholder="الاسم الكامل" input_id="contact-name" input_name="name"></dda-input>
+          <dda-input label="البريد الإلكتروني" type="email" placeholder="name@example.com" input_id="contact-email" input_name="email"></dda-input>
+          <dda-phonefield label="رقم الهاتف" input_id="contact-phone"></dda-phonefield>
+          <!-- Options with ids (5.3.1): selectChanged sends the whole option, so the form keeps the topic id. -->
+          <dda-select id="contact-topic-select" label="الموضوع" button_id="contact-topic" input_name="topic" placeholder="اختر موضوعاً"
+            options='[{"id":"general","text":"سؤال عام"},{"id":"feedback","text":"ملاحظات حول خدمة"},{"id":"technical","text":"مشكلة تقنية"}]'></dda-select>
+          <dda-textarea label="الرسالة" placeholder="كيف يمكننا مساعدتك؟" input_id="contact-message" textarea_name="message"></dda-textarea>
+          <dda-checkbox title_text="أوافق على الاتصال بي بشأن هذه الرسالة" input_id="contact-consent"></dda-checkbox>
+          <div class="demo-row">
+            <dda-button button_color="default-primary" type="submit" end_icon="send">إرسال الرسالة</dda-button>
+          </div>
+        </form>
+
+        <div class="demo-form">
+          <h2>بيانات الاتصال</h2>
+          <dda-ui-card maintitle="اتصل بنا" subtitle="800 0000 (تجريبي)، من الأحد إلى الخميس، من 8:00 إلى 16:00" icon="call"></dda-ui-card>
+          <dda-ui-card maintitle="البريد الإلكتروني" subtitle="hello@example.com (تجريبي)" icon="mail"></dda-ui-card>
+          <dda-ui-card maintitle="زرنا" subtitle="شارع تجريبي 1، دبي" icon="location_on"></dda-ui-card>
+          <img class="demo-hero-media" src="https://placehold.co/1280x720?text=Map" alt="خريطة تجريبية" />
+        </div>
+      </section>
+    </main>
+
+    <dda-footer id="site-footer" footer-title="عنوان التذييل التجريبي" description="موقع تجريبي لنظام دبي للتصميم. ليس موقعاً رسمياً لحكومة دبي." copyright-text="محتوى تجريبي فقط. ليس موقعاً رسمياً لحكومة دبي." sign-up-button-text="إنشاء حساب" login-button-text="تسجيل الدخول"></dda-footer>
+
+    <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
+  </body>
+</html>

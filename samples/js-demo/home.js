@@ -1,32 +1,58 @@
 // Home page: popular-service facts, the life-moment route and the topic index, all from
 // services-data.js, so the home page cannot show a fee or a time that the service page does not.
-import { categories, formatFee, serviceUrl, services } from './services-data.js';
+import { categories, formatDays, formatFee, formatTime, serviceUrl, services } from './services-data.js';
+import { createT } from './i18n.js';
+
+const t = createT({
+  en: {
+    momentLabel0: 'Moving to Dubai',
+    momentIntro0: 'Get a visa first. You need it for every other step.',
+    momentLabel1: 'Starting a business',
+    momentIntro1: 'Register the company, then an office for it.',
+    momentLabel2: 'Owning a car',
+    momentIntro2: 'The services a car owner uses each year.',
+    // The facts line reads "AED 370, 5 working days" or "Free, done at once".
+    facts: '{fee}, {time}',
+    doneAtOnce: 'done at once',
+    services: { one: '{count} service', other: '{count} services' },
+    totalRoute: '{services}. {fee} in fees and about {days}, if you apply for each one after the one before it.',
+  },
+  ar: {
+    momentLabel0: 'الانتقال إلى دبي',
+    momentIntro0: 'احصل على تأشيرة أولاً. تحتاج إليها في كل خطوة أخرى.',
+    momentLabel1: 'بدء نشاط تجاري',
+    momentIntro1: 'سجّل الشركة، ثم سجّل لها مكتباً.',
+    momentLabel2: 'امتلاك سيارة',
+    momentIntro2: 'الخدمات التي يستخدمها مالك السيارة كل سنة.',
+    facts: '{fee}، {time}',
+    doneAtOnce: 'تُنجز فوراً',
+    services: { one: 'خدمة واحدة', two: 'خدمتان', few: '{count} خدمات', many: '{count} خدمة', other: '{count} خدمة' },
+    totalRoute: '{services}. الرسوم {fee}، والمدة {days} تقريباً، إذا قدّمت طلب كل خدمة بعد إنجاز الخدمة التي قبلها.',
+  },
+});
 
 const byId = Object.fromEntries(services.map((service) => [service.id, service]));
 
 // The services a life moment needs, in the order a person applies for them.
 const moments = [
   {
-    label: 'Moving to Dubai',
-    intro: 'Get a visa first. You need it for every other step.',
+    labelKey: 'momentLabel0',
+    introKey: 'momentIntro0',
     route: ['visa', 'emirates-id', 'tenancy-contract', 'utility-bills', 'health-card'],
   },
   {
-    label: 'Starting a business',
-    intro: 'Register the company, then an office for it.',
+    labelKey: 'momentLabel1',
+    introKey: 'momentIntro1',
     route: ['new-company', 'tenancy-contract', 'utility-bills', 'parking-permit'],
   },
   {
-    label: 'Owning a car',
-    intro: 'The services a car owner uses each year.',
+    labelKey: 'momentLabel2',
+    introKey: 'momentIntro2',
     route: ['vehicle-registration', 'parking-permit', 'traffic-fines'],
   },
 ];
 
-// "3 working days" -> 3; "Immediately" -> 0.
-const workingDays = (service) => Number.parseInt(service.time, 10) || 0;
-const timeText = (service) => (workingDays(service) === 0 ? 'Done at once' : service.time);
-const facts = (service) => `${formatFee(service.fee)}, ${timeText(service).toLowerCase()}`;
+const facts = (service) => t('facts', { fee: formatFee(service.fee), time: service.days === 0 ? t('doneAtOnce') : formatTime(service) });
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -50,7 +76,7 @@ function showMoment(index, { animate = false } = {}) {
   const moment = moments[index];
   const stops = moment.route.map((id) => byId[id]);
 
-  intro.textContent = moment.intro;
+  intro.textContent = t(moment.introKey);
   route.replaceChildren(
     ...stops.map((service, position) => {
       const stop = element('li', 'home-stop');
@@ -64,8 +90,12 @@ function showMoment(index, { animate = false } = {}) {
   );
 
   const fees = stops.reduce((sum, service) => sum + service.fee, 0);
-  const days = stops.reduce((sum, service) => sum + workingDays(service), 0);
-  total.textContent = `${stops.length} services. ${formatFee(fees)} in fees and about ${days} working days, if you apply for each one after the one before it.`;
+  const days = stops.reduce((sum, service) => sum + service.days, 0);
+  total.textContent = t('totalRoute', {
+    services: t('services', { count: stops.length }),
+    fee: formatFee(fees),
+    days: formatDays(days),
+  });
 
   // After a selection, draw the line again, so the change is visible. Not on the first render:
   // the page is still hidden then. style.css skips this for reduced motion.
@@ -80,11 +110,11 @@ function fillTopics() {
   const list = document.getElementById('topic-list');
   list.append(
     ...categories.map((category) => {
-      const inCategory = services.filter((service) => service.category === category);
+      const inCategory = services.filter((service) => service.category === category.id);
       const topic = element('div', 'home-topic');
       const heading = element('h3', 'home-topic-title');
-      const link = element('a', '', category);
-      link.href = `services.html?category=${encodeURIComponent(category)}`;
+      const link = element('a', '', category.name);
+      link.href = `services.html?category=${encodeURIComponent(category.id)}`;
       heading.append(link);
 
       const items = element('ul', 'home-topic-services');
@@ -107,7 +137,7 @@ fillQuickLinks();
 fillTopics();
 
 const filter = document.getElementById('moments-filter');
-filter.setAttribute('items', JSON.stringify(moments.map((moment) => moment.label)));
+filter.setAttribute('items', JSON.stringify(moments.map((moment) => t(moment.labelKey))));
 filter.setAttribute('selected_index', '0');
 filter.addEventListener('segmentChange', (event) => showMoment(event.detail, { animate: true }));
 showMoment(0);

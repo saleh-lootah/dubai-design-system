@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="ar" dir="rtl" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- A sample, not an official site: keep it out of search results. -->
     <meta name="robots" content="noindex, nofollow" />
-    <link vite-ignore rel="alternate" hreflang="en" href="services.html">
-    <link vite-ignore rel="alternate" hreflang="ar" href="ar/services.html">
-    <link vite-ignore rel="alternate" hreflang="x-default" href="services.html">
-    <title>Browse services (sample site)</title>
+    <link vite-ignore rel="alternate" hreflang="en" href="../services.html">
+    <link vite-ignore rel="alternate" hreflang="ar" href="services.html">
+    <link vite-ignore rel="alternate" hreflang="x-default" href="../services.html">
+    <title>تصفح الخدمات (موقع تجريبي)</title>
     <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
     <link rel="stylesheet" href="/style.css">
     <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
@@ -22,27 +22,27 @@
     <script type="module" src="/services.js"></script>
   </head>
   <body>
-    <a class="demo-skip-link" href="#main">Skip to main content</a>
+    <a class="demo-skip-link" href="#main">انتقل إلى المحتوى الرئيسي</a>
     <!-- Every page says it is a sample, so nobody takes it for an official government website. -->
-    <p class="demo-sample-notice" role="note"><strong>Sample site.</strong> Not an official Government of Dubai website. The content is placeholder, and forms send nothing.</p>
-    <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
+    <p class="demo-sample-notice" role="note"><strong>موقع تجريبي.</strong> ليس موقعاً رسمياً لحكومة دبي. المحتوى تجريبي، والنماذج لا ترسل أي بيانات.</p>
+    <dda-header id="site-header" language_text="English" language_lang="en" login-link="#"></dda-header>
 
     <main id="main" tabindex="-1" class="demo-main">
-      <dda-breadcrumb breadcrumbs='[{"text":"Home","url":"./"},{"text":"Services"}]'></dda-breadcrumb>
+      <dda-breadcrumb breadcrumbs='[{"text":"الرئيسية","url":"./"},{"text":"الخدمات"}]'></dda-breadcrumb>
 
       <div class="demo-page-intro">
-        <h1>Browse services</h1>
-        <p id="services-summary">All government services, in one place.</p>
+        <h1>تصفح الخدمات</h1>
+        <p id="services-summary">جميع الخدمات الحكومية في مكان واحد.</p>
       </div>
 
       <div class="demo-filter">
-        <dda-segmented-tabs id="services-filter" radius_type="square" aria_label="Filter services by category"></dda-segmented-tabs>
+        <dda-segmented-tabs id="services-filter" radius_type="square" aria_label="تصفية الخدمات حسب الفئة"></dda-segmented-tabs>
       </div>
 
       <div id="services-list" class="demo-grid"></div>
     </main>
 
-    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Sample site for the Dubai Design System. Not an official government website." copyright-text="Sample content only. Not an official government website." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
+    <dda-footer id="site-footer" footer-title="عنوان التذييل التجريبي" description="موقع تجريبي لنظام دبي للتصميم. ليس موقعاً رسمياً لحكومة دبي." copyright-text="محتوى تجريبي فقط. ليس موقعاً رسمياً لحكومة دبي." sign-up-button-text="إنشاء حساب" login-button-text="تسجيل الدخول"></dda-footer>
 
     <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
   </body>

@@ -48,3 +48,27 @@ the element, and rendered its inner markup.
 
 These samples pin exact published versions. All of them, and `js-demo/`, pin
 `5.3.5`. After you release a new version, bump the pins and run the samples again.
+
+## The demo site in two languages
+
+`js-demo/` is a sample government site in English and Arabic. Each page exists in both:
+English at `/<page>.html`, Arabic at `/ar/<page>.html`, with `<html lang="ar" dir="rtl">` and
+`hreflang` links between the two. The header's language button opens the same page in the
+other language, query string included.
+
+- Page text is in the HTML, translated per page. Text that scripts write (menus, service data,
+  form errors, counts) comes from message tables in each script, through `createT()` in
+  `js-demo/i18n.js`. Numbers, fees and plurals use `Intl` with `en-AE` or `ar-AE`; Arabic has
+  six plural forms, so counted text gives each one.
+- Components show some English text of their own (button labels, announcements). On Arabic
+  pages, `js-demo/component-labels.js` sets those props in Arabic.
+- `style.css` uses logical properties (`margin-inline-start`, `inset-inline-end`), so it
+  mirrors in RTL without separate rules.
+- Arrow icons do not mirror by themselves: Arabic pages use `arrow_back` where English pages
+  use `arrow_forward` (`end_icon`, and the card link icon in `component-labels.js`). The
+  breadcrumb chevron is already mirrored by the library; do not flip it again.
+- Search ignores case and Arabic spelling variants (hamza on alef, ta marbuta, short vowels).
+  The service form accepts Arabic-Indic digits in number fields.
+
+To add a page, write it in English, copy it to `ar/` with the text translated, add both to
+`PAGES` in `vite.config.js`, and add the `hreflang` links to both.
