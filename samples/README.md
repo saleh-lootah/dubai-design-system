@@ -47,7 +47,7 @@ the element, and rendered its inner markup.
   broken package entry points and cannot be imported at all.
 
 These samples pin exact published versions. All of them, and `js-demo/`, pin
-`5.3.5`. After you release a new version, bump the pins and run the samples again.
+`5.3.6`. After you release a new version, bump the pins and run the samples again.
 
 ## The demo site in two languages
 
