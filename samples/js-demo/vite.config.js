@@ -1,6 +1,8 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
+const PAGES = ['index', 'gallery', 'search', 'services', 'service', 'about', 'contact'];
+
 export default defineConfig({
   // The URL path the site is served from. GitHub Pages sets SAMPLE_BASE (for example
   // /dubai-design-system/sample/); site links are relative, so they follow it.
@@ -16,15 +18,13 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      input: {
-        main: resolve(import.meta.dirname, 'index.html'),
-        gallery: resolve(import.meta.dirname, 'gallery.html'),
-        search: resolve(import.meta.dirname, 'search.html'),
-        services: resolve(import.meta.dirname, 'services.html'),
-        service: resolve(import.meta.dirname, 'service.html'),
-        about: resolve(import.meta.dirname, 'about.html'),
-        contact: resolve(import.meta.dirname, 'contact.html'),
-      },
+      // Every page in English, and in Arabic under ar/.
+      input: Object.fromEntries(
+        PAGES.flatMap((page) => [
+          [page, resolve(import.meta.dirname, `${page}.html`)],
+          [`ar-${page}`, resolve(import.meta.dirname, 'ar', `${page}.html`)],
+        ]),
+      ),
     },
   },
 });

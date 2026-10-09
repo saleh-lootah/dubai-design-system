@@ -7,6 +7,115 @@ import governmentLogoWhite from './assets/logos/government-of-dubai-white.svg';
 import digitalDubaiLogo from './assets/logos/digital-logo.svg';
 import digitalDubaiLogoWhite from './assets/logos/digital-logo-white.svg';
 import { setupPopups, HAPPINESS_HREF, PLATFORM_04_HREF } from './popups.js';
+import { alternateUrl, createT, LOCALES, otherLocale } from './i18n.js';
+import { applyComponentLabels } from './component-labels.js';
+import { categoryName } from './services-data.js';
+
+const t = createT({
+  en: {
+    home: 'Home',
+    services: 'Services',
+    allServices: 'All services',
+    about: 'About',
+    aboutUs: 'About us',
+    aboutSample: 'About this sample',
+    components: 'Components',
+    componentGallery: 'Component gallery',
+    searchResults: 'Search results',
+    // The sample search in the About menu: a word that finds a service in this language.
+    sampleSearch: 'visa',
+    contact: 'Contact',
+    contactUs: 'Contact us',
+    gallery: 'Gallery',
+    byTopic: 'By topic',
+    homeAndHealth: 'Home and health',
+    popular: 'Popular',
+    transportText: 'Fines, registration and parking.',
+    identityText: 'Emirates ID and visas.',
+    businessText: 'Licences and companies.',
+    housingText: 'Bills, tenancy and housing.',
+    healthText: 'Appointments and health cards.',
+    payFines: 'Pay traffic fines',
+    payFinesText: 'Free, done at once.',
+    renewId: 'Renew Emirates ID',
+    renewIdText: 'AED 370, 5 working days.',
+    renewVehicle: 'Renew vehicle registration',
+    parkingPermit: 'Apply for a parking permit',
+    renewTradeLicence: 'Renew trade licence',
+    registerCompany: 'Register a new company',
+    sendMessage: 'Send a message',
+    sendMessageText: 'Use the contact form.',
+    callUs: 'Call us',
+    callUsText: 'Sunday to Thursday, 8:00 to 16:00.',
+    visitUs: 'Visit us',
+    visitUsText: 'Opening hours and address.',
+    happiness: 'Happiness',
+    accessibility: 'Accessibility',
+    platform04: '04 platform',
+    logo: 'Logo {n}',
+    location: 'Location',
+    news: 'News',
+    aiAssistant: 'AI assistant',
+    chat: 'Chat',
+    governmentOfDubai: 'Government of Dubai',
+    digitalDubai: 'Digital Dubai',
+    logoPlaceholder: 'Logo placeholder',
+    logoDescription: 'Logo description placeholder.',
+    section: 'Section {n}',
+    link: 'Link {n}',
+  },
+  ar: {
+    home: 'الرئيسية',
+    services: 'الخدمات',
+    allServices: 'جميع الخدمات',
+    about: 'من نحن',
+    aboutUs: 'من نحن',
+    aboutSample: 'عن هذا الموقع التجريبي',
+    components: 'المكونات',
+    componentGallery: 'معرض المكونات',
+    searchResults: 'نتائج البحث',
+    sampleSearch: 'تأشيرة',
+    contact: 'اتصل بنا',
+    contactUs: 'اتصل بنا',
+    gallery: 'معرض المكونات',
+    byTopic: 'حسب الموضوع',
+    homeAndHealth: 'السكن والصحة',
+    popular: 'الأكثر استخداماً',
+    transportText: 'المخالفات وترخيص المركبات والمواقف.',
+    identityText: 'الهوية الإماراتية والتأشيرات.',
+    businessText: 'الرخص التجارية والشركات.',
+    housingText: 'الفواتير والإيجار والسكن.',
+    healthText: 'المواعيد والبطاقات الصحية.',
+    payFines: 'دفع المخالفات المرورية',
+    payFinesText: 'مجاناً، تُنجز فوراً.',
+    renewId: 'تجديد الهوية الإماراتية',
+    renewIdText: '370 درهم، 5 أيام عمل.',
+    renewVehicle: 'تجديد ترخيص المركبة',
+    parkingPermit: 'طلب تصريح مواقف',
+    renewTradeLicence: 'تجديد الرخصة التجارية',
+    registerCompany: 'تسجيل شركة جديدة',
+    sendMessage: 'أرسل رسالة',
+    sendMessageText: 'استخدم نموذج الاتصال.',
+    callUs: 'اتصل بنا',
+    callUsText: 'من الأحد إلى الخميس، من 8:00 إلى 16:00.',
+    visitUs: 'زرنا',
+    visitUsText: 'ساعات العمل والعنوان.',
+    happiness: 'مؤشر السعادة',
+    accessibility: 'إمكانية الوصول',
+    platform04: 'منصة 04',
+    logo: 'الشعار {n}',
+    location: 'الموقع',
+    news: 'الأخبار',
+    aiAssistant: 'المساعد الذكي',
+    chat: 'المحادثة',
+    governmentOfDubai: 'حكومة دبي',
+    digitalDubai: 'دبي الرقمية',
+    logoPlaceholder: 'شعار تجريبي',
+    logoDescription: 'وصف تجريبي للشعار.',
+    section: 'القسم {n}',
+    link: 'الرابط {n}',
+  },
+});
 
 // One lazy loader per self-defining component (Vite cannot bundle the package's lazy loader).
 // Each component module also defines the components it uses inside, like dda-tooltip in dda-header.
@@ -22,7 +131,7 @@ const placeholder = (width, height, text) => `https://placehold.co/${width}x${he
 // Header and footer take their menus as JSON strings.
 const link = (label, href = '#') => ({ label, href, subMenu: [] });
 const service = (id) => `service.html?id=${id}`;
-const category = (name) => `services.html?category=${encodeURIComponent(name)}`;
+const category = (id) => `services.html?category=${id}`;
 
 // The header menu shows each submenu type that dda-header supports:
 //   Home     - a plain link.
@@ -32,93 +141,95 @@ const category = (name) => `services.html?category=${encodeURIComponent(name)}`;
 //   Gallery  - a plain link.
 const legacyLink = (label, url, extra = {}) => ({ headerMenuLabel: label, url, ...extra });
 const megaLink = (label, url, icon, description) => ({ headerMenuLabel: label, url, quickLinksIcon: icon, description });
+const categoryLink = (id, icon, description) => megaLink(categoryName(id), category(id), icon, description);
 const headerLinks = [
-  link('Home', './'),
+  link(t('home'), './'),
   {
     type: 'dda_main_megamenu',
-    headerMenuLabel: 'Services',
+    headerMenuLabel: t('services'),
     url: 'services.html',
     children: [
       {
-        title: 'By topic',
+        title: t('byTopic'),
         items: [
-          megaLink('Transport', category('Transport'), 'directions_car', 'Fines, registration and parking.'),
-          megaLink('Identity and visas', category('Identity and visas'), 'badge', 'Emirates ID and visas.'),
-          megaLink('Business', category('Business'), 'business_center', 'Licences and companies.'),
+          categoryLink('transport', 'directions_car', t('transportText')),
+          categoryLink('identity-visas', 'badge', t('identityText')),
+          categoryLink('business', 'business_center', t('businessText')),
         ],
       },
       {
-        title: 'Home and health',
+        title: t('homeAndHealth'),
         items: [
-          megaLink('Housing and utilities', category('Housing and utilities'), 'home', 'Bills, tenancy and housing.'),
-          megaLink('Health', category('Health'), 'medical_services', 'Appointments and health cards.'),
+          categoryLink('housing-utilities', 'home', t('housingText')),
+          categoryLink('health', 'medical_services', t('healthText')),
         ],
       },
       {
-        title: 'Popular',
+        title: t('popular'),
         items: [
-          megaLink('Pay traffic fines', service('traffic-fines'), 'receipt_long', 'Free, done at once.'),
-          megaLink('Renew Emirates ID', service('emirates-id'), 'badge', 'AED 370, 5 working days.'),
+          megaLink(t('payFines'), service('traffic-fines'), 'receipt_long', t('payFinesText')),
+          megaLink(t('renewId'), service('emirates-id'), 'badge', t('renewIdText')),
         ],
       },
     ],
   },
   {
     type: 'dda_default_submenu',
-    headerMenuLabel: 'About',
+    headerMenuLabel: t('about'),
     url: 'about.html',
-    defaultSubMenuTitle: 'About this sample',
+    defaultSubMenuTitle: t('aboutSample'),
     children: [
-      legacyLink('About us', 'about.html'),
-      legacyLink('Services', 'services.html'),
+      legacyLink(t('aboutUs'), 'about.html'),
+      legacyLink(t('services'), 'services.html'),
       {
         type: 'dda_default_submenu',
-        headerMenuLabel: 'Components',
+        headerMenuLabel: t('components'),
         url: 'gallery.html',
-        defaultSubMenuTitle: 'Components',
-        children: [legacyLink('Component gallery', 'gallery.html'), legacyLink('Search results', 'search.html?q=visa')],
+        defaultSubMenuTitle: t('components'),
+        children: [legacyLink(t('componentGallery'), 'gallery.html'), legacyLink(t('searchResults'), `search.html?q=${encodeURIComponent(t('sampleSearch'))}`)],
       },
     ],
   },
   {
-    label: 'Contact',
+    label: t('contact'),
     href: 'contact.html',
-    menuLabel: 'Contact us',
+    menuLabel: t('contactUs'),
     subMenu: [
-      { title: 'Send a message', description: 'Use the contact form.', icon: 'mail', href: 'contact.html' },
-      { title: 'Call us', description: 'Sunday to Thursday, 8:00 to 16:00.', icon: 'call', href: 'contact.html' },
-      { title: 'Visit us', description: 'Opening hours and address.', icon: 'location_on', href: 'contact.html' },
+      { title: t('sendMessage'), description: t('sendMessageText'), icon: 'mail', href: 'contact.html' },
+      { title: t('callUs'), description: t('callUsText'), icon: 'call', href: 'contact.html' },
+      { title: t('visitUs'), description: t('visitUsText'), icon: 'location_on', href: 'contact.html' },
     ],
   },
-  link('Gallery', 'gallery.html'),
+  link(t('gallery'), 'gallery.html'),
 ];
 
 // The side menu nests: each subMenu item can have its own subMenu, with a headerLabel title.
 const sideItem = (label, href, subMenu = []) => ({ label, href, subMenu });
 const sideMenuLinks = [
-  sideItem('Home', './'),
-  sideItem('Services', 'services.html', [
-    { headerLabel: 'Services', ...sideItem('All services', 'services.html') },
-    sideItem('Transport', category('Transport'), [
-      { headerLabel: 'Transport', ...sideItem('Pay traffic fines', service('traffic-fines')) },
-      sideItem('Renew vehicle registration', service('vehicle-registration')),
-      sideItem('Apply for a parking permit', service('parking-permit')),
+  sideItem(t('home'), './'),
+  sideItem(t('services'), 'services.html', [
+    { headerLabel: t('services'), ...sideItem(t('allServices'), 'services.html') },
+    sideItem(categoryName('transport'), category('transport'), [
+      { headerLabel: categoryName('transport'), ...sideItem(t('payFines'), service('traffic-fines')) },
+      sideItem(t('renewVehicle'), service('vehicle-registration')),
+      sideItem(t('parkingPermit'), service('parking-permit')),
     ]),
-    sideItem('Business', category('Business'), [
-      { headerLabel: 'Business', ...sideItem('Renew trade licence', service('trade-licence')) },
-      sideItem('Register a new company', service('new-company')),
+    sideItem(categoryName('business'), category('business'), [
+      { headerLabel: categoryName('business'), ...sideItem(t('renewTradeLicence'), service('trade-licence')) },
+      sideItem(t('registerCompany'), service('new-company')),
     ]),
-    sideItem('Health', category('Health')),
+    sideItem(categoryName('health'), category('health')),
   ]),
-  sideItem('About', 'about.html'),
-  sideItem('Contact', 'contact.html'),
-  sideItem('Gallery', 'gallery.html'),
+  sideItem(t('about'), 'about.html'),
+  sideItem(t('contact'), 'contact.html'),
+  sideItem(t('gallery'), 'gallery.html'),
 ];
 
-// Each sticky footer item is an image link with a tooltip.
-const icon = (prefix, label) => ({
+// Each sticky footer item is an image link with a tooltip. `initial` is the placeholder image's
+// text, kept Latin: the placeholder service draws Latin text only.
+const icon = (prefix, label, initial) => ({
   [`${prefix}Href`]: '#',
-  [`${prefix}Src`]: placeholder(48, 48, label[0]),
+  [`${prefix}Src`]: placeholder(48, 48, initial),
   [`${prefix}Alt`]: label,
   [`${prefix}Tooltip`]: label,
 });
@@ -142,54 +253,59 @@ function configureSiteChrome() {
   setProps('site-header', {
     firstLogoSrc: governmentLogo,
     firstLogoWhiteSrc: governmentLogoWhite,
-    firstLogoAlt: 'Government of Dubai',
+    firstLogoAlt: t('governmentOfDubai'),
     secondLogoSrc: digitalDubaiLogo,
     secondLogoWhiteSrc: digitalDubaiLogoWhite,
-    secondLogoAlt: 'Digital Dubai',
+    secondLogoAlt: t('digitalDubai'),
     // The default is "/", which on GitHub Pages is the domain root, not this site.
     firstLogoHref: './',
     secondLogoHref: './',
-    // Header search submits a GET to this page, as /search.html?q=<query>.
+    // Header search submits a GET to this page, as /search.html?q=<query> (/ar/search.html in Arabic).
     search_action: 'search.html',
     quickLinks: JSON.stringify(headerLinks),
     sideMenuItems: JSON.stringify(sideMenuLinks),
+    // The language button offers the other language, named in that language.
+    language_text: LOCALES[otherLocale].name,
+    language_lang: otherLocale,
   });
+  // dda-header only emits languageSwitch; the site decides where it goes: the same page in the
+  // other language, keeping the query (the service, the search, the page of the form).
+  document.getElementById('site-header').addEventListener('languageSwitch', () => location.assign(alternateUrl()));
 
   setProps('site-sticky-footer', {
     // Happiness and 04 open sample popups (popups.js) instead of going to a page.
-    ...icon('happinessIcon', 'Happiness'),
+    ...icon('happinessIcon', t('happiness'), 'H'),
     happinessIconHref: HAPPINESS_HREF,
-    ...icon('accessibilityIcon', 'Accessibility'),
-    ...icon('servicesIcon', '04 platform'),
+    ...icon('accessibilityIcon', t('accessibility'), 'A'),
+    ...icon('servicesIcon', t('platform04'), '04'),
     servicesIconHref: PLATFORM_04_HREF,
-    servicesIconSrc: placeholder(48, 48, '04'),
-    servicesIconText: '04 platform',
-    ...icon('firstLogo', 'Logo 1'),
-    ...icon('secondLogo', 'Logo 2'),
-    ...icon('thirdLogo', 'Logo 3'),
+    servicesIconText: t('platform04'),
+    ...icon('firstLogo', t('logo', { n: 1 }), 'L'),
+    ...icon('secondLogo', t('logo', { n: 2 }), 'L'),
+    ...icon('thirdLogo', t('logo', { n: 3 }), 'L'),
     firstLogoSrc: placeholder(120, 40, 'Logo 1'),
     secondLogoSrc: placeholder(120, 40, 'Logo 2'),
     thirdLogoSrc: placeholder(120, 40, 'Logo 3'),
     hideMiddleSection: false,
     locationButtonHref: '#',
     locationLogoSrc: placeholder(48, 48, 'L'),
-    locationButtonText: 'Location',
+    locationButtonText: t('location'),
     newsButtonHref: '#',
     newsButtonSrc: placeholder(48, 48, 'N'),
-    newsButtonText: 'News',
-    ...icon('aiIcon', 'AI assistant'),
-    ...icon('chatIcon', 'Chat'),
+    newsButtonText: t('news'),
+    ...icon('aiIcon', t('aiAssistant'), 'A'),
+    ...icon('chatIcon', t('chat'), 'C'),
   });
 
   setProps('site-footer', {
     heading_level: 2,
     logoSrc: placeholder(160, 48, 'Logo'),
-    logoAlt: 'Logo placeholder',
-    logoDescription: 'Logo description placeholder.',
+    logoAlt: t('logoPlaceholder'),
+    logoDescription: t('logoDescription'),
     footerSections: JSON.stringify(
-      ['Section 1', 'Section 2', 'Section 3'].map((title) => ({
-        title,
-        links: [1, 2, 3].map((n) => ({ label: `Link ${n}`, href: '#' })),
+      [1, 2, 3].map((section) => ({
+        title: t('section', { n: section }),
+        links: [1, 2, 3].map((n) => ({ label: t('link', { n }), href: '#' })),
       })),
     ),
     socialIcons: JSON.stringify([]),
@@ -218,6 +334,7 @@ async function start() {
   try {
     trackSampleNoticeHeight();
     configureSiteChrome();
+    applyComponentLabels();
     setupPopups();
     await loadComponents();
     await Promise.race([

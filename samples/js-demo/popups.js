@@ -2,46 +2,85 @@
 // icon as a plain link, so the page opens its own popup from a click on that link.
 // The popups are placeholders: a real site loads the Happiness Meter and the 04 platform here.
 
+import { createT } from './i18n.js';
+
+const t = createT({
+  en: {
+    close: 'Close',
+    happinessTitle: 'How was your experience?',
+    happinessDescription: 'Sample popup. A real site shows the Happiness Meter here.',
+    happy: 'Happy',
+    neutral: 'Neutral',
+    unhappy: 'Unhappy',
+    thankYouHappiness: 'Thank you for your feedback. This sample does not send it.',
+    platformTitle: '04 platform',
+    platformDescription: 'Sample popup. A real site opens the 04 platform here, to send a suggestion, a complaint or a question.',
+    yourMessage: 'Your message',
+    send: 'Send',
+    thankYouPlatform: 'Thank you. This sample does not send your message.',
+  },
+  ar: {
+    close: 'إغلاق',
+    happinessTitle: 'كيف كانت تجربتك؟',
+    happinessDescription: 'نافذة تجريبية. في الموقع الحقيقي يظهر هنا مؤشر السعادة.',
+    happy: 'سعيد',
+    neutral: 'محايد',
+    unhappy: 'غير سعيد',
+    thankYouHappiness: 'شكراً لك على ملاحظاتك. هذا الموقع التجريبي لا يرسلها.',
+    platformTitle: 'منصة 04',
+    platformDescription: 'نافذة تجريبية. في الموقع الحقيقي تفتح هنا منصة 04 لإرسال اقتراح أو شكوى أو استفسار.',
+    yourMessage: 'رسالتك',
+    send: 'إرسال',
+    thankYouPlatform: 'شكراً لك. هذا الموقع التجريبي لا يرسل رسالتك.',
+  },
+});
+
 // The sticky footer links point at these hashes (see setup.js). Without JavaScript they do nothing.
 export const HAPPINESS_HREF = '#happiness';
 export const PLATFORM_04_HREF = '#platform-04';
 
-const closeButton = `
-  <button type="button" class="sample-popup-close" aria-label="Close" data-close>
+function createCloseButton() {
+  return `
+  <button type="button" class="sample-popup-close" aria-label="${t('close')}" data-close>
     <i class="material-icons material-symbols-outlined" aria-hidden="true">close</i>
   </button>`;
+}
 
-const happinessPopup = `
+function createHappinessPopup() {
+  return `
   <dialog class="sample-popup" id="happiness-popup" aria-labelledby="happiness-popup-title">
-    ${closeButton}
-    <h2 id="happiness-popup-title">How was your experience?</h2>
-    <p>Sample popup. A real site shows the Happiness Meter here.</p>
+    ${createCloseButton()}
+    <h2 id="happiness-popup-title">${t('happinessTitle')}</h2>
+    <p>${t('happinessDescription')}</p>
     <div class="sample-popup-faces" data-step="ask">
       <button type="button" class="dda-btn btn-color-default-secondary btn-size-md" data-answer>
-        <i class="material-icons material-symbols-outlined" aria-hidden="true">sentiment_very_satisfied</i>Happy
+        <i class="material-icons material-symbols-outlined" aria-hidden="true">sentiment_very_satisfied</i>${t('happy')}
       </button>
       <button type="button" class="dda-btn btn-color-default-secondary btn-size-md" data-answer>
-        <i class="material-icons material-symbols-outlined" aria-hidden="true">sentiment_neutral</i>Neutral
+        <i class="material-icons material-symbols-outlined" aria-hidden="true">sentiment_neutral</i>${t('neutral')}
       </button>
       <button type="button" class="dda-btn btn-color-default-secondary btn-size-md" data-answer>
-        <i class="material-icons material-symbols-outlined" aria-hidden="true">sentiment_dissatisfied</i>Unhappy
+        <i class="material-icons material-symbols-outlined" aria-hidden="true">sentiment_dissatisfied</i>${t('unhappy')}
       </button>
     </div>
     <p class="sample-popup-status" role="status"></p>
   </dialog>`;
+}
 
-const platform04Popup = `
+function createPlatform04Popup() {
+  return `
   <dialog class="sample-popup" id="platform-04-popup" aria-labelledby="platform-04-popup-title">
-    ${closeButton}
-    <h2 id="platform-04-popup-title">04 platform</h2>
-    <p>Sample popup. A real site opens the 04 platform here, to send a suggestion, a complaint or a question.</p>
+    ${createCloseButton()}
+    <h2 id="platform-04-popup-title">${t('platformTitle')}</h2>
+    <p>${t('platformDescription')}</p>
     <form data-step="ask">
-      <label for="platform-04-message">Your message</label>
+      <label for="platform-04-message">${t('yourMessage')}</label>
       <textarea id="platform-04-message" name="message" rows="4" required></textarea>
-      <button type="submit" class="dda-btn btn-color-default-primary btn-size-md">Send</button>
+      <button type="submit" class="dda-btn btn-color-default-primary btn-size-md">${t('send')}</button>
     </form>
     <p class="sample-popup-status" role="status"></p>
   </dialog>`;
+}
 
 function showThanks(dialog, text) {
   dialog.querySelector('[data-step="ask"]').hidden = true;
@@ -57,7 +96,7 @@ function reset(dialog) {
 }
 
 export function setupPopups() {
-  document.body.insertAdjacentHTML('beforeend', happinessPopup + platform04Popup);
+  document.body.insertAdjacentHTML('beforeend', createHappinessPopup() + createPlatform04Popup());
   const happiness = document.getElementById('happiness-popup');
   const platform04 = document.getElementById('platform-04-popup');
 
@@ -72,12 +111,12 @@ export function setupPopups() {
     .querySelectorAll('[data-answer]')
     .forEach((button) =>
       button.addEventListener('click', () =>
-        showThanks(happiness, 'Thank you for your feedback. This sample does not send it.'),
+        showThanks(happiness, t('thankYouHappiness')),
       ),
     );
   platform04.querySelector('form').addEventListener('submit', (event) => {
     event.preventDefault();
-    showThanks(platform04, 'Thank you. This sample does not send your message.');
+    showThanks(platform04, t('thankYouPlatform'));
   });
 
   const popups = {

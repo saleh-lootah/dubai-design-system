@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- A sample, not an official site: keep it out of search results. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link vite-ignore rel="alternate" hreflang="en" href="../index.html">
+    <link vite-ignore rel="alternate" hreflang="ar" href="index.html">
+    <link vite-ignore rel="alternate" hreflang="x-default" href="../index.html">
+    <title>خدمات حكومة دبي (موقع تجريبي)</title>
+    <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiMedium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <!-- home.js adds the life-moment route and the topics, then loads setup.js, so setup.js loads their components too. -->
+    <script type="module" src="/home.js"></script>
+  </head>
+  <!-- Only the home page uses the transparent header. Other pages keep the white header. -->
+  <body class="transparent">
+    <a class="demo-skip-link" href="#main">انتقل إلى المحتوى الرئيسي</a>
+    <!-- Every page says it is a sample, so nobody takes it for an official government website. -->
+    <p class="demo-sample-notice" role="note"><strong>موقع تجريبي.</strong> ليس موقعاً رسمياً لحكومة دبي. المحتوى تجريبي، والنماذج لا ترسل أي بيانات.</p>
+    <dda-header id="site-header" language_text="English" language_lang="en" login-link="#"></dda-header>
+
+    <div class="home-intros" role="region" aria-labelledby="home-title">
+      <h1 id="home-title" class="visually-hidden">خدمات حكومة دبي</h1>
+      <dda-home-banner aria_label="أبرز المحتويات" show_scroll_icon_mobile>
+        <div class="dda-slide">
+          <!-- Placeholder video (CC0, from MDN). Decorative: the slide text carries the message. -->
+          <video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+          <div class="slide-wrap">
+            <div class="slide-content">
+              <h2>خدمات حكومية في مكان واحد</h2>
+              <p>ادفع وجدّد وقدّم طلباتك إلكترونياً، بالعربية أو الإنجليزية.</p>
+              <dda-link-button button_color="default-primary" size="lg" href="services.html">استعرض الخدمات</dda-link-button>
+            </div>
+          </div>
+        </div>
+        <div class="dda-slide">
+          <img src="https://picsum.photos/seed/dda-banner-2/1920/1080" alt="" />
+          <div class="slide-wrap">
+            <div class="slide-content">
+              <h2>جدّد هويتك الإماراتية إلكترونياً</h2>
+              <p>تستغرق العملية 5 أيام عمل. نرسل لك رسالة عندما تصبح البطاقة جاهزة.</p>
+              <dda-link-button button_color="default-primary" size="lg" href="service.html?id=emirates-id">تجديد الهوية الإماراتية</dda-link-button>
+            </div>
+          </div>
+        </div>
+        <div class="dda-slide">
+          <img src="https://picsum.photos/seed/dda-banner-3/1920/1080" alt="" />
+          <div class="slide-wrap">
+            <div class="slide-content">
+              <h2>ابدأ نشاطاً تجارياً في دبي</h2>
+              <p>سجّل شركتك واحصل على رخصتك التجارية دون الحاجة إلى الحضور شخصياً.</p>
+              <dda-link-button button_color="default-primary" size="lg" href="services.html?category=business">عرض خدمات الأعمال</dda-link-button>
+            </div>
+          </div>
+        </div>
+      </dda-home-banner>
+
+      <!-- home.js adds the fee and time of each service from services-data.js. -->
+      <nav class="quick-links-wrap" aria-label="الخدمات الأكثر استخداماً">
+        <div class="quick-links">
+          <a class="link-item" href="service.html?id=traffic-fines" data-service="traffic-fines">
+            <i class="material-icons material-symbols-outlined" aria-hidden="true">directions_car</i>
+            <span class="title">دفع المخالفات المرورية</span>
+            <span class="subtitle"></span>
+          </a>
+          <a class="link-item" href="service.html?id=emirates-id" data-service="emirates-id">
+            <i class="material-icons material-symbols-outlined" aria-hidden="true">badge</i>
+            <span class="title">تجديد الهوية الإماراتية</span>
+            <span class="subtitle"></span>
+          </a>
+          <a class="link-item" href="service.html?id=utility-bills" data-service="utility-bills">
+            <i class="material-icons material-symbols-outlined" aria-hidden="true">receipt_long</i>
+            <span class="title">دفع فواتير الكهرباء والمياه</span>
+            <span class="subtitle"></span>
+          </a>
+          <a class="link-item" href="service.html?id=trade-licence" data-service="trade-licence">
+            <i class="material-icons material-symbols-outlined" aria-hidden="true">storefront</i>
+            <span class="title">تجديد الرخصة التجارية</span>
+            <span class="subtitle"></span>
+          </a>
+          <a class="link-item" href="service.html?id=visa" data-service="visa">
+            <i class="material-icons material-symbols-outlined" aria-hidden="true">flight</i>
+            <span class="title">طلب تأشيرة</span>
+            <span class="subtitle"></span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <main id="main" tabindex="-1" class="demo-main demo-main-after-banner home-main">
+      <dda-alert heading_level="2" variation="info" type="primary" title_text="صيانة مجدولة" description="الدفع الإلكتروني غير متاح يوم السبت 27 سبتمبر، من 00:00 إلى 04:00."></dda-alert>
+
+      <!-- The life-moment route. home.js draws the stops for the selected moment. -->
+      <section class="home-moments" aria-labelledby="moments-title">
+        <div class="home-moments-head">
+          <h2 id="moments-title">ما الذي يحدث في حياتك؟</h2>
+          <p>تحتاج بعض التغييرات إلى أكثر من خدمة. اختر إحداها لعرض الخدمات التي تحتاج إليها بالترتيب.</p>
+        </div>
+        <div class="demo-filter">
+          <dda-segmented-tabs id="moments-filter" radius_type="square" aria_label="أحداث الحياة"></dda-segmented-tabs>
+        </div>
+        <div class="home-route-wrap">
+          <p id="moment-intro" class="home-route-intro"></p>
+          <ol id="moment-route" class="home-route"></ol>
+          <p id="moment-total" class="home-route-total" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="home-topics" aria-labelledby="topics-title">
+        <div class="home-section-head">
+          <h2 id="topics-title">الخدمات حسب الموضوع</h2>
+          <a class="demo-link" href="services.html">عرض جميع الخدمات</a>
+        </div>
+        <!-- home.js adds one column per category, from services-data.js. -->
+        <div id="topic-list" class="home-topic-list"></div>
+      </section>
+
+      <section class="home-faq" aria-labelledby="faq-title">
+        <div class="home-faq-intro">
+          <h2 id="faq-title">أسئلة حول الخدمات الإلكترونية</h2>
+          <p>لم تجد الإجابة التي تبحث عنها؟ <a class="demo-link" href="contact.html">اتصل بنا</a> وسنرد عليك خلال يومي عمل.</p>
+        </div>
+        <div>
+          <dda-accordion accordion_icon="help" header_text="هل أحتاج إلى حساب؟" body_description="لا تحتاج إلى حساب لدفع المخالفات أو الفواتير. لتقديم طلب أو تجديد مستند، سجّل الدخول أولاً، حتى نرسل إليك تحديثات طلبك."></dda-accordion>
+          <dda-accordion accordion_icon="help" header_text="كيف أدفع؟" body_description="ادفع ببطاقة الخصم أو بطاقة الائتمان في نهاية الخدمة. نرسل الإيصال إلى بريدك الإلكتروني."></dda-accordion>
+          <dda-accordion accordion_icon="help" header_text="كيف أعرف حالة طلبي؟" body_description="نرسل إليك بريداً إلكترونياً ورسالة نصية في كل خطوة. تخبرك الرسالة بما عليك فعله بعد ذلك، إن كان عليك فعل شيء."></dda-accordion>
+          <dda-accordion accordion_icon="help" header_text="هل يمكنني استخدام الموقع باللغة الإنجليزية؟" body_description="نعم. اختر English في أعلى أي صفحة. يبقى طلبك كما هو في كلتا اللغتين."></dda-accordion>
+        </div>
+      </section>
+    </main>
+
+    <dda-footer id="site-footer" footer-title="عنوان التذييل التجريبي" description="موقع تجريبي لنظام دبي للتصميم. ليس موقعاً رسمياً لحكومة دبي." copyright-text="محتوى تجريبي فقط. ليس موقعاً رسمياً لحكومة دبي." sign-up-button-text="إنشاء حساب" login-button-text="تسجيل الدخول"></dda-footer>
+
+    <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
+  </body>
+</html>

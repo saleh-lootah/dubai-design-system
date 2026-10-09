@@ -2,7 +2,71 @@
 // questions per page, check your answers, confirmation. Nothing is sent.
 // Each page has its own URL, service.html?id=<service id>&page=<page>, and is a full page load,
 // so the browser back button, a reload and a shared link all work. Answers live in sessionStorage.
-import { formatFee, services } from './services-data.js';
+import { formatFee, formatTime, services } from './services-data.js';
+import { createT, isolate } from './i18n.js';
+
+const t = createT({
+  en: {
+    home: 'Home',
+    services: 'Services',
+    contactDetails: 'Your contact details',
+    emiratesIdQuestion: 'What is your Emirates ID number?',
+    uploadDocuments: 'Upload your documents',
+    checkAnswers: 'Check your answers',
+    applicationSent: 'Application sent',
+    notGiven: 'Not given',
+    acceptAndPay: 'Accept and pay',
+    acceptAndSend: 'Accept and send',
+    uploadedFile: 'Uploaded: {file}. Choose another file to replace it.',
+    immediateProcessing: 'We process your application straight away.',
+    futureProcessing: 'We will review your application and contact you within {time}.',
+    serviceNotFound: 'Service not found',
+    startTitle: '{service} – DDA Demo Site',
+    pageTitle: '{page} – {service} – DDA Demo Site',
+    errorTitle: 'Error: {title}',
+    fullNameError: 'Enter your full name',
+    emailError: 'Enter your email address',
+    emailFormatError: `Enter an email address in the correct format, like ${isolate('name@example.com')}`,
+    phoneError: `Enter a mobile number in the correct format, like ${isolate('50 123 4567')}`,
+    emiratesIdError: 'Enter your Emirates ID number',
+    emiratesIdFormatError: `Enter your Emirates ID number in the correct format, like ${isolate('784-1990-1234567-1')}`,
+    emiratesIdRequired: 'Select a copy of your Emirates ID',
+    fileTypePdfJpgPng: 'a PDF, JPG or PNG',
+    fileTypePdf: 'a PDF',
+    fileTypeError: 'The selected file must be {types}',
+    fileSizeError: 'The selected file must be smaller than 5MB',
+  },
+  ar: {
+    home: 'الرئيسية',
+    services: 'الخدمات',
+    contactDetails: 'بيانات الاتصال',
+    emiratesIdQuestion: 'ما رقم هويتك الإماراتية؟',
+    uploadDocuments: 'ارفع مستنداتك',
+    checkAnswers: 'راجع إجاباتك',
+    applicationSent: 'أُرسل طلبك',
+    notGiven: 'لم يُذكر',
+    acceptAndPay: 'أوافق وأدفع',
+    acceptAndSend: 'أوافق وأرسل',
+    uploadedFile: 'تم رفع الملف: {file}. اختر ملفاً آخر لاستبداله.',
+    immediateProcessing: 'نعالج طلبك فوراً.',
+    futureProcessing: 'سنراجع طلبك ونتواصل معك. المدة المتوقعة: {time}.',
+    serviceNotFound: 'الخدمة غير موجودة',
+    startTitle: '{service} – موقع DDA التجريبي',
+    pageTitle: '{page} – {service} – موقع DDA التجريبي',
+    errorTitle: 'خطأ: {title}',
+    fullNameError: 'أدخل اسمك الكامل',
+    emailError: 'أدخل بريدك الإلكتروني',
+    emailFormatError: `أدخل بريدك الإلكتروني بالصيغة الصحيحة، مثل ${isolate('name@example.com')}`,
+    phoneError: `أدخل رقم هاتفك المتحرك بالصيغة الصحيحة، مثل ${isolate('50 123 4567')}`,
+    emiratesIdError: 'أدخل رقم هويتك الإماراتية',
+    emiratesIdFormatError: `أدخل رقم هويتك الإماراتية بالصيغة الصحيحة، مثل ${isolate('784-1990-1234567-1')}`,
+    emiratesIdRequired: 'اختر نسخة من هويتك الإماراتية',
+    fileTypePdfJpgPng: 'PDF أو JPG أو PNG',
+    fileTypePdf: 'PDF',
+    fileTypeError: 'يجب أن يكون الملف المختار بصيغة {types}',
+    fileSizeError: 'يجب أن يكون حجم الملف المختار أقل من 5 ميغابايت',
+  },
+});
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -10,14 +74,14 @@ const service = services.find((item) => item.id === params.get('id'));
 
 // The question pages in order, with the answers each one must have before the next page opens.
 const QUESTIONS = [
-  { page: 'contact', title: 'Your contact details', complete: (a) => a.name && a.email },
-  { page: 'eid', title: 'What is your Emirates ID number?', complete: (a) => a.eid },
-  { page: 'documents', title: 'Upload your documents', complete: (a) => a.docEid },
+  { page: 'contact', titleKey: 'contactDetails', complete: (a) => a.name && a.email },
+  { page: 'eid', titleKey: 'emiratesIdQuestion', complete: (a) => a.eid },
+  { page: 'documents', titleKey: 'uploadDocuments', complete: (a) => a.docEid },
 ];
-const PAGE_TITLES = {
-  check: 'Check your answers',
-  done: 'Application sent',
-  ...Object.fromEntries(QUESTIONS.map((q) => [q.page, q.title])),
+const PAGE_TITLE_KEYS = {
+  check: 'checkAnswers',
+  done: 'applicationSent',
+  ...Object.fromEntries(QUESTIONS.map((q) => [q.page, q.titleKey])),
 };
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
@@ -36,12 +100,12 @@ if (!service) {
 }
 
 function showMissingService() {
-  document.title = 'Service not found';
+  document.title = t('serviceNotFound');
   $('service-missing').hidden = false;
   $('service-breadcrumb').hidden = false;
   $('service-breadcrumb').setAttribute('breadcrumbs', JSON.stringify([
-    { text: 'Home', url: './' },
-    { text: 'Services', url: 'services.html' },
+    { text: t('home'), url: './' },
+    { text: t('services'), url: 'services.html' },
   ]));
 }
 
@@ -54,7 +118,7 @@ function showPage(service) {
   };
 
   const requested = params.get('page') || 'start';
-  const page = (requested in PAGE_TITLES || requested === 'start') ? requested : 'start';
+  const page = (requested in PAGE_TITLE_KEYS || requested === 'start') ? requested : 'start';
   // "Change" links on the check page add return=check, so Continue and Back go back there.
   const returnToCheck = params.get('return') === 'check';
 
@@ -71,7 +135,9 @@ function showPage(service) {
     writeAnswers({});
   }
 
-  const baseTitle = `${page === 'start' ? service.title : `${PAGE_TITLES[page]} – ${service.title}`} – DDA Demo Site`;
+  const baseTitle = page === 'start'
+    ? t('startTitle', { service: service.title })
+    : t('pageTitle', { page: t(PAGE_TITLE_KEYS[page]), service: service.title });
   document.title = baseTitle;
   document.querySelector(`.demo-page[data-page="${page}"]`).hidden = false;
 
@@ -109,22 +175,22 @@ function showPage(service) {
     const breadcrumb = $('service-breadcrumb');
     breadcrumb.hidden = false;
     breadcrumb.setAttribute('breadcrumbs', JSON.stringify([
-      { text: 'Home', url: './' },
-      { text: 'Services', url: `services.html?category=${encodeURIComponent(service.category)}` },
+      { text: t('home'), url: './' },
+      { text: t('services'), url: `services.html?category=${encodeURIComponent(service.category)}` },
       { text: service.title },
     ]));
     $('service-name').textContent = service.title;
     document.querySelector('.demo-service-description').textContent = service.description;
     document.querySelector('.demo-service-fee').textContent = formatFee(service.fee);
-    document.querySelector('.demo-service-time').textContent = service.time;
+    document.querySelector('.demo-service-time').textContent = formatTime(service);
     $('start-now').setAttribute('href', urlFor(QUESTIONS[0].page));
   }
 
   function renderDone() {
     $('service-reference').textContent = answers.reference;
-    $('next-steps').textContent = service.time === 'Immediately'
-      ? 'We process your application straight away.'
-      : `We will review your application and contact you within ${service.time}.`;
+    $('next-steps').textContent = service.days === 0
+      ? t('immediateProcessing')
+      : t('futureProcessing', { time: formatTime(service) });
   }
 
   function renderFormPage() {
@@ -140,7 +206,7 @@ function showPage(service) {
 
     if (page === 'check') {
       renderCheck();
-      $('form-submit').textContent = service.fee > 0 ? 'Accept and pay' : 'Accept and send';
+      $('form-submit').textContent = service.fee > 0 ? t('acceptAndPay') : t('acceptAndSend');
     } else {
       fillFields();
     }
@@ -175,10 +241,10 @@ function showPage(service) {
       fee: formatFee(service.fee),
       name: answers.name,
       email: answers.email,
-      phone: answers.phone ? `${answers.phoneCode} ${answers.phone}`.trim() : 'Not given',
+      phone: answers.phone ? `${answers.phoneCode} ${answers.phone}`.trim() : t('notGiven'),
       eid: formatEid(answers.eid),
-      docEid: answers.docEid,
-      docSupport: answers.docSupport || 'Not given',
+      docEid: isolate(answers.docEid),
+      docSupport: answers.docSupport ? isolate(answers.docSupport) : t('notGiven'),
     };
     document.querySelectorAll('[data-answer]').forEach((cell) => {
       cell.textContent = shown[cell.dataset.answer] ?? '';
@@ -225,23 +291,28 @@ function showPage(service) {
   function showCurrentFile(inputId, fileName) {
     if (!fileName) return;
     const field = document.querySelector(`dda-attach-file[input_id="${inputId}"]`);
-    field.setAttribute('helper_text', `Uploaded: ${fileName}. Choose another file to replace it.`);
+    field.setAttribute('helper_text', t('uploadedFile', { file: isolate(fileName) }));
+  }
+
+  // Arabic-Indic (٠-٩) and Persian (۰-۹) digits, which Arabic keyboards type, count as 0-9.
+  function normalizeDigits(text) {
+    return text.replace(/[\u0660-\u0669\u06F0-\u06F9]/g, (digit) => String(digit.charCodeAt(0) & 0xf));
   }
 
   /** Checks the fields on this page, saves the answers, and returns the errors in page order. */
   function validate() {
     const errors = [];
-    const value = (inputId) => $(inputId)?.value.trim() ?? '';
+    const value = (inputId) => normalizeDigits($(inputId)?.value.trim() ?? '');
     const check = (inputId, message) => message && errors.push({ inputId, message });
 
     if (page === 'contact') {
       const name = value('applicant-name');
       const email = value('applicant-email');
       const phone = value('applicant-phone').replace(/[\s-]/g, '');
-      check('applicant-name', !name && 'Enter your full name');
-      check('applicant-email', !email ? 'Enter your email address'
-        : !EMAIL_PATTERN.test(email) && 'Enter an email address in the correct format, like name@example.com');
-      check('applicant-phone', phone && !/^\d{6,14}$/.test(phone) && 'Enter a mobile number in the correct format, like 50 123 4567');
+      check('applicant-name', !name && t('fullNameError'));
+      check('applicant-email', !email ? t('emailError')
+        : !EMAIL_PATTERN.test(email) && t('emailFormatError'));
+      check('applicant-phone', phone && !/^\d{6,14}$/.test(phone) && t('phoneError'));
       // The country code is chosen in the field's own menu; its button shows the code.
       const phoneCode = document.querySelector('dda-phonefield .dda-dropdown-select')?.textContent.match(/\+\d+/)?.[0] ?? '';
       Object.assign(answers, { name, email, phone, phoneCode });
@@ -249,16 +320,16 @@ function showPage(service) {
 
     if (page === 'eid') {
       const eid = value('applicant-eid').replace(/[\s-]/g, '');
-      check('applicant-eid', !eid ? 'Enter your Emirates ID number'
-        : !/^784\d{12}$/.test(eid) && 'Enter your Emirates ID number in the correct format, like 784-1990-1234567-1');
+      check('applicant-eid', !eid ? t('emiratesIdError')
+        : !/^784\d{12}$/.test(eid) && t('emiratesIdFormatError'));
       answers.eid = eid;
     }
 
     if (page === 'documents') {
       const eidFile = $('doc-eid')?.files?.[0];
       const supportFile = $('doc-support')?.files?.[0];
-      check('doc-eid', !eidFile && !answers.docEid ? 'Select a copy of your Emirates ID' : fileError(eidFile, ['pdf', 'jpg', 'jpeg', 'png'], 'a PDF, JPG or PNG'));
-      check('doc-support', fileError(supportFile, ['pdf'], 'a PDF'));
+      check('doc-eid', !eidFile && !answers.docEid ? t('emiratesIdRequired') : fileError(eidFile, ['pdf', 'jpg', 'jpeg', 'png'], t('fileTypePdfJpgPng')));
+      check('doc-support', fileError(supportFile, ['pdf'], t('fileTypePdf')));
       if (eidFile) answers.docEid = eidFile.name;
       if (supportFile) answers.docSupport = supportFile.name;
     }
@@ -270,8 +341,8 @@ function showPage(service) {
 
   function fileError(file, extensions, typeText) {
     if (!file) return null;
-    if (!extensions.includes(file.name.split('.').pop().toLowerCase())) return `The selected file must be ${typeText}`;
-    if (file.size > MAX_FILE_SIZE) return 'The selected file must be smaller than 5MB';
+    if (!extensions.includes(file.name.split('.').pop().toLowerCase())) return t('fileTypeError', { types: typeText });
+    if (file.size > MAX_FILE_SIZE) return t('fileSizeError');
     return null;
   }
 
@@ -301,7 +372,7 @@ function showPage(service) {
       return item;
     }));
     summary.hidden = errors.length === 0;
-    document.title = errors.length ? `Error: ${baseTitle}` : baseTitle;
+    document.title = errors.length ? t('errorTitle', { title: baseTitle }) : baseTitle;
     if (errors.length) summary.focus();
   }
 }
