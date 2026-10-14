@@ -266,3 +266,38 @@
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
   }
 }
+/* Short screens: a laptop zoomed past about 115% (WCAG 1.4.10 asks for 400%, which turns a
+   1280x800 window into 320x200 CSS pixels), or a phone on its side. A full-height banner with the
+   controls and the quick-link cards at fixed offsets from its bottom cannot fit the slide text, so
+   the controls covered it. Here the banner grows with its text, at least the screen's height, and
+   the controls sit in the space kept for them under the text. The cards follow the banner, below
+   it (dda.css). */
+@media screen and (max-height: 700px) {
+  .home-slider .dda-slider-container,
+  .home-slider .dda-slides,
+  .home-slider slide,
+  .home-slider .dda-slide,
+  .home-slider .slide-wrap {
+    height: auto;
+  }
+  /* In flow, so the banner is as tall as its tallest slide. inset-inline-start still moves it. */
+  .home-slider .dda-slides {
+    position: relative;
+  }
+  .home-slider .slide-wrap {
+    box-sizing: border-box;
+    min-height: 100vh;
+    /* Clear of the fixed header (see scroll-padding-top in dda-header.css), and room below the
+       text for the controls: their 30px height and 16px either side, above the sticky footer bar. */
+    padding-top: 170px;
+    padding-bottom: calc(30px + 32px + var(--dda-sticky-footer-height, 0px));
+  }
+  .slider-nav {
+    bottom: calc(16px + var(--dda-sticky-footer-height, 0px));
+  }
+}
+@media screen and (max-height: 700px) and (max-width: 767px) {
+  .home-slider .slide-wrap {
+    padding-top: 100px;
+  }
+}

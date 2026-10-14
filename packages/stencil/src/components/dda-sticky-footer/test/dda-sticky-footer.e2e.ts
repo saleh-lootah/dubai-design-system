@@ -246,7 +246,8 @@ describe('dda-sticky-footer and the home-page quick links', () => {
       const style = getComputedStyle(document.querySelector('.quick-links-wrap'));
       return { position: style.position, bottom: style.bottom };
     });
-    expect(wrap).toEqual({ position: 'relative', bottom: '45px' });
+    // Not raised: 45px up, the cards covered dda-home-banner's controls, which sit at its bottom here.
+    expect(wrap).toEqual({ position: 'relative', bottom: '0px' });
   });
 
   it('clears the footer height variable when the sticky footer is removed', async () => {

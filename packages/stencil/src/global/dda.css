@@ -47,9 +47,9 @@
    a fade on each edge with more cards, and a thin scrollbar show that the row scrolls. */
 :is(.quick-links-wrap, .dda-home-quick-links-wrap),
 .quick-links {
-  /* Room inside the row for the hover lift (12px above) and the pointer (9px below);
-     a scrolling box clips anything outside it. */
-  --dda-quick-links-pad-top: 12px;
+  /* Room inside the row for the hover and focus lift (12px above, and the focus ring 4px more)
+     and the pointer (9px below); a scrolling box clips anything outside it. */
+  --dda-quick-links-pad-top: 16px;
   --dda-quick-links-pad-bottom: 12px;
   --dda-quick-links-fade: 32px;
 }
@@ -178,7 +178,8 @@
   :is(.quick-links-wrap, .dda-home-quick-links-wrap) .quick-links {
     width: 100%;
     box-sizing: border-box;
-    padding: 20px 20px var(--dda-quick-links-pad-bottom);
+    /* Read by the row's padding, so dda-home-carousel's <ul> gets it too (see ul.quick-links). */
+    --dda-quick-links-pad-top: 20px;
     scrollbar-color: var(--dda-on-surface-variant-40) transparent;
   }
   .quick-links .link-item {
@@ -266,7 +267,7 @@
     bottom: calc(var(--dda-quick-links-gap-sm) - var(--dda-quick-links-pad-bottom) + var(--dda-sticky-footer-height, 0px));
   }
   :is(.quick-links-wrap, .dda-home-quick-links-wrap) .quick-links {
-    padding-top: var(--dda-quick-links-pad-top);
+    --dda-quick-links-pad-top: 16px;
     scrollbar-color: rgba(255, 255, 255, 0.7) transparent;
   }
   .quick-links .link-item {
@@ -294,8 +295,13 @@
 }
 
 /* dda-home-carousel: its list is a .quick-links row; each <li> holds one dda-banner-card. */
+/* global.css resets every <ul> to margin: 0 and padding: 0 with !important. On this row that removed
+   the top padding the hover lift rises into, so a raised card was cut off, and the auto margins
+   that centre it, so the row ran 90vw from the container's start edge and out of the container. */
 ul.quick-links {
-  margin-block: 0;
+  width: min(90vw, 100%);
+  margin: 0 auto !important;
+  padding: var(--dda-quick-links-pad-top) 20px var(--dda-quick-links-pad-bottom) !important;
   list-style: none;
 }
 .quick-links > .dda-home-carousel-item {
@@ -343,5 +349,37 @@ button.link-item {
   .quick-links .link-item img {
     height: 20px;
     margin-bottom: 5px;
+  }
+}
+
+/* Short screens (a laptop zoomed past about 115%, or a phone on its side): dda-home-banner grows
+   with its text (home-banner.css), so the cards follow it in normal flow instead of sitting on it.
+   They wrap instead of scrolling sideways, each at least 220px wide or the row's width, so at 400%
+   zoom every card is in view at a readable size, one under another. */
+@media screen and (max-height: 700px) {
+  :is(.quick-links-wrap, .dda-home-quick-links-wrap) {
+    position: relative;
+    bottom: auto;
+  }
+  :is(.quick-links-wrap, .dda-home-quick-links-wrap) .quick-links,
+  .quick-links {
+    flex-wrap: wrap;
+    overflow: visible;
+    scroll-snap-type: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+    animation: none;
+  }
+  .quick-links .link-item,
+  .quick-links > .dda-home-carousel-item {
+    flex: 1 1 min(220px, 100%);
+    height: auto;
+    margin-top: 0;
+    border: solid 1px #ddd;
+  }
+  /* The hover and focus lift would push a card into the row above it. */
+  .quick-links .link-item:hover,
+  .quick-links .link-item:focus-visible {
+    margin-top: 0;
   }
 }

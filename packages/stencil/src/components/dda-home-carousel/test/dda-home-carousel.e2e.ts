@@ -45,3 +45,46 @@ describe('dda-home-carousel layout', () => {
     expect(mask).toContain('to left');
   });
 });
+
+// global.css resets every <ul> to margin: 0 and padding: 0 with !important, and the card row is a
+// <ul>: the raised card was cut off at the top, and the row ran 90vw from the container's edge.
+describe('dda-home-carousel in a page container', () => {
+  const inBox = async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 1280, height: 600 });
+    await page.setContent(`<div class="box" style="max-width: 900px; margin: 0 auto;"><dda-home-carousel items_in_view="3" bannercardlist='${cards}'></dda-home-carousel></div>`);
+    await page.waitForChanges();
+    return page;
+  };
+
+  it('stays inside the container', async () => {
+    const page = await inBox();
+    const m = await page.evaluate(() => {
+      const box = document.querySelector('.box').getBoundingClientRect();
+      const row = document.querySelector('.dda-home-carousel-track').getBoundingClientRect();
+      return { left: row.left - box.left, right: box.right - row.right };
+    });
+    expect(m.left).toBeGreaterThanOrEqual(0);
+    expect(m.right).toBeGreaterThanOrEqual(0);
+  });
+
+  for (const how of ['hover', 'focus']) {
+    it(`keeps a ${how}ed card, raised, inside the row, so its top is not cut off`, async () => {
+      const page = await inBox();
+      if (how === 'hover') {
+        await page.hover('.dda-home-carousel-item .link-item');
+      } else {
+        await page.keyboard.press('Tab');
+      }
+      // The lift is a 0.5s transition.
+      await new Promise(r => setTimeout(r, 700));
+      const m = await page.evaluate(() => {
+        const row = document.querySelector('.dda-home-carousel-track').getBoundingClientRect();
+        const card = document.querySelector('.dda-home-carousel-item .link-item').getBoundingClientRect();
+        return { cardTop: card.top, rowTop: row.top };
+      });
+      // On focus, the 2px outline 2px out from the card must show too.
+      expect(m.cardTop - (how === 'focus' ? 4 : 0)).toBeGreaterThanOrEqual(m.rowTop);
+    });
+  }
+});
