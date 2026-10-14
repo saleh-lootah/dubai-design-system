@@ -340,7 +340,7 @@ export class Ddaselect {
               onBlur={this.onTriggerBlur}
             >
               {current ? current.text : (this.placeholder ?? 'Select an option')}
-              <i class={`material-icons`} aria-hidden="true">{this.is_open ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
+              <i class={`material-icons`} data-icon={this.is_open ? 'keyboard_arrow_up' : 'keyboard_arrow_down'} aria-hidden="true"></i>
             </button>
             {this.is_open && (
               <div id={this.listboxId} role="listbox" aria-label={this.triggerLabel || this.label} class="dda-input-dropdown-list dda-select-list">

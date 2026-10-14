@@ -4,6 +4,24 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## Unreleased
+
+From an accessibility review by the Department of Finance (SortSite scan and zoom testing). At high zoom the `dda-home-banner` controls and quick-link cards no longer cover the slide text. A raised `dda-home-carousel` card is no longer cut off, and the carousel stays inside its container. Icon names are no longer text in the page.
+
+### Bug Fixes
+
+- **dda-home-banner: zoomed in, the slide controls covered the slide text, and the cards covered the controls.** The banner is one screen tall, and the controls and cards sit at fixed distances from its bottom. A 1280×800 window zoomed to 125%, 200% or 400% (WCAG 1.4.10) is 1024×640, 640×400 or 320×200 CSS pixels, too short for the text, so the controls ran onto it. On screens 700px tall or less, the banner now grows with its text (at least one screen tall), the controls sit below the text and above the sticky footer bar, and the quick-link cards follow the banner instead of sitting on it.
+- **Quick-link cards: zoomed in, they scrolled sideways.** On screens 700px tall or less the cards now wrap instead of scrolling: each is at least 220px wide (or the full width, if narrower), so at 400% they stand one under another, all visible at full size. This applies to `dda-home-carousel` and to plain `.quick-links` rows.
+- **dda-home-carousel: a hovered or focused card was cut off at the top.** The card row is a `<ul>`, and `global.css` sets every `<ul>` to `padding: 0 !important`, which removed the space above the cards that a raised card moves into. The row has its padding back, 4px more than before so the focus outline shows too (16px, on plain `.quick-links` rows as well).
+- **dda-home-carousel: the row ran out of its container.** The same `<ul>` reset removed the auto margins that centre the row, so it started at the container's edge and ran `90vw` wide, past the container's other side. The row is now centred and no wider than its container.
+- **dda-sticky-footer: on a phone, or zoomed in, the last buttons were off the screen.** At 992px and below the links are 48px round buttons in one row, and six of them with their spacing took about 424px: on a 375px phone the chat button was half off the screen, and on a 320px screen (a laptop at 400% zoom) the last button was cut off. The spacing now narrows with the screen, and the buttons shrink from 48px when the row does not fit, to no less than 32px, so up to eight fit at 320px. Where they fit they stay 48px. The links in the `more-icon` menu keep their size.
+- **dda-sticky-footer: the tooltips over the first and last buttons ran past the screen edge.** A tooltip is centred over its button and wider than it, so at the ends of the bar it was cut off: by 3-7px on desktop and by about 20px on a phone. Those two tooltips, and the ones in the `more-icon` menu, now line up with the button's outer edge, with the arrow over the button.
+- **Icons: SortSite reported "label in name" on icon buttons.** The Material icon's ligature name (for example `chevron_right`) was text inside the button, which a checker reads as a visible label that the button's accessible name must contain (WCAG 2.5.3). Every icon the components render now carries its name in a `data-icon` attribute and draws it with CSS (`content: attr(data-icon)`), so the element has no text. The icons look the same, and stay `aria-hidden`.
+
+### Changed
+
+- **Icon elements are empty.** The `<i>` (or `<span>`) icons that components render no longer contain the icon name as text; it is in `data-icon`. Code or tests that read an icon's `textContent` should read `data-icon` instead. The icon draws only on a Material icon class (`material-icons`, `material-icons-outlined`/`-round`/`-sharp`/`-two-tone`, `material-symbols-outlined`/`-rounded`/`-sharp`). A page that passes another class to `dda-sticky-footer`'s `IconFamily` or `moreIconFamily`, `dda-header`'s `accessibility_button_icon_family` or `dda-avatar`'s `icon` must add its own rule: `.my-icons[data-icon]::before { content: attr(data-icon); }`. Icons in a page's own markup are not affected; to use the same approach there, give the element `data-icon` and no text.
+
 ## 5.3.6 (2026-10-09)
 
 A patch release. In RTL, `dda-home-banner` now shows the slide its dots and announcement name, and its previous and next buttons move the right way.

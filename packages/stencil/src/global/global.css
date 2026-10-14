@@ -82,6 +82,15 @@ button {
   cursor: pointer;
 }
 
+/* Icon-font ligatures draw from data-icon, not from text in the element: the icon name is then
+   not text in the page, so an accessibility checker does not read "chevron_right" as a visible
+   label that the button's accessible name must contain (WCAG 2.5.3). The icons are aria-hidden;
+   the button's aria-label or text names it. Material classes only, so another icon font's own
+   ::before glyph is untouched. */
+:is(.material-icons, .material-icons-outlined, .material-icons-round, .material-icons-sharp, .material-icons-two-tone, .material-symbols-outlined, .material-symbols-rounded, .material-symbols-sharp)[data-icon]::before {
+  content: attr(data-icon);
+}
+
 ul {
   margin: 0 !important;
   padding: 0 !important;

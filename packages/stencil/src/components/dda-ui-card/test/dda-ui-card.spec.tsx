@@ -32,7 +32,7 @@ describe('dda-ui-card', () => {
 
     const icon = page.root.querySelector('.dda-card-icon i');
     expect(icon.className).toBe('material-icons');
-    expect(icon.textContent).toBe('home');
+    expect(icon.getAttribute('data-icon')).toBe('home');
   });
 
   it('renders an image with the title as its alt text', async () => {
@@ -49,7 +49,7 @@ describe('dda-ui-card', () => {
     const link = page.root.querySelector('.dda-card-link');
     expect(link.getAttribute('href')).toBe('/more');
     expect(link.textContent).toContain('Read more');
-    expect(link.querySelector('i').textContent).toBe('arrow_forward');
+    expect(link.querySelector('i').getAttribute('data-icon')).toBe('arrow_forward');
   });
 
   it('omits the built-in content when the type is custom', async () => {

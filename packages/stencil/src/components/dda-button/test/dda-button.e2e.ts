@@ -193,3 +193,18 @@ describe('dda-button', () => {
     expect(icon.getAttribute('aria-hidden')).toBe('true');
   });
 });
+
+// SortSite reported "label in name" on icon buttons: it read the ligature name in the <i> as
+// visible text that the accessible name must contain. The name is now drawn from data-icon.
+describe('dda-button icon', () => {
+  it('draws the icon from data-icon, with no text in the page', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<dda-button end_icon="arrow_forward">Next</dda-button>');
+    await page.waitForChanges();
+    const icon = await page.$eval('dda-button i', e => ({ text: e.textContent, before: getComputedStyle(e, '::before').content }));
+    expect(icon.text).toBe('');
+    expect(icon.before).toBe('"arrow_forward"');
+    const button = await page.$eval('dda-button button', e => e.textContent.trim());
+    expect(button).toBe('Next');
+  });
+});

@@ -42,7 +42,7 @@ export class DdaVerticalStepper {
             <div class={`v-step ${index <= current ? 'active' : ''}`}>
               <div class="v-step-indicator">
                 <div class="icon">
-                  <i class={`material-icons`} aria-hidden="true">{step.icon}</i>
+                  <i class={`material-icons`} data-icon={step.icon} aria-hidden="true"></i>
                 </div>
                 {/* {index < this.parsedSteps.length - 1 && <div class="line"></div>} */}
               </div>
@@ -52,7 +52,7 @@ export class DdaVerticalStepper {
                 <div class="v-step-description">{step.description}</div>
               </div>
               <div class="v-step-arrow">
-                <i class="material-icons  material-symbols-outlined" aria-hidden="true">chevron_right</i>
+                <i class="material-icons  material-symbols-outlined" data-icon="chevron_right" aria-hidden="true"></i>
               </div>
             </div>
           ))}

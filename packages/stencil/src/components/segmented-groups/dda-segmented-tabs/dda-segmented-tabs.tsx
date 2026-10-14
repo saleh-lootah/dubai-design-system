@@ -118,7 +118,7 @@ export class DdaSegmentedTabs {
               aria-label={this.iconLabel(item, index)}
               onClick={() => this.selectSegment(index)}
             >
-              <i class="material-icons  material-symbols-outlined" aria-hidden="true">{item}</i>
+              <i class="material-icons  material-symbols-outlined" data-icon={item} aria-hidden="true"></i>
             </button>
           ) : (
             <button

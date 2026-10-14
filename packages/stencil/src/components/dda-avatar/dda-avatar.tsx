@@ -64,7 +64,7 @@ export class DdaAvatar {
     const hasOptions = this.parsedOptions.length > 0;
     const avatarContent = [
       this.type === 'photo' && <img src={this.src} alt="Avatar" />,
-      this.type === 'icon' && <i class={`${this.icon} dda-smile`} aria-hidden="true">sentiment_satisfied</i>,
+      this.type === 'icon' && <i class={`${this.icon} dda-smile`} data-icon="sentiment_satisfied" aria-hidden="true"></i>,
       this.type === 'text' && <span class='avatar-main-text'>{this.text}</span>,
     ];
     return (
@@ -106,7 +106,7 @@ export class DdaAvatar {
           </div>
         )}
         {this.design === 'status' && <div class="status-circle"></div>}
-        {this.design === 'verified' && <div class="verified-icon"><span class="material-icons  material-symbols-outlined" aria-hidden="true">verified</span><span class="visually-hidden">{this.verified_label}</span></div>}
+        {this.design === 'verified' && <div class="verified-icon"><span class="material-icons  material-symbols-outlined" data-icon="verified" aria-hidden="true"></span><span class="visually-hidden">{this.verified_label}</span></div>}
         {this.design === 'notification' && <div class="notification-circle">{this.notification_number}</div>}
       </div>
     );

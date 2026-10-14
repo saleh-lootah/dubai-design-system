@@ -502,7 +502,7 @@ describe('dda-home-banner arrows in RTL', () => {
         // The arrow points right when its icon is chevron_right and not mirrored, or chevron_left and mirrored.
         const icon = button.querySelector('i');
         const mirrored = new DOMMatrix(getComputedStyle(icon).transform).a < 0;
-        const pointsRight = (icon.textContent.trim() === 'chevron_right') !== mirrored;
+        const pointsRight = (icon.getAttribute('data-icon') === 'chevron_right') !== mirrored;
         return { x: Math.round(button.getBoundingClientRect().x), pointsRight };
       }),
     );
@@ -551,6 +551,63 @@ describe('dda-home-banner slide on screen', () => {
       await page.click('dda-home-banner .prev');
       await settle();
       expect(await onScreen()).toEqual({ slide: 3, status: 'Slide 3 of 3' });
+    });
+  }
+});
+
+// Zoom: a 1280x800 window at 125%, 200% and 400% (WCAG 1.4.10) is 1024x640, 640x400 and 320x200
+// CSS pixels. The full-height banner kept the controls and the quick-link cards at fixed offsets
+// from its bottom, so they covered the slide text.
+describe('dda-home-banner zoomed in', () => {
+  const layout = async (width: number, height: number) => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height });
+    await page.setContent(`<style>:root { --dda-sticky-footer-height: 64px; }</style><div class="home-intros"><dda-home-banner>
+      <div class="dda-slide"><div class="slide-wrap"><div class="slide-content">
+        <h2>Government services in one place</h2><p>Pay, renew and apply online.</p><a class="dda-btn" href="#">Browse services</a>
+      </div></div></div>
+      <div class="dda-slide"><div class="slide-wrap"><div class="slide-content"><h2>Two</h2></div></div></div>
+    </dda-home-banner>
+    <div class="quick-links-wrap"><div class="quick-links">
+      ${['One', 'Two', 'Three', 'Four'].map(t => `<a class="link-item" href="#"><span class="title">${t}</span><span class="subtitle">Text</span></a>`).join('')}
+    </div></div></div>`);
+    await page.waitForChanges();
+    return page.evaluate(() => {
+      const box = (s: string) => document.querySelector(s).getBoundingClientRect();
+      const text = box('.dda-slide .slide-content');
+      const nav = box('.slider-nav');
+      const banner = box('dda-home-banner');
+      const row = document.querySelector('.quick-links');
+      const cards = Array.from(row.querySelectorAll('.link-item')).map(c => c.getBoundingClientRect());
+      return {
+        textToNav: Math.round(nav.top - text.bottom),
+        navAboveBar: Math.round(banner.bottom - 64 - nav.bottom),
+        cardsBelowBanner: Math.round(Math.min(...cards.map(c => c.top)) - banner.bottom),
+        rowScrolls: row.scrollWidth > row.clientWidth,
+        cardsInView: cards.every(c => c.left >= 0 && c.right <= innerWidth),
+        cardWidth: Math.round(Math.min(...cards.map(c => c.width))),
+      };
+    });
+  };
+
+  for (const [w, h] of [
+    [1024, 640],
+    [640, 400],
+    [320, 200],
+  ]) {
+    it(`keeps the controls off the slide text, and the cards under the banner, at ${w}x${h}`, async () => {
+      const m = await layout(w, h);
+      expect(m.textToNav).toBeGreaterThanOrEqual(16);
+      // Clear of the sticky footer bar at the banner's bottom edge (at 320x200 the banner is taller than the screen).
+      expect(m.navAboveBar).toBeGreaterThanOrEqual(0);
+      expect(m.cardsBelowBanner).toBeGreaterThanOrEqual(0);
+    });
+
+    it(`shows every card, not scrolling sideways and not shrunk, at ${w}x${h}`, async () => {
+      const m = await layout(w, h);
+      expect(m.rowScrolls).toBe(false);
+      expect(m.cardsInView).toBe(true);
+      expect(m.cardWidth).toBeGreaterThanOrEqual(Math.min(220, w - 80));
     });
   }
 });

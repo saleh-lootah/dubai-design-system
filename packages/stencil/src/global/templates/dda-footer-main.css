@@ -237,3 +237,87 @@ body {
         transition: opacity 0.4s ease, transform 0.4s ease;
     }
 }
+
+/* 992px and below the links are 48px round buttons in one row. Six of them with their spacing
+   took about 424px, so on a 320-375px phone, or a laptop zoomed to 400% (WCAG 1.4.10), the last
+   buttons ran off the screen. Here the spacing narrows with the screen and each button shrinks
+   from 48px when the row does not fit, to no less than 32px, so up to eight fit at 320px. The
+   right-hand links in the "more" menu keep their size. */
+@media (max-width: 992px) {
+    .dda-footer {
+        padding: 0 clamp(8px, 4vw, 20px);
+    }
+    .dda-footer-item,
+    .dda-footer-item ul {
+        min-width: 0;
+    }
+    :is(.dda-footer-item:not(.dda-footer-right), .dda-footer:not(.has-more-button) .dda-footer-right) li.foot-icon-btn {
+        --dda-foot-btn-pad: clamp(2px, 1vw, 8px);
+        flex: 0 1 calc(48px + 2 * var(--dda-foot-btn-pad));
+        min-width: calc(32px + 2 * var(--dda-foot-btn-pad));
+        padding: 0 var(--dda-foot-btn-pad);
+    }
+    :is(.dda-footer-item:not(.dda-footer-right), .dda-footer:not(.has-more-button) .dda-footer-right) li.foot-icon-btn :is(dda-tooltip, .dda-tooltip-container) {
+        display: flex;
+        width: 100%;
+    }
+    :is(.dda-footer-item:not(.dda-footer-right), .dda-footer:not(.has-more-button) .dda-footer-right) li.foot-icon-btn a {
+        width: 48px;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+    :is(.dda-footer-item:not(.dda-footer-right), .dda-footer:not(.has-more-button) .dda-footer-right) li.foot-icon-btn a img {
+        max-width: 70%;
+        object-fit: contain;
+    }
+}
+/* The short landscape bar above makes the buttons 35px. */
+@media only screen and (orientation: landscape) and (max-width: 768px) {
+    :is(.dda-footer-item:not(.dda-footer-right), .dda-footer:not(.has-more-button) .dda-footer-right) li.foot-icon-btn {
+        flex-basis: calc(35px + 2 * var(--dda-foot-btn-pad));
+    }
+}
+
+/* A tooltip is centred over its button and wider than it, so over the first and last buttons it
+   ran past the screen edge (3-7px on desktop, about 20px on a phone). Those two line up with the
+   button's outer edge instead, and their arrow moves near the button's centre: 16px in on desktop,
+   24px on the round buttons. In the "more" menu every link sits at the end edge. */
+.dda-footer .footer-content > .dda-footer-item:first-child li.foot-icon-btn:first-child .dda-tooltip-box.top {
+    left: auto;
+    inset-inline-start: 0;
+    transform: none;
+}
+.dda-footer .dda-footer-right li.foot-icon-btn:last-child .dda-tooltip-box.top {
+    left: auto;
+    inset-inline-end: 0;
+    transform: none;
+}
+.dda-footer .footer-content > .dda-footer-item:first-child li.foot-icon-btn:first-child .dda-tooltip-box.top::before,
+.dda-footer .footer-content > .dda-footer-item:first-child li.foot-icon-btn:first-child .dda-tooltip-box.top::after {
+    left: auto;
+    margin-inline-start: 0;
+    inset-inline-start: var(--dda-foot-tip-arrow, 6px);
+}
+.dda-footer .dda-footer-right li.foot-icon-btn:last-child .dda-tooltip-box.top::before,
+.dda-footer .dda-footer-right li.foot-icon-btn:last-child .dda-tooltip-box.top::after {
+    left: auto;
+    margin-inline-start: 0;
+    inset-inline-end: var(--dda-foot-tip-arrow, 6px);
+}
+@media (max-width: 992px) {
+    .dda-footer {
+        --dda-foot-tip-arrow: 14px;
+    }
+    .dda-footer.has-more-button .dda-footer-right li.foot-icon-btn .dda-tooltip-box.top {
+        left: auto;
+        inset-inline-end: 0;
+        transform: none;
+    }
+    .dda-footer.has-more-button .dda-footer-right li.foot-icon-btn .dda-tooltip-box.top::before,
+    .dda-footer.has-more-button .dda-footer-right li.foot-icon-btn .dda-tooltip-box.top::after {
+        left: auto;
+        margin-inline-start: 0;
+        inset-inline-end: var(--dda-foot-tip-arrow);
+    }
+}

@@ -70,9 +70,7 @@ export class DdaAlert {
     const HeadingTag = this.headingTag;
     return (
       <div role={this.role} class={`dda-alert dda-alert-${this.type} dda-alert-${this.variation} ${this.custom_class} ${this.component_mode}`}>
-        <i class="material-icons  material-symbols-outlined" aria-hidden="true">
-          info
-        </i>
+        <i class="material-icons  material-symbols-outlined" data-icon="info" aria-hidden="true"></i>
         <div class="alert-content">
           <HeadingTag class="alert-title">{this.title_text}</HeadingTag>
           <p class="alert-description">{this.description}</p>
@@ -90,9 +88,7 @@ export class DdaAlert {
           </div>
         </div>
         <button name={this.button_name} class="dda-alert-close" aria-label={this.close_button_label} onClick={this.clickHandler}>
-          <i class="material-icons  material-symbols-outlined" aria-hidden="true">
-            close
-          </i>
+          <i class="material-icons  material-symbols-outlined" data-icon="close" aria-hidden="true"></i>
         </button>
       </div>
     );

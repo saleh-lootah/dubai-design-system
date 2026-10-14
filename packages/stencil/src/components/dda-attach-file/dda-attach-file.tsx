@@ -150,7 +150,7 @@ export class DdaAttachFile {
                   <span class="dda-file-name">{this.file.name}</span>
                 </div>
                 <button type="button" id={this.button_id} name={this.button_name} aria-label={this.button_aria_label || `Remove ${this.file.name}`} class="remove-file" onClick={() => this.removeFile()}>
-                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
+                  <i class="material-icons  material-symbols-outlined" data-icon="close" aria-hidden="true"></i>
                 </button>
               </div>
             ) : (

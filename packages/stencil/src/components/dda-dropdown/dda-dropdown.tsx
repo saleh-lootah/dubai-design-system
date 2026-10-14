@@ -101,8 +101,8 @@ export class DdaDropdown {
           {this.label && <label id={labelId} class="dda-input-label">{this.label}</label>}
           <div class={`dda-dropdown-container ${this.type}`}>
             <button ref={el => (this.buttonEl = el)} id={id} name={this.arrow_button_name} aria-label={this.aria_label || (this.icon_mode && !this.label ? this.toggle_button_label : undefined)} aria-labelledby={this.label && !this.aria_label ? `${labelId} ${id}` : undefined} aria-expanded={this.isopen ? 'true' : 'false'} type="button" class="dda-input-field dda-dropdown-header" onClick={() => this.toggleDropdown()}>
-              <i class={`three-dots material-icons`} aria-hidden="true">{this.isopen ? 'more_vert' : 'more_vert'}</i>
-              {!this.icon_mode && <span class="dda-dropdown-text"><span>{this.selected || 'Select an option'}</span> <i class={`material-icons`} aria-hidden="true">{this.isopen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i></span>
+              <i class={`three-dots material-icons`} data-icon={this.isopen ? 'more_vert' : 'more_vert'} aria-hidden="true"></i>
+              {!this.icon_mode && <span class="dda-dropdown-text"><span>{this.selected || 'Select an option'}</span> <i class={`material-icons`} data-icon={this.isopen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'} aria-hidden="true"></i></span>
               }
             </button>
             {this.isopen && (

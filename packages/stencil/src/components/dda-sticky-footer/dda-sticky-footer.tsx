@@ -229,12 +229,7 @@ export class DdaStickyFooter {
     if (src || !icon) {
       return <img src={src} alt={text} />;
     }
-    return [
-      <i class="material-icons material-symbols-outlined" aria-hidden="true">
-        {icon}
-      </i>,
-      <span class="visually-hidden">{text}</span>,
-    ];
+    return [<i class="material-icons material-symbols-outlined" data-icon={icon} aria-hidden="true"></i>, <span class="visually-hidden">{text}</span>];
   }
 
   // 3.x: any colorTheme other than "light" is dark. 3.x gave an empty image when the dark one
@@ -331,11 +326,7 @@ export class DdaStickyFooter {
                     <li class="foot-icon-btn">
                       <dda-tooltip title_text={item.RightLinkTooltip || item.LinkText} description="" position="top">
                         <a href={item.href} id={item.itemId} title={item.title}>
-                          {item.IconName && (
-                            <i class={item.IconFamily || 'material-icons'} aria-hidden="true">
-                              {item.IconName}
-                            </i>
-                          )}
+                          {item.IconName && <i class={item.IconFamily || 'material-icons'} data-icon={item.IconName} aria-hidden="true"></i>}
                           <span>{item.LinkText}</span>
                         </a>
                       </dda-tooltip>
@@ -395,9 +386,7 @@ export class DdaStickyFooter {
                 aria-controls={this.rightListId}
                 onClick={() => (this.rightOpen = !this.rightOpen)}
               >
-                <i class={this.moreIconFamily || 'material-icons'} aria-hidden="true">
-                  {this.moreIcon}
-                </i>
+                <i class={this.moreIconFamily || 'material-icons'} data-icon={this.moreIcon} aria-hidden="true"></i>
               </button>
             )}
           </div>

@@ -29,11 +29,11 @@ export class DdaChip {
     return (
       <Host>
         <div class={`dda-chip dda-chip-${this.bg_color} dda-chip-${this.size} dda-rounded-${this.rounded} ${this.custom_class} ${this.component_mode}`}>
-          {this.icon ? <i class="material-icons  material-symbols-outlined" aria-hidden="true">{this.icon}</i> : null}
+          {this.icon ? <i class="material-icons  material-symbols-outlined" data-icon={this.icon} aria-hidden="true"></i> : null}
           <span><slot /></span>
           {this.show_close_icon && (
             <button type="button" class="chip-close" onClick={this.clickHandler} aria-label={this.close_button_label}>
-              <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
+              <i class="material-icons  material-symbols-outlined" data-icon="close" aria-hidden="true"></i>
             </button>
           )}
         </div>
