@@ -4,9 +4,9 @@ This guide takes you from any earlier release of the Dubai Design System package
 **5.3.0**. It ships inside `@dubai-design-system/components-js` as `MIGRATION.md`, next to
 `CHANGELOG.md`.
 
-Install the latest 5.3 patch, **5.3.6**, not 5.3.0. The patch releases 5.3.1 to 5.3.6 fix bugs
-and need no code change. `CHANGELOG.md` lists each fix, and the checklist below names the one
-that can meet your own CSS.
+Install the latest 5.3 patch, **5.3.7**, not 5.3.0. The patch releases 5.3.1 to 5.3.7 fix bugs
+and need no code change. `CHANGELOG.md` lists each fix, and the checklist below names the two
+that can meet your own CSS or tests.
 
 All four packages share one version and must be upgraded together:
 `@dubai-design-system/components-js`, `components-react`, `components-vue` and
@@ -45,9 +45,9 @@ Do these whatever version you start from.
 - [ ] **Install the same exact version of every DDA package.**
 
   ```bash
-  npm install @dubai-design-system/components-js@5.3.6
+  npm install @dubai-design-system/components-js@5.3.7
   # and, if you use a wrapper:
-  npm install @dubai-design-system/components-react@5.3.6   # or -vue / -angular
+  npm install @dubai-design-system/components-react@5.3.7   # or -vue / -angular
   ```
 
 - [ ] **Load `dda.css`.** It carries the global styles and the Dubai typeface. From npm:
@@ -80,6 +80,13 @@ Do these whatever version you start from.
   5.3.5 these fields removed the outline. If you add your own outline or ring to
   `.dda-input-field` or `.dda-input-field-group`, a field can now show two. Find these rules
   with `grep -rnE "dda-input-field(-group)?[^{]*:focus" src/`.
+- [ ] **If your code, tests or CSS read the icons inside the components,** read `data-icon`.
+  From 5.3.7, the icons the components render (`<i class="material-icons" data-icon="close">`)
+  have no text: the icon name is in `data-icon`, and CSS draws it. A test or script that reads an
+  icon's `textContent` gets an empty string. The icon draws only on a Material icon class. If you
+  pass another class to `dda-sticky-footer`'s `IconFamily` or `moreIconFamily`, `dda-header`'s
+  `accessibility_button_icon_family` or `dda-avatar`'s `icon`, add
+  `.your-class[data-icon]::before { content: attr(data-icon); }`, or the icon is blank.
 - [ ] **If you self-host `dda.css`,** copy `dist/assets/fonts/` next to it and keep the
   relative path `../assets/fonts/dubai/`, or the Dubai typeface does not load.
 - [ ] **Clear any cached copy of the old package** (CDN edge cache, service worker, build

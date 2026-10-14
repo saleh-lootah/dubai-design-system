@@ -4,9 +4,9 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## Unreleased
+## 5.3.7 (2026-10-14)
 
-From an accessibility review by the Department of Finance (SortSite scan and zoom testing). At high zoom the `dda-home-banner` controls and quick-link cards no longer cover the slide text. A raised `dda-home-carousel` card is no longer cut off, and the carousel stays inside its container. Icon names are no longer text in the page.
+A patch release, with the fixes from an accessibility review by the Department of Finance (SortSite scan and zoom testing). At high zoom the `dda-home-banner` controls and quick-link cards no longer cover the slide text, and on a phone every `dda-sticky-footer` button and tooltip stays on the screen. A raised `dda-home-carousel` card is no longer cut off, and the carousel stays inside its container. Icon names are no longer text in the page.
 
 ### Bug Fixes
 
