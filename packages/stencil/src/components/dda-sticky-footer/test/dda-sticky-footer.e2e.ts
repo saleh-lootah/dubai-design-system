@@ -428,3 +428,84 @@ describe('dda-sticky-footer more button', () => {
     });
   }
 });
+
+// At 992px and below the links are 48px round buttons in one row. Six of them took about 424px, so
+// on a 320-375px phone, or a laptop zoomed to 400% (WCAG 1.4.10), the last ones ran off the screen.
+// The tooltips over the first and last buttons, centred and wider than them, ran past the edge too.
+describe('dda-sticky-footer on narrow screens', () => {
+  // Real 32px images: a missing one renders at another size.
+  const svg = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="16"/></svg>')}`;
+  const six = `<dda-sticky-footer
+      happiness-icon-href="#" happiness-icon-src="${svg}" happiness-icon-alt="Happiness" happiness-icon-tooltip="Happiness"
+      accessibility-icon-href="#" accessibility-icon-src="${svg}" accessibility-icon-alt="Suggestions" accessibility-icon-tooltip="Suggestions &amp; complaints"
+      services-icon-href="#" services-icon-src="${svg}" services-icon-text="Services" services-icon-tooltip="Services"
+      news-button-href="#" news-button-text="News" news-button-icon="chevron_right"
+      ai-icon-href="#" ai-icon-src="${svg}" ai-icon-alt="Digital AI" ai-icon-tooltip="Digital AI"
+      chat-icon-href="#" chat-icon-src="${svg}" chat-icon-alt="Online Chat" chat-icon-tooltip="Online Chat"></dda-sticky-footer>`;
+  const eight = six.replace(
+    'news-button-href',
+    'location-button-href="#" location-button-text="Location" location-button-icon="location_on" dubaiae-icon-src="${svg}" dubaiae-icon-small-src="${svg}" dubaiae-icon-alt="dubai.ae" dubaiae-icon-tooltip="dubai.ae" news-button-href',
+  );
+
+  const open = async (html: string, width: number, height: number, dir = 'ltr') => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height });
+    await page.setContent(`<div dir="${dir}">${html}</div>`);
+    await page.waitForChanges();
+    return page;
+  };
+  const buttons = page =>
+    page.$$eval('.dda-footer li.foot-icon-btn a', els =>
+      els.map(e => {
+        const r = e.getBoundingClientRect();
+        return { left: r.left, right: r.right, width: Math.round(r.width) };
+      }),
+    );
+
+  for (const [width, height] of [
+    [320, 568],
+    [375, 667],
+    [320, 200],
+  ]) {
+    it(`keeps all six buttons on the screen at ${width}x${height}`, async () => {
+      const page = await open(six, width, height);
+      const b = await buttons(page);
+      expect(b).toHaveLength(6);
+      expect(b.every(x => x.left >= 0 && x.right <= width)).toBe(true);
+    });
+  }
+
+  it('keeps eight buttons on a 320px screen, each at least 32px', async () => {
+    const page = await open(eight, 320, 568);
+    const b = await buttons(page);
+    expect(b).toHaveLength(8);
+    expect(b.every(x => x.left >= 0 && x.right <= 320)).toBe(true);
+    expect(Math.min(...b.map(x => x.width))).toBeGreaterThanOrEqual(32);
+  });
+
+  it('keeps the buttons at 48px when they fit', async () => {
+    const page = await open(six, 375, 667);
+    const b = await buttons(page);
+    expect([...new Set(b.map(x => x.width))]).toEqual([48]);
+  });
+
+  for (const [width, height, dir] of [
+    [320, 568, 'ltr'],
+    [320, 568, 'rtl'],
+    [1280, 800, 'ltr'],
+  ] as const) {
+    it(`keeps the first and last tooltips on the screen at ${width}x${height} ${dir}`, async () => {
+      const page = await open(six, width, height, dir);
+      const links = await page.$$('.dda-footer li.foot-icon-btn a');
+      for (const link of [links[0], links[links.length - 1]]) {
+        await link.focus();
+        const tip = await link.evaluate(e => {
+          const r = e.closest('.dda-tooltip-container').querySelector('.dda-tooltip-box').getBoundingClientRect();
+          return { left: r.left, right: r.right };
+        });
+        expect(tip.left).toBeGreaterThanOrEqual(0);
+        expect(tip.right).toBeLessThanOrEqual(width);
+      }
+    });
+  }
+});
