@@ -60,9 +60,9 @@ export class DdaButton {
           onClick={this.clickHandler} // Bind the onClick prop here
           name={this.button_name}
         >
-          {this.start_icon && <i class="material-icons  material-symbols-outlined" aria-hidden="true">{this.start_icon}</i>}
+          {this.start_icon && <i class="material-icons  material-symbols-outlined" data-icon={this.start_icon} aria-hidden="true"></i>}
           <slot />
-          {this.end_icon && <i class="material-icons  material-symbols-outlined" aria-hidden="true">{this.end_icon }</i>}
+          {this.end_icon && <i class="material-icons  material-symbols-outlined" data-icon={this.end_icon } aria-hidden="true"></i>}
         </button>
       </Host>
     );

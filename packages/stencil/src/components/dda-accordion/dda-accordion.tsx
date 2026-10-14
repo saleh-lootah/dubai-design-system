@@ -34,14 +34,10 @@ export class DdaAccordion {
 <span class="material-symbols-rounded">face</span>
 <span class="material-symbols-sharp">face</span> */}
             <div class="header-content">
-              <i class="material-icons  material-symbols-outlined" aria-hidden="true">
-                {this.accordion_icon}
-              </i>
+              <i class="material-icons  material-symbols-outlined" data-icon={this.accordion_icon} aria-hidden="true"></i>
               <span class="header-text">{this.header_text}</span>
             </div>
-            <i class={`material-icons arrow-icon`} aria-hidden="true">
-              {this.isOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
-            </i>
+            <i class={`material-icons arrow-icon`} data-icon={this.isOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'} aria-hidden="true"></i>
           </button>
           <div class={this.isOpen ? 'accordion-body' : 'dda-d-none'}>
             <p class="body-description">{this.body_description}</p>

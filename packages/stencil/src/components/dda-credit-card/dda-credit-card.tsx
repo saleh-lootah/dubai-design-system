@@ -37,7 +37,7 @@ export class DdaCreditCard {
               <span class="card-balance-label">Current Balance</span>
               <span class="card-balance">{this.balance}</span>
             </div>
-            <i class="material-icons  material-symbols-outlined" aria-hidden="true">wifi</i>
+            <i class="material-icons  material-symbols-outlined" data-icon="wifi" aria-hidden="true"></i>
           </div>
           <div class="dda-credit-card-body">
             <div class="card-userinfo">

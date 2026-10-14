@@ -178,7 +178,7 @@ describe('dda-header', () => {
       const page = await render(`<dda-header></dda-header>`);
       expect(tooltip(page, '.dda-toolbar-menu .accessibility-btn')).toBe('Accessibility');
       expect(page.root.querySelector('.dda-toolbar-menu .accessibility-btn .visually-hidden').textContent).toBe('Accessibility');
-      expect(page.root.querySelector('.dda-toolbar-menu .accessibility-btn i').textContent.trim()).toBe('accessibility');
+      expect(page.root.querySelector('.dda-toolbar-menu .accessibility-btn i').getAttribute('data-icon')).toBe('accessibility');
       expect(tooltip(page, '.dda-toolbar-menu form.dda-search')).toBe('Search');
       expect(page.root.querySelector('.dda-toolbar-menu input').getAttribute('placeholder')).toBe('Search');
       expect(tooltip(page, '.dda-toolbar-menu dda-button[lang]')).toBe('Language');
@@ -198,7 +198,7 @@ describe('dda-header', () => {
       expect(desktop.getAttribute('id')).toBe('a11y');
       expect(desktop.querySelector('.visually-hidden').textContent).toBe('إمكانية الوصول إلى الموقع');
       expect(desktop.querySelector('i').getAttribute('class')).toBe('material-icons');
-      expect(desktop.querySelector('i').textContent.trim()).toBe('accessible_forward');
+      expect(desktop.querySelector('i').getAttribute('data-icon')).toBe('accessible_forward');
       expect(page.root.querySelector('.dda-toolbar-menu-sidemenu .accessibility-btn').getAttribute('id')).toBe('a11y-sidemenu');
       expect(tooltip(page, '.dda-toolbar-menu form.dda-search')).toBe('بحث');
       expect(page.root.querySelector('.dda-toolbar-menu input').getAttribute('placeholder')).toBe('يبحث');

@@ -248,11 +248,11 @@ export class DdaHomeBanner {
           <div class={'slider-nav'}>
             {showAutoplayToggle && (
               <button class="pause" type="button" aria-label={this.isPaused ? this.play_button_label : this.pause_button_label} onClick={this.togglePause}>
-                <i class="material-icons" aria-hidden="true">{this.isPaused ? 'play_arrow' : 'pause'}</i>
+                <i class="material-icons" data-icon={this.isPaused ? 'play_arrow' : 'pause'} aria-hidden="true"></i>
               </button>
             )}
             <button class="prev" type="button" aria-label={this.previous_button_label} onClick={() => this.prevSlide()}>
-              <i class="material-icons" aria-hidden="true">chevron_left</i>
+              <i class="material-icons" data-icon="chevron_left" aria-hidden="true"></i>
             </button>
             <ul>
               {this.slides.map((_, index) => {
@@ -271,7 +271,7 @@ export class DdaHomeBanner {
               })}
             </ul>
             <button class="next" type="button" aria-label={this.next_button_label} onClick={() => this.nextSlide()}>
-              <i class="material-icons" aria-hidden="true">chevron_right</i>
+              <i class="material-icons" data-icon="chevron_right" aria-hidden="true"></i>
             </button>
             {this.show_scroll_icon && (
               <div class={{ 'dda-mouse-scroll': true, 'dda-mouse-scroll-mobile': this.show_scroll_icon_mobile }} aria-hidden="true">

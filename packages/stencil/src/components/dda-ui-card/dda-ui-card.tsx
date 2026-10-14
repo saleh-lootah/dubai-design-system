@@ -44,9 +44,7 @@ export class DdaUiCard {
               <div>
                 {!!this.icon && (
                   <span class={'dda-card-icon'}>
-                    <i class={'material-icons'} aria-hidden="true">
-                      {this.icon}
-                    </i>
+                    <i class={'material-icons'} data-icon={this.icon} aria-hidden="true"></i>
                   </span>
                 )}
                 {!!this.image && (
@@ -61,9 +59,7 @@ export class DdaUiCard {
                     {this.linktext}{' '}
                     {this.linkicon && (
                       <span>
-                        <i class={'material-icons'} aria-hidden="true">
-                          {this.linkicon}
-                        </i>
+                        <i class={'material-icons'} data-icon={this.linkicon} aria-hidden="true"></i>
                       </span>
                     )}
                   </a>

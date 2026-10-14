@@ -345,7 +345,7 @@ export class DdaHeader {
   private renderSearchInput(id: string, ref?: (el: HTMLInputElement) => void) {
     return [
       <label htmlFor={id} class="visually-hidden">{this.searchText || 'Search'}</label>,
-      <i class="material-icons  material-symbols-outlined" aria-hidden="true">search</i>,
+      <i class="material-icons  material-symbols-outlined" data-icon="search" aria-hidden="true"></i>,
       <input
         name={this.search_input_name || 'q'}
         type="text"
@@ -586,9 +586,7 @@ export class DdaHeader {
                 accessKey={variant === 'desktop' ? 'L' : undefined}
                 aria-label={this.text(this.screen_reader_link_label, 'Listen to this page using ReadSpeaker')}
               >
-                <i class="material-icons  material-symbols-outlined" aria-hidden="true">
-                  volume_up
-                </i>
+                <i class="material-icons  material-symbols-outlined" data-icon="volume_up" aria-hidden="true"></i>
               </a>
             </div>
           </div>
@@ -645,9 +643,7 @@ export class DdaHeader {
         aria-expanded={this.usePredesignedAccessibilityMenu ? (this.isAccessibiltyOpen ? 'true' : 'false') : undefined}
         onClick={this.toggleAccessibilty}
       >
-        <i class={iconClass} aria-hidden="true">
-          {this.accessibility_button_icon_name || 'accessibility'}
-        </i>
+        <i class={iconClass} data-icon={this.accessibility_button_icon_name || 'accessibility'} aria-hidden="true"></i>
         <span class="visually-hidden">{this.text(this.accessibility_button_text, 'Accessibility')}</span>
       </button>
     );
@@ -736,7 +732,7 @@ export class DdaHeader {
                     <li key={linkIndex}>
                       <a class="megamenu-link" href={link.href}>
                         <span class="dda-btn btn-color-onsurface-secondary btn-size-sm icon-btn-default">
-                          <i class="material-icons material-symbols-outlined" aria-hidden="true">{link.icon}</i>
+                          <i class="material-icons material-symbols-outlined" data-icon={link.icon} aria-hidden="true"></i>
                         </span>
                         <span class="text-wrap">
                           <span class="title-text dda-fs-body-lg dda-fw-700">{link.label}</span>
@@ -750,9 +746,7 @@ export class DdaHeader {
             ))}
           </div>
           <button name="close-mega-menu" class="close-btn close_mega-menu" aria-label="Close Sidebar" onClick={() => (this.activeMenuIndex = null)}>
-            <i class="material-icons material-symbols-outlined" aria-hidden="true">
-              close
-            </i>
+            <i class="material-icons material-symbols-outlined" data-icon="close" aria-hidden="true"></i>
           </button>
         </div>
       </div>
@@ -877,7 +871,7 @@ export class DdaHeader {
                 </div>
                 
                 <button name={this.close_menu_button_name} class="close-btn side-nav-close-btn" aria-label="Close Sidebar" onClick={this.toggleMenu}>
-                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
+                  <i class="material-icons  material-symbols-outlined" data-icon="close" aria-hidden="true"></i>
                 </button>
 
 
@@ -886,7 +880,7 @@ export class DdaHeader {
                     {this.renderAccessibilityColumns('mobile')}
 
                     <button name={this.close_accessibility_button_name} class="close-btn close_accessibility" aria-label="Close Accessibility" onClick={this.toggleAccessibilty}>
-                      <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
+                      <i class="material-icons  material-symbols-outlined" data-icon="close" aria-hidden="true"></i>
                     </button>
                   </div>
                 )}
@@ -931,9 +925,7 @@ export class DdaHeader {
               {this.mobileMenuSearchUrl ? (
                 <a id={this.mobileMenuSearchId} href={this.mobileMenuSearchUrl} class="tool-btn">
                   <span class="visually-hidden">{this.searchText || 'Search'}</span>
-                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">
-                    search
-                  </i>
+                  <i class="material-icons  material-symbols-outlined" data-icon="search" aria-hidden="true"></i>
                 </a>
               ) : (
                 <button
@@ -947,9 +939,7 @@ export class DdaHeader {
                   ref={el => (this.mobileSearchButton = el)}
                 >
                   <span class="visually-hidden">{this.searchText || 'Search'}</span>
-                  <i class="material-icons  material-symbols-outlined" aria-hidden="true">
-                    search
-                  </i>
+                  <i class="material-icons  material-symbols-outlined" data-icon="search" aria-hidden="true"></i>
                 </button>
               )}
             </div>
@@ -958,9 +948,7 @@ export class DdaHeader {
                 <form class="dda-mobile-search-form" role="search" method="get" action={this.search_action} onSubmit={this.handleSearchSubmit}>
                   {this.renderSearchInput(`${this.searchId}-mobile`, el => (this.mobileSearchInput = el))}
                   <button type="button" class="dda-mobile-search-close" aria-label="Close search" onClick={this.closeMobileSearch}>
-                    <i class="material-icons  material-symbols-outlined" aria-hidden="true">
-                      close
-                    </i>
+                    <i class="material-icons  material-symbols-outlined" data-icon="close" aria-hidden="true"></i>
                   </button>
                 </form>
               </div>
@@ -993,7 +981,7 @@ export class DdaHeader {
                         {this.renderAccessibilityColumns('desktop')}
 
                         <button name={this.close_accessibility_button_name} class="close-btn close_accessibility" aria-label="Close Sidebar" onClick={this.toggleAccessibilty}>
-                          <i class="material-icons  material-symbols-outlined" aria-hidden="true">close</i>
+                          <i class="material-icons  material-symbols-outlined" data-icon="close" aria-hidden="true"></i>
                           {/* <i class="fa-solid fa-close"></i> */}
                         </button>
                       </div>

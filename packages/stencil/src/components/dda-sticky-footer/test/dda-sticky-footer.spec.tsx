@@ -19,7 +19,7 @@ describe('dda-sticky-footer', () => {
       ] as const) {
         const link = rightLink(page, index);
         expect(link.querySelector('img')).toBeNull();
-        expect(link.querySelector('i').textContent).toBe(icon);
+        expect(link.querySelector('i').getAttribute('data-icon')).toBe(icon);
         expect(link.querySelector('i').getAttribute('aria-hidden')).toBe('true');
         expect(link.querySelector('.visually-hidden').textContent).toBe(text);
       }
@@ -98,7 +98,7 @@ describe('dda-sticky-footer', () => {
       const links = Array.from(page.root.querySelectorAll('.dda-footer-right a')) as HTMLAnchorElement[];
       expect(links).toHaveLength(2);
       expect(links[0].getAttribute('id')).toBe('news-link');
-      expect(links[0].querySelector('i').textContent).toBe('feed');
+      expect(links[0].querySelector('i').getAttribute('data-icon')).toBe('feed');
       expect(links[0].querySelector('i').getAttribute('aria-hidden')).toBe('true');
       expect(links[0].querySelector('span').textContent).toBe('Newsroom');
       expect(links[0].getAttribute('aria-label')).toBeNull();

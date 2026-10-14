@@ -129,7 +129,7 @@ export class DdaPhoneField {
           <div class={`dda-input-field-group dda-phone-field`}>
             <div class="dda-input-dropdown-btn">
               <button type="button" name={this.toggle_button_name}  class="dda-dropdown-select" aria-label={this.toggle_button_label ? `${this.toggle_button_label}: ${this.country_code}` : undefined} aria-expanded={this.dropdown_open ? 'true' : 'false'} onClick={() => this.toggleDropdown()}>
-                <img src={this.country_flag} alt="" width="20" /> {this.country_code} <i class={`material-icons`} aria-hidden="true">{this.dropdown_open ? 'keyboard_arrow_down' : 'keyboard_arrow_down'}</i>
+                <img src={this.country_flag} alt="" width="20" /> {this.country_code} <i class={`material-icons`} data-icon={this.dropdown_open ? 'keyboard_arrow_down' : 'keyboard_arrow_down'} aria-hidden="true"></i>
               </button>
               {this.dropdown_open && (
                 <div class="dda-input-dropdown-list">

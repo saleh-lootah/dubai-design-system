@@ -64,7 +64,7 @@ describe('dda-breadcrumb', () => {
     await page.setContent(`<dda-breadcrumb data-breadcrumbs='${CRUMBS}' separator="chevron_right"></dda-breadcrumb>`);
 
     const separators = await page.evaluate(() =>
-      Array.from(document.querySelectorAll('dda-breadcrumb li.dda-breadcrumb-item > i.material-symbols-outlined')).map(i => i.textContent),
+      Array.from(document.querySelectorAll('dda-breadcrumb li.dda-breadcrumb-item > i.material-symbols-outlined')).map(i => i.getAttribute('data-icon')),
     );
     expect(separators).toEqual(['chevron_right', 'chevron_right']);
   });

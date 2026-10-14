@@ -39,7 +39,7 @@ describe('DoF 3.x markup on 5.3.0', () => {
     expect(await page.find('dda-header dda-link-button')).toBeNull();
     const placeholder = await page.$eval('dda-header .dda-toolbar-menu input', e => e.getAttribute('placeholder'));
     expect(placeholder).toBe('يبحث');
-    const icon = await page.$eval('dda-header .dda-toolbar-menu .accessibility-btn i', e => e.textContent.trim());
+    const icon = await page.$eval('dda-header .dda-toolbar-menu .accessibility-btn i', e => e.getAttribute('data-icon'));
     expect(icon).toBe('accessible_forward');
   });
 
@@ -78,7 +78,7 @@ describe('DoF 3.x markup on 5.3.0', () => {
     await loadDof(page);
     const logos = await page.$$eval('dda-sticky-footer .dda-footer-middle img', els => els.map(e => e.getAttribute('src')));
     expect(logos).toEqual(['/Style%20Library/img/digital-logo.svg', '/Style%20Library/img/dfsf-logo.svg', '/Style%20Library/img/dmpf-logo.svg']);
-    const icons = await page.$$eval('dda-sticky-footer .dda-footer-right .foot-icon-btn i', els => els.map(e => e.textContent.trim()));
+    const icons = await page.$$eval('dda-sticky-footer .dda-footer-right .foot-icon-btn i', els => els.map(e => e.getAttribute('data-icon')));
     expect(icons.slice(0, 2)).toEqual(['feed', 'call']);
   });
 

@@ -30,8 +30,8 @@ describe('dda-button', () => {
 
     const icons = page.root.querySelectorAll('button i');
     expect(icons.length).toBe(2);
-    expect(icons[0].textContent).toBe('sentiment_satisfied');
-    expect(icons[1].textContent).toBe('arrow_forward');
+    expect(icons[0].getAttribute('data-icon')).toBe('sentiment_satisfied');
+    expect(icons[1].getAttribute('data-icon')).toBe('arrow_forward');
   });
 
   it('renders no icon when no icon prop is set', async () => {

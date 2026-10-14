@@ -139,7 +139,7 @@ export class DdaNumberField {
             />
             <div class="dda-input-dropdown-btn">
               <button name={this.toggle_button_name} type="button" class="dda-dropdown-select" aria-label={this.toggle_button_label ? `${this.toggle_button_label}: ${this.selected_currency}` : undefined} aria-expanded={this.isCurrencyDropdownOpen ? 'true' : 'false'} onClick={() => this.toggleCurrencyDropdown()}>
-                {this.selected_currency} <i class={`material-icons`} aria-hidden="true">{this.isCurrencyDropdownOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
+                {this.selected_currency} <i class={`material-icons`} data-icon={this.isCurrencyDropdownOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'} aria-hidden="true"></i>
               </button>
               {this.isCurrencyDropdownOpen && (
                 <div class="dda-input-dropdown-list">
