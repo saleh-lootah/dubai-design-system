@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     # Without this a hung `npm ci` sits until the 6-hour Actions ceiling.
     timeout-minutes: 30
+    env:
+      # Puppeteer's default download host redirects, and @puppeteer/browsers
+      # never consumes the redirect response. That idle socket keeps its
+      # postinstall, and so `npm ci`, alive for 5-10 minutes after the download
+      # has finished. This host serves the files directly, with no redirect.
+      PUPPETEER_DOWNLOAD_BASE_URL: https://storage.googleapis.com/chrome-for-testing-public
     steps:
       - uses: actions/checkout@v4
 
@@ -18,24 +24,32 @@ jobs:
           node-version: '22.14.0'
           cache: npm
 
-      # `npm ci` runs puppeteer's postinstall, which downloads ~150MB of Chromium
-      # from Google's CDN with no timeout. setup-node's `cache: npm` caches the
-      # npm registry cache only, never this, so it re-downloaded on every job of
-      # every run. A stall there is invisible because npm hides lifecycle-script
-      # output, which is why the hang looked like silence mid-install.
-      - name: Cache the Puppeteer browser
-        uses: actions/cache@v4
+      # `npm ci` runs puppeteer's postinstall, which downloads ~150MB of Chromium.
+      # setup-node's `cache: npm` caches the npm registry cache only, never this.
+      - name: Restore the Puppeteer browser
+        id: puppeteer-cache
+        uses: actions/cache/restore@v4
         with:
           path: ~/.cache/puppeteer
-          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: puppeteer-${{ runner.os }}-
+          key: puppeteer-cft-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: puppeteer-cft-${{ runner.os }}-
 
       # --foreground-scripts so that if an install script does stall, the log
       # names it instead of going quiet.
       - name: Install
-        run: npm ci --foreground-scripts
+        run: npm ci --foreground-scripts --no-audit --no-fund
+
+      # Saved here and not at the end of the job, which skips the save when a
+      # test fails and leaves the next run to download the browser again.
+      - name: Save the Puppeteer browser
+        if: steps.puppeteer-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ steps.puppeteer-cache.outputs.cache-primary-key }}
 
       - name: Build the components
+        id: build
         working-directory: packages/stencil
         run: npx stencil build
 
@@ -66,6 +80,26 @@ jobs:
             exit 1
           fi
 
+      # stencil-docs.json must exist before check:api can run, which is why this
+      # lives in the job that already builds. Runs after a test failure too, so
+      # both results show up in one run.
+      - name: API consistency
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        working-directory: packages/stencil
+        run: |
+          source "$GITHUB_WORKSPACE/.github/scripts/ratchet.sh"
+          source "$GITHUB_WORKSPACE/.github/quality-baseline.env"
+
+          OUT=$(npm run check:api 2>&1 || true)
+          echo "$OUT"
+
+          GHOSTS=$(echo "$OUT" | grep -oE 'FAIL: [0-9]+ attributes do not exist' | grep -oE '[0-9]+' || true)
+          if [ -z "$GHOSTS" ] && echo "$OUT" | grep -q 'OK: every documented attribute is real'; then
+            GHOSTS=0
+          fi
+
+          ratchet "API ghost attributes" "$GHOSTS" "$API_GHOST_ATTRIBUTES_BASELINE"
+
   # Task 9i: quality-gate ratchet. None of these four checks are clean on
   # this branch today (see .github/quality-baseline.env for why and by how
   # much). Each gate fails only when its fault count exceeds the committed
@@ -76,6 +110,9 @@ jobs:
     runs-on: ubuntu-latest
     # Without this a hung `npm ci` sits until the 6-hour Actions ceiling.
     timeout-minutes: 30
+    env:
+      # Only the e2e tests in build-and-test run Puppeteer.
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
     steps:
       - uses: actions/checkout@v4
 
@@ -84,22 +121,15 @@ jobs:
           node-version: '22.14.0'
           cache: npm
 
-      # `npm ci` runs puppeteer's postinstall, which downloads ~150MB of Chromium
-      # from Google's CDN with no timeout. setup-node's `cache: npm` caches the
-      # npm registry cache only, never this, so it re-downloaded on every job of
-      # every run. A stall there is invisible because npm hides lifecycle-script
-      # output, which is why the hang looked like silence mid-install.
-      - name: Cache the Puppeteer browser
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/puppeteer
-          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: puppeteer-${{ runner.os }}-
-
       # --foreground-scripts so that if an install script does stall, the log
       # names it instead of going quiet.
       - name: Install
-        run: npm ci --foreground-scripts
+        id: install
+        run: npm ci --foreground-scripts --no-audit --no-fund
+
+      # Every check below runs even after an earlier one fails, so one run reports
+      # them all. The install guard matters: without node_modules, `npx` would
+      # fetch whatever tool version it finds on the registry.
 
       # Two invocations: the JSON formatter gives us reliable error/warning
       # counts to ratchet on, the default (stylish) formatter is only for a
@@ -129,6 +159,7 @@ jobs:
       # branch deliberately does not run `prettier --write` here or anywhere
       # else in this task — see task-9i-report.md.
       - name: Prettier
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         working-directory: packages/stencil
         run: |
           source "$GITHUB_WORKSPACE/.github/scripts/ratchet.sh"
@@ -165,6 +196,7 @@ jobs:
       # itself, not a fault count from the component sources. It must pass
       # outright.
       - name: Test the API checker itself
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         working-directory: packages/stencil
         run: npm run check:api:test
 
@@ -174,40 +206,25 @@ jobs:
       # not advertise where the project is developed. Third-party github.com URLs in
       # vendored code are not matched; only links to this project are a fault.
       - name: Test the repository-link checker itself
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         working-directory: packages/stencil
         run: npm run check:repolinks:test
 
       - name: No links to the source repository in shipped files
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         working-directory: packages/stencil
         run: npm run check:repolinks
-
-      # stencil-docs.json must exist before check:api can run.
-      - name: API consistency
-        working-directory: packages/stencil
-        run: |
-          source "$GITHUB_WORKSPACE/.github/scripts/ratchet.sh"
-          source "$GITHUB_WORKSPACE/.github/quality-baseline.env"
-
-          npx stencil build
-
-          OUT=$(npm run check:api 2>&1 || true)
-          echo "$OUT"
-
-          GHOSTS=$(echo "$OUT" | grep -oE 'FAIL: [0-9]+ attributes do not exist' | grep -oE '[0-9]+' || true)
-          if [ -z "$GHOSTS" ] && echo "$OUT" | grep -q 'OK: every documented attribute is real'; then
-            GHOSTS=0
-          fi
-
-          ratchet "API ghost attributes" "$GHOSTS" "$API_GHOST_ATTRIBUTES_BASELINE"
 
       # Not ratcheted: this is a correctness test of the checker script
       # itself, not a fault count from the component sources. It must pass
       # outright.
       - name: Test the hardcoded-text checker itself
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         working-directory: packages/stencil
         run: npm run check:text:test
 
       - name: Hardcoded text
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         working-directory: packages/stencil
         run: |
           source "$GITHUB_WORKSPACE/.github/scripts/ratchet.sh"
@@ -227,6 +244,10 @@ jobs:
     runs-on: ubuntu-latest
     # Without this a hung `npm ci` sits until the 6-hour Actions ceiling.
     timeout-minutes: 40
+    env:
+      # This job's browser comes from Playwright, below. Only the e2e tests in
+      # build-and-test run Puppeteer.
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
     steps:
       - uses: actions/checkout@v4
 
@@ -235,22 +256,10 @@ jobs:
           node-version: '22.14.0'
           cache: npm
 
-      # `npm ci` runs puppeteer's postinstall, which downloads ~150MB of Chromium
-      # from Google's CDN with no timeout. setup-node's `cache: npm` caches the
-      # npm registry cache only, never this, so it re-downloaded on every job of
-      # every run. A stall there is invisible because npm hides lifecycle-script
-      # output, which is why the hang looked like silence mid-install.
-      - name: Cache the Puppeteer browser
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/puppeteer
-          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: puppeteer-${{ runner.os }}-
-
       # --foreground-scripts so that if an install script does stall, the log
       # names it instead of going quiet.
       - name: Install
-        run: npm ci --foreground-scripts
+        run: npm ci --foreground-scripts --no-audit --no-fund
 
       - name: Install the browser
         working-directory: packages/stencil
