@@ -136,6 +136,18 @@
     display: inline-flex;
     align-items: center;
 }
+/* The button sits at the screen's start edge, so a tooltip centred under it ran past that edge. */
+.hamburger-menu .dda-tooltip-box.bottom {
+    left: auto;
+    inset-inline-start: 0;
+    transform: none;
+}
+.hamburger-menu .dda-tooltip-box.bottom::before,
+.hamburger-menu .dda-tooltip-box.bottom::after {
+    left: auto;
+    margin-inline-start: 0;
+    inset-inline-start: 10px;
+}
 .hamburger-menu-btn {
     width: 40px;
     height: 40px;
@@ -493,6 +505,10 @@
     transition: left 0.5s ease;
 }
 
+.dda-sidemenu-scroll {
+    display: contents;
+}
+
 .dda-sidemenu-content {
     display: flex;
     flex-direction: column;
@@ -664,8 +680,14 @@ ul.main_side_menu .main_sub_menu .main_sub_menu {
     inset-inline-start: 735px;
 }
 
+/* A fourth panel beside the third would end at 1440px, past a laptop screen, so it opens inside it. */
 ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
-    inset-inline-start: 1090px;
+    position: static;
+    margin-top: 0;
+    width: auto;
+    padding: 0;
+    padding-inline-start: 10px;
+    box-shadow: none;
 }
 
 .side-nav-close-btn {
@@ -853,10 +875,6 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
         position: initial;
     }
 
-    .main_side_menu .dda-side-nav__title {
-        display: none;
-    }
-
     .main_side_menu_wrap {
         height: calc(100% - 100px);
         overflow: auto;
@@ -885,40 +903,6 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
         padding-inline-end: 15px;
     }
 
-    ul.main_side_menu li .main_sub_menu {
-        position: inherit !important;
-        inset-inline-start: inherit !important;
-        top: inherit ! Important;
-        margin: 0px !important;
-        width: 100% !important;
-        padding: 0px;
-        padding-inline-start: 10px;
-        box-shadow: none;
-    }
-
-    ul.main_side_menu li a.icon_arrow::after {
-        transform: rotate(45deg);
-    }
-
-    :root[dir='rtl'] ul.main_side_menu li a.showSub.icon_arrow::after, 
-    :root[dir='rtl'] ul.main_side_menu li a.showSubSub.icon_arrow::after{
-        transform: rotate(45deg);
-    }
-
-    .main_sub_menu>ol>li:last-child>a {
-        border-bottom: 1px solid #00000022;
-    }
-
-    ul.main_side_menu li a.icon_arrow,
-    ul.main_side_menu .main_sub_menu li a .icon_arrow {
-        color: var(--dda-color-primary-40);
-    }
-
-    ul.main_side_menu .main_sub_menu ol {
-        height: auto;
-        max-height: none;
-        padding: 0;
-    }
     .maincontent {
         padding-top: 100px;
     }
@@ -1009,6 +993,77 @@ ul.main_side_menu .main_sub_menu .main_sub_menu .main_sub_menu {
 }
 
 
+
+/* The flyout panels are 350px wide at fixed positions: the second level ends at 730px and the third
+   at 1085px. Below 1100px, or a laptop at 200% zoom (WCAG 1.4.4), they ran off the screen, and on a
+   short screen they ran off its bottom, so here they open inside the menu. */
+@media screen and (max-width: 1099px), screen and (max-height: 700px) {
+    .main_side_menu .dda-side-nav__title {
+        display: none;
+    }
+
+    ul.main_side_menu li .main_sub_menu {
+        position: inherit !important;
+        inset-inline-start: inherit !important;
+        top: inherit ! Important;
+        margin: 0px !important;
+        width: 100% !important;
+        padding: 0px;
+        padding-inline-start: 10px;
+        box-shadow: none;
+    }
+
+    ul.main_side_menu li a.icon_arrow::after {
+        transform: rotate(45deg);
+    }
+
+    :root[dir='rtl'] ul.main_side_menu li a.showSub.icon_arrow::after, 
+    :root[dir='rtl'] ul.main_side_menu li a.showSubSub.icon_arrow::after{
+        transform: rotate(45deg);
+    }
+
+    .main_sub_menu>ol>li:last-child>a {
+        border-bottom: 1px solid #00000022;
+    }
+
+    ul.main_side_menu li a.icon_arrow,
+    ul.main_side_menu .main_sub_menu li a .icon_arrow {
+        color: var(--dda-color-primary-40);
+    }
+
+    ul.main_side_menu .main_sub_menu ol {
+        height: auto;
+        max-height: none;
+        padding: 0;
+    }
+}
+
+/* The logo and toolbar are fixed under the links, which left the links little of a short screen
+   (a laptop at 400% zoom, WCAG 1.4.10). Here they scroll with the links; the close button is outside
+   the scrolling part, so it stays in view. */
+@media screen and (max-width: 767px) and (max-height: 500px) {
+    .dda-sidemenu-scroll {
+        display: block;
+        height: 100%;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .dda-sidemenu-scroll .dda-sidemenu-content {
+        height: auto;
+        overflow: visible;
+    }
+
+    .dda-sidemenu .dda-sidemenu-bottom {
+        padding-bottom: 12px;
+    }
+
+    /* The links scroll under it. */
+    .side-nav-close-btn {
+        background: var(--dda-surface-100);
+        border-radius: 50%;
+    }
+}
 
 /* Mobile search: the search button opens this panel under the header. */
 .dda-mobile-search-panel {

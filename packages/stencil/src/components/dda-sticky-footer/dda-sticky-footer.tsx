@@ -223,6 +223,13 @@ export class DdaStickyFooter {
     this.mobileQuery?.removeEventListener('change', this.onMobileChange);
   }
 
+  // Focus moves first: the list turns inert as it closes, which would drop focus from a link in it.
+  private closeMoreOnEscape = (event: KeyboardEvent) => {
+    if (event.key !== 'Escape' || !this.rightOpen) return;
+    this.el.querySelector<HTMLElement>('button.show-right-icon')?.focus();
+    this.rightOpen = false;
+  };
+
   // An image wins when both are set, so pages that set both keep their current look.
   // A Material icon is decorative; the visually hidden text names the link.
   private renderLinkGraphic(src: string, icon: string, text: string) {
@@ -319,7 +326,7 @@ export class DdaStickyFooter {
           )}
 
           {/* Right Section */}
-          <div class="dda-footer-item dda-footer-right">
+          <div class="dda-footer-item dda-footer-right" onKeyDown={this.closeMoreOnEscape}>
             <ul id={this.rightListId} class={{ 'foot-right_links': true, 'show-dda-icon': this.rightOpen }} inert={!!this.moreIcon && !this.rightOpen && this.isMobile}>
               {rightItems.length > 0
                 ? rightItems.map(item => (

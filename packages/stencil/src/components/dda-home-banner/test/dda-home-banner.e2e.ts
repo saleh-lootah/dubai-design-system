@@ -611,3 +611,70 @@ describe('dda-home-banner zoomed in', () => {
     });
   }
 });
+
+// WCAG 2.5.8: a dot was a 10px button. It is now a 24px button with the 10px dot drawn inside it,
+// the same distance apart. WCAG 1.4.11: an inactive dot was 20% white, under 2:1 even on black.
+describe('dda-home-banner slide dots', () => {
+  const dots = async () => {
+    const page = await newE2EPage();
+    await page.setContent(banner());
+    await page.waitForChanges();
+    return page;
+  };
+
+  it('are 24x24 targets, in a row that keeps its spacing', async () => {
+    const page = await dots();
+    const m = await page.$$eval('dda-home-banner .dots', els =>
+      els.map(e => {
+        const r = e.getBoundingClientRect();
+        return { w: r.width, h: r.height, x: r.left + r.width / 2, y: r.top + r.height / 2 };
+      }),
+    );
+    expect(m.every(d => d.w === 24 && d.h === 24)).toBe(true);
+    expect(m[1].x - m[0].x).toBe(25);
+    // A click outside the visible dot, but inside the button, still lands on it.
+    const hit = await page.evaluate(d => document.elementFromPoint(d.x + 10, d.y + 10)?.className, m[0]);
+    expect(hit).toContain('dots');
+  });
+
+  it('still draw a 10px dot, 15px from its neighbours and the arrows', async () => {
+    const page = await dots();
+    const m = await page.evaluate(() => {
+      const first = document.querySelector('dda-home-banner .dots').getBoundingClientRect();
+      const prev = document.querySelector('dda-home-banner .prev').getBoundingClientRect();
+      const dot = getComputedStyle(document.querySelector('dda-home-banner .dots'), '::before');
+      return { size: [dot.width, dot.height], prevToDot: first.left + 7 - prev.right };
+    });
+    expect(m.size).toEqual(['10px', '10px']);
+    expect(m.prevToDot).toBe(15);
+  });
+
+  it('show the current dot solid and the others as a white ring', async () => {
+    const page = await dots();
+    const styles = await page.$$eval('dda-home-banner .dots', els =>
+      els.map(e => {
+        const s = getComputedStyle(e, '::before');
+        return { background: s.backgroundColor, border: s.borderTopColor, width: parseFloat(s.borderTopWidth) };
+      }),
+    );
+    expect(styles[0].background).toBe('rgb(255, 255, 255)');
+    expect(styles[1].background).toBe('rgba(0, 0, 0, 0)');
+    expect(styles[1].border).toBe('rgb(255, 255, 255)');
+    expect(styles[1].width).toBeGreaterThan(0);
+  });
+
+  it('show the keyboard focus ring around the whole target', async () => {
+    const page = await dots();
+    await page.focus('dda-home-banner .dots');
+    await page.keyboard.press('Tab');
+    await page.keyboard.down('Shift');
+    await page.keyboard.press('Tab');
+    await page.keyboard.up('Shift');
+    const ring = await page.evaluate(() => {
+      const s = getComputedStyle(document.activeElement, '::after');
+      return { shadow: s.boxShadow, radius: s.borderRadius };
+    });
+    expect(ring.shadow).toContain('rgb(255, 255, 255)');
+    expect(ring.radius).toBe('50%');
+  });
+});
