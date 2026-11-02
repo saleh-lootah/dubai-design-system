@@ -198,6 +198,7 @@ export class DdaStickyFooter {
 
   componentDidLoad() {
     window.addEventListener('scroll', this.handleScroll);
+    this.el.addEventListener('keydown', this.closeMoreOnEscape);
 
     // Publish the bar's height so page layouts fixed above it (.quick-links-wrap) can clear it.
     const bar = this.el.querySelector<HTMLElement>('.dda-footer');
@@ -217,6 +218,7 @@ export class DdaStickyFooter {
 
   disconnectedCallback() {
     window.removeEventListener('scroll', this.handleScroll);
+    this.el.removeEventListener('keydown', this.closeMoreOnEscape);
     this.resizeObserver?.disconnect();
     this.resizeObserver = null;
     document.documentElement.style.removeProperty('--dda-sticky-footer-height');
@@ -326,7 +328,7 @@ export class DdaStickyFooter {
           )}
 
           {/* Right Section */}
-          <div class="dda-footer-item dda-footer-right" onKeyDown={this.closeMoreOnEscape}>
+          <div class="dda-footer-item dda-footer-right">
             <ul id={this.rightListId} class={{ 'foot-right_links': true, 'show-dda-icon': this.rightOpen }} inert={!!this.moreIcon && !this.rightOpen && this.isMobile}>
               {rightItems.length > 0
                 ? rightItems.map(item => (
