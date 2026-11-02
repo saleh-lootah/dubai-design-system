@@ -182,9 +182,11 @@
 .slider-nav ul {
   display: flex;
   align-items: center;
-  gap: 15px;
+  /* The 24px targets are 25px apart, like the 10px dots with 15px between them. The negative margin
+     keeps the first and last dots 15px from the arrows; global.css resets every <ul> margin with !important. */
+  gap: 1px;
   list-style: none;
-  margin: 0;
+  margin: 0 -7px !important;
   padding: 0;
 }
 
@@ -192,24 +194,41 @@
   display: flex;
 }
 .slider-nav .dots {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   appearance: none;
   -webkit-appearance: none;
-  width: 10px;
-  height: 10px;
-  background: rgba(255, 255, 255, 0.2);
-  overflow: hidden;
-  text-indent: -100px;
+  /* WCAG 2.5.8: the button is the 24px target, and the dot is drawn inside it. */
+  width: 24px;
+  height: 24px;
+  background: none;
   margin: 0;
   padding: 0;
   border: 0px;
-  border-radius: 20px;
+  /* No border-radius: it would cut the corners off the 24px target. */
   cursor: pointer;
-  transition: all 0.2s linear;
 }
 
-.slider-nav .dots.active {
-  background: rgba(255, 255, 255, 0.85);
+/* WCAG 1.4.11: a white ring keeps 3:1 over the slide's scrim, and the state is not colour alone. */
+.slider-nav .dots::before {
+  content: '';
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid #ffffff;
+  border-radius: 50%;
+  transition: background-color 0.2s linear;
+}
+
+.slider-nav .dots.active::before {
+  background: #ffffff;
+}
+
+@media (forced-colors: active) {
+  .slider-nav .dots.active::before {
+    background: ButtonText;
+  }
 }
 
 /* Controls sit over photography, where the UA default focus ring is often

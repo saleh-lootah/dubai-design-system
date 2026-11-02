@@ -509,3 +509,103 @@ describe('dda-sticky-footer on narrow screens', () => {
     });
   }
 });
+
+// Zoomed in, the "more" list opened as a column from a fixed bar and could not scroll, so on a short
+// screen its first links were above the top of the screen, out of reach. The More button also stayed
+// 48px in the 44px short landscape bar, 13px bigger than the links beside it and cut off at the bottom.
+describe('dda-sticky-footer more menu zoomed in', () => {
+  const svg = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22/%3E';
+  const links = (n: number) =>
+    JSON.stringify(
+      Array.from({ length: n }, (_, i) => ({ RightLinkTooltip: `Long link name ${i + 1}`, href: '#', LinkText: `Link ${i + 1}`, IconFamily: 'material-icons', IconName: 'feed' })),
+    );
+  const open = async (width: number, height: number, n: number, dir = 'ltr') => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height });
+    await page.setContent(`<div dir="${dir}"><dda-sticky-footer ai-icon-src="${svg}" ai-icon-href="#" ai-icon-alt="AI" chat-icon-src="${svg}" chat-icon-href="#" chat-icon-alt="Chat"
+      more-icon="more_horiz" more-icon-family="material-icons" right-link='${links(n)}'></dda-sticky-footer></div>`);
+    await page.waitForChanges();
+    await (await page.find('button.show-right-icon')).click();
+    await page.waitForChanges();
+    return page;
+  };
+
+  for (const [width, height, n, dir] of [
+    [620, 330, 4, 'rtl'],
+    [480, 230, 4, 'rtl'],
+    [480, 230, 8, 'ltr'],
+    [320, 170, 6, 'ltr'],
+    [320, 170, 6, 'rtl'],
+  ] as const) {
+    it(`shows every link and its tooltip on the screen at ${width}x${height} with ${n} links (${dir})`, async () => {
+      const page = await open(width, height, n, dir);
+      const handles = await page.$$('.foot-right_links li.foot-icon-btn a');
+      // The AI and chat links are in the same list.
+      expect(handles).toHaveLength(n + 2);
+      for (const link of handles) {
+        await link.focus();
+        const m = await link.evaluate(e => {
+          const box = (el: Element) => {
+            const r = el.getBoundingClientRect();
+            return { top: r.top, bottom: r.bottom, left: r.left, right: r.right };
+          };
+          return { link: box(e), tip: box(e.closest('.dda-tooltip-container').querySelector('.dda-tooltip-box')) };
+        });
+        for (const r of [m.link, m.tip]) {
+          expect(r.top).toBeGreaterThanOrEqual(0);
+          expect(r.bottom).toBeLessThanOrEqual(height);
+          expect(r.left).toBeGreaterThanOrEqual(0);
+          expect(r.right).toBeLessThanOrEqual(width);
+        }
+      }
+    });
+  }
+
+  // Three rows leave no room above the top row for its tooltips, but the links stay in reach.
+  it('keeps ten links on the screen at 320x170', async () => {
+    const page = await open(320, 170, 8);
+    const boxes = await page.$$eval('.foot-right_links li.foot-icon-btn a', els =>
+      els.map(e => {
+        const r = e.getBoundingClientRect();
+        return { top: r.top, left: r.left, right: r.right };
+      }),
+    );
+    expect(boxes).toHaveLength(10);
+    expect(boxes.every(b => b.top >= 0 && b.left >= 0 && b.right <= 320)).toBe(true);
+  });
+
+  it('does not cover the page beside the links', async () => {
+    const page = await open(620, 330, 4);
+    const width = await page.$eval('.foot-right_links', e => e.getBoundingClientRect().width);
+    expect(width).toBeLessThan(300);
+  });
+
+  it('keeps the column on a tall screen', async () => {
+    const page = await open(390, 844, 4);
+    expect((await (await page.find('.foot-right_links')).getComputedStyle()).flexDirection).toBe('column');
+  });
+
+  it('makes the More button the size of the links, inside the screen, on the short landscape bar', async () => {
+    const page = await open(620, 330, 4);
+    const m = await page.evaluate(() => {
+      const b = document.querySelector('button.show-right-icon').getBoundingClientRect();
+      const a = document.querySelector('.foot-icon-btn a').getBoundingClientRect();
+      return { button: b.width, link: a.width, bottom: b.bottom };
+    });
+    expect(m.button).toBe(m.link);
+    expect(m.bottom).toBeLessThanOrEqual(330);
+  });
+
+  it('closes on Escape and returns focus to the More button', async () => {
+    const page = await open(480, 230, 4);
+    const link = await page.$('.foot-right_links li.foot-icon-btn a');
+    await link.focus();
+    await page.keyboard.press('Escape');
+    await page.waitForChanges();
+    const state = await page.evaluate(() => {
+      const button = document.querySelector('button.show-right-icon');
+      return { expanded: button.getAttribute('aria-expanded'), focused: document.activeElement === button };
+    });
+    expect(state).toEqual({ expanded: 'false', focused: true });
+  });
+});

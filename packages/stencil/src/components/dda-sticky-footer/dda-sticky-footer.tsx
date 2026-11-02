@@ -198,6 +198,7 @@ export class DdaStickyFooter {
 
   componentDidLoad() {
     window.addEventListener('scroll', this.handleScroll);
+    this.el.addEventListener('keydown', this.closeMoreOnEscape);
 
     // Publish the bar's height so page layouts fixed above it (.quick-links-wrap) can clear it.
     const bar = this.el.querySelector<HTMLElement>('.dda-footer');
@@ -217,11 +218,19 @@ export class DdaStickyFooter {
 
   disconnectedCallback() {
     window.removeEventListener('scroll', this.handleScroll);
+    this.el.removeEventListener('keydown', this.closeMoreOnEscape);
     this.resizeObserver?.disconnect();
     this.resizeObserver = null;
     document.documentElement.style.removeProperty('--dda-sticky-footer-height');
     this.mobileQuery?.removeEventListener('change', this.onMobileChange);
   }
+
+  // Focus moves first: the list turns inert as it closes, which would drop focus from a link in it.
+  private closeMoreOnEscape = (event: KeyboardEvent) => {
+    if (event.key !== 'Escape' || !this.rightOpen) return;
+    this.el.querySelector<HTMLElement>('button.show-right-icon')?.focus();
+    this.rightOpen = false;
+  };
 
   // An image wins when both are set, so pages that set both keep their current look.
   // A Material icon is decorative; the visually hidden text names the link.

@@ -795,3 +795,171 @@ describe('dda-header mega menu position', () => {
     expect(Math.abs(panel.right - li.right)).toBeLessThanOrEqual(1);
   });
 });
+
+// Zoomed in, the screen is smaller in CSS pixels. Text sizes are from a 1920x1080 or a 1280x800 window.
+describe('dda-header side menu zoomed in', () => {
+  const nested = JSON.stringify([
+    {
+      label: 'Level 1',
+      href: '#',
+      subMenu: [
+        {
+          headerLabel: 'Title',
+          label: 'Level 2',
+          href: '#',
+          subMenu: [{ label: 'Level 3', href: '#', subMenu: [{ label: 'Level 4', href: '#', subMenu: [{ label: 'Level 5', href: '#' }] }] }],
+        },
+      ],
+    },
+    ...Array.from({ length: 6 }, (_, i) => ({ label: `Link ${i}`, href: '#' })),
+  ]);
+  const svg = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%2244%22/%3E';
+  const open = async (width: number, height: number, dir = 'ltr') => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height });
+    await page.setContent(
+      `<html dir="${dir}"><body><dda-header first-logo-src="${svg}" first-logo-alt="Gov" second-logo-src="${svg}" second-logo-alt="Entity" login-link="/login" login-label="Login" menu_button_label="Menu" side-menu-items='${nested}'></dda-header></body></html>`,
+    );
+    await page.waitForChanges();
+    await page.evaluate(() => document.querySelector<HTMLElement>('.hamburger-menu-btn').click());
+    await page.waitForChanges();
+    return page;
+  };
+  // Opens the levels one at a time, by the menu's own links.
+  const openLevels = async (page: E2EPage, levels: number) => {
+    for (let level = 1; level <= levels; level++) {
+      await page.evaluate(l => {
+        const link = Array.from(document.querySelectorAll<HTMLElement>('.main_side_menu a')).find(a => a.textContent.trim() === `Level ${l}`);
+        link.click();
+      }, level);
+      await page.waitForChanges();
+    }
+  };
+
+  for (const [width, height, dir] of [
+    [960, 540, 'ltr'],
+    [960, 540, 'rtl'],
+    [768, 432, 'ltr'],
+    [1024, 640, 'ltr'],
+    [1280, 800, 'ltr'],
+    [1280, 800, 'rtl'],
+    [1920, 1080, 'ltr'],
+  ] as const) {
+    it(`keeps every level of the menu on the screen at ${width}x${height} (${dir})`, async () => {
+      const page = await open(width, height, dir);
+      await openLevels(page, 4);
+      const panels = await page.$$eval('.main_sub_menu.showSubMenu', els =>
+        els.map(e => {
+          const r = e.getBoundingClientRect();
+          return { left: r.left, right: r.right };
+        }),
+      );
+      expect(panels).toHaveLength(4);
+      for (const p of panels) {
+        expect(p.left).toBeGreaterThanOrEqual(0);
+        expect(p.right).toBeLessThanOrEqual(width);
+      }
+    });
+  }
+
+  it('keeps the flyout panels beside the menu on a large screen', async () => {
+    const page = await open(1440, 900);
+    await openLevels(page, 2);
+    const position = await page.$eval('.main_sub_menu.showSubMenu', e => getComputedStyle(e).position);
+    expect(position).toBe('fixed');
+  });
+
+  it('nests the panels in the menu below 1100px', async () => {
+    const page = await open(1099, 900);
+    await openLevels(page, 2);
+    const positions = await page.$$eval('.main_sub_menu.showSubMenu', els => els.map(e => getComputedStyle(e).position));
+    expect(positions).not.toContain('fixed');
+  });
+
+  it('marks the open level, for sight and for assistive tech', async () => {
+    const page = await open(960, 540);
+    const state = () =>
+      page.evaluate(() => {
+        const a = document.querySelector('.main_side_menu a.showSub');
+        return { expanded: a.getAttribute('aria-expanded'), arrow: a.classList.contains('icon_arrow') };
+      });
+    expect(await state()).toEqual({ expanded: 'false', arrow: false });
+    await openLevels(page, 1);
+    expect(await state()).toEqual({ expanded: 'true', arrow: true });
+  });
+
+  // The logo and toolbar were fixed under the links, taking about 75px of the 190px left at 480x230.
+  for (const [width, height, dir] of [
+    [480, 230, 'ltr'],
+    [480, 230, 'rtl'],
+    [320, 170, 'ltr'],
+  ] as const) {
+    it(`scrolls the logo with the links, leaving the close button in view, at ${width}x${height} (${dir})`, async () => {
+      const page = await open(width, height, dir);
+      const m = await page.evaluate(async () => {
+        const menu = document.querySelector('.dda-sidemenu').getBoundingClientRect();
+        const logo = document.querySelector('.dda-sidemenu-gov-logo');
+        const before = logo.getBoundingClientRect().top;
+        logo.scrollIntoView({ block: 'end' });
+        await new Promise(requestAnimationFrame);
+        const after = logo.getBoundingClientRect();
+        const close = document.querySelector('.side-nav-close-btn').getBoundingClientRect();
+        return { menuBottom: menu.bottom, before, afterBottom: after.bottom, closeTop: close.top, closeBottom: close.bottom, innerHeight };
+      });
+      // Below the fold at first, so the links have the panel to themselves; reachable by scrolling.
+      expect(m.before).toBeGreaterThanOrEqual(m.menuBottom);
+      expect(m.afterBottom).toBeLessThanOrEqual(m.menuBottom);
+      expect(m.closeTop).toBeGreaterThanOrEqual(0);
+      expect(m.closeBottom).toBeLessThanOrEqual(m.innerHeight);
+    });
+  }
+
+  it('keeps the logo pinned under the links on a phone held upright', async () => {
+    const page = await open(390, 844);
+    const m = await page.evaluate(() => {
+      const menu = document.querySelector('.dda-sidemenu').getBoundingClientRect();
+      return { menuBottom: menu.bottom, bottom: document.querySelector('.dda-sidemenu-bottom').getBoundingClientRect().bottom };
+    });
+    expect(Math.round(m.bottom)).toBeLessThanOrEqual(Math.round(m.menuBottom));
+  });
+});
+
+// The tooltips opened upward, from a header at the top of the screen: on a short header, off it.
+describe('dda-header tooltips', () => {
+  const svg = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%2244%22/%3E';
+  const open = async (width: number, height: number, dir = 'ltr') => {
+    const page = await newE2EPage();
+    await page.setViewport({ width, height });
+    await page.setContent(
+      `<html dir="${dir}"><body><dda-header first-logo-src="${svg}" first-logo-alt="Gov" second-logo-src="${svg}" second-logo-alt="Entity" login-link="/login" login-label="Login" language-label="العربية" menu_button_label="Menu" search_tooltip="Search" accessibility_tooltip="Accessibility" language_tooltip="Change the language" login_tooltip="Login to your account"></dda-header></body></html>`,
+    );
+    await page.waitForChanges();
+    return page;
+  };
+
+  for (const [width, height, dir] of [
+    [320, 170, 'ltr'],
+    [320, 170, 'rtl'],
+    [480, 230, 'rtl'],
+    [620, 330, 'rtl'],
+    [960, 540, 'ltr'],
+    [1440, 900, 'rtl'],
+  ] as const) {
+    it(`keeps every shown tooltip on the screen at ${width}x${height} (${dir})`, async () => {
+      const page = await open(width, height, dir);
+      const boxes = await page.$$eval('dda-header dda-tooltip', els =>
+        els
+          .filter(e => e.getBoundingClientRect().width > 0)
+          .map(e => {
+            const box = e.querySelector('.dda-tooltip-box');
+            const r = box.getBoundingClientRect();
+            return { name: box.querySelector('strong').textContent, top: r.top, left: r.left, right: r.right };
+          }),
+      );
+      expect(boxes.length).toBeGreaterThan(0);
+      for (const b of boxes) {
+        expect({ name: b.name, onScreen: b.top >= 0 && b.left >= 0 && b.right <= width }).toEqual({ name: b.name, onScreen: true });
+      }
+    });
+  }
+});

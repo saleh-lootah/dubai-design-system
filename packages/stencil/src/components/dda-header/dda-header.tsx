@@ -501,7 +501,8 @@ export class DdaHeader {
               <li key={currentIndex}>
                 <a
                   href={item.href}
-                  class={item.subMenu && item.subMenu.length > 0 ? 'showSub' : ''}
+                  class={item.subMenu && item.subMenu.length > 0 ? { showSub: true, icon_arrow: !!this.openMenus[currentIndex] } : ''}
+                  aria-expanded={item.subMenu && item.subMenu.length > 0 ? (this.openMenus[currentIndex] ? 'true' : 'false') : undefined}
                   onClick={(e) => {
                     if (item.subMenu && item.subMenu.length > 0) {
                       e.preventDefault();
@@ -786,7 +787,7 @@ export class DdaHeader {
 
               {/* Hamburger Menu */}
               <div class="hamburger-menu" onClick={this.toggleMenu}>
-                <dda-tooltip title_text={this.tooltip(this.menu_button_label, 'Menu')} position="top" class="d-block">
+                <dda-tooltip title_text={this.tooltip(this.menu_button_label, 'Menu')} position="bottom" class="d-block">
                   <button type="button" class="hamburger-menu-btn" name={this.hamburger_menu_button_name}>
                     <span class="hamburger-line"></span>
                     <span class="hamburger-menu-text">{this.menu_button_label}</span>
@@ -796,6 +797,7 @@ export class DdaHeader {
 
               {/* Side Menu */}
               <div class="dda-sidemenu" style={{ display: this.isMenuOpen ? 'block' : '', insetInlineStart: this.isMenuOpen ? '0px' : '' }}>
+                <div class="dda-sidemenu-scroll">
                 <div class="dda-sidemenu-content">
                   {this.text(this.sideMainMenuTitle, 'Quick Links') && <p class="dda-side-nav-title">{this.text(this.sideMainMenuTitle, 'Quick Links')}</p>}
                   <ul class="main_side_menu">
@@ -805,7 +807,8 @@ export class DdaHeader {
                         <li key={currentIndex}>
                           <a
                             href={menu.href}
-                            class={menu.subMenu && menu.subMenu.length > 0 ? 'showSub' : ''}
+                            class={menu.subMenu && menu.subMenu.length > 0 ? { showSub: true, icon_arrow: !!this.openMenus[currentIndex] } : ''}
+                            aria-expanded={menu.subMenu && menu.subMenu.length > 0 ? (this.openMenus[currentIndex] ? 'true' : 'false') : undefined}
                             onClick={(e) => {
                               if (menu.subMenu && menu.subMenu.length > 0) {
                                 e.preventDefault();
@@ -869,7 +872,8 @@ export class DdaHeader {
                         </ul>
                     </div>
                 </div>
-                
+                </div>
+
                 <button name={this.close_menu_button_name} class="close-btn side-nav-close-btn" aria-label="Close Sidebar" onClick={this.toggleMenu}>
                   <i class="material-icons  material-symbols-outlined" data-icon="close" aria-hidden="true"></i>
                 </button>
@@ -958,7 +962,7 @@ export class DdaHeader {
             <div class="dda-toolbar-menu">
               <ul>
                 <li>
-                  <dda-tooltip title_text={this.tooltip(this.search_tooltip, 'Search')} description="" position="top">
+                  <dda-tooltip title_text={this.tooltip(this.search_tooltip, 'Search')} description="" position="bottom">
                     <form
                       class="dda-search dda-btn btn-color-onsurface-secondary btn-size-sm btn-shape-circle tool-btn"
                       role="search"
@@ -972,7 +976,7 @@ export class DdaHeader {
                 </li>
 
                 <li>
-                  <dda-tooltip title_text={this.tooltip(this.accessibility_tooltip, 'Accessibility')} position="top">
+                  <dda-tooltip title_text={this.tooltip(this.accessibility_tooltip, 'Accessibility')} position="bottom">
                     {this.renderAccessibilityButton('desktop')}
                   </dda-tooltip>
                   {this.usePredesignedAccessibilityMenu && (
@@ -990,7 +994,7 @@ export class DdaHeader {
                 </li>
                 {this.languageLabel && (
                   <li>
-                    <dda-tooltip title_text={this.tooltip(this.language_tooltip, 'Language')} position="top">
+                    <dda-tooltip title_text={this.tooltip(this.language_tooltip, 'Language')} position="bottom">
                       <dda-button button_color="onsurface-secondary" custom_class="tool-btn" button_shape="circle" size="sm" lang={this.language_lang} dir={this.languageDir} onClick={this.languagehandler}>
                         {this.languageLabel}
                       </dda-button>
@@ -999,7 +1003,7 @@ export class DdaHeader {
                 )}
                 {this.showLogin && (
                   <li>
-                    <dda-tooltip title_text={this.tooltip(this.login_tooltip, this.loginLabel)} position="top">
+                    <dda-tooltip title_text={this.tooltip(this.login_tooltip, this.loginLabel)} position="bottom">
                       <dda-link-button
                         button_color="onsurface-secondary"
                         start_icon={this.loginIcon || 'sentiment_satisfied'}

@@ -4,6 +4,27 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
+## 5.3.8 (unreleased)
+
+A patch release, with the second round of fixes from the Department of Finance's accessibility review (zoom testing). At 200% and 400% zoom every level of the `dda-header` side menu, its logo, its tooltips and the `dda-sticky-footer` "more" links stay on the screen and in reach. The `dda-home-banner` dots are 24px targets.
+
+### Bug Fixes
+
+- **dda-header: at 200% zoom the deeper side menu levels ran off the screen (WCAG 1.4.4).** The panels are 350px wide at fixed positions, so the third level needs 1085px and the fourth 1440px, and a 1920px screen at 200% is 960px wide. Below 1100px wide, or on screens 700px tall or less, the levels now open inside the menu, as they already did on phones. The fourth level and deeper always open inside the third.
+- **dda-header: at 400% zoom the logo and toolbar took about half of the side menu (WCAG 1.4.10).** They were fixed under the links. On screens 767px wide and 500px tall or less they now scroll with the links, and the close button stays in view.
+- **dda-header: the tooltips were off the top of the screen on a short header (WCAG 1.4.10).** They opened upward from the top of the page. They now open below their button, and the menu button's tooltip lines up with the button's outer edge.
+- **dda-header: an open side menu level had no state.** Its link now has `aria-expanded`, and its arrow turns.
+- **dda-sticky-footer: on a short screen the first "more" links were above the top of the screen (WCAG 1.4.10).** The list opened as a column from a fixed bar and could not scroll. On screens 992px wide and 500px tall or less the links now lie in rows of up to four.
+- **dda-sticky-footer: on a short landscape screen the More button was cut off.** It stayed 48px in the 44px bar, beside 35px links. It is now 35px too.
+- **dda-sticky-footer: Escape now closes the "more" list,** and focus returns to the More button.
+- **dda-home-banner: the slide dots were 10px targets (WCAG 2.5.8).** Each button is now 24x24 with the 10px dot drawn inside it, and the row keeps its spacing.
+- **dda-home-banner: an inactive dot was under 2:1 against the slide (WCAG 1.4.11).** Inactive dots are now a white ring, and the current dot is solid white.
+
+### Changed
+
+- **The `dda-header` toolbar and menu tooltips open below their buttons at every screen size,** not above them.
+- **`dda-home-banner` dots draw in `.dots::before`.** A page that restyles `.slider-nav .dots` by its `background` should style `::before` instead.
+
 ## 5.3.7 (2026-10-14)
 
 A patch release, with the fixes from an accessibility review by the Department of Finance (SortSite scan and zoom testing). At high zoom the `dda-home-banner` controls and quick-link cards no longer cover the slide text, and on a phone every `dda-sticky-footer` button and tooltip stays on the screen. A raised `dda-home-carousel` card is no longer cut off, and the carousel stays inside its container. Icon names are no longer text in the page.
