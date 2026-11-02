@@ -105,7 +105,7 @@ jobs:
 
       # Install with the npm that ships with Node 22.14 (npm 10), as CI does.
       - name: Install
-        run: npm ci --foreground-scripts
+        run: npm ci --foreground-scripts --no-audit --no-fund
 
       # stencil first: its build generates the wrapper sources. `npm run build`, not
       # `npx stencil build`: the postbuild step appends the Dubai @font-face rules to

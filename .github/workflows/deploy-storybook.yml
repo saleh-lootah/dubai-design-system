@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Without this a hung `npm ci` sits until the 6-hour Actions ceiling.
+    timeout-minutes: 30
     env:
       # Chrome is only needed for stencil e2e tests, not for building
       PUPPETEER_SKIP_DOWNLOAD: 'true'
@@ -29,7 +31,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --no-audit --no-fund
 
       - name: Build stencil components (generates loader used by Storybook preview)
         run: npm run build
@@ -52,7 +54,7 @@ jobs:
         env:
           SAMPLE_BASE: ${{ steps.pages.outputs.base_path }}/sample/
         run: |
-          npm ci
+          npm ci --no-audit --no-fund
           TGZ="$RUNNER_TEMP/$(npm pack ../../packages/stencil --pack-destination "$RUNNER_TEMP" --silent)"
           npm install --no-save "$TGZ"
           npm run build
@@ -65,6 +67,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
