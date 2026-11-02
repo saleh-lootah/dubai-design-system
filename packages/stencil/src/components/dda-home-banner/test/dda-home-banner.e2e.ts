@@ -671,10 +671,12 @@ describe('dda-home-banner slide dots', () => {
     await page.keyboard.press('Tab');
     await page.keyboard.up('Shift');
     const ring = await page.evaluate(() => {
-      const s = getComputedStyle(document.activeElement, '::after');
-      return { shadow: s.boxShadow, radius: s.borderRadius };
+      const s = getComputedStyle(document.activeElement);
+      return { outline: s.outlineStyle, shadow: s.boxShadow, className: document.activeElement.className };
     });
+    // The indicator is on the button itself, where the Storybook focus check reads it.
+    expect(ring.className).toContain('dots');
+    expect(ring.outline).toBe('none');
     expect(ring.shadow).toContain('rgb(255, 255, 255)');
-    expect(ring.radius).toBe('50%');
   });
 });
