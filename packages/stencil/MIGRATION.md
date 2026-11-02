@@ -4,8 +4,8 @@ This guide takes you from any earlier release of the Dubai Design System package
 **5.3.0**. It ships inside `@dubai-design-system/components-js` as `MIGRATION.md`, next to
 `CHANGELOG.md`.
 
-Install the latest 5.3 patch, **5.3.7**, not 5.3.0. The patch releases 5.3.1 to 5.3.7 fix bugs
-and need no code change. `CHANGELOG.md` lists each fix, and the checklist below names the two
+Install the latest 5.3 patch, **5.3.8**, not 5.3.0. The patch releases 5.3.1 to 5.3.8 fix bugs
+and need no code change. `CHANGELOG.md` lists each fix, and the checklist below names the three
 that can meet your own CSS or tests.
 
 All four packages share one version and must be upgraded together:
@@ -45,9 +45,9 @@ Do these whatever version you start from.
 - [ ] **Install the same exact version of every DDA package.**
 
   ```bash
-  npm install @dubai-design-system/components-js@5.3.7
+  npm install @dubai-design-system/components-js@5.3.8
   # and, if you use a wrapper:
-  npm install @dubai-design-system/components-react@5.3.7   # or -vue / -angular
+  npm install @dubai-design-system/components-react@5.3.8   # or -vue / -angular
   ```
 
 - [ ] **Load `dda.css`.** It carries the global styles and the Dubai typeface. From npm:
@@ -87,6 +87,10 @@ Do these whatever version you start from.
   pass another class to `dda-sticky-footer`'s `IconFamily` or `moreIconFamily`, `dda-header`'s
   `accessibility_button_icon_family` or `dda-avatar`'s `icon`, add
   `.your-class[data-icon]::before { content: attr(data-icon); }`, or the icon is blank.
+- [ ] **If your CSS restyles the `dda-home-banner` dots,** style `.slider-nav .dots::before`.
+  From 5.3.8, `.dots` is a transparent 24x24 button, and the 10px dot it shows is its `::before`.
+  A `background`, `width` or `height` set on `.dots` no longer changes the dot. Find these rules
+  with `grep -rn "slider-nav .dots\|\.dots" src/`.
 - [ ] **If you self-host `dda.css`,** copy `dist/assets/fonts/` next to it and keep the
   relative path `../assets/fonts/dubai/`, or the Dubai typeface does not load.
 - [ ] **Clear any cached copy of the old package** (CDN edge cache, service worker, build

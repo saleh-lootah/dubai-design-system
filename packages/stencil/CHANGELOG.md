@@ -4,7 +4,7 @@ All notable changes to the Dubai Design System packages are documented in this f
 All four published packages (`components-js`, `components-react`, `components-vue`,
 `components-angular`) share a version and release together.
 
-## 5.3.8 (unreleased)
+## 5.3.8 (2026-11-02)
 
 A patch release, with the second round of fixes from the Department of Finance's accessibility review (zoom testing). At 200% and 400% zoom every level of the `dda-header` side menu, its logo, its tooltips and the `dda-sticky-footer` "more" links stay on the screen and in reach. The `dda-home-banner` dots are 24px targets.
 
