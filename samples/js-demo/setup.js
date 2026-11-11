@@ -19,6 +19,7 @@ const t = createT({
     about: 'About',
     aboutUs: 'About us',
     aboutSample: 'About this sample',
+    openData: 'Open data',
     components: 'Components',
     componentGallery: 'Component gallery',
     searchResults: 'Search results',
@@ -71,6 +72,7 @@ const t = createT({
     about: 'من نحن',
     aboutUs: 'من نحن',
     aboutSample: 'عن هذا الموقع التجريبي',
+    openData: 'البيانات المفتوحة',
     components: 'المكونات',
     componentGallery: 'معرض المكونات',
     searchResults: 'نتائج البحث',
@@ -180,6 +182,7 @@ const headerLinks = [
     defaultSubMenuTitle: t('aboutSample'),
     children: [
       legacyLink(t('aboutUs'), 'about.html'),
+      legacyLink(t('openData'), 'open-data.html'),
       legacyLink(t('services'), 'services.html'),
       {
         type: 'dda_default_submenu',
@@ -221,6 +224,7 @@ const sideMenuLinks = [
     sideItem(categoryName('health'), category('health')),
   ]),
   sideItem(t('about'), 'about.html'),
+  sideItem(t('openData'), 'open-data.html'),
   sideItem(t('contact'), 'contact.html'),
   sideItem(t('gallery'), 'gallery.html'),
 ];

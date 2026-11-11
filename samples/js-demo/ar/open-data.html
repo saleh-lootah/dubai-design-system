@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- A sample, not an official site: keep it out of search results. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link vite-ignore rel="alternate" hreflang="en" href="../open-data.html">
+    <link vite-ignore rel="alternate" hreflang="ar" href="open-data.html">
+    <link vite-ignore rel="alternate" hreflang="x-default" href="../open-data.html">
+    <title>البيانات المفتوحة (موقع تجريبي)</title>
+    <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiMedium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <script type="module" src="/setup.js"></script>
+  </head>
+  <body>
+    <a class="demo-skip-link" href="#main">انتقل إلى المحتوى الرئيسي</a>
+    <!-- Every page says it is a sample, so nobody takes it for an official government website. -->
+    <p class="demo-sample-notice" role="note"><strong>موقع تجريبي.</strong> ليس موقعاً رسمياً لحكومة دبي. المحتوى تجريبي، والنماذج لا ترسل أي بيانات.</p>
+    <dda-header id="site-header" language_text="English" language_lang="en" login-link="#"></dda-header>
+
+    <!-- The Arabic copy of open-data.html. See the notes there. -->
+    <main id="main" tabindex="-1" class="demo-main od-main">
+      <dda-breadcrumb breadcrumbs='[{"text":"الرئيسية","url":"./"},{"text":"البيانات المفتوحة"}]'></dda-breadcrumb>
+
+      <section class="demo-hero od-hero" aria-labelledby="od-title">
+        <div class="od-hero-text">
+          <h1 id="od-title">البيانات المفتوحة</h1>
+          <p class="od-lead">ننشر بيانات عن خدماتنا ليستفيد منها الجميع: السكان والشركات والباحثون والجهات الحكومية الأخرى.</p>
+          <p>جميع بياناتنا المفتوحة وإحصاءاتنا الرسمية متاحة على منصة بيانات دبي، الوجهة الموحدة للبيانات الحكومية في المدينة. يمكنك عرضها وتنزيلها وإعادة استخدامها مجاناً.</p>
+          <div class="demo-row">
+            <dda-link-button button_color="default-primary" size="lg" end_icon="open_in_new" href="https://data.dubai/">بياناتنا على منصة بيانات دبي</dda-link-button>
+            <a class="demo-link" href="#od-plan-title">اطّلع على ما سننشره لاحقاً</a>
+          </div>
+        </div>
+        <dl class="od-glance">
+          <div><dt>مجموعات البيانات المفتوحة</dt><dd>68</dd></div>
+          <div><dt>المؤشرات الرئيسية</dt><dd>24</dd></div>
+          <div><dt>التقارير</dt><dd>12</dd></div>
+          <div><dt>آخر تحديث</dt><dd><time datetime="2026-11-03">3 نوفمبر 2026</time></dd></div>
+        </dl>
+      </section>
+
+      <section class="demo-columns demo-columns-top" aria-labelledby="od-policy-title">
+        <div class="demo-page">
+          <h2 id="od-policy-title">سياسة البيانات المفتوحة</h2>
+          <p>تتوافق سياستنا للبيانات المفتوحة مع سياسة بيانات دبي. نلتزم بنشر البيانات المفتوحة بأعلى مستويات الدقة والشفافية.</p>
+          <ul class="demo-list">
+            <li><strong>مفتوحة افتراضياً.</strong> ننشر جميع البيانات المصنّفة مفتوحة، ما لم يوجب القانون حمايتها.</li>
+            <li><strong>دقيقة ورسمية.</strong> نتحقق من كل مجموعة بيانات قبل نشرها، ونوضح طريقة جمعها.</li>
+            <li><strong>في موعدها.</strong> ننشر وفق جدول محدد، ونعلن موعد التحديث التالي.</li>
+            <li><strong>متاحة لإعادة الاستخدام.</strong> يمكنك استخدام بياناتنا المفتوحة ومشاركتها والبناء عليها، مع ذكرنا مصدراً لها.</li>
+            <li><strong>البيانات الشخصية محمية.</strong> لا ننشر أي بيانات شخصية، ونحذف كل ما قد يكشف هوية أي شخص.</li>
+          </ul>
+          <p><a class="demo-link" href="#">اقرأ سياسة البيانات المفتوحة كاملة (PDF، 240 كيلوبايت)</a></p>
+        </div>
+
+        <aside class="od-portal" aria-labelledby="od-portal-title">
+          <i class="material-icons material-symbols-outlined od-portal-icon" aria-hidden="true">storage</i>
+          <h2 id="od-portal-title" class="od-portal-title">عن منصة بيانات دبي</h2>
+          <p>منصة بيانات دبي هي الوجهة الرسمية الموحدة للبيانات والإحصاءات في دبي، ومصدر موثوق لمجموعات البيانات والإحصاءات الرسمية الصادرة عن الجهات الحكومية في مختلف القطاعات الاجتماعية والاقتصادية.</p>
+          <p>جميع مجموعات بياناتنا ومؤشراتنا وتقاريرنا متاحة على صفحتنا في المنصة.</p>
+          <dda-link-button button_color="default-primary" end_icon="open_in_new" href="https://data.dubai/">انتقل إلى صفحتنا على منصة بيانات دبي</dda-link-button>
+        </aside>
+      </section>
+
+      <section class="demo-page" aria-labelledby="od-products-title">
+        <div class="demo-page-intro">
+          <h2 id="od-products-title">ماذا ننشر</h2>
+          <p>تُظهر بياناتنا كيف يستخدم الناس خدماتنا، والمدة التي تستغرقها، ومدى رضاهم عنها. استخدمها في التخطيط أو البحث أو إعداد التقارير أو تطوير خدمات جديدة.</p>
+        </div>
+        <div class="demo-grid">
+          <dda-ui-card maintitle="مجموعات البيانات" subtitle="بيانات أولية جاهزة للتنزيل بصيغة CSV أو Excel أو JSON، تُحدَّث شهرياً أو كل ربع سنة." icon="table_chart" link="https://data.dubai/" linktext="تصفّح مجموعات البيانات"></dda-ui-card>
+          <dda-ui-card maintitle="المؤشرات الرئيسية" subtitle="الأرقام التي تُظهر أداء خدماتنا، مع اتجاهاتها عبر الزمن." icon="insights" link="https://data.dubai/" linktext="اطّلع على المؤشرات"></dda-ui-card>
+          <dda-ui-card maintitle="التقارير" subtitle="تقارير إحصائية سنوية وربع سنوية، مع ملاحظات عن منهجيتنا." icon="description" link="https://data.dubai/" linktext="اقرأ التقارير"></dda-ui-card>
+          <dda-ui-card maintitle="العروض المرئية" subtitle="رسوم بيانية وخرائط تفاعلية يمكنك استكشافها دون تنزيل أي ملف." icon="bar_chart" link="https://data.dubai/" linktext="استكشف الرسوم البيانية"></dda-ui-card>
+          <dda-ui-card maintitle="واجهات برمجة التطبيقات" subtitle="بيانات مباشرة للمطورين الذين يبنون التطبيقات والخدمات." icon="api" link="https://data.dubai/" linktext="استخدم واجهات البرمجة"></dda-ui-card>
+        </div>
+      </section>
+
+      <section class="demo-page" aria-labelledby="od-stats-title">
+        <div class="home-section-head">
+          <h2 id="od-stats-title">إحصاءات مختارة</h2>
+          <a class="demo-link" href="https://data.dubai/">جميع إحصاءاتنا على منصة بيانات دبي</a>
+        </div>
+        <ul class="od-stats">
+          <li class="od-stat">
+            <p class="od-stat-value">1.2 مليون</p>
+            <h3 class="od-stat-title">خدمة مُنجزة إلكترونياً</h3>
+            <p class="od-stat-text">الطلبات والتجديدات والمدفوعات المُنجزة إلكترونياً في عام 2025.</p>
+            <a class="demo-link" href="https://data.dubai/">عرض مجموعة البيانات<span class="visually-hidden">: الخدمات المُنجزة إلكترونياً</span></a>
+          </li>
+          <li class="od-stat">
+            <p class="od-stat-value">94%</p>
+            <h3 class="od-stat-title">سعادة المتعاملين</h3>
+            <p class="od-stat-text">نسبة من قيّموا الخدمة بجيدة أو جيدة جداً، من يوليو إلى سبتمبر 2026.</p>
+            <a class="demo-link" href="https://data.dubai/">عرض المؤشر<span class="visually-hidden">: سعادة المتعاملين</span></a>
+          </li>
+          <li class="od-stat">
+            <p class="od-stat-value">4.3 يوم</p>
+            <h3 class="od-stat-title">مدة إصدار الرخصة</h3>
+            <p class="od-stat-text">متوسط أيام العمل من تقديم الطلب حتى إصدار الرخصة، في عام 2025.</p>
+            <a class="demo-link" href="https://data.dubai/">عرض المؤشر<span class="visually-hidden">: مدة إصدار الرخصة</span></a>
+          </li>
+          <li class="od-stat">
+            <p class="od-stat-value">38,500</p>
+            <h3 class="od-stat-title">رخصة تجارية جديدة</h3>
+            <p class="od-stat-text">الرخص التجارية الصادرة في عام 2025، حسب النشاط والمنطقة.</p>
+            <a class="demo-link" href="https://data.dubai/">عرض مجموعة البيانات<span class="visually-hidden">: الرخص التجارية الجديدة</span></a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="demo-columns demo-columns-top" aria-labelledby="od-updates-title">
+        <div class="demo-page">
+          <h2 id="od-updates-title">آخر التحديثات</h2>
+          <p>البيانات الجديدة والمحدَّثة التي نشرناها على منصة بيانات دبي.</p>
+          <ol class="od-updates">
+            <li>
+              <time datetime="2026-11-03">3 نوفمبر 2026</time>
+              <a class="demo-link" href="https://data.dubai/">سعادة المتعاملين، من يوليو إلى سبتمبر 2026</a>
+              <span class="od-tag">محدَّث</span>
+            </li>
+            <li>
+              <time datetime="2026-10-20">20 أكتوبر 2026</time>
+              <a class="demo-link" href="https://data.dubai/">الخدمات الإلكترونية حسب القناة، 2026</a>
+              <span class="od-tag od-tag-new">جديد</span>
+            </li>
+            <li>
+              <time datetime="2026-10-01">1 أكتوبر 2026</time>
+              <a class="demo-link" href="https://data.dubai/">الرخص التجارية الصادرة، سبتمبر 2026</a>
+              <span class="od-tag">محدَّث</span>
+            </li>
+            <li>
+              <time datetime="2026-09-15">15 سبتمبر 2026</time>
+              <a class="demo-link" href="https://data.dubai/">التقرير الإحصائي السنوي 2025</a>
+              <span class="od-tag od-tag-new">جديد</span>
+            </li>
+          </ol>
+        </div>
+        <div class="od-notify">
+          <h3 class="od-notify-title">تابع التحديثات</h3>
+          <p>تابع صفحتنا على منصة بيانات دبي لتصلك رسالة عند نشر بيانات جديدة أو تحديث مجموعة بيانات تستخدمها.</p>
+          <dda-link-button button_color="default-secondary" start_icon="notifications" href="https://data.dubai/">تابعنا على منصة بيانات دبي</dda-link-button>
+        </div>
+      </section>
+
+      <section class="demo-page" aria-labelledby="od-plan-title">
+        <div class="demo-page-intro">
+          <h2 id="od-plan-title">خطة نشر البيانات المفتوحة</h2>
+          <p>مجموعات البيانات التي سننشرها لاحقاً، وموعد نشرها، وطريقة الوصول إليها. ستكون جميعها على منصة بيانات دبي، متاحة لإعادة الاستخدام مجاناً بموجب رخصة دبي للبيانات المفتوحة.</p>
+        </div>
+        <div class="demo-scroll-x" role="region" aria-labelledby="od-plan-title" tabindex="0">
+          <table class="od-table">
+            <thead>
+              <tr>
+                <th scope="col">مجموعة البيانات</th>
+                <th scope="col">التحديث</th>
+                <th scope="col">الصيغ</th>
+                <th scope="col">موعد النشر المخطط</th>
+                <th scope="col">الحالة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">أوقات انتظار الخدمة حسب المركز</th>
+                <td>شهرياً</td>
+                <td>CSV، واجهة برمجة</td>
+                <td>ديسمبر 2026</td>
+                <td><span class="od-tag od-tag-progress">قيد الإعداد</span></td>
+              </tr>
+              <tr>
+                <th scope="row">الشكاوى وطريقة معالجتها</th>
+                <td>كل ربع سنة</td>
+                <td>CSV، Excel</td>
+                <td>يناير 2027</td>
+                <td><span class="od-tag">مخطط</span></td>
+              </tr>
+              <tr>
+                <th scope="row">الرخص حسب النشاط التجاري والمنطقة</th>
+                <td>كل ربع سنة</td>
+                <td>CSV، واجهة برمجة، خريطة</td>
+                <td>مارس 2027</td>
+                <td><span class="od-tag">مخطط</span></td>
+              </tr>
+              <tr>
+                <th scope="row">استخدام الخدمات الرقمية حسب الفئة العمرية</th>
+                <td>سنوياً</td>
+                <td>CSV، تقرير</td>
+                <td>يونيو 2027</td>
+                <td><span class="od-tag">مخطط</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>هل تحتاج إلى بيانات غير موجودة في هذه القائمة؟ <a class="demo-link" href="contact.html">اطلب مجموعة بيانات</a>.</p>
+      </section>
+
+      <section class="demo-columns demo-columns-top" aria-labelledby="od-laws-title">
+        <div class="demo-page-intro">
+          <h2 id="od-laws-title">القوانين والسياسات</h2>
+          <p>تنظّم هذه القوانين والسياسات مشاركة البيانات الحكومية ونشرها في دبي.</p>
+        </div>
+        <div>
+          <dda-accordion accordion_icon="gavel" header_text="القانون رقم 26 لسنة 2015 بشأن تنظيم نشر وتبادل البيانات" body_description="ينظّم طريقة نشر الجهات الحكومية في دبي لبياناتها وتبادلها، ويحدد البيانات المفتوحة والبيانات التي تُتبادل بين الجهات فقط."></dda-accordion>
+          <dda-accordion accordion_icon="policy" header_text="سياسة بيانات دبي" body_description="تحدد القواعد التي تتبعها كل جهة في تصنيف البيانات ونشرها وتبادلها، لتكون البيانات المفتوحة في دبي متسقة ودقيقة وقابلة لإعادة الاستخدام."></dda-accordion>
+          <dda-accordion accordion_icon="lock" header_text="حماية البيانات الشخصية" body_description="لا تُنشر البيانات الشخصية أبداً بوصفها بيانات مفتوحة. نلتزم بالقوانين التي تحمي البيانات الشخصية، ونحذف كل ما قد يكشف هوية أي شخص."></dda-accordion>
+          <dda-accordion accordion_icon="verified" header_text="رخصة دبي للبيانات المفتوحة" body_description="توضح كيف يمكنك إعادة استخدام البيانات المفتوحة من منصة بيانات دبي: مجاناً ولأي غرض، مع ذكر الجهة التي نشرتها مصدراً لها."></dda-accordion>
+        </div>
+      </section>
+    </main>
+
+    <dda-footer id="site-footer" footer-title="عنوان التذييل التجريبي" description="موقع تجريبي لنظام دبي للتصميم. ليس موقعاً رسمياً لحكومة دبي." copyright-text="محتوى تجريبي فقط. ليس موقعاً رسمياً لحكومة دبي." sign-up-button-text="إنشاء حساب" login-button-text="تسجيل الدخول"></dda-footer>
+
+    <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
+  </body>
+</html>
