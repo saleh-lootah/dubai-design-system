@@ -1,7 +1,7 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
-const PAGES = ['index', 'gallery', 'search', 'services', 'service', 'about', 'contact'];
+const PAGES = ['index', 'gallery', 'search', 'services', 'service', 'about', 'open-data', 'contact'];
 
 export default defineConfig({
   // The URL path the site is served from. GitHub Pages sets SAMPLE_BASE (for example

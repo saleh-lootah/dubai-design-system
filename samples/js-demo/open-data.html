@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- A sample, not an official site: keep it out of search results. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link vite-ignore rel="alternate" hreflang="en" href="open-data.html">
+    <link vite-ignore rel="alternate" hreflang="ar" href="ar/open-data.html">
+    <link vite-ignore rel="alternate" hreflang="x-default" href="open-data.html">
+    <title>Open data (sample site)</title>
+    <!-- Styles, fonts and scripts start in <head>. style.css shows a spinner until setup.js marks the page ready. -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiMedium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/node_modules/@dubai-design-system/components-js/dist/assets/fonts/dubai/DubaiBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <script type="module" src="/setup.js"></script>
+  </head>
+  <body>
+    <a class="demo-skip-link" href="#main">Skip to main content</a>
+    <!-- Every page says it is a sample, so nobody takes it for an official government website. -->
+    <p class="demo-sample-notice" role="note"><strong>Sample site.</strong> Not an official Government of Dubai website. The content is placeholder, and forms send nothing.</p>
+    <dda-header id="site-header" language_text="العربية" login-link="#"></dda-header>
+
+    <!--
+      The open data page introduces the entity's data and leads people to Data.Dubai, which hosts it.
+      Sections follow the recommended structure for Dubai Government open data pages: policy,
+      Data.Dubai, data products, featured statistics, updates, publication plan, laws and policies.
+      Every Data.Dubai link here goes to the portal's home page. A real entity points each link at
+      its own page and records on Data.Dubai. The figures and dates are placeholders.
+    -->
+    <main id="main" tabindex="-1" class="demo-main od-main">
+      <dda-breadcrumb breadcrumbs='[{"text":"Home","url":"./"},{"text":"Open data"}]'></dda-breadcrumb>
+
+      <section class="demo-hero od-hero" aria-labelledby="od-title">
+        <div class="od-hero-text">
+          <h1 id="od-title">Open data</h1>
+          <p class="od-lead">We publish data about our services so that anyone can use it: residents, businesses, researchers and other government entities.</p>
+          <p>All of our open data and official statistics are on Data.Dubai, the city's single destination for government data. You can view, download and reuse them for free.</p>
+          <div class="demo-row">
+            <dda-link-button button_color="default-primary" size="lg" end_icon="open_in_new" href="https://data.dubai/">Our data on Data.Dubai</dda-link-button>
+            <a class="demo-link" href="#od-plan-title">See what we publish next</a>
+          </div>
+        </div>
+        <!-- Figures at a glance. -->
+        <dl class="od-glance">
+          <div><dt>Open datasets</dt><dd>68</dd></div>
+          <div><dt>Key indicators</dt><dd>24</dd></div>
+          <div><dt>Reports</dt><dd>12</dd></div>
+          <div><dt>Last updated</dt><dd><time datetime="2026-11-03">3 November 2026</time></dd></div>
+        </dl>
+      </section>
+
+      <section class="demo-columns demo-columns-top" aria-labelledby="od-policy-title">
+        <div class="demo-page">
+          <h2 id="od-policy-title">Our open data policy</h2>
+          <p>Our open data policy follows the Dubai Data Policy. We are committed to sharing data openly, with the highest levels of accuracy and transparency.</p>
+          <ul class="demo-list">
+            <li><strong>Open by default.</strong> We publish all data that is classified as open, unless the law says it must be protected.</li>
+            <li><strong>Accurate and official.</strong> We check every dataset before we publish it, and we say how it was collected.</li>
+            <li><strong>On time.</strong> We publish on a set schedule and say when the next update is due.</li>
+            <li><strong>Free to reuse.</strong> You can use, share and build on our open data, if you name us as the source.</li>
+            <li><strong>Private data stays private.</strong> We never publish personal data, and we remove anything that could identify a person.</li>
+          </ul>
+          <p><a class="demo-link" href="#">Read our full open data policy (PDF, 240 KB)</a></p>
+        </div>
+
+        <!-- About Data.Dubai, with a prominent link to the entity's page there. -->
+        <aside class="od-portal" aria-labelledby="od-portal-title">
+          <i class="material-icons material-symbols-outlined od-portal-icon" aria-hidden="true">storage</i>
+          <h2 id="od-portal-title" class="od-portal-title">About Data.Dubai</h2>
+          <p>Data.Dubai is the official, unified destination for data and statistics in Dubai. It is a trusted source for datasets and official statistics from government entities, across a wide range of social and economic sectors.</p>
+          <p>Our datasets, indicators and reports are all on our page there.</p>
+          <dda-link-button button_color="default-primary" end_icon="open_in_new" href="https://data.dubai/">Go to our page on Data.Dubai</dda-link-button>
+        </aside>
+      </section>
+
+      <section class="demo-page" aria-labelledby="od-products-title">
+        <div class="demo-page-intro">
+          <h2 id="od-products-title">What we publish</h2>
+          <p>Our data shows how people use our services, how long they take and how satisfied people are. Use it to plan, research, report or build new services.</p>
+        </div>
+        <div class="demo-grid">
+          <dda-ui-card maintitle="Datasets" subtitle="Raw data, ready to download as CSV, Excel or JSON. Updated every month or quarter." icon="table_chart" link="https://data.dubai/" linktext="Browse datasets"></dda-ui-card>
+          <dda-ui-card maintitle="Key indicators" subtitle="The numbers that show how our services perform, with trends over time." icon="insights" link="https://data.dubai/" linktext="See indicators"></dda-ui-card>
+          <dda-ui-card maintitle="Reports" subtitle="Yearly and quarterly statistical reports, with notes on our methods." icon="description" link="https://data.dubai/" linktext="Read reports"></dda-ui-card>
+          <dda-ui-card maintitle="Visualisations" subtitle="Interactive charts and maps that you can explore without downloading anything." icon="bar_chart" link="https://data.dubai/" linktext="Explore charts"></dda-ui-card>
+          <dda-ui-card maintitle="APIs" subtitle="Live data feeds for developers who build apps and services." icon="api" link="https://data.dubai/" linktext="Use the APIs"></dda-ui-card>
+        </div>
+      </section>
+
+      <section class="demo-page" aria-labelledby="od-stats-title">
+        <div class="home-section-head">
+          <h2 id="od-stats-title">Featured statistics</h2>
+          <a class="demo-link" href="https://data.dubai/">All our statistics on Data.Dubai</a>
+        </div>
+        <ul class="od-stats">
+          <li class="od-stat">
+            <p class="od-stat-value">1.2 million</p>
+            <h3 class="od-stat-title">Services completed online</h3>
+            <p class="od-stat-text">Applications, renewals and payments made online in 2025.</p>
+            <a class="demo-link" href="https://data.dubai/">View the dataset<span class="visually-hidden">: services completed online</span></a>
+          </li>
+          <li class="od-stat">
+            <p class="od-stat-value">94%</p>
+            <h3 class="od-stat-title">Customer happiness</h3>
+            <p class="od-stat-text">People who rated a service as good or very good, July to September 2026.</p>
+            <a class="demo-link" href="https://data.dubai/">View the indicator<span class="visually-hidden">: customer happiness</span></a>
+          </li>
+          <li class="od-stat">
+            <p class="od-stat-value">4.3 days</p>
+            <h3 class="od-stat-title">Time to issue a licence</h3>
+            <p class="od-stat-text">Average working days from application to licence, in 2025.</p>
+            <a class="demo-link" href="https://data.dubai/">View the indicator<span class="visually-hidden">: time to issue a licence</span></a>
+          </li>
+          <li class="od-stat">
+            <p class="od-stat-value">38,500</p>
+            <h3 class="od-stat-title">New trade licences</h3>
+            <p class="od-stat-text">Trade licences issued in 2025, by activity and area.</p>
+            <a class="demo-link" href="https://data.dubai/">View the dataset<span class="visually-hidden">: new trade licences</span></a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="demo-columns demo-columns-top" aria-labelledby="od-updates-title">
+        <div class="demo-page">
+          <h2 id="od-updates-title">Latest updates</h2>
+          <p>New and updated data that we published on Data.Dubai.</p>
+          <ol class="od-updates">
+            <li>
+              <time datetime="2026-11-03">3 November 2026</time>
+              <a class="demo-link" href="https://data.dubai/">Customer happiness, July to September 2026</a>
+              <span class="od-tag">Updated</span>
+            </li>
+            <li>
+              <time datetime="2026-10-20">20 October 2026</time>
+              <a class="demo-link" href="https://data.dubai/">Online services by channel, 2026</a>
+              <span class="od-tag od-tag-new">New</span>
+            </li>
+            <li>
+              <time datetime="2026-10-01">1 October 2026</time>
+              <a class="demo-link" href="https://data.dubai/">Trade licences issued, September 2026</a>
+              <span class="od-tag">Updated</span>
+            </li>
+            <li>
+              <time datetime="2026-09-15">15 September 2026</time>
+              <a class="demo-link" href="https://data.dubai/">Annual statistical report 2025</a>
+              <span class="od-tag od-tag-new">New</span>
+            </li>
+          </ol>
+        </div>
+        <div class="od-notify">
+          <h3 class="od-notify-title">Get updates</h3>
+          <p>Follow our page on Data.Dubai to get a message when we publish new data or update a dataset you use.</p>
+          <dda-link-button button_color="default-secondary" start_icon="notifications" href="https://data.dubai/">Follow us on Data.Dubai</dda-link-button>
+        </div>
+      </section>
+
+      <section class="demo-page" aria-labelledby="od-plan-title">
+        <div class="demo-page-intro">
+          <h2 id="od-plan-title">Open data publication plan</h2>
+          <p>The datasets we will publish next, when we will publish them, and how you can get them. All of them will be on Data.Dubai, free to reuse under the Dubai open data licence.</p>
+        </div>
+        <div class="demo-scroll-x" role="region" aria-labelledby="od-plan-title" tabindex="0">
+          <table class="od-table">
+            <thead>
+              <tr>
+                <th scope="col">Dataset</th>
+                <th scope="col">Updated</th>
+                <th scope="col">Formats</th>
+                <th scope="col">Planned release</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Service waiting times by centre</th>
+                <td>Monthly</td>
+                <td>CSV, API</td>
+                <td>December 2026</td>
+                <td><span class="od-tag od-tag-progress">In progress</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Complaints and how we resolved them</th>
+                <td>Quarterly</td>
+                <td>CSV, Excel</td>
+                <td>January 2027</td>
+                <td><span class="od-tag">Planned</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Licences by business activity and area</th>
+                <td>Quarterly</td>
+                <td>CSV, API, map</td>
+                <td>March 2027</td>
+                <td><span class="od-tag">Planned</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Digital service use by age group</th>
+                <td>Yearly</td>
+                <td>CSV, report</td>
+                <td>June 2027</td>
+                <td><span class="od-tag">Planned</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Need data that is not on this list? <a class="demo-link" href="contact.html">Ask us for a dataset</a>.</p>
+      </section>
+
+      <section class="demo-columns demo-columns-top" aria-labelledby="od-laws-title">
+        <div class="demo-page-intro">
+          <h2 id="od-laws-title">Laws and policies</h2>
+          <p>These laws and policies govern how government data is shared and published in Dubai.</p>
+        </div>
+        <div>
+          <dda-accordion accordion_icon="gavel" header_text="Law No. 26 of 2015 on data dissemination and exchange" body_description="Regulates how government entities in Dubai publish and share data, and sets out which data is open and which is shared only between entities."></dda-accordion>
+          <dda-accordion accordion_icon="policy" header_text="Dubai Data Policy" body_description="Sets the rules every entity follows to classify, publish and share data, so that open data across Dubai is consistent, accurate and reusable."></dda-accordion>
+          <dda-accordion accordion_icon="lock" header_text="Personal data protection" body_description="Personal data is never published as open data. We follow the laws that protect personal data, and remove anything that could identify a person."></dda-accordion>
+          <dda-accordion accordion_icon="verified" header_text="Dubai open data licence" body_description="Says how you can reuse open data from Data.Dubai: for free, for any purpose, if you name the entity that published it as the source."></dda-accordion>
+        </div>
+      </section>
+    </main>
+
+    <dda-footer id="site-footer" footer-title="Footer title placeholder" description="Sample site for the Dubai Design System. Not an official government website." copyright-text="Sample content only. Not an official government website." sign-up-button-text="Sign up" login-button-text="Login"></dda-footer>
+
+    <dda-sticky-footer id="site-sticky-footer"></dda-sticky-footer>
+  </body>
+</html>
